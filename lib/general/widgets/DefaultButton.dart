@@ -19,7 +19,7 @@ class DefaultButton extends StatelessWidget {
   final String? fontFamily;
   final FontWeight? fontWeight;
 
-  DefaultButton({
+  const DefaultButton({super.key,
     required this.title,
     this.onTap,
     this.color,

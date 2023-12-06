@@ -25,7 +25,7 @@ import 'package:expenses/general/screens/select_currency/select_currency_imports
 import 'package:expenses/general/screens/select_language/select_language_imports.dart'
     as _i3;
 import 'package:expenses/general/screens/splash/SplashImports.dart' as _i1;
-import 'package:expenses/general/screens/splash/welcome_page/WelcomePageImports.dart'
+import 'package:expenses/general/screens/welcome_page/WelcomePageImports.dart'
     as _i2;
 import 'package:expenses/user/screens/home/home_imports.dart' as _i10;
 import 'package:flutter/material.dart' as _i12;

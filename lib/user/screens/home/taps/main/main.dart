@@ -14,7 +14,7 @@ class _MainState extends State<Main> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.white,
+      backgroundColor: MyColors.backgroundColor,
       appBar: AppBar(
         backgroundColor: MyColors.white,
         title: MyText(

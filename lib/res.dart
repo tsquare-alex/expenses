@@ -23,6 +23,7 @@ class Res {
   static const String onboardingTwo = "assets/images/onboardingTwo.jpeg";
   static const String password = "assets/images/password.svg";
   static const String register = "assets/images/register.png";
+  static const String searchRecords = "assets/images/searchRecords.png";
   static const String twitter = "assets/images/twitter.png";
   static const String upload = "assets/images/upload.png";
 }

@@ -9,81 +9,110 @@ class BuildPieChart extends StatelessWidget {
     return AspectRatio(
       aspectRatio: 1.5,
       child: Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(18)),
-          color: Colors.white,
+        decoration:  BoxDecoration(
+          color: MyColors.backgroundColor,
         ),
         child: Stack(
           alignment: AlignmentDirectional.center,
           children: [
-            PieChart(
-              PieChartData(
-                borderData: FlBorderData(show: false),
-                centerSpaceRadius: 50,
-                sections: mainData.getSections(),
-                pieTouchData: PieTouchData(
-                    touchCallback: (event, pieTouchResponse) {
-                      if (!event.isInterestedForInteractions || pieTouchResponse == null || pieTouchResponse.touchedSection == null) {
+            Container(
+              height: 150.h,
+              width: 150.w,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  stops: [
+                    0.5,0.5
+                  ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: <Color>[
+                      Colors.green,
+                      Colors.red,
+                    ]),
+              ),
+            ),
+            Stack(
+              alignment: AlignmentDirectional.center,
+              children: [
+                PieChart(
+                  PieChartData(
+                    borderData: FlBorderData(show: false),
+                    centerSpaceRadius: 80,
+                    sections: mainData.getSections(),
+                    pieTouchData:
+                        PieTouchData(touchCallback: (event, pieTouchResponse) {
+                      if (!event.isInterestedForInteractions ||
+                          pieTouchResponse == null ||
+                          pieTouchResponse.touchedSection == null) {
                         return;
                       }
-                      final int touchedIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
-                      if (touchedIndex >= 0 && touchedIndex < mainData.data.length) {
+                      final int touchedIndex =
+                          pieTouchResponse.touchedSection!.touchedSectionIndex;
+                      if (touchedIndex >= 0 &&
+                          touchedIndex < mainData.data.length) {
                         // Navigate to the page with the corresponding widget
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => mainData.widgets[touchedIndex]),
+                              builder: (context) =>
+                                  mainData.widgets[touchedIndex]),
                         );
                       }
-                    }
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 80.w,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap:(){},
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      alignment: Alignment.center,
-                      // padding: EdgeInsets.all(5.r),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1),
-                        shape: BoxShape.circle
-                      ),
-                      child: Center(
-                        child: Icon(Icons.add,color: MyColors.black,),
-                      ),
-                    ),
+                    }),
                   ),
-                  Divider(thickness: 2.w,),
-                  InkWell(
-                    onTap: (){},
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(5.r),
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 1),
-                          shape: BoxShape.circle
-                      ),
-                      child: Center(
-                        child: MyText(
-                          title: "--",
-                          color: MyColors.black,
-                          size: 16.sp,
-                          fontWeight: FontWeight.bold,
+                ),
+                Container(
+                  width: 150.w,
+                  // padding: EdgeInsets.only(bottom: 5.r),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                          width: 40,
+                          height: 40,
+                          alignment: Alignment.center,
+                          // padding: EdgeInsets.all(5.r),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(width: 1,color: Colors.white,),
+                              shape: BoxShape.circle),
+                          child: const Center(
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.green,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      SizedBox(
+                        height: 25.h,
+                      ),
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                          width: 40,
+                          height: 40,
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(5.r),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(width: 1,color: Colors.white,),
+                              shape: BoxShape.circle),
+                          child: const Center(
+                            child: Icon(
+                              Icons.remove,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),

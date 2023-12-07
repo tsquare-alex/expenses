@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expenses/general/blocks/login_cubit/login_states.dart';
 import 'package:expenses/general/models/user_model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';

@@ -16,7 +16,7 @@ class SplashController {
     Utils.changeLanguage(lang ?? "ar",context);
     ApiNames.uId = await Storage.getToken();
     var uId = ApiNames.uId;
-    uId = await Storage.getToken();
+    uId = null;
     print('uId = $uId');
     print('ApiNames.uId = ${ApiNames.uId}');
     if (uId != null) {

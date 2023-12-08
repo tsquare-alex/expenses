@@ -8,7 +8,6 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
-
   MainData data = MainData();
 
   @override
@@ -21,7 +20,15 @@ class _MainState extends State<Main> {
         leadingWidth: 30.w,
         title: Row(
           children: [
-            IconButton(onPressed: (){}, icon: Image.asset(Res.home,color:MyColors.primary,width: 20.w,height: 20.h,),),
+            IconButton(
+              onPressed: () {},
+              icon: Image.asset(
+                Res.home,
+                color: MyColors.primary,
+                width: 20.w,
+                height: 20.h,
+              ),
+            ),
             MyText(
               title: tr(context, "main"),
               color: MyColors.txtColor,
@@ -31,32 +38,51 @@ class _MainState extends State<Main> {
           ],
         ),
         actions: [
-          IconButton(onPressed: (){
-            AutoRouter.of(context).push(const ChangeCurrencyRoute());
-          }, icon: Icon(Icons.dark_mode_outlined,color: MyColors.primary,)),
-          IconButton(onPressed: (){
-            Navigator.of(context).push(
-              MaterialPageRoute(builder: (_)=>PouringHourGlass())
-            );
-          }, icon: Icon(Icons.account_balance_outlined,color: MyColors.primary,)),
-          IconButton(onPressed: (){data.scaffoldKey.currentState?.openEndDrawer();}, icon: Icon(Icons.menu,color: MyColors.primary,)),
+          IconButton(
+              onPressed: () {
+                AutoRouter.of(context).push(const ChangeCurrencyRoute());
+              },
+              icon: Icon(
+                Icons.dark_mode_outlined,
+                color: MyColors.primary,
+              )),
+          IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.account_balance_outlined,
+                color: MyColors.primary,
+              )),
+          IconButton(
+              onPressed: () {
+                data.scaffoldKey.currentState?.openEndDrawer();
+              },
+              icon: Icon(
+                Icons.menu,
+                color: MyColors.primary,
+              )),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: () {},
         shape: const CircleBorder(),
         backgroundColor: MyColors.primary,
-        child: Icon(Icons.edit,color: MyColors.white,),
+        child: Icon(
+          Icons.edit,
+          color: MyColors.white,
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-
-      drawer: BuildDrawer(shareCubit: data.shareCubit,),
+      drawer: BuildDrawer(
+        shareCubit: data.shareCubit,
+      ),
       endDrawer: const BuildEndDrawer(),
-      body:Container(
+      body: Container(
         padding: EdgeInsets.all(15.r),
         width: double.infinity,
         height: double.infinity,
-        child: BuildPieChart(mainData: data,),
+        child: BuildPieChart(
+          mainData: data,
+        ),
       ),
     );
   }

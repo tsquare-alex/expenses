@@ -57,6 +57,7 @@ dependencies:
   fluttertoast:
   animated_bottom_navigation_bar:
   fl_chart:
+  font_awesome_flutter:
 
 dev_dependencies:
   flutter_test:

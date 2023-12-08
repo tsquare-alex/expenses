@@ -146,10 +146,16 @@ class _SettingsState extends State<Settings> {
                 child: TileRow(
                   icon: CupertinoIcons.moon_stars,
                   title: 'الوضع الليلي',
-                  trailing: CupertinoSwitch(
-                    trackColor: MyColors.blackOpacity,
-                    value: false,
-                    onChanged: (value) {},
+                  trailing: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 25.w),
+                      child: CupertinoSwitch(
+                        trackColor: MyColors.blackOpacity,
+                        value: false,
+                        onChanged: (value) {},
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -163,10 +169,16 @@ class _SettingsState extends State<Settings> {
                 child: TileRow(
                   icon: Icons.notifications_active_outlined,
                   title: 'التنبيهات',
-                  trailing: CupertinoSwitch(
-                    trackColor: MyColors.blackOpacity,
-                    value: false,
-                    onChanged: (value) {},
+                  trailing: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 25.w),
+                      child: CupertinoSwitch(
+                        trackColor: MyColors.blackOpacity,
+                        value: false,
+                        onChanged: (value) {},
+                      ),
+                    ),
                   ),
                 ),
               ),

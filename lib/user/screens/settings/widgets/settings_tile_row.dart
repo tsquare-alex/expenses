@@ -24,20 +24,21 @@ class TileRow extends StatelessWidget {
           color: MyColors.primary,
         ),
         SizedBox(width: 10.w),
-        MyText(
-          title: title,
-          color: MyColors.primary,
-          size: 12.sp,
-          fontWeight: FontWeight.bold,
+        Baseline(
+          baseline: 16.sp,
+          baselineType: TextBaseline.alphabetic,
+          child: MyText(
+            title: title,
+            color: MyColors.primary,
+            size: 12.sp,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         if (isTrailing) ...[
           const Spacer(),
           SizedBox(
-            width: 110.w,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: trailing,
-            ),
+            width: 130.w,
+            child: trailing!,
           ),
         ]
       ],

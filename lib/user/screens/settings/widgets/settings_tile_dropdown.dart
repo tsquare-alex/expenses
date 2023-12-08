@@ -15,26 +15,30 @@ class TileDropdownButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField(
+      isExpanded: true,
       value: value,
-      icon: Icon(
-        Icons.keyboard_arrow_down,
-        color: MyColors.primary,
-      ),
-      iconSize: 22.sp,
-      style: TextStyle(
-        fontSize: 14.sp,
-        color: MyColors.primary,
-        fontWeight: FontWeight.bold,
-      ),
-      decoration: const InputDecoration(
+      iconSize: 0.0,
+      menuMaxHeight: 0.3.sh,
+      decoration: InputDecoration(
         border: InputBorder.none,
         contentPadding: EdgeInsets.zero,
+        icon: Icon(
+          Icons.keyboard_arrow_down,
+          color: MyColors.primary,
+          size: 22.sp,
+        ),
       ),
-      items: menuList.map(
+      items: menuList.map<DropdownMenuItem<String>>(
         (value) {
           return DropdownMenuItem(
             value: value,
-            child: Text(value.toString()),
+            alignment: AlignmentDirectional.center,
+            child: MyText(
+              title: value.toString(),
+              color: MyColors.primary,
+              size: 12.sp,
+              fontWeight: FontWeight.bold,
+            ),
           );
         },
       ).toList(),

@@ -9,7 +9,7 @@ class BuildPieChart extends StatelessWidget {
     return AspectRatio(
       aspectRatio: 1.5,
       child: Container(
-        decoration:  BoxDecoration(
+        decoration: BoxDecoration(
           color: MyColors.backgroundColor,
         ),
         child: Stack(
@@ -21,9 +21,7 @@ class BuildPieChart extends StatelessWidget {
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: LinearGradient(
-                  stops: [
-                    0.5,0.5
-                  ],
+                    stops: [0.5, 0.5],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: <Color>[
@@ -55,62 +53,46 @@ class BuildPieChart extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  mainData.widgets[touchedIndex]),
+                            builder: (context) =>
+                                mainData.widgets[touchedIndex],
+                          ),
                         );
                       }
                     }),
                   ),
                 ),
-                Container(
-                  width: 150.w,
-                  // padding: EdgeInsets.only(bottom: 5.r),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          alignment: Alignment.center,
-                          // padding: EdgeInsets.all(5.r),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(width: 1,color: Colors.white,),
-                              shape: BoxShape.circle),
-                          child: const Center(
-                            child: Icon(
-                              Icons.add,
-                              color: Colors.green,
-                            ),
+                Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    SpinKitPouringHourGlassRefined(
+                      color: Colors.amber,
+                      size: 150.0.w,
+                      controller: mainData.controller,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.add,
+                            color: MyColors.white,
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 25.h,
-                      ),
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.all(5.r),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(width: 1,color: Colors.white,),
-                              shape: BoxShape.circle),
-                          child: const Center(
-                            child: Icon(
-                              Icons.remove,
-                              color: Colors.red,
-                            ),
+                        SizedBox(
+                          height: 25.h,
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.remove,
+                            color: MyColors.white,
+                            size: 25.w,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),

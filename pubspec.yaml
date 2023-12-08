@@ -57,7 +57,7 @@ dependencies:
   fluttertoast:
   animated_bottom_navigation_bar:
   fl_chart:
-
+  flutter_spinkit: ^5.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -17,6 +17,8 @@ part of 'RouterImports.dart';
     AdaptiveRoute(page: Register),
     AdaptiveRoute(page: Home),
     AdaptiveRoute(page: AddTransaction),
+    AdaptiveRoute(page: BMICalculator),
+    AdaptiveRoute(page: ChangeCurrency),
 
 
   ],

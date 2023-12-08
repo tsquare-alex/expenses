@@ -9,6 +9,8 @@ import 'package:expenses/general/screens/select_language/select_language_imports
 import 'package:expenses/general/screens/splash/SplashImports.dart';
 import 'package:expenses/general/screens/welcome_page/WelcomePageImports.dart';
 import 'package:expenses/user/screens/add_transaction/add_transaction_imports.dart';
+import 'package:expenses/user/screens/bmi_calculator/bmi_calculator_imports.dart';
+import 'package:expenses/user/screens/change_currency/change_currency_imports.dart';
 import 'package:expenses/user/screens/home/home_imports.dart';
 
 part 'Router.dart';

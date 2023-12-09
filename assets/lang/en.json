@@ -39,6 +39,22 @@
   "loginHint": "Log in to your account with us",
   "invitationCode": "Invitation Code",
 
-  "main": "Main"
+  "main": "Main",
 
+  "language": "Language",
+  "monthFirstDay": "First day of month",
+  "weekFirstDay": "First day of week",
+  "numbers": "Numbers",
+  "decimal": "Decimals",
+  "privacy": "Privacy and Security",
+  "darkMode": "Night mode",
+  "reminders": "ٌReminders",
+  "sync": "Sync",
+  "backupData": "Backup data",
+  "downloadData": "Download data",
+  "deleteData": "Delete Data",
+  "resetSettings": "Default settings",
+  "egypt": "Egypt",
+  "ksa": "KSA",
+  "settings" : "Settings"
 }

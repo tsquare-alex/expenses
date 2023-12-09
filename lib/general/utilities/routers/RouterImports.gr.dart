@@ -11,7 +11,7 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i11;
+import 'package:auto_route/auto_route.dart' as _i12;
 import 'package:expenses/general/screens/currency_rate/currency_rate_imports.dart'
     as _i8;
 import 'package:expenses/general/screens/forget_password/ForgetPasswordImports.dart'
@@ -27,42 +27,44 @@ import 'package:expenses/general/screens/select_language/select_language_imports
 import 'package:expenses/general/screens/splash/SplashImports.dart' as _i1;
 import 'package:expenses/general/screens/welcome_page/WelcomePageImports.dart'
     as _i2;
+import 'package:expenses/user/screens/add_transaction/add_transaction_imports.dart'
+    as _i11;
 import 'package:expenses/user/screens/home/home_imports.dart' as _i10;
-import 'package:flutter/material.dart' as _i12;
+import 'package:flutter/material.dart' as _i13;
 
-class AppRouter extends _i11.RootStackRouter {
-  AppRouter([_i12.GlobalKey<_i12.NavigatorState>? navigatorKey])
+class AppRouter extends _i12.RootStackRouter {
+  AppRouter([_i13.GlobalKey<_i13.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i11.PageFactory> pagesMap = {
+  final Map<String, _i12.PageFactory> pagesMap = {
     SplashRoute.name: (routeData) {
       final args = routeData.argsAs<SplashRouteArgs>();
-      return _i11.AdaptivePage<dynamic>(
+      return _i12.AdaptivePage<dynamic>(
         routeData: routeData,
         child: _i1.Splash(navigatorKey: args.navigatorKey),
         opaque: true,
       );
     },
     WelcomePageRoute.name: (routeData) {
-      return _i11.AdaptivePage<dynamic>(
+      return _i12.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i2.WelcomePage(),
         opaque: true,
       );
     },
     SelectLanguageRoute.name: (routeData) {
-      return _i11.CustomPage<dynamic>(
+      return _i12.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i3.SelectLanguage(),
-        transitionsBuilder: _i11.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i12.TransitionsBuilders.fadeIn,
         durationInMilliseconds: 1500,
         opaque: true,
         barrierDismissible: false,
       );
     },
     LoginRoute.name: (routeData) {
-      return _i11.CustomPage<dynamic>(
+      return _i12.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i4.Login(),
         opaque: true,
@@ -70,35 +72,35 @@ class AppRouter extends _i11.RootStackRouter {
       );
     },
     ForgetPasswordRoute.name: (routeData) {
-      return _i11.AdaptivePage<dynamic>(
+      return _i12.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i5.ForgetPassword(),
         opaque: true,
       );
     },
     SelectCountryRoute.name: (routeData) {
-      return _i11.AdaptivePage<dynamic>(
+      return _i12.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i6.SelectCountry(),
         opaque: true,
       );
     },
     SelectCurrencyRoute.name: (routeData) {
-      return _i11.AdaptivePage<dynamic>(
+      return _i12.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i7.SelectCurrency(),
         opaque: true,
       );
     },
     CurrencyRateRoute.name: (routeData) {
-      return _i11.AdaptivePage<dynamic>(
+      return _i12.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i8.CurrencyRate(),
         opaque: true,
       );
     },
     RegisterRoute.name: (routeData) {
-      return _i11.AdaptivePage<dynamic>(
+      return _i12.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i9.Register(),
         opaque: true,
@@ -106,7 +108,7 @@ class AppRouter extends _i11.RootStackRouter {
     },
     HomeRoute.name: (routeData) {
       final args = routeData.argsAs<HomeRouteArgs>();
-      return _i11.AdaptivePage<dynamic>(
+      return _i12.AdaptivePage<dynamic>(
         routeData: routeData,
         child: _i10.Home(
           key: args.key,
@@ -115,57 +117,68 @@ class AppRouter extends _i11.RootStackRouter {
         opaque: true,
       );
     },
+    AddTransactionRoute.name: (routeData) {
+      return _i12.AdaptivePage<dynamic>(
+        routeData: routeData,
+        child: const _i11.AddTransaction(),
+        opaque: true,
+      );
+    },
   };
 
   @override
-  List<_i11.RouteConfig> get routes => [
-        _i11.RouteConfig(
+  List<_i12.RouteConfig> get routes => [
+        _i12.RouteConfig(
           SplashRoute.name,
           path: '/',
         ),
-        _i11.RouteConfig(
+        _i12.RouteConfig(
           WelcomePageRoute.name,
           path: '/welcome-page',
         ),
-        _i11.RouteConfig(
+        _i12.RouteConfig(
           SelectLanguageRoute.name,
           path: '/select-language',
         ),
-        _i11.RouteConfig(
+        _i12.RouteConfig(
           LoginRoute.name,
           path: '/Login',
         ),
-        _i11.RouteConfig(
+        _i12.RouteConfig(
           ForgetPasswordRoute.name,
           path: '/forget-password',
         ),
-        _i11.RouteConfig(
+        _i12.RouteConfig(
           SelectCountryRoute.name,
           path: '/select-country',
         ),
-        _i11.RouteConfig(
+        _i12.RouteConfig(
           SelectCurrencyRoute.name,
           path: '/select-currency',
         ),
-        _i11.RouteConfig(
+        _i12.RouteConfig(
           CurrencyRateRoute.name,
           path: '/currency-rate',
         ),
-        _i11.RouteConfig(
+        _i12.RouteConfig(
           RegisterRoute.name,
           path: '/Register',
         ),
-        _i11.RouteConfig(
+        _i12.RouteConfig(
           HomeRoute.name,
           path: '/Home',
+        ),
+        _i12.RouteConfig(
+          AddTransactionRoute.name,
+          path: '/add-transaction',
         ),
       ];
 }
 
 /// generated route for
 /// [_i1.Splash]
-class SplashRoute extends _i11.PageRouteInfo<SplashRouteArgs> {
-  SplashRoute({required _i12.GlobalKey<_i12.NavigatorState> navigatorKey})
+class SplashRoute extends _i12.PageRouteInfo<SplashRouteArgs> {
+  SplashRoute({required _i13.GlobalKey<_i13.NavigatorState> navigatorKey})
       : super(
           SplashRoute.name,
           path: '/',
@@ -178,7 +191,7 @@ class SplashRoute extends _i11.PageRouteInfo<SplashRouteArgs> {
 class SplashRouteArgs {
   const SplashRouteArgs({required this.navigatorKey});
 
-  final _i12.GlobalKey<_i12.NavigatorState> navigatorKey;
+  final _i13.GlobalKey<_i13.NavigatorState> navigatorKey;
 
   @override
   String toString() {
@@ -188,7 +201,7 @@ class SplashRouteArgs {
 
 /// generated route for
 /// [_i2.WelcomePage]
-class WelcomePageRoute extends _i11.PageRouteInfo<void> {
+class WelcomePageRoute extends _i12.PageRouteInfo<void> {
   const WelcomePageRoute()
       : super(
           WelcomePageRoute.name,
@@ -200,7 +213,7 @@ class WelcomePageRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.SelectLanguage]
-class SelectLanguageRoute extends _i11.PageRouteInfo<void> {
+class SelectLanguageRoute extends _i12.PageRouteInfo<void> {
   const SelectLanguageRoute()
       : super(
           SelectLanguageRoute.name,
@@ -212,7 +225,7 @@ class SelectLanguageRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.Login]
-class LoginRoute extends _i11.PageRouteInfo<void> {
+class LoginRoute extends _i12.PageRouteInfo<void> {
   const LoginRoute()
       : super(
           LoginRoute.name,
@@ -224,7 +237,7 @@ class LoginRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.ForgetPassword]
-class ForgetPasswordRoute extends _i11.PageRouteInfo<void> {
+class ForgetPasswordRoute extends _i12.PageRouteInfo<void> {
   const ForgetPasswordRoute()
       : super(
           ForgetPasswordRoute.name,
@@ -236,7 +249,7 @@ class ForgetPasswordRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.SelectCountry]
-class SelectCountryRoute extends _i11.PageRouteInfo<void> {
+class SelectCountryRoute extends _i12.PageRouteInfo<void> {
   const SelectCountryRoute()
       : super(
           SelectCountryRoute.name,
@@ -248,7 +261,7 @@ class SelectCountryRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i7.SelectCurrency]
-class SelectCurrencyRoute extends _i11.PageRouteInfo<void> {
+class SelectCurrencyRoute extends _i12.PageRouteInfo<void> {
   const SelectCurrencyRoute()
       : super(
           SelectCurrencyRoute.name,
@@ -260,7 +273,7 @@ class SelectCurrencyRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.CurrencyRate]
-class CurrencyRateRoute extends _i11.PageRouteInfo<void> {
+class CurrencyRateRoute extends _i12.PageRouteInfo<void> {
   const CurrencyRateRoute()
       : super(
           CurrencyRateRoute.name,
@@ -272,7 +285,7 @@ class CurrencyRateRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.Register]
-class RegisterRoute extends _i11.PageRouteInfo<void> {
+class RegisterRoute extends _i12.PageRouteInfo<void> {
   const RegisterRoute()
       : super(
           RegisterRoute.name,
@@ -284,9 +297,9 @@ class RegisterRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i10.Home]
-class HomeRoute extends _i11.PageRouteInfo<HomeRouteArgs> {
+class HomeRoute extends _i12.PageRouteInfo<HomeRouteArgs> {
   HomeRoute({
-    _i12.Key? key,
+    _i13.Key? key,
     required int index,
   }) : super(
           HomeRoute.name,
@@ -306,7 +319,7 @@ class HomeRouteArgs {
     required this.index,
   });
 
-  final _i12.Key? key;
+  final _i13.Key? key;
 
   final int index;
 
@@ -314,4 +327,16 @@ class HomeRouteArgs {
   String toString() {
     return 'HomeRouteArgs{key: $key, index: $index}';
   }
+}
+
+/// generated route for
+/// [_i11.AddTransaction]
+class AddTransactionRoute extends _i12.PageRouteInfo<void> {
+  const AddTransactionRoute()
+      : super(
+          AddTransactionRoute.name,
+          path: '/add-transaction',
+        );
+
+  static const String name = 'AddTransactionRoute';
 }

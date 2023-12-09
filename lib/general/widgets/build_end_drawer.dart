@@ -1,7 +1,9 @@
 part of 'widgets_imports.dart';
 
 class BuildEndDrawer extends StatelessWidget {
-  const BuildEndDrawer({Key? key}) : super(key: key);
+  const BuildEndDrawer({Key? key, required this.homeTabCubit}) : super(key: key);
+  final GenericBloc<int> homeTabCubit;
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -27,25 +29,37 @@ class BuildEndDrawer extends StatelessWidget {
                     children: [
                       CustomDrawerCard(
                         title: 'المصادر المالية',
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.of(context).pop();
+                          homeTabCubit.onUpdateData(7);
+                        },
                         image: Res.wallet,
                         endDrawer: true,
                       ),
                       CustomDrawerCard(
                         title: 'المعاملات و المصروفات',
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.of(context).pop();
+                          homeTabCubit.onUpdateData(0);
+                        },
                         image: Res.transaction,
                         endDrawer: true,
                       ),
                       CustomDrawerCard(
                         title: 'الميزانية والخطط المالية',
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.of(context).pop();
+                          homeTabCubit.onUpdateData(8);
+                        },
                         image: Res.budget,
                         endDrawer: true,
                       ),
                       CustomDrawerCard(
                         title: 'التقارير والإحصائيات',
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.of(context).pop();
+                          homeTabCubit.onUpdateData(2);
+                        },
                         image: Res.report,
                         endDrawer: true,
                       ),

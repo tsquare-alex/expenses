@@ -1,9 +1,9 @@
 part of 'widgets_imports.dart';
 
 class BuildDrawer extends StatelessWidget {
-  const BuildDrawer({Key? key, required this.shareCubit}) : super(key: key);
+  const BuildDrawer({Key? key, required this.shareCubit, required this.homeTabCubit}) : super(key: key);
   final GenericBloc<bool> shareCubit;
-
+  final GenericBloc<int> homeTabCubit;
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -24,25 +24,37 @@ class BuildDrawer extends StatelessWidget {
               ),
               CustomDrawerCard(
                 title: 'الاعدادات والضبط',
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pop();
+                  homeTabCubit.onUpdateData(3);
+                },
                 image: Res.settings,
                 endDrawer: false,
               ),
               CustomDrawerCard(
                 title: 'الادوات المساعدة',
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pop();
+                  homeTabCubit.onUpdateData(4);
+                },
                 image: Res.tools,
                 endDrawer: false,
               ),
               CustomDrawerCard(
                 title: 'السجل وقاعدة البيانات',
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pop();
+                  homeTabCubit.onUpdateData(5);
+                },
                 image: Res.database,
                 endDrawer: false,
               ),
               CustomDrawerCard(
                 title: 'المساعدة والشرح',
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pop();
+                  homeTabCubit.onUpdateData(6);
+                },
                 image: Res.explain,
                 endDrawer: false,
               ),

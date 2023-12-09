@@ -1,16 +1,16 @@
 part of 'main_widgets_imports.dart';
 
 class BuildPieChart extends StatelessWidget {
-  const BuildPieChart({Key? key, required this.mainData}) : super(key: key);
+  BuildPieChart({Key? key, required this.mainData, required this.homeTabCubit}) : super(key: key);
   final MainData mainData;
-
+  final GenericBloc<int> homeTabCubit;
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 1.5,
       child: Container(
         decoration: BoxDecoration(
-          color: MyColors.backgroundColor,
+          color: MyColors.white,
         ),
         child: Stack(
           alignment: AlignmentDirectional.center,
@@ -37,7 +37,7 @@ class BuildPieChart extends StatelessWidget {
                 PieChart(
                   PieChartData(
                     borderData: FlBorderData(show: false),
-                    centerSpaceRadius: 80,
+                    centerSpaceRadius: 60.r,
                     sections: mainData.getSections(),
                     pieTouchData:
                         PieTouchData(touchCallback: (event, pieTouchResponse) {
@@ -51,13 +51,16 @@ class BuildPieChart extends StatelessWidget {
                       if (touchedIndex >= 0 &&
                           touchedIndex < mainData.data.length) {
                         // Navigate to the page with the corresponding widget
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                mainData.widgets[touchedIndex],
-                          ),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) =>
+                        //         mainData.widgets.keys.toList()[touchedIndex],
+                        //   ),
+                        // );
+                        homeTabCubit.onUpdateData(mainData.widgets.values.toList()[touchedIndex]);
+                        // //print(mainData.widgets.values.toList()[touchedIndex]);
+                        // print(data.homeTabCubit.state.data);
                       }
                     }),
                   ),
@@ -70,7 +73,7 @@ class BuildPieChart extends StatelessWidget {
                     //   size: 150.0.w,
                     //   controller: mainData.controller,
                     // ),
-                    Image.asset(Res.hourglass,width: 125.w,height: 125.h,),
+                    Image.asset(Res.hourglass,width: 100.w,height: 100.h,),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -81,9 +84,7 @@ class BuildPieChart extends StatelessWidget {
                             color: MyColors.white,
                           ),
                         ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
+
                         IconButton(
                           onPressed: () {},
                           icon: Icon(

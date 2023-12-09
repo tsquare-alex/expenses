@@ -7,12 +7,32 @@ class BuildTransactionsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(15.r),
-      child: const Column(
+      child: Column(
         children: [
-          BuildTransactionItem(name: "المصروفات", image: Res.cart,),
-          BuildTransactionItem(name: "ايداع فلوس", image: Res.cart,),
-          BuildTransactionItem(name: "ايداع فلوس", image: Res.cart,),
-          BuildTransactionItem(name: "ايداع فلوس", image: Res.cart,),
+          BuildTransactionItem(
+            name: "المصروفات",
+            image: Res.cart,
+            onTap: (){},
+            content: Column(
+              children: [],
+            ),
+          ),
+          BuildTransactionItem(
+            name: "الأهداف المالية المستهدفة",
+            image: Res.cart,
+          ),
+          BuildTransactionItem(
+            name: "المعاملات النقدية",
+            image: Res.cart,
+          ),
+          BuildTransactionItem(
+            name: "المعاملات المتكررة",
+            image: Res.cart,
+          ),
+          BuildTransactionItem(
+            name: "أخري/إضافة",
+            image: Res.cart,
+          ),
         ],
       ),
     );

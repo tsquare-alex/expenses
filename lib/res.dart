@@ -33,7 +33,7 @@ class Res {
   static const String delete = "assets/images/delete.png";
   static const String download = "assets/images/download.png";
   static const String moon = "assets/images/moon.png";
-  static const String notifications = "assets/images/notifications.png";
+  static const String reminders = "assets/images/reminders.png";
   static const String reset = "assets/images/reset.png";
   static const String save = "assets/images/save.png";
   static const String secure = "assets/images/secure.png";

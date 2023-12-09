@@ -23,7 +23,7 @@ class TileRow extends StatelessWidget {
           width: 25.w,
           height: 25,
           color: context.watch<AppThemeCubit>().isDarkMode
-              ? Colors.lightBlue[200]
+              ? AppDarkColors.secondary
               : MyColors.primary,
         ),
         SizedBox(width: 10.w),
@@ -33,7 +33,7 @@ class TileRow extends StatelessWidget {
           child: MyText(
             title: title,
             color: context.watch<AppThemeCubit>().isDarkMode
-                ? Colors.lightBlue[200]
+                ? AppDarkColors.secondary
                 : MyColors.primary,
             size: 12.sp,
             fontWeight: FontWeight.bold,

@@ -1,3 +1,4 @@
+import 'package:expenses/general/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,7 +13,7 @@ class AppThemes {
     //     TargetPlatform.android: CupertinoPageTransitionsBuilder(),
     //   },
     // ),
-    scaffoldBackgroundColor: MyColors.white,
+    // scaffoldBackgroundColor: AppLightColors.backgroundColor,
     focusColor: MyColors.primary,
     primaryColor: MyColors.primary,
     fontFamily: GoogleFonts.tajawal().fontFamily,
@@ -20,13 +21,14 @@ class AppThemes {
       titleMedium: GoogleFonts.tajawal(fontSize: 14),
     ),
     colorScheme: const ColorScheme.light(),
-    // appBarTheme: const AppBarTheme(
-    //   foregroundColor: Colors.black,
-    //   systemOverlayStyle: SystemUiOverlayStyle(
-    //     statusBarIconBrightness: Brightness.dark,
-    //     statusBarColor: Colors.transparent,
-    //   ),
-    // ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: MyColors.primary,
+      foregroundColor: Colors.black,
+      // systemOverlayStyle: SystemUiOverlayStyle(
+      //   statusBarIconBrightness: Brightness.dark,
+      //   statusBarColor: Colors.transparent,
+      // ),
+    ),
   );
 
   static final darkTheme = ThemeData(
@@ -42,14 +44,15 @@ class AppThemes {
     textTheme: TextTheme(
       titleMedium: GoogleFonts.tajawal(fontSize: 14),
     ),
-    scaffoldBackgroundColor: MyColors.black,
+    scaffoldBackgroundColor: AppDarkColors.backgroundColor,
     colorScheme: const ColorScheme.dark(),
-    // appBarTheme: const AppBarTheme(
-    //   foregroundColor: Colors.white,
-    //   systemOverlayStyle: SystemUiOverlayStyle(
-    //     statusBarIconBrightness: Brightness.light,
-    //     statusBarColor: Colors.transparent,
-    //   ),
-    // ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: AppDarkColors.primary,
+      foregroundColor: Colors.white,
+      // systemOverlayStyle: SystemUiOverlayStyle(
+      //   statusBarIconBrightness: Brightness.light,
+      //   statusBarColor: Colors.transparent,
+      // ),
+    ),
   );
 }

@@ -13,11 +13,11 @@ class SettingsBody extends StatelessWidget {
       children: [
         InkWell(
           onTap: () => data.languagePressed(context),
-          child: const CustomTile(
+          child: CustomTile(
             children: [
               TileRow(
                 icon: Res.lang,
-                title: 'اللغة',
+                title: tr(context, 'language'),
                 isTrailing: false,
               ),
             ],
@@ -28,7 +28,7 @@ class SettingsBody extends StatelessWidget {
           children: [
             TileRow(
               icon: Res.calendar30,
-              title: 'أول يوم بالشهر',
+              title: tr(context, 'monthFirstDay'),
               trailing: TileDropdownButton(
                 menuList: data.monthDays,
                 value: data.monthDays.first,
@@ -38,7 +38,7 @@ class SettingsBody extends StatelessWidget {
             SizedBox(height: 7.h),
             TileRow(
               icon: Res.calendar7,
-              title: 'أول يوم بالأسبوع',
+              title: tr(context, 'weekFirstDay'),
               trailing: TileDropdownButton(
                 menuList: data.weekDays,
                 value: data.weekDays.first,
@@ -52,7 +52,7 @@ class SettingsBody extends StatelessWidget {
           children: [
             TileRow(
               icon: Res.country,
-              title: 'اختيار البلد',
+              title: tr(context, 'selectCountry'),
               trailing: TileDropdownButton(
                 menuList: data.countries,
                 value: data.countries.first,
@@ -66,7 +66,7 @@ class SettingsBody extends StatelessWidget {
           children: [
             TileRow(
               icon: Res.currency,
-              title: 'اختيار العملة',
+              title: tr(context, 'selectCurrency'),
               trailing: TileDropdownButton(
                 menuList: data.currency,
                 value: data.currency.first,
@@ -80,7 +80,7 @@ class SettingsBody extends StatelessWidget {
           children: [
             TileRow(
               icon: Res.numbers,
-              title: 'الأرقام',
+              title: tr(context, 'numbers'),
               trailing: TileDropdownButton(
                 menuList: data.numberFormat,
                 value: data.numberFormat.first,
@@ -90,7 +90,7 @@ class SettingsBody extends StatelessWidget {
             SizedBox(height: 7.h),
             TileRow(
               icon: Res.decimal,
-              title: 'العلامة العشرية',
+              title: tr(context, 'decimal'),
               trailing: TileDropdownButton(
                 menuList: data.decimal,
                 value: data.decimal[1],
@@ -104,9 +104,9 @@ class SettingsBody extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(vertical: 5.h),
-              child: const TileRow(
+              child: TileRow(
                 icon: Res.secure,
-                title: 'الخصوصية و الأمان',
+                title: tr(context, 'privacy'),
                 isTrailing: false,
               ),
             ),
@@ -119,7 +119,7 @@ class SettingsBody extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 5.h),
               child: TileRow(
                 icon: Res.moon,
-                title: 'الوضع الليلي',
+                title: tr(context, 'darkMode'),
                 trailing: Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
@@ -146,8 +146,8 @@ class SettingsBody extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 5.h),
               child: TileRow(
-                icon: Res.notifications,
-                title: 'التنبيهات',
+                icon: Res.reminders,
+                title: tr(context, 'reminders'),
                 trailing: Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
@@ -168,7 +168,7 @@ class SettingsBody extends StatelessWidget {
           children: [
             TileRow(
               icon: Res.save,
-              title: 'حفظ',
+              title: tr(context, 'save'),
               trailing: TileDropdownButton(
                 menuList: data.saveFormat,
                 value: data.saveFormat.first,
@@ -182,7 +182,7 @@ class SettingsBody extends StatelessWidget {
           children: [
             TileRow(
               icon: Res.synchronization,
-              title: 'مزامنة',
+              title: tr(context, 'sync'),
               trailing: TileDropdownButton(
                 menuList: data.syncOptions,
                 value: data.syncOptions.first,
@@ -196,9 +196,9 @@ class SettingsBody extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(vertical: 5.h),
-              child: const TileRow(
+              child: TileRow(
                 icon: Res.upload,
-                title: 'النسخ الإحتياطي للبيانات',
+                title: tr(context, 'backupData'),
                 isTrailing: false,
               ),
             ),
@@ -209,9 +209,9 @@ class SettingsBody extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(vertical: 5.h),
-              child: const TileRow(
+              child: TileRow(
                 icon: Res.download,
-                title: 'استعادة البيانات',
+                title: tr(context, 'downloadData'),
                 isTrailing: false,
               ),
             ),
@@ -222,9 +222,9 @@ class SettingsBody extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(vertical: 5.h),
-              child: const TileRow(
+              child: TileRow(
                 icon: Res.delete,
-                title: 'مسح البيانات',
+                title: tr(context, 'deleteData'),
                 isTrailing: false,
               ),
             ),
@@ -235,9 +235,9 @@ class SettingsBody extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(vertical: 5.h),
-              child: const TileRow(
+              child: TileRow(
                 icon: Res.reset,
-                title: 'اعدادات إفتراضية',
+                title: tr(context, 'resetSettings'),
                 isTrailing: false,
               ),
             ),

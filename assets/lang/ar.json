@@ -228,9 +228,23 @@
   "pickImg": "التقط صورة",
   "invitationCode": "كود الدعوة",
 
+  "main": "القائمة الرئيسية",
 
-  "main": "القائمة الرئيسية"
-
+  "language": "اللغة",
+  "monthFirstDay": "أول يوم بالشهر",
+  "weekFirstDay": "أول يوم بالأسبوع",
+  "numbers": "الأرقام",
+  "decimal": "العلامة العشرية",
+  "privacy": "الخصوصية و الأمان",
+  "darkMode": "الوضع الليلي",
+  "reminders": "التنبيهات",
+  "sync": "المزامنة",
+  "backupData": "النسخ الإحتياطي للبيانات",
+  "downloadData": "استعادة البيانات",
+  "deleteData": "مسح البيانات",
+  "resetSettings": "اعدادات إفتراضية",
+  "egypt": "مصر",
+  "ksa": "السعودية"
 }
 
 

@@ -12,8 +12,8 @@ class CustomTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ColoredBox(
       color: context.watch<AppThemeCubit>().isDarkMode
-          ? MyColors.greyWhite
-          : MyColors.backgroundColor,
+          ? AppDarkColors.accentColor
+          : MyColors.greyWhite,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
         child: Column(

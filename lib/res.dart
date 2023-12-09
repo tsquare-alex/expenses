@@ -14,7 +14,7 @@ class Res {
   static const String home = "assets/images/home.png";
   static const String icon = "assets/images/icon.png";
   static const String lang = "assets/images/lang.png";
-  static const String launcher_icon = "assets/images/launcher_icon.png";
+  static const String launcherIcon = "assets/images/launcher_icon.png";
   static const String logo = "assets/images/logo.png";
   static const String marker = "assets/images/marker.png";
   static const String mobile = "assets/images/mobile.svg";

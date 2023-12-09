@@ -8,7 +8,6 @@ class Budget extends StatefulWidget {
 }
 
 class _BudgetState extends State<Budget> {
-
   BudgetData data = BudgetData();
   @override
   Widget build(BuildContext context) {
@@ -28,6 +27,26 @@ class _BudgetState extends State<Budget> {
           size: 18.sp,
           fontWeight: FontWeight.bold,
         ),
+      ),
+      body: Column(
+        children: [
+          Container(
+            height: 500.h,
+            child: ListView.separated(
+              itemCount: 5,
+              itemBuilder: (context, index) => ItemBudget(
+                  precent: 0.4,
+                  title: "title",
+                  value: "value",
+                  secValue: "secValue"),
+              separatorBuilder: (BuildContext context, int index) {
+                return Divider(
+                  color: MyColors.black,
+                );
+              },
+            ),
+          )
+        ],
       ),
     );
   }

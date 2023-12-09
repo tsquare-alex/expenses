@@ -9,7 +9,9 @@ class BuildTransactionsView extends StatelessWidget {
       padding: EdgeInsets.all(15.r),
       child: const Column(
         children: [
-          BuildTransactionItem(name: "سحب فلوس", image: Res.cart,),
+          BuildTransactionItem(name: "المصروفات", image: Res.cart,),
+          BuildTransactionItem(name: "ايداع فلوس", image: Res.cart,),
+          BuildTransactionItem(name: "ايداع فلوس", image: Res.cart,),
           BuildTransactionItem(name: "ايداع فلوس", image: Res.cart,),
         ],
       ),

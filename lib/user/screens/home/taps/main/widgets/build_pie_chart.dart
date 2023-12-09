@@ -18,16 +18,17 @@ class BuildPieChart extends StatelessWidget {
             Container(
               height: 150.h,
               width: 150.w,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                gradient: LinearGradient(
-                    stops: [0.5, 0.5],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: <Color>[
-                      Colors.green,
-                      Colors.red,
-                    ]),
+                color: MyColors.white,
+                // gradient: LinearGradient(
+                //     stops: [0.5, 0.5],
+                //     begin: Alignment.topCenter,
+                //     end: Alignment.bottomCenter,
+                //     colors: <Color>[
+                //       Colors.green,
+                //       Colors.red,
+                //     ]),
               ),
             ),
             Stack(
@@ -64,11 +65,12 @@ class BuildPieChart extends StatelessWidget {
                 Stack(
                   alignment: AlignmentDirectional.center,
                   children: [
-                    SpinKitPouringHourGlassRefined(
-                      color: Colors.amber,
-                      size: 150.0.w,
-                      controller: mainData.controller,
-                    ),
+                    // SpinKitPouringHourGlassRefined(
+                    //   color: Colors.amber,
+                    //   size: 150.0.w,
+                    //   controller: mainData.controller,
+                    // ),
+                    Image.asset(Res.hourglass,width: 125.w,height: 125.h,),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -80,7 +82,7 @@ class BuildPieChart extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 25.h,
+                          height: 10.h,
                         ),
                         IconButton(
                           onPressed: () {},

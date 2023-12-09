@@ -16,11 +16,13 @@ class Res {
   static const String facebook = "assets/images/facebook.svg";
   static const String forgetPassword = "assets/images/forgetPassword.png";
   static const String home = "assets/images/home.png";
+  static const String hourglass = "assets/images/hourglass.png";
   static const String icon = "assets/images/icon.png";
   static const String lang = "assets/images/lang.png";
   static const String launcher_icon = "assets/images/launcher_icon.png";
   static const String logo = "assets/images/logo.png";
   static const String marker = "assets/images/marker.png";
+  static const String menu = "assets/images/menu.png";
   static const String mobile = "assets/images/mobile.svg";
   static const String onboardingOne = "assets/images/onboardingOne.jpeg";
   static const String onboardingThree = "assets/images/onboardingThree.jpeg";
@@ -30,6 +32,7 @@ class Res {
   static const String report = "assets/images/report.png";
   static const String searchRecords = "assets/images/searchRecords.png";
   static const String settings = "assets/images/settings.png";
+  static const String share = "assets/images/share.png";
   static const String star = "assets/images/star.png";
   static const String terms = "assets/images/terms.png";
   static const String tools = "assets/images/tools.png";

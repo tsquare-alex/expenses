@@ -52,7 +52,7 @@ class BuildDrawer extends StatelessWidget {
                   shareCubit.onUpdateData(!shareCubit.state.data);
                   print(shareCubit.state.data);
                 },
-                image: Res.tools,
+                image: Res.share,
                 endDrawer: false,
               ),
               BlocBuilder<GenericBloc<bool>, GenericState<bool>>(

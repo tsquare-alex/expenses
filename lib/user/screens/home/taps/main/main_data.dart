@@ -72,7 +72,7 @@ class MainData{
   List<Widget> widgets=[
     const Wallet(),
     const Budget(),
-    const Database(),
+     Database(),
     Container(),
     const Reports(),
     const Transactions(),

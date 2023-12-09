@@ -48,7 +48,7 @@ class ItemBudget extends StatelessWidget {
               SizedBox(
                 width: 6.w,
               ),
-              Text("valu"),
+              const Text("valu"),
               SizedBox(
                 width: 60.w,
               ),

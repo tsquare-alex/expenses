@@ -55,6 +55,8 @@ dependencies:
   animated_bottom_navigation_bar:
   fl_chart:
   percent_indicator: ^4.2.3
+  dropdown_button2: ^2.3.9
+  calendar_timeline: ^1.1.2
 
 dev_dependencies:
   flutter_test:

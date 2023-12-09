@@ -36,24 +36,23 @@ class _SettingsState extends State<Settings> {
       body: ListView(
         padding: EdgeInsets.symmetric(vertical: 20.h),
         children: [
-          CustomTile(
-            children: [
-              TileRow(
-                icon: Icons.language,
-                title: 'اللغة',
-                trailing: TileDropdownButton(
-                  menuList: data.languages,
-                  value: data.languages.first,
-                  onChanged: (value) {},
+          InkWell(
+            onTap: () =>data.languagePressed(context),
+            child: const CustomTile(
+              children: [
+                TileRow(
+                  icon: Res.lang,
+                  title: 'اللغة',
+                  isTrailing: false,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           SizedBox(height: 10.h),
           CustomTile(
             children: [
               TileRow(
-                icon: Icons.calendar_month,
+                icon: Res.calender,
                 title: 'أول يوم بالشهر',
                 trailing: TileDropdownButton(
                   menuList: data.monthDays,
@@ -63,7 +62,7 @@ class _SettingsState extends State<Settings> {
               ),
               SizedBox(height: 7.h),
               TileRow(
-                icon: CupertinoIcons.calendar_today,
+                icon: Res.weeks,
                 title: 'أول يوم بالأسبوع',
                 trailing: TileDropdownButton(
                   menuList: data.weekDays,
@@ -77,7 +76,7 @@ class _SettingsState extends State<Settings> {
           CustomTile(
             children: [
               TileRow(
-                icon: FontAwesomeIcons.earthAmericas,
+                icon: Res.country,
                 title: 'اختيار البلد',
                 trailing: TileDropdownButton(
                   menuList: data.countries,
@@ -91,7 +90,7 @@ class _SettingsState extends State<Settings> {
           CustomTile(
             children: [
               TileRow(
-                icon: Icons.currency_exchange,
+                icon: Res.currency,
                 title: 'اختيار العملة',
                 trailing: TileDropdownButton(
                   menuList: data.currency,
@@ -105,7 +104,7 @@ class _SettingsState extends State<Settings> {
           CustomTile(
             children: [
               TileRow(
-                icon: CupertinoIcons.textformat_123,
+                icon: Res.numbers,
                 title: 'الأرقام',
                 trailing: TileDropdownButton(
                   menuList: data.numberFormat,
@@ -115,7 +114,7 @@ class _SettingsState extends State<Settings> {
               ),
               SizedBox(height: 7.h),
               TileRow(
-                icon: Icons.format_quote_outlined,
+                icon: Res.decimal,
                 title: 'العلامة العشرية',
                 trailing: TileDropdownButton(
                   menuList: data.decimal,
@@ -131,7 +130,7 @@ class _SettingsState extends State<Settings> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5.h),
                 child: const TileRow(
-                  icon: CupertinoIcons.lock_shield_fill,
+                  icon: Res.currency,
                   title: 'الخصوصية و الأمان',
                   isTrailing: false,
                 ),
@@ -144,7 +143,7 @@ class _SettingsState extends State<Settings> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5.h),
                 child: TileRow(
-                  icon: CupertinoIcons.moon_stars,
+                  icon: Res.currency,
                   title: 'الوضع الليلي',
                   trailing: Align(
                     alignment: Alignment.centerLeft,
@@ -167,7 +166,7 @@ class _SettingsState extends State<Settings> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5.h),
                 child: TileRow(
-                  icon: Icons.notifications_active_outlined,
+                  icon: Res.currency,
                   title: 'التنبيهات',
                   trailing: Align(
                     alignment: Alignment.centerLeft,
@@ -188,7 +187,7 @@ class _SettingsState extends State<Settings> {
           CustomTile(
             children: [
               TileRow(
-                icon: Icons.save_outlined,
+                icon: Res.currency,
                 title: 'حفظ',
                 trailing: TileDropdownButton(
                   menuList: data.saveFormat,
@@ -202,7 +201,7 @@ class _SettingsState extends State<Settings> {
           CustomTile(
             children: [
               TileRow(
-                icon: Icons.sync,
+                icon: Res.currency,
                 title: 'مزامنة',
                 trailing: TileDropdownButton(
                   menuList: data.syncOptions,
@@ -218,7 +217,7 @@ class _SettingsState extends State<Settings> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5.h),
                 child: const TileRow(
-                  icon: CupertinoIcons.cloud_upload,
+                  icon: Res.upload,
                   title: 'النسخ الإحتياطي للبيانات',
                   isTrailing: false,
                 ),
@@ -231,7 +230,7 @@ class _SettingsState extends State<Settings> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5.h),
                 child: const TileRow(
-                  icon: CupertinoIcons.cloud_download,
+                  icon: Res.currency,
                   title: 'استعادة البيانات',
                   isTrailing: false,
                 ),
@@ -244,7 +243,7 @@ class _SettingsState extends State<Settings> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5.h),
                 child: const TileRow(
-                  icon: CupertinoIcons.delete,
+                  icon: Res.currency,
                   title: 'مسح البيانات',
                   isTrailing: false,
                 ),
@@ -257,7 +256,7 @@ class _SettingsState extends State<Settings> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5.h),
                 child: const TileRow(
-                  icon: Icons.restore,
+                  icon: Res.currency,
                   title: 'اعدادات إفتراضية',
                   isTrailing: false,
                 ),

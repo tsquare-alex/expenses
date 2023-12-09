@@ -9,7 +9,7 @@ class TileRow extends StatelessWidget {
     this.trailing,
   });
 
-  final IconData icon;
+  final String icon;
   final String title;
   final bool isTrailing;
   final Widget? trailing;
@@ -18,11 +18,7 @@ class TileRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(
-          icon,
-          size: 25.sp,
-          color: MyColors.primary,
-        ),
+        Image.asset(icon,width: 25.w,height: 25,color: MyColors.primary,),
         SizedBox(width: 10.w),
         Baseline(
           baseline: 16.sp,

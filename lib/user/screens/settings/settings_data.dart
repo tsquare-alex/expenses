@@ -33,4 +33,29 @@ class SettingsData {
   List<String> saveFormat = ['PDF', 'DOCX'];
 
   List<String> syncOptions = ['Google Drive', 'Firebase'];
+
+
+  languagePressed(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: const BuildLanguageBottomSheet(),
+          backgroundColor: MyColors.white,
+          actions: [
+            TextButton(
+              child: MyText(
+                title: "Cancel",
+                color: MyColors.primary,
+                size: 14.sp,
+                fontWeight: FontWeight.bold,
+              ),
+              onPressed: () =>AutoRouter.of(context).pop(),
+            )
+          ],
+        );
+      },
+    );
+  }
+
 }

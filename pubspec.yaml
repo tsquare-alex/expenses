@@ -57,7 +57,7 @@ dependencies:
   fluttertoast:
   animated_bottom_navigation_bar:
   fl_chart:
-  font_awesome_flutter:
+  modal_bottom_sheet: ^2.1.2
 
 dev_dependencies:
   flutter_test:

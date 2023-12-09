@@ -5,7 +5,6 @@ class BuildLanguageBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String lang = context.watch<LangCubit>().state.locale.languageCode;
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.all(15.0.r),

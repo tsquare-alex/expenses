@@ -18,14 +18,23 @@ class TileRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Image.asset(icon,width: 25.w,height: 25,color: MyColors.primary,),
+        Image.asset(
+          icon,
+          width: 25.w,
+          height: 25,
+          color: context.watch<AppThemeCubit>().isDarkMode
+              ? Colors.lightBlue[200]
+              : MyColors.primary,
+        ),
         SizedBox(width: 10.w),
         Baseline(
           baseline: 16.sp,
           baselineType: TextBaseline.alphabetic,
           child: MyText(
             title: title,
-            color: MyColors.primary,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? Colors.lightBlue[200]
+                : MyColors.primary,
             size: 12.sp,
             fontWeight: FontWeight.bold,
           ),

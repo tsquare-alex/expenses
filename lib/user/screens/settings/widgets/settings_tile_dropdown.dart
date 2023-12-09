@@ -24,7 +24,9 @@ class TileDropdownButton extends StatelessWidget {
         contentPadding: EdgeInsets.zero,
         icon: Icon(
           Icons.keyboard_arrow_down,
-          color: MyColors.primary,
+          color: context.watch<AppThemeCubit>().isDarkMode
+              ? Colors.lightBlue[200]
+              : MyColors.primary,
           size: 22.sp,
         ),
       ),
@@ -35,7 +37,9 @@ class TileDropdownButton extends StatelessWidget {
             alignment: AlignmentDirectional.center,
             child: MyText(
               title: value.toString(),
-              color: MyColors.primary,
+              color: context.watch<AppThemeCubit>().isDarkMode
+                  ? Colors.lightBlue[200]
+                  : MyColors.primary,
               size: 12.sp,
               fontWeight: FontWeight.bold,
             ),

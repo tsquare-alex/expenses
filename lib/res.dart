@@ -3,7 +3,6 @@ class Res {
   static const String apple = "assets/images/apple.svg";
   static const String ar = "assets/lang/ar.json";
   static const String arrow = "assets/images/arrow.svg";
-  static const String calender = "assets/images/calender.png";
   static const String cart = "assets/images/cart.png";
   static const String country = "assets/images/country.png";
   static const String currency = "assets/images/currency.png";
@@ -29,5 +28,14 @@ class Res {
   static const String searchRecords = "assets/images/searchRecords.png";
   static const String twitter = "assets/images/twitter.png";
   static const String upload = "assets/images/upload.png";
-  static const String weeks = "assets/images/weeks.png";
+  static const String calendar30 = "assets/images/calendar30.png";
+  static const String calendar7 = "assets/images/calendar7.png";
+  static const String delete = "assets/images/delete.png";
+  static const String download = "assets/images/download.png";
+  static const String moon = "assets/images/moon.png";
+  static const String notifications = "assets/images/notifications.png";
+  static const String reset = "assets/images/reset.png";
+  static const String save = "assets/images/save.png";
+  static const String secure = "assets/images/secure.png";
+  static const String synchronization = "assets/images/sync.png";
 }

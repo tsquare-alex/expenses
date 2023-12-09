@@ -34,9 +34,8 @@ class SettingsData {
 
   List<String> syncOptions = ['Google Drive', 'Firebase'];
 
-
-  languagePressed(BuildContext context) {
-    showDialog(
+  Future languagePressed(BuildContext context) async {
+    await showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
@@ -50,12 +49,11 @@ class SettingsData {
                 size: 14.sp,
                 fontWeight: FontWeight.bold,
               ),
-              onPressed: () =>AutoRouter.of(context).pop(),
+              onPressed: () => AutoRouter.of(context).pop(),
             )
           ],
         );
       },
     );
   }
-
 }

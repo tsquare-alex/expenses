@@ -1,16 +1,68 @@
 part of 'add_transaction_widgets_imports.dart';
 
 class BuildTransactionsView extends StatelessWidget {
-  const BuildTransactionsView({Key? key}) : super(key: key);
+  const BuildTransactionsView({Key? key, required this.data}) : super(key: key);
+  final AddTransactionData data;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(15.r),
-      child: const Column(
+      child: Column(
         children: [
-          BuildTransactionItem(name: "سحب فلوس", image: Res.cart,),
-          BuildTransactionItem(name: "ايداع فلوس", image: Res.cart,),
+          BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+            bloc: data.contentCubit,
+            builder: (context, state) {
+              return BuildTransactionItem(
+                name: "المصروفات",
+                image: Res.budget,
+                onTap: () =>
+                    data.contentCubit.onUpdateData(
+                        !data.contentCubit.state.data),
+                hasContent: state.data,
+                content: Column(
+                  children: [
+                    BuildTransactionItem(
+                      onTap: ()=>AutoRouter.of(context).push(const CommitmentsRoute()),
+                      name: "الالتزامات",
+                      image: Res.one,
+                      radius: 18.r,
+                      width: 18.w,
+                      height: 18.w,
+                    ),
+                    BuildTransactionItem(
+                      onTap: ()=>AutoRouter.of(context).push(const ShoppingRoute()),
+                      name: "التسوق والشراء",
+                      image: Res.two,
+                      radius: 18.r,
+                      width: 18.w,
+                      height: 18.w,
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+          BuildTransactionItem(
+            onTap: ()=>AutoRouter.of(context).push(const TargetRoute()),
+            name: "الأهداف المالية المستهدفة",
+            image: Res.budget,
+          ),
+          BuildTransactionItem(
+            onTap: ()=>AutoRouter.of(context).push(const CashTransactionsRoute()),
+            name: "المعاملات النقدية",
+            image: Res.transaction,
+          ),
+          BuildTransactionItem(
+            onTap: ()=>AutoRouter.of(context).push(const RecurringTransactionsRoute()),
+            name: "المعاملات المتكررة",
+            image: Res.transaction,
+          ),
+          BuildTransactionItem(
+            onTap: (){},
+            name: "أخري/إضافة",
+            image: Res.upload,
+          ),
         ],
       ),
     );

@@ -16,12 +16,13 @@ part of 'RouterImports.dart';
     AdaptiveRoute(page: SelectCountry),
     AdaptiveRoute(page: SelectCurrency),
     AdaptiveRoute(page: CurrencyRate),
-    AdaptiveRoute(page: CurrencyRate),
-    AdaptiveRoute(page: AddTransaction),
-    // AdaptiveRoute(page: Budget),
     // user routes
     AdaptiveRoute(page: Register),
     AdaptiveRoute(page: Home),
+    AdaptiveRoute(page: DatabaseDetails),
+    AdaptiveRoute(page: AddDatabase),
+    AdaptiveRoute(page: AddTransaction),
+    AdaptiveRoute(page: AddTransactionBudget),
   ],
 )
 class $AppRouter {}

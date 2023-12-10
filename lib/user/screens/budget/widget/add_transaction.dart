@@ -3,19 +3,18 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
-import 'package:expenses/user/screens/budget/widget/custom_app_bar.dart';
 import 'package:expenses/user/screens/budget/widget/transaction_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AddTransaction extends StatefulWidget {
-  const AddTransaction({super.key});
+class AddTransactionBudget extends StatefulWidget {
+  const AddTransactionBudget({super.key});
 
   @override
-  State<AddTransaction> createState() => _AddTransactionState();
+  State<AddTransactionBudget> createState() => _AddTransactionBudgetState();
 }
 
-class _AddTransactionState extends State<AddTransaction> {
+class _AddTransactionBudgetState extends State<AddTransactionBudget> {
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedtTime = TimeOfDay.now();
 

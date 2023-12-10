@@ -49,7 +49,7 @@ class Budget extends StatelessWidget {
         ),
         CustomIcon(
           onPressed: () {
-            AutoRouter.of(context).push(AddTransactionRoute());
+            AutoRouter.of(context).push(AddTransactionBudgetRoute());
           },
         ),
       ]),

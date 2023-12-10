@@ -1,7 +1,8 @@
 part of 'main_widgets_imports.dart';
 
 class BuildPieChart extends StatelessWidget {
-  BuildPieChart({Key? key, required this.mainData, required this.homeTabCubit}) : super(key: key);
+  BuildPieChart({Key? key, required this.mainData, required this.homeTabCubit})
+      : super(key: key);
   final MainData mainData;
   final GenericBloc<int> homeTabCubit;
   @override
@@ -54,7 +55,8 @@ class BuildPieChart extends StatelessWidget {
                       //         mainData.widgets.keys.toList()[touchedIndex],
                       //   ),
                       // );
-                      homeTabCubit.onUpdateData(mainData.widgets.values.toList()[touchedIndex]);
+                      homeTabCubit.onUpdateData(
+                          mainData.widgets.values.toList()[touchedIndex]);
                       // //print(mainData.widgets.values.toList()[touchedIndex]);
                       // print(data.homeTabCubit.state.data);
                     }
@@ -69,7 +71,31 @@ class BuildPieChart extends StatelessWidget {
                   //   size: 150.0.w,
                   //   controller: mainData.controller,
                   // ),
-                  Image.asset(Res.hourglass,width: 75.w,height: 75.h,),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 5.0.r),
+                        child: MyText(
+                          title: "3000",
+                          color: MyColors.txtColor,
+                          size: 12.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Image.asset(
+                        Res.hourglass,
+                        width: 75.w,
+                        height: 75.h,
+                      ),
+                      MyText(
+                        title: "250",
+                        color: MyColors.txtColor,
+                        size: 12.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ],
+                  ),
                   SizedBox(
                     height: 100.h,
                   ),
@@ -80,17 +106,17 @@ class BuildPieChart extends StatelessWidget {
                         onTap: () {},
                         child: Icon(
                           Icons.add,
-                          color: MyColors.white,
+                          color: MyColors.black,
                         ),
                       ),
                       SizedBox(
-                        height: 8.h,
+                        height: 5.h,
                       ),
                       InkWell(
                         onTap: () {},
                         child: Icon(
                           Icons.remove,
-                          color: MyColors.white,
+                          color: MyColors.black,
                           size: 25.w,
                         ),
                       ),

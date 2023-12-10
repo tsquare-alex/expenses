@@ -32,7 +32,7 @@ class _SplashState extends State<Splash> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          color: MyColors.backgroundColor,
+          color: context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.backgroundColor:MyColors.white,
         ),
         child: Center(
           child: AnimationContainer(

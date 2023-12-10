@@ -22,7 +22,7 @@ class BuildTransactionItem extends StatelessWidget {
           child: Row(
             children: [
               CircleAvatar(
-                backgroundColor: MyColors.primary,
+                backgroundColor: context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.primary:MyColors.primary,
                 radius: radius??25.r,
                 child: Image.asset(
                   image,
@@ -36,7 +36,7 @@ class BuildTransactionItem extends StatelessWidget {
               ),
               MyText(
                 title: name,
-                color: MyColors.black,
+                color: context.watch<AppThemeCubit>().isDarkMode?MyColors.white:MyColors.black,
                 size: 14.sp,
                 fontWeight: FontWeight.bold,
               ),

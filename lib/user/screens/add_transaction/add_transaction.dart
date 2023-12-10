@@ -15,9 +15,7 @@ class _AddTransactionState extends State<AddTransaction> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: MyColors.white,
       appBar: AppBar(
-        backgroundColor: MyColors.primary,
         elevation: 0,
         leading: IconButton(
           onPressed: () => AutoRouter.of(context).pop(),

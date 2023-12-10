@@ -1,5 +1,7 @@
+import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/generic_bloc/generic_cubit.dart';
 import 'package:expenses/res.dart';
+import 'package:expenses/user/models/tab_model/tab_model.dart';
 import 'package:expenses/user/screens/home/taps/main/main_imports.dart';
 import 'package:expenses/user/screens/home/widgets/HomeWidgetsImports.dart';
 import 'package:flutter/material.dart';

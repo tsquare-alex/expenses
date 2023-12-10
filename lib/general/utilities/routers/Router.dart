@@ -20,6 +20,7 @@ part of 'RouterImports.dart';
     AdaptiveRoute(page: AddDatabase),
 
 
+    AdaptiveRoute(page: AddTransaction),
 
 
   ],

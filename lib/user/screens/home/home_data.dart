@@ -11,15 +11,19 @@ class HomeData{
 
   final GenericBloc<int> homeTabCubit = GenericBloc(0);
 
-  List<String> activeTabs = [
-    Res.dollar,
-    Res.home,
-    Res.cart,
-  ];
-  List<String> tabs = [
-    Res.dollar,
-    Res.home,
-    Res.cart,
+  List<TabModel> tabs = [
+    TabModel(
+      image: Res.dollar,
+      title: "المعاملات",
+    ),
+    TabModel(
+      image: Res.home,
+      title: "الرئيسية",
+    ),
+    TabModel(
+      image: Res.cart,
+      title: "الاحصائيات",
+    ),
   ];
 
   void initBottomNavigation(TickerProvider ticker,int index) {

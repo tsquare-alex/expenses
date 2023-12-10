@@ -73,7 +73,7 @@ class MainData{
     const Wallet(),
     const Budget(),
      Database(),
-    Container(),
+    const Settings(),
     const Reports(),
     const Transactions(),
     Container(),

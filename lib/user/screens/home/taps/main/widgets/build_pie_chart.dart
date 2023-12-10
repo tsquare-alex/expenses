@@ -71,28 +71,33 @@ class BuildPieChart extends StatelessWidget {
                   //   size: 150.0.w,
                   //   controller: mainData.controller,
                   // ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Stack(
+                    alignment: AlignmentDirectional.center,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 5.0.r),
-                        child: MyText(
-                          title: "3000",
-                          color: MyColors.txtColor,
-                          size: 12.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
                       Image.asset(
                         Res.hourglass,
-                        width: 75.w,
-                        height: 75.h,
+                        width: 100.w,
+                        height: 100.h,
                       ),
-                      MyText(
-                        title: "250",
-                        color: MyColors.txtColor,
-                        size: 12.sp,
-                        fontWeight: FontWeight.bold,
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          MyText(
+                            title: "3000",
+                            color: MyColors.primary,
+                            size: 12.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          SizedBox(
+                            height: 30.h,
+                          ),
+                          MyText(
+                            title: "250",
+                            color: MyColors.white,
+                            size: 12.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -109,9 +114,7 @@ class BuildPieChart extends StatelessWidget {
                           color: MyColors.black,
                         ),
                       ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
+
                       InkWell(
                         onTap: () {},
                         child: Icon(

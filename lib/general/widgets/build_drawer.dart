@@ -7,7 +7,7 @@ class BuildDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-        backgroundColor: MyColors.white,
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.backgroundColor:MyColors.white,
         width: 220.w,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -76,8 +76,8 @@ class BuildDrawer extends StatelessWidget {
                       title: 'عن التطبيق',
                       onTap: () {},
                       image: Res.about,
-                      color: MyColors.white,
-                      textColor: MyColors.black,
+                      color: context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.backgroundColor:MyColors.white,
+                      textColor: context.watch<AppThemeCubit>().isDarkMode?MyColors.white:MyColors.black,
                       imageColor: MyColors.primary,
                       endDrawer: false,
                     ),
@@ -85,8 +85,8 @@ class BuildDrawer extends StatelessWidget {
                       title: 'الشروط والاحكام',
                       onTap: () {},
                       image: Res.terms,
-                      color: MyColors.white,
-                      textColor: MyColors.black,
+                      color: context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.backgroundColor:MyColors.white,
+                      textColor: context.watch<AppThemeCubit>().isDarkMode?MyColors.white:MyColors.black,
                       imageColor: MyColors.primary,
                       endDrawer: false,
                     ),
@@ -94,8 +94,8 @@ class BuildDrawer extends StatelessWidget {
                       title: 'تقييم',
                       onTap: () {},
                       image: Res.star,
-                      color: MyColors.white,
-                      textColor: MyColors.black,
+                      color: context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.backgroundColor:MyColors.white,
+                      textColor: context.watch<AppThemeCubit>().isDarkMode?MyColors.white:MyColors.black,
                       imageColor: MyColors.amber,
                       endDrawer: false,
                     ),

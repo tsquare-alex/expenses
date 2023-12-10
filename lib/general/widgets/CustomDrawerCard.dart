@@ -1,6 +1,9 @@
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/themes/app_colors.dart';
+import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomDrawerCard extends StatelessWidget {
@@ -31,7 +34,7 @@ class CustomDrawerCard extends StatelessWidget {
         padding: EdgeInsets.all(8.r),
         margin: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-          color: color??MyColors.primary
+          color: color != null?color:context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.primary:MyColors.primary
         ),
         child: Row(
           children: [

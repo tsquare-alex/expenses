@@ -24,11 +24,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       const Transactions(),
       Main(homeTabCubit:  data.homeTabCubit,),
       const Reports(),
+      const Settings(),
       Container(),
+      Database(),
       Container(),
-      const Database(),
-      Container(),
-      Container(),
+      const Wallet(),
       const Budget(),
     ];
     return WillPopScope(
@@ -51,7 +51,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             key: data.scaffold,
             backgroundColor: MyColors.white,
             appBar: AppBar(
-              backgroundColor: MyColors.primary,
+              //backgroundColor: MyColors.primary,
               // leadingWidth: 35.w,
               title: BlocBuilder<GenericBloc<int>, GenericState<int>>(
                 bloc: data.homeTabCubit,

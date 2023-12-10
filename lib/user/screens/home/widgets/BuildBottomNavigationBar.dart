@@ -19,7 +19,7 @@ class BuildBottomNavigationBar extends StatelessWidget {
               controller: controller,
             );
           },
-          backgroundColor: MyColors.primary,
+          backgroundColor: context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.primary:MyColors.primary,
           splashColor: MyColors.primary,
           activeIndex: state.data,
           gapLocation: GapLocation.none,

@@ -17,7 +17,7 @@ class _MainState extends State<Main> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         shape: const CircleBorder(),
-        backgroundColor: MyColors.primary,
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.primary:MyColors.primary,
         child: Icon(
           Icons.edit,
           color: MyColors.white,

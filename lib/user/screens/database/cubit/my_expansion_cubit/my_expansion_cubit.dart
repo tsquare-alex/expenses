@@ -139,15 +139,15 @@ class MyExpansionCubit extends Cubit<MyExpansionState> {
     if (errorMessage.isEmpty) {
       emit(MyExpansionSuccess());
     } else {
-      // Fluttertoast.showToast(
-      //     msg: errorMessage,
-      //     toastLength: Toast.LENGTH_SHORT,
-      //     gravity: ToastGravity.CENTER,
-      //     timeInSecForIosWeb: 1,
-      //     backgroundColor: Colors.red,
-      //     textColor: Colors.white,
-      //     fontSize: 16.0
-      // );
+      Fluttertoast.showToast(
+          msg: errorMessage,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
       emit(MyExpansionError(message: errorMessage));
     }
   }

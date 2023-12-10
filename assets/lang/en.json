@@ -39,6 +39,72 @@
   "loginHint": "Log in to your account with us",
   "invitationCode": "Invitation Code",
 
-  "main": "Main"
+  "main": "Main",
+
+  "category": "Category",
+  "categoryAddNewCategory": "Add a new category",
+
+
+  "databaseAddNames": "Names",
+  "databaseAddNamesAdjective": "Adjective",
+  "databaseAddNamesFirstName": "First Name",
+  "databaseAddNamesSecondName": "Second Name",
+  "databasePhoneNumbers": "Phone Numbers",
+  "databaseTheNewNumber": "The New Number",
+  "cancel": "Cancel",
+  "add": "Add",
+  "databaseAddPhoneNumber": "Add Phone Number",
+  "databaseJob": "Job",
+  "databaseJobTitle": "Job Title",
+  "databaseDepartment": "Department",
+  "databaseCompany": "Company",
+  "databaseAddress": "Address",
+  "databaseAddressCountry": "Country",
+  "databaseAddressGovernorate": "Governorate",
+  "databaseAddressCity": "City",
+  "databaseAddressStreet": "Street",
+  "databaseAddressBuildingNumber" : "Building Number",
+  "databaseAddressApartmentNumber" : "Apartment Number",
+  "databaseAddressPostal": "Postal Code",
+
+
+  "databaseEmail": "Email",
+  "databaseAddEmail": "Add Email",
+  "databaseTheNewEmail": "Add New Email",
+
+  "databaseImportantHistory": "Important History",
+  "databaseEventTitle": "Event Title",
+  "databaseEventDate": "EventDate",
+  "databaseEventDetails": "EventDetails",
+  "databaseEventDate": "Date",
+  "databaseComment": "Comment's",
+  "databaseSocialAddress": "Social Address",
+  "databaseSocialAddressWeb": "Web Address",
+  "databaseSocialAddressFacebook": "FaceBook",
+  "databaseSocialAddressInstagram": "Instagram",
+  "databaseSocialAddressYoutube": "YouTube",
+  "databaseSocialAddressMessenger": "Messenger",
+  "databaseSocialAddressAddWeb": "Add Web"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

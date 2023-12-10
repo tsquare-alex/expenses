@@ -36,11 +36,11 @@ class _BuildNamesExpansionState extends State<BuildNamesExpansion> {
   Widget build(BuildContext context) {
     return Form(
       key: widget.namesFormKey,
-      // autovalidateMode:  AutovalidateMode.onUserInteraction,
+      autovalidateMode:  AutovalidateMode.onUserInteraction,
       child: ExpansionTile(
         leading: Icon(Icons.person, color: MyColors.primary),
         title: MyText(
-          title: "الأسماء",
+          title:tr(context,'databaseAddNames'),
           color: MyColors.primary,
           size: 15.sp,
         ),
@@ -51,32 +51,31 @@ class _BuildNamesExpansionState extends State<BuildNamesExpansion> {
             fieldTypes: FieldTypes.normal,
             type: TextInputType.emailAddress,
             action: TextInputAction.next,
-            validate: (value) {
-              if(value!.isEmpty){
-                return 'Enter your Email';
-              }
-            },
-            label: tr(context, "email"),
+            validate: (value)=> validateField(value),
+            label: tr(context, "databaseAddNamesAdjective"),
             margin: const EdgeInsets.only(top: 20),
           ),
-          // TextFormField(
-          //   controller: widget.designationController,
-          // ),
-          // TextFormField(
-          //   decoration: InputDecoration(hintText: "الصفة"),
-          //   validator: (value) => validateField(value),
-          //   controller: widget.designationController,
-          // ),
-          // TextFormField(
-          //   decoration: InputDecoration(hintText: "الاسم الاول"),
-          //   validator: (value) => validateField(value),
-          //   controller: widget.firstNameController,
-          // ),
-          // TextFormField(
-          //   decoration: InputDecoration(hintText: "الاسم الثانى"),
-          //   validator: (value) => validateField(value),
-          //   controller: widget.lastNameController,
-          // ),
+          GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+            controller: widget.firstNameController,
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.emailAddress,
+            action: TextInputAction.next,
+            validate: (value)=> validateField(value),
+            label: tr(context, "databaseAddNamesFirstName"),
+            margin: const EdgeInsets.only(top: 20),
+          ),
+          GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+            controller: widget.lastNameController,
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.emailAddress,
+            action: TextInputAction.next,
+            validate: (value)=> validateField(value),
+            label: tr(context, "databaseAddNamesSecondName"),
+            margin: const EdgeInsets.only(top: 20),
+          ),
+
         ],
       ),
     );

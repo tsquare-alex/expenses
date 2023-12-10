@@ -1,7 +1,10 @@
+import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../general/constants/MyColors.dart';
+import '../../../../general/constants/validation.dart';
+import '../../../../general/packages/localization/Localizations.dart';
 import '../../../../general/widgets/MyText.dart';
 
 class BuildLocationExpansion extends StatefulWidget {
@@ -24,12 +27,6 @@ class BuildLocationExpansion extends StatefulWidget {
 }
 
 class _BuildLocationExpansionState extends State<BuildLocationExpansion> {
-  String? validateField(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return 'This field cannot be empty.';
-    }
-    return null;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,57 +37,80 @@ class _BuildLocationExpansionState extends State<BuildLocationExpansion> {
           Icons.location_on_outlined,
           color: MyColors.primary,
         ),
-        title: MyText(title: "العنوان", color: MyColors.primary, size: 15.sp),
+        title: MyText(title: tr(context, "databaseAddress"), color: MyColors.primary, size: 15.sp),
         children: [
-          TextFormField(
-            validator: (value) => validateField(value),
-
-            decoration: const InputDecoration(hintText: "الدولة"),
+          GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: widget.countryController,
-            onChanged: (value) {},
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.emailAddress,
+            action: TextInputAction.next,
+            validate: (value)=> validateField(value),
+            label: tr(context, "databaseAddressCountry"),
+            margin: const EdgeInsets.only(top: 20),
           ),
-          TextFormField(
-            validator: (value) => validateField(value),
-
-            decoration: const InputDecoration(hintText: "المحافظة"),
+          GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: widget.governorateController,
-            onChanged: (value) {},
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.emailAddress,
+            action: TextInputAction.next,
+            validate: (value)=> validateField(value),
+            label: tr(context, "databaseAddressGovernorate"),
+            margin: const EdgeInsets.only(top: 20),
           ),
-          TextFormField(
-            validator: (value) => validateField(value),
-
-            decoration: const InputDecoration(hintText: "المدينة"),
+          GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: widget.cityController,
-            onChanged: (value) {},
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.emailAddress,
+            action: TextInputAction.next,
+            validate: (value)=> validateField(value),
+            label: tr(context, "databaseAddressCity"),
+            margin: const EdgeInsets.only(top: 20),
           ),
-          TextFormField(
-            validator: (value) => validateField(value),
-
-            decoration: const InputDecoration(hintText: "الشارع"),
+          GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: widget.streetController,
-            onChanged: (value) {},
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.emailAddress,
+            action: TextInputAction.next,
+            validate: (value)=> validateField(value),
+            label: tr(context, "databaseAddressStreet"),
+            margin: const EdgeInsets.only(top: 20),
           ),
-          TextFormField(
-            validator: (value) => validateField(value),
-
-            decoration: const InputDecoration(hintText: "رقم البناية"),
+          GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: widget.buildingNumberController,
-            onChanged: (value) {},
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.emailAddress,
+            action: TextInputAction.next,
+            validate: (value)=> validateField(value),
+            label: tr(context, "databaseAddressBuildingNumber"),
+            margin: const EdgeInsets.only(top: 20),
           ),
-          TextFormField(
-            validator: (value) => validateField(value),
-
-            decoration: const InputDecoration(hintText: "رقم الشقة"),
+          GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: widget.apartmentNumberController,
-            onChanged: (value) {},
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.emailAddress,
+            action: TextInputAction.next,
+            validate: (value)=> validateField(value),
+            label: tr(context, "databaseAddressApartmentNumber"),
+            margin: const EdgeInsets.only(top: 20),
           ),
-          TextFormField(
-            validator: (value) => validateField(value),
-
-            decoration: const InputDecoration(hintText: "الصندوق البريدى"),
+          GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: widget.postalController,
-            onChanged: (value) {},
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.emailAddress,
+            action: TextInputAction.next,
+            validate: (value)=> validateField(value),
+            label: tr(context, "databaseAddressPostal"),
+            margin: const EdgeInsets.only(top: 20),
           ),
+
+
           TextFormField(
             validator: (value) => validateField(value),
 

@@ -1,4 +1,5 @@
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,8 +30,9 @@ class _BuildEmailExpansionState extends State<BuildEmailExpansion> {
       key: widget.emailFormKey,
       child: ExpansionTile(
         leading: Icon(Icons.email_outlined, color: MyColors.primary),
+
         title: MyText(
-            title: "البريد الالكترونى", color: MyColors.primary, size: 15.sp),
+            title:tr(context, "databaseEmail"), color: MyColors.primary, size: 15.sp),
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18.0),
@@ -40,10 +42,8 @@ class _BuildEmailExpansionState extends State<BuildEmailExpansion> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MyText(
-                        title: "البريد الالكترونى",
-                        color: Colors.grey,
-                        size: 12.sp),
+                      MyText(title: widget.emailController.text.isEmpty ? tr(context, "databaseEmail") :widget.emailController.text, color:MyColors.primary, size: 12.sp),
+
                     Container(
                       padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
@@ -98,7 +98,10 @@ class _BuildEmailExpansionState extends State<BuildEmailExpansion> {
                             context: context,
                             builder: (BuildContext context) {
                               return SimpleDialog(
-                                title: const Text('إضافة بريد جديد'),
+                                title:  MyText(
+                                    title: tr(context, "databaseAddEmail"),
+                                    color: Colors.grey,
+                                    size: 12.sp),
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.all(16.0),
@@ -118,7 +121,10 @@ class _BuildEmailExpansionState extends State<BuildEmailExpansion> {
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
-                                        child: const Text('إلغاء'),
+                                        child:  MyText(
+                                            title: tr(context, "cancel"),
+                                            color:  MyColors.primary,
+                                            size: 12.sp),
                                       ),
                                       TextButton(
                                         onPressed: () {
@@ -136,7 +142,10 @@ class _BuildEmailExpansionState extends State<BuildEmailExpansion> {
                                             );
                                           }
                                         },
-                                        child: const Text('إضافة'),
+                                        child: MyText(
+                                            title: tr(context, "add"),
+                                            color:  MyColors.primary,
+                                            size: 12.sp),
                                       ),
                                     ],
                                   ),
@@ -168,15 +177,18 @@ class _BuildEmailExpansionState extends State<BuildEmailExpansion> {
                           builder: (BuildContext context) {
                             String phoneNumber = '';
                             return SimpleDialog(
-                              title: const Text('إضافة بريد الكترونى'),
+                              title:  MyText(
+                                  title: tr(context, "databaseAddEmail"),
+                                  color:  MyColors.primary,
+                                  size: 12.sp),
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(16.0),
                                   child: TextFormField(
                                     validator: (value) => validateField(value),
 
-                                    decoration: const InputDecoration(
-                                      labelText: 'البريد الجديد',
+                                    decoration:  InputDecoration(
+                                      labelText: tr(context, "databaseTheNewEmail"),
                                     ),
                                     onChanged: (value) {
                                       phoneNumber = value;
@@ -190,7 +202,10 @@ class _BuildEmailExpansionState extends State<BuildEmailExpansion> {
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
-                                      child: const Text('إلغاء'),
+                                      child:  MyText(
+                                          title: tr(context, "cancel"),
+                                          color: MyColors.primary,
+                                          size: 12.sp),
                                     ),
                                     TextButton(
                                       onPressed: () {
@@ -199,14 +214,19 @@ class _BuildEmailExpansionState extends State<BuildEmailExpansion> {
                                         } else {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
-                                            const SnackBar(
-                                              content: Text(
-                                                  'يرجى إدخال رقم تليفون.'),
+                                             SnackBar(
+                                              content:   MyText(
+                                                  title: tr(context, "databaseAddEmail"),
+                                                  color: MyColors.primary,
+                                                  size: 12.sp),
                                             ),
                                           );
                                         }
                                       },
-                                      child: const Text('إضافة'),
+                                      child:  MyText(
+                                          title: tr(context, "add"),
+                                          color: MyColors.primary,
+                                          size: 12.sp),
                                     ),
                                   ],
                                 ),
@@ -226,8 +246,9 @@ class _BuildEmailExpansionState extends State<BuildEmailExpansion> {
                           const Icon(Icons.add_circle_outline_rounded,
                               color: Colors.red),
                           const SizedBox(width: 7),
+
                           MyText(
-                            title: "أضافة بريد الكترونى",
+                            title: tr(context, "databaseAddEmail"),
                             color: Colors.red,
                             size: 12.sp,
                             fontWeight: FontWeight.bold,
@@ -238,7 +259,6 @@ class _BuildEmailExpansionState extends State<BuildEmailExpansion> {
                     ),
                   ],
                 ),
-                Text("The Email is: ${widget.emailController.text ?? ""}"),
               ],
             ),
           ),

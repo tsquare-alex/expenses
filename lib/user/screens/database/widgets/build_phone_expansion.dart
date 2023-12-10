@@ -1,7 +1,9 @@
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../general/constants/MyColors.dart';
+import '../../../../general/constants/validation.dart';
 import '../../../../general/widgets/MyText.dart';
 
 class BuildPhoneExpansion extends StatefulWidget {
@@ -22,12 +24,7 @@ class _BuildPhoneExpansionState extends State<BuildPhoneExpansion> {
     'فاكس',
   ];
 
-   String? validateField(String? value) {
-     if (value == null || value.trim().isEmpty) {
-       return 'This field cannot be empty.';
-     }
-     return null;
-   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +44,7 @@ class _BuildPhoneExpansionState extends State<BuildPhoneExpansion> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MyText(title: "أضافة رقم", color: Colors.grey, size: 12.sp),
+                    MyText(title: widget.phoneController.text.isEmpty ? "أضافة رقم" :widget.phoneController.text, color: Colors.grey, size: 12.sp),
                     Container(
                       padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
@@ -173,15 +170,15 @@ class _BuildPhoneExpansionState extends State<BuildPhoneExpansion> {
                           builder: (BuildContext context) {
                             String phoneNumber = '';
                             return SimpleDialog(
-                              title: const Text('إضافة رقم تليفون'),
+                              title:  Text(tr(context, "databasePhoneNumbers")),
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(16.0),
                                   child: TextFormField(
                                     validator: (value) => validateField(value),
 
-                                    decoration: const InputDecoration(
-                                      labelText: 'الرقم الجديد',
+                                    decoration:  InputDecoration(
+                                      labelText: tr(context, "databaseTheNewNumber"),
                                     ),
                                     onChanged: (value) {
                                       phoneNumber = value;
@@ -195,7 +192,7 @@ class _BuildPhoneExpansionState extends State<BuildPhoneExpansion> {
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
-                                      child: const Text('إلغاء'),
+                                      child:  MyText(title: tr(context, "cancel"), color: MyColors.primary, size: 12.sp),
                                     ),
                                     TextButton(
                                       onPressed: () {
@@ -211,7 +208,7 @@ class _BuildPhoneExpansionState extends State<BuildPhoneExpansion> {
                                           );
                                         }
                                       },
-                                      child: const Text('إضافة'),
+                                      child:  MyText(title: tr(context, "add"), color: MyColors.primary, size: 12.sp),
                                     ),
                                   ],
                                 ),
@@ -232,7 +229,7 @@ class _BuildPhoneExpansionState extends State<BuildPhoneExpansion> {
                               color: Colors.red),
                           const SizedBox(width: 7),
                           MyText(
-                            title: "أضافة رقم تليفون",
+                            title: tr(context, "databaseAddPhoneNumber"),
                             color: Colors.red,
                             size: 12.sp,
                             fontWeight: FontWeight.bold,
@@ -243,8 +240,6 @@ class _BuildPhoneExpansionState extends State<BuildPhoneExpansion> {
                     ),
                   ],
                 ),
-                Text("The Phone Number is: ${widget.phoneController.text ?? ""}"),
-                // Display the added phone number
               ],
             ),
           ),

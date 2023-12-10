@@ -1,9 +1,11 @@
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../general/constants/validation.dart';
+import '../../../../general/packages/input_fields/GenericTextField.dart';
 
 class BuildAddressExpansion extends StatefulWidget {
   const BuildAddressExpansion({Key? key, required this.socialAddressFormKey, required this.socialWebController, required this.facebookController, required this.instagramController, required this.youtubeController, required this.messengerController, required this.theSocialController}) : super(key: key);
@@ -32,53 +34,69 @@ class _BuildAddressExpansionState extends State<BuildAddressExpansion> {
           color: MyColors.primary,
         ),
         title: MyText(
-            title: "عناوين الكترونية", color: MyColors.primary, size: 15.sp),
+            title: tr(context, "databaseSocialAddress"), color: MyColors.primary, size: 15.sp),
         children: [
-          TextFormField(
-            validator: (value) => validateField(value),
-
-            decoration: const InputDecoration(hintText: "الموقع الالكترونى"),
+          GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: widget.socialWebController,
-            onChanged: (value) {},
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.emailAddress,
+            action: TextInputAction.next,
+            validate: (value)=> validateField(value),
+            label: tr(context, "databaseSocialAddressWeb"),
+            margin: const EdgeInsets.only(top: 20),
           ),
-          TextFormField(
-            validator: (value) => validateField(value),
-
-            decoration: const InputDecoration(hintText: "الفيس بوك"),
+          GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: widget.facebookController,
-            onChanged: (value) {},
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.emailAddress,
+            action: TextInputAction.next,
+            validate: (value)=> validateField(value),
+            label: tr(context, "databaseSocialAddressFacebook"),
+            margin: const EdgeInsets.only(top: 20),
           ),
-          TextFormField(
-            validator: (value) => validateField(value),
-
-            decoration: const InputDecoration(hintText: "الانستجرام"),
+          GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: widget.instagramController,
-            onChanged: (value) {},
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.emailAddress,
+            action: TextInputAction.next,
+            validate: (value)=> validateField(value),
+            label: tr(context, "databaseSocialAddressInstagram"),
+            margin: const EdgeInsets.only(top: 20),
           ),
-          TextFormField(
-            validator: (value) => validateField(value),
-
-            decoration: const InputDecoration(hintText: "اليوتيوب"),
+          GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: widget.youtubeController,
-            onChanged: (value) {},
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.emailAddress,
+            action: TextInputAction.next,
+            validate: (value)=> validateField(value),
+            label: tr(context, "databaseSocialAddressYoutube"),
+            margin: const EdgeInsets.only(top: 20),
           ),
-          TextFormField(
-            validator: (value) => validateField(value),
-
-            decoration: const InputDecoration(hintText: "الماسنجر"),
+          GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: widget.messengerController,
-            onChanged: (value) {},
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.emailAddress,
+            action: TextInputAction.next,
+            validate: (value)=> validateField(value),
+            label: tr(context, "databaseSocialAddressMessenger"),
+            margin: const EdgeInsets.only(top: 20),
           ),
-          TextFormField(
-            validator: (value) => validateField(value),
-
-            readOnly: true,
-            decoration: const InputDecoration(
-              hintText: "موقع الكترونى",
-            ),
+          GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: widget.theSocialController,
-            onChanged: (value) {},
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.emailAddress,
+            action: TextInputAction.next,
+            validate: (value)=> validateField(value),
+            label: tr(context, "databaseSocialAddressWeb"),
+            margin: const EdgeInsets.only(top: 20),
           ),
+
           const SizedBox(height: 16),
           Row(
             children: [
@@ -89,15 +107,16 @@ class _BuildAddressExpansionState extends State<BuildAddressExpansion> {
                     builder: (BuildContext context) {
                       String webAddress = '';
                       return SimpleDialog(
-                        title: const Text('أضافة موقع الكترونى'),
+                        title:  MyText(
+                            title: tr(context, "databaseSocialAddressAddWeb"), color: MyColors.primary, size: 12.sp),
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: TextFormField(
                               validator: (value) => validateField(value),
 
-                              decoration: const InputDecoration(
-                                labelText: 'الموقع الالكترونى الجديد',
+                              decoration:  InputDecoration(
+                                labelText: tr(context, "databaseSocialAddressAddWeb"),
                               ),
                               controller: widget.theSocialController,
                               onChanged: (value) {
@@ -112,7 +131,10 @@ class _BuildAddressExpansionState extends State<BuildAddressExpansion> {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: const Text('إلغاء'),
+                                child:  MyText(
+                                    title: tr(context, "cancel"),
+                                    color:  MyColors.primary,
+                                    size: 12.sp),
                               ),
                               TextButton(
                                 onPressed: () {
@@ -120,13 +142,19 @@ class _BuildAddressExpansionState extends State<BuildAddressExpansion> {
                                     Navigator.pop(context, webAddress);
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('يرجى إدخال موقع جديد.'),
+                                       SnackBar(
+                                        content:  MyText(
+                                            title: tr(context, "databaseSocialAddressAddWeb"),
+                                            color:  MyColors.primary,
+                                            size: 12.sp),
                                       ),
                                     );
                                   }
                                 },
-                                child: const Text('إضافة'),
+                                child:  MyText(
+                                    title: tr(context, "databaseSocialAddressAddWeb"),
+                                    color:  MyColors.primary,
+                                    size: 12.sp),
                               ),
                             ],
                           ),
@@ -147,7 +175,7 @@ class _BuildAddressExpansionState extends State<BuildAddressExpansion> {
                         color: Colors.red),
                     const SizedBox(width: 7),
                     MyText(
-                      title: "أضافة موقع الكترونى",
+                      title: tr(context, "databaseSocialAddressAddWeb"),
                       color: Colors.red,
                       size: 12.sp,
                       fontWeight: FontWeight.bold,

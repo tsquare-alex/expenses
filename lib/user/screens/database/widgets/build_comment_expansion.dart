@@ -1,9 +1,11 @@
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../general/constants/validation.dart';
+import '../../../../general/packages/input_fields/GenericTextField.dart';
 
 class BuildCommentExpansion extends StatefulWidget {
   const BuildCommentExpansion({Key? key, required this.commentController, required this.commentFormKey}) : super(key: key);
@@ -24,13 +26,13 @@ class _BuildCommentExpansionState extends State<BuildCommentExpansion> {
           Icons.edit_note_sharp,
           color: MyColors.primary,
         ),
-        title: MyText(title: "ملاحظات", color: MyColors.primary, size: 15.sp),
+        title: MyText(title: tr(context, "databaseComment"), color: MyColors.primary, size: 15.sp),
         children: [
           TextFormField(
             validator: (value) => validateField(value),
 
-            decoration: const InputDecoration(
-                hintText: "ملاحظة1",
+            decoration:  InputDecoration(
+                hintText: tr(context, "databaseComment"),
                 focusedBorder: OutlineInputBorder(),
                 enabledBorder: OutlineInputBorder()),
             controller: widget.commentController,

@@ -1,8 +1,11 @@
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/constants/validation.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../general/packages/input_fields/GenericTextField.dart';
 
 class BuildDateExpansion extends StatefulWidget {
   const BuildDateExpansion({Key? key, required this.dateFormKey, required this.dateLocationController, required this.dateTimeController, required this.dateDetailsController, required this.dateController}) : super(key: key);
@@ -27,36 +30,44 @@ class _BuildDateExpansionState extends State<BuildDateExpansion> {
           Icons.date_range_outlined,
           color: MyColors.primary,
         ),
-        title: MyText(title: "تاريخ هام", color: MyColors.primary, size: 15.sp),
+        title: MyText(title: tr(context, "databaseImportantHistory"), color: MyColors.primary, size: 15.sp),
         children: [
-          TextFormField(
-            validator: (value) => validateField(value),
-
-            decoration: const InputDecoration(hintText: "عنوان المناسبة"),
+          GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: widget.dateLocationController,
-            onChanged: (value) {},
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.emailAddress,
+            action: TextInputAction.next,
+            validate: (value)=> validateField(value),
+            label: tr(context, "databaseEventTitle"),
+            margin: const EdgeInsets.only(top: 20),
           ),
-          TextFormField(
-            validator: (value) => validateField(value),
-
-            decoration: const InputDecoration(hintText: "تاريخ المناسبة"),
+          GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: widget.dateTimeController,
-            onChanged: (value) {},
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.emailAddress,
+            action: TextInputAction.next,
+            validate: (value)=> validateField(value),
+            label: tr(context, "databaseEventDate"),
+            margin: const EdgeInsets.only(top: 20),
           ),
-          TextFormField(
-            validator: (value) => validateField(value),
-
-            decoration: const InputDecoration(hintText: "تفاصيل المناسبة"),
+          GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: widget.dateDetailsController,
-            onChanged: (value) {},
-            maxLines: 5,
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.emailAddress,
+            action: TextInputAction.next,
+            validate: (value)=> validateField(value),
+            label: tr(context, "databaseEventDetails"),
+            margin: const EdgeInsets.only(top: 20),
           ),
+
           TextFormField(
             validator: (value) => validateField(value),
-
             readOnly: true,
-            decoration: const InputDecoration(
-              hintText: "التاريخ",
+            decoration:  InputDecoration(
+              hintText: tr(context, "databaseEventDate"),
             ),
             controller: widget.dateController,
             onChanged: (value) {},

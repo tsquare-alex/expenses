@@ -10,10 +10,7 @@ class Database extends StatelessWidget {
       create: (context) => DatabaseCubit(),
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => AddDatabase()));
-            },
+            onPressed: () => AutoRouter.of(context).push(AddDatabaseRoute()),
             child: const Icon(Icons.add)),
         backgroundColor: MyColors.headerColor.withOpacity(0.2),
         appBar: AppBar(
@@ -61,52 +58,5 @@ class Database extends StatelessWidget {
   }
 }
 
-class AddDatabase extends StatelessWidget {
 
-MyExpansionCubit myCubit = MyExpansionCubit();
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MyExpansionCubit(),
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: MyColors.primary,
-          title: MyText(
-            title: "أضافة جهة",
-            color: MyColors.white,
-            size: 18.sp,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                DottedBorder(
-                  color: Colors.black,
-                  strokeWidth: 2,
-                  child: Column(
-                    children: [
-                      const Icon(Icons.camera_alt_outlined),
-                      MyText(
-                          title: "أضف صورة",
-                          color: MyColors.primary,
-                          size: 12.sp),
-                    ],
-                  ),
-                ),
-
-                MyExpansionTile(),
-                const SizedBox(height: 16.0),
-
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
 

@@ -45,7 +45,7 @@ dependencies:
   flutter_easyloading:
   flutter_screenutil:
   flutter_staggered_animations:
-  auto_route:
+  auto_route: ^5.0.4
   location:
   flutter_phoenix:
   shared_preferences:

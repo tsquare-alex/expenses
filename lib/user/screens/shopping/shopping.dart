@@ -1,19 +1,15 @@
-part of 'add_transaction_imports.dart';
+part of 'shopping_imports.dart';
 
-class AddTransaction extends StatefulWidget {
-  const AddTransaction({Key? key}) : super(key: key);
+class Shopping extends StatefulWidget {
+  const Shopping({Key? key}) : super(key: key);
 
   @override
-  State<AddTransaction> createState() => _AddTransactionState();
+  State<Shopping> createState() => _ShoppingState();
 }
 
-class _AddTransactionState extends State<AddTransaction> {
-
-  AddTransactionData data = AddTransactionData();
-
+class _ShoppingState extends State<Shopping> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: MyColors.white,
       appBar: AppBar(
@@ -29,21 +25,16 @@ class _AddTransactionState extends State<AddTransaction> {
         ),
         centerTitle: true,
         title: MyText(
-          title: "أصناف/أنواع المعاملات",
+          title: "التسوق والشراء",
           color: MyColors.white,
           size: 16.sp,
           fontWeight: FontWeight.bold,
         ),
       ),
-      body: DefaultTabController(
-        length: 3,
-        child: Column(
-          children: [
-            // Content for Tab 1
-            BuildTransactionsView(data: data,),
+      body: Column(
+        children: [
 
-          ],
-        ),
+        ],
       ),
     );
   }

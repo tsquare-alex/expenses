@@ -27,6 +27,7 @@ class Res {
   static const String onboardingOne = "assets/images/onboardingOne.jpeg";
   static const String onboardingThree = "assets/images/onboardingThree.jpeg";
   static const String onboardingTwo = "assets/images/onboardingTwo.jpeg";
+  static const String one = "assets/images/one.png";
   static const String password = "assets/images/password.svg";
   static const String register = "assets/images/register.png";
   static const String report = "assets/images/report.png";
@@ -38,6 +39,7 @@ class Res {
   static const String tools = "assets/images/tools.png";
   static const String transaction = "assets/images/transaction.png";
   static const String twitter = "assets/images/twitter.png";
+  static const String two = "assets/images/two.png";
   static const String upload = "assets/images/upload.png";
   static const String wallet = "assets/images/wallet.png";
 }

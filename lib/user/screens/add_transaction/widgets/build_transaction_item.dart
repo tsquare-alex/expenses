@@ -2,10 +2,13 @@ part of 'add_transaction_widgets_imports.dart';
 
 class BuildTransactionItem extends StatelessWidget {
   const BuildTransactionItem(
-      {Key? key, required this.name, required this.image, this.content, this.hasContent, this.onTap,})
+      {Key? key, required this.name, required this.image, this.content, this.hasContent=false, this.onTap, this.radius, this.width, this.height,})
       : super(key: key);
   final String name;
   final String image;
+  final double? radius;
+  final double? width;
+  final double? height;
   final Widget? content;
   final bool? hasContent;
   final GestureTapCallback? onTap;
@@ -20,11 +23,11 @@ class BuildTransactionItem extends StatelessWidget {
             children: [
               CircleAvatar(
                 backgroundColor: MyColors.primary,
-                radius: 25.r,
+                radius: radius??25.r,
                 child: Image.asset(
                   image,
-                  width: 25.w,
-                  height: 25.w,
+                  width: width??25.w,
+                  height: height??25.w,
                   color: MyColors.white,
                 ),
               ),
@@ -44,7 +47,7 @@ class BuildTransactionItem extends StatelessWidget {
           padding: EdgeInsets.only(right: 30.r),
           child: content,
         ),
-        hasContent==true?Divider(
+        hasContent==false?Divider(
           thickness: 1.w,
         ):Container(),
       ],

@@ -14,25 +14,8 @@ class Budget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.white,
-      appBar: AppBar(
-        backgroundColor: MyColors.primary,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => AutoRouter.of(context).pop(),
-          icon: const Icon(Icons.arrow_back_ios),
-          color: MyColors.white,
-        ),
-        centerTitle: true,
-        title: MyText(
-          title: "الميزانية والخطط المالية",
-          color: MyColors.white,
-          size: 18.sp,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
       body: Column(children: [
-        Container(
-          height: 500.h,
+        Expanded(
           child: ListView.separated(
             itemCount: 5,
             itemBuilder: (context, index) => const ItemBudget(

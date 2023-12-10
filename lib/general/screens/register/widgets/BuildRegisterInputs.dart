@@ -23,7 +23,8 @@ class BuildRegisterFields extends StatelessWidget {
               if(value!.isEmpty){
                 return 'Enter your Name';
               }
-            },            label: "الاسم",
+            },
+            label: "الاسم",
             margin: const EdgeInsets.symmetric(vertical: 10),
           ),
           GenericTextField(

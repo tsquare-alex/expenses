@@ -7,7 +7,7 @@ class BuildEndDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-        backgroundColor: MyColors.white,
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.backgroundColor:MyColors.white,
         width: 235.w,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(

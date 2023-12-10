@@ -14,7 +14,6 @@ class _BMICalculatorState extends State<BMICalculator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.white,
       appBar: AppBar(
         backgroundColor: MyColors.primary,
         elevation: 0,

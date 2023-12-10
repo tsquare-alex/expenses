@@ -13,10 +13,10 @@ typedef bool DropdownSearchCompareFn<T>(T item, T? selectedItem);
 typedef Widget DropdownSearchBuilder<T>(
     BuildContext context, T? selectedItem, String itemAsString);
 typedef Widget DropdownSearchPopupItemBuilder<T>(
-    BuildContext context,
-    T item,
-    bool isSelected,
-    );
+  BuildContext context,
+  T item,
+  bool isSelected,
+);
 typedef bool DropdownSearchPopupItemEnabled<T>(T item);
 typedef Widget ErrorBuilder<T>(
     BuildContext context, String? searchEntry, dynamic exception);
@@ -326,10 +326,10 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
         Expanded(
           child: widget.dropdownBuilder != null
               ? widget.dropdownBuilder!(
-            context,
-            data,
-            _selectedItemAsString(data),
-          )
+                  context,
+                  data,
+                  _selectedItemAsString(data),
+                )
               : Text(_selectedItemAsString(data), style: widget.style),
         ),
         if (!widget.showAsSuffixIcons) _manageTrailingIcons(data),
@@ -425,24 +425,24 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
         if (data != null && widget.showClearButton == true)
           widget.clearButtonBuilder != null
               ? InkWell(
-            onTap: clearButtonPressed,
-            child: widget.clearButtonBuilder!(context),
-          )
+                  onTap: clearButtonPressed,
+                  child: widget.clearButtonBuilder!(context),
+                )
               : InkWell(
-            child:
-            widget.clearButton ?? const Icon(Icons.clear, size: 24),
-            onTap: clearButtonPressed,
-          ),
+                  child:
+                      widget.clearButton ?? const Icon(Icons.clear, size: 24),
+                  onTap: clearButtonPressed,
+                ),
         widget.dropdownButtonBuilder != null
             ? InkWell(
-          onTap: dropdownButtonPressed,
-          child: widget.dropdownButtonBuilder!(context),
-        )
+                onTap: dropdownButtonPressed,
+                child: widget.dropdownButtonBuilder!(context),
+              )
             : InkWell(
-          child: widget.dropDownButton ??
-              const Icon(Icons.arrow_drop_down, size: 24),
-          onTap: dropdownButtonPressed,
-        ),
+                child: widget.dropDownButton ??
+                    const Icon(Icons.arrow_drop_down, size: 24),
+                onTap: dropdownButtonPressed,
+              ),
       ],
     );
   }
@@ -501,7 +501,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
     final RenderBox popupButtonObject = context.findRenderObject() as RenderBox;
     // Get the render object of the overlay used in `Navigator` / `MaterialApp`, i.e. screen size reference
     final RenderBox overlay =
-    Overlay.of(context)!.context.findRenderObject() as RenderBox;
+        Overlay.of(context)!.context.findRenderObject() as RenderBox;
     // Calculate the show-up area for the dropdown using button's size & position based on the `overlay` used as the coordinate space.
     final RelativeRect position = RelativeRect.fromSize(
       Rect.fromPoints(
@@ -558,7 +558,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
       dialogMaxWidth: widget.dialogMaxWidth,
       itemDisabled: widget.popupItemDisabled,
       searchBoxController:
-      widget.searchBoxController ?? TextEditingController(),
+          widget.searchBoxController ?? TextEditingController(),
       searchDelay: widget.searchDelay,
       showFavoriteItems: widget.showFavoriteItems,
       favoriteItems: widget.favoriteItems,

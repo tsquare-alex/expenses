@@ -19,7 +19,8 @@ class DefaultButton extends StatelessWidget {
   final String? fontFamily;
   final FontWeight? fontWeight;
 
-  const DefaultButton({super.key,
+  const DefaultButton({
+    super.key,
     required this.title,
     this.onTap,
     this.color,
@@ -49,7 +50,7 @@ class DefaultButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onTap,
           style: ElevatedButton.styleFrom(
-            primary: color ?? DecorationUtils.primaryColor,
+            backgroundColor: color ?? DecorationUtils.primaryColor,
             shape: RoundedRectangleBorder(
               borderRadius: borderRadius ?? BorderRadius.circular(10),
               side: BorderSide(

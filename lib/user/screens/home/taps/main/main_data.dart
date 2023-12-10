@@ -67,12 +67,12 @@ class MainData{
       color: MyColors.primary,
     ),
   ];
-  
+
 
   List<Widget> widgets=[
     const Wallet(),
     const Budget(),
-    const Database(),
+     Database(),
     const Settings(),
     const Reports(),
     const Transactions(),

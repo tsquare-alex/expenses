@@ -16,6 +16,10 @@ part of 'RouterImports.dart';
     // user routes
     AdaptiveRoute(page: Register),
     AdaptiveRoute(page: Home),
+    AdaptiveRoute(page: DatabaseDetails),
+    AdaptiveRoute(page: AddDatabase),
+
+
     AdaptiveRoute(page: AddTransaction),
 
 

@@ -228,8 +228,56 @@
   "pickImg": "التقط صورة",
   "invitationCode": "كود الدعوة",
 
+
   "main": "القائمة الرئيسية",
 
+  "category": "التصنيف",
+
+  "categoryAddNewCategory": "إضافة تصنيف جديد",
+
+  "databaseAddNames": "ألاسماء",
+  "databaseAddNamesAdjective": "الصفة",
+  "databaseAddNamesFirstName": "الأسم الاول",
+  "databaseAddNamesSecondName": "الأسم الثانى",
+
+
+  "databasePhoneNumbers": "أرقام الهاتف",
+  "databaseTheNewNumber": "الرقم الجديد",
+  "cancel": "إلغاء",
+  "add": "أضافة",
+  "databaseAddPhoneNumber": "أضافة رقم تليفون",
+
+  "databaseJob": "العمل",
+  "databaseJobTitle": "المسمى الوظيفى",
+  "databaseDepartment": "القسم",
+  "databaseCompany": "الشركة",
+  "databaseAddress": "العنوان",
+  "databaseAddressCountry": "الدولة",
+  "databaseAddressGovernorate": "المحافظة",
+  "databaseAddressCity": "المدينة",
+  "databaseAddressStreet": "الشارع",
+  "databaseAddressBuildingNumber": "رقم البناية",
+  "databaseAddressApartmentNumber": "رقم الشقة",
+  "databaseAddressPostal": "الصندوق البريدى",
+
+  "databaseEmail": "البريد الالكترونى",
+  "databaseAddEmail": "اضافة بريد الكترونى",
+  "databaseTheNewEmail": "البريد الالكترونى الجديد",
+
+  "databaseImportantHistory": "تاريخ هام",
+  "databaseEventTitle": "عنوان المناسبة",
+  "databaseEventDate": "تاريخ المناسبة",
+  "databaseEventDetails": "تفاصيل المناسبة",
+  "databaseEventDate": "التاريخ",
+  "databaseComment": "ملاحظات",
+
+  "databaseSocialAddress": "عناوين الكترونية",
+  "databaseSocialAddressWeb": "الموقع الالكترونى",
+  "databaseSocialAddressFacebook": "الفيس بوك",
+  "databaseSocialAddressInstagram": "الانستجرام",
+  "databaseSocialAddressYoutube": "اليوتيوب",
+  "databaseSocialAddressMessenger": "الماسنجر",
+  "databaseSocialAddressAddWeb": "أضافة موقع الكترونى",
   "language": "اللغة",
   "monthFirstDay": "أول يوم بالشهر",
   "weekFirstDay": "أول يوم بالأسبوع",

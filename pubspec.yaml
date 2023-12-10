@@ -57,6 +57,7 @@ dependencies:
   fluttertoast:
   animated_bottom_navigation_bar:
   fl_chart:
+  dotted_border: ^2.1.0
   freezed_annotation: ^2.4.1
 
 dev_dependencies:

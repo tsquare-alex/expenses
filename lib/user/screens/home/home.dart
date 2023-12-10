@@ -20,9 +20,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> screen=[
+    List<Widget> screen = [
       const Transactions(),
-      Main(homeTabCubit:  data.homeTabCubit,),
+      Main(homeTabCubit: data.homeTabCubit,),
       const Reports(),
       const Settings(),
       Container(),
@@ -49,7 +49,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           initialIndex: widget.index,
           child: Scaffold(
             key: data.scaffold,
-            backgroundColor: MyColors.white,
             appBar: AppBar(
               //backgroundColor: MyColors.primary,
               // leadingWidth: 35.w,
@@ -78,16 +77,20 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   ),),
               ),
               actions: [
-                IconButton(
-                  onPressed: () {
-                    AutoRouter.of(context).push(const ChangeCurrencyRoute());
+                BlocBuilder<AppThemeCubit, AppThemeState>(
+                  builder: (context, state) {
+                    return IconButton(
+                      onPressed: () {
+                        AppThemeCubit.get(context).toggleTheme(AppThemeCubit.get(context).isDarkMode);
+                      },
+                      padding: EdgeInsets.zero,
+                      icon: Icon(
+                        Icons.dark_mode_outlined,
+                        color: MyColors.white,
+                        size: 20.w,
+                      ),);
                   },
-                  padding: EdgeInsets.zero,
-                  icon: Icon(
-                    Icons.dark_mode_outlined,
-                    color: MyColors.white,
-                    size: 20.w,
-                  ),),
+                ),
                 // IconButton(
                 //   onPressed: () {},
                 //   icon: Icon(
@@ -113,9 +116,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               homeTabCubit: data.homeTabCubit,
             ),
             endDrawer: BuildEndDrawer(homeTabCubit: data.homeTabCubit,),
-            body: BlocBuilder<GenericBloc<int>,GenericState<int>>(
+            body: BlocBuilder<GenericBloc<int>, GenericState<int>>(
               bloc: data.homeTabCubit,
-              builder: (context,state)=>screen[data.homeTabCubit.state.data],
+              builder: (context, state) => screen[data.homeTabCubit.state.data],
             ),
             bottomNavigationBar:
             BuildBottomNavigationBar(controller: data),

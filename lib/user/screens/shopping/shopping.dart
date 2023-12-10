@@ -11,9 +11,7 @@ class _ShoppingState extends State<Shopping> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.white,
       appBar: AppBar(
-        backgroundColor: MyColors.primary,
         elevation: 0,
         leading: IconButton(
           onPressed: () => AutoRouter.of(context).pop(),

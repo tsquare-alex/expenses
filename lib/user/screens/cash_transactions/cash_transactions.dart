@@ -11,7 +11,6 @@ class _CashTransactionsState extends State<CashTransactions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.white,
       appBar: AppBar(
         backgroundColor: MyColors.primary,
         elevation: 0,

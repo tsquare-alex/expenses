@@ -14,7 +14,6 @@ class _WalletState extends State<Wallet> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      backgroundColor: MyColors.white,
       body: Column(
         children: [
           MyText(title: "wallet", color: MyColors.primary, size: 16.sp,fontWeight: FontWeight.bold,),

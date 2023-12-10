@@ -12,7 +12,7 @@ class MainData{
       color: data.color,
       value: data.percent,
       title: data.name,
-      radius: 150,
+      radius: 100.r,
 
       titlePositionPercentageOffset: 0.6,
       titleStyle: TextStyle(
@@ -28,46 +28,46 @@ class MainData{
   List<PieChartDataModel> data = [
     PieChartDataModel(
       name: "المحافظ \nوالمصادر",
-      percent: 100,
+      percent: 45,
       color: MyColors.primary,
     ),
     PieChartDataModel(
       name: "الميزانية \nوالخطط المالية",
-      percent: 100,
+      percent: 45,
       color: MyColors.primary,
     ),
     PieChartDataModel(
       name: "السجل \nوقواعد البيانات",
-      percent: 100,
+      percent: 45,
       color: MyColors.primary,
     ),
     PieChartDataModel(
       name: "الضبط \nوالاعدادات",
-      percent: 65,
+      percent: 45,
       color: MyColors.primary,
     ),
     PieChartDataModel(
       name: "التقارير \nوالاحصائيات",
-      percent: 100,
+      percent: 45,
       color: MyColors.primary,
     ),
     PieChartDataModel(
       name: "المعاملات \nوالمصروفات",
-      percent: 100,
+      percent: 45,
       color: MyColors.primary,
     ),
     PieChartDataModel(
       name: "المساعدة \nوالشرح",
-      percent: 100,
+      percent: 45,
       color: MyColors.primary,
     ),
     PieChartDataModel(
       name: "الأدوات \nالمساعدة",
-      percent: 100,
+      percent: 45,
       color: MyColors.primary,
     ),
   ];
-  
+
 
   List<Widget> widgets=[
     const Wallet(),

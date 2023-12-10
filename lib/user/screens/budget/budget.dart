@@ -13,7 +13,6 @@ class Budget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.white,
       body: Column(children: [
         Expanded(
           child: ListView.separated(

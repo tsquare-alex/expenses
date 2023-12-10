@@ -14,7 +14,6 @@ class _ChangeCurrencyState extends State<ChangeCurrency> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.white,
       appBar: AppBar(
         backgroundColor: MyColors.primary,
         elevation: 0,

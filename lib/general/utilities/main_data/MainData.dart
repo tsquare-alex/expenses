@@ -7,6 +7,12 @@ class MainData {
     BlocProvider<LangCubit>(
       create: (BuildContext context)=> LangCubit()
     ),
+    BlocProvider<MyExpansionCubit>(
+        create: (BuildContext context)=> MyExpansionCubit()
+    ),
+    BlocProvider<AppThemeCubit>(
+      create: (context) => AppThemeCubit()..applyAppTheme(),
+    ),
     // BlocProvider<UserCubit>(
     //     create: (BuildContext context)=> UserCubit()
     // ),

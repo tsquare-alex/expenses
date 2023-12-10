@@ -1,10 +1,12 @@
-import 'package:expenses/general/helper/configration/InitUtils.dart';
+import 'package:expenses/general/themes/app_themes.dart';
+import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'blocks/lang_cubit/lang_cubit.dart';
 import 'packages/localization/SetLocalization.dart';
 import 'utilities/main_data/MainDataImports.dart';
@@ -17,8 +19,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-  final navigatorKey =  GlobalKey<NavigatorState>();
+  final navigatorKey = GlobalKey<NavigatorState>();
   final _appRouter = AppRouter();
 
   @override
@@ -30,30 +31,30 @@ class _MyAppState extends State<MyApp> {
           return ScreenUtilInit(
               minTextAdapt: true,
               splitScreenMode: true,
-            builder: (BuildContext context, child) {
-              return MaterialApp.router(
-                  debugShowCheckedModeBanner: false,
-                  theme: InitUtils.defaultThem,
-                  title: "Money Tracker",
-                  supportedLocales:const  [
-                    Locale('en', 'US'),
-                    Locale('ar', 'EG')
-                  ],
-                  localizationsDelegates: const [
-                    LocalizationHelper.localizationsDelegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                  ],
-                  locale: state.locale,
-                  routerDelegate: _appRouter.delegate(
-                      initialRoutes: [SplashRoute(navigatorKey: navigatorKey)]
-                  ),
-                  routeInformationParser: _appRouter.defaultRouteParser(),
-                  builder: (ctx, child) =>FlutterEasyLoading(child: child)
-              );
-            }
-          );
+              builder: (BuildContext context, child) {
+                return MaterialApp.router(
+                    debugShowCheckedModeBanner: false,
+                    theme: AppThemes.lightTheme,
+                    darkTheme: AppThemes.darkTheme,
+                    themeMode: context.watch<AppThemeCubit>().themeMode,
+                    title: "Money Tracker",
+                    supportedLocales: const [
+                      Locale('en', 'US'),
+                      Locale('ar', 'EG')
+                    ],
+                    localizationsDelegates: const [
+                      LocalizationHelper.localizationsDelegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
+                    ],
+                    locale: state.locale,
+                    routerDelegate: _appRouter.delegate(initialRoutes: [
+                      SplashRoute(navigatorKey: navigatorKey)
+                    ]),
+                    routeInformationParser: _appRouter.defaultRouteParser(),
+                    builder: (ctx, child) => FlutterEasyLoading(child: child));
+              });
         },
       ),
     );

@@ -19,7 +19,7 @@ class BuildBottomNavigationBar extends StatelessWidget {
               controller: controller,
             );
           },
-          backgroundColor: MyColors.primary,
+          backgroundColor: MyColors.white,
           splashColor: MyColors.primary,
           activeIndex: state.data,
           gapLocation: GapLocation.none,
@@ -28,7 +28,7 @@ class BuildBottomNavigationBar extends StatelessWidget {
           rightCornerRadius: 20,
 
 
-          height: 60,
+          height: 65.h,
           onTap: (index) => controller.animateTabsPages(index, context),
         );
       },

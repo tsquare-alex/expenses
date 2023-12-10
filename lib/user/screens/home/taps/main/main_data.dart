@@ -86,12 +86,11 @@ class MainData{
     Container():6,
     const Transactions():0,
     const Reports():2,
-    Container():3,
-    const Database():5,
+    const Settings():3,
+    Database():5,
     const Budget():8,
     const Wallet():7,
     Container():4,
   };
-
 
 }

@@ -181,7 +181,7 @@ class SettingsBody extends StatelessWidget {
         CustomTile(
           children: [
             TileRow(
-              icon: Res.synchronization,
+              icon: Res.sync,
               title: tr(context, 'sync'),
               trailing: TileDropdownButton(
                 menuList: data.syncOptions,

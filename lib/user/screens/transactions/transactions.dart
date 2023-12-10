@@ -11,7 +11,6 @@ class _TransactionsState extends State<Transactions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.white,
       floatingActionButton: FloatingActionButton(
         onPressed: () =>AutoRouter.of(context).push(const AddTransactionRoute(),),
         backgroundColor: MyColors.primary,

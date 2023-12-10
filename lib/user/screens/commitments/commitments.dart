@@ -14,9 +14,7 @@ class _CommitmentsState extends State<Commitments> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.white,
       appBar: AppBar(
-        backgroundColor: MyColors.primary,
         elevation: 0,
         leading: IconButton(
           onPressed: () => AutoRouter.of(context).pop(),
@@ -38,7 +36,7 @@ class _CommitmentsState extends State<Commitments> {
         padding: EdgeInsets.all(15.0.r),
         child: Column(
           children: [
-            BuildCommitmentsInputs(commitmentsData: data,),
+            BuildCommitmentsView(commitmentsData: data,),
           ],
         ),
       ),

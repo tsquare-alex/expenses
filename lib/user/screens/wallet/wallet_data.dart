@@ -11,6 +11,8 @@ class WalletData {
         });
   }
 
+  List<String> walletType = ["مصروف الشهر", "حساب بنكي"];
+
   balanceTransaction(
       BuildContext context, String title, VoidCallback? onPressed) {
     showDialog(

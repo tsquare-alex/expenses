@@ -38,4 +38,5 @@ class Res {
   static const String save = "assets/images/save.png";
   static const String secure = "assets/images/secure.png";
   static const String synchronization = "assets/images/sync.png";
+  static const String balanceIcon = "assets/images/balance.png";
 }

@@ -17,20 +17,20 @@ class WalletData {
       context: context,
       builder: (context) {
         return AlertDialog(
-          content: const AllertDialgBody(),
+          content: const AlertDialgBody(),
           backgroundColor: MyColors.white,
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
+                  onPressed: onPressed,
                   child: MyText(
                     title: title,
                     color: MyColors.primary,
                     size: 14.sp,
                     fontWeight: FontWeight.bold,
                   ),
-                  onPressed: onPressed,
                 ),
                 TextButton(
                   child: MyText(

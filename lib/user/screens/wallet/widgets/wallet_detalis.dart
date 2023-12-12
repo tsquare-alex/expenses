@@ -86,28 +86,12 @@ class _WalletDetailsState extends State<WalletDetails> {
           height: 15.h,
         ),
         Container(
-          height: 90.h,
+          height: 60.h,
           width: double.infinity,
           padding: EdgeInsets.all(16.w),
           decoration: BoxDecoration(color: MyColors.greyWhite),
           child: Column(
             children: [
-              InkWell(
-                onTap: () {},
-                child: Row(
-                  children: [
-                    const Icon(Icons.money),
-                    SizedBox(width: 12.w),
-                    MyText(
-                        title: "نقل المعاملات",
-                        color: MyColors.black,
-                        size: 12.sp),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 8.h,
-              ),
               InkWell(
                 onTap: () {},
                 child: Row(

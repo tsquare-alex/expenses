@@ -11,9 +11,9 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i17;
+import 'package:auto_route/auto_route.dart' as _i24;
 import 'package:expenses/general/models/data_base_model/data_base_model.dart'
-    as _i19;
+    as _i26;
 import 'package:expenses/general/screens/currency_rate/currency_rate_imports.dart'
     as _i8;
 import 'package:expenses/general/screens/forget_password/ForgetPasswordImports.dart'
@@ -31,51 +31,63 @@ import 'package:expenses/general/screens/welcome_page/WelcomePageImports.dart'
     as _i2;
 import 'package:expenses/user/screens/add_transaction/add_transaction_imports.dart'
     as _i13;
-import 'package:expenses/user/screens/budget/widget/add_transaction.dart'
+import 'package:expenses/user/screens/bmi_calculator/bmi_calculator_imports.dart'
     as _i14;
+import 'package:expenses/user/screens/budget/widget/add_transaction.dart'
+    as _i21;
+import 'package:expenses/user/screens/cash_transactions/cash_transactions_imports.dart'
+    as _i19;
+import 'package:expenses/user/screens/change_currency/change_currency_imports.dart'
+    as _i15;
+import 'package:expenses/user/screens/commitments/commitments_imports.dart'
+    as _i16;
 import 'package:expenses/user/screens/database/widgets/add_database.dart'
     as _i12;
 import 'package:expenses/user/screens/database/widgets/database_details.dart'
     as _i11;
 import 'package:expenses/user/screens/home/home_imports.dart' as _i10;
-import 'package:expenses/user/screens/wallet/widgets/add_wallet.dart' as _i16;
+import 'package:expenses/user/screens/recurring_transactions/recurring_transactions_imports.dart'
+    as _i20;
+import 'package:expenses/user/screens/shopping/shopping_imports.dart' as _i17;
+import 'package:expenses/user/screens/target/target_imports.dart' as _i18;
+import 'package:expenses/user/screens/wallet/widgets/add_wallet.dart' as _i23;
 import 'package:expenses/user/screens/wallet/widgets/balance_transfer.dart'
-    as _i15;
-import 'package:flutter/material.dart' as _i18;
+    as _i22;
+import 'package:flutter/material.dart' as _i25;
 
-class AppRouter extends _i17.RootStackRouter {
-  AppRouter([_i18.GlobalKey<_i18.NavigatorState>? navigatorKey])
+class AppRouter extends _i24.RootStackRouter {
+  AppRouter([_i25.GlobalKey<_i25.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i17.PageFactory> pagesMap = {
+  final Map<String, _i24.PageFactory> pagesMap = {
     SplashRoute.name: (routeData) {
       final args = routeData.argsAs<SplashRouteArgs>();
-      return _i17.AdaptivePage<dynamic>(
+      return _i24.AdaptivePage<dynamic>(
         routeData: routeData,
         child: _i1.Splash(navigatorKey: args.navigatorKey),
         opaque: true,
       );
     },
     WelcomePageRoute.name: (routeData) {
-      return _i17.AdaptivePage<dynamic>(
+      return _i24.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i2.WelcomePage(),
         opaque: true,
       );
     },
     SelectLanguageRoute.name: (routeData) {
-      return _i17.CustomPage<dynamic>(
+      return _i24.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i3.SelectLanguage(),
-        transitionsBuilder: _i17.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i24.TransitionsBuilders.fadeIn,
         durationInMilliseconds: 1500,
         opaque: true,
         barrierDismissible: false,
       );
     },
     LoginRoute.name: (routeData) {
-      return _i17.CustomPage<dynamic>(
+      return _i24.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i4.Login(),
         opaque: true,
@@ -83,35 +95,35 @@ class AppRouter extends _i17.RootStackRouter {
       );
     },
     ForgetPasswordRoute.name: (routeData) {
-      return _i17.AdaptivePage<dynamic>(
+      return _i24.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i5.ForgetPassword(),
         opaque: true,
       );
     },
     SelectCountryRoute.name: (routeData) {
-      return _i17.AdaptivePage<dynamic>(
+      return _i24.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i6.SelectCountry(),
         opaque: true,
       );
     },
     SelectCurrencyRoute.name: (routeData) {
-      return _i17.AdaptivePage<dynamic>(
+      return _i24.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i7.SelectCurrency(),
         opaque: true,
       );
     },
     CurrencyRateRoute.name: (routeData) {
-      return _i17.AdaptivePage<dynamic>(
+      return _i24.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i8.CurrencyRate(),
         opaque: true,
       );
     },
     RegisterRoute.name: (routeData) {
-      return _i17.AdaptivePage<dynamic>(
+      return _i24.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i9.Register(),
         opaque: true,
@@ -119,7 +131,7 @@ class AppRouter extends _i17.RootStackRouter {
     },
     HomeRoute.name: (routeData) {
       final args = routeData.argsAs<HomeRouteArgs>();
-      return _i17.AdaptivePage<dynamic>(
+      return _i24.AdaptivePage<dynamic>(
         routeData: routeData,
         child: _i10.Home(
           key: args.key,
@@ -130,7 +142,7 @@ class AppRouter extends _i17.RootStackRouter {
     },
     DatabaseDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<DatabaseDetailsRouteArgs>();
-      return _i17.AdaptivePage<dynamic>(
+      return _i24.AdaptivePage<dynamic>(
         routeData: routeData,
         child: _i11.DatabaseDetails(
           key: args.key,
@@ -140,105 +152,182 @@ class AppRouter extends _i17.RootStackRouter {
       );
     },
     AddDatabaseRoute.name: (routeData) {
-      return _i17.AdaptivePage<dynamic>(
+      return _i24.AdaptivePage<dynamic>(
         routeData: routeData,
         child: _i12.AddDatabase(),
         opaque: true,
       );
     },
     AddTransactionRoute.name: (routeData) {
-      return _i17.AdaptivePage<dynamic>(
+      return _i24.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i13.AddTransaction(),
         opaque: true,
       );
     },
-    AddTransactionBudgetRoute.name: (routeData) {
-      return _i17.AdaptivePage<dynamic>(
+    BMICalculatorRoute.name: (routeData) {
+      return _i24.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i14.AddTransactionBudget(),
+        child: const _i14.BMICalculator(),
+        opaque: true,
+      );
+    },
+    ChangeCurrencyRoute.name: (routeData) {
+      return _i24.AdaptivePage<dynamic>(
+        routeData: routeData,
+        child: const _i15.ChangeCurrency(),
+        opaque: true,
+      );
+    },
+    CommitmentsRoute.name: (routeData) {
+      return _i24.AdaptivePage<dynamic>(
+        routeData: routeData,
+        child: const _i16.Commitments(),
+        opaque: true,
+      );
+    },
+    ShoppingRoute.name: (routeData) {
+      return _i24.AdaptivePage<dynamic>(
+        routeData: routeData,
+        child: const _i17.Shopping(),
+        opaque: true,
+      );
+    },
+    TargetRoute.name: (routeData) {
+      return _i24.AdaptivePage<dynamic>(
+        routeData: routeData,
+        child: const _i18.Target(),
+        opaque: true,
+      );
+    },
+    CashTransactionsRoute.name: (routeData) {
+      return _i24.AdaptivePage<dynamic>(
+        routeData: routeData,
+        child: const _i19.CashTransactions(),
+        opaque: true,
+      );
+    },
+    RecurringTransactionsRoute.name: (routeData) {
+      return _i24.AdaptivePage<dynamic>(
+        routeData: routeData,
+        child: const _i20.RecurringTransactions(),
+        opaque: true,
+      );
+    },
+    AddTransactionBudgetRoute.name: (routeData) {
+      return _i24.AdaptivePage<dynamic>(
+        routeData: routeData,
+        child: const _i21.AddTransactionBudget(),
         opaque: true,
       );
     },
     BalanceTransferRoute.name: (routeData) {
-      return _i17.AdaptivePage<dynamic>(
+      return _i24.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i15.BalanceTransfer(),
+        child: const _i22.BalanceTransfer(),
         opaque: true,
       );
     },
     AddWalletRoute.name: (routeData) {
-      return _i17.AdaptivePage<dynamic>(
+      return _i24.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i16.AddWallet(),
+        child: const _i23.AddWallet(),
         opaque: true,
       );
     },
   };
 
   @override
-  List<_i17.RouteConfig> get routes => [
-        _i17.RouteConfig(
+  List<_i24.RouteConfig> get routes => [
+        _i24.RouteConfig(
           SplashRoute.name,
           path: '/',
         ),
-        _i17.RouteConfig(
+        _i24.RouteConfig(
           WelcomePageRoute.name,
           path: '/welcome-page',
         ),
-        _i17.RouteConfig(
+        _i24.RouteConfig(
           SelectLanguageRoute.name,
           path: '/select-language',
         ),
-        _i17.RouteConfig(
+        _i24.RouteConfig(
           LoginRoute.name,
           path: '/Login',
         ),
-        _i17.RouteConfig(
+        _i24.RouteConfig(
           ForgetPasswordRoute.name,
           path: '/forget-password',
         ),
-        _i17.RouteConfig(
+        _i24.RouteConfig(
           SelectCountryRoute.name,
           path: '/select-country',
         ),
-        _i17.RouteConfig(
+        _i24.RouteConfig(
           SelectCurrencyRoute.name,
           path: '/select-currency',
         ),
-        _i17.RouteConfig(
+        _i24.RouteConfig(
           CurrencyRateRoute.name,
           path: '/currency-rate',
         ),
-        _i17.RouteConfig(
+        _i24.RouteConfig(
           RegisterRoute.name,
           path: '/Register',
         ),
-        _i17.RouteConfig(
+        _i24.RouteConfig(
           HomeRoute.name,
           path: '/Home',
         ),
-        _i17.RouteConfig(
+        _i24.RouteConfig(
           DatabaseDetailsRoute.name,
           path: '/database-details',
         ),
-        _i17.RouteConfig(
+        _i24.RouteConfig(
           AddDatabaseRoute.name,
           path: '/add-database',
         ),
-        _i17.RouteConfig(
+        _i24.RouteConfig(
           AddTransactionRoute.name,
           path: '/add-transaction',
         ),
-        _i17.RouteConfig(
+        _i24.RouteConfig(
+          BMICalculatorRoute.name,
+          path: '/b-mi-calculator',
+        ),
+        _i24.RouteConfig(
+          ChangeCurrencyRoute.name,
+          path: '/change-currency',
+        ),
+        _i24.RouteConfig(
+          CommitmentsRoute.name,
+          path: '/Commitments',
+        ),
+        _i24.RouteConfig(
+          ShoppingRoute.name,
+          path: '/Shopping',
+        ),
+        _i24.RouteConfig(
+          TargetRoute.name,
+          path: '/Target',
+        ),
+        _i24.RouteConfig(
+          CashTransactionsRoute.name,
+          path: '/cash-transactions',
+        ),
+        _i24.RouteConfig(
+          RecurringTransactionsRoute.name,
+          path: '/recurring-transactions',
+        ),
+        _i24.RouteConfig(
           AddTransactionBudgetRoute.name,
           path: '/add-transaction-budget',
         ),
-        _i17.RouteConfig(
+        _i24.RouteConfig(
           BalanceTransferRoute.name,
           path: '/balance-transfer',
         ),
-        _i17.RouteConfig(
+        _i24.RouteConfig(
           AddWalletRoute.name,
           path: '/add-wallet',
         ),
@@ -247,8 +336,8 @@ class AppRouter extends _i17.RootStackRouter {
 
 /// generated route for
 /// [_i1.Splash]
-class SplashRoute extends _i17.PageRouteInfo<SplashRouteArgs> {
-  SplashRoute({required _i18.GlobalKey<_i18.NavigatorState> navigatorKey})
+class SplashRoute extends _i24.PageRouteInfo<SplashRouteArgs> {
+  SplashRoute({required _i25.GlobalKey<_i25.NavigatorState> navigatorKey})
       : super(
           SplashRoute.name,
           path: '/',
@@ -261,7 +350,7 @@ class SplashRoute extends _i17.PageRouteInfo<SplashRouteArgs> {
 class SplashRouteArgs {
   const SplashRouteArgs({required this.navigatorKey});
 
-  final _i18.GlobalKey<_i18.NavigatorState> navigatorKey;
+  final _i25.GlobalKey<_i25.NavigatorState> navigatorKey;
 
   @override
   String toString() {
@@ -271,7 +360,7 @@ class SplashRouteArgs {
 
 /// generated route for
 /// [_i2.WelcomePage]
-class WelcomePageRoute extends _i17.PageRouteInfo<void> {
+class WelcomePageRoute extends _i24.PageRouteInfo<void> {
   const WelcomePageRoute()
       : super(
           WelcomePageRoute.name,
@@ -283,7 +372,7 @@ class WelcomePageRoute extends _i17.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.SelectLanguage]
-class SelectLanguageRoute extends _i17.PageRouteInfo<void> {
+class SelectLanguageRoute extends _i24.PageRouteInfo<void> {
   const SelectLanguageRoute()
       : super(
           SelectLanguageRoute.name,
@@ -295,7 +384,7 @@ class SelectLanguageRoute extends _i17.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.Login]
-class LoginRoute extends _i17.PageRouteInfo<void> {
+class LoginRoute extends _i24.PageRouteInfo<void> {
   const LoginRoute()
       : super(
           LoginRoute.name,
@@ -307,7 +396,7 @@ class LoginRoute extends _i17.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.ForgetPassword]
-class ForgetPasswordRoute extends _i17.PageRouteInfo<void> {
+class ForgetPasswordRoute extends _i24.PageRouteInfo<void> {
   const ForgetPasswordRoute()
       : super(
           ForgetPasswordRoute.name,
@@ -319,7 +408,7 @@ class ForgetPasswordRoute extends _i17.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.SelectCountry]
-class SelectCountryRoute extends _i17.PageRouteInfo<void> {
+class SelectCountryRoute extends _i24.PageRouteInfo<void> {
   const SelectCountryRoute()
       : super(
           SelectCountryRoute.name,
@@ -331,7 +420,7 @@ class SelectCountryRoute extends _i17.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i7.SelectCurrency]
-class SelectCurrencyRoute extends _i17.PageRouteInfo<void> {
+class SelectCurrencyRoute extends _i24.PageRouteInfo<void> {
   const SelectCurrencyRoute()
       : super(
           SelectCurrencyRoute.name,
@@ -343,7 +432,7 @@ class SelectCurrencyRoute extends _i17.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.CurrencyRate]
-class CurrencyRateRoute extends _i17.PageRouteInfo<void> {
+class CurrencyRateRoute extends _i24.PageRouteInfo<void> {
   const CurrencyRateRoute()
       : super(
           CurrencyRateRoute.name,
@@ -355,7 +444,7 @@ class CurrencyRateRoute extends _i17.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.Register]
-class RegisterRoute extends _i17.PageRouteInfo<void> {
+class RegisterRoute extends _i24.PageRouteInfo<void> {
   const RegisterRoute()
       : super(
           RegisterRoute.name,
@@ -367,9 +456,9 @@ class RegisterRoute extends _i17.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i10.Home]
-class HomeRoute extends _i17.PageRouteInfo<HomeRouteArgs> {
+class HomeRoute extends _i24.PageRouteInfo<HomeRouteArgs> {
   HomeRoute({
-    _i18.Key? key,
+    _i25.Key? key,
     required int index,
   }) : super(
           HomeRoute.name,
@@ -389,7 +478,7 @@ class HomeRouteArgs {
     required this.index,
   });
 
-  final _i18.Key? key;
+  final _i25.Key? key;
 
   final int index;
 
@@ -402,10 +491,10 @@ class HomeRouteArgs {
 /// generated route for
 /// [_i11.DatabaseDetails]
 class DatabaseDetailsRoute
-    extends _i17.PageRouteInfo<DatabaseDetailsRouteArgs> {
+    extends _i24.PageRouteInfo<DatabaseDetailsRouteArgs> {
   DatabaseDetailsRoute({
-    _i18.Key? key,
-    required _i19.DataBaseModel databaseData,
+    _i25.Key? key,
+    required _i26.DataBaseModel databaseData,
   }) : super(
           DatabaseDetailsRoute.name,
           path: '/database-details',
@@ -424,9 +513,9 @@ class DatabaseDetailsRouteArgs {
     required this.databaseData,
   });
 
-  final _i18.Key? key;
+  final _i25.Key? key;
 
-  final _i19.DataBaseModel databaseData;
+  final _i26.DataBaseModel databaseData;
 
   @override
   String toString() {
@@ -436,7 +525,7 @@ class DatabaseDetailsRouteArgs {
 
 /// generated route for
 /// [_i12.AddDatabase]
-class AddDatabaseRoute extends _i17.PageRouteInfo<void> {
+class AddDatabaseRoute extends _i24.PageRouteInfo<void> {
   const AddDatabaseRoute()
       : super(
           AddDatabaseRoute.name,
@@ -448,7 +537,7 @@ class AddDatabaseRoute extends _i17.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i13.AddTransaction]
-class AddTransactionRoute extends _i17.PageRouteInfo<void> {
+class AddTransactionRoute extends _i24.PageRouteInfo<void> {
   const AddTransactionRoute()
       : super(
           AddTransactionRoute.name,
@@ -459,8 +548,92 @@ class AddTransactionRoute extends _i17.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i14.AddTransactionBudget]
-class AddTransactionBudgetRoute extends _i17.PageRouteInfo<void> {
+/// [_i14.BMICalculator]
+class BMICalculatorRoute extends _i24.PageRouteInfo<void> {
+  const BMICalculatorRoute()
+      : super(
+          BMICalculatorRoute.name,
+          path: '/b-mi-calculator',
+        );
+
+  static const String name = 'BMICalculatorRoute';
+}
+
+/// generated route for
+/// [_i15.ChangeCurrency]
+class ChangeCurrencyRoute extends _i24.PageRouteInfo<void> {
+  const ChangeCurrencyRoute()
+      : super(
+          ChangeCurrencyRoute.name,
+          path: '/change-currency',
+        );
+
+  static const String name = 'ChangeCurrencyRoute';
+}
+
+/// generated route for
+/// [_i16.Commitments]
+class CommitmentsRoute extends _i24.PageRouteInfo<void> {
+  const CommitmentsRoute()
+      : super(
+          CommitmentsRoute.name,
+          path: '/Commitments',
+        );
+
+  static const String name = 'CommitmentsRoute';
+}
+
+/// generated route for
+/// [_i17.Shopping]
+class ShoppingRoute extends _i24.PageRouteInfo<void> {
+  const ShoppingRoute()
+      : super(
+          ShoppingRoute.name,
+          path: '/Shopping',
+        );
+
+  static const String name = 'ShoppingRoute';
+}
+
+/// generated route for
+/// [_i18.Target]
+class TargetRoute extends _i24.PageRouteInfo<void> {
+  const TargetRoute()
+      : super(
+          TargetRoute.name,
+          path: '/Target',
+        );
+
+  static const String name = 'TargetRoute';
+}
+
+/// generated route for
+/// [_i19.CashTransactions]
+class CashTransactionsRoute extends _i24.PageRouteInfo<void> {
+  const CashTransactionsRoute()
+      : super(
+          CashTransactionsRoute.name,
+          path: '/cash-transactions',
+        );
+
+  static const String name = 'CashTransactionsRoute';
+}
+
+/// generated route for
+/// [_i20.RecurringTransactions]
+class RecurringTransactionsRoute extends _i24.PageRouteInfo<void> {
+  const RecurringTransactionsRoute()
+      : super(
+          RecurringTransactionsRoute.name,
+          path: '/recurring-transactions',
+        );
+
+  static const String name = 'RecurringTransactionsRoute';
+}
+
+/// generated route for
+/// [_i21.AddTransactionBudget]
+class AddTransactionBudgetRoute extends _i24.PageRouteInfo<void> {
   const AddTransactionBudgetRoute()
       : super(
           AddTransactionBudgetRoute.name,
@@ -471,8 +644,8 @@ class AddTransactionBudgetRoute extends _i17.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i15.BalanceTransfer]
-class BalanceTransferRoute extends _i17.PageRouteInfo<void> {
+/// [_i22.BalanceTransfer]
+class BalanceTransferRoute extends _i24.PageRouteInfo<void> {
   const BalanceTransferRoute()
       : super(
           BalanceTransferRoute.name,
@@ -483,8 +656,8 @@ class BalanceTransferRoute extends _i17.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i16.AddWallet]
-class AddWalletRoute extends _i17.PageRouteInfo<void> {
+/// [_i23.AddWallet]
+class AddWalletRoute extends _i24.PageRouteInfo<void> {
   const AddWalletRoute()
       : super(
           AddWalletRoute.name,

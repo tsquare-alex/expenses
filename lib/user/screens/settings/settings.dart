@@ -11,24 +11,6 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => AutoRouter.of(context).pop(),
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: MyColors.white,
-            size: 20.sp,
-          ),
-        ),
-        centerTitle: true,
-        title: MyText(
-          title: tr(context, 'settings'),
-          color: MyColors.white,
-          size: 18.sp,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
       body: const SettingsBody(),
     );
   }

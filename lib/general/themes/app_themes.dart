@@ -14,6 +14,9 @@ class AppThemes {
     //   },
     // ),
     // scaffoldBackgroundColor: AppLightColors.backgroundColor,
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: MyColors.primary,
+    ),
     focusColor: MyColors.primary,
     primaryColor: MyColors.primary,
     fontFamily: GoogleFonts.tajawal().fontFamily,
@@ -38,6 +41,11 @@ class AppThemes {
     //     TargetPlatform.android: CupertinoPageTransitionsBuilder(),
     //   },
     // ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: AppDarkColors.primary,
+      selectedItemColor: MyColors.white,
+      unselectedItemColor: MyColors.grey,
+    ),
     focusColor: MyColors.primary,
     primaryColor: MyColors.primary,
     fontFamily: GoogleFonts.tajawal().fontFamily,

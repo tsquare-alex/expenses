@@ -1,3 +1,4 @@
+import 'package:expenses/general/constants/MyColors.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -120,7 +121,7 @@ class GenericTextField extends StatelessWidget {
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         enableColor: enableBorderColor,
-        focusBorderColor: focusBorderColor??const Color(0xFFF7A31E),
+        focusBorderColor: focusBorderColor?? MyColors.primary,
         fillColor: fillColor,
         padding: contentPadding,
         hintColor: hintColor,

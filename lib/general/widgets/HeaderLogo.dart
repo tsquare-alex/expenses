@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 
 class HeaderLogo extends StatelessWidget {
   final double? topPadding;
+  final double? width;
+  final double? height;
   final Color? color;
   final String? image;
 
-  const HeaderLogo({Key? key, this.topPadding, this.color, this.image}) : super(key: key);
+  const HeaderLogo({Key? key, this.topPadding, this.color, this.image, this.width, this.height}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +23,8 @@ class HeaderLogo extends StatelessWidget {
       ),
       child: Image(
         color: color??MyColors.primary,
-        height: MediaQuery.of(context).size.height * 0.25,
-        width: MediaQuery.of(context).size.width * 0.55,
+        height: width??MediaQuery.of(context).size.height * 0.18,
+        width: height??MediaQuery.of(context).size.width * 0.55,
         image: AssetImage(image??Res.logo),
         fit: BoxFit.contain,
       ),

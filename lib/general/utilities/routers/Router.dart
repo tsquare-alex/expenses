@@ -22,6 +22,15 @@ part of 'RouterImports.dart';
     AdaptiveRoute(page: DatabaseDetails),
     AdaptiveRoute(page: AddDatabase),
     AdaptiveRoute(page: AddTransaction),
+    AdaptiveRoute(page: BMICalculator),
+    AdaptiveRoute(page: ChangeCurrency),
+    AdaptiveRoute(page: Commitments),
+    AdaptiveRoute(page: Shopping),
+    AdaptiveRoute(page: Target),
+    AdaptiveRoute(page: CashTransactions),
+    AdaptiveRoute(page: RecurringTransactions),
+
+
     AdaptiveRoute(page: AddTransactionBudget),
     AdaptiveRoute(page: BalanceTransfer),
     AdaptiveRoute(page: AddWallet),

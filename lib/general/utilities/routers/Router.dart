@@ -23,6 +23,8 @@ part of 'RouterImports.dart';
     AdaptiveRoute(page: AddDatabase),
     AdaptiveRoute(page: AddTransaction),
     AdaptiveRoute(page: AddTransactionBudget),
+    AdaptiveRoute(page: BalanceTransfer),
+    AdaptiveRoute(page: AddWallet),
   ],
 )
 class $AppRouter {}

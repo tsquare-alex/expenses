@@ -12,6 +12,8 @@ import 'package:expenses/user/screens/budget/widget/add_transaction.dart';
 import 'package:expenses/user/screens/database/widgets/add_database.dart';
 import 'package:expenses/user/screens/add_transaction/add_transaction_imports.dart';
 import 'package:expenses/user/screens/home/home_imports.dart';
+import 'package:expenses/user/screens/wallet/widgets/add_wallet.dart';
+import 'package:expenses/user/screens/wallet/widgets/balance_transfer.dart';
 
 import '../../../user/screens/database/widgets/database_details.dart';
 

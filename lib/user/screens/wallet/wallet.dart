@@ -31,7 +31,9 @@ class _WalletState extends State<Wallet> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          AutoRouter.of(context).push(const AddWalletRoute());
+        },
         backgroundColor: MyColors.primary,
         child: Icon(
           Icons.add,

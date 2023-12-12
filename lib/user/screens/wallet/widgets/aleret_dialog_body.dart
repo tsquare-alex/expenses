@@ -7,6 +7,7 @@ class AlertDialgBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController controller = TextEditingController();
     return Container(
         height: 70.h,
         width: double.infinity,
@@ -38,7 +39,8 @@ class AlertDialgBody extends StatelessWidget {
                     ),
                     SizedBox(
                       width: 140.w,
-                      child: TextField(
+                      child: TextFormField(
+                        controller: controller,
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.right,
                         cursorColor: MyColors.primary,

@@ -12,6 +12,7 @@ class WalletData {
   }
 
   List<String> walletType = ["مصروف الشهر", "حساب بنكي"];
+  List<String> paymentMethod = ["بطاقة ائتمان", "نقدي"];
 
   balanceTransaction(
       BuildContext context, String title, VoidCallback? onPressed) {

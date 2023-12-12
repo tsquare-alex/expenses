@@ -3,7 +3,6 @@ import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/screens/wallet/wallet_imports.dart';
-import 'package:expenses/user/screens/wallet/widgets/balance_transfer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

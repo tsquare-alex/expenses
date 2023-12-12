@@ -292,7 +292,17 @@
   "deleteData": "مسح البيانات",
   "resetSettings": "اعدادات إفتراضية",
   "egypt": "مصر",
-  "ksa": "السعودية"
+  "ksa": "السعودية",
+  "clothesSize" : "مقاسات الملابس",
+  "clothesSizeMen" : "مقاسات ملابس الرجال",
+  "clothesSizeWomen" : "مقاسات ملابس النساء",
+  "ringSize" : "مقاس الخاتم",
+  "shoesSize" : "مقاس الحذاء",
+  "calculator" : "آلة حاسبة",
+  "calender" : "التقويم",
+  "qiblah" : "القبلة"
+
+
 }
 
 

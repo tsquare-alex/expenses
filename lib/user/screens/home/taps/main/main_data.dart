@@ -77,7 +77,7 @@ class MainData{
     const Reports(),
     const Transactions(),
     Container(),
-    Container(),
+    ToolsHelper(),
   ];
 
 }

@@ -11,6 +11,7 @@ import 'package:expenses/general/screens/welcome_page/WelcomePageImports.dart';
 import 'package:expenses/user/screens/database/widgets/add_database.dart';
 import 'package:expenses/user/screens/add_transaction/add_transaction_imports.dart';
 import 'package:expenses/user/screens/home/home_imports.dart';
+import 'package:expenses/user/screens/tools_helper/widgets/qiblah/compass.dart';
 
 import '../../../user/screens/database/widgets/database_details.dart';
 

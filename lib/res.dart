@@ -38,4 +38,12 @@ class Res {
   static const String save = "assets/images/save.png";
   static const String secure = "assets/images/secure.png";
   static const String synchronization = "assets/images/sync.png";
+  static const String compass = "assets/images/compass.svg";
+  static const String needle = "assets/images/needle.svg";
+  static const String womenShoes = "assets/images/women_shoes.png";
+  static const String menShoes = "assets/images/men_shoes.png";
+  static const String ringSize = "assets/images/ring_size.png";
+  static const String menSize = "assets/images/mensize.png";
+  static const String womenSize = "assets/images/womensize.png";
+  static const String pantSize = "assets/images/pantSize.png";
 }

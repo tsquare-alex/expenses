@@ -59,6 +59,11 @@ dependencies:
   fl_chart:
   dotted_border: ^2.1.0
   freezed_annotation: ^2.4.1
+  flutter_simple_calculator: ^2.2.4
+  flutter_qiblah: ^2.2.0
+  flutter_svg: ^2.0.9
+  table_calendar: ^3.0.9
+  font_awesome_flutter: ^10.6.0
 
 dev_dependencies:
   flutter_test:

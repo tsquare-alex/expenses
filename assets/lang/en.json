@@ -122,5 +122,14 @@
   "resetSettings": "Default settings",
   "egypt": "Egypt",
   "ksa": "KSA",
-  "settings" : "Settings"
+  "settings" : "Settings",
+  "clothesSize" : "clothesSize",
+  "clothesSizeMen" : "Men's clothing sizes",
+  "clothesSizeWomen" : "Women's clothing sizes",
+  "ringSize" : "Ring Size",
+  "shoesSize" : "Shoes Size",
+  "calculator" : "Calculator",
+  "calender" : "Calender",
+  "qiblah" : "Qiblah"
+
 }

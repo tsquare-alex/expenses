@@ -4,19 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'firebase_options.dart';
 
-
-
 Future<void> main() async {
+  await Hive.initFlutter();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-);
-  runApp(
-      BlocProvider(
-        create: (BuildContext context) => LangCubit(),
-        child:  Phoenix(child: const MyApp()),
-      )
   );
+  runApp(BlocProvider(
+    create: (BuildContext context) => LangCubit(),
+    child: Phoenix(child: const MyApp()),
+  ));
 }

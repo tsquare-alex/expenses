@@ -62,8 +62,12 @@ dependencies:
   dropdown_button2: ^2.3.9
   dotted_border: ^2.1.0
   freezed_annotation: ^2.4.1
-  bloc: ^8.1.2
   flutter_slidable: ^3.0.1
+  google_sign_in:
+  googleapis:
+  googleapis_auth:
+  path_provider:
+  extension_google_sign_in_as_googleapis_auth:
 
 dev_dependencies:
   flutter_test:

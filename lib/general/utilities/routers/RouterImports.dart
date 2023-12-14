@@ -19,6 +19,7 @@ import 'package:expenses/user/screens/home/home_imports.dart';
 import 'package:expenses/user/screens/recurring_transactions/recurring_transactions_imports.dart';
 import 'package:expenses/user/screens/shopping/shopping_imports.dart';
 import 'package:expenses/user/screens/target/target_imports.dart';
+import 'package:expenses/user/screens/transactions_types/transactions_types_imports.dart';
 
 import '../../../user/screens/database/widgets/database_details.dart';
 

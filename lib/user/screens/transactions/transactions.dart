@@ -12,7 +12,7 @@ class _TransactionsState extends State<Transactions> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () =>AutoRouter.of(context).push(const AddTransactionRoute(),),
+        onPressed: () =>AutoRouter.of(context).push(const TransactionsTypesRoute(),),
         backgroundColor: MyColors.primary,
         child: Icon(
           Icons.add,

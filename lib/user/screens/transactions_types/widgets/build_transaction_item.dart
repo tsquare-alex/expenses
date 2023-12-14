@@ -1,4 +1,4 @@
-part of 'add_transaction_widgets_imports.dart';
+part of 'transactions_types_widgets_imports.dart';
 
 class BuildTransactionItem extends StatelessWidget {
   const BuildTransactionItem(

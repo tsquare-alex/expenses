@@ -18,33 +18,18 @@ class BuildCommitmentsView extends StatelessWidget {
                   commitmentsData.contentCubit.onUpdateData(
                       !commitmentsData.contentCubit.state.data),
               hasContent: state.data,
-              content: Column(
-                children: [
-                  BuildTransactionItem(
-                    onTap: (){},
-                    name: "كهرباء",
-                    image: Res.one,
-                    radius: 18.r,
-                    width: 18.w,
-                    height: 18.w,
-                  ),
-                  BuildTransactionItem(
-                    onTap: (){},
-                    name: "مياه",
-                    image: Res.two,
-                    radius: 18.r,
-                    width: 18.w,
-                    height: 18.w,
-                  ),
-                  BuildTransactionItem(
-                    onTap: (){},
-                    name: "غاز",
-                    image: Res.two,
-                    radius: 18.r,
-                    width: 18.w,
-                    height: 18.w,
-                  ),
-                ],
+              content: ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: commitmentsData.contents.length,
+                itemBuilder: (context,i)=>BuildTransactionItem(
+                  onTap: ()=>AutoRouter.of(context).push(AddTransactionRoute(model: commitmentsData.contents[i], transactionType: "فواتير")),
+                  name: commitmentsData.contents[i].name??"",
+                  image: Res.one,
+                  radius: 18.r,
+                  width: 18.w,
+                  height: 18.w,
+                ),
               ),
             );
           },
@@ -52,25 +37,25 @@ class BuildCommitmentsView extends StatelessWidget {
         BuildTransactionItem(
           name: "إيجار",
           image: Res.budget,
-          onTap: () {}
+          onTap: ()=>AutoRouter.of(context).push(AddTransactionRoute(model: commitmentsData.contents[0], transactionType: "إيجار")),
         ),
         BuildTransactionItem(
             name: "أقساط",
             image: Res.budget,
-            onTap: () {}
+          onTap: ()=>AutoRouter.of(context).push(AddTransactionRoute(model: commitmentsData.contents[0], transactionType: "أقساط")),
         ),
         BuildTransactionItem(
             name: "تأمينات",
             image: Res.budget,
-            onTap: () {}
+          onTap: ()=>AutoRouter.of(context).push(AddTransactionRoute(model: commitmentsData.contents[0], transactionType: "تأمينات")),
         ),
         BuildTransactionItem(
             name: "اشتراكات",
             image: Res.budget,
-            onTap: () {}
+          onTap: ()=>AutoRouter.of(context).push(AddTransactionRoute(model: commitmentsData.contents[0], transactionType: "اشتراكات")),
         ),
         BuildTransactionItem(
-            name: "إيجاؤ",
+            name: "إضافة",
             image: Res.budget,
             onTap: () {}
         ),

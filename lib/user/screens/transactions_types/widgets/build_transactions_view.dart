@@ -1,8 +1,8 @@
-part of 'add_transaction_widgets_imports.dart';
+part of 'transactions_types_widgets_imports.dart';
 
 class BuildTransactionsView extends StatelessWidget {
   const BuildTransactionsView({Key? key, required this.data}) : super(key: key);
-  final AddTransactionData data;
+  final TransactionsTypesData data;
 
   @override
   Widget build(BuildContext context) {

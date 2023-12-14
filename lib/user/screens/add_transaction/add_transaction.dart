@@ -1,8 +1,9 @@
 part of 'add_transaction_imports.dart';
 
 class AddTransaction extends StatefulWidget {
-  const AddTransaction({Key? key}) : super(key: key);
-
+  const AddTransaction({Key? key, required this.model, required this.transactionType}) : super(key: key);
+  final DropdownModel model;
+  final String transactionType;
   @override
   State<AddTransaction> createState() => _AddTransactionState();
 }
@@ -27,20 +28,28 @@ class _AddTransactionState extends State<AddTransaction> {
         ),
         centerTitle: true,
         title: MyText(
-          title: "أصناف/أنواع المعاملات",
+          title: "إضافة معاملة",
           color: MyColors.white,
           size: 16.sp,
           fontWeight: FontWeight.bold,
         ),
       ),
-      body: DefaultTabController(
-        length: 3,
-        child: Column(
-          children: [
-            // Content for Tab 1
-            BuildTransactionsView(data: data,),
+      body: Padding(
+        padding: EdgeInsets.all(15.0.r),
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              BuildTransactionPrice(data: data),
+              BuildTransactionType(data: data, model: widget.model, transactionType: widget.transactionType),
+              BuildTransactionWallet(data: data),
+              BuildTransactionDescription(data: data),
+              BuildTransactionDate(data: data),
+              BuildIterateTransaction(),
+              BuildTransactionButton(),
 
-          ],
+            ],
+          ),
         ),
       ),
     );

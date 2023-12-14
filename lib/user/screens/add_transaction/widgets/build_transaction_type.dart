@@ -3,7 +3,7 @@ part of 'add_transaction_widgets_imports.dart';
 class BuildTransactionType extends StatelessWidget {
   const BuildTransactionType({Key? key, required this.data, required this.model, required this.transactionType}) : super(key: key);
   final AddTransactionData data;
-  final DropdownModel model;
+  final TransactionContentModel model;
   final String transactionType;
   @override
   Widget build(BuildContext context) {

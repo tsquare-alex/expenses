@@ -29,7 +29,7 @@ import 'package:expenses/general/screens/select_language/select_language_imports
 import 'package:expenses/general/screens/splash/SplashImports.dart' as _i1;
 import 'package:expenses/general/screens/welcome_page/WelcomePageImports.dart'
     as _i2;
-import 'package:expenses/user/models/dropdown_model/dropdown_model.dart'
+import 'package:expenses/user/models/transaction_type_model/transaction_content_model.dart'
     as _i26;
 import 'package:expenses/user/screens/add_transaction/add_transaction_imports.dart'
     as _i13;
@@ -535,7 +535,7 @@ class AddDatabaseRoute extends _i23.PageRouteInfo<void> {
 class AddTransactionRoute extends _i23.PageRouteInfo<AddTransactionRouteArgs> {
   AddTransactionRoute({
     _i24.Key? key,
-    required _i26.DropdownModel model,
+    required _i26.TransactionContentModel model,
     required String transactionType,
   }) : super(
           AddTransactionRoute.name,
@@ -559,7 +559,7 @@ class AddTransactionRouteArgs {
 
   final _i24.Key? key;
 
-  final _i26.DropdownModel model;
+  final _i26.TransactionContentModel model;
 
   final String transactionType;
 

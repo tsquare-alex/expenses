@@ -1,9 +1,9 @@
-part of 'transactions_types_widgets_imports.dart';
+part of 'commitments_widgets_imports.dart';
 
 class BuildAddTransactionModel extends StatelessWidget {
   const BuildAddTransactionModel({Key? key, required this.data})
       : super(key: key);
-  final TransactionsTypesData data;
+  final CommitmentsData data;
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +13,10 @@ class BuildAddTransactionModel extends StatelessWidget {
         listener: (context,state){},
         builder: (context,state)=>Padding(
           padding: EdgeInsets.all(15.0.r),
-          child: Column(
-            children: [
-              Expanded(
-                child: Column(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Column(
                   children: [
                     GenericTextField(
                       contentPadding:
@@ -50,36 +50,28 @@ class BuildAddTransactionModel extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-              DefaultButton(
-                onTap: () {
-                  var box = Hive.box(ApiNames.kTransactionTypes);
-                  box.put("name", "Mohamed");
-                  //AddTransactionTypeCubit.get(context).addTransactionType(
-                  //   TransactionTypeModel(
-                  //     name: "Mohamed",
-                  //     content: [
-                  //       TransactionContentModel(
-                  //         name: "content"
-                  //       )
-                  //     ]
-                  //   ),
-                  // );
-                },
-                title: "إضافة",
-                fontSize: 14.sp,
-                fontWeight: FontWeight.bold,
-              ),
-              DefaultButton(
-                onTap: () {
-                  var box = Hive.box(ApiNames.kTransactionTypes);
-                  print(box.get("name"));
-                },
-                title: "طباعة",
-                fontSize: 14.sp,
-                fontWeight: FontWeight.bold,
-              ),
-            ],
+                DefaultButton(
+                  onTap: () {
+                    // var box = Hive.box(ApiNames.kTransactionTypes);
+                    // box.put("name", "Mohamed");
+                    AddTransactionTypeCubit.get(context).addTransactionType(
+                      TransactionTypeModel(
+                        name: data.nameController.text,
+                        content: [
+                          TransactionContentModel(
+                            name: data.contentController.text
+                          )
+                        ]
+                      ),
+                    );
+                    AutoRouter.of(context).pop();
+                  },
+                  title: "إضافة",
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ],
+            ),
           ),
         ),
       ),

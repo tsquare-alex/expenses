@@ -2,7 +2,7 @@ part of 'add_transaction_imports.dart';
 
 class AddTransaction extends StatefulWidget {
   const AddTransaction({Key? key, required this.model, required this.transactionType}) : super(key: key);
-  final DropdownModel model;
+  final TransactionContentModel model;
   final String transactionType;
   @override
   State<AddTransaction> createState() => _AddTransactionState();

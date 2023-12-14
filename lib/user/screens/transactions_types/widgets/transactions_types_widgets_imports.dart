@@ -20,4 +20,3 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 part 'build_transactions_view.dart';
 part 'build_transaction_item.dart';
-part 'build_add_transaction_model.dart';

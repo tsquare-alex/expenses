@@ -14,9 +14,11 @@ class TransactionsTypesData{
               topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r))),
       context: context,
       builder: (context) =>
-          SizedBox(height: 300.h,child: BuildAddTransactionModel(data: this,)),
+          SizedBox(height: 300.h,child: BuildAddTransactionModel(data: CommitmentsData(),)),
     );
   }
+
+  var transactionType = Hive.box<TransactionTypeModel>("transactionTypeBox");
   // TransactionTypeModel transactionTypeModel = TransactionTypeModel(
   //   name: nameController.text,
   //   content: [

@@ -12,6 +12,12 @@ class _CommitmentsState extends State<Commitments> {
   CommitmentsData data = CommitmentsData();
 
   @override
+  void initState() {
+    data.fetchData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -36,7 +42,12 @@ class _CommitmentsState extends State<Commitments> {
         padding: EdgeInsets.all(15.0.r),
         child: Column(
           children: [
-            BuildCommitmentsView(commitmentsData: data,),
+            BlocBuilder<GenericBloc<List<TransactionTypeModel>>, GenericState<List<TransactionTypeModel>>>(
+              bloc: data.transactionTypeCubit,
+              builder: (context, state) {
+                return BuildCommitmentsView(commitmentsData: data, model: state.data,);
+              },
+            ),
           ],
         ),
       ),

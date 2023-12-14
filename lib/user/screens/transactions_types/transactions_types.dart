@@ -10,10 +10,9 @@ class TransactionsTypes extends StatefulWidget {
 class _TransactionsTypesState extends State<TransactionsTypes> {
 
   TransactionsTypesData data = TransactionsTypesData();
-  late Box transactionTypeBox;
   @override
   void initState() {
-    transactionTypeBox = Hive.box(ApiNames.kTransactionTypes);
+
     super.initState();
   }
 
@@ -38,10 +37,16 @@ class _TransactionsTypesState extends State<TransactionsTypes> {
           fontWeight: FontWeight.bold,
         ),
       ),
-      body: Column(
-        children: [
-          BuildTransactionsView(data: data,),
-        ],
+      body: Padding(
+        padding: EdgeInsets.all(15.0.r),
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              BuildTransactionsView(data: data,),
+            ],
+          ),
+        ),
       ),
     );
   }

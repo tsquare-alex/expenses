@@ -12,6 +12,7 @@ import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/models/dropdown_model/dropdown_model.dart';
+import 'package:expenses/user/models/transaction_type_model/transaction_content_model.dart';
 import 'package:expenses/user/screens/add_transaction/add_transaction_imports.dart';
 import 'package:expenses/user/screens/transactions_types/widgets/transactions_types_widgets_imports.dart';
 import 'package:flutter/cupertino.dart';

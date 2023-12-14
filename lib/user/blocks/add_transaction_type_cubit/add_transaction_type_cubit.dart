@@ -14,10 +14,26 @@ class AddTransactionTypeCubit extends Cubit<AddTransactionTypeState> {
   addTransactionType(TransactionTypeModel model) async{
     emit(AddTransactionTypeLoadingState());
     print(';ss');
-      var transactionType = Hive.box<TransactionTypeModel>(ApiNames.kTransactionTypes);
-      transactionType.add(model);
-      print(transactionType.values);
-      emit(AddTransactionTypeSuccessState());
-      print('success');
+    var transactionType = Hive.box<TransactionTypeModel>("transactionTypeBox");
+    transactionType.add(model);
+    print(transactionType.values.length);
+    emit(AddTransactionTypeSuccessState());
+    print('success');
+
   }
+
+  // void clearBoxData() async {
+  //   final box = await Hive.openBox('myBox');
+  //
+  //   try {
+  //     // Clear all data in the box
+  //     await box.clear();
+  //     print('Box data cleared successfully');
+  //   } catch (e) {
+  //     print('Error clearing box data: $e');
+  //   } finally {
+  //     // Close the Hive box
+  //     await box.close();
+  //   }
+  // }
 }

@@ -151,12 +151,12 @@ class _AddWalletState extends State<AddWallet> {
                               SizedBox(
                                 width: 150.w,
                                 child: TileDropdownButton(
-                                    menuList: data.paymentMethod,
-                                    value: data.paymentMethod.first,
-                                    onChanged: (value) => {},
-                                    onSaved: (value) {
-                                      paymentWay = value.toString();
-                                    }),
+                                  menuList: data.paymentMethod,
+                                  value: data.paymentMethod.first,
+                                  onChanged: (value) => {
+                                    paymentWay = value.toString(),
+                                  },
+                                ),
                               ),
                             ],
                           ),

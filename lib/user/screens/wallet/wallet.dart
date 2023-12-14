@@ -1,14 +1,7 @@
 part of 'wallet_imports.dart';
 
-class Wallet extends StatefulWidget {
+class Wallet extends StatelessWidget {
   const Wallet({Key? key}) : super(key: key);
-
-  @override
-  State<Wallet> createState() => _WalletState();
-}
-
-class _WalletState extends State<Wallet> {
-  final WalletData data = WalletData();
 
   @override
   Widget build(BuildContext context) {

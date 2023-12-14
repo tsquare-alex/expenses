@@ -1,17 +1,17 @@
 import 'package:equatable/equatable.dart';
 
-class AddWalletCubitState extends Equatable {
+class AddWalletState extends Equatable {
   @override
   List<Object?> get props => [];
 }
 
-class AddWalletInitial extends AddWalletCubitState {}
+class AddWalletInitial extends AddWalletState {}
 
-class AddWalletLoading extends AddWalletCubitState {}
+class AddWalletLoading extends AddWalletState {}
 
-class AddWalletSucess extends AddWalletCubitState {}
+class AddWalletSucess extends AddWalletState {}
 
-class AddWalletfaliuer extends AddWalletCubitState {
+class AddWalletfaliuer extends AddWalletState {
   final String message;
 
   AddWalletfaliuer({required this.message});

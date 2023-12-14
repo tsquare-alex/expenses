@@ -9,9 +9,9 @@ class AddWalletCubit extends Cubit<AddWalletState> {
   addNote(WalletModel model) async {
     emit(AddWalletLoading());
     try {
-      var walletBox = Hive.box("expensesBox");
-      emit(AddWalletSucess());
+      var walletBox = Hive.box<WalletModel>("expensesBox");
       await walletBox.add(model);
+      emit(AddWalletSucess());
     } catch (e) {
       emit(AddWalletfaliuer(message: e.toString()));
     }

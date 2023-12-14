@@ -30,7 +30,7 @@ class SettingsData {
 
   List<String> decimal = ['رقم', 'رقمين'];
 
-  List<String> saveFormat = ['PDF', 'DOCX'];
+  List<String> saveFormat = ['PDF', 'XLSX'];
 
   List<String> syncOptions = ['Google Drive', 'Firebase'];
 

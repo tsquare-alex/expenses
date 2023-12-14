@@ -81,7 +81,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   builder: (context, state) {
                     return IconButton(
                       onPressed: () {
-                        AppThemeCubit.get(context).toggleTheme(AppThemeCubit.get(context).isDarkMode);
+                        AppThemeCubit.get(context).changeTheme();
                       },
                       padding: EdgeInsets.zero,
                       icon: Icon(

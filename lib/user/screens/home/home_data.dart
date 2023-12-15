@@ -3,6 +3,7 @@ part of 'home_imports.dart';
 class HomeData{
   final GlobalKey<ScaffoldState> scaffold = GlobalKey();
   final GenericBloc<int> navCubit = GenericBloc(0);
+  GenericBloc<bool> shareCubit = GenericBloc(false);
 
   late AnimationController animationController;
   late TabController tabController;
@@ -11,16 +12,32 @@ class HomeData{
 
   final GenericBloc<int> homeTabCubit = GenericBloc(0);
 
-  List<String> activeTabs = [
-    Res.dollar,
-    Res.home,
-    Res.cart,
+  List<TabModel> tabs = [
+    TabModel(
+      image: Res.dollar,
+      title: "المعاملات والمصروفات",
+    ),
+    TabModel(
+      image: Res.home,
+      title: "القائمة الرئيسية",
+    ),
+    TabModel(
+      image: Res.cart,
+      title: "التقارير والاحصائيات",
+    ),
   ];
-  List<String> tabs = [
-    Res.dollar,
-    Res.home,
-    Res.cart,
+  List<String> titles=[
+    "المعاملات والمصروفات",
+    "القائمة الرئيسية",
+    "التقارير والاحصائيات",
+    "الاعدادات والضبط",
+    "الادوات المساعده",
+    "السجل وقاعدة البيانات",
+    "المساعدة والشرح",
+    "المصادر المالية",
+    "الميزانية والخطط المالية",
   ];
+
 
   void initBottomNavigation(TickerProvider ticker,int index) {
     tabController = TabController(length: 3, vsync: ticker,initialIndex:index );

@@ -1,92 +1,135 @@
 part of 'main_widgets_imports.dart';
 
 class BuildPieChart extends StatelessWidget {
-  const BuildPieChart({Key? key, required this.mainData}) : super(key: key);
+  BuildPieChart({Key? key, required this.mainData, required this.homeTabCubit})
+      : super(key: key);
   final MainData mainData;
-
+  final GenericBloc<int> homeTabCubit;
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 1.5,
-      child: Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(18)),
-          color: Colors.white,
-        ),
-        child: Stack(
-          alignment: AlignmentDirectional.center,
-          children: [
-            PieChart(
-              PieChartData(
-                borderData: FlBorderData(show: false),
-                centerSpaceRadius: 50,
-                sections: mainData.getSections(),
-                pieTouchData: PieTouchData(
-                    touchCallback: (event, pieTouchResponse) {
-                      if (!event.isInterestedForInteractions || pieTouchResponse == null || pieTouchResponse.touchedSection == null) {
-                        return;
-                      }
-                      final int touchedIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
-                      if (touchedIndex >= 0 && touchedIndex < mainData.data.length) {
-                        // Navigate to the page with the corresponding widget
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => mainData.widgets[touchedIndex]),
-                        );
-                      }
+      child: Stack(
+        alignment: AlignmentDirectional.center,
+        children: [
+          Container(
+            height: 150.h,
+            width: 150.w,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: MyColors.white,
+              // gradient: LinearGradient(
+              //     stops: [0.5, 0.5],
+              //     begin: Alignment.topCenter,
+              //     end: Alignment.bottomCenter,
+              //     colors: <Color>[
+              //       Colors.green,
+              //       Colors.red,
+              //     ]),
+            ),
+          ),
+          Stack(
+            alignment: AlignmentDirectional.center,
+            children: [
+              PieChart(
+                PieChartData(
+                  borderData: FlBorderData(show: false),
+                  centerSpaceRadius: 60.r,
+                  sections: mainData.getSections(),
+                  pieTouchData:
+                      PieTouchData(touchCallback: (event, pieTouchResponse) {
+                    if (!event.isInterestedForInteractions ||
+                        pieTouchResponse == null ||
+                        pieTouchResponse.touchedSection == null) {
+                      return;
                     }
+                    final int touchedIndex =
+                        pieTouchResponse.touchedSection!.touchedSectionIndex;
+                    if (touchedIndex >= 0 &&
+                        touchedIndex < mainData.data.length) {
+                      // Navigate to the page with the corresponding widget
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) =>
+                      //         mainData.widgets.keys.toList()[touchedIndex],
+                      //   ),
+                      // );
+                      homeTabCubit.onUpdateData(
+                          mainData.widgets.values.toList()[touchedIndex]);
+                      // //print(mainData.widgets.values.toList()[touchedIndex]);
+                      // print(data.homeTabCubit.state.data);
+                    }
+                  }),
                 ),
               ),
-            ),
-            SizedBox(
-              width: 80.w,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Stack(
+                alignment: AlignmentDirectional.center,
                 children: [
-                  InkWell(
-                    onTap:(){},
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      alignment: Alignment.center,
-                      // padding: EdgeInsets.all(5.r),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1),
-                        shape: BoxShape.circle
+                  // SpinKitPouringHourGlassRefined(
+                  //   color: Colors.amber,
+                  //   size: 150.0.w,
+                  //   controller: mainData.controller,
+                  // ),
+                  Stack(
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      Image.asset(
+                        Res.hourglass,
+                        width: 100.w,
+                        height: 100.h,
                       ),
-                      child: Center(
-                        child: Icon(Icons.add,color: MyColors.black,),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          MyText(
+                            title: "3000",
+                            color: MyColors.primary,
+                            size: 12.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          SizedBox(
+                            height: 30.h,
+                          ),
+                          MyText(
+                            title: "250",
+                            color: MyColors.white,
+                            size: 12.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ],
                       ),
-                    ),
+                    ],
                   ),
-                  Divider(thickness: 2.w,),
-                  InkWell(
-                    onTap: (){},
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(5.r),
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 1),
-                          shape: BoxShape.circle
-                      ),
-                      child: Center(
-                        child: MyText(
-                          title: "--",
+                  SizedBox(
+                    height: 100.h,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {},
+                        child: Icon(
+                          Icons.add,
                           color: MyColors.black,
-                          size: 16.sp,
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
+
+                      InkWell(
+                        onTap: () {},
+                        child: Icon(
+                          Icons.remove,
+                          color: MyColors.black,
+                          size: 25.w,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }

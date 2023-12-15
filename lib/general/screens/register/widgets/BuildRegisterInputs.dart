@@ -23,7 +23,8 @@ class BuildRegisterFields extends StatelessWidget {
               if(value!.isEmpty){
                 return 'Enter your Name';
               }
-            },            label: "الاسم",
+            },
+            label: "الاسم",
             margin: const EdgeInsets.symmetric(vertical: 10),
           ),
           GenericTextField(
@@ -55,7 +56,8 @@ class BuildRegisterFields extends StatelessWidget {
                     if(value!.isEmpty){
                       return 'Enter your Password';
                     }
-                  },                  label: "كلمه المرور",
+                    },
+                  label: "كلمه المرور",
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   suffixIcon: IconButton(
                     onPressed: () =>

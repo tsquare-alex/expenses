@@ -12,7 +12,7 @@ class BuildLoginButton extends StatelessWidget {
       child: BlocConsumer<LoginCubit,LoginStates>(
         listener: (context,state){
           if (state is LoginErrorState) {
-            CustomToast.showSimpleToast(msg: state.error, color: Colors.red);
+            CustomToast.showSimpleToast(msg: "Email address or password is wrong", color: Colors.red);
           }
 
           if (state is LoginSuccessState) {

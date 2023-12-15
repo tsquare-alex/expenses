@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
 import 'PopUpSafeArea.dart';
 
@@ -202,7 +201,7 @@ class PopupMenuItemState<T, W extends CustomPopupMenuItem<T>> extends State<W> {
         alignment: AlignmentDirectional.centerStart,
         constraints: BoxConstraints(minHeight: widget.height),
         padding:
-        const EdgeInsets.symmetric(horizontal: _kMenuHorizontalPadding),
+            const EdgeInsets.symmetric(horizontal: _kMenuHorizontalPadding),
         child: buildChild(),
       ),
     );
@@ -270,10 +269,10 @@ class _PopupMenu<T> extends StatelessWidget {
     }
 
     final CurveTween opacity =
-    CurveTween(curve: const Interval(0.0, 1.0 / 3.0));
+        CurveTween(curve: const Interval(0.0, 1.0 / 3.0));
     final CurveTween width = CurveTween(curve: Interval(0.0, unit));
     final CurveTween height =
-    CurveTween(curve: Interval(0.0, unit * route!.items.length));
+        CurveTween(curve: Interval(0.0, unit * route!.items.length));
 
     final Widget child = ConstrainedBox(
       constraints: const BoxConstraints(minWidth: _kMenuMinWidth),
@@ -286,7 +285,7 @@ class _PopupMenu<T> extends StatelessWidget {
           label: semanticLabel,
           child: SingleChildScrollView(
             padding:
-            const EdgeInsets.symmetric(vertical: _kMenuVerticalPadding),
+                const EdgeInsets.symmetric(vertical: _kMenuVerticalPadding),
             child: ListBody(children: children),
           ),
         ),
@@ -345,7 +344,7 @@ class _PopupMenuRouteLayout extends SingleChildLayoutDelegate {
     // The menu can be at most the size of the overlay minus 8.0 pixels in each
     // direction.
     return BoxConstraints.loose(constraints.biggest -
-        const Offset(_kMenuScreenPadding * 2.0, _kMenuScreenPadding * 2.0)
+            const Offset(_kMenuScreenPadding * 2.0, _kMenuScreenPadding * 2.0)
         as Size);
   }
 
@@ -473,8 +472,8 @@ class _PopupMenuRoute<T> extends PopupRoute<T> {
     int? selectedItemIndex;
     if (initialValue != null) {
       for (int index = 0;
-      selectedItemIndex == null && index < items.length;
-      index += 1) {
+          selectedItemIndex == null && index < items.length;
+          index += 1) {
         if (items[index].represents(initialValue)) selectedItemIndex = index;
       }
     }

@@ -5,21 +5,32 @@ class TabIcon extends StatelessWidget {
   final int index;
   final bool active;
 
-  const TabIcon({super.key, required this.index, required this.active, required this.userHomeData});
+  TabIcon({required this.index, required this.active, required this.userHomeData});
 
   @override
   Widget build(BuildContext context) {
-    Color color = active ? MyColors.secondary : MyColors.blackOpacity;
+    Color color = active ? MyColors.white : MyColors.grey;
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 5),
+      padding: EdgeInsets.symmetric(vertical: 5.r),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(userHomeData.tabs[index],
-              width: 25, height: 25,color: color,),
-
+          const SizedBox(height: 10),
+          Image.asset(
+            "${userHomeData.tabs[index].image}",
+            color: active?MyColors.white:MyColors.grey,
+            width: 25, height: 25,
+          ),
+          SizedBox(height: 5.h),
+          MyText(
+            title: "${userHomeData.tabs[index].title}",
+            size: 9.sp,
+            color: color,
+            fontWeight: FontWeight.bold,
+          ),
         ],
       ),
     );
   }
 }
+

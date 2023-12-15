@@ -19,16 +19,16 @@ class BuildBottomNavigationBar extends StatelessWidget {
               controller: controller,
             );
           },
-          backgroundColor: MyColors.primary,
+          backgroundColor: context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.primary:MyColors.primary,
           splashColor: MyColors.primary,
           activeIndex: state.data,
           gapLocation: GapLocation.none,
           splashSpeedInMilliseconds: 300,
-          leftCornerRadius: 20,
-          rightCornerRadius: 20,
+          leftCornerRadius: 0,
+          rightCornerRadius: 0,
 
 
-          height: 60,
+          height: 65.h,
           onTap: (index) => controller.animateTabsPages(index, context),
         );
       },

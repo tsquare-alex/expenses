@@ -4,5 +4,5 @@ import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-part 'budget.dart';
-part 'budget_data.dart';
+part 'target.dart';
+part 'target_data.dart';

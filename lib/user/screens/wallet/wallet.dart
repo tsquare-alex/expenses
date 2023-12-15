@@ -8,8 +8,7 @@ class Wallet extends StatefulWidget {
 }
 
 class _WalletState extends State<Wallet> {
-
-  WalletData data = WalletData();
+  final WalletData data = WalletData();
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +27,34 @@ class _WalletState extends State<Wallet> {
           color: MyColors.txtColor,
           size: 18.sp,
           fontWeight: FontWeight.bold,
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          AutoRouter.of(context).push(const AddWalletRoute());
+        },
+        backgroundColor: MyColors.primary,
+        child: Icon(
+          Icons.add,
+          size: 20.sp,
+          color: MyColors.white,
+        ),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(12.w),
+        child: ListView(
+          physics: const BouncingScrollPhysics(),
+          children: [
+            SizedBox(
+              height: 25.h,
+            ),
+            const CustomContainer(
+              availableBalance: "الرصيد المتاح",
+              balance: "5000",
+              walletCategory: "حساب بنكي",
+              walletNumber: "المحفظة الاولي",
+            ),
+          ],
         ),
       ),
     );

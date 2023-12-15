@@ -13,21 +13,6 @@ class Database extends StatelessWidget {
             onPressed: () => AutoRouter.of(context).push(AddDatabaseRoute()),
             child: const Icon(Icons.add)),
         backgroundColor: MyColors.headerColor.withOpacity(0.2),
-        appBar: AppBar(
-          backgroundColor: MyColors.primary,
-          elevation: 0,
-          leading: IconButton(
-            onPressed: () => AutoRouter.of(context).pop(),
-            icon: const Icon(Icons.arrow_back_ios),
-          ),
-          centerTitle: true,
-          title: MyText(
-            title: "السجل وقواعد البيانات",
-            color: MyColors.white,
-            size: 18.sp,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),

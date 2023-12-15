@@ -15,7 +15,7 @@ class AppThemeCubit extends Cubit<AppThemeState> {
     return await SharedPreferences.getInstance();
   }
 
-  ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode _themeMode = ThemeMode.light;
 
   ThemeMode get themeMode => _themeMode;
 
@@ -53,6 +53,13 @@ class AppThemeCubit extends Cubit<AppThemeState> {
   void toggleTheme(bool isOn) {
     emit(const AppThemeState.initial());
     _themeMode = isOn ? ThemeMode.dark : ThemeMode.light;
+    setAppTheme();
+    emit(const AppThemeState.changed());
+  }
+
+  void changeTheme() {
+    emit(const AppThemeState.initial());
+    _themeMode = isDarkMode ? ThemeMode.light : ThemeMode.dark;
     setAppTheme();
     emit(const AppThemeState.changed());
   }

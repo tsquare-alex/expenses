@@ -9,22 +9,22 @@ class TabIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color color = active ? MyColors.primary : MyColors.blackOpacity;
+    Color color = active ? MyColors.white : MyColors.grey;
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 5),
+      padding: EdgeInsets.symmetric(vertical: 5.r),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(height: 10),
           Image.asset(
             "${userHomeData.tabs[index].image}",
-            color: active?MyColors.primary:null,
+            color: active?MyColors.white:MyColors.grey,
             width: 25, height: 25,
           ),
           SizedBox(height: 5.h),
           MyText(
             title: "${userHomeData.tabs[index].title}",
-            size: 10.sp,
+            size: 9.sp,
             color: color,
             fontWeight: FontWeight.bold,
           ),

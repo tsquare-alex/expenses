@@ -48,7 +48,7 @@ dependencies:
   flutter_easyloading:
   flutter_screenutil:
   flutter_staggered_animations:
-  auto_route:
+  auto_route: ^5.0.4
   location:
   flutter_phoenix:
   shared_preferences:
@@ -57,17 +57,25 @@ dependencies:
   fluttertoast:
   animated_bottom_navigation_bar:
   fl_chart:
+  flutter_spinkit: ^5.2.0
+  percent_indicator: ^4.2.3
+  dropdown_button2: ^2.3.9
   dotted_border: ^2.1.0
   freezed_annotation: ^2.4.1
-  flutter_simple_calculator: ^2.2.4
-  flutter_qiblah: ^2.2.0
-  flutter_svg: ^2.0.9
-  table_calendar: ^3.0.9
-  font_awesome_flutter: ^10.6.0
-  units_converter: ^2.1.1
-  hive: ^2.2.3
-  hive_flutter: ^1.1.0
+  flutter_slidable: ^3.0.1
+  google_sign_in:
+  googleapis:
+  googleapis_auth:
+  path_provider:
+  extension_google_sign_in_as_googleapis_auth:
+  hive:
+  hive_flutter:
   image_picker:
+  flutter_simple_calculator:
+  flutter_qiblah:
+  flutter_svg:
+  table_calendar:
+  font_awesome_flutter:
 
 dev_dependencies:
   flutter_test:

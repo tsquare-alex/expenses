@@ -2,6 +2,7 @@ part of 'add_transaction_imports.dart';
 
 class AddTransactionData{
 
+  GenericBloc<bool> contentCubit = GenericBloc(false);
 
   final GlobalKey<DropdownSearchState> transactionsDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> targetsDropKey = GlobalKey();

@@ -13,6 +13,22 @@ class MainData {
     BlocProvider<AppThemeCubit>(
       create: (context) => AppThemeCubit()..applyAppTheme(),
     ),
+    BlocProvider<LengthConverterCubit>(
+      create: (context) => LengthConverterCubit(),
+
+    ),
+    BlocProvider<AreaConverterCubit>(
+      create: (context) => AreaConverterCubit(),
+
+    ),
+    BlocProvider<AddDataBaseCubit>(
+      create: (context) => AddDataBaseCubit(),
+
+    ),
+    BlocProvider<DatabaseCubit>(
+      create: (context) => DatabaseCubit(),
+
+    ),
     // BlocProvider<UserCubit>(
     //     create: (BuildContext context)=> UserCubit()
     // ),

@@ -14,14 +14,10 @@ class DatabaseInitial extends DatabaseState {}
 class DatabaseLoading extends DatabaseState {}
 
 class DatabaseDataLoaded extends DatabaseState {
-  final List<DataBaseModel> dataBaseModel;
+  final List<DatabaseModel> dataBaseModel;
 
-  const DatabaseDataLoaded({
-    required this.dataBaseModel,
-  });
+  DatabaseDataLoaded({required this.dataBaseModel});
 
-  @override
-  List<Object> get props => [dataBaseModel];
 }
 
 class DatabaseError extends DatabaseState {

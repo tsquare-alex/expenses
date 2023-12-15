@@ -22,6 +22,7 @@ part of 'RouterImports.dart';
 
 
     AdaptiveRoute(page: AddTransaction),
+    AdaptiveRoute(page: AreaConverter),
 
 
   ],

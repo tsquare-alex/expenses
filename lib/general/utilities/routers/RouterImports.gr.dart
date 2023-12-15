@@ -11,9 +11,7 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i15;
-import 'package:expenses/general/models/data_base_model/data_base_model.dart'
-    as _i17;
+import 'package:auto_route/auto_route.dart' as _i16;
 import 'package:expenses/general/screens/currency_rate/currency_rate_imports.dart'
     as _i8;
 import 'package:expenses/general/screens/forget_password/ForgetPasswordImports.dart'
@@ -29,6 +27,8 @@ import 'package:expenses/general/screens/select_language/select_language_imports
 import 'package:expenses/general/screens/splash/SplashImports.dart' as _i1;
 import 'package:expenses/general/screens/welcome_page/WelcomePageImports.dart'
     as _i2;
+import 'package:expenses/user/models/database_model/database_model.dart'
+    as _i18;
 import 'package:expenses/user/screens/add_transaction/add_transaction_imports.dart'
     as _i14;
 import 'package:expenses/user/screens/database/widgets/add_database.dart'
@@ -36,43 +36,45 @@ import 'package:expenses/user/screens/database/widgets/add_database.dart'
 import 'package:expenses/user/screens/database/widgets/database_details.dart'
     as _i11;
 import 'package:expenses/user/screens/home/home_imports.dart' as _i10;
+import 'package:expenses/user/screens/tools_helper/widgets/arena_converter/arena_converter.dart'
+    as _i15;
 import 'package:expenses/user/screens/tools_helper/widgets/qiblah/compass.dart'
     as _i13;
-import 'package:flutter/material.dart' as _i16;
+import 'package:flutter/material.dart' as _i17;
 
-class AppRouter extends _i15.RootStackRouter {
-  AppRouter([_i16.GlobalKey<_i16.NavigatorState>? navigatorKey])
+class AppRouter extends _i16.RootStackRouter {
+  AppRouter([_i17.GlobalKey<_i17.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i15.PageFactory> pagesMap = {
+  final Map<String, _i16.PageFactory> pagesMap = {
     SplashRoute.name: (routeData) {
       final args = routeData.argsAs<SplashRouteArgs>();
-      return _i15.AdaptivePage<dynamic>(
+      return _i16.AdaptivePage<dynamic>(
         routeData: routeData,
         child: _i1.Splash(navigatorKey: args.navigatorKey),
         opaque: true,
       );
     },
     WelcomePageRoute.name: (routeData) {
-      return _i15.AdaptivePage<dynamic>(
+      return _i16.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i2.WelcomePage(),
         opaque: true,
       );
     },
     SelectLanguageRoute.name: (routeData) {
-      return _i15.CustomPage<dynamic>(
+      return _i16.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i3.SelectLanguage(),
-        transitionsBuilder: _i15.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i16.TransitionsBuilders.fadeIn,
         durationInMilliseconds: 1500,
         opaque: true,
         barrierDismissible: false,
       );
     },
     LoginRoute.name: (routeData) {
-      return _i15.CustomPage<dynamic>(
+      return _i16.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i4.Login(),
         opaque: true,
@@ -80,35 +82,35 @@ class AppRouter extends _i15.RootStackRouter {
       );
     },
     ForgetPasswordRoute.name: (routeData) {
-      return _i15.AdaptivePage<dynamic>(
+      return _i16.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i5.ForgetPassword(),
         opaque: true,
       );
     },
     SelectCountryRoute.name: (routeData) {
-      return _i15.AdaptivePage<dynamic>(
+      return _i16.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i6.SelectCountry(),
         opaque: true,
       );
     },
     SelectCurrencyRoute.name: (routeData) {
-      return _i15.AdaptivePage<dynamic>(
+      return _i16.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i7.SelectCurrency(),
         opaque: true,
       );
     },
     CurrencyRateRoute.name: (routeData) {
-      return _i15.AdaptivePage<dynamic>(
+      return _i16.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i8.CurrencyRate(),
         opaque: true,
       );
     },
     RegisterRoute.name: (routeData) {
-      return _i15.AdaptivePage<dynamic>(
+      return _i16.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i9.Register(),
         opaque: true,
@@ -116,7 +118,7 @@ class AppRouter extends _i15.RootStackRouter {
     },
     HomeRoute.name: (routeData) {
       final args = routeData.argsAs<HomeRouteArgs>();
-      return _i15.AdaptivePage<dynamic>(
+      return _i16.AdaptivePage<dynamic>(
         routeData: routeData,
         child: _i10.Home(
           key: args.key,
@@ -127,7 +129,7 @@ class AppRouter extends _i15.RootStackRouter {
     },
     DatabaseDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<DatabaseDetailsRouteArgs>();
-      return _i15.AdaptivePage<dynamic>(
+      return _i16.AdaptivePage<dynamic>(
         routeData: routeData,
         child: _i11.DatabaseDetails(
           key: args.key,
@@ -137,93 +139,104 @@ class AppRouter extends _i15.RootStackRouter {
       );
     },
     AddDatabaseRoute.name: (routeData) {
-      return _i15.AdaptivePage<dynamic>(
+      return _i16.AdaptivePage<dynamic>(
         routeData: routeData,
         child: _i12.AddDatabase(),
         opaque: true,
       );
     },
     QiblahCompassWidgetRoute.name: (routeData) {
-      return _i15.AdaptivePage<dynamic>(
+      return _i16.AdaptivePage<dynamic>(
         routeData: routeData,
         child: _i13.QiblahCompassWidget(),
         opaque: true,
       );
     },
     AddTransactionRoute.name: (routeData) {
-      return _i15.AdaptivePage<dynamic>(
+      return _i16.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i14.AddTransaction(),
+        opaque: true,
+      );
+    },
+    AreaConverterRoute.name: (routeData) {
+      return _i16.AdaptivePage<dynamic>(
+        routeData: routeData,
+        child: _i15.AreaConverter(),
         opaque: true,
       );
     },
   };
 
   @override
-  List<_i15.RouteConfig> get routes => [
-        _i15.RouteConfig(
+  List<_i16.RouteConfig> get routes => [
+        _i16.RouteConfig(
           SplashRoute.name,
           path: '/',
         ),
-        _i15.RouteConfig(
+        _i16.RouteConfig(
           WelcomePageRoute.name,
           path: '/welcome-page',
         ),
-        _i15.RouteConfig(
+        _i16.RouteConfig(
           SelectLanguageRoute.name,
           path: '/select-language',
         ),
-        _i15.RouteConfig(
+        _i16.RouteConfig(
           LoginRoute.name,
           path: '/Login',
         ),
-        _i15.RouteConfig(
+        _i16.RouteConfig(
           ForgetPasswordRoute.name,
           path: '/forget-password',
         ),
-        _i15.RouteConfig(
+        _i16.RouteConfig(
           SelectCountryRoute.name,
           path: '/select-country',
         ),
-        _i15.RouteConfig(
+        _i16.RouteConfig(
           SelectCurrencyRoute.name,
           path: '/select-currency',
         ),
-        _i15.RouteConfig(
+        _i16.RouteConfig(
           CurrencyRateRoute.name,
           path: '/currency-rate',
         ),
-        _i15.RouteConfig(
+        _i16.RouteConfig(
           RegisterRoute.name,
           path: '/Register',
         ),
-        _i15.RouteConfig(
+        _i16.RouteConfig(
           HomeRoute.name,
           path: '/Home',
         ),
-        _i15.RouteConfig(
+        _i16.RouteConfig(
           DatabaseDetailsRoute.name,
           path: '/database-details',
         ),
-        _i15.RouteConfig(
+        _i16.RouteConfig(
           AddDatabaseRoute.name,
           path: '/add-database',
         ),
-        _i15.RouteConfig(
+        _i16.RouteConfig(
           QiblahCompassWidgetRoute.name,
           path: '/qiblah-compass-widget',
         ),
-        _i15.RouteConfig(
+        _i16.RouteConfig(
           AddTransactionRoute.name,
           path: '/add-transaction',
+        ),
+        _i16.RouteConfig(
+          AreaConverterRoute.name,
+          path: '/area-converter',
         ),
       ];
 }
 
 /// generated route for
 /// [_i1.Splash]
-class SplashRoute extends _i15.PageRouteInfo<SplashRouteArgs> {
-  SplashRoute({required _i16.GlobalKey<_i16.NavigatorState> navigatorKey})
+class SplashRoute extends _i16.PageRouteInfo<SplashRouteArgs> {
+  SplashRoute({required _i17.GlobalKey<_i17.NavigatorState> navigatorKey})
       : super(
           SplashRoute.name,
           path: '/',
@@ -236,7 +249,7 @@ class SplashRoute extends _i15.PageRouteInfo<SplashRouteArgs> {
 class SplashRouteArgs {
   const SplashRouteArgs({required this.navigatorKey});
 
-  final _i16.GlobalKey<_i16.NavigatorState> navigatorKey;
+  final _i17.GlobalKey<_i17.NavigatorState> navigatorKey;
 
   @override
   String toString() {
@@ -246,7 +259,7 @@ class SplashRouteArgs {
 
 /// generated route for
 /// [_i2.WelcomePage]
-class WelcomePageRoute extends _i15.PageRouteInfo<void> {
+class WelcomePageRoute extends _i16.PageRouteInfo<void> {
   const WelcomePageRoute()
       : super(
           WelcomePageRoute.name,
@@ -258,7 +271,7 @@ class WelcomePageRoute extends _i15.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.SelectLanguage]
-class SelectLanguageRoute extends _i15.PageRouteInfo<void> {
+class SelectLanguageRoute extends _i16.PageRouteInfo<void> {
   const SelectLanguageRoute()
       : super(
           SelectLanguageRoute.name,
@@ -270,7 +283,7 @@ class SelectLanguageRoute extends _i15.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.Login]
-class LoginRoute extends _i15.PageRouteInfo<void> {
+class LoginRoute extends _i16.PageRouteInfo<void> {
   const LoginRoute()
       : super(
           LoginRoute.name,
@@ -282,7 +295,7 @@ class LoginRoute extends _i15.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.ForgetPassword]
-class ForgetPasswordRoute extends _i15.PageRouteInfo<void> {
+class ForgetPasswordRoute extends _i16.PageRouteInfo<void> {
   const ForgetPasswordRoute()
       : super(
           ForgetPasswordRoute.name,
@@ -294,7 +307,7 @@ class ForgetPasswordRoute extends _i15.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.SelectCountry]
-class SelectCountryRoute extends _i15.PageRouteInfo<void> {
+class SelectCountryRoute extends _i16.PageRouteInfo<void> {
   const SelectCountryRoute()
       : super(
           SelectCountryRoute.name,
@@ -306,7 +319,7 @@ class SelectCountryRoute extends _i15.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i7.SelectCurrency]
-class SelectCurrencyRoute extends _i15.PageRouteInfo<void> {
+class SelectCurrencyRoute extends _i16.PageRouteInfo<void> {
   const SelectCurrencyRoute()
       : super(
           SelectCurrencyRoute.name,
@@ -318,7 +331,7 @@ class SelectCurrencyRoute extends _i15.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.CurrencyRate]
-class CurrencyRateRoute extends _i15.PageRouteInfo<void> {
+class CurrencyRateRoute extends _i16.PageRouteInfo<void> {
   const CurrencyRateRoute()
       : super(
           CurrencyRateRoute.name,
@@ -330,7 +343,7 @@ class CurrencyRateRoute extends _i15.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.Register]
-class RegisterRoute extends _i15.PageRouteInfo<void> {
+class RegisterRoute extends _i16.PageRouteInfo<void> {
   const RegisterRoute()
       : super(
           RegisterRoute.name,
@@ -342,9 +355,9 @@ class RegisterRoute extends _i15.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i10.Home]
-class HomeRoute extends _i15.PageRouteInfo<HomeRouteArgs> {
+class HomeRoute extends _i16.PageRouteInfo<HomeRouteArgs> {
   HomeRoute({
-    _i16.Key? key,
+    _i17.Key? key,
     required int index,
   }) : super(
           HomeRoute.name,
@@ -364,7 +377,7 @@ class HomeRouteArgs {
     required this.index,
   });
 
-  final _i16.Key? key;
+  final _i17.Key? key;
 
   final int index;
 
@@ -377,10 +390,10 @@ class HomeRouteArgs {
 /// generated route for
 /// [_i11.DatabaseDetails]
 class DatabaseDetailsRoute
-    extends _i15.PageRouteInfo<DatabaseDetailsRouteArgs> {
+    extends _i16.PageRouteInfo<DatabaseDetailsRouteArgs> {
   DatabaseDetailsRoute({
-    _i16.Key? key,
-    required _i17.DataBaseModel databaseData,
+    _i17.Key? key,
+    required _i18.DatabaseModel databaseData,
   }) : super(
           DatabaseDetailsRoute.name,
           path: '/database-details',
@@ -399,9 +412,9 @@ class DatabaseDetailsRouteArgs {
     required this.databaseData,
   });
 
-  final _i16.Key? key;
+  final _i17.Key? key;
 
-  final _i17.DataBaseModel databaseData;
+  final _i18.DatabaseModel databaseData;
 
   @override
   String toString() {
@@ -411,7 +424,7 @@ class DatabaseDetailsRouteArgs {
 
 /// generated route for
 /// [_i12.AddDatabase]
-class AddDatabaseRoute extends _i15.PageRouteInfo<void> {
+class AddDatabaseRoute extends _i16.PageRouteInfo<void> {
   const AddDatabaseRoute()
       : super(
           AddDatabaseRoute.name,
@@ -423,7 +436,7 @@ class AddDatabaseRoute extends _i15.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i13.QiblahCompassWidget]
-class QiblahCompassWidgetRoute extends _i15.PageRouteInfo<void> {
+class QiblahCompassWidgetRoute extends _i16.PageRouteInfo<void> {
   const QiblahCompassWidgetRoute()
       : super(
           QiblahCompassWidgetRoute.name,
@@ -435,7 +448,7 @@ class QiblahCompassWidgetRoute extends _i15.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i14.AddTransaction]
-class AddTransactionRoute extends _i15.PageRouteInfo<void> {
+class AddTransactionRoute extends _i16.PageRouteInfo<void> {
   const AddTransactionRoute()
       : super(
           AddTransactionRoute.name,
@@ -443,4 +456,16 @@ class AddTransactionRoute extends _i15.PageRouteInfo<void> {
         );
 
   static const String name = 'AddTransactionRoute';
+}
+
+/// generated route for
+/// [_i15.AreaConverter]
+class AreaConverterRoute extends _i16.PageRouteInfo<void> {
+  const AreaConverterRoute()
+      : super(
+          AreaConverterRoute.name,
+          path: '/area-converter',
+        );
+
+  static const String name = 'AreaConverterRoute';
 }

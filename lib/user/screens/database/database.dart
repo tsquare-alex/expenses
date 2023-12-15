@@ -2,12 +2,12 @@ part of 'database_imports.dart';
 
 class Database extends StatelessWidget {
   // DatabaseData databaseData = DatabaseData();
-  DatabaseCubit databaseCubit = DatabaseCubit();
+  // DatabaseCubit databaseCubit = DatabaseCubit();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DatabaseCubit(),
+      create: (context) => DatabaseCubit()..fetchAllDatabase(),
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
             onPressed: () => AutoRouter.of(context).push(AddDatabaseRoute()),
@@ -39,14 +39,18 @@ class Database extends StatelessWidget {
                     color: MyColors.primary,
                     size: 20.sp,
                     fontWeight: FontWeight.bold),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: databaseCubit.dataBaseModel.length,
-                  itemBuilder: (context, index) {
-                    return ExpandableCard(
-                        databaseData: BlocProvider
-                            .of<DatabaseCubit>(context)
-                            .dataBaseModel[index]);
+                BlocBuilder<DatabaseCubit, DatabaseState>(
+                  builder: (context, state) {
+                    List<DatabaseModel> dataBase = BlocProvider.of<DatabaseCubit>(context).dataBase!;
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: dataBase.length,
+                      itemBuilder: (context, index) {
+                        return ExpandableCard(
+                            databaseData: dataBase[index]
+                        );
+                      },
+                    );
                   },
                 ),
               ],
@@ -57,6 +61,3 @@ class Database extends StatelessWidget {
     );
   }
 }
-
-
-

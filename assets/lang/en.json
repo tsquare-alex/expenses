@@ -130,6 +130,34 @@
   "shoesSize" : "Shoes Size",
   "calculator" : "Calculator",
   "calender" : "Calender",
-  "qiblah" : "Qiblah"
+  "qiblah" : "Qiblah",
+  "toolsHelper" : "Tools Helper",
+  "convertCMtoM" : "Convert from Centimeter to Meter",
+  "convertMtoCM" : "Convert from Meter to Centimeter",
+  "convertMtoKilo" : "Convert from Meter to KiloMeter",
+  "convertCMtoKilo" : "Convert from CentiMeter to KiloMeter",
+  "convertKiloToM" : "Convert from KiloMeter to Meter",
+  "convertKiloToCM" : "Convert from KiloMeter to CentiMeter",
+  "convert" : "Convert",
+  "convertSquareMToKiloM" : "Convert from Square Meter to Square Kilometer",
+  "convertSquareMToMile" : "Convert from Square Meter to Square Mile",
+  "convertSquareMToHectare" : "Convert from Square Meter to Hectare",
+  "convertSquareMToMCubic" : "Convert from Square Meter to Cubic Meter",
+  "convertSquareMToSquareCM" : "Convert from Square Meter to Square Centimeter",
+  "convertSquareMToSquareMill" : "Convert from Square Meter to Square Millimeter",
+  "convertSquareMToSquareInch" : "Convert from Square Meter to Square Inch",
+  "convertSquareMToSquareDeci" : "Convert from Square Meter to Square Decimeter",
+  "categoryPlace": "Place / Location",
+  "categoryPerson": "Person / individual",
+  "categoryItem": "Commodity / Item",
+  "lengthConvert": "Length Convert",
+  "areaConvert": "Area Convert"
+
+
+
+
+
+
+
 
 }

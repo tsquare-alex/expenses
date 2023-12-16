@@ -14,7 +14,6 @@ import 'package:expenses/user/screens/add_transaction/add_transaction_imports.da
 import 'package:expenses/user/screens/bmi_calculator/bmi_calculator_imports.dart';
 import 'package:expenses/user/screens/cash_transactions/cash_transactions_imports.dart';
 import 'package:expenses/user/screens/change_currency/change_currency_imports.dart';
-import 'package:expenses/user/screens/commitments/commitments_imports.dart';
 import 'package:expenses/user/screens/home/home_imports.dart';
 import 'package:expenses/user/screens/recurring_transactions/recurring_transactions_imports.dart';
 import 'package:expenses/user/screens/shopping/shopping_imports.dart';

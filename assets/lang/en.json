@@ -122,5 +122,8 @@
   "resetSettings": "Default settings",
   "egypt": "Egypt",
   "ksa": "KSA",
-  "settings" : "Settings"
+  "settings" : "Settings",
+  "expense" : "Expense",
+  "cashTransactions": "Cash Transactions",
+  "recurringTransactions": "Recurring transactions"
 }

@@ -10,6 +10,7 @@ import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/blocks/add_transaction_type_cubit/add_transaction_type_cubit.dart';
+import 'package:expenses/user/models/dropdown_model/dropdown_model.dart';
 import 'package:expenses/user/models/transaction_type_model/transaction_content_model.dart';
 import 'package:expenses/user/models/transaction_type_model/transaction_type_model.dart';
 import 'package:expenses/user/screens/transactions_types/transactions_types_imports.dart';
@@ -20,3 +21,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 part 'build_transactions_view.dart';
 part 'build_transaction_item.dart';
+part 'build_commitments_view.dart';
+part 'build_add_transaction_content.dart';
+part 'build_add_transaction_model.dart';
+part 'build_shipping_view.dart';

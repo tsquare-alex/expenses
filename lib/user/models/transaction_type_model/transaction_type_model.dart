@@ -9,5 +9,7 @@ class TransactionTypeModel extends HiveObject{
   String? name;
   @HiveField(1)
   List<TransactionContentModel>? content;
-  TransactionTypeModel({ this.name,this.content});
+
+  bool? isSelected;
+  TransactionTypeModel({ this.name,this.content,this.isSelected=false});
 }

@@ -21,7 +21,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     List<Widget> screen = [
-      const Transactions(),
+      Transactions(homeTabCubit: data.homeTabCubit,),
       Main(homeTabCubit: data.homeTabCubit,),
       const Reports(),
       const Settings(),
@@ -30,6 +30,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       Container(),
       const Wallet(),
       const Budget(),
+      Expense(),
+      Target(),
+      CashTransactions(),
+      RepeatedTransactions(),
     ];
     return WillPopScope(
         onWillPop: () async {
@@ -58,7 +62,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   return MyText(
                     title: data.titles[state.data],
                     color: MyColors.white,
-                    size: 16.sp,
+                    size: 14.sp,
                     alien: TextAlign.center,
                     fontWeight: FontWeight.bold,
                   );

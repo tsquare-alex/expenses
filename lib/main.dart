@@ -29,7 +29,7 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(TransactionTypeModelAdapter());
   Hive.registerAdapter(TransactionContentModelAdapter());
-  await Hive.openBox<TransactionTypeModel>("transactionTypeBox");
+  //await Hive.openBox<TransactionTypeModel>(ApiNames.kTransactionTypes);
 
   runApp(
       BlocProvider(

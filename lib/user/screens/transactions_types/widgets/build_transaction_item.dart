@@ -2,10 +2,10 @@ part of 'transactions_types_widgets_imports.dart';
 
 class BuildTransactionItem extends StatelessWidget {
   const BuildTransactionItem(
-      {Key? key, required this.name, required this.image, this.content, this.hasContent=false, this.onTap, this.radius, this.width, this.height,})
+      {Key? key, required this.name, this.image, this.content, this.hasContent=false, this.onTap, this.radius, this.width, this.height,})
       : super(key: key);
   final String name;
-  final String image;
+  final String? image;
   final double? radius;
   final double? width;
   final double? height;
@@ -24,12 +24,12 @@ class BuildTransactionItem extends StatelessWidget {
               CircleAvatar(
                 backgroundColor: context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.primary:MyColors.primary,
                 radius: radius??25.r,
-                child: Image.asset(
-                  image,
+                child: image!=null?Image.asset(
+                  image??"",
                   width: width??25.w,
                   height: height??25.w,
                   color: MyColors.white,
-                ),
+                ):Container(),
               ),
               SizedBox(
                 width: 15.w,

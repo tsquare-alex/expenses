@@ -1,9 +1,8 @@
 part of 'add_transaction_imports.dart';
 
 class AddTransaction extends StatefulWidget {
-  const AddTransaction({Key? key, required this.model, required this.transactionType}) : super(key: key);
-  final TransactionContentModel model;
-  final String transactionType;
+  const AddTransaction({Key? key, required this.model,}) : super(key: key);
+  final TransactionModel? model;
   @override
   State<AddTransaction> createState() => _AddTransactionState();
 }
@@ -11,6 +10,13 @@ class AddTransaction extends StatefulWidget {
 class _AddTransactionState extends State<AddTransaction> {
 
   AddTransactionData data = AddTransactionData();
+
+  @override
+  void initState() {
+    data.initialTransaction(widget.model!);
+    //data.fetchData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +47,7 @@ class _AddTransactionState extends State<AddTransaction> {
           child: Column(
             children: [
               BuildTransactionPrice(data: data),
-              BuildTransactionType(data: data, model: widget.model, transactionType: widget.transactionType),
+              BuildTransactionType(addTransactionData: data, type: widget.model?.name??"",),
               BuildTransactionWallet(data: data),
               BuildTransactionDescription(data: data),
               BuildTransactionDate(data: data),

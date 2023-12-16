@@ -4,11 +4,14 @@ class Res {
   static const String apple = "assets/images/apple.svg";
   static const String ar = "assets/lang/ar.json";
   static const String arrow = "assets/images/arrow.svg";
+  static const String bag = "assets/images/bag.png";
   static const String budget = "assets/images/budget.png";
   static const String calculator = "assets/images/calculator.png";
   static const String calendar30 = "assets/images/calendar30.png";
   static const String calendar7 = "assets/images/calendar7.png";
   static const String cart = "assets/images/cart.png";
+  static const String cashTransactions = "assets/images/cashTransactions.png";
+  static const String commitment = "assets/images/commitment.png";
   static const String country = "assets/images/country.png";
   static const String currency = "assets/images/currency.png";
   static const String currencyExchange = "assets/images/currencyExchange.png";
@@ -18,6 +21,7 @@ class Res {
   static const String dollar = "assets/images/dollar.png";
   static const String download = "assets/images/download.png";
   static const String en = "assets/lang/en.json";
+  static const String expense = "assets/images/expense.png";
   static const String explain = "assets/images/explain.png";
   static const String facebook = "assets/images/facebook.svg";
   static const String forgetPassword = "assets/images/forgetPassword.png";
@@ -40,6 +44,7 @@ class Res {
   static const String plus = "assets/images/plus.png";
   static const String register = "assets/images/register.png";
   static const String reminders = "assets/images/reminders.png";
+  static const String repeatedTransactions = "assets/images/repeatedTransactions.png";
   static const String report = "assets/images/report.png";
   static const String reset = "assets/images/reset.png";
   static const String save = "assets/images/save.png";

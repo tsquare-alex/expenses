@@ -9,49 +9,37 @@ class BuildTransactionsView extends StatelessWidget {
     return Column(
       children: [
         BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
-          bloc: data.contentCubit,
+          bloc: data.transactionContentCubit,
           builder: (context, state) {
             return BuildTransactionItem(
               name: "المصروفات",
               image: Res.budget,
               onTap: () =>
-                  data.contentCubit.onUpdateData(!data.contentCubit.state.data),
+                  data.transactionContentCubit.onUpdateData(
+                      !data.transactionContentCubit.state.data),
               hasContent: state.data,
-              content: Column(
-                children: [
-                  BuildTransactionItem(
-                    onTap: () =>
-                        AutoRouter.of(context).push(const CommitmentsRoute()),
-                    name: "الالتزامات",
-                    image: Res.one,
-                    radius: 18.r,
-                    width: 18.w,
-                    height: 18.w,
-                  ),
-                  BuildTransactionItem(
-                    onTap: () =>
-                        AutoRouter.of(context).push(const ShoppingRoute()),
-                    name: "التسوق والشراء",
-                    image: Res.two,
-                    radius: 18.r,
-                    width: 18.w,
-                    height: 18.w,
-                  ),
-                ],
+              content: BlocBuilder<GenericBloc<List<DropdownModel>>, GenericState<List<DropdownModel>>>(
+                bloc: data.commitmentsCubit,
+                builder: (context, state) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: state.data.length,
+                    itemBuilder: (context,i)=>BuildTransactionItem(
+                      onTap: () {
+                        state.data[i].isSelected=!state.data[i].isSelected!;
+                        data.commitmentsCubit.onUpdateData(state.data);
+                      },
+                      name: state.data[i].name??"",
+                      radius: 18.r,
+                      width: 18.w,
+                      height: 18.w,
+                      hasContent: state.data[i].isSelected,
+                      content: i==0?BuildCommitmentsView(data: data,):Container(),
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: data.transactionType.values.length,
-          itemBuilder: (context, i) {
-            final List<TransactionTypeModel> people = data.transactionType.values.cast<TransactionTypeModel>().toList();
-            return BuildTransactionItem(
-              onTap: () {},
-              name: people[i].name??"",
-              image: Res.upload,
             );
           },
         ),

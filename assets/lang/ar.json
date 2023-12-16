@@ -292,7 +292,12 @@
   "deleteData": "مسح البيانات",
   "resetSettings": "اعدادات إفتراضية",
   "egypt": "مصر",
-  "ksa": "السعودية"
+  "ksa": "السعودية",
+  "expense": "المصروفات",
+  "target": "الاهداف المالية المستهدفة",
+  "cashTransactions": "المعاملات النقدية",
+  "recurringTransactions": "المعاملات المتكررة"
+
 }
 
 

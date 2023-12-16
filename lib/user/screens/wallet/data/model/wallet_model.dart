@@ -1,7 +1,7 @@
 import 'package:hive_flutter/adapters.dart';
 part 'wallet_model.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 8)
 class WalletModel extends HiveObject {
   @HiveField(0)
   final String walletName;

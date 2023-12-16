@@ -3,8 +3,8 @@ import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
-import 'package:expenses/user/screens/wallet/data/cubit/add_wallet_cubit.dart';
-import 'package:expenses/user/screens/wallet/data/cubit/add_wallet_state.dart';
+import 'package:expenses/user/screens/wallet/data/cubit/add_Wallet_cubit/add_wallet_cubit.dart';
+import 'package:expenses/user/screens/wallet/data/cubit/add_Wallet_cubit/add_wallet_state.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
 import 'package:expenses/user/screens/wallet/wallet_imports.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,10 @@ class _AddWalletState extends State<AddWallet> {
   var formKey = GlobalKey<FormState>();
   final TextEditingController walletNameController = TextEditingController();
   final TextEditingController balanceController = TextEditingController();
+  final TextEditingController dropdownButtonController =
+      TextEditingController();
   WalletData data = WalletData();
+  int parsedNumber = 0;
 
   _AddWalletState();
   String? walletName;
@@ -66,9 +69,10 @@ class _AddWalletState extends State<AddWallet> {
                       child: Column(
                         children: [
                           TextFormField(
-                            onChanged: (value) {
-                              walletName = value;
-                            },
+                            // onChanged: (value) {
+                            //   walletName = value;
+                            // },
+
                             validator: (text) {
                               if (text == null || text.isEmpty) {
                                 return "رجاء ادخال اسم المحفظة";
@@ -114,7 +118,7 @@ class _AddWalletState extends State<AddWallet> {
                                 width: 270.w,
                                 child: TextFormField(
                                   onChanged: (value) {
-                                    balance = value;
+                                    balance=value;
                                   },
                                   validator: (text) {
                                     if (text == null || text.isEmpty) {
@@ -154,7 +158,8 @@ class _AddWalletState extends State<AddWallet> {
                                   menuList: data.paymentMethod,
                                   value: data.paymentMethod.first,
                                   onChanged: (value) => {
-                                    paymentWay = value.toString(),
+                                    dropdownButtonController.text =
+                                        value as String,
                                   },
                                 ),
                               ),
@@ -168,9 +173,9 @@ class _AddWalletState extends State<AddWallet> {
                             onTap: () {
                               validation();
                               var walletModel = WalletModel(
-                                  walletName: walletName!,
-                                  balance: balance!,
-                                  paymentMethod: paymentWay!);
+                                  walletName: walletNameController.text,
+                                  balance: balanceController.text,
+                                  paymentMethod: dropdownButtonController.text);
                               BlocProvider.of<AddWalletCubit>(context)
                                   .addNote(walletModel);
                             },

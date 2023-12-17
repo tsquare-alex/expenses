@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/add_Wallet_cubit/add_wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/add_Wallet_cubit/add_wallet_state.dart';
+import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
 import 'package:expenses/user/screens/wallet/wallet_imports.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +27,6 @@ class _AddWalletState extends State<AddWallet> {
   final TextEditingController dropdownButtonController =
       TextEditingController();
   WalletData data = WalletData();
-  int parsedNumber = 0;
 
   _AddWalletState();
   String? walletName;
@@ -61,7 +62,9 @@ class _AddWalletState extends State<AddWallet> {
                     if (state is AddWalletfaliuer) {
                       print(state.message.toString());
                     }
-                    if (state is AddWalletSucess) {}
+                    if (state is AddWalletSucess) {
+                      BlocProvider.of<WalletCubit>(context).fetchAllData();
+                    }
                   },
                   builder: (context, state) {
                     return Form(
@@ -69,10 +72,6 @@ class _AddWalletState extends State<AddWallet> {
                       child: Column(
                         children: [
                           TextFormField(
-                            // onChanged: (value) {
-                            //   walletName = value;
-                            // },
-
                             validator: (text) {
                               if (text == null || text.isEmpty) {
                                 return "رجاء ادخال اسم المحفظة";
@@ -118,7 +117,7 @@ class _AddWalletState extends State<AddWallet> {
                                 width: 270.w,
                                 child: TextFormField(
                                   onChanged: (value) {
-                                    balance=value;
+                                    balance = value;
                                   },
                                   validator: (text) {
                                     if (text == null || text.isEmpty) {
@@ -178,6 +177,7 @@ class _AddWalletState extends State<AddWallet> {
                                   paymentMethod: dropdownButtonController.text);
                               BlocProvider.of<AddWalletCubit>(context)
                                   .addNote(walletModel);
+                              AutoRouter.of(context).push(const WalletRoute());
                             },
                             borderColor: MyColors.primary,
                             title: "إضافة محفظة",

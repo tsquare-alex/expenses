@@ -6,14 +6,10 @@ import 'package:hive/hive.dart';
 
 class WalletCubit extends Cubit<WalletState> {
   WalletCubit() : super(WalletInitial());
-  List<WalletModel> walletList=[];
+  List<WalletModel> walletList = [];
   fetchAllData() async {
-    try {
-      var walletBox = Hive.box<WalletModel>(databaseBox);
- walletList= walletBox.values.toList();
-      emit(WalletSucess(wallet: walletList));
-    } catch (e) {
-      emit(Walletfaliuer(message: e.toString()));
-    }
+    var walletBox = Hive.box<WalletModel>(databaseBox);
+    walletList = walletBox.values.toList();
+    emit(WalletSuccess());
   }
 }

@@ -27,13 +27,14 @@ class FieldSection extends StatelessWidget {
         height: 40.h,
         width: double.infinity,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.r),
-            border: Border.all(
-              color: context.watch<AppThemeCubit>().isDarkMode
-                  ? AppDarkColors.accentColor
-                  : MyColors.greyWhite,
-              width: 2.r,
-            )),
+          borderRadius: BorderRadius.circular(10.r),
+          border: Border.all(
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? AppDarkColors.accentColor
+                : MyColors.greyWhite,
+            width: 2.r,
+          ),
+        ),
         child: child,
       ),
     );

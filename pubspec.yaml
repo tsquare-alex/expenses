@@ -69,6 +69,7 @@ dependencies:
   path_provider:
   extension_google_sign_in_as_googleapis_auth:
   intl: ^0.18.1
+  macos_ui: ^2.0.2
 
 dev_dependencies:
   flutter_test:

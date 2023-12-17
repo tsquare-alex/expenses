@@ -60,10 +60,10 @@ class AddTransactionData{
         // Check if the name of the item in list1 is not equal to any name in list2
         if (!boxItems.any((element) => element.name == item.name)) {
           // Add the item to list2
-          boxItems.add(item);
+          box.add(item);
         }
       }
-      box.addAll(boxItems);
+      //box.addAll(boxItems);
       fetchData();
       transactionType = box.values.cast<TransactionTypeModel>().toList();
       print(transactionType[0].content?[0].name);
@@ -77,10 +77,10 @@ class AddTransactionData{
         // Check if the name of the item in list1 is not equal to any name in list2
         if (!boxItems.any((element) => element.name == item.name)) {
           // Add the item to list2
-          boxItems.add(item);
+          box.add(item);
         }
       }
-      box.addAll(boxItems);
+      //box.addAll(boxItems);
       //box.addAll(model.content as Iterable<TransactionTypeModel>);
       fetchShoppingData();
       shoppingType = box.values.cast<TransactionTypeModel>().toList();

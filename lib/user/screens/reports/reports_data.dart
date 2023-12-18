@@ -45,6 +45,11 @@ class ReportsData {
     Random().nextDouble() * 100,
     Random().nextDouble() * 100,
   ];
+
+  String getCurrentLocale(BuildContext context) =>
+      Localizations.localeOf(context).toString();
+
+  static const String arLocale = 'ar_EG';
 }
 
 class TransactionsModel {

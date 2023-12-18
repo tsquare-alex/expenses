@@ -13,25 +13,6 @@ class SaveAndShareButtons extends StatelessWidget {
       right: 20,
       child: Row(
         children: [
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              minimumSize: Size(45.w, 45.h),
-              backgroundColor: context.watch<AppThemeCubit>().isDarkMode
-                  ? AppDarkColors.primary
-                  : MyColors.primary,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.r),
-              ),
-            ),
-            child: Icon(
-              Icons.share_outlined,
-              color: Colors.white,
-              size: 20.r,
-            ),
-          ),
-          SizedBox.square(dimension: 10.r),
           Flexible(
             child: ElevatedButton(
               onPressed: () {},
@@ -53,6 +34,25 @@ class SaveAndShareButtons extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+            ),
+          ),
+          SizedBox.square(dimension: 10.r),
+          ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              minimumSize: Size(45.w, 45.h),
+              backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+                  ? AppDarkColors.primary
+                  : MyColors.primary,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.r),
+              ),
+            ),
+            child: Icon(
+              Icons.share_outlined,
+              color: Colors.white,
+              size: 20.r,
             ),
           ),
         ],

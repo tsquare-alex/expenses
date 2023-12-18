@@ -16,9 +16,9 @@ class FieldSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
-        !isSmallMarginLeft ? 20.r : 10.r,
+        isSmallMarginLeft ? 10.r : 20.r,
         10.r,
-        !isSmallMarginRight ? 20.r : 10.r,
+        isSmallMarginRight ? 10.r : 20.r,
         0.r,
       ),
       child: Container(

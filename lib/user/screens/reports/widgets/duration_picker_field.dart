@@ -6,6 +6,7 @@ class DurationPickerField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ReportsData data = ReportsData();
+    String currentLocale = data.getCurrentLocale(context);
     return Row(
       children: [
         Expanded(
@@ -37,13 +38,16 @@ class DurationPickerField extends StatelessWidget {
               );
               data.changeDate();
             },
-            child: const FieldSection(
-              isSmallMarginRight: true,
-              child: Row(
+            child: FieldSection(
+              isSmallMarginRight:
+                  currentLocale == ReportsData.arLocale ? false : true,
+              isSmallMarginLeft:
+                  currentLocale == ReportsData.arLocale ? true : false,
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Duration',
+                    'Duration from',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -88,13 +92,16 @@ class DurationPickerField extends StatelessWidget {
               );
               data.changeDate();
             },
-            child: const FieldSection(
-              isSmallMarginLeft: true,
-              child: Row(
+            child: FieldSection(
+              isSmallMarginLeft:
+                  currentLocale == ReportsData.arLocale ? false : true,
+              isSmallMarginRight:
+                  currentLocale == ReportsData.arLocale ? true : false,
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Duration',
+                    'Duration to',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

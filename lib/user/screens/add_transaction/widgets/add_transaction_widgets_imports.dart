@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/constants/custom_%20drop_down/DropDownTextField.dart';
@@ -19,14 +22,15 @@ import 'package:expenses/user/screens/transactions_types/widgets/transactions_ty
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 part 'build_iterate_transaction.dart';
 part 'build_transaction_button.dart';
-part 'build_transaction_wallet.dart';
-part 'build_transaction_description.dart';
+part 'build_transaction_inputs.dart';
 part 'build_transaction_date.dart';
 part 'build_transaction_type.dart';
-part 'build_transaction_price.dart';
 part 'build_add_transaction_content.dart';
 part 'build_add_transaction_model.dart';
+part 'build_add_product_photo.dart';
+part 'build_shopping_party.dart';

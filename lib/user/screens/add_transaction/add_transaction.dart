@@ -46,12 +46,12 @@ class _AddTransactionState extends State<AddTransaction> {
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              BuildTransactionPrice(data: data),
               BuildTransactionType(addTransactionData: data, type: widget.model?.name??"",),
-              BuildTransactionWallet(data: data),
-              BuildTransactionDescription(data: data),
+              if(widget.model?.name=="التسوق والشراء")BuildShoppingParty(addTransactionData: data),
+              BuildTransactionInputs(addTransactionData: data, type: widget.model?.name??"",),
               BuildTransactionDate(data: data),
-              BuildIterateTransaction(),
+              if(widget.model?.name=="التسوق والشراء")BuildAddProductPhoto(data: data,),
+              BuildIterateTransaction(data: data,),
               BuildTransactionButton(),
 
             ],

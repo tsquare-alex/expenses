@@ -1,10 +1,15 @@
-import 'package:auto_route/auto_route.dart';
+
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:expenses/general/blocks/lang_cubit/lang_cubit.dart';
 import 'package:expenses/general/helper/configration/DecorationUtils.dart';
 import 'package:expenses/general/helper/storage/Storage.dart';
-import 'package:expenses/general/models/user_model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 class Utils {
 
@@ -15,6 +20,22 @@ class Utils {
     Storage.setLang(lang);
     context.read<LangCubit>().onUpdateLanguage(lang);
   }
+
+  static Future<Uint8List?> getImage(bool isCamera) async {
+    final ImagePicker picker = ImagePicker();
+    XFile? image = await picker.pickImage(
+        source: isCamera ? ImageSource.camera : ImageSource.gallery);
+    if (image != null) {
+      // File imageFile = File(image.path);
+      return await _getImageBytes(image);
+    }
+    return null;
+  }
+
+  static Future<Uint8List> _getImageBytes(XFile image) async {
+    return await image.readAsBytes();
+  }
+
 
 
 }

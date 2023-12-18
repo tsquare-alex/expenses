@@ -3,11 +3,13 @@ part of 'expense_imports.dart';
 class ExpenseData{
 
   GenericBloc<List<TransactionModel>> commitmentsCubit = GenericBloc([]);
+  final GenericBloc<int> tabCubit = GenericBloc(0);
 
 
   List<TransactionModel> commitments=[
     TransactionModel(
         name: "الالتزامات",
+      isSelected: true,
       image: Res.commitment,
       content: [
         TransactionTypeModel(

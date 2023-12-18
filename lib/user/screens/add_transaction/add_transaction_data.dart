@@ -3,13 +3,24 @@ part of 'add_transaction_imports.dart';
 class AddTransactionData{
 
   GenericBloc<bool> contentCubit = GenericBloc(false);
-  GenericBloc<bool> walletCubit = GenericBloc(false);
+  GenericBloc<bool> iterateCubit = GenericBloc(false);
+  final GenericBloc<Uint8List?> imageBloc = GenericBloc(null);
+
   final GlobalKey<DropdownSearchState> commitmentDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> commitmentContentDropKey = GlobalKey();
+  final GlobalKey<DropdownSearchState> walletDropKey = GlobalKey();
+  final GlobalKey<DropdownSearchState> unitsDropKey = GlobalKey();
+  final GlobalKey<DropdownSearchState> commitmentPartyDropKey = GlobalKey();
+  final GlobalKey<DropdownSearchState> priorityDropKey = GlobalKey();
+  final GlobalKey<DropdownSearchState> shoppingPartyDropKey = GlobalKey();
 
   TextEditingController dateController = TextEditingController();
   TextEditingController timeController = TextEditingController();
   TextEditingController priceController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
+  TextEditingController totalController = TextEditingController();
+  TextEditingController brandController = TextEditingController();
+  TextEditingController unitController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController contentController = TextEditingController();
@@ -244,4 +255,172 @@ class AddTransactionData{
   void setSelectCommitmentContent(TransactionContentModel? model) {
     selectedCommitmentContent = model;
   }
+
+
+
+
+  //
+  int? walletId;
+  int? unitId;
+  int? commitmentPartyId;
+  int? shoppingPartyId;
+  int? priorityId;
+  DropdownModel? selectedWallet;
+  DropdownModel? selectedUnit;
+  DropdownModel? selectedCommitmentParty;
+  DropdownModel? selectedShoppingParty;
+  DropdownModel? selectedPriority;
+
+  List<DropdownModel> wallet=[
+    DropdownModel(
+        id:0,name:"20000"
+    ),
+    DropdownModel(
+        id:1,name:"2500"
+    ),
+    DropdownModel(
+        id:2,name:"3600"
+    ),
+  ];
+  List<DropdownModel> shoppingParty=[
+    DropdownModel(
+        id:0,name:"ShoppingParty"
+    ),
+  ];
+  List<DropdownModel> priorities=[
+    DropdownModel(
+        id:0,name:"ضروري"
+    ),
+    DropdownModel(
+        id:1,name:"هام"
+    ),
+    DropdownModel(
+        id:2,name:"عادي"
+    ),
+  ];
+  List<DropdownModel> commitmentParty=[
+    DropdownModel(
+        id:0,name:"Commitment Party1"
+    ),
+
+  ];
+  List<DropdownModel> units=[
+    DropdownModel(
+        id:0,name:"كيلوغرام"
+    ),
+    DropdownModel(
+        id:1,name:"غرام"
+    ),
+    DropdownModel(
+        id:2,name:"طن"
+    ),
+    DropdownModel(
+        id:3,name:"متر"
+    ),
+    DropdownModel(
+        id:4,name:"كيلومتر"
+    ),
+    DropdownModel(
+        id:5,name:"سنتيمتر"
+    ),
+  ];
+
+  Future<List<DropdownModel>> getWallet(BuildContext context) async {
+    return wallet;
+  }
+  Future<List<DropdownModel>> getCommitmentParty(BuildContext context) async {
+    return commitmentParty;
+  }
+  Future<List<DropdownModel>> getUnits(BuildContext context) async {
+    return units;
+  }
+  Future<List<DropdownModel>> getPriority(BuildContext context) async {
+    return priorities;
+  }
+  Future<List<DropdownModel>> getShoppingParty(BuildContext context) async {
+      return shoppingParty;
+  }
+
+  void setSelectWallet(DropdownModel? model) {
+    selectedWallet = model;
+    walletId = model?.id;
+  }
+  void setSelectPriority(DropdownModel? model) {
+    selectedPriority = model;
+    priorityId = model?.id;
+  }
+  void setSelectCommitmentParty(DropdownModel? model) {
+    selectedCommitmentParty = model;
+    commitmentPartyId = model?.id;
+  }
+  void setSelectUnit(DropdownModel? model) {
+    selectedUnit = model;
+    unitId= model?.id;
+  }
+  void setSelectShoppingParty(DropdownModel? model) {
+    selectedShoppingParty = model;
+    shoppingPartyId= model?.id;
+  }
+
+
+  showSelectTypeDialog(BuildContext context) {
+    return showAdaptiveActionSheet(
+      context: context,
+      isDismissible: false,
+      androidBorderRadius: 15,
+      actions: <BottomSheetAction>[
+        BottomSheetAction(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              MyText(title: "Take Photo", size: 14, color: MyColors.black),
+            ],
+          ),
+          onPressed: (context) {
+            Navigator.of(context).pop();
+            setCameraImages(context);
+          },
+        ),
+        BottomSheetAction(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              MyText(
+                title: "Gallery",
+                size: 14,
+                color: MyColors.black,
+              ),
+            ],
+          ),
+          onPressed: (context) {
+            Navigator.of(context).pop();
+            setGalleryImages(context);
+          },
+        ),
+      ],
+      cancelAction: CancelAction(
+          title: MyText(
+            title: "Cancel",
+            size: 14,
+            color: MyColors.secondary,
+            fontWeight: FontWeight.bold,
+          )),
+    );
+  }
+
+  setGalleryImages(BuildContext context) async {
+    var image = await Utils.getImage(false);
+    imageBloc.onUpdateData(image);
+  }
+
+  setCameraImages(BuildContext context) async {
+    var images = await Utils.getImage(true);
+    imageBloc.onUpdateData(images);
+  }
+
+  void removeImage(BuildContext context) async {
+    imageBloc.onUpdateData(null);
+  }
+
+
 }

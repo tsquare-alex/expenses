@@ -1,4 +1,4 @@
-part of 'transactions_widgets_imports.dart';
+part of 'expense_widgets_imports.dart';
 
 class BuildNoRecord extends StatelessWidget {
   const BuildNoRecord({Key? key}) : super(key: key);

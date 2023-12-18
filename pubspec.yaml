@@ -67,7 +67,9 @@ dependencies:
   hive_flutter:
   path_provider:
   flutter_rounded_date_picker:
-
+  image_picker:
+  flutter_image_compress: ^1.1.3
+  adaptive_action_sheet:
 
 dev_dependencies:
   flutter_test:

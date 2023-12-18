@@ -7,6 +7,5 @@ import 'package:expenses/user/screens/transactions/transactions_imports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-part 'build_no_record.dart';
 part 'build_transaction_type_item.dart';
 part 'build_transaction_types_view.dart';

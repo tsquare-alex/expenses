@@ -4,11 +4,11 @@ part 'wallet_model.g.dart';
 @HiveType(typeId: 8)
 class WalletModel extends HiveObject {
   @HiveField(0)
-  final String walletName;
+  String walletName;
   @HiveField(1)
-  final String balance;
+  double balance;
   @HiveField(2)
-  final String paymentMethod;
+  String paymentMethod;
 
   WalletModel(
       {required this.walletName,

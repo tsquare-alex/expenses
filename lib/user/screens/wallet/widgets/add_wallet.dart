@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
-import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
@@ -29,9 +28,8 @@ class _AddWalletState extends State<AddWallet> {
   WalletData data = WalletData();
 
   _AddWalletState();
-  String? walletName;
   String? balance;
-  String? paymentWay;
+  double parsedNumber = 0;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -58,13 +56,7 @@ class _AddWalletState extends State<AddWallet> {
               builder: (context, state) {
                 return BlocConsumer<AddWalletCubit, AddWalletState>(
                   listener: (context, state) {
-                    if (state is AddWalletLoading) {}
-                    if (state is AddWalletfaliuer) {
-                      print(state.message.toString());
-                    }
-                    if (state is AddWalletSucess) {
-                      BlocProvider.of<WalletCubit>(context).fetchAllData();
-                    }
+
                   },
                   builder: (context, state) {
                     return Form(
@@ -117,7 +109,8 @@ class _AddWalletState extends State<AddWallet> {
                                 width: 270.w,
                                 child: TextFormField(
                                   onChanged: (value) {
-                                    balance = value;
+                                    parsedNumber =
+                                        double.parse(balanceController.text);
                                   },
                                   validator: (text) {
                                     if (text == null || text.isEmpty) {
@@ -173,11 +166,10 @@ class _AddWalletState extends State<AddWallet> {
                               validation();
                               var walletModel = WalletModel(
                                   walletName: walletNameController.text,
-                                  balance: balanceController.text,
+                                  balance: parsedNumber,
                                   paymentMethod: dropdownButtonController.text);
                               BlocProvider.of<AddWalletCubit>(context)
                                   .addNote(walletModel);
-                              AutoRouter.of(context).push(const WalletRoute());
                             },
                             borderColor: MyColors.primary,
                             title: "إضافة محفظة",

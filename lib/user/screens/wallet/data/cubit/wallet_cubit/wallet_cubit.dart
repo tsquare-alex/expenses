@@ -10,6 +10,11 @@ class WalletCubit extends Cubit<WalletState> {
   fetchAllData() async {
     var walletBox = Hive.box<WalletModel>(databaseBox);
     walletList = walletBox.values.toList();
-    emit(WalletSuccess());
+    emit(WalletSuccess(wallet: walletList));
+  }
+
+  updateWalletList(List<WalletModel> updatedList) {
+    walletList = updatedList;
+    emit(WalletSuccess(wallet: walletList));
   }
 }

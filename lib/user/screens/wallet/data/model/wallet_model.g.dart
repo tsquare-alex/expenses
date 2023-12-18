@@ -18,7 +18,7 @@ class WalletModelAdapter extends TypeAdapter<WalletModel> {
     };
     return WalletModel(
       walletName: fields[0] as String,
-      balance: fields[1] as String,
+      balance: fields[1] as double,
       paymentMethod: fields[2] as String,
     );
   }

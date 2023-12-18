@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WalletDetails extends StatefulWidget {
-  const WalletDetails({super.key});
+  const WalletDetails({
+    super.key,
+  });
 
   @override
   State<WalletDetails> createState() => _WalletDetailsState();
@@ -108,24 +110,6 @@ class _WalletDetailsState extends State<WalletDetails> {
             ],
           ),
         ),
-        SizedBox(height: 15.h),
-        Container(
-          height: 60.h,
-          width: double.infinity,
-          padding: EdgeInsets.all(16.w),
-          decoration: BoxDecoration(color: MyColors.greyWhite),
-          child: InkWell(
-            onTap: () {},
-            child: Row(
-              children: [
-                const Icon(Icons.money),
-                SizedBox(width: 12.w),
-                MyText(title: "تعديل", color: MyColors.black, size: 12.sp),
-              ],
-            ),
-          ),
-        ),
-        SizedBox(height: 15.h),
       ],
     );
   }

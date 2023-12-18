@@ -5,29 +5,31 @@ class BuildNoRecord extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.only(top: 20.r),
-          child: Image.asset(
-            Res.searchRecords,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.only(top: 20.r),
+            child: Image.asset(
+              Res.searchRecords,
+            ),
           ),
-        ),
-        SizedBox(
-          height: 15.h,
-        ),
-        MyText(
-          title: "No Record",
-          color: MyColors.black,
-          size: 16.sp,
-          fontWeight: FontWeight.bold,
-        ),
-        MyText(
-          title: "Tap the + button to add your first record.",
-          color: MyColors.grey,
-          size: 14.sp,
-        ),
-      ],
+          SizedBox(
+            height: 15.h,
+          ),
+          MyText(
+            title: "No Record",
+            color: MyColors.black,
+            size: 16.sp,
+            fontWeight: FontWeight.bold,
+          ),
+          MyText(
+            title: "Tap the + button to add your first record.",
+            color: MyColors.grey,
+            size: 14.sp,
+          ),
+        ],
+      ),
     );
   }
 }

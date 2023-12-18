@@ -1,4 +1,10 @@
-part of 'transactions_types_widgets_imports.dart';
+import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/themes/app_colors.dart';
+import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
+import 'package:expenses/general/widgets/MyText.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BuildTransactionItem extends StatelessWidget {
   const BuildTransactionItem(

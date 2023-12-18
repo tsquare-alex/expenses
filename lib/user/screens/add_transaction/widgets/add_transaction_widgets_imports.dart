@@ -18,7 +18,6 @@ import 'package:expenses/user/models/dropdown_model/dropdown_model.dart';
 import 'package:expenses/user/models/transaction_type_model/transaction_content_model.dart';
 import 'package:expenses/user/models/transaction_type_model/transaction_type_model.dart';
 import 'package:expenses/user/screens/add_transaction/add_transaction_imports.dart';
-import 'package:expenses/user/screens/transactions_types/widgets/transactions_types_widgets_imports.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

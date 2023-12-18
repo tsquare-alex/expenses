@@ -4,6 +4,7 @@ class AddTransactionData{
 
   GenericBloc<bool> contentCubit = GenericBloc(false);
   GenericBloc<bool> iterateCubit = GenericBloc(false);
+  GenericBloc<bool> notifyCubit = GenericBloc(false);
   final GenericBloc<Uint8List?> imageBloc = GenericBloc(null);
 
   final GlobalKey<DropdownSearchState> commitmentDropKey = GlobalKey();
@@ -13,8 +14,14 @@ class AddTransactionData{
   final GlobalKey<DropdownSearchState> commitmentPartyDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> priorityDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> shoppingPartyDropKey = GlobalKey();
+  final GlobalKey<DropdownSearchState> iterateTransactionDropKey = GlobalKey();
+  final GlobalKey<DropdownSearchState> targetDropKey = GlobalKey();
+  final GlobalKey<DropdownSearchState> cashTransactionDropKey = GlobalKey();
+  final GlobalKey<DropdownSearchState> transferDropKey = GlobalKey();
 
   TextEditingController dateController = TextEditingController();
+  TextEditingController startDateController = TextEditingController();
+  TextEditingController endDateController = TextEditingController();
   TextEditingController timeController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController amountController = TextEditingController();
@@ -25,10 +32,11 @@ class AddTransactionData{
   TextEditingController nameController = TextEditingController();
   TextEditingController contentController = TextEditingController();
   TextEditingController newContentController = TextEditingController();
+  TextEditingController targetController = TextEditingController();
+  TextEditingController initValueController = TextEditingController();
 
 
-  void onSelectTime(
-      BuildContext context,) {
+  void onSelectTime(BuildContext context,) {
     FocusScope.of(context).requestFocus(FocusNode());
     var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.timePicker(
@@ -42,8 +50,7 @@ class AddTransactionData{
 
   }
 
-  void onSelectDate(
-      BuildContext context,) {
+  void onSelectDate(BuildContext context,) {
     FocusScope.of(context).requestFocus(FocusNode());
     var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
@@ -54,13 +61,40 @@ class AddTransactionData{
         title: '');
 
   }
+  void onSelectStartDate(BuildContext context,) {
+    FocusScope.of(context).requestFocus(FocusNode());
+    var local = context.read<LangCubit>().state.locale.languageCode;
+    AdaptivePicker.datePicker(
+        context: context,
+        onConfirm: (date) {
+          startDateController.text = DateFormat("dd MMMM yyyy", local).format(date!);
+        },
+        title: '');
+  }
+  void onSelectEndDate(BuildContext context,) {
+    FocusScope.of(context).requestFocus(FocusNode());
+    var local = context.read<LangCubit>().state.locale.languageCode;
+    AdaptivePicker.datePicker(
+        context: context,
+        onConfirm: (date) {
+          endDateController.text = DateFormat("dd MMMM yyyy", local).format(date!);
+        },
+        title: '');
+
+  }
 
   GenericBloc<List<TransactionTypeModel>> transactionTypeCubit = GenericBloc([]);
   GenericBloc<List<TransactionTypeModel>> shoppingTypeCubit = GenericBloc([]);
   GenericBloc<List<TransactionContentModel>> transactionContentCubit = GenericBloc([]);
+  GenericBloc<List<DropdownModel>> targetCubit = GenericBloc([]);
+  GenericBloc<List<DropdownModel>> cashTransactionCubit = GenericBloc([]);
+  GenericBloc<List<AddTransactionModel>> addTransactionCubit = GenericBloc([]);
 
   List<TransactionTypeModel> transactionType = [];
   List<TransactionTypeModel> shoppingType = [];
+  List<DropdownModel> targetList = [];
+  List<DropdownModel> cashTransactionList = [];
+  List<AddTransactionModel> addTransactionList = [];
 
   initialTransaction(TransactionModel model) async{
     if(model.name == "الالتزامات"){
@@ -74,7 +108,6 @@ class AddTransactionData{
           box.add(item);
         }
       }
-      //box.addAll(boxItems);
       fetchData();
       transactionType = box.values.cast<TransactionTypeModel>().toList();
       print(transactionType[0].content?[0].name);
@@ -91,12 +124,41 @@ class AddTransactionData{
           box.add(item);
         }
       }
-      //box.addAll(boxItems);
-      //box.addAll(model.content as Iterable<TransactionTypeModel>);
       fetchShoppingData();
       shoppingType = box.values.cast<TransactionTypeModel>().toList();
       print(shoppingType[0].content?[0].name);
       shoppingTypeCubit.onUpdateData(shoppingType);
+      await box.close();
+    }
+    else if(model.name == "الاهداف المالية المستهدفة"){
+      final box = await Hive.openBox<DropdownModel>("targetBox");
+      var boxItems  = box.values.cast<DropdownModel>().toList();
+      for (var item in targets) {
+        // Check if the name of the item in list1 is not equal to any name in list2
+        if (!boxItems.any((element) => element.name == item.name)) {
+          // Add the item to list2
+          box.add(item);
+        }
+      }
+      fetchTargetData();
+      targetList = box.values.cast<DropdownModel>().toList();
+      print(targetList[0].name);
+      targetCubit.onUpdateData(targetList);
+      await box.close();
+    }else if(model.name == "المعاملات النقدية"){
+      final box = await Hive.openBox<DropdownModel>("cashTransactionBox");
+      var boxItems  = box.values.cast<DropdownModel>().toList();
+      for (var item in cashTransactions) {
+        // Check if the name of the item in list1 is not equal to any name in list2
+        if (!boxItems.any((element) => element.name == item.name)) {
+          // Add the item to list2
+          box.add(item);
+        }
+      }
+      fetchCashTransactionData();
+      cashTransactionList = box.values.cast<DropdownModel>().toList();
+      print(cashTransactionList[0].name);
+      cashTransactionCubit.onUpdateData(cashTransactionList);
       await box.close();
     }
   }
@@ -121,6 +183,24 @@ class AddTransactionData{
       print(shoppingType[1].name);
     }
   }
+  addTarget(DropdownModel model) async{
+      final box = await Hive.openBox<DropdownModel>("targetBox");
+      box.add(model);
+      print(box.values.length);
+      print('success');
+      targetList = box.values.cast<DropdownModel>().toList();
+      targetCubit.onUpdateData(targetList);
+      print(targetList[1].name);
+  }
+  addCashTransaction(DropdownModel model) async{
+    final box = await Hive.openBox<DropdownModel>("cashTransactionBox");
+    box.add(model);
+    print(box.values.length);
+    print('success');
+    cashTransactionList = box.values.cast<DropdownModel>().toList();
+    cashTransactionCubit.onUpdateData(cashTransactionList);
+    print(cashTransactionList[1].name);
+  }
 
 
   addTransactionContent(TransactionContentModel model,String type) async{
@@ -131,6 +211,7 @@ class AddTransactionData{
       print(modelIndex);
       transactionType?.content?.add(model);
       box.putAt(modelIndex, transactionType!);
+      transactionContentCubit.onUpdateData(transactionType.content!);
       print(transactionType.content?[0].name);
       print(box.values.length);
       print('success');
@@ -142,6 +223,7 @@ class AddTransactionData{
       print(modelIndex);
       shoppingType?.content?.add(model);
       box.putAt(modelIndex, shoppingType!);
+      transactionContentCubit.onUpdateData(shoppingType.content!);
       print(shoppingType.content?[0].name);
       print(box.values.length);
       print('success');
@@ -178,6 +260,42 @@ class AddTransactionData{
       }).toList();
       transactionType.addAll(list);
       transactionTypeCubit.onUpdateData(transactionType);
+    } catch (e) {
+      print('Error fetching data from Hive: $e');
+    } finally {
+      await box.close();
+    }
+  }
+  Future<void> fetchTargetData() async {
+    final box = await Hive.openBox<TransactionTypeModel>("targetBox");
+    try {
+      var list = box.values.map((dynamic value) {
+        if (value is DropdownModel) {
+          return value;
+        } else {
+          return DropdownModel(); // Replace with your default value or handle it accordingly
+        }
+      }).toList();
+      targetList.addAll(list);
+      targetCubit.onUpdateData(targetList);
+    } catch (e) {
+      print('Error fetching data from Hive: $e');
+    } finally {
+      await box.close();
+    }
+  }
+  Future<void> fetchCashTransactionData() async {
+    final box = await Hive.openBox<TransactionTypeModel>("cashTransactionBox");
+    try {
+      var list = box.values.map((dynamic value) {
+        if (value is DropdownModel) {
+          return value;
+        } else {
+          return DropdownModel(); // Replace with your default value or handle it accordingly
+        }
+      }).toList();
+      cashTransactionList.addAll(list);
+      cashTransactionCubit.onUpdateData(cashTransactionList);
     } catch (e) {
       print('Error fetching data from Hive: $e');
     } finally {
@@ -256,20 +374,25 @@ class AddTransactionData{
     selectedCommitmentContent = model;
   }
 
-
-
-
   //
   int? walletId;
+  int? iterateTransactionId;
   int? unitId;
   int? commitmentPartyId;
   int? shoppingPartyId;
   int? priorityId;
+  int? targetId;
+  int? cashTransactionId;
+  int? transferId;
   DropdownModel? selectedWallet;
   DropdownModel? selectedUnit;
   DropdownModel? selectedCommitmentParty;
   DropdownModel? selectedShoppingParty;
   DropdownModel? selectedPriority;
+  DropdownModel? selectedIterateTransaction;
+  DropdownModel? selectedTarget;
+  DropdownModel? selectedCashTransaction;
+  DropdownModel? selectedTransfer;
 
   List<DropdownModel> wallet=[
     DropdownModel(
@@ -280,6 +403,31 @@ class AddTransactionData{
     ),
     DropdownModel(
         id:2,name:"3600"
+    ),
+  ];
+  List<DropdownModel> cashTransactions=[
+    DropdownModel(
+        id:0,name:"سحب"
+    ),
+    DropdownModel(
+        id:1,name:"تحويل"
+    ),
+  ];
+  List<DropdownModel> targets=[
+    DropdownModel(
+        id:0,name:"استثمار"
+    ),
+    DropdownModel(
+        id:1,name:"توفير"
+    ),
+    DropdownModel(
+        id:2,name:"تشطيب"
+    ),
+    DropdownModel(
+        id:3,name:"شراء سيارة"
+    ),
+    DropdownModel(
+        id:4,name:"مصاريف مدارس أو جامعة"
     ),
   ];
   List<DropdownModel> shoppingParty=[
@@ -324,6 +472,31 @@ class AddTransactionData{
         id:5,name:"سنتيمتر"
     ),
   ];
+  List<DropdownModel> iterateTransaction=[
+    DropdownModel(
+        id:0,name:"يوميا"
+    ),
+    DropdownModel(
+        id:1,name:"أسبوعيا"
+    ),
+    DropdownModel(
+        id:2,name:"شهريا"
+    ),
+    DropdownModel(
+        id:3,name:"ربع سنويا"
+    ),
+    DropdownModel(
+        id:4,name:"نصف سنويا"
+    ),
+    DropdownModel(
+        id:5,name:"سنويا"
+    ),
+  ];
+  List<DropdownModel> transfer=[
+    DropdownModel(
+        id:0,name:"Transfer"
+    ),
+  ];
 
   Future<List<DropdownModel>> getWallet(BuildContext context) async {
     return wallet;
@@ -340,10 +513,31 @@ class AddTransactionData{
   Future<List<DropdownModel>> getShoppingParty(BuildContext context) async {
       return shoppingParty;
   }
+  Future<List<DropdownModel>> getIterateTransaction(BuildContext context) async {
+      return iterateTransaction;
+  }
+  Future<List<DropdownModel>> getTarget(BuildContext context) async {
+    List<DropdownModel> total = [];
+    total.addAll(targetCubit.state.data);
+    return total;
+  }
+  Future<List<DropdownModel>> getCashTransactions(BuildContext context) async {
+    List<DropdownModel> total = [];
+    total.addAll(cashTransactionCubit.state.data);
+    return total;
+  }
+  Future<List<DropdownModel>> getTransfer(BuildContext context) async {
+      return transfer;
+  }
 
   void setSelectWallet(DropdownModel? model) {
     selectedWallet = model;
     walletId = model?.id;
+  }
+  void setSelectTarget(DropdownModel? model) {
+    selectedTarget = model;
+    targetId = model?.id;
+    print(targetId);
   }
   void setSelectPriority(DropdownModel? model) {
     selectedPriority = model;
@@ -361,7 +555,19 @@ class AddTransactionData{
     selectedShoppingParty = model;
     shoppingPartyId= model?.id;
   }
-
+  void setSelectIterateTransaction(DropdownModel? model) {
+    selectedIterateTransaction = model;
+    iterateTransactionId= model?.id;
+  }
+  void setSelectCashTransactions(DropdownModel? model) {
+    selectedCashTransaction = model;
+    cashTransactionId= model?.id;
+    print(cashTransactionId);
+  }
+  void setSelectTransfer(DropdownModel? model) {
+    selectedTransfer = model;
+    transferId= model?.id;
+  }
 
   showSelectTypeDialog(BuildContext context) {
     return showAdaptiveActionSheet(
@@ -422,5 +628,31 @@ class AddTransactionData{
     imageBloc.onUpdateData(null);
   }
 
+  clearData(){
+
+
+  }
+
+  addTransaction(String type) async {
+    final box = await Hive.openBox<TransactionTypeModel>("addTransactionBox");
+    if(type == "الالتزامات"){
+      AddTransactionModel model =AddTransactionModel(
+        transactionName: "الالتزامات",
+
+      );
+    }else if(type == "التسوق والشراء"){
+      AddTransactionModel model =AddTransactionModel(
+          transactionName: "التسوق والشراء"
+      );
+    }else if(type == "الاهداف المالية المستهدفة"){
+      AddTransactionModel model =AddTransactionModel(
+          transactionName: "الاهداف المالية المستهدفة"
+      );
+    }else if(type == "المعاملات النقدية"){
+      AddTransactionModel model =AddTransactionModel(
+          transactionName: "المعاملات النقدية"
+      );
+    }
+  }
 
 }

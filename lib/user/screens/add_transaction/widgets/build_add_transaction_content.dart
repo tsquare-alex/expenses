@@ -36,17 +36,29 @@ class BuildAddTransactionContent extends StatelessWidget {
             ),
             DefaultButton(
               onTap: () {
-                // var box = Hive.box(ApiNames.kTransactionTypes);
-                // box.put("name", "Mohamed");
-                data.addTransactionContent(
-                  TransactionContentModel(
-                    name: data.newContentController.text,
-                  ),
-                  type,
-                );
+
+                if(type == "الالتزامات"||type == "التسوق والشراء"){
+                  data.addTransactionContent(
+                    TransactionContentModel(
+                      name: data.newContentController.text,
+                    ),
+                    type,
+                  );
+                }else if(type == "الاهداف المالية المستهدفة"){
+                  data.addTarget(
+                    DropdownModel(
+                      name: data.newContentController.text,
+                    ),
+                  );
+                }else if (type == "المعاملات النقدية"){
+                  data.addCashTransaction(
+                    DropdownModel(
+                      name: data.newContentController.text,
+                    ),
+                  );
+                }
                 AutoRouter.of(context).pop();
-                data.nameController.clear();
-                data.contentController.clear();
+                data.newContentController.clear();
               },
               title: "إضافة",
               fontSize: 14.sp,

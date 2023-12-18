@@ -7,7 +7,6 @@ import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/models/transaction_model/transaction_model.dart';
 import 'package:expenses/user/screens/transactions/widgets/transactions_widgets_imports.dart';
-import 'package:expenses/user/screens/transactions_types/transactions_types_imports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

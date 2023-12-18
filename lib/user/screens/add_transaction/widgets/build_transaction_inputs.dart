@@ -44,113 +44,226 @@ class BuildTransactionInputs extends StatelessWidget {
                     context,
                   ),
                   useName: true,
-                  buttonsColor: MyColors.yellow,
+                  buttonsColor: MyColors.primary,
                   searchHint: "بحث",
                 ),
               )
             ],
           ),
-          SizedBox(
-            height: 10.h,
-          ),
-          Row(
+          if(type == "الاهداف المالية المستهدفة")Column(
             children: [
-              MyText(
-                title: "تحديد الوحدة",
-                color: MyColors.black,
-                size: 12.sp,
-                fontWeight: FontWeight.bold,
-              ),
               SizedBox(
-                width: 10.h,
+                height: 10.h,
               ),
-              Expanded(
-                child: DropdownTextField<DropdownModel>(
-                  dropKey: addTransactionData.unitsDropKey,
-                  label: "الوحدة",
-                  selectedItem: addTransactionData.selectedUnit,
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  validate: (value) {
-                    if (value == null) {
-                      print("Please fill this field");
-                    }
-                  },
-                  onChange: addTransactionData.setSelectUnit,
-                  finData: (data) => addTransactionData.getUnits(
-                    context,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  MyText(
+                    title: "القيمة الابتدائية",
+                    color: MyColors.black,
+                    size: 12.sp,
+                    fontWeight: FontWeight.bold,
+                    alien: TextAlign.center,
                   ),
-                  useName: true,
-                  buttonsColor: MyColors.yellow,
-                  searchHint: "بحث",
-                ),
-              )
-            ],
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              MyText(
-                title: "حدد الكمية",
-                color: MyColors.black,
-                size: 12.sp,
-                fontWeight: FontWeight.bold,
-                alien: TextAlign.center,
+                  SizedBox(
+                    width: 105.w,
+                  ),
+                  Expanded(
+                    child: GenericTextField(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                      controller: addTransactionData.initValueController,
+                      fieldTypes: FieldTypes.normal,
+                      type: TextInputType.number,
+                      action: TextInputAction.next,
+                      validate: (value) {
+                        if(value!.isEmpty){
+                          return 'Enter an initial value';
+                        }
+                      },
+                      label: "القيمة",
+                      margin: const EdgeInsets.only(top: 0),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
-                width: 105.w,
+                height: 10.h,
               ),
-              Expanded(
-                child: GenericTextField(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                  controller: addTransactionData.amountController,
-                  fieldTypes: FieldTypes.normal,
-                  type: TextInputType.number,
-                  action: TextInputAction.next,
-                  validate: (value) {
-                    if(value!.isEmpty){
-                      return 'Enter the amount';
-                    }
-                  },
-                  label: "الكمية",
-                  margin: const EdgeInsets.only(top: 0),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  MyText(
+                    title: "القيمة المستهدفة",
+                    color: MyColors.black,
+                    size: 12.sp,
+                    fontWeight: FontWeight.bold,
+                    alien: TextAlign.center,
+                  ),
+                  SizedBox(
+                    width: 85.w,
+                  ),
+                  Expanded(
+                    child: GenericTextField(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                      controller: addTransactionData.targetController,
+                      fieldTypes: FieldTypes.normal,
+                      type: TextInputType.number,
+                      action: TextInputAction.next,
+                      validate: (value) {
+                        if(value!.isEmpty){
+                          return 'Enter the target';
+                        }
+                      },
+                      label: "القيمة",
+                      margin: const EdgeInsets.only(top: 0),
+                    ),
+                  ),
+                ],
+              ),
+
+              GenericTextField(
+                onTab: () => addTransactionData.onSelectStartDate(
+                  context,
+                ),
+                contentPadding:
+                EdgeInsets.symmetric(horizontal: 20.r, vertical: 10.r),
+                radius: 10.r,
+                fieldTypes: FieldTypes.clickable,
+                type: TextInputType.text,
+                action: TextInputAction.next,
+                label: "تاريخ البداية",
+                prefixIcon: Icon(Icons.date_range,color: MyColors.primary,),
+                validate: (value) {},
+                controller: addTransactionData.startDateController,
+                margin: const EdgeInsets.symmetric(
+                  vertical: 10,
+                ),
+              ),
+              GenericTextField(
+                onTab: () => addTransactionData.onSelectEndDate(
+                  context,
+                ),
+                contentPadding:
+                EdgeInsets.symmetric(horizontal: 20.r, vertical: 10.r),
+                radius: 10.r,
+                fieldTypes: FieldTypes.clickable,
+                type: TextInputType.text,
+                action: TextInputAction.next,
+                label: "تاريخ النهاية",
+                prefixIcon: Icon(Icons.date_range,color: MyColors.primary,),
+                validate: (value) {},
+                controller: addTransactionData.endDateController,
+                margin: const EdgeInsets.symmetric(
+                  vertical: 10,
                 ),
               ),
             ],
           ),
-          SizedBox(
-            height: 10.h,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          if(type=="الالتزامات"||type== "التسوق والشراء")Column(
             children: [
-              MyText(
-                title: "اجمالي المبلغ المدفوع",
-                color: MyColors.black,
-                size: 12.sp,
-                fontWeight: FontWeight.bold,
-                alien: TextAlign.center,
+              SizedBox(
+                height: 10.h,
+              ),
+              Row(
+                children: [
+                  MyText(
+                    title: "تحديد الوحدة",
+                    color: MyColors.black,
+                    size: 12.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  SizedBox(
+                    width: 10.h,
+                  ),
+                  Expanded(
+                    child: DropdownTextField<DropdownModel>(
+                      dropKey: addTransactionData.unitsDropKey,
+                      label: "الوحدة",
+                      selectedItem: addTransactionData.selectedUnit,
+                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      validate: (value) {
+                        if (value == null) {
+                          print("Please fill this field");
+                        }
+                      },
+                      onChange: addTransactionData.setSelectUnit,
+                      finData: (data) => addTransactionData.getUnits(
+                        context,
+                      ),
+                      useName: true,
+                      buttonsColor: MyColors.primary,
+                      searchHint: "بحث",
+                    ),
+                  )
+                ],
               ),
               SizedBox(
-                width: 34.w,
+                height: 10.h,
               ),
-              Expanded(
-                child: GenericTextField(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                  controller: addTransactionData.totalController,
-                  fieldTypes: FieldTypes.normal,
-                  type: TextInputType.number,
-                  action: TextInputAction.next,
-                  validate: (value) {
-                    if(value!.isEmpty){
-                      return 'Enter total price';
-                    }
-                  },
-                  label: "الاجمالي",
-                  margin: const EdgeInsets.only(top: 0),
-                ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  MyText(
+                    title: "حدد الكمية",
+                    color: MyColors.black,
+                    size: 12.sp,
+                    fontWeight: FontWeight.bold,
+                    alien: TextAlign.center,
+                  ),
+                  SizedBox(
+                    width: 105.w,
+                  ),
+                  Expanded(
+                    child: GenericTextField(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                      controller: addTransactionData.amountController,
+                      fieldTypes: FieldTypes.normal,
+                      type: TextInputType.number,
+                      action: TextInputAction.next,
+                      validate: (value) {
+                        if(value!.isEmpty){
+                          return 'Enter the amount';
+                        }
+                      },
+                      label: "الكمية",
+                      margin: const EdgeInsets.only(top: 0),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  MyText(
+                    title: "اجمالي المبلغ المدفوع",
+                    color: MyColors.black,
+                    size: 12.sp,
+                    fontWeight: FontWeight.bold,
+                    alien: TextAlign.center,
+                  ),
+                  SizedBox(
+                    width: 34.w,
+                  ),
+                  Expanded(
+                    child: GenericTextField(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                      controller: addTransactionData.totalController,
+                      fieldTypes: FieldTypes.normal,
+                      type: TextInputType.number,
+                      action: TextInputAction.next,
+                      validate: (value) {
+                        if(value!.isEmpty){
+                          return 'Enter total price';
+                        }
+                      },
+                      label: "الاجمالي",
+                      margin: const EdgeInsets.only(top: 0),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -216,13 +329,45 @@ class BuildTransactionInputs extends StatelessWidget {
                     context,
                   ),
                   useName: true,
-                  buttonsColor: MyColors.yellow,
+                  buttonsColor: MyColors.primary,
                   searchHint: "بحث",
                 ),
               )
             ],
           ),
-          Row(
+          if(type=="المعاملات النقدية")Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              MyText(
+                title: "التحويل الي",
+                color: MyColors.black,
+                size: 12.sp,
+                fontWeight: FontWeight.bold,
+              ),
+              SizedBox(
+                width: 10.h,
+              ),
+              DropdownTextField<DropdownModel>(
+                dropKey: addTransactionData.transferDropKey,
+                label: "اختر",
+                selectedItem: addTransactionData.selectedTransfer,
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                validate: (value) {
+                  if (value == null) {
+                    print("Please fill this field");
+                  }
+                },
+                onChange: addTransactionData.setSelectTransfer,
+                finData: (data) => addTransactionData.getTransfer(
+                  context,
+                ),
+                useName: true,
+                buttonsColor: MyColors.primary,
+                searchHint: "بحث",
+              )
+            ],
+          ),
+          if(type != "الاهداف المالية المستهدفة")Row(
             children: [
               MyText(
                 title: "نسبة الاولوية",
@@ -249,7 +394,7 @@ class BuildTransactionInputs extends StatelessWidget {
                     context,
                   ),
                   useName: true,
-                  buttonsColor: MyColors.yellow,
+                  buttonsColor: MyColors.primary,
                   searchHint: "بحث",
                 ),
               )

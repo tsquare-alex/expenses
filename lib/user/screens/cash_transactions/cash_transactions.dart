@@ -8,12 +8,21 @@ class CashTransactions extends StatefulWidget {
 }
 
 class _CashTransactionsState extends State<CashTransactions> {
+
+  CashTransactionsData data = CashTransactionsData();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      floatingActionButton: FloatingActionButton(
+        onPressed: ()=>AutoRouter.of(context).push(AddTransactionRoute(model: data.model,),),
+        backgroundColor: MyColors.primary,
+        shape: const CircleBorder(),
+        child: Icon(Icons.add,color: MyColors.white,),
+      ),
+      body: const Column(
         children: [
-
+          BuildNoRecord(),
         ],
       ),
     );

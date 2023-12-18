@@ -1,3 +1,8 @@
 part of 'cash_transactions_imports.dart';
 
-class CashTransactionsData{}
+class CashTransactionsData{
+
+  TransactionModel model = TransactionModel(
+    name: "المعاملات النقدية",
+  );
+}

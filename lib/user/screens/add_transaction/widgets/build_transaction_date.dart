@@ -19,9 +19,9 @@ class BuildTransactionDate extends StatelessWidget {
             children: [
               Icon(Icons.date_range,color: MyColors.primary,),
               MyText(
-                title: "تاريخ المعاملة",
+                title: "ميعاد المعاملة",
                 color: MyColors.black,
-                size: 10.sp,
+                size: 9.sp,
                 fontWeight: FontWeight.bold,
               ),
             ],
@@ -40,7 +40,7 @@ class BuildTransactionDate extends StatelessWidget {
               fieldTypes: FieldTypes.clickable,
               type: TextInputType.text,
               action: TextInputAction.next,
-              label: tr(context, "date"),
+              label: "التاريخ",
               validate: (value) {},
               controller: data.dateController,
               margin: const EdgeInsets.symmetric(
@@ -63,7 +63,7 @@ class BuildTransactionDate extends StatelessWidget {
               fieldTypes: FieldTypes.clickable,
               type: TextInputType.text,
               action: TextInputAction.next,
-              label: tr(context, "time"),
+              label: "الوقت",
               validate: (value) {},
               controller: data.timeController,
               margin: const EdgeInsets.symmetric(

@@ -84,7 +84,7 @@ class GoogleDriveClient {
     if (fileName == fileName && content != null) {
       final directory = await getApplicationDocumentsDirectory();
       var created = io.File("${directory.path}/$fileName");
-      created.writeAsString(content);
+      await created.writeAsString(content);
       var bytes = await created.readAsBytes();
       media = ga.Media(created.openRead(), bytes.lengthInBytes);
     }

@@ -8,13 +8,20 @@ class WalletCubit extends Cubit<WalletState> {
   WalletCubit() : super(WalletInitial());
   List<WalletModel> walletList = [];
   fetchAllData() async {
+    emit(WalletInitial());
     var walletBox = Hive.box<WalletModel>(databaseBox);
     walletList = walletBox.values.toList();
     emit(WalletSuccess(wallet: walletList));
   }
 
-  updateWalletList(List<WalletModel> updatedList) {
-    walletList = updatedList;
-    emit(WalletSuccess(wallet: walletList));
+  addNote(WalletModel model) async {
+    emit(AddWalletLoading());
+    try {
+      var walletBox = Hive.box<WalletModel>(databaseBox);
+      await walletBox.add(model);
+      emit(AddWalletSucess());
+    } catch (e) {
+      emit(AddWalletfaliuer(message: e.toString()));
+    }
   }
 }

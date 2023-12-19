@@ -1,13 +1,13 @@
 part of 'wallet_imports.dart';
 
 class WalletData {
-  showButtomSheet(context, build) {
+  showButtomSheet(context, build,model) {
     showModalBottomSheet(
         isScrollControlled: true,
         elevation: 0,
         context: context,
         builder: (buildContext) {
-          return const WalletDetails();
+          return  WalletDetails(model: model);
         });
   }
 
@@ -27,6 +27,7 @@ class WalletData {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
+
                   onPressed: onPressed,
                   child: MyText(
                     title: title,

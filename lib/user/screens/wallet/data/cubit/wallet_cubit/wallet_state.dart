@@ -23,3 +23,17 @@ class Walletfaliuer extends WalletState {
   @override
   List<Object?> get props => [message];
 }
+
+class AddWalletInitial extends WalletState {}
+
+class AddWalletLoading extends WalletState {}
+
+class AddWalletSucess extends WalletState {}
+
+class AddWalletfaliuer extends WalletState {
+  final String message;
+
+  AddWalletfaliuer({required this.message});
+  @override
+  List<Object?> get props => [message];
+}

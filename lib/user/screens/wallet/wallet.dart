@@ -25,8 +25,11 @@ class Wallet extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            AutoRouter.of(context).push(const AddWalletRoute());
+          onPressed: () async {
+            AutoRouter.of(context).push(
+              const AddWalletRoute(),
+            );
+            context.read<WalletCubit>().fetchAllData();
           },
           backgroundColor: MyColors.primary,
           child: Icon(

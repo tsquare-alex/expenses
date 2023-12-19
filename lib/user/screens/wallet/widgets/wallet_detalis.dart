@@ -2,13 +2,16 @@ import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/MyText.dart';
+import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
 import 'package:expenses/user/screens/wallet/wallet_imports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WalletDetails extends StatefulWidget {
+  final WalletModel model;
   const WalletDetails({
     super.key,
+    required this.model,
   });
 
   @override
@@ -34,7 +37,9 @@ class _WalletDetailsState extends State<WalletDetails> {
             children: [
               InkWell(
                 onTap: () {
-                  data.balanceTransaction(context, title, () {});
+                  data.balanceTransaction(context, title, () {
+
+                  });
                 },
                 child: Row(
                   children: [

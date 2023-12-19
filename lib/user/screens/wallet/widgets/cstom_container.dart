@@ -34,7 +34,7 @@ class CustomContainer extends StatelessWidget {
                   title: model.walletName, color: MyColors.white, size: 16.sp),
               IconButton(
                   onPressed: () {
-                    data.showButtomSheet(context, build);
+                    data.showButtomSheet(context, build,model);
                   },
                   icon: Icon(
                     Icons.arrow_drop_down_outlined,

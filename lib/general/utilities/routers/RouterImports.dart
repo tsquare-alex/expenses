@@ -20,6 +20,7 @@ import 'package:expenses/user/screens/home/home_imports.dart';
 import 'package:expenses/user/screens/repeated_transactions/repeated_transactions_imports.dart';
 import 'package:expenses/user/screens/shopping/shopping_imports.dart';
 import 'package:expenses/user/screens/target/target_imports.dart';
+import 'package:expenses/user/screens/transaction_details/transaction_details_imports.dart';
 
 
 part 'Router.dart';

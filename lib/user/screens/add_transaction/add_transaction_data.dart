@@ -1,7 +1,9 @@
 part of 'add_transaction_imports.dart';
 
 class AddTransactionData{
-
+  final GlobalKey<FormState> formKey = GlobalKey();
+  final GlobalKey<FormState> formKey1 = GlobalKey();
+  final GlobalKey<FormState> formKey2 = GlobalKey();
   GenericBloc<bool> contentCubit = GenericBloc(false);
   GenericBloc<bool> iterateCubit = GenericBloc(false);
   GenericBloc<bool> notifyCubit = GenericBloc(false);
@@ -635,87 +637,91 @@ class AddTransactionData{
 
   addTransaction(BuildContext context,String type) async {
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
-    if(type == "الالتزامات"){
-      AddTransactionModel model =AddTransactionModel(
-        transactionName: "الالتزامات",
-        transactionType: commitmentId,
-        transactionContent: commitmentContentId,
-        incomeSource: selectedWallet,
-        unit: selectedUnit?.name,
-        amount: amountController.text,
-        total: totalController.text,
-        commitmentParty: selectedCommitmentParty,
-        priority: selectedPriority?.name,
-        time: timeController.text,
-         transactionDate: dateController.text,
-        repeated: iterateCubit.state.data==false?selectedIterateTransaction?.name:null,
-        notify: notifyCubit.state.data,
-      );
-      box.add(model);
-      addTransactionList = box.values.toList();
-      print(addTransactionList.length);
-      addTransactionCubit.onUpdateData(addTransactionList);
-      AutoRouter.of(context).pop();
-      //AutoRouter.of(context).replace(HomeRoute(index: 0));
-    }else if(type == "التسوق والشراء"){
-      AddTransactionModel model =AddTransactionModel(
+    if(formKey.currentState!.validate() && formKey1.currentState!.validate()&& formKey2.currentState!.validate()){
+      if(type == "الالتزامات"){
+        AddTransactionModel model =AddTransactionModel(
+          transactionName: "الالتزامات",
+          transactionType: commitmentId,
+          transactionContent: commitmentContentId,
+          incomeSource: selectedWallet,
+          unit: selectedUnit?.name,
+          amount: amountController.text,
+          total: totalController.text,
+          commitmentParty: selectedCommitmentParty,
+          priority: selectedPriority?.name,
+          time: timeController.text,
+          transactionDate: dateController.text,
+          repeated: iterateCubit.state.data!=false?selectedIterateTransaction:null,
+          notify: notifyCubit.state.data,
+        );
+        box.add(model);
+        addTransactionList = box.values.toList();
+        print(addTransactionList.length);
+        addTransactionCubit.onUpdateData(addTransactionList);
+        AutoRouter.of(context).pop();
+        AutoRouter.of(context).replace(HomeRoute(index: 0));
+      }else if(type == "التسوق والشراء"){
+        AddTransactionModel model =AddTransactionModel(
           transactionName: "التسوق والشراء",
-        transactionType: commitmentId,
-        transactionContent: commitmentContentId,
-        shoppingParty: selectedShoppingParty,
-        incomeSource: selectedWallet,
-        unit: selectedUnit?.name,
-        amount: amountController.text,
-        total: totalController.text,
-        brandName: brandController.text,
-        priority: selectedPriority?.name,
-        time: timeController.text,
-        transactionDate: dateController.text,
-        image: imageBloc.state.data,
-        repeated: iterateCubit.state.data==false?selectedIterateTransaction?.name:null,
-        notify: notifyCubit.state.data,
-      );
-      box.add(model);
-      addTransactionList = box.values.toList();
-      addTransactionCubit.onUpdateData(addTransactionList);
-      AutoRouter.of(context).pop();
-      //AutoRouter.of(context).replace(HomeRoute(index: 0));
-    }else if(type == "الاهداف المالية المستهدفة"){
-      AddTransactionModel model =AddTransactionModel(
+          transactionType: commitmentId,
+          transactionContent: commitmentContentId,
+          shoppingParty: selectedShoppingParty,
+          incomeSource: selectedWallet,
+          unit: selectedUnit?.name,
+          amount: amountController.text,
+          total: totalController.text,
+          brandName: brandController.text,
+          priority: selectedPriority?.name,
+          time: timeController.text,
+          transactionDate: dateController.text,
+          image: imageBloc.state.data,
+          repeated: iterateCubit.state.data!=false?selectedIterateTransaction:null,
+          notify: notifyCubit.state.data,
+        );
+        box.add(model);
+        addTransactionList = box.values.toList();
+        addTransactionCubit.onUpdateData(addTransactionList);
+        AutoRouter.of(context).pop();
+        AutoRouter.of(context).replace(HomeRoute(index: 0));
+      }else if(type == "الاهداف المالية المستهدفة"){
+        AddTransactionModel model =AddTransactionModel(
           transactionName: "الاهداف المالية المستهدفة",
-        transactionType: selectedTarget?.name,
-        incomeSource: selectedWallet,
-        startValue: initValueController.text,
-        targetValue: targetController.text,
-        startDate: startDateController.text,
-        endDate: endDateController.text,
-        time: timeController.text,
-        transactionDate: dateController.text,
-        repeated: iterateCubit.state.data==false?selectedIterateTransaction?.name:null,
-        notify: notifyCubit.state.data,
-      );
-      box.add(model);
-      addTransactionList = box.values.toList();
-      addTransactionCubit.onUpdateData(addTransactionList);
-      AutoRouter.of(context).pop();
-      //AutoRouter.of(context).replace(HomeRoute(index: 0));
-    }else if(type == "المعاملات النقدية"){
-      AddTransactionModel model =AddTransactionModel(
+          transactionType: selectedTarget?.name,
+          incomeSource: selectedWallet,
+          startValue: initValueController.text,
+          targetValue: targetController.text,
+          startDate: startDateController.text,
+          endDate: endDateController.text,
+          time: timeController.text,
+          transactionDate: dateController.text,
+          repeated: iterateCubit.state.data!=false?selectedIterateTransaction:null,
+          notify: notifyCubit.state.data,
+        );
+        box.add(model);
+        addTransactionList = box.values.toList();
+        addTransactionCubit.onUpdateData(addTransactionList);
+        AutoRouter.of(context).pop();
+        AutoRouter.of(context).replace(HomeRoute(index: 0));
+      }else if(type == "المعاملات النقدية"){
+        AddTransactionModel model =AddTransactionModel(
           transactionName: "المعاملات النقدية",
-        transactionType: selectedCashTransaction?.name,
-        incomeSource: selectedWallet,
-        transferTo: selectedTransfer,
-        priority: selectedPriority?.name,
-        time: timeController.text,
-        transactionDate: dateController.text,
-        repeated: iterateCubit.state.data==false?selectedIterateTransaction?.name:null,
-        notify: notifyCubit.state.data,
-      );
-      box.add(model);
-      addTransactionList = box.values.toList();
-      addTransactionCubit.onUpdateData(addTransactionList);
-      AutoRouter.of(context).pop();
-      //AutoRouter.of(context).replace(HomeRoute(index: 0));
+          transactionType: selectedCashTransaction?.name,
+          incomeSource: selectedWallet,
+          transferTo: selectedTransfer,
+          priority: selectedPriority?.name,
+          time: timeController.text,
+          transactionDate: dateController.text,
+          repeated: iterateCubit.state.data!=false?selectedIterateTransaction:null,
+          notify: notifyCubit.state.data,
+        );
+        box.add(model);
+        addTransactionList = box.values.toList();
+        addTransactionCubit.onUpdateData(addTransactionList);
+        AutoRouter.of(context).pop();
+        AutoRouter.of(context).replace(HomeRoute(index: 0));
+      }
+    }else{
+      CustomToast.showSimpleToast(msg: "أكمل بيانات الإضافة أولا لاتمام اضافة المعاملة",color: Colors.red);
     }
   }
 

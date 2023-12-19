@@ -31,7 +31,7 @@ class AddTransactionModelAdapter extends TypeAdapter<AddTransactionModel> {
       incomeSource: fields[3] as DropdownModel?,
       notify: fields[14] as bool?,
       priority: fields[8] as String?,
-      repeated: fields[13] as String?,
+      repeated: fields[13] as DropdownModel?,
       startDate: fields[11] as String?,
       startValue: fields[18] as String?,
       targetValue: fields[19] as String?,

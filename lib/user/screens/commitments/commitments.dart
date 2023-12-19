@@ -20,17 +20,20 @@ class _CommitmentsState extends State<Commitments> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: BlocBuilder<GenericBloc<List<AddTransactionModel>>, GenericState<List<AddTransactionModel>>>(
-          bloc: data.addTransactionCubit,
-          builder: (context, state) {
-            if(state.data.isEmpty){
-              return BuildNoRecord();
-            }else{
-              return Center(child: Text("Data"),);
-            }
-          },
-        ),
+      body: BlocBuilder<GenericBloc<List<AddTransactionModel>>, GenericState<List<AddTransactionModel>>>(
+        bloc: data.addTransactionCubit,
+        builder: (context, state) {
+          if(state.data.isEmpty){
+            return SingleChildScrollView(child: BuildNoRecord());
+          }else{
+            return ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: state.data.length,
+              itemBuilder: (context,i)=>BuildTransactionCard(model: state.data[i],onDelete: ()=>data.deleteItem(state.data[i]),),
+            );
+          }
+        },
       ),
     );
   }

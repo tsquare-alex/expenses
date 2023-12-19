@@ -12,6 +12,7 @@ class Res {
   static const String cart = "assets/images/cart.png";
   static const String cashTransactions = "assets/images/cashTransactions.png";
   static const String commitment = "assets/images/commitment.png";
+  static const String contacts = "assets/images/contacts.png";
   static const String country = "assets/images/country.png";
   static const String currency = "assets/images/currency.png";
   static const String currencyExchange = "assets/images/currencyExchange.png";

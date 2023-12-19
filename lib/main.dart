@@ -33,7 +33,6 @@ Future<void> main() async {
   Hive.registerAdapter(TransactionContentModelAdapter());
   Hive.registerAdapter(AddTransactionModelAdapter());
   Hive.registerAdapter(DropdownModelAdapter());
-  //await Hive.openBox<TransactionTypeModel>(ApiNames.kTransactionTypes);
 
   runApp(
       BlocProvider(

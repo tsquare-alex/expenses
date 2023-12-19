@@ -40,18 +40,19 @@ class _ExpenseState extends State<Expense> with TickerProviderStateMixin {
               bloc: data.commitmentsCubit,
               builder: (context, state1) {
                 return Container(
-                  height: 70.h,
+                  height: 50.h,
                   color: MyColors.primary,
                   child: TabBar(
                     controller: tabController,
                     indicatorColor: MyColors.white,
+                    indicatorPadding: EdgeInsets.only(bottom: 2.r,right: 30.r,left: 30.r),
                     indicatorSize: TabBarIndicatorSize.tab,
                     labelColor: MyColors.white,
                     labelStyle: TextStyle(
-                        fontSize: 14.sp, fontWeight: FontWeight.bold),
+                        fontSize: 18.sp, fontWeight: FontWeight.bold),
                     unselectedLabelStyle: TextStyle(
-                        color: MyColors.black,
-                        fontSize: 14.sp,
+                        color: MyColors.grey,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.bold),
                     onTap: (i) {
                       data.tabCubit.onUpdateData(i);
@@ -60,27 +61,30 @@ class _ExpenseState extends State<Expense> with TickerProviderStateMixin {
                       data.commitmentsCubit.onUpdateData(state1.data);
                       print(state.data);
                     },
-                    tabs: List.generate(
+                    tabs:
+                    List.generate(
                         2,
-                            (index) => Container(
-                          height: 50.h,
-                          alignment: Alignment.center,
-                          width: MediaQuery.of(context).size.width*0.5,
-                          decoration: BoxDecoration(
-                              color: state1.data[index].isSelected==true?MyColors.white:MyColors.primary.withOpacity(0.4),
-                              border: Border.all(
-                                color: state1.data[index].isSelected==true?MyColors.black:MyColors.primary,
-                                width: 2.w,
-                              ),
-                              borderRadius: BorderRadius.circular(15.r)
-                          ),
-                          child: MyText(
-                            title: data.commitments[index].name ??"",
-                            color: state1.data[index].isSelected==true?MyColors.primary:MyColors.black,
-                            size: 14.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )),
+                            (index) =>Tab(text: data.commitments[index].name ??"",)
+                        //         Container(
+                        //   height: 50.h,
+                        //   alignment: Alignment.center,
+                        //   width: MediaQuery.of(context).size.width*0.5,
+                        //   decoration: BoxDecoration(
+                        //       color: state1.data[index].isSelected==true?MyColors.white:MyColors.primary.withOpacity(0.4),
+                        //       border: Border.all(
+                        //         color: state1.data[index].isSelected==true?MyColors.black:MyColors.primary,
+                        //         width: 2.w,
+                        //       ),
+                        //       borderRadius: BorderRadius.circular(15.r)
+                        //   ),
+                        //   child: MyText(
+                        //     title: data.commitments[index].name ??"",
+                        //     color: state1.data[index].isSelected==true?MyColors.primary:MyColors.black,
+                        //     size: 14.sp,
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
+                    ),
                   ),
                 );
               },
@@ -93,7 +97,7 @@ class _ExpenseState extends State<Expense> with TickerProviderStateMixin {
                   padding: EdgeInsets.all(15.0.r),
                   child: TabBarView(
                     controller: tabController,
-                    children: [
+                    children: const [
                       Commitments(),
                       Shopping(),
                     ],

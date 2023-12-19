@@ -28,4 +28,20 @@ class CommitmentsData{
       await box.close();
     }
   }
+
+  Future<void> deleteItem(AddTransactionModel targetModel) async {
+    final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
+    // Find the index of the target model in the list
+    var modelList =box.values.toList();
+    int index = modelList.indexWhere((model) => model.key == targetModel.key);
+    box.deleteAt(index);
+    var boxList = box.values.toList();
+    addTransactionCubit.onUpdateData(boxList);
+    if (index != -1) {
+      print('Index of the target model: $index');
+    } else {
+      print('Target model not found in the list.');
+    }
+  }
+
 }

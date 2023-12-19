@@ -34,7 +34,7 @@ class AddTransactionModel extends HiveObject{
   @HiveField(12)
   String? endDate;
   @HiveField(13)
-  String? repeated;
+  DropdownModel? repeated;
   @HiveField(14)
   bool? notify;
   @HiveField(15)

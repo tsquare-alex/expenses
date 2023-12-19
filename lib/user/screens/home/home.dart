@@ -49,7 +49,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           return data.homeTabCubit.state.data == 0;
         },
         child: DefaultTabController(
-          length: 3,
+          length: 12,
           initialIndex: widget.index,
           child: Scaffold(
             key: data.scaffold,
@@ -122,7 +122,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             endDrawer: BuildEndDrawer(homeTabCubit: data.homeTabCubit,),
             body: BlocBuilder<GenericBloc<int>, GenericState<int>>(
               bloc: data.homeTabCubit,
-              builder: (context, state) => screen[data.homeTabCubit.state.data],
+              builder: (context, state) {
+                var index = widget.index;
+                index= state.data;
+                return screen[index];
+              },
             ),
             bottomNavigationBar:
             BuildBottomNavigationBar(controller: data),

@@ -633,25 +633,89 @@ class AddTransactionData{
 
   }
 
-  addTransaction(String type) async {
-    final box = await Hive.openBox<TransactionTypeModel>("addTransactionBox");
+  addTransaction(BuildContext context,String type) async {
+    final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
     if(type == "الالتزامات"){
       AddTransactionModel model =AddTransactionModel(
         transactionName: "الالتزامات",
-
+        transactionType: commitmentId,
+        transactionContent: commitmentContentId,
+        incomeSource: selectedWallet,
+        unit: selectedUnit?.name,
+        amount: amountController.text,
+        total: totalController.text,
+        commitmentParty: selectedCommitmentParty,
+        priority: selectedPriority?.name,
+        time: timeController.text,
+         transactionDate: dateController.text,
+        repeated: iterateCubit.state.data==false?selectedIterateTransaction?.name:null,
+        notify: notifyCubit.state.data,
       );
+      box.add(model);
+      addTransactionList = box.values.toList();
+      print(addTransactionList.length);
+      addTransactionCubit.onUpdateData(addTransactionList);
+      AutoRouter.of(context).pop();
+      //AutoRouter.of(context).replace(HomeRoute(index: 0));
     }else if(type == "التسوق والشراء"){
       AddTransactionModel model =AddTransactionModel(
-          transactionName: "التسوق والشراء"
+          transactionName: "التسوق والشراء",
+        transactionType: commitmentId,
+        transactionContent: commitmentContentId,
+        shoppingParty: selectedShoppingParty,
+        incomeSource: selectedWallet,
+        unit: selectedUnit?.name,
+        amount: amountController.text,
+        total: totalController.text,
+        brandName: brandController.text,
+        priority: selectedPriority?.name,
+        time: timeController.text,
+        transactionDate: dateController.text,
+        image: imageBloc.state.data,
+        repeated: iterateCubit.state.data==false?selectedIterateTransaction?.name:null,
+        notify: notifyCubit.state.data,
       );
+      box.add(model);
+      addTransactionList = box.values.toList();
+      addTransactionCubit.onUpdateData(addTransactionList);
+      AutoRouter.of(context).pop();
+      //AutoRouter.of(context).replace(HomeRoute(index: 0));
     }else if(type == "الاهداف المالية المستهدفة"){
       AddTransactionModel model =AddTransactionModel(
-          transactionName: "الاهداف المالية المستهدفة"
+          transactionName: "الاهداف المالية المستهدفة",
+        transactionType: selectedTarget?.name,
+        incomeSource: selectedWallet,
+        startValue: initValueController.text,
+        targetValue: targetController.text,
+        startDate: startDateController.text,
+        endDate: endDateController.text,
+        time: timeController.text,
+        transactionDate: dateController.text,
+        repeated: iterateCubit.state.data==false?selectedIterateTransaction?.name:null,
+        notify: notifyCubit.state.data,
       );
+      box.add(model);
+      addTransactionList = box.values.toList();
+      addTransactionCubit.onUpdateData(addTransactionList);
+      AutoRouter.of(context).pop();
+      //AutoRouter.of(context).replace(HomeRoute(index: 0));
     }else if(type == "المعاملات النقدية"){
       AddTransactionModel model =AddTransactionModel(
-          transactionName: "المعاملات النقدية"
+          transactionName: "المعاملات النقدية",
+        transactionType: selectedCashTransaction?.name,
+        incomeSource: selectedWallet,
+        transferTo: selectedTransfer,
+        priority: selectedPriority?.name,
+        time: timeController.text,
+        transactionDate: dateController.text,
+        repeated: iterateCubit.state.data==false?selectedIterateTransaction?.name:null,
+        notify: notifyCubit.state.data,
       );
+      box.add(model);
+      addTransactionList = box.values.toList();
+      addTransactionCubit.onUpdateData(addTransactionList);
+      AutoRouter.of(context).pop();
+      //AutoRouter.of(context).replace(HomeRoute(index: 0));
     }
   }
 

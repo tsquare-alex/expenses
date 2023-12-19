@@ -1,7 +1,7 @@
 part of 'expense_imports.dart';
 
 class Expense extends StatefulWidget {
-  const Expense({Key? key}) : super(key: key);
+  const Expense({Key? key,}) : super(key: key);
 
   @override
   State<Expense> createState() => _ExpenseState();
@@ -94,8 +94,8 @@ class _ExpenseState extends State<Expense> with TickerProviderStateMixin {
                   child: TabBarView(
                     controller: tabController,
                     children: [
-                      BuildCommitmentsView(),
-                      BuildShoppingView(),
+                      Commitments(),
+                      Shopping(),
                     ],
                   ),
                 ),

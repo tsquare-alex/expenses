@@ -18,9 +18,9 @@ class AddTransactionModel extends HiveObject{
   @HiveField(4)
   String? unit;
   @HiveField(5)
-  double? amount;
+  String? amount;
   @HiveField(6)
-  double? total;
+  String? total;
   @HiveField(7)
   DropdownModel? commitmentParty;
   @HiveField(8)

@@ -1,11 +1,6 @@
-part of 'cash_transactions_imports.dart';
+part of 'commitments_imports.dart';
 
-class CashTransactionsData{
-
-  TransactionModel model = TransactionModel(
-    name: "المعاملات النقدية",
-  );
-
+class CommitmentsData{
   GenericBloc<List<AddTransactionModel>> addTransactionCubit = GenericBloc([]);
 
   List<AddTransactionModel> addTransactionList = [];
@@ -22,7 +17,7 @@ class CashTransactionsData{
         }
       }).toList();
       for (AddTransactionModel item in list) {
-        if (item.transactionName == "المعاملات النقدية") {
+        if (item.transactionName == "الالتزامات") {
           addTransactionList.add(item);
         }
       }

@@ -28,6 +28,7 @@ part of 'RouterImports.dart';
     AdaptiveRoute(page: Target),
     AdaptiveRoute(page: CashTransactions),
     AdaptiveRoute(page: RepeatedTransactions),
+    AdaptiveRoute(page: Expense),
 
 
     AdaptiveRoute(page: AddTransactionBudget),

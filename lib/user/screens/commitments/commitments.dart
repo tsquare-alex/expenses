@@ -1,15 +1,15 @@
-part of 'target_imports.dart';
+part of 'commitments_imports.dart';
 
-class Target extends StatefulWidget {
-  const Target({Key? key,}) : super(key: key);
+class Commitments extends StatefulWidget {
+  const Commitments({Key? key}) : super(key: key);
 
   @override
-  State<Target> createState() => _TargetState();
+  State<Commitments> createState() => _CommitmentsState();
 }
 
-class _TargetState extends State<Target> {
+class _CommitmentsState extends State<Commitments> {
 
-  TargetData data = TargetData();
+  CommitmentsData data = CommitmentsData();
 
   @override
   void initState() {
@@ -20,12 +20,6 @@ class _TargetState extends State<Target> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: ()=>AutoRouter.of(context).push(AddTransactionRoute(model: data.model,),),
-        backgroundColor: MyColors.primary,
-        shape: const CircleBorder(),
-        child: Icon(Icons.add,color: MyColors.white,),
-      ),
       body: SingleChildScrollView(
         child: BlocBuilder<GenericBloc<List<AddTransactionModel>>, GenericState<List<AddTransactionModel>>>(
           bloc: data.addTransactionCubit,

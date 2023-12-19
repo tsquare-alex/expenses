@@ -52,7 +52,7 @@ class _AddTransactionState extends State<AddTransaction> {
               BuildTransactionDate(data: data),
               if(widget.model?.name=="التسوق والشراء")BuildAddProductPhoto(data: data,),
               BuildIterateTransaction(addTransactionData: data,),
-              BuildTransactionButton(),
+              BuildTransactionButton(data: data,type: widget.model?.name??"",),
 
             ],
           ),

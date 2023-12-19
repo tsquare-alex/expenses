@@ -30,10 +30,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       Container(),
       const Wallet(),
       const Budget(),
-      Expense(),
-      Target(),
-      CashTransactions(),
-      RepeatedTransactions(),
+      const Expense(),
+      const Target(),
+      const CashTransactions(),
+      const RepeatedTransactions(),
     ];
     return WillPopScope(
         onWillPop: () async {

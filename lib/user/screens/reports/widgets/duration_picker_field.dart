@@ -43,18 +43,18 @@ class DurationPickerField extends StatelessWidget {
                   currentLocale == ReportsData.arLocale ? false : true,
               isSmallMarginLeft:
                   currentLocale == ReportsData.arLocale ? true : false,
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Duration from',
-                    style: TextStyle(
+                    tr(context, 'durationFrom'),
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey,
                     ),
                   ),
-                  Icon(
+                  const Icon(
                     Icons.keyboard_arrow_down,
                     color: Colors.grey,
                   ),
@@ -97,18 +97,18 @@ class DurationPickerField extends StatelessWidget {
                   currentLocale == ReportsData.arLocale ? false : true,
               isSmallMarginRight:
                   currentLocale == ReportsData.arLocale ? true : false,
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Duration to',
-                    style: TextStyle(
+                    tr(context, 'durationTo'),
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey,
                     ),
                   ),
-                  Icon(
+                  const Icon(
                     Icons.keyboard_arrow_down,
                     color: Colors.grey,
                   ),

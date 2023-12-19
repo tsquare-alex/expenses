@@ -38,13 +38,9 @@
   "welcome": "Welcome",
   "loginHint": "Log in to your account with us",
   "invitationCode": "Invitation Code",
-
   "main": "Main",
-
   "category": "Category",
   "categoryAddNewCategory": "Add a new category",
-
-
   "databaseAddNames": "Names",
   "databaseAddNamesAdjective": "Adjective",
   "databaseAddNamesFirstName": "First Name",
@@ -63,15 +59,12 @@
   "databaseAddressGovernorate": "Governorate",
   "databaseAddressCity": "City",
   "databaseAddressStreet": "Street",
-  "databaseAddressBuildingNumber" : "Building Number",
-  "databaseAddressApartmentNumber" : "Apartment Number",
+  "databaseAddressBuildingNumber": "Building Number",
+  "databaseAddressApartmentNumber": "Apartment Number",
   "databaseAddressPostal": "Postal Code",
-
-
   "databaseEmail": "Email",
   "databaseAddEmail": "Add Email",
   "databaseTheNewEmail": "Add New Email",
-
   "databaseImportantHistory": "Important History",
   "databaseEventTitle": "Event Title",
   "databaseEventDate": "EventDate",
@@ -85,28 +78,6 @@
   "databaseSocialAddressYoutube": "YouTube",
   "databaseSocialAddressMessenger": "Messenger",
   "databaseSocialAddressAddWeb": "Add Web",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   "language": "Language",
   "monthFirstDay": "First day of month",
   "weekFirstDay": "First day of week",
@@ -122,5 +93,11 @@
   "resetSettings": "Default settings",
   "egypt": "Egypt",
   "ksa": "KSA",
-  "settings" : "Settings"
+  "settings": "Settings",
+  "durationFrom" : "Duration from",
+  "durationTo" : "Duration to",
+  "expense" : "Expense",
+  "residual": "Residual",
+  "transactionsHistory" : "Transactions history",
+  "seeAll" : "See all"
 }

@@ -10,6 +10,7 @@ class ReportsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Intl.defaultLocale = data.getCurrentLocale(context);
     return Stack(
       children: [
         Column(
@@ -30,14 +31,14 @@ class ReportsBody extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Transactions History',
+                    tr(context, 'transactionsHistory'),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14.r,
                     ),
                   ),
                   Text(
-                    'See all',
+                    tr(context, 'seeAll'),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 12.r,

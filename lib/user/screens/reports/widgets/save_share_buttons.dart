@@ -27,7 +27,7 @@ class SaveAndShareButtons extends StatelessWidget {
                 ),
               ),
               child: Text(
-                'Save',
+                tr(context, 'save'),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18.sp,

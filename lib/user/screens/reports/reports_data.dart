@@ -4,15 +4,17 @@ class ReportsData {
   final DateTime dateTimeNow = DateTime.now();
   DateTime? selectedDate = DateTime.now();
   late String formattedDate =
-      DateFormat('EEE, dd MMM yyyy').format(dateTimeNow);
+      DateFormat('EEE, dd MMM yyyy', Intl.defaultLocale).format(dateTimeNow);
 
   void changeDate() {
     if (selectedDate != null) {
-      formattedDate = DateFormat('EEE, dd MMM yyyy').format(selectedDate!);
+      formattedDate = DateFormat('EEE, dd MMM yyyy', Intl.defaultLocale)
+          .format(selectedDate!);
       // emit(TaskDateChanged());
       return;
     }
-    selectedDate ??= DateFormat('EEE, dd MMM yyyy').parse(formattedDate);
+    selectedDate ??=
+        DateFormat('EEE, dd MMM yyyy', Intl.defaultLocale).parse(formattedDate);
   }
 
   final List<TransactionsModel> transactions = [

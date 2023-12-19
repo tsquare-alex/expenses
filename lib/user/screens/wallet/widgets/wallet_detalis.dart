@@ -43,7 +43,9 @@ class WalletDetails extends StatelessWidget {
                 height: 8.h,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  AutoRouter.of(context).push(AddBalanceRoute(model: model));
+                },
                 child: Row(
                   children: [
                     const Icon(Icons.money),

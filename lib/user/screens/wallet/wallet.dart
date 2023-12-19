@@ -29,7 +29,7 @@ class Wallet extends StatelessWidget {
             AutoRouter.of(context).push(
               const AddWalletRoute(),
             );
-            context.read<WalletCubit>().fetchAllData();
+            await context.read<WalletCubit>().fetchAllData();
           },
           backgroundColor: MyColors.primary,
           child: Icon(

@@ -17,6 +17,7 @@ import 'package:expenses/user/screens/change_currency/change_currency_imports.da
 import 'package:expenses/user/screens/commitments/commitments_imports.dart';
 import 'package:expenses/user/screens/home/home_imports.dart';
 import 'package:expenses/user/screens/wallet/wallet_imports.dart';
+import 'package:expenses/user/screens/wallet/widgets/add_balance.dart';
 import 'package:expenses/user/screens/wallet/widgets/add_wallet.dart';
 import 'package:expenses/user/screens/wallet/widgets/balance_transfer.dart';
 import 'package:expenses/user/screens/recurring_transactions/recurring_transactions_imports.dart';

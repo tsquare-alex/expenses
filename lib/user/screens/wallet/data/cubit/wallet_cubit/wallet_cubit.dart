@@ -14,7 +14,7 @@ class WalletCubit extends Cubit<WalletState> {
     emit(WalletSuccess(wallet: walletList));
   }
 
-  addNote(WalletModel model) async {
+  Future addNote(WalletModel model) async {
     emit(AddWalletLoading());
     try {
       var walletBox = Hive.box<WalletModel>(databaseBox);

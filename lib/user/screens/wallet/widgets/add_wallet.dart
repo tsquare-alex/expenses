@@ -50,12 +50,8 @@ class _AddWalletState extends State<AddWallet> {
           ),
           Padding(
             padding: EdgeInsets.all(16.w),
-            child: BlocConsumer<WalletCubit, WalletState>(
-                listener: (context, state) {
-              if (state is WalletSuccess) {
-                BlocProvider.of<WalletCubit>(context).fetchAllData();
-              }
-            }, builder: (context, state) {
+            child: BlocBuilder<WalletCubit, WalletState>(
+                builder: (context, state) {
               return Form(
                 key: formKey,
                 child: Column(
@@ -154,30 +150,21 @@ class _AddWalletState extends State<AddWallet> {
                     SizedBox(
                       height: 100.h,
                     ),
-                    // ElevatedButton(
-                    //     onPressed: () {
-                    //       validation();
-                    //       var walletModel = WalletModel(
-                    //           balance: parsedNumber,
-                    //           paymentMethod: dropdownButtonController.text,
-                    //           walletName: walletNameController.text);
-                    //       BlocProvider.of<WalletCubit>(context)
-                    //           .addNote(walletModel);
-                    //       AutoRouter.of(context).pop();
-                    //     },
-                    //     child: MyText(
-                    //         title: "Add", color: MyColors.white, size: 16))
                     DefaultButton(
                       fontSize: 12.sp,
-                      onTap: () {
+                      onTap: () async {
                         if (formKey.currentState!.validate()) {
                           var walletModel = WalletModel(
                               walletName: walletNameController.text,
                               balance: parsedNumber,
-                              paymentMethod: dropdownButtonController.text);
-                          BlocProvider.of<WalletCubit>(context)
+                              paymentMethod: dropdownButtonController.text == ""
+                                  ? data.paymentMethod.first
+                                  : dropdownButtonController.text);
+                          await BlocProvider.of<WalletCubit>(context)
                               .addNote(walletModel);
-                          AutoRouter.of(context).pop();
+                          if (context.mounted) {
+                            AutoRouter.of(context).pop();
+                          }
                         }
                       },
                       borderColor: MyColors.primary,

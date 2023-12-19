@@ -3,25 +3,15 @@ import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
-import 'package:expenses/user/screens/wallet/wallet_imports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class WalletDetails extends StatefulWidget {
+class WalletDetails extends StatelessWidget {
   final WalletModel model;
   const WalletDetails({
     super.key,
     required this.model,
   });
-
-  @override
-  State<WalletDetails> createState() => _WalletDetailsState();
-}
-
-class _WalletDetailsState extends State<WalletDetails> {
-  static const String title = "سحب رصيد";
-  static const String secTitle = "اضافة رصيد";
-  WalletData data = WalletData();
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +27,8 @@ class _WalletDetailsState extends State<WalletDetails> {
             children: [
               InkWell(
                 onTap: () {
-                  data.balanceTransaction(context, title, () {
-
-                  });
+                  AutoRouter.of(context)
+                      .push(BalanceWithdrawalRoute(model: model));
                 },
                 child: Row(
                   children: [
@@ -54,9 +43,7 @@ class _WalletDetailsState extends State<WalletDetails> {
                 height: 8.h,
               ),
               InkWell(
-                onTap: () {
-                  data.balanceTransaction(context, secTitle, () {});
-                },
+                onTap: () {},
                 child: Row(
                   children: [
                     const Icon(Icons.money),

@@ -38,7 +38,7 @@ class Wallet extends StatelessWidget {
             color: MyColors.white,
           ),
         ),
-        body: WalletBody(),
+        body: const WalletBody(),
       ),
     );
   }

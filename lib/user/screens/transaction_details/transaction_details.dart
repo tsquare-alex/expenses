@@ -12,6 +12,8 @@ class _TransactionDetailsState extends State<TransactionDetails> {
 
   TransactionDetailsData data = TransactionDetailsData();
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,5 +36,13 @@ class _TransactionDetailsState extends State<TransactionDetails> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    data.endDateController.dispose();
+    data.startDateController.clear();
+
+    super.dispose();
   }
 }

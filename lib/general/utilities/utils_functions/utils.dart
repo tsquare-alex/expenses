@@ -7,7 +7,6 @@ import 'package:expenses/general/helper/configration/DecorationUtils.dart';
 import 'package:expenses/general/helper/storage/Storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 

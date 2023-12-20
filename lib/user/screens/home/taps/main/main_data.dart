@@ -78,15 +78,6 @@ class MainData{
 
   final GenericBloc<int> homeTabCubit = GenericBloc(0);
 
-  Map<Widget,int> widgets={
-    Container():6,
-    const Transactions():0,
-    const Reports():2,
-    const Settings():3,
-    Database():5,
-    const Budget():8,
-    const Wallet():7,
-    ToolsHelper():4,
-  };
+
 
 }

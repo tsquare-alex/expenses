@@ -73,8 +73,12 @@ dependencies:
   flutter_qiblah:
   flutter_svg:
   table_calendar:
+  adaptive_action_sheet:
+  flutter_image_compress:
   font_awesome_flutter:
   flutter_barcode_scanner:
+  flutter_rounded_date_picker:
+
 
 dev_dependencies:
   flutter_test:

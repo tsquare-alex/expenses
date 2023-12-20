@@ -106,7 +106,7 @@ class _$InitImpl implements Init {
   }
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$InitImpl);
   }
@@ -214,7 +214,7 @@ class _$FetchedImpl implements Fetched {
   }
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$FetchedImpl);
   }
@@ -322,7 +322,7 @@ class _$ChangedImpl implements Changed {
   }
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$ChangedImpl);
   }

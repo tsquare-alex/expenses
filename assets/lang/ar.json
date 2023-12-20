@@ -244,7 +244,6 @@
   "databasePhoneNumbers": "أرقام الهاتف",
   "databaseTheNewNumber": "الرقم الجديد",
   "cancel": "إلغاء",
-  "add": "أضافة",
   "databaseAddPhoneNumber": "أضافة رقم تليفون",
 
   "databaseJob": "العمل",
@@ -292,11 +291,10 @@
   "deleteData": "مسح البيانات",
   "resetSettings": "اعدادات إفتراضية",
   "egypt": "مصر",
-  "ksa": "السعودية",
   "expense": "المصروفات",
   "target": "الاهداف المالية المستهدفة",
   "cashTransactions": "المعاملات النقدية",
-  "recurringTransactions": "المعاملات المتكررة"
+  "recurringTransactions": "المعاملات المتكررة",
 
   "ksa": "السعودية",
   "clothesSize" : "مقاسات الملابس",

@@ -46,7 +46,7 @@ class TransctionHeader extends StatelessWidget {
               ),
             ),
           ],
-        )
+        ),
       ],
     );
   }

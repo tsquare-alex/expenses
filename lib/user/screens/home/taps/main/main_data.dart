@@ -3,22 +3,17 @@ part of 'main_imports.dart';
 class MainData{
 
   GenericBloc<int?> touchCubit = GenericBloc(-1);
-  GenericBloc<bool> shareCubit = GenericBloc(false);
+
   int? touchedIndex;
 
-  AnimationController? controller;
 
   List<PieChartSectionData> getSections()=> data.asMap().map<int,PieChartSectionData>((i,data){
     final value= PieChartSectionData(
       color: data.color,
       value: data.percent,
       title: data.name,
-      radius: 115.r,
-      badgePositionPercentageOffset: 0.55,
-      badgeWidget: Padding(
-        padding: EdgeInsets.only(top: 67.0.r),
-        child: Image.asset(data.image!,height: 25.h,width: 25.w,color: MyColors.white,),
-      ),
+      radius: 100.r,
+
       titlePositionPercentageOffset: 0.6,
       titleStyle: TextStyle(
         color: MyColors.white,
@@ -83,5 +78,15 @@ class MainData{
 
   final GenericBloc<int> homeTabCubit = GenericBloc(0);
 
+  Map<Widget,int> widgets={
+    Container():6,
+    const Transactions():0,
+    const Reports():2,
+    const Settings():3,
+    Database():5,
+    const Budget():8,
+    const Wallet():7,
+    ToolsHelper():4,
+  };
 
 }

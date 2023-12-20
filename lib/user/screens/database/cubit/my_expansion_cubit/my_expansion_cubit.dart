@@ -1,6 +1,10 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 
 part 'my_expansion_state.dart';
@@ -8,7 +12,36 @@ part 'my_expansion_state.dart';
 class MyExpansionCubit extends Cubit<MyExpansionState> {
   MyExpansionCubit() : super(MyExpansionInitial());
 
-  //Todo: Form key
+
+
+
+
+
+  // Uint8List? imageBytes;
+  //
+  // getImage() async {
+  //   try {
+  //     emit(MyExpansionAddImageLoading());
+  //
+  //     final ImagePicker picker = ImagePicker();
+  //     final XFile? imageCamera = await picker.pickImage(source: ImageSource.camera);
+  //
+  //     if (imageCamera != null) {
+  //        imageBytes = await _getImageBytes(imageCamera);
+  //       emit(MyExpansionImageUpdated(imageBytes: imageBytes!)); // Change here
+  //     } else {
+  //       emit(MyExpansionAddImageError(errorMessage: 'Image picking canceled'));
+  //     }
+  //   } catch (e) {
+  //     emit(MyExpansionAddImageError(errorMessage: e.toString()));
+  //   }
+  // }
+  //
+  // Future<Uint8List> _getImageBytes(XFile image) async {
+  //   return await image.readAsBytes();
+  // }
+
+  // Todo: Form key
   final GlobalKey<FormState> namesExpansionKey = GlobalKey<FormState>();
   final GlobalKey<FormState> categoryFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> namesFormKey = GlobalKey<FormState>();
@@ -113,14 +146,14 @@ class MyExpansionCubit extends Cubit<MyExpansionState> {
     List<Map<Function, String>> validationMap = [
       {isCategoryDataEmpty: "التصنيف فارغ تأكد من مليه"},
       {isNameDataEmpty: "الاسماء فارغة تأكد من مليها"},
-      {isPhoneNumbersDataEmpty: "رقم الهاتف فارغ تأكد من مليه"},
-      {isWorkDataEmpty: "بيانات العمل فارغة تأكد من مليها"},
-      {isAddressDataEmpty: "بيانات العنوان فارغة تأكد من مليها"},
-      {isDateDataEmpty: "بيانات التاريخ فارغة تأكد من مليها"},
-      {isCommentDataEmpty: "بيانات المحلاظات فارغة تأكد من مليها"},
-      {
-        isSocialAddressDataEmpty: "بيانات العناوين الاكلتورنية فارغة تأكد من مليها"
-      },
+      // {isPhoneNumbersDataEmpty: "رقم الهاتف فارغ تأكد من مليه"},
+      // {isWorkDataEmpty: "بيانات العمل فارغة تأكد من مليها"},
+      // {isAddressDataEmpty: "بيانات العنوان فارغة تأكد من مليها"},
+      // {isDateDataEmpty: "بيانات التاريخ فارغة تأكد من مليها"},
+      // {isCommentDataEmpty: "بيانات المحلاظات فارغة تأكد من مليها"},
+      // {
+      //   isSocialAddressDataEmpty: "بيانات العناوين الاكلتورنية فارغة تأكد من مليها"
+      // },
     ];
 
     for (var validationEntry in validationMap) {

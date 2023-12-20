@@ -8,6 +8,8 @@ class SettingsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SettingsData data = SettingsData();
+    final GoogleDriveClientRepository googleRepo =
+        GoogleDriveClientRepository(GoogleDriveClient());
     return ListView(
       padding: EdgeInsets.symmetric(vertical: 20.h),
       children: [
@@ -121,9 +123,9 @@ class SettingsBody extends StatelessWidget {
                 icon: Res.moon,
                 title: tr(context, 'darkMode'),
                 trailing: Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: AlignmentDirectional.centerEnd,
                   child: Padding(
-                    padding: EdgeInsets.only(left: 25.w),
+                    padding: EdgeInsets.symmetric(horizontal: 25.w),
                     child: BlocBuilder<AppThemeCubit, AppThemeState>(
                       builder: (context, state) {
                         return CupertinoSwitch(
@@ -149,9 +151,9 @@ class SettingsBody extends StatelessWidget {
                 icon: Res.reminders,
                 title: tr(context, 'reminders'),
                 trailing: Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: AlignmentDirectional.centerEnd,
                   child: Padding(
-                    padding: EdgeInsets.only(left: 25.w),
+                    padding: EdgeInsets.symmetric(horizontal: 25.w),
                     child: CupertinoSwitch(
                       trackColor: MyColors.blackOpacity,
                       value: false,
@@ -178,70 +180,81 @@ class SettingsBody extends StatelessWidget {
           ],
         ),
         SizedBox(height: 10.h),
-        CustomTile(
-          children: [
-            TileRow(
-              icon: Res.sync,
-              title: tr(context, 'sync'),
-              trailing: TileDropdownButton(
-                menuList: data.syncOptions,
-                value: data.syncOptions.first,
-                onChanged: (value) {},
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 10.h),
-        CustomTile(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 5.h),
-              child: TileRow(
-                icon: Res.upload,
-                title: tr(context, 'backupData'),
+        InkWell(
+          onTap: () async => await googleRepo.syncData(),
+          child: CustomTile(
+            children: [
+              TileRow(
+                icon: Res.sync,
+                title: tr(context, 'sync'),
                 isTrailing: false,
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         SizedBox(height: 10.h),
-        CustomTile(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 5.h),
-              child: TileRow(
-                icon: Res.download,
-                title: tr(context, 'downloadData'),
-                isTrailing: false,
+        InkWell(
+          onTap: () async => await googleRepo.backupData(),
+          child: CustomTile(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5.h),
+                child: TileRow(
+                  icon: Res.upload,
+                  title: tr(context, 'backupData'),
+                  isTrailing: false,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         SizedBox(height: 10.h),
-        CustomTile(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 5.h),
-              child: TileRow(
-                icon: Res.delete,
-                title: tr(context, 'deleteData'),
-                isTrailing: false,
+        InkWell(
+          onTap: () async => await googleRepo.downloadData(),
+          child: CustomTile(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5.h),
+                child: TileRow(
+                  icon: Res.download,
+                  title: tr(context, 'downloadData'),
+                  isTrailing: false,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         SizedBox(height: 10.h),
-        CustomTile(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 5.h),
-              child: TileRow(
-                icon: Res.reset,
-                title: tr(context, 'resetSettings'),
-                isTrailing: false,
+        InkWell(
+          onTap: () async => await googleRepo.deleteData(),
+          child: CustomTile(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5.h),
+                child: TileRow(
+                  icon: Res.delete,
+                  title: tr(context, 'deleteData'),
+                  isTrailing: false,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
+        ),
+        SizedBox(height: 10.h),
+        InkWell(
+          onTap: () async => await googleRepo.signOut(),
+          child: CustomTile(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5.h),
+                child: TileRow(
+                  icon: Res.reset,
+                  title: tr(context, 'resetSettings'),
+                  isTrailing: false,
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );

@@ -298,6 +298,49 @@
   "cashTransactions": "المعاملات النقدية",
   "recurringTransactions": "المعاملات المتكررة"
 
+  "ksa": "السعودية",
+  "clothesSize" : "مقاسات الملابس",
+  "clothesSizeMen" : "مقاسات ملابس الرجال",
+  "clothesSizeWomen" : "مقاسات ملابس النساء",
+  "ringSize" : "مقاس الخاتم",
+  "shoesSize" : "مقاس الحذاء",
+  "calculator" : "آلة حاسبة",
+  "calender" : "التقويم",
+  "qiblah" : "القبلة",
+  "toolsHelper" : "الادوات المساعدة",
+  "convertCMtoM" : "تحويل من سنتيمتر إلى متر",
+  "convertMtoCM" : "تحويل من متر إلى سنتيمتر",
+  "convertMtoKilo" : "تحويل من متر إلى كيلو متر",
+  "convertCMtoKilo" : "تحويل من سنتيمتر إلى كيلو متر",
+  "convertKiloToM" : "تحويل من كيلو متر إلى متر",
+  "convertKiloToCM" : "تحويل من كيلو متر إلى سنتيمتر",
+  "convert" : "تحويل",
+  "convertSquareMToKiloM" : "تحويل من متر مربع إلى كيلومتر مربع",
+  "convertSquareMToMile" : "تحويل من متر مربع إلى ميل مربع",
+  "convertSquareMToHectare" : "تحويل من متر مربع إلى هكتار",
+  "convertSquareMToMCubic" : "تحويل من متر مربع إلى متر مكعب",
+  "convertSquareMToSquareCM" : "تحويل من متر مربع إلى سنتيمتر مربع",
+  "convertSquareMToSquareMill" : "تحويل من متر مربع إلى مليمتر مربع",
+  "convertSquareMToSquareInch" : "تحويل من متر مربع إلى بوصة مربعة",
+  "convertSquareMToSquareDeci" : "تحويل من متر مربع إلى ديسيمتر مربع",
+
+  "categoryPlace": "المكان / الموقع",
+  "categoryPerson": "الشخص / الفرد",
+  "categoryItem": "السلعة / البند",
+
+  "lengthConvert": "تحويل الطول",
+  "areaConvert": "تحويل المساحة"
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

@@ -16,6 +16,8 @@ import 'package:expenses/user/screens/cash_transactions/cash_transactions_import
 import 'package:expenses/user/screens/change_currency/change_currency_imports.dart';
 import 'package:expenses/user/screens/commitments/commitments_imports.dart';
 import 'package:expenses/user/screens/home/home_imports.dart';
+import 'package:expenses/user/screens/wallet/wallet_imports.dart';
+import 'package:expenses/user/screens/wallet/widgets/add_balance.dart';
 import 'package:expenses/user/screens/tools_helper/tools_helper.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/arena_converter/arena_converter.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/qiblah/compass.dart';
@@ -25,6 +27,8 @@ import 'package:expenses/user/screens/wallet/widgets/balance_transfer.dart';
 import 'package:expenses/user/screens/recurring_transactions/recurring_transactions_imports.dart';
 import 'package:expenses/user/screens/shopping/shopping_imports.dart';
 import 'package:expenses/user/screens/target/target_imports.dart';
+import 'package:expenses/user/screens/wallet/widgets/balance_withdrawal.dart';
+import 'package:expenses/user/screens/wallet/widgets/edit_Wallet.dart';
 
 import '../../../user/screens/database/widgets/database_details.dart';
 

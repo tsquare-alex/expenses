@@ -8,7 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BalanceTransfer extends StatefulWidget {
-  const BalanceTransfer({super.key});
+  const BalanceTransfer({
+    super.key,
+  });
 
   @override
   State<BalanceTransfer> createState() => _BalanceTransferState();
@@ -88,7 +90,6 @@ class _BalanceTransferState extends State<BalanceTransfer> {
                     ),
                   ],
                 ),
-                // const TransctionHeader(),
                 SizedBox(
                   height: 30.h,
                 ),
@@ -101,8 +102,8 @@ class _BalanceTransferState extends State<BalanceTransfer> {
                     SizedBox(
                       width: 90.w,
                       child: TileDropdownButton(
-                          menuList: data.walletType,
-                          value: data.walletType.first,
+                          menuList: data.paymentMethod,
+                          value: data.paymentMethod.first,
                           onChanged: (value) {}),
                     ),
                   ],
@@ -116,8 +117,8 @@ class _BalanceTransferState extends State<BalanceTransfer> {
                     SizedBox(
                       width: 90.w,
                       child: TileDropdownButton(
-                          menuList: data.walletType,
-                          value: data.walletType.first,
+                          menuList: data.paymentMethod,
+                          value: data.paymentMethod.first,
                           onChanged: (value) {}),
                     ),
                   ],

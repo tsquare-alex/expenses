@@ -1,3 +1,4 @@
+import 'package:expenses/user/models/database_model/database_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -8,7 +9,7 @@ import '../../../../general/widgets/MyText.dart';
 class DatabaseDetails extends StatefulWidget {
   const DatabaseDetails({Key? key, required this.databaseData,}) : super(key: key);
 
-  final DataBaseModel databaseData;
+  final DatabaseModel databaseData;
 
   @override
   _DatabaseDetailsState createState() => _DatabaseDetailsState();
@@ -21,8 +22,8 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
   @override
   void initState() {
     super.initState();
-    companyNameController = TextEditingController(text: widget.databaseData.companyName);
-    editedCompanyName = widget.databaseData.companyName;
+    companyNameController = TextEditingController(text: widget.databaseData.company);
+    editedCompanyName = widget.databaseData.company;
   }
 
   @override
@@ -32,7 +33,7 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
         centerTitle: true,
         backgroundColor: MyColors.primary,
         title: MyText(
-          title: widget.databaseData.companyName,
+          title: widget.databaseData.company,
           color: MyColors.white,
           size: 18.sp,
           fontWeight: FontWeight.bold,
@@ -54,11 +55,11 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                buildEditCard("النوع", widget.databaseData.type),
-                buildEditCard("الاسم", widget.databaseData.name),
-                buildEditCard("الهاتف", widget.databaseData.phone),
-                buildEditCard("العنوان", widget.databaseData.address),
-                buildEditCard("البريد الإلكتروني", widget.databaseData.email),
+                buildEditCard("النوع", widget.databaseData.category),
+                buildEditCard("الاسم", widget.databaseData.firstName),
+                buildEditCard("الهاتف", widget.databaseData.phoneNumber),
+                buildEditCard("العنوان", widget.databaseData.city),
+                buildEditCard("البريد الإلكتروني", widget.databaseData.emailAddress),
               ],
             ),
           ),
@@ -112,20 +113,20 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
             ),
             ElevatedButton(
               onPressed: () {
-                setState(() {
-                  if (fieldName == "النوع") {
-                    widget.databaseData.type = editedCompanyName;
-                  } else if (fieldName == "الاسم") {
-                    widget.databaseData.name = editedCompanyName;
-                  } else if (fieldName == "الهاتف") {
-                    widget.databaseData.phone = editedCompanyName;
-                  } else if (fieldName == "العنوان") {
-                    widget.databaseData.address = editedCompanyName;
-                  } else if (fieldName == "البريد الإلكتروني") {
-                    widget.databaseData.email = editedCompanyName;
-                  }
-                });
-                Navigator.pop(context, widget.databaseData);
+                // setState(() {
+                //   if (fieldName == "النوع") {
+                //     widget.databaseData.company = editedCompanyName;
+                //   } else if (fieldName == "الاسم") {
+                //     widget.databaseData.firstName = editedCompanyName;
+                //   } else if (fieldName == "الهاتف") {
+                //     widget.databaseData.phoneNumber = editedCompanyName;
+                //   } else if (fieldName == "العنوان") {
+                //     widget.databaseData.city = editedCompanyName;
+                //   } else if (fieldName == "البريد الإلكتروني") {
+                //     widget.databaseData.emailAddress = editedCompanyName;
+                //   }
+                // });
+                // Navigator.pop(context, widget.databaseData);
               },
               child: Text("حفظ"),
               style: ElevatedButton.styleFrom(

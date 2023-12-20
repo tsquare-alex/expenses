@@ -11,3 +11,21 @@ class MyExpansionError extends MyExpansionState {
 
   MyExpansionError({required this.message});
 }
+
+class MyExpansionAddImageSuccess extends MyExpansionState {
+  final Uint8List pickedImage; // Change this line
+
+  MyExpansionAddImageSuccess({required this.pickedImage}); // Change this line
+}
+
+class MyExpansionAddImageLoading extends MyExpansionState {}
+class MyExpansionAddImageError extends MyExpansionState {
+  final String errorMessage;
+
+  MyExpansionAddImageError({required this.errorMessage});
+}
+class MyExpansionImageUpdated extends MyExpansionState {
+  final Uint8List imageBytes;
+
+  MyExpansionImageUpdated({required this.imageBytes});
+}

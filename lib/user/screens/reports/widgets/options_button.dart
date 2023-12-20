@@ -58,36 +58,23 @@ Future<dynamic> showReportOptionsModalSheet({required BuildContext context}) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            OptionButton(
-              label: 'Show transactions on table',
-              color: context.watch<AppThemeCubit>().isDarkMode
-                  ? AppDarkColors.primary
-                  : MyColors.primary,
-              onPressed: () {
-                AutoRouter.of(context).push(const StatisticsRoute());
-                AutoRouter.of(context).pop();
-              },
-            ),
-            OptionButton(
-              label: 'Show transactions on chart',
-              color: context.watch<AppThemeCubit>().isDarkMode
-                  ? AppDarkColors.primary
-                  : MyColors.primary,
-              onPressed: () {
-                // AutoRouter.of(context).push(const ReportChartRoute());
-                AutoRouter.of(context).pop();
-              },
-            ),
-            OptionButton(
-              label: 'Compare between transactions',
-              color: context.watch<AppThemeCubit>().isDarkMode
-                  ? AppDarkColors.primary
-                  : MyColors.primary,
-              onPressed: () {
-                // AutoRouter.of(context).push(const ReportComparisonRoute());
-                AutoRouter.of(context).pop();
-              },
-            ),
+            ...ReportsCubit.get(context)
+                .statsDetailsOptions
+                .entries
+                .map(
+                  (entry) => OptionButton(
+                    label: entry.value,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.primary
+                        : MyColors.primary,
+                    onPressed: () {
+                      AutoRouter.of(context)
+                          .push(StatisticsRoute(option: entry.key));
+                      AutoRouter.of(context).pop();
+                    },
+                  ),
+                )
+                .toList(),
           ],
         ),
       );

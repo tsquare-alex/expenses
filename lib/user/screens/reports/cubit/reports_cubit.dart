@@ -18,20 +18,47 @@ class ReportsCubit extends Cubit<ReportsState> {
   final DateTime dateTimeNow = DateTime.now();
   late String dateTimeNowFormatted =
       DateFormat('EEE, dd MMM yyyy', Intl.defaultLocale).format(dateTimeNow);
-  DateTime? selectedDate = DateTime.now();
-  late String formattedDate =
-      DateFormat('EEE, dd MMM yyyy', Intl.defaultLocale).format(dateTimeNow);
+  late DateTime? selectedDateFrom = dateTimeNow;
+  late DateTime? selectedDateTo = selectedDateFrom!;
+  String formattedDateFrom = '';
+  String formattedDateTo = '';
 
-  void changeDate() {
+  void changeDateFrom() {
     emit(const ReportsState.initial());
-    if (selectedDate != null) {
-      formattedDate = DateFormat('EEE, dd MMM yyyy', Intl.defaultLocale)
-          .format(selectedDate!);
+    if (selectedDateFrom != null) {
+      formattedDateFrom = DateFormat('EEE, dd-MM-yyyy', Intl.defaultLocale)
+          .format(selectedDateFrom!);
+
+      if (selectedDateTo!.isBefore(selectedDateFrom!) ||
+          formattedDateTo.isEmpty) {
+        selectedDateTo = selectedDateFrom;
+        if (formattedDateTo.isNotEmpty) {
+          formattedDateTo = DateFormat('EEE, dd-MM-yyyy', Intl.defaultLocale)
+              .format(selectedDateTo!);
+        }
+      }
+
       emit(const ReportsState.changeDate());
       return;
     }
-    selectedDate ??=
-        DateFormat('EEE, dd MMM yyyy', Intl.defaultLocale).parse(formattedDate);
+    selectedDateFrom ??= formattedDateFrom.isEmpty
+        ? dateTimeNow
+        : DateFormat('EEE, dd-MM-yyyy', Intl.defaultLocale)
+            .parse(formattedDateFrom);
+  }
+
+  void changeDateTo() {
+    emit(const ReportsState.initial());
+    if (selectedDateTo != null) {
+      formattedDateTo = DateFormat('EEE, dd-MM-yyyy', Intl.defaultLocale)
+          .format(selectedDateTo!);
+      emit(const ReportsState.changeDate());
+      return;
+    }
+    selectedDateTo ??= formattedDateTo.isEmpty
+        ? selectedDateFrom
+        : DateFormat('EEE, dd-MM-yyyy', Intl.defaultLocale)
+            .parse(formattedDateTo);
   }
 
   final List<TransactionsModel> transactions = [
@@ -69,4 +96,16 @@ class ReportsCubit extends Cubit<ReportsState> {
       Localizations.localeOf(context).toString();
 
   final String arLocale = 'ar_EG';
+
+  Map<String, String> statsDetailsOptions = {
+    'table': 'استعراض في جدول',
+    'chart': 'استعراض في رسم بياني',
+    'compare': 'المقارنة بين المعاملات',
+  };
+
+  void showDetails() {
+    emit(const ReportsState.initial());
+
+    emit(const ReportsState.showReportDetails());
+  }
 }

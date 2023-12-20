@@ -5,31 +5,47 @@ class ReportComparison extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Details'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.r),
-          child: Table(
-            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-            border: TableBorder.all(
-              borderRadius: BorderRadius.circular(12.r),
-              color: context.watch<AppThemeCubit>().isDarkMode
-                  ? AppDarkColors.accentColor
-                  : MyColors.greyWhite,
-              width: 2.r,
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 15.r),
+        child: Table(
+          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+          border: TableBorder.all(
+            borderRadius: BorderRadius.circular(12.r),
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? AppDarkColors.accentColor
+                : MyColors.greyWhite,
+            width: 2.r,
+          ),
+          children: [
+            TableRow(
+              children: [
+                ...List.generate(
+                  4,
+                  (index) => Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 15.r),
+                      child: Text(
+                        'Data ${index + 1}',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            children: [
-              TableRow(
+            ...List.generate(
+              2,
+              (index) => TableRow(
                 children: [
                   ...List.generate(
                     4,
                     (index) => Center(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 15.r),
+                        padding: EdgeInsets.symmetric(vertical: 20.r),
                         child: Text(
                           'Data ${index + 1}',
                           style: TextStyle(
@@ -42,30 +58,8 @@ class ReportComparison extends StatelessWidget {
                   ),
                 ],
               ),
-              ...List.generate(
-                3,
-                (index) => TableRow(
-                  children: [
-                    ...List.generate(
-                      4,
-                      (index) => Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20.r),
-                          child: Text(
-                            'Data ${index + 1}',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

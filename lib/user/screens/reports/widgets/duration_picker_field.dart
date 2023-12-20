@@ -12,10 +12,11 @@ class DurationPickerField extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onTap: () async {
-                ReportsCubit.get(context).selectedDate = await showDatePicker(
+                ReportsCubit.get(context).selectedDateFrom =
+                    await showDatePicker(
                   context: context,
                   initialEntryMode: DatePickerEntryMode.calendarOnly,
-                  initialDate: ReportsCubit.get(context).selectedDate!,
+                  initialDate: ReportsCubit.get(context).selectedDateFrom!,
                   firstDate: DateTime.now(),
                   lastDate: DateTime.now().add(
                     const Duration(days: 365),
@@ -37,7 +38,7 @@ class DurationPickerField extends StatelessWidget {
                   },
                 );
                 if (context.mounted) {
-                  ReportsCubit.get(context).changeDate();
+                  ReportsCubit.get(context).changeDateFrom();
                 }
               },
               child: FieldSection(
@@ -45,7 +46,9 @@ class DurationPickerField extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      tr(context, 'durationFrom'),
+                      context.watch<ReportsCubit>().formattedDateFrom.isEmpty
+                          ? tr(context, 'durationFrom')
+                          : context.watch<ReportsCubit>().formattedDateFrom,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -64,11 +67,11 @@ class DurationPickerField extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onTap: () async {
-                ReportsCubit.get(context).selectedDate = await showDatePicker(
+                ReportsCubit.get(context).selectedDateTo = await showDatePicker(
                   context: context,
                   initialEntryMode: DatePickerEntryMode.calendarOnly,
-                  initialDate: ReportsCubit.get(context).selectedDate!,
-                  firstDate: DateTime.now(),
+                  initialDate: ReportsCubit.get(context).selectedDateTo,
+                  firstDate: ReportsCubit.get(context).selectedDateFrom!,
                   lastDate: DateTime.now().add(
                     const Duration(days: 365),
                   ),
@@ -89,7 +92,7 @@ class DurationPickerField extends StatelessWidget {
                   },
                 );
                 if (context.mounted) {
-                  ReportsCubit.get(context).changeDate();
+                  ReportsCubit.get(context).changeDateTo();
                 }
               },
               child: FieldSection(
@@ -97,7 +100,9 @@ class DurationPickerField extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      tr(context, 'durationTo'),
+                      context.watch<ReportsCubit>().formattedDateTo.isEmpty
+                          ? tr(context, 'durationTo')
+                          : context.watch<ReportsCubit>().formattedDateTo,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,

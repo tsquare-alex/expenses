@@ -238,9 +238,13 @@ class AppRouter extends _i25.RootStackRouter {
       );
     },
     StatisticsRoute.name: (routeData) {
+      final args = routeData.argsAs<StatisticsRouteArgs>();
       return _i25.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i24.Statistics(),
+        child: _i24.Statistics(
+          key: args.key,
+          option: args.option,
+        ),
         opaque: true,
       );
     },
@@ -682,12 +686,34 @@ class AddWalletRoute extends _i25.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i24.Statistics]
-class StatisticsRoute extends _i25.PageRouteInfo<void> {
-  const StatisticsRoute()
-      : super(
+class StatisticsRoute extends _i25.PageRouteInfo<StatisticsRouteArgs> {
+  StatisticsRoute({
+    _i26.Key? key,
+    required String option,
+  }) : super(
           StatisticsRoute.name,
           path: '/Statistics',
+          args: StatisticsRouteArgs(
+            key: key,
+            option: option,
+          ),
         );
 
   static const String name = 'StatisticsRoute';
+}
+
+class StatisticsRouteArgs {
+  const StatisticsRouteArgs({
+    this.key,
+    required this.option,
+  });
+
+  final _i26.Key? key;
+
+  final String option;
+
+  @override
+  String toString() {
+    return 'StatisticsRouteArgs{key: $key, option: $option}';
+  }
 }

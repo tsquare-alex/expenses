@@ -20,37 +20,43 @@ mixin _$ReportsState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() changeDate,
+    required TResult Function() showReportDetails,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? changeDate,
+    TResult? Function()? showReportDetails,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? changeDate,
+    TResult Function()? showReportDetails,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_ChangeDate value) changeDate,
+    required TResult Function(Initial value) initial,
+    required TResult Function(ChangeDate value) changeDate,
+    required TResult Function(ShowReportDetails value) showReportDetails,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_ChangeDate value)? changeDate,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(ChangeDate value)? changeDate,
+    TResult? Function(ShowReportDetails value)? showReportDetails,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_ChangeDate value)? changeDate,
+    TResult Function(Initial value)? initial,
+    TResult Function(ChangeDate value)? changeDate,
+    TResult Function(ShowReportDetails value)? showReportDetails,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -92,7 +98,7 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$InitialImpl implements _Initial {
+class _$InitialImpl implements Initial {
   const _$InitialImpl();
 
   @override
@@ -114,6 +120,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() changeDate,
+    required TResult Function() showReportDetails,
   }) {
     return initial();
   }
@@ -123,6 +130,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? changeDate,
+    TResult? Function()? showReportDetails,
   }) {
     return initial?.call();
   }
@@ -132,6 +140,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? changeDate,
+    TResult Function()? showReportDetails,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -143,8 +152,9 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_ChangeDate value) changeDate,
+    required TResult Function(Initial value) initial,
+    required TResult Function(ChangeDate value) changeDate,
+    required TResult Function(ShowReportDetails value) showReportDetails,
   }) {
     return initial(this);
   }
@@ -152,8 +162,9 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_ChangeDate value)? changeDate,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(ChangeDate value)? changeDate,
+    TResult? Function(ShowReportDetails value)? showReportDetails,
   }) {
     return initial?.call(this);
   }
@@ -161,8 +172,9 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_ChangeDate value)? changeDate,
+    TResult Function(Initial value)? initial,
+    TResult Function(ChangeDate value)? changeDate,
+    TResult Function(ShowReportDetails value)? showReportDetails,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -172,8 +184,8 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements ReportsState {
-  const factory _Initial() = _$InitialImpl;
+abstract class Initial implements ReportsState {
+  const factory Initial() = _$InitialImpl;
 }
 
 /// @nodoc
@@ -194,7 +206,7 @@ class __$$ChangeDateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ChangeDateImpl implements _ChangeDate {
+class _$ChangeDateImpl implements ChangeDate {
   const _$ChangeDateImpl();
 
   @override
@@ -216,6 +228,7 @@ class _$ChangeDateImpl implements _ChangeDate {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() changeDate,
+    required TResult Function() showReportDetails,
   }) {
     return changeDate();
   }
@@ -225,6 +238,7 @@ class _$ChangeDateImpl implements _ChangeDate {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? changeDate,
+    TResult? Function()? showReportDetails,
   }) {
     return changeDate?.call();
   }
@@ -234,6 +248,7 @@ class _$ChangeDateImpl implements _ChangeDate {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? changeDate,
+    TResult Function()? showReportDetails,
     required TResult orElse(),
   }) {
     if (changeDate != null) {
@@ -245,8 +260,9 @@ class _$ChangeDateImpl implements _ChangeDate {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_ChangeDate value) changeDate,
+    required TResult Function(Initial value) initial,
+    required TResult Function(ChangeDate value) changeDate,
+    required TResult Function(ShowReportDetails value) showReportDetails,
   }) {
     return changeDate(this);
   }
@@ -254,8 +270,9 @@ class _$ChangeDateImpl implements _ChangeDate {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_ChangeDate value)? changeDate,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(ChangeDate value)? changeDate,
+    TResult? Function(ShowReportDetails value)? showReportDetails,
   }) {
     return changeDate?.call(this);
   }
@@ -263,8 +280,9 @@ class _$ChangeDateImpl implements _ChangeDate {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_ChangeDate value)? changeDate,
+    TResult Function(Initial value)? initial,
+    TResult Function(ChangeDate value)? changeDate,
+    TResult Function(ShowReportDetails value)? showReportDetails,
     required TResult orElse(),
   }) {
     if (changeDate != null) {
@@ -274,6 +292,114 @@ class _$ChangeDateImpl implements _ChangeDate {
   }
 }
 
-abstract class _ChangeDate implements ReportsState {
-  const factory _ChangeDate() = _$ChangeDateImpl;
+abstract class ChangeDate implements ReportsState {
+  const factory ChangeDate() = _$ChangeDateImpl;
+}
+
+/// @nodoc
+abstract class _$$ShowReportDetailsImplCopyWith<$Res> {
+  factory _$$ShowReportDetailsImplCopyWith(_$ShowReportDetailsImpl value,
+          $Res Function(_$ShowReportDetailsImpl) then) =
+      __$$ShowReportDetailsImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ShowReportDetailsImplCopyWithImpl<$Res>
+    extends _$ReportsStateCopyWithImpl<$Res, _$ShowReportDetailsImpl>
+    implements _$$ShowReportDetailsImplCopyWith<$Res> {
+  __$$ShowReportDetailsImplCopyWithImpl(_$ShowReportDetailsImpl _value,
+      $Res Function(_$ShowReportDetailsImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ShowReportDetailsImpl implements ShowReportDetails {
+  const _$ShowReportDetailsImpl();
+
+  @override
+  String toString() {
+    return 'ReportsState.showReportDetails()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ShowReportDetailsImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() changeDate,
+    required TResult Function() showReportDetails,
+  }) {
+    return showReportDetails();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? changeDate,
+    TResult? Function()? showReportDetails,
+  }) {
+    return showReportDetails?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? changeDate,
+    TResult Function()? showReportDetails,
+    required TResult orElse(),
+  }) {
+    if (showReportDetails != null) {
+      return showReportDetails();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(ChangeDate value) changeDate,
+    required TResult Function(ShowReportDetails value) showReportDetails,
+  }) {
+    return showReportDetails(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(ChangeDate value)? changeDate,
+    TResult? Function(ShowReportDetails value)? showReportDetails,
+  }) {
+    return showReportDetails?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(ChangeDate value)? changeDate,
+    TResult Function(ShowReportDetails value)? showReportDetails,
+    required TResult orElse(),
+  }) {
+    if (showReportDetails != null) {
+      return showReportDetails(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ShowReportDetails implements ReportsState {
+  const factory ShowReportDetails() = _$ShowReportDetailsImpl;
 }

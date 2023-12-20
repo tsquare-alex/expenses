@@ -1,7 +1,11 @@
 part of 'statistics_imports.dart';
 
 class Statistics extends StatelessWidget {
-  const Statistics({super.key});
+  final String option;
+  const Statistics({
+    Key? key,
+    required this.option,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +20,7 @@ class Statistics extends StatelessWidget {
       ),
       body: BlocProvider(
         create: (context) => ReportsCubit(),
-        child: const StatisticsBody(),
+        child:  StatisticsBody(option: option),
       ),
     );
   }

@@ -1,7 +1,12 @@
 part of '../statistics_imports.dart';
 
 class StatisticsBody extends StatelessWidget {
-  const StatisticsBody({super.key});
+  const StatisticsBody({
+    Key? key,
+    required this.option,
+  }) : super(key: key);
+
+  final String option;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +61,9 @@ class StatisticsBody extends StatelessWidget {
               height: 40.h,
               width: 0.25.sw,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  ReportsCubit.get(context).showDetails();
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: context.watch<AppThemeCubit>().isDarkMode
                       ? AppDarkColors.primary
@@ -78,8 +85,21 @@ class StatisticsBody extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20.h),
-          const Expanded(
-            child: ReportChart(),
+          Expanded(
+            child: BlocBuilder<ReportsCubit, ReportsState>(
+              builder: (context, state) {
+                if (state is ShowReportDetails) {
+                  return switch (option) {
+                    'table' => const ReportTable(),
+                    'chart' => const ReportChart(),
+                    'compare' => const ReportComparison(),
+                    String _ => const ReportTable(),
+                  };
+                } else {
+                  return const SizedBox();
+                }
+              },
+            ),
           ),
         ],
       ),

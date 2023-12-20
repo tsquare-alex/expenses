@@ -151,7 +151,7 @@
   "categoryPerson": "Person / individual",
   "categoryItem": "Commodity / Item",
   "lengthConvert": "Length Convert",
-  "areaConvert": "Area Convert"
+  "areaConvert": "Area Convert",
 
 
 
@@ -160,4 +160,8 @@
 
 
 
+  "settings" : "Settings",
+  "expense" : "Expense",
+  "cashTransactions": "Cash Transactions",
+  "recurringTransactions": "Recurring transactions"
 }

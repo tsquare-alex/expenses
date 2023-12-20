@@ -18,7 +18,7 @@ class BuildSelectCurrencyInput extends StatelessWidget {
       onChange: currencyData.setSelectCurrency,
       finData: (data) => currencyData.getCurrencies(context),
       useName: true,
-      buttonsColor: MyColors.yellow,
+      buttonsColor: MyColors.primary,
       searchHint: "بحث",
     );
   }

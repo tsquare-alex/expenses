@@ -1,7 +1,8 @@
 part of 'transactions_imports.dart';
 
 class Transactions extends StatefulWidget {
-  const Transactions({Key? key,}) : super(key: key);
+  const Transactions({Key? key, required this.homeTabCubit,}) : super(key: key);
+  final GenericBloc<int> homeTabCubit;
   @override
   State<Transactions> createState() => _TransactionsState();
 }
@@ -11,20 +12,22 @@ class _TransactionsState extends State<Transactions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () =>AutoRouter.of(context).push(const AddTransactionRoute(),),
-        backgroundColor: MyColors.primary,
-        child: Icon(
-          Icons.add,
-          size: 20.sp,
-          color: MyColors.white,
-        ),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () =>widget.homeTabCubit.onUpdateData(9),
+      //   backgroundColor: MyColors.primary,
+      //   child: Icon(
+      //     Icons.add,
+      //     size: 20.sp,
+      //     color: MyColors.white,
+      //   ),
+      // ),
       body: Padding(
         padding: EdgeInsets.all(15.r),
-        child: const SingleChildScrollView(
+        child: SingleChildScrollView(
           child: Column(
-            children: [BuildNoRecord()],
+            children: [
+              BuildTransactionTypesView(data: data, homeTabCubit: widget.homeTabCubit,),
+            ],
           ),
         ),
       ),

@@ -14,22 +14,22 @@ import 'package:expenses/user/screens/add_transaction/add_transaction_imports.da
 import 'package:expenses/user/screens/bmi_calculator/bmi_calculator_imports.dart';
 import 'package:expenses/user/screens/cash_transactions/cash_transactions_imports.dart';
 import 'package:expenses/user/screens/change_currency/change_currency_imports.dart';
-import 'package:expenses/user/screens/commitments/commitments_imports.dart';
+import 'package:expenses/user/screens/database/widgets/database_details.dart';
+import 'package:expenses/user/screens/expense/expense_imports.dart';
 import 'package:expenses/user/screens/home/home_imports.dart';
+import 'package:expenses/user/screens/repeated_transactions/repeated_transactions_imports.dart';
 import 'package:expenses/user/screens/wallet/wallet_imports.dart';
 import 'package:expenses/user/screens/wallet/widgets/add_balance.dart';
 import 'package:expenses/user/screens/tools_helper/tools_helper.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/arena_converter/arena_converter.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/qiblah/compass.dart';
-import 'package:expenses/user/screens/tools_helper/widgets/qiblah/qibla_widget.dart';
 import 'package:expenses/user/screens/wallet/widgets/add_wallet.dart';
 import 'package:expenses/user/screens/wallet/widgets/balance_transfer.dart';
-import 'package:expenses/user/screens/recurring_transactions/recurring_transactions_imports.dart';
 import 'package:expenses/user/screens/shopping/shopping_imports.dart';
 import 'package:expenses/user/screens/target/target_imports.dart';
+import 'package:expenses/user/screens/transaction_details/transaction_details_imports.dart';
 import 'package:expenses/user/screens/wallet/widgets/balance_withdrawal.dart';
 import 'package:expenses/user/screens/wallet/widgets/edit_Wallet.dart';
 
-import '../../../user/screens/database/widgets/database_details.dart';
 
 part 'Router.dart';

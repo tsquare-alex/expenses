@@ -1,10 +1,11 @@
 part of 'main_widgets_imports.dart';
 
 class BuildPieChart extends StatelessWidget {
-  BuildPieChart({Key? key, required this.mainData, required this.homeTabCubit})
+  BuildPieChart({Key? key, required this.mainData, required this.homeTabCubit, required this.widgets})
       : super(key: key);
   final MainData mainData;
   final GenericBloc<int> homeTabCubit;
+  final Map<Widget,int> widgets;
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
@@ -56,7 +57,7 @@ class BuildPieChart extends StatelessWidget {
                       //   ),
                       // );
                       homeTabCubit.onUpdateData(
-                          mainData.widgets.values.toList()[touchedIndex]);
+                          widgets.values.toList()[touchedIndex]);
                       // //print(mainData.widgets.values.toList()[touchedIndex]);
                       // print(data.homeTabCubit.state.data);
                     }

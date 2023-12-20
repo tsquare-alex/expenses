@@ -78,7 +78,8 @@ dependencies:
   font_awesome_flutter:
   flutter_barcode_scanner:
   flutter_rounded_date_picker:
-
+  intl: ^0.18.1
+  macos_ui: ^2.0.2
 
 dev_dependencies:
   flutter_test:

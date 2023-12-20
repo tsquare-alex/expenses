@@ -10,14 +10,14 @@ class ReportsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Intl.defaultLocale = data.getCurrentLocale(context);
+    Intl.defaultLocale = ReportsCubit.get(context).getCurrentLocale(context);
     return Stack(
       children: [
         Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 10.r),
-              child: const DatePickerField(),
+              padding: EdgeInsets.fromLTRB(10.r, 10.r, 10.r, 20.r),
+              child: const DateField(),
             ),
             const DurationPickerField(),
             SizedBox(height: 20.h),
@@ -48,7 +48,8 @@ class ReportsBody extends StatelessWidget {
                 ],
               ),
             ),
-            ...data.transactions
+            ...ReportsCubit.get(context)
+                .transactions
                 .map(
                   (transaction) => TransactionTile(transaction: transaction),
                 )

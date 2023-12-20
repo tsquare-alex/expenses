@@ -79,6 +79,10 @@ class BarChart extends StatelessWidget {
                     label: 'Thu',
                     amountSpent: expenses[5],
                     mostExpensive: mostExpensive()),
+                Bar(
+                    label: 'Fri',
+                    amountSpent: expenses[6],
+                    mostExpensive: mostExpensive()),
                 SizedBox(width: 5.r),
                 Text(
                   'Bottom',
@@ -114,7 +118,7 @@ class Bar extends StatelessWidget {
   Widget build(BuildContext context) {
     final barHeight = amountSpent / mostExpensive * _maxBarHeight;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.r),
+      padding: EdgeInsets.symmetric(horizontal: 5.r),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [

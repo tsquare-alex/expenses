@@ -64,7 +64,7 @@ Future<dynamic> showReportOptionsModalSheet({required BuildContext context}) {
                   ? AppDarkColors.primary
                   : MyColors.primary,
               onPressed: () {
-                AutoRouter.of(context).push(const ReportTableRoute());
+                AutoRouter.of(context).push(const StatisticsRoute());
                 AutoRouter.of(context).pop();
               },
             ),
@@ -74,7 +74,7 @@ Future<dynamic> showReportOptionsModalSheet({required BuildContext context}) {
                   ? AppDarkColors.primary
                   : MyColors.primary,
               onPressed: () {
-                AutoRouter.of(context).push(const ReportChartRoute());
+                // AutoRouter.of(context).push(const ReportChartRoute());
                 AutoRouter.of(context).pop();
               },
             ),
@@ -84,7 +84,7 @@ Future<dynamic> showReportOptionsModalSheet({required BuildContext context}) {
                   ? AppDarkColors.primary
                   : MyColors.primary,
               onPressed: () {
-                AutoRouter.of(context).push(const ReportComparisonRoute());
+                // AutoRouter.of(context).push(const ReportComparisonRoute());
                 AutoRouter.of(context).pop();
               },
             ),

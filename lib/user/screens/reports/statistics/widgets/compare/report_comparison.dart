@@ -1,4 +1,4 @@
-part of '../reports_details_imports.dart';
+part of '../../statistics_imports.dart';
 
 class ReportComparison extends StatelessWidget {
   const ReportComparison({super.key});

@@ -48,7 +48,7 @@ import 'package:expenses/user/screens/database/widgets/database_details.dart'
 import 'package:expenses/user/screens/home/home_imports.dart' as _i10;
 import 'package:expenses/user/screens/recurring_transactions/recurring_transactions_imports.dart'
     as _i20;
-import 'package:expenses/user/screens/reports/details/reports_details_imports.dart'
+import 'package:expenses/user/screens/reports/statistics/statistics_imports.dart'
     as _i24;
 import 'package:expenses/user/screens/shopping/shopping_imports.dart' as _i17;
 import 'package:expenses/user/screens/target/target_imports.dart' as _i18;
@@ -237,24 +237,10 @@ class AppRouter extends _i25.RootStackRouter {
         opaque: true,
       );
     },
-    ReportTableRoute.name: (routeData) {
+    StatisticsRoute.name: (routeData) {
       return _i25.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i24.ReportTable(),
-        opaque: true,
-      );
-    },
-    ReportChartRoute.name: (routeData) {
-      return _i25.AdaptivePage<dynamic>(
-        routeData: routeData,
-        child: const _i24.ReportChart(),
-        opaque: true,
-      );
-    },
-    ReportComparisonRoute.name: (routeData) {
-      return _i25.AdaptivePage<dynamic>(
-        routeData: routeData,
-        child: const _i24.ReportComparison(),
+        child: const _i24.Statistics(),
         opaque: true,
       );
     },
@@ -355,16 +341,8 @@ class AppRouter extends _i25.RootStackRouter {
           path: '/add-wallet',
         ),
         _i25.RouteConfig(
-          ReportTableRoute.name,
-          path: '/report-table',
-        ),
-        _i25.RouteConfig(
-          ReportChartRoute.name,
-          path: '/report-chart',
-        ),
-        _i25.RouteConfig(
-          ReportComparisonRoute.name,
-          path: '/report-comparison',
+          StatisticsRoute.name,
+          path: '/Statistics',
         ),
       ];
 }
@@ -703,37 +681,13 @@ class AddWalletRoute extends _i25.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i24.ReportTable]
-class ReportTableRoute extends _i25.PageRouteInfo<void> {
-  const ReportTableRoute()
+/// [_i24.Statistics]
+class StatisticsRoute extends _i25.PageRouteInfo<void> {
+  const StatisticsRoute()
       : super(
-          ReportTableRoute.name,
-          path: '/report-table',
+          StatisticsRoute.name,
+          path: '/Statistics',
         );
 
-  static const String name = 'ReportTableRoute';
-}
-
-/// generated route for
-/// [_i24.ReportChart]
-class ReportChartRoute extends _i25.PageRouteInfo<void> {
-  const ReportChartRoute()
-      : super(
-          ReportChartRoute.name,
-          path: '/report-chart',
-        );
-
-  static const String name = 'ReportChartRoute';
-}
-
-/// generated route for
-/// [_i24.ReportComparison]
-class ReportComparisonRoute extends _i25.PageRouteInfo<void> {
-  const ReportComparisonRoute()
-      : super(
-          ReportComparisonRoute.name,
-          path: '/report-comparison',
-        );
-
-  static const String name = 'ReportComparisonRoute';
+  static const String name = 'StatisticsRoute';
 }

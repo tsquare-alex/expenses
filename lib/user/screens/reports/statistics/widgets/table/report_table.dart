@@ -1,4 +1,4 @@
-part of '../reports_details_imports.dart';
+part of '../../statistics_imports.dart';
 
 class ReportTable extends StatelessWidget {
   const ReportTable({super.key});

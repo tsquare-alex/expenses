@@ -10,8 +10,8 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const SettingsBody(),
+    return const Scaffold(
+      body: SettingsBody(),
     );
   }
 }

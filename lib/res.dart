@@ -59,4 +59,12 @@ class Res {
   static const String upload = "assets/images/upload.png";
   static const String user = "assets/images/user.png";
   static const String wallet = "assets/images/wallet.png";
+  static const String compass = "assets/images/compass.svg";
+  static const String needle = "assets/images/needle.svg";
+  static const String womenShoes = "assets/images/women_shoes.png";
+  static const String menShoes = "assets/images/men_shoes.png";
+  static const String ringSize = "assets/images/ring_size.png";
+  static const String menSize = "assets/images/mensize.png";
+  static const String womenSize = "assets/images/womensize.png";
+  static const String pantSize = "assets/images/pantSize.png";
 }

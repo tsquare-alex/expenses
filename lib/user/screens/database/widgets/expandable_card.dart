@@ -1,3 +1,8 @@
+import 'dart:io';
+
+import 'package:expenses/user/models/database_model/database_model.dart';
+import 'package:expenses/user/screens/database/cubit/add_database_cubit/add_data_base_cubit.dart';
+import 'package:expenses/user/screens/database/cubit/add_database_cubit/add_data_base_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,11 +14,12 @@ import '../cubit/database_cubit.dart';
 import 'database_details.dart';
 
 class ExpandableCard extends StatefulWidget {
-  final DataBaseModel databaseData;
+  final DatabaseModel databaseData;
 
-
-  const ExpandableCard({Key? key, required this.databaseData,})
-      : super(key: key);
+  const ExpandableCard({
+    Key? key,
+    required this.databaseData,
+  }) : super(key: key);
 
   @override
   State<ExpandableCard> createState() => _ExpandableCardState();
@@ -21,14 +27,22 @@ class ExpandableCard extends StatefulWidget {
 
 class _ExpandableCardState extends State<ExpandableCard> {
   bool isExpanded = false;
+  File? pickedImage;
+
   @override
   Widget build(BuildContext context) {
+    print('==================================================');
+
+    print(widget.databaseData.image);
+    print('==================================================');
+
     return InkWell(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DatabaseDetails(databaseData: widget.databaseData),
+            builder: (context) =>
+                DatabaseDetails(databaseData: widget.databaseData),
           ),
         );
       },
@@ -43,20 +57,36 @@ class _ExpandableCardState extends State<ExpandableCard> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CircleAvatar(
+                  widget.databaseData.image.isNotEmpty
+                      ? CircleAvatar(
+                    radius: 25.0,
+                    backgroundImage: MemoryImage(widget.databaseData.image),
+                    // child: Image.memory(widget.databaseData.image),
+                  )
+
+
+                      : CircleAvatar(
                     radius: 25.0,
                     child: Image.asset(
                       "assets/images/user.png",
                       fit: BoxFit.cover,
                     ),
                   ),
+
+
                   const SizedBox(width: 10.0),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MyText(
-                          title: widget.databaseData.companyName,
+                          title: widget.databaseData.company,
+                          color: MyColors.primary,
+                          size: 10.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        MyText(
+                          title: widget.databaseData.category,
                           color: MyColors.primary,
                           size: 10.sp,
                           fontWeight: FontWeight.bold,
@@ -64,7 +94,7 @@ class _ExpandableCardState extends State<ExpandableCard> {
                         Row(
                           children: [
                             MyText(
-                              title: widget.databaseData.type,
+                              title: widget.databaseData.firstName,
                               color: MyColors.primary,
                               size: 10.sp,
                               fontWeight: FontWeight.bold,
@@ -73,7 +103,7 @@ class _ExpandableCardState extends State<ExpandableCard> {
                               width: 10,
                             ),
                             MyText(
-                              title: widget.databaseData.phone,
+                              title: widget.databaseData.phoneNumber,
                               color: MyColors.primary,
                               size: 10.sp,
                               fontWeight: FontWeight.bold,
@@ -81,7 +111,7 @@ class _ExpandableCardState extends State<ExpandableCard> {
                           ],
                         ),
                         MyText(
-                          title: widget.databaseData.address,
+                          title: widget.databaseData.city,
                           color: MyColors.primary,
                           size: 10.sp,
                           fontWeight: FontWeight.bold,
@@ -117,7 +147,7 @@ class _ExpandableCardState extends State<ExpandableCard> {
                             alien: TextAlign.center,
                           ),
                           Icon(
-                          isExpanded
+                            isExpanded
                                 ? Icons.keyboard_arrow_up
                                 : Icons.keyboard_arrow_down,
                             color: MyColors.primary,
@@ -134,20 +164,19 @@ class _ExpandableCardState extends State<ExpandableCard> {
                   children: [
                     const SizedBox(height: 10.0),
                     MyText(
-                      title: widget.databaseData.name,
+                      title: widget.databaseData.department,
                       color: MyColors.primary,
                       size: 15.sp,
                       fontWeight: FontWeight.bold,
                     ),
                     MyText(
-                      title: widget.databaseData.email,
+                      title: widget.databaseData.emailAddress,
                       color: MyColors.primary,
                       size: 15.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ],
                 )
-
             ],
           ),
         ),

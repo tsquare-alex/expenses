@@ -21,7 +21,9 @@ part of 'RouterImports.dart';
     AdaptiveRoute(page: Home),
     AdaptiveRoute(page: DatabaseDetails),
     AdaptiveRoute(page: AddDatabase),
+    AdaptiveRoute(page: QiblahCompassWidget),
     AdaptiveRoute(page: AddTransaction),
+    AdaptiveRoute(page: AreaConverter),
     AdaptiveRoute(page: BMICalculator),
     AdaptiveRoute(page: ChangeCurrency),
     AdaptiveRoute(page: Commitments),
@@ -29,7 +31,6 @@ part of 'RouterImports.dart';
     AdaptiveRoute(page: Target),
     AdaptiveRoute(page: CashTransactions),
     AdaptiveRoute(page: RecurringTransactions),
-
     AdaptiveRoute(page: AddTransactionBudget),
     AdaptiveRoute(page: BalanceTransfer),
     AdaptiveRoute(page: AddWallet),
@@ -37,6 +38,7 @@ part of 'RouterImports.dart';
     AdaptiveRoute(page: EditWallet),
     AdaptiveRoute(page: BalanceWithdrawal),
     AdaptiveRoute(page: AddBalance),
+    AdaptiveRoute(page: ToolsHelper),
   ],
 )
 class $AppRouter {}

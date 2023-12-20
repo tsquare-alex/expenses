@@ -16,7 +16,7 @@ Future<void> main() async {
   await Hive.initFlutter();
   Bloc.observer = SimpleBlocObserver();
   Hive.registerAdapter(WalletModelAdapter());
- await Hive.openBox<WalletModel>(databaseBox);
+  await Hive.openBox<WalletModel>(databaseBox);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

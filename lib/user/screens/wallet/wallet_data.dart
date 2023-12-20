@@ -11,18 +11,47 @@ class WalletData {
         });
   }
 
-  List<String> walletType = ["مصروف الشهر", "حساب بنكي"];
-  List<String> paymentMethod = ["بطاقة ائتمان", "نقدي"];
+  List<String> valueCategory = [
+    "نقدي",
+    "حساب بنكي",
+    "تحويل بنكي",
+    "موبايل كاش",
+    "نقاط",
+    "انستاباي",
+  ];
 
-  balanceTransaction(
-      BuildContext context, String title, VoidCallback? onPressed) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: const AlertDialgBody(),
-        );
-      },
-    );
-  }
+  List<String> paymentMethod = ["تحويل بنكي", "حساب بنكي", "نقدي"];
+  List<String> walletCategory = [
+    "حافز",
+    "راتب",
+    "إضافي",
+    "مكافأة",
+    "هدايا",
+    "حساب بنكي",
+    "إيجار",
+    "عائد مشروع",
+    "صفقة",
+  ];
+  List<String> encomeSource = ["شخص", "جهة"];
+  List<String> curancyType = ["ر.س", "ج.م"];
+  List<String> repeatTransaction = [
+    "يومياً",
+    "اسبوعياً",
+    "شهرياً",
+    "ربع سنوياً",
+    "نصف سنوياً",
+    "سنوياً",
+  ];
+
+  // balanceTransaction(
+  //     BuildContext context, String title, VoidCallback? onPressed) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         content: const AlertDialgBody(),
+  //       );
+  //     },
+  //   );
+  // }
 }

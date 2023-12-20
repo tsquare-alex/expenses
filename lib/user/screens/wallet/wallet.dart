@@ -7,7 +7,10 @@ class Wallet extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => WalletCubit(),
-      child: BlocBuilder<WalletCubit, WalletState>(
+      child: BlocConsumer<WalletCubit, WalletState>(
+        listener: (context, state) {
+          if (state is WalletSuccess) {}
+        },
         builder: (context, state) {
           return Scaffold(
             backgroundColor: MyColors.white,

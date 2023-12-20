@@ -102,8 +102,8 @@ class _BalanceTransferState extends State<BalanceTransfer> {
                     SizedBox(
                       width: 90.w,
                       child: TileDropdownButton(
-                          menuList: data.walletType,
-                          value: data.walletType.first,
+                          menuList: data.paymentMethod,
+                          value: data.paymentMethod.first,
                           onChanged: (value) {}),
                     ),
                   ],
@@ -117,8 +117,8 @@ class _BalanceTransferState extends State<BalanceTransfer> {
                     SizedBox(
                       width: 90.w,
                       child: TileDropdownButton(
-                          menuList: data.walletType,
-                          value: data.walletType.first,
+                          menuList: data.paymentMethod,
+                          value: data.paymentMethod.first,
                           onChanged: (value) {}),
                     ),
                   ],

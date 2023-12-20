@@ -34,7 +34,7 @@ class CustomContainer extends StatelessWidget {
                   title: model.walletName, color: MyColors.white, size: 16.sp),
               IconButton(
                   onPressed: () {
-                    data.showButtomSheet(context, build,model);
+                    data.showButtomSheet(context, build, model);
                   },
                   icon: Icon(
                     Icons.arrow_drop_down_outlined,
@@ -68,12 +68,16 @@ class CustomContainer extends StatelessWidget {
                 color: MyColors.white,
               ),
               IconButton(
-                onPressed: () {
-                  AutoRouter.of(context).push(EditWalletRoute(model: model));
+                onPressed: () async {
+                  await AutoRouter.of(context)
+                      .push(EditWalletRoute(model: model));
+                  if (context.mounted) {
+                    BlocProvider.of<WalletCubit>(context).fetchAllData();
+                  }
                 },
                 icon: const Icon(Icons.edit_sharp),
                 color: MyColors.white,
-              )
+              ),
             ],
           )
         ],

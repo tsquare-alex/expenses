@@ -123,9 +123,9 @@ class SettingsBody extends StatelessWidget {
                 icon: Res.moon,
                 title: tr(context, 'darkMode'),
                 trailing: Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: AlignmentDirectional.centerEnd,
                   child: Padding(
-                    padding: EdgeInsets.only(left: 25.w),
+                    padding: EdgeInsets.symmetric(horizontal: 25.w),
                     child: BlocBuilder<AppThemeCubit, AppThemeState>(
                       builder: (context, state) {
                         return CupertinoSwitch(
@@ -151,9 +151,9 @@ class SettingsBody extends StatelessWidget {
                 icon: Res.reminders,
                 title: tr(context, 'reminders'),
                 trailing: Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: AlignmentDirectional.centerEnd,
                   child: Padding(
-                    padding: EdgeInsets.only(left: 25.w),
+                    padding: EdgeInsets.symmetric(horizontal: 25.w),
                     child: CupertinoSwitch(
                       trackColor: MyColors.blackOpacity,
                       value: false,

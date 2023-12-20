@@ -25,7 +25,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       Main(homeTabCubit: data.homeTabCubit,),
       const Reports(),
       const Settings(),
-      Container(),
+      ToolsHelper(),
       Database(),
       Container(),
       const Wallet(),

@@ -5,6 +5,8 @@ import 'package:expenses/user/models/database_model/database_model.dart';
 import 'package:expenses/user/screens/database/cubit/add_database_cubit/add_data_base_cubit.dart';
 import 'package:expenses/user/screens/database/cubit/add_database_cubit/add_data_base_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
@@ -36,30 +38,47 @@ class _AddDatabaseState extends State<AddDatabase> {
 
   getImage() async {
     try {
-
-
       final ImagePicker picker = ImagePicker();
-      final XFile? imageCamera = await picker.pickImage(source: ImageSource.camera);
+      final XFile? imageCamera = await picker.pickImage(
+          source: ImageSource.camera);
 
       if (imageCamera != null) {
         imageBytes = await _getImageBytes(imageCamera);
         setState(() {
 
         });
-      } else {
-      }
-    } catch (e) {
-    }
+      } else {}
+    } catch (e) {}
   }
 
   Future<Uint8List> _getImageBytes(XFile image) async {
     return await image.readAsBytes();
   }
 
+  var getResult = 'QR Code Result';
+
+  void scanQRCode() async {
+    try {
+      final qrCode = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.QR);
+
+      if (!mounted) return;
+
+      setState(() {
+        getResult = qrCode;
+      });
+      print("QRCode_Result:--");
+      print(qrCode);
+    } on PlatformException {
+      getResult = 'Failed to scan QR Code.';
+    }
+  }
+
+  AddDataBaseCubit dataBaseCubit = AddDataBaseCubit();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MyExpansionCubit(),
+      create: (context) => AddDataBaseCubit(),
       child: BlocListener<AddDataBaseCubit, AddDataBaseState>(
         listener: (context, state) {
           // TODO: implement listener
@@ -80,51 +99,56 @@ class _AddDatabaseState extends State<AddDatabase> {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  GestureDetector(
-                    onTap: () async {
-                      // await myCubit.getImage();
-                      await getImage();
+                  ElevatedButton(
+                    onPressed: () {
+                      scanQRCode();
                     },
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 25.0,
-                          child: Image.asset(
-                            "assets/images/user.png",
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        MyText(
-                          title: "أضف صورة",
-                          color: MyColors.primary,
-                          size: 12.sp,
-                        ),
-
-                        imageBytes != null?  Container(
-                          height: 100,
-                            width: 100,
-                            child: Image.memory(imageBytes!)): Container(),
-                        // if (myCubit.state is MyExpansionAddImageSuccess) // Check if image is picked
-                        //   Container(
-                        //     width: 100, // Set the width according to your design
-                        //     height: 100, // Set the height according to your design
-                        //     child: Image.memory((myCubit.state as MyExpansionAddImageSuccess).pickedImage),
-                        //   ),
-                      ],
-                    ),
+                    child: Text('Scan QR'),
                   ),
-
-
-
-
-
-
-
-
-
-
-
-
+                  SizedBox(height: 20.0,),
+                  Text(getResult),
+                  BlocBuilder<AddDataBaseCubit, AddDataBaseState>(
+                    bloc: dataBaseCubit,
+                    builder: (context, state) {
+                      return GestureDetector(
+                        onTap: () async {
+                          // await myCubit.getImage();
+                          await dataBaseCubit.getImage();
+                        },
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 25.0,
+                              child: Image.asset(
+                                "assets/images/user.png",
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            MyText(
+                              title: "أضف صورة",
+                              color: MyColors.primary,
+                              size: 12.sp,
+                            ),
+                            if(state is AddDataBaseImageSuccess)
+                              Container(
+                                  height: 100,
+                                  width: 100,
+                                  child: Image.memory(dataBaseCubit.imageBytes!)),
+                            // dataBaseCubit.imageBytes != null ? Container(
+                            //     height: 100,
+                            //     width: 100,
+                            //     child: Image.memory(dataBaseCubit.imageBytes!)) : Container(),
+                            // if (myCubit.state is MyExpansionAddImageSuccess) // Check if image is picked
+                            //   Container(
+                            //     width: 100, // Set the width according to your design
+                            //     height: 100, // Set the height according to your design
+                            //     child: Image.memory((myCubit.state as MyExpansionAddImageSuccess).pickedImage),
+                            //   ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
 
                   // MyExpansionTile(),
                   BuildCategoryExpansion(
@@ -218,7 +242,7 @@ class _AddDatabaseState extends State<AddDatabase> {
                         instagram: myCubit.instagramController.text,
                         youtube: myCubit.youtubeController.text,
                         messenger: myCubit.messengerController.text,
-                        image: imageBytes ?? Uint8List.fromList([]),
+                        image: dataBaseCubit.imageBytes ?? Uint8List.fromList([]),
                       );
                       if (myCubit.state is MyExpansionError) {
 

@@ -76,6 +76,7 @@ dependencies:
   flutter_svg:
   table_calendar:
   font_awesome_flutter:
+  flutter_barcode_scanner:
 
 dev_dependencies:
   flutter_test:

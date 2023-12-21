@@ -34,7 +34,7 @@ class WalletData {
   ];
   List<String> encomeSource = ["شخص", "جهة"];
   List<String> curancyType = ["ر.س", "ج.م"];
-  List<String> repeatTransaction = [
+  List<String> repeatWallet = [
     "يومياً",
     "اسبوعياً",
     "شهرياً",

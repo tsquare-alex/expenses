@@ -121,8 +121,8 @@ class AdaptivePicker {
       context: context,
       locale: Locale('en', 'US'),
       theme: ThemeData(
-        primaryColor: MyColors.primary,
-        backgroundColor: MyColors.white,
+        primaryColor: MyColors.white,
+        backgroundColor: MyColors.grey,
         buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
       ),
       initialTime: TimeOfDay.now(),

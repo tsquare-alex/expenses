@@ -71,6 +71,7 @@ class AddTransactionData {
     var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
         context: context,
+        minDate:DateTime.now().subtract(Duration(days: 30)),
         onConfirm: (date) {
           startDateController.text =
               DateFormat("dd MMMM yyyy", local).format(date!);
@@ -84,6 +85,12 @@ class AddTransactionData {
     FocusScope.of(context).requestFocus(FocusNode());
     var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
+      initial: startDateController.text.isNotEmpty
+          ? DateFormat("dd MMMM yyyy", local).parse(startDateController.text)
+          : DateTime.now(),
+        minDate: startDateController.text.isNotEmpty
+    ? DateFormat("dd MMMM yyyy", local).parse(startDateController.text)
+        : DateTime.now(),
         context: context,
         onConfirm: (date) {
           endDateController.text =
@@ -611,7 +618,7 @@ class AddTransactionData {
           amount: amountController.text,
           total: totalController.text,
           database: selectedDatabaseModel,
-          priority: selectedPriority?.name,
+          priority: selectedPriority,
           time: timeController.text,
           transactionDate: dateController.text,
           repeated: iterateCubit.state.data != false
@@ -642,7 +649,6 @@ class AddTransactionData {
               msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
               color: Colors.red);
         }
-        print(addTransactionCubit.state.data[2].transactionContent?.name);
       } else if (type == "التسوق والشراء") {
         AddTransactionModel model = AddTransactionModel(
           transactionName: "التسوق والشراء",
@@ -654,7 +660,7 @@ class AddTransactionData {
           amount: amountController.text,
           total: totalController.text,
           brandName: brandController.text,
-          priority: selectedPriority?.name,
+          priority: selectedPriority,
           time: timeController.text,
           transactionDate: dateController.text,
           image: imageBloc.state.data,
@@ -690,6 +696,7 @@ class AddTransactionData {
         AddTransactionModel model = AddTransactionModel(
           transactionName: "الاهداف المالية المستهدفة",
           targetType: selectedTarget,
+          total: targetController.text,
           incomeSource: selectedWalletModel,
           targetValue: targetController.text,
           startDate: startDateController.text,
@@ -730,7 +737,7 @@ class AddTransactionData {
           cashTransactionType: selectedCashTransaction,
           incomeSource: selectedWalletModel,
           database: selectedDatabaseModel,
-          priority: selectedPriority?.name,
+          priority: selectedPriority,
           total: transferController.text,
           time: timeController.text,
           transactionDate: dateController.text,

@@ -40,13 +40,9 @@ class TransactionDetailsData{
   }
 
 
-  String? commitmentId;
-  String? commitmentContentId;
   int? unitId;
   int? priorityId;
   int? iterateTransactionId;
-  TransactionTypeModel? selectedCommitment;
-  TransactionContentModel? selectedCommitmentContent;
   DropdownModel? selectedUnit;
   DropdownModel? selectedPriority;
   DropdownModel? selectedIterateTransaction;
@@ -97,38 +93,7 @@ class TransactionDetailsData{
     unitId = model?.id;
   }
 
-  Future<List<TransactionTypeModel>> getCommitments(
-      BuildContext context) async {
-    final box = await Hive.openBox<TransactionTypeModel>("transactionBox");
-    List<TransactionTypeModel> total = box.values.toList();
-    return total;
-  }
 
-  Future<List<TransactionContentModel>> getCommitmentsContent(
-      BuildContext context,
-      TransactionTypeModel model
-      ) async {
-    List<TransactionContentModel> content = [];
-    if(model.name != selectedCommitment?.name){
-      content = model.content!;
-    }else{
-      content == selectedCommitment?.content;
-    }
-    return content;
-  }
-
-
-
-  void setSelectCommitment(TransactionTypeModel? model) {
-    selectedCommitment = model;
-    commitmentId = model?.name;
-    print(selectedCommitment?.name);
-  }
-
-  void setSelectCommitmentContent(TransactionContentModel? model) {
-    selectedCommitmentContent = model;
-    commitmentContentId = model?.name;
-  }
 
 
   void onSelectTime(
@@ -191,5 +156,219 @@ class TransactionDetailsData{
         },
         title: '');
   }
+
+
+  editTransaction(BuildContext context, AddTransactionModel model) async {
+    final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
+      if (model.transactionName == "الالتزامات") {
+        AddTransactionModel editModel = AddTransactionModel(
+          transactionName: "الالتزامات",
+          transactionType: model.transactionType,
+          transactionContent: model.transactionContent,
+          incomeSource: model.incomeSource,
+          unit: selectedUnit,
+          amount: amountController.text,
+          total: totalController.text,
+          database: model.database,
+          priority: selectedPriority??model.priority,
+          time: timeController.text,
+          transactionDate: transactionDateController.text,
+          repeated: iterateCubit.state.data != false
+              ? selectedIterateTransaction??model.repeated
+              : null,
+          notify: notifyCubit.state.data,
+        );
+        var total = double.parse(totalController.text);
+        var lastTotal = double.parse(model.total!);
+        if (total < lastTotal) {
+          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletList = walletBox.values.toList();
+          WalletModel? targetModel = walletList.firstWhere(
+                (item) => item.name == model.incomeSource?.name,
+          );
+          var edit = lastTotal - total;
+          print("object ${targetModel.name}");
+          targetModel.balance = targetModel.balance + edit;
+          print("balance ${targetModel.balance}");
+          await walletBox.put(targetModel.key, targetModel);
+          print(model.incomeSource!.balance);
+          box.put(model.key,editModel);
+          AutoRouter.of(context).pop();
+          AutoRouter.of(context).replace(HomeRoute(index: 0));
+        } else if (total > lastTotal) {
+          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletList = walletBox.values.toList();
+          WalletModel? targetModel = walletList.firstWhere(
+                (item) => item.name == model.incomeSource?.name,
+          );
+          var edit = total - lastTotal;
+          print("object ${targetModel.name}");
+          targetModel.balance = targetModel.balance - edit;
+          print("balance ${targetModel.balance}");
+          await walletBox.put(targetModel.key, targetModel);
+          print(model.incomeSource!.balance);
+          box.put(model.key,editModel);
+          AutoRouter.of(context).pop();
+          AutoRouter.of(context).replace(HomeRoute(index: 0));
+        }else{
+          box.put(model.key,editModel);
+          AutoRouter.of(context).pop();
+          AutoRouter.of(context).replace(HomeRoute(index: 0));
+        }
+      }
+      else if (model.transactionName == "التسوق والشراء") {
+        AddTransactionModel editModel = AddTransactionModel(
+          transactionName: "التسوق والشراء",
+          transactionType: model.transactionType,
+          transactionContent: model.transactionContent,
+          database: model.database,
+          incomeSource: model.incomeSource,
+          unit: selectedUnit,
+          amount: amountController.text,
+          total: totalController.text,
+          brandName: brandNameController.text,
+          priority: selectedPriority??model.priority,
+          time: timeController.text,
+          transactionDate: transactionDateController.text,
+          image: model.image,
+          repeated: iterateCubit.state.data != false
+              ? selectedIterateTransaction??model.repeated
+              : null,
+          notify: notifyCubit.state.data,
+        );
+        var total = double.parse(totalController.text);
+        var lastTotal = double.parse(model.total!);
+        if (total < lastTotal) {
+          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletList = walletBox.values.toList();
+          WalletModel? targetModel = walletList.firstWhere(
+                (item) => item.name == model.incomeSource?.name,
+          );
+          var edit = lastTotal - total;
+          print("object ${targetModel.name}");
+          targetModel.balance = targetModel.balance + edit;
+          print("balance ${targetModel.balance}");
+          await walletBox.put(model.incomeSource?.key, targetModel);
+          print(model.incomeSource!.balance);
+          box.put(model.key,editModel);
+          AutoRouter.of(context).pop();
+          AutoRouter.of(context).replace(HomeRoute(index: 0));
+        } else if (total > lastTotal) {
+          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletList = walletBox.values.toList();
+          WalletModel? targetModel = walletList.firstWhere(
+                (item) => item.name == model.incomeSource?.name,
+          );
+          var edit = total - lastTotal;
+          print("object ${targetModel.name}");
+          targetModel.balance = targetModel.balance - edit;
+          print("balance ${targetModel.balance}");
+          await walletBox.put(targetModel.key, targetModel);
+          print(model.incomeSource!.balance);
+          box.put(model.key,editModel);
+          AutoRouter.of(context).pop();
+          AutoRouter.of(context).replace(HomeRoute(index: 0));
+        }
+      } else if (model.transactionName == "الاهداف المالية المستهدفة") {
+        AddTransactionModel editModel = AddTransactionModel(
+          transactionName: "الاهداف المالية المستهدفة",
+          targetType: model.targetType,
+          total: totalController.text,
+          incomeSource: model.incomeSource,
+          targetValue: totalController.text,
+          startDate: startDateController.text,
+          endDate: endDateController.text,
+          time: timeController.text,
+          transactionDate: transactionDateController.text,
+          repeated: iterateCubit.state.data != false
+              ? selectedIterateTransaction??model.repeated
+              : null,
+          notify: notifyCubit.state.data,
+        );
+        var total = double.parse(totalController.text);
+        var lastTotal = double.parse(model.total!);
+        if (total < lastTotal) {
+          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletList = walletBox.values.toList();
+          WalletModel? targetModel = walletList.firstWhere(
+                (item) => item.name == model.incomeSource?.name,
+          );
+          var edit = lastTotal - total;
+          print("object ${targetModel.name}");
+          targetModel.balance = targetModel.balance + edit;
+          print("balance ${targetModel.balance}");
+          await walletBox.put(model.incomeSource?.key, targetModel);
+          print(model.incomeSource!.balance);
+          box.put(model.key,editModel);
+          AutoRouter.of(context).pop();
+          AutoRouter.of(context).replace(HomeRoute(index: 0));
+        } else if (total > lastTotal) {
+          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletList = walletBox.values.toList();
+          WalletModel? targetModel = walletList.firstWhere(
+                (item) => item.name == model.incomeSource?.name,
+          );
+          var edit = total - lastTotal;
+          print("object ${targetModel.name}");
+          targetModel.balance = targetModel.balance - edit;
+          print("balance ${targetModel.balance}");
+          await walletBox.put(targetModel.key, targetModel);
+          print(model.incomeSource!.balance);
+          box.put(model.key,editModel);
+          AutoRouter.of(context).pop();
+          AutoRouter.of(context).replace(HomeRoute(index: 0));
+        }
+      } else if (model.transactionName == "المعاملات النقدية") {
+        AddTransactionModel editModel = AddTransactionModel(
+          transactionName: "المعاملات النقدية",
+          cashTransactionType: model.cashTransactionType,
+          incomeSource: model.incomeSource,
+          database: model.database,
+          priority: selectedPriority??model.priority,
+          total: totalController.text,
+          time: timeController.text,
+          transactionDate: transactionDateController.text,
+          repeated: iterateCubit.state.data != false
+              ? selectedIterateTransaction??model.repeated
+              : null,
+          notify: notifyCubit.state.data,
+        );
+        var total = double.parse(totalController.text);
+        var lastTotal = double.parse(model.total!);
+        if (total < lastTotal) {
+          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletList = walletBox.values.toList();
+          WalletModel? targetModel = walletList.firstWhere(
+                (item) => item.name == model.incomeSource?.name,
+          );
+          var edit = lastTotal - total;
+          print("object ${targetModel.name}");
+          targetModel.balance = targetModel.balance + edit;
+          print("balance ${targetModel.balance}");
+          await walletBox.put(model.incomeSource?.key, targetModel);
+          print(model.incomeSource!.balance);
+          box.put(model.key,editModel);
+          AutoRouter.of(context).pop();
+          AutoRouter.of(context).replace(HomeRoute(index: 0));
+        } else if (total > lastTotal) {
+          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletList = walletBox.values.toList();
+          WalletModel? targetModel = walletList.firstWhere(
+                (item) => item.name == model.incomeSource?.name,
+          );
+          var edit = total - lastTotal;
+          print("object ${targetModel.name}");
+          targetModel.balance = targetModel.balance - edit;
+          print("balance ${targetModel.balance}");
+          await walletBox.put(targetModel.key, targetModel);
+          print(model.incomeSource!.balance);
+          box.put(model.key,editModel);
+          AutoRouter.of(context).pop();
+          AutoRouter.of(context).replace(HomeRoute(index: 0));
+        }
+      }
+
+  }
+
 
 }

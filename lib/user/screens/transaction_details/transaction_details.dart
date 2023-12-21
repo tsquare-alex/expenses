@@ -18,6 +18,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
     data.iterateCubit.onUpdateData(widget.model.repeated!=null?true:false);
     data.notifyCubit.onUpdateData(widget.model.notify??false);
     data.selectedIterateTransaction= widget.model.repeated;
+    data.selectedUnit= widget.model.unit;
     super.initState();
   }
 
@@ -47,7 +48,8 @@ class _TransactionDetailsState extends State<TransactionDetails> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              BuildTransactionDetailsInputs(transactionDetailsData: data,model: widget.model,)
+              BuildTransactionDetailsInputs(transactionDetailsData: data,model: widget.model,),
+              BuildTransactionDetailsButton(data: data, model: widget.model!),
             ],
           ),
         ),

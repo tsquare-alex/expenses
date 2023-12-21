@@ -5,6 +5,7 @@ import 'package:expenses/general/constants/custom_%20drop_down/DropDownTextField
 import 'package:expenses/general/packages/generic_bloc/generic_cubit.dart';
 import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
+import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/models/add_transaction_model/add_transaction_model.dart';
 import 'package:expenses/user/models/dropdown_model/dropdown_model.dart';
@@ -17,3 +18,4 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 part 'build_transaction_details_inputs.dart';
+part 'build_transaction_details_button.dart';

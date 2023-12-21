@@ -217,6 +217,7 @@ class _AddDatabaseState extends State<AddDatabase> {
                       myCubit.onPressedHandler();
 
                       var dataBase = DatabaseModel(
+                        name: "${myCubit.firstNameController.text} ${myCubit.lastNameController.text}",
                         category: myCubit.categoryController.text,
                         adjective: myCubit.designationController.text,
                         firstName: myCubit.firstNameController.text,

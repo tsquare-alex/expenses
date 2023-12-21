@@ -57,8 +57,14 @@ class BuildTransactionCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             MyText(
-                              title:
-                                  "${model.transactionType}",
+                              title:"${
+                                  model.transactionName=="الالتزامات"||model.transactionName=="التسوق والشراء"
+                                      ?model.transactionType?.name
+                                      :model.transactionName=="الاهداف المالية المستهدفة"
+                                      ?model.targetType?.name
+                                      :model.transactionName=="المعاملات النقدية"
+                                      ?model.cashTransactionType?.name
+                              :""}",
                               color: MyColors.black,
                               size: 14.sp,
                               fontWeight: FontWeight.bold,
@@ -107,7 +113,7 @@ class BuildTransactionCard extends StatelessWidget {
                           width: 10.w,
                         ),
                         MyText(
-                          title: "title",
+                          title: model.incomeSource?.paymentMethod??"",
                           color: MyColors.black,
                           size: 13.sp,
                           fontWeight: FontWeight.bold,

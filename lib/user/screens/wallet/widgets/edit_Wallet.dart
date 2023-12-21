@@ -56,7 +56,7 @@ class _EditWalletState extends State<EditWallet> {
                 decoration: InputDecoration(
                     hoverColor: MyColors.primary,
                     fillColor: MyColors.primary,
-                    hintText: widget.model.walletName,
+                    hintText: widget.model.name,
                     hintStyle: TextStyle(fontSize: 18.sp, color: MyColors.grey),
                     focusColor: MyColors.primary),
               ),
@@ -131,7 +131,7 @@ class _EditWalletState extends State<EditWallet> {
                 onTap: () {
                   widget.model.paymentMethod = dropdownButtonController.text;
                   widget.model.balance = parsedNumber;
-                  widget.model.walletName = walletNameController.text;
+                  widget.model.name = walletNameController.text;
                   widget.model.save();
                   AutoRouter.of(context).pop();
                 },

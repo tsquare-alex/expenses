@@ -3,6 +3,9 @@ part of 'transaction_details_imports.dart';
 class TransactionDetailsData{
   final GlobalKey<FormState> formKey = GlobalKey();
 
+  final GlobalKey<DropdownSearchState> commitmentDropKey = GlobalKey();
+  final GlobalKey<DropdownSearchState> commitmentContentDropKey = GlobalKey();
+
   TextEditingController transactionTypeController = TextEditingController();
   TextEditingController transactionContentController = TextEditingController();
   TextEditingController unitController = TextEditingController();
@@ -18,13 +21,35 @@ class TransactionDetailsData{
   TextEditingController targetValueController = TextEditingController();
 
 
-  // // Find the index of the target model in the list
-  // int index = modelList.indexWhere((model) => model == targetModel);
-  //
-  // if (index != -1) {
-  // print('Index of the target model: $index');
-  // } else {
-  // print('Target model not found in the list.');
-  // }
+  String? commitmentId;
+  String? commitmentContentId;
+  TransactionTypeModel? selectedCommitment;
+  TransactionContentModel? selectedCommitmentContent;
+
+  Future<List<TransactionTypeModel>> getCommitments(
+      BuildContext context) async {
+    final box = await Hive.openBox<TransactionTypeModel>("transactionBox");
+    List<TransactionTypeModel> total = box.values.toList();
+    return total;
+  }
+
+  Future<List<TransactionContentModel>> getCommitmentsContent(
+      BuildContext context,
+      TransactionTypeModel model
+      ) async {
+    List<TransactionContentModel> content = model.content!;
+    return content;
+  }
+
+  void setSelectCommitment(TransactionTypeModel? model) {
+    selectedCommitment = model;
+    commitmentId = model?.name;
+    print(selectedCommitment?.name);
+  }
+
+  void setSelectCommitmentContent(TransactionContentModel? model) {
+    selectedCommitmentContent = model;
+    commitmentContentId = model?.name;
+  }
 
 }

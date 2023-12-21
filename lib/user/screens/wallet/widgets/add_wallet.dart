@@ -300,7 +300,7 @@ class _AddWalletState extends State<AddWallet> {
                           onTap: () async {
                             if (formKey.currentState!.validate()) {
                               var walletModel = WalletModel(
-                                  walletName: walletNameController.text,
+                                  name: walletNameController.text,
                                   balance: parsedNumber,
                                   paymentMethod:
                                       dropdownButtonController.text == ""

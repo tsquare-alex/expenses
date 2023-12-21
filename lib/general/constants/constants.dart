@@ -1,1 +1,1 @@
-const databaseBox = "database_box";
+const database = "databaseBox";

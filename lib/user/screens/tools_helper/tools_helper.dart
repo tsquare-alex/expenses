@@ -20,11 +20,11 @@ class ToolsHelper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.blue,
-        title: MyText(title: tr(context, "toolsHelper"), color: Colors.white, size: 15.sp,fontWeight: FontWeight.bold,),
-      ),
+      // appBar: AppBar(
+      //   centerTitle: true,
+      //   backgroundColor: Colors.blue,
+      //   title: MyText(title: tr(context, "toolsHelper"), color: Colors.white, size: 15.sp,fontWeight: FontWeight.bold,),
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(14.0),
         child: Column(

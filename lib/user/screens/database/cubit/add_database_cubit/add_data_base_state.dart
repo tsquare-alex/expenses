@@ -11,3 +11,5 @@ class AddDataBaseFailure extends AddDataBaseState {
 
   AddDataBaseFailure({required this.errorMessage});
 }
+
+class AddDataBaseImageSuccess extends AddDataBaseState {}

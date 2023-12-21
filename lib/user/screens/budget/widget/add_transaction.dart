@@ -91,7 +91,6 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                       ),
                     ],
                   ),
-                  //  TransctionHeader(),
                   SizedBox(
                     height: 12.h,
                   ),

@@ -174,10 +174,8 @@
   "enterInstagram": "ادخل رابط الانستجرام",
   "enterTwitter": "ادخل رابط تويتر",
   "enterYoutube": "ادخل رابط اليوتيوب",
-"enterSnapchat": "ادخل رابط سناب شات",
+  "enterSnapchat": "ادخل رابط سناب شات",
   "enterWhatsapp": "ادخل رقم الواتس اب",
-
-
   "addPlace": "اضافة مكان",
   "selectWorkTime": "تحديد وقت العمل",
   "addPlaceImg": "من فضلك ادخل صورة المكان",
@@ -227,26 +225,17 @@
   "chooseImg": "اختر صورة",
   "pickImg": "التقط صورة",
   "invitationCode": "كود الدعوة",
-
-
   "main": "القائمة الرئيسية",
-
   "category": "التصنيف",
-
   "categoryAddNewCategory": "إضافة تصنيف جديد",
-
   "databaseAddNames": "ألاسماء",
   "databaseAddNamesAdjective": "الصفة",
   "databaseAddNamesFirstName": "الأسم الاول",
   "databaseAddNamesSecondName": "الأسم الثانى",
-
-
   "databasePhoneNumbers": "أرقام الهاتف",
   "databaseTheNewNumber": "الرقم الجديد",
   "cancel": "إلغاء",
-  "add": "أضافة",
   "databaseAddPhoneNumber": "أضافة رقم تليفون",
-
   "databaseJob": "العمل",
   "databaseJobTitle": "المسمى الوظيفى",
   "databaseDepartment": "القسم",
@@ -259,18 +248,15 @@
   "databaseAddressBuildingNumber": "رقم البناية",
   "databaseAddressApartmentNumber": "رقم الشقة",
   "databaseAddressPostal": "الصندوق البريدى",
-
   "databaseEmail": "البريد الالكترونى",
   "databaseAddEmail": "اضافة بريد الكترونى",
   "databaseTheNewEmail": "البريد الالكترونى الجديد",
-
   "databaseImportantHistory": "تاريخ هام",
   "databaseEventTitle": "عنوان المناسبة",
   "databaseEventDate": "تاريخ المناسبة",
   "databaseEventDetails": "تفاصيل المناسبة",
   "databaseEventDate": "التاريخ",
   "databaseComment": "ملاحظات",
-
   "databaseSocialAddress": "عناوين الكترونية",
   "databaseSocialAddressWeb": "الموقع الالكترونى",
   "databaseSocialAddressFacebook": "الفيس بوك",
@@ -292,6 +278,10 @@
   "deleteData": "مسح البيانات",
   "resetSettings": "اعدادات إفتراضية",
   "egypt": "مصر",
+  "expense": "المصروفات",
+  "target": "الاهداف المالية المستهدفة",
+  "cashTransactions": "المعاملات النقدية",
+  "recurringTransactions": "المعاملات المتكررة",
   "ksa": "السعودية",
   "clothesSize" : "مقاسات الملابس",
   "clothesSizeMen" : "مقاسات ملابس الرجال",
@@ -317,24 +307,14 @@
   "convertSquareMToSquareMill" : "تحويل من متر مربع إلى مليمتر مربع",
   "convertSquareMToSquareInch" : "تحويل من متر مربع إلى بوصة مربعة",
   "convertSquareMToSquareDeci" : "تحويل من متر مربع إلى ديسيمتر مربع",
-
   "categoryPlace": "المكان / الموقع",
   "categoryPerson": "الشخص / الفرد",
   "categoryItem": "السلعة / البند",
-
   "lengthConvert": "تحويل الطول",
-  "areaConvert": "تحويل المساحة"
-
-
-
-
-
-
-
-
-
-
-
+  "areaConvert": "تحويل المساحة",
+  "durationFrom": "المدة من",
+  "durationTo": "المدة إلى",
+  "residual": "المتبقي",
+  "transactionsHistory": "سجل المعاملات",
+  "seeAll": "استعراض الكل"
 }
-
-

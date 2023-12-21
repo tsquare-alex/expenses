@@ -8,31 +8,32 @@ class Shopping extends StatefulWidget {
 }
 
 class _ShoppingState extends State<Shopping> {
+
+  ShoppingData data = ShoppingData();
+
+  @override
+  void initState() {
+    data.fetchData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => AutoRouter.of(context).pop(),
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: MyColors.white,
-            size: 20.sp,
-          ),
-        ),
-        centerTitle: true,
-        title: MyText(
-          title: "التسوق والشراء",
-          color: MyColors.white,
-          size: 16.sp,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      body: Column(
-        children: [
-
-        ],
+      body: BlocBuilder<GenericBloc<List<AddTransactionModel>>, GenericState<List<AddTransactionModel>>>(
+        bloc: data.addTransactionCubit,
+        builder: (context, state) {
+          if(state.data.isEmpty){
+            return SingleChildScrollView(child: BuildNoRecord());
+          }else{
+            return ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: state.data.length,
+              itemBuilder: (context,i)=>BuildTransactionCard(model: state.data[i], onDelete: ()=>data.deleteItem(state.data[i]),),
+            );
+          }
+        },
       ),
     );
   }

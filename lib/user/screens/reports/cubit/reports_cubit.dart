@@ -115,11 +115,11 @@ class ReportsCubit extends Cubit<ReportsState> {
 
   late List<WalletModel> wallets;
   Future<void> getWalletData(BuildContext context) async {
-    var walletBox = Hive.box<WalletModel>(databaseBox);
+    var walletBox = Hive.box<WalletModel>(database);
     List<WalletModel> data = walletBox.values.toList();
     wallets = data;
     for (var element in data) {
-      print(element.walletName);
+      print(element.name);
     }
     // return wallets;
   }

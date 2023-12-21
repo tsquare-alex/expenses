@@ -31,10 +31,10 @@ class BuildTransactionInputs extends StatelessWidget {
                   width: 10.h,
                 ),
                 Expanded(
-                  child: DropdownTextField<DropdownModel>(
+                  child: DropdownTextField<WalletModel>(
                     dropKey: addTransactionData.walletDropKey,
                     label: "تحديد مصدر الدخل",
-                    selectedItem: addTransactionData.selectedWallet,
+                    selectedItem: addTransactionData.selectedWalletModel,
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     validate: (value) {
                       if (value == null) {
@@ -42,8 +42,8 @@ class BuildTransactionInputs extends StatelessWidget {
                         print("Please fill this field");
                       }
                     },
-                    onChange: addTransactionData.setSelectWallet,
-                    finData: (data) => addTransactionData.getWallet(
+                    onChange: addTransactionData.setSelectWalletModel,
+                    finData: (data) => addTransactionData.getWalletData(
                       context,
                     ),
                     useName: true,
@@ -55,40 +55,6 @@ class BuildTransactionInputs extends StatelessWidget {
             ),
             if(type == "الاهداف المالية المستهدفة")Column(
               children: [
-                SizedBox(
-                  height: 10.h,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    MyText(
-                      title: "القيمة الابتدائية",
-                      color: MyColors.black,
-                      size: 12.sp,
-                      fontWeight: FontWeight.bold,
-                      alien: TextAlign.center,
-                    ),
-                    SizedBox(
-                      width: 105.w,
-                    ),
-                    Expanded(
-                      child: GenericTextField(
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                        controller: addTransactionData.initValueController,
-                        fieldTypes: FieldTypes.normal,
-                        type: TextInputType.number,
-                        action: TextInputAction.next,
-                        validate: (value) {
-                          if(value!.isEmpty){
-                            return 'Enter an initial value';
-                          }
-                        },
-                        label: "القيمة",
-                        margin: const EdgeInsets.only(top: 0),
-                      ),
-                    ),
-                  ],
-                ),
                 SizedBox(
                   height: 10.h,
                 ),
@@ -274,6 +240,36 @@ class BuildTransactionInputs extends StatelessWidget {
                 ),
               ],
             ),
+            if(type == "المعاملات النقدية")Row(
+              children: [
+                MyText(
+                  title: "أدخل قيمة التحويل",
+                  color: MyColors.black,
+                  size: 12.sp,
+                  fontWeight: FontWeight.bold,
+                  alien: TextAlign.center,
+                ),
+                SizedBox(
+                  width: 34.w,
+                ),
+                Expanded(
+                  child: GenericTextField(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                    controller: addTransactionData.transferController,
+                    fieldTypes: FieldTypes.normal,
+                    type: TextInputType.number,
+                    action: TextInputAction.next,
+                    validate: (value) {
+                      if(value!.isEmpty){
+                        return 'Enter the transfer value';
+                      }
+                    },
+                    label: "قيمة التحويل",
+                    margin: EdgeInsets.symmetric(vertical: 10.r),
+                  ),
+                ),
+              ],
+            ),
             if(type=="التسوق والشراء")SizedBox(height: 10.h,),
             if(type=="التسوق والشراء")Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -309,10 +305,10 @@ class BuildTransactionInputs extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            if(type=="الالتزامات")Row(
+            if(type=="الالتزامات"||type=="التسوق والشراء")Row(
               children: [
                 MyText(
-                  title: "تحديد جهة الالتزام",
+                  title: type=="الالتزامات"?"تحديد جهة الالتزام":type=="التسوق والشراء"?"اسم جهة التسوق والشراء":"",
                   color: MyColors.black,
                   size: 12.sp,
                   fontWeight: FontWeight.bold,
@@ -321,10 +317,10 @@ class BuildTransactionInputs extends StatelessWidget {
                   width: 10.h,
                 ),
                 Expanded(
-                  child: DropdownTextField<DropdownModel>(
+                  child: DropdownTextField<DatabaseModel>(
                     dropKey: addTransactionData.commitmentPartyDropKey,
                     label: "جهة الالتزام",
-                    selectedItem: addTransactionData.selectedCommitmentParty,
+                    selectedItem: addTransactionData.selectedDatabaseModel,
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     validate: (value) {
                       if (value == null) {
@@ -332,8 +328,8 @@ class BuildTransactionInputs extends StatelessWidget {
                         return ("Please fill this field");
                       }
                     },
-                    onChange: addTransactionData.setSelectCommitmentParty,
-                    finData: (data) => addTransactionData.getCommitmentParty(
+                    onChange: addTransactionData.setSelectDatabaseModel,
+                    finData: (data) => addTransactionData.getDatabaseData(
                       context,
                     ),
                     useName: true,
@@ -355,10 +351,10 @@ class BuildTransactionInputs extends StatelessWidget {
                 SizedBox(
                   width: 10.h,
                 ),
-                DropdownTextField<DropdownModel>(
+                DropdownTextField<DatabaseModel>(
                   dropKey: addTransactionData.transferDropKey,
                   label: "اختر",
-                  selectedItem: addTransactionData.selectedTransfer,
+                  selectedItem: addTransactionData.selectedDatabaseModel,
                   margin: const EdgeInsets.symmetric(vertical: 5),
                   validate: (value) {
                     if (value == null) {
@@ -366,8 +362,8 @@ class BuildTransactionInputs extends StatelessWidget {
                       return ("Please fill this field");
                     }
                   },
-                  onChange: addTransactionData.setSelectTransfer,
-                  finData: (data) => addTransactionData.getTransfer(
+                  onChange: addTransactionData.setSelectDatabaseModel,
+                  finData: (data) => addTransactionData.getDatabaseData(
                     context,
                   ),
                   useName: true,

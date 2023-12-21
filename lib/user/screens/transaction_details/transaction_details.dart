@@ -35,6 +35,16 @@ class _TransactionDetailsState extends State<TransactionDetails> {
           fontWeight: FontWeight.bold,
         ),
       ),
+      body: Padding(
+        padding: EdgeInsets.all(15.r),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              BuildTransactionDetailsInputs(transactionDetailsData: data,model: widget.model,)
+            ],
+          ),
+        ),
+      ),
     );
   }
 

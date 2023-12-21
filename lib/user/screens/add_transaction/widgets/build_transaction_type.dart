@@ -20,7 +20,7 @@ class BuildTransactionType extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   MyText(title: type=="الالتزامات"?"اختار الالتزام":"تحديد جهة التسوق والشراء", color: MyColors.black, size: 12.sp,fontWeight: FontWeight.bold,),
-                  IconButton(onPressed: ()=>addTransactionData.addTransactionModel(context,type), icon: Icon(Icons.add))
+                  IconButton(onPressed: ()=>addTransactionData.addTransactionModel(context, type), icon: Icon(Icons.add))
                 ],
               ),
               DropdownTextField<TransactionTypeModel>(
@@ -59,7 +59,7 @@ class BuildTransactionType extends StatelessWidget {
                     print("Please fill this field");
                   }
                 },
-                onChange: addTransactionData.selectedCommitmentContent,
+                onChange: addTransactionData.setSelectCommitmentContent,
                 finData: (data) => addTransactionData.getCommitmentsContent(context,),
                 useName: true,
                 buttonsColor: MyColors.primary,

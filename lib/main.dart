@@ -1,6 +1,8 @@
 import 'package:expenses/general/MyApp.dart';
 import 'package:expenses/general/blocks/lang_cubit/lang_cubit.dart';
+import 'package:expenses/general/constants/constants.dart';
 import 'package:expenses/user/models/add_transaction_model/add_transaction_model.dart';
+import 'package:expenses/user/models/database_model/database_model.dart';
 import 'package:expenses/user/models/dropdown_model/dropdown_model.dart';
 import 'package:expenses/user/models/transaction_type_model/transaction_content_model.dart';
 import 'package:expenses/user/models/transaction_type_model/transaction_type_model.dart';
@@ -19,7 +21,9 @@ Future<void> main() async {
   await Hive.initFlutter();
   Bloc.observer = SimpleBlocObserver();
   Hive.registerAdapter(WalletModelAdapter());
+  Hive.registerAdapter(DatabaseModelAdapter());
   await Hive.openBox<WalletModel>(databaseBox);
+  await Hive.openBox<DatabaseModel>(database);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
 );

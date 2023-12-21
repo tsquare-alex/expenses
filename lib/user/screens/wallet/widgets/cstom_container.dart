@@ -31,7 +31,7 @@ class CustomContainer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               MyText(
-                  title: model.walletName, color: MyColors.white, size: 16.sp),
+                  title: model.name, color: MyColors.white, size: 16.sp),
               IconButton(
                   onPressed: () {
                     data.showButtomSheet(context, build, model);

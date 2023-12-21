@@ -14,7 +14,6 @@ class _AddTransactionState extends State<AddTransaction> {
   @override
   void initState() {
     data.initialTransaction(widget.model!);
-    //data.fetchData();
     super.initState();
   }
 
@@ -47,7 +46,7 @@ class _AddTransactionState extends State<AddTransaction> {
           child: Column(
             children: [
               BuildTransactionType(addTransactionData: data, type: widget.model?.name??"",),
-              if(widget.model?.name=="التسوق والشراء")BuildShoppingParty(addTransactionData: data),
+              //if(widget.model?.name=="التسوق والشراء")BuildShoppingParty(addTransactionData: data),
               BuildTransactionInputs(addTransactionData: data, type: widget.model?.name??"",),
               BuildTransactionDate(data: data),
               if(widget.model?.name=="التسوق والشراء")BuildAddProductPhoto(data: data,),

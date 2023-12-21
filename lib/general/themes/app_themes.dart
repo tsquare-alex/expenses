@@ -26,7 +26,7 @@ class AppThemes {
     colorScheme: const ColorScheme.light(),
     appBarTheme: AppBarTheme(
       backgroundColor: MyColors.primary,
-      foregroundColor: Colors.black,
+      foregroundColor: Colors.white,
       // systemOverlayStyle: SystemUiOverlayStyle(
       //   statusBarIconBrightness: Brightness.dark,
       //   statusBarColor: Colors.transparent,

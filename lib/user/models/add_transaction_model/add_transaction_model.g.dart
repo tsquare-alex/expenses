@@ -19,25 +19,23 @@ class AddTransactionModelAdapter extends TypeAdapter<AddTransactionModel> {
     return AddTransactionModel(
       transactionName: fields[0] as String?,
       transactionType: fields[1] as TransactionTypeModel?,
-      image: fields[17] as Uint8List?,
-      shoppingParty: fields[15] as DatabaseModel?,
-      commitmentParty: fields[7] as DatabaseModel?,
-      unit: fields[4] as String?,
+      image: fields[16] as Uint8List?,
+      database: fields[7] as DatabaseModel?,
+      unit: fields[4] as DropdownModel?,
       total: fields[6] as String?,
       amount: fields[5] as String?,
       time: fields[10] as String?,
-      brandName: fields[16] as String?,
+      brandName: fields[15] as String?,
       endDate: fields[12] as String?,
       incomeSource: fields[3] as WalletModel?,
       notify: fields[14] as bool?,
       priority: fields[8] as String?,
       repeated: fields[13] as DropdownModel?,
-      startDate: fields[18] as String?,
-      targetValue: fields[19] as String?,
+      startDate: fields[17] as String?,
+      targetValue: fields[18] as String?,
       transactionContent: fields[2] as TransactionContentModel?,
       transactionDate: fields[9] as String?,
-      transferTo: fields[20] as DatabaseModel?,
-      targetType: fields[21] as DropdownModel?,
+      targetType: fields[19] as DropdownModel?,
       cashTransactionType: fields[11] as DropdownModel?,
     );
   }
@@ -45,7 +43,7 @@ class AddTransactionModelAdapter extends TypeAdapter<AddTransactionModel> {
   @override
   void write(BinaryWriter writer, AddTransactionModel obj) {
     writer
-      ..writeByte(22)
+      ..writeByte(20)
       ..writeByte(0)
       ..write(obj.transactionName)
       ..writeByte(1)
@@ -61,7 +59,7 @@ class AddTransactionModelAdapter extends TypeAdapter<AddTransactionModel> {
       ..writeByte(6)
       ..write(obj.total)
       ..writeByte(7)
-      ..write(obj.commitmentParty)
+      ..write(obj.database)
       ..writeByte(8)
       ..write(obj.priority)
       ..writeByte(9)
@@ -77,18 +75,14 @@ class AddTransactionModelAdapter extends TypeAdapter<AddTransactionModel> {
       ..writeByte(14)
       ..write(obj.notify)
       ..writeByte(15)
-      ..write(obj.shoppingParty)
-      ..writeByte(16)
       ..write(obj.brandName)
-      ..writeByte(17)
+      ..writeByte(16)
       ..write(obj.image)
-      ..writeByte(18)
+      ..writeByte(17)
       ..write(obj.startDate)
-      ..writeByte(19)
+      ..writeByte(18)
       ..write(obj.targetValue)
-      ..writeByte(20)
-      ..write(obj.transferTo)
-      ..writeByte(21)
+      ..writeByte(19)
       ..write(obj.targetType);
   }
 

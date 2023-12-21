@@ -285,7 +285,7 @@ class AddTransactionData {
   }
 
   Future<void> fetchTargetData() async {
-    final box = Hive.box<TransactionTypeModel>("targetBox");
+    final box = Hive.box<DropdownModel>("targetBox");
     try {
       var list = box.values.map((dynamic value) {
         if (value is DropdownModel) {
@@ -298,13 +298,11 @@ class AddTransactionData {
       targetCubit.onUpdateData(targetList);
     } catch (e) {
       print('Error fetching data from Hive: $e');
-    } finally {
-      await box.close();
     }
   }
 
   Future<void> fetchCashTransactionData() async {
-    final box = Hive.box<TransactionTypeModel>("cashTransactionBox");
+    final box = Hive.box<DropdownModel>("cashTransactionBox");
     try {
       var list = box.values.map((dynamic value) {
         if (value is DropdownModel) {
@@ -317,8 +315,6 @@ class AddTransactionData {
       cashTransactionCubit.onUpdateData(cashTransactionList);
     } catch (e) {
       print('Error fetching data from Hive: $e');
-    } finally {
-      await box.close();
     }
   }
 
@@ -396,6 +392,8 @@ class AddTransactionData {
 
   void setSelectCommitmentContent(TransactionContentModel? model) {
     selectedCommitmentContent = model;
+    commitmentContentId = model?.name;
+    print(commitmentContentId);
   }
 
   //
@@ -609,10 +607,10 @@ class AddTransactionData {
           transactionType: selectedCommitment,
           transactionContent: selectedCommitmentContent,
           incomeSource: selectedWalletModel,
-          unit: selectedUnit?.name,
+          unit: selectedUnit,
           amount: amountController.text,
           total: totalController.text,
-          commitmentParty: selectedDatabaseModel,
+          database: selectedDatabaseModel,
           priority: selectedPriority?.name,
           time: timeController.text,
           transactionDate: dateController.text,
@@ -644,14 +642,15 @@ class AddTransactionData {
               msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
               color: Colors.red);
         }
+        print(addTransactionCubit.state.data[2].transactionContent?.name);
       } else if (type == "التسوق والشراء") {
         AddTransactionModel model = AddTransactionModel(
           transactionName: "التسوق والشراء",
           transactionType: selectedCommitment,
           transactionContent: selectedCommitmentContent,
-          shoppingParty: selectedDatabaseModel,
+          database: selectedDatabaseModel,
           incomeSource: selectedWalletModel,
-          unit: selectedUnit?.name,
+          unit: selectedUnit,
           amount: amountController.text,
           total: totalController.text,
           brandName: brandController.text,
@@ -730,7 +729,7 @@ class AddTransactionData {
           transactionName: "المعاملات النقدية",
           cashTransactionType: selectedCashTransaction,
           incomeSource: selectedWalletModel,
-          transferTo: selectedDatabaseModel,
+          database: selectedDatabaseModel,
           priority: selectedPriority?.name,
           total: transferController.text,
           time: timeController.text,

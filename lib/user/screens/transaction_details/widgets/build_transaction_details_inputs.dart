@@ -14,71 +14,65 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          IconButton(
-              onPressed: () {
-                print(model.transactionType?.content?[0].name);
-              },
-              icon: Icon(Icons.add)),
           if (model.transactionName == "الالتزامات" ||
               model.transactionName == "التسوق والشراء")
-            Column(
-              children: [
-                MyText(
-                  title: model.transactionName == "الالتزامات"
-                      ? "الالتزام"
-                      : "جهة التسوق والشراء",
-                  color: MyColors.black,
-                  size: 12.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-                DropdownTextField<TransactionTypeModel>(
-                  dropKey: transactionDetailsData.commitmentDropKey,
-                  label: "المعاملة",
-                  selectedItem: transactionDetailsData.selectedCommitment ??
-                      model.transactionType,
-                  margin: const EdgeInsets.symmetric(vertical: 5),
+          Row(
+            children: [
+              MyText(
+                title: "المعاملة",
+                color: MyColors.black,
+                size: 12.sp,
+                fontWeight: FontWeight.bold,
+              ),
+              SizedBox(
+                width: 67.w,
+              ),
+              Expanded(
+                child: GenericTextField(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                  controller: transactionDetailsData.transactionTypeController,
+                  fieldTypes: FieldTypes.readonly,
+                  type: TextInputType.text,
+                  action: TextInputAction.next,
                   validate: (value) {
-                    if (value == null) {
-                      print("Please fill this field");
-                    }
+                    return null;
                   },
-                  onChange: transactionDetailsData.setSelectCommitment,
-                  finData: (data) =>
-                      transactionDetailsData.getCommitments(context),
-                  useName: true,
-                  buttonsColor: MyColors.primary,
-                  searchHint: "بحث",
+                  label: model.transactionName == "الالتزامات"
+    ? "الالتزام"
+        : "جهة التسوق والشراء",
+                  hint: model.transactionType?.name??"",
+                  margin:  EdgeInsets.symmetric(vertical: 10.r),
                 ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                MyText(
-                  title: "اختار محتوي المعاملة",
-                  color: MyColors.black,
-                  size: 12.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-                DropdownTextField<TransactionContentModel>(
-                  dropKey: transactionDetailsData.commitmentContentDropKey,
-                  label: "اختر",
-                  selectedItem:
-                      transactionDetailsData.selectedCommitmentContent ??
-                          model.transactionContent,
-                  margin: const EdgeInsets.symmetric(vertical: 5),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              MyText(
+                title: "محتوي المعاملة",
+                color: MyColors.black,
+                size: 12.sp,
+                fontWeight: FontWeight.bold,
+              ),
+              SizedBox(
+                width: 23.w,
+              ),
+              Expanded(
+                child: GenericTextField(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                  controller: transactionDetailsData.transactionContentController,
+                  fieldTypes: FieldTypes.readonly,
+                  type: TextInputType.text,
+                  action: TextInputAction.next,
                   validate: (value) {
-                    if (value == null) {
-                      print("Please fill this field");
-                    }
+                    return null;
                   },
-                  onChange: transactionDetailsData.selectedCommitmentContent,
-                  finData: (data) => transactionDetailsData
-                      .getCommitmentsContent(context, model.transactionType!),
-                  useName: true,
-                  buttonsColor: MyColors.primary,
-                  searchHint: "بحث",
+                  hint: model.transactionContent?.name??"",
+                  margin:  EdgeInsets.symmetric(vertical: 10.r),
                 ),
-              ],
-            ),
+              ),
+            ],
+          ),
           GenericTextField(
             contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: transactionDetailsData.amountController,
@@ -89,7 +83,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
               return null;
             },
             label: "الكمية",
-            margin: const EdgeInsets.only(top: 0),
+            margin: EdgeInsets.symmetric(vertical: 10.r),
           ),
           GenericTextField(
             contentPadding: const EdgeInsets.symmetric(horizontal: 16),
@@ -101,7 +95,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
               return null;
             },
             label: "الاجمالي",
-            margin: const EdgeInsets.only(top: 0),
+            margin: EdgeInsets.symmetric(vertical: 10.r),
           ),
           // DropdownTextField<DatabaseModel>(
           //   dropKey: addTransactionData.transferDropKey,

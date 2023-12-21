@@ -81,7 +81,7 @@ class BuildTransactionCard extends StatelessWidget {
                                   width: 10.w,
                                 ),
                                 MyText(
-                                  title: model.transactionName == "الالتزامات"?model.commitmentParty?.name??"":model.transactionName == "التسوق والشراء" ? model.shoppingParty?.name??"":"",
+                                  title: model.database?.name??"",
                                   color: MyColors.black,
                                   size: 11.sp,
                                   fontWeight: FontWeight.bold,

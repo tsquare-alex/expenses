@@ -37,9 +37,16 @@ class TransactionDetailsData{
       BuildContext context,
       TransactionTypeModel model
       ) async {
-    List<TransactionContentModel> content = model.content!;
+    List<TransactionContentModel> content = [];
+    if(model.name != selectedCommitment?.name){
+      content = model.content!;
+    }else{
+      content == selectedCommitment?.content;
+    }
     return content;
   }
+
+
 
   void setSelectCommitment(TransactionTypeModel? model) {
     selectedCommitment = model;

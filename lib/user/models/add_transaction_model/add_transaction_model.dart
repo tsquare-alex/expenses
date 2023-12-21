@@ -20,13 +20,13 @@ class AddTransactionModel extends HiveObject{
   @HiveField(3)
   WalletModel? incomeSource;
   @HiveField(4)
-  String? unit;
+  DropdownModel? unit;
   @HiveField(5)
   String? amount;
   @HiveField(6)
   String? total;
   @HiveField(7)
-  DatabaseModel? commitmentParty;
+  DatabaseModel? database;
   @HiveField(8)
   String? priority;
   @HiveField(9)
@@ -42,24 +42,20 @@ class AddTransactionModel extends HiveObject{
   @HiveField(14)
   bool? notify;
   @HiveField(15)
-  DatabaseModel? shoppingParty;
-  @HiveField(16)
   String? brandName;
-  @HiveField(17)
+  @HiveField(16)
   Uint8List? image;
-  @HiveField(18)
+  @HiveField(17)
   String? startDate;
-  @HiveField(19)
+  @HiveField(18)
   String? targetValue;
-  @HiveField(20)
-  DatabaseModel? transferTo;
-  @HiveField(21)
+  @HiveField(19)
   DropdownModel? targetType;
 
 
 
 
 
-  AddTransactionModel({this.transactionName,this.transactionType,this.image,this.shoppingParty,this.commitmentParty,this.unit,this.total,this.amount,this.time,this.brandName,this.endDate,this.incomeSource,this.notify,this.priority,this.repeated,this.startDate,this.targetValue,this.transactionContent,this.transactionDate,this.transferTo,this.targetType,this.cashTransactionType});
+  AddTransactionModel({this.transactionName,this.transactionType,this.image,this.database,this.unit,this.total,this.amount,this.time,this.brandName,this.endDate,this.incomeSource,this.notify,this.priority,this.repeated,this.startDate,this.targetValue,this.transactionContent,this.transactionDate,this.targetType,this.cashTransactionType});
 
 }

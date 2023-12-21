@@ -16,7 +16,7 @@ class _ReportsState extends State<Reports> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => ReportsCubit(),
+        create: (context) => ReportsCubit()..getReportData(context),
         child: ReportsBody(data: data),
       ),
     );

@@ -40,7 +40,6 @@ class _AddWalletState extends State<AddWallet> {
       DateTimeRange(start: DateTime.now(), end: DateTime.now());
 
   _AddWalletState();
-  String? balance;
   double parsedNumber = 0;
   @override
   Widget build(BuildContext context) {
@@ -221,12 +220,12 @@ class _AddWalletState extends State<AddWallet> {
                             SizedBox(
                               width: 150.w,
                               child: TileDropdownButton(
-                                  menuList: data.encomeSource,
-                                  value: data.encomeSource.first,
-                                  onChanged: (value) {
-                                    encomSourceController.text =
-                                        value as String;
-                                  }),
+                                menuList: data.encomeSource,
+                                value: data.encomeSource.first,
+                                onChanged: (value) {
+                                  encomSourceController.text = value as String;
+                                },
+                              ),
                             ),
                           ],
                         ),
@@ -404,15 +403,17 @@ class _AddWalletState extends State<AddWallet> {
   }
 
   void dateRange() async {
-    var dateRange = await showDateRangePicker(
+    DateTimeRange? dateRange = await showDateRangePicker(
       context: context,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(3000),
+      firstDate: context.read<WalletCubit>().startDate,
+      lastDate: context.read<WalletCubit>().endDate,
     );
+
     if (dateRange != null) {
       setState(() {
         selectRangeDate = dateRange;
-        rangeDateController.text = selectRangeDate.toString();
+        rangeDateController.text =
+            "${dateRange.start.day}/${dateRange.start.month}/${dateRange.start.year} - ${dateRange.end.day}/${dateRange.end.month}/${dateRange.end.year}";
       });
     }
   }

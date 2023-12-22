@@ -13,8 +13,11 @@ class MainData{
       value: data.percent,
       title: data.name,
       radius: 100.r,
-
-      titlePositionPercentageOffset: 0.6,
+      badgeWidget: Padding(
+        padding: EdgeInsets.only(top: 60.0.r),
+        child: Image.asset(data.image!,width: 20.w,height: 20.h,color: MyColors.white,),
+      ),
+      titlePositionPercentageOffset: 0.5,
       titleStyle: TextStyle(
         color: MyColors.white,
         fontWeight: FontWeight.bold,
@@ -57,7 +60,7 @@ class MainData{
       image: Res.database,
     ),
     PieChartDataModel(
-      name: "الميزانية \nوالخطط المالية",
+      name: "الميزانية و\nالخطط المالية",
       percent: 45,
       color: Colors.green,
       image: Res.budget,

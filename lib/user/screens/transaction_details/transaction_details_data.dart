@@ -248,7 +248,7 @@ class TransactionDetailsData{
           print("object ${targetModel.name}");
           targetModel.balance = targetModel.balance + edit;
           print("balance ${targetModel.balance}");
-          await walletBox.put(model.incomeSource?.key, targetModel);
+          await walletBox.put(targetModel.key, targetModel);
           print(model.incomeSource!.balance);
           box.put(model.key,editModel);
           AutoRouter.of(context).pop();
@@ -265,6 +265,10 @@ class TransactionDetailsData{
           print("balance ${targetModel.balance}");
           await walletBox.put(targetModel.key, targetModel);
           print(model.incomeSource!.balance);
+          box.put(model.key,editModel);
+          AutoRouter.of(context).pop();
+          AutoRouter.of(context).replace(HomeRoute(index: 0));
+        }else{
           box.put(model.key,editModel);
           AutoRouter.of(context).pop();
           AutoRouter.of(context).replace(HomeRoute(index: 0));
@@ -297,7 +301,7 @@ class TransactionDetailsData{
           print("object ${targetModel.name}");
           targetModel.balance = targetModel.balance + edit;
           print("balance ${targetModel.balance}");
-          await walletBox.put(model.incomeSource?.key, targetModel);
+          await walletBox.put(targetModel.key, targetModel);
           print(model.incomeSource!.balance);
           box.put(model.key,editModel);
           AutoRouter.of(context).pop();
@@ -314,6 +318,10 @@ class TransactionDetailsData{
           print("balance ${targetModel.balance}");
           await walletBox.put(targetModel.key, targetModel);
           print(model.incomeSource!.balance);
+          box.put(model.key,editModel);
+          AutoRouter.of(context).pop();
+          AutoRouter.of(context).replace(HomeRoute(index: 0));
+        }else{
           box.put(model.key,editModel);
           AutoRouter.of(context).pop();
           AutoRouter.of(context).replace(HomeRoute(index: 0));
@@ -345,7 +353,7 @@ class TransactionDetailsData{
           print("object ${targetModel.name}");
           targetModel.balance = targetModel.balance + edit;
           print("balance ${targetModel.balance}");
-          await walletBox.put(model.incomeSource?.key, targetModel);
+          await walletBox.put(targetModel.key, targetModel);
           print(model.incomeSource!.balance);
           box.put(model.key,editModel);
           AutoRouter.of(context).pop();
@@ -362,6 +370,10 @@ class TransactionDetailsData{
           print("balance ${targetModel.balance}");
           await walletBox.put(targetModel.key, targetModel);
           print(model.incomeSource!.balance);
+          box.put(model.key,editModel);
+          AutoRouter.of(context).pop();
+          AutoRouter.of(context).replace(HomeRoute(index: 0));
+        }else{
           box.put(model.key,editModel);
           AutoRouter.of(context).pop();
           AutoRouter.of(context).replace(HomeRoute(index: 0));

@@ -42,6 +42,23 @@ class HomeData{
     "المعاملات المتكررة",
   ];
 
+  List<String> icons=[
+    Res.transaction,
+    Res.home,
+    Res.report,
+    Res.settings,
+    Res.tools,
+    Res.database,
+    Res.explain,
+    Res.wallet,
+    Res.budget,
+    Res.transaction,
+    Res.budget,
+    Res.cashTransactions,
+    Res.repeatedTransactions,
+  ];
+
+
 
   void initBottomNavigation(TickerProvider ticker,int index) {
     tabController = TabController(length: 3, vsync: ticker,initialIndex:index );

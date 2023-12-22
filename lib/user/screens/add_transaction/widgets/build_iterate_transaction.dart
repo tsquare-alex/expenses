@@ -1,9 +1,10 @@
 part of 'add_transaction_widgets_imports.dart';
 
 class BuildIterateTransaction extends StatelessWidget {
-  const BuildIterateTransaction({Key? key, required this.addTransactionData})
+  const BuildIterateTransaction({Key? key, required this.addTransactionData, required this.type})
       : super(key: key);
   final AddTransactionData addTransactionData;
+  final String type;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class BuildIterateTransaction extends StatelessWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        MyText(title: "تكرار المعاملة",
+                        MyText(title: type!="الاهداف المالية المستهدفة"?"تكرار المعاملة":"توقيت التحويل",
                           color: MyColors.black,
                           size: 14.sp,
                           fontWeight: FontWeight.bold,),
@@ -39,7 +40,7 @@ class BuildIterateTransaction extends StatelessWidget {
                         if(state.data==true)Expanded(
                           child: DropdownTextField<DropdownModel>(
                             dropKey: addTransactionData.iterateTransactionDropKey,
-                            label: "مدة التكرار",
+                            label: type!="الاهداف المالية المستهدفة"?"مدة التكرار":"مدة التحويل",
                             selectedItem: addTransactionData.selectedIterateTransaction,
                             margin: const EdgeInsets.symmetric(vertical: 5),
                             validate: (value) {

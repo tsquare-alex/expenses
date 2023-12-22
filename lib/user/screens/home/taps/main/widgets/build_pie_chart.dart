@@ -19,14 +19,6 @@ class BuildPieChart extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: MyColors.white,
-              // gradient: LinearGradient(
-              //     stops: [0.5, 0.5],
-              //     begin: Alignment.topCenter,
-              //     end: Alignment.bottomCenter,
-              //     colors: <Color>[
-              //       Colors.green,
-              //       Colors.red,
-              //     ]),
             ),
           ),
           Stack(
@@ -36,6 +28,7 @@ class BuildPieChart extends StatelessWidget {
                 PieChartData(
                   borderData: FlBorderData(show: false),
                   centerSpaceRadius: 60.r,
+                  sectionsSpace: 5.w,
                   sections: mainData.getSections(),
                   pieTouchData:
                       PieTouchData(touchCallback: (event, pieTouchResponse) {
@@ -48,18 +41,8 @@ class BuildPieChart extends StatelessWidget {
                         pieTouchResponse.touchedSection!.touchedSectionIndex;
                     if (touchedIndex >= 0 &&
                         touchedIndex < mainData.data.length) {
-                      // Navigate to the page with the corresponding widget
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) =>
-                      //         mainData.widgets.keys.toList()[touchedIndex],
-                      //   ),
-                      // );
                       homeTabCubit.onUpdateData(
                           widgets.values.toList()[touchedIndex]);
-                      // //print(mainData.widgets.values.toList()[touchedIndex]);
-                      // print(data.homeTabCubit.state.data);
                     }
                   }),
                 ),
@@ -67,11 +50,6 @@ class BuildPieChart extends StatelessWidget {
               Stack(
                 alignment: AlignmentDirectional.center,
                 children: [
-                  // SpinKitPouringHourGlassRefined(
-                  //   color: Colors.amber,
-                  //   size: 150.0.w,
-                  //   controller: mainData.controller,
-                  // ),
                   Stack(
                     alignment: AlignmentDirectional.center,
                     children: [

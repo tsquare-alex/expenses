@@ -184,6 +184,15 @@ class _AddWalletState extends State<AddWallet> {
                                 },
                               ),
                             ),
+                            IconButton(
+                                onPressed: () {
+                                  data.addPaymentMethodValue(
+                                    context,
+                                    build,
+                                    paymentMethodController,
+                                  );
+                                },
+                                icon: const Icon(Icons.add))
                           ],
                         ),
                         SizedBox(
@@ -205,6 +214,17 @@ class _AddWalletState extends State<AddWallet> {
                                     categoryController.text = value as String;
                                   }),
                             ),
+                            IconButton(
+                                onPressed: () {
+                                  data.addWalletCategoryValue(
+                                      context, build, categoryController, () {
+                                    if (controller.text.isNotEmpty) {
+                                      walletCategory.add(controller.text);
+                                      Navigator.of(context).pop();
+                                    }
+                                  });
+                                },
+                                icon: const Icon(Icons.add))
                           ],
                         ),
                         SizedBox(
@@ -227,6 +247,12 @@ class _AddWalletState extends State<AddWallet> {
                                 },
                               ),
                             ),
+                            IconButton(
+                                onPressed: () {
+                                  data.addEncomeValue(
+                                      context, build, encomSourceController);
+                                },
+                                icon: const Icon(Icons.add))
                           ],
                         ),
                         SizedBox(
@@ -249,6 +275,12 @@ class _AddWalletState extends State<AddWallet> {
                                         value as String;
                                   }),
                             ),
+                            IconButton(
+                                onPressed: () {
+                                  data.addValueCategory(
+                                      context, build, valueCategoryController);
+                                },
+                                icon: const Icon(Icons.add))
                           ],
                         ),
                         SizedBox(

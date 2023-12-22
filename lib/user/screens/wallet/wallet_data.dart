@@ -43,15 +43,155 @@ class WalletData {
     "سنوياً",
   ];
 
-  // balanceTransaction(
-  //     BuildContext context, String title, VoidCallback? onPressed) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) {
-  //       return AlertDialog(
-  //         content: const AlertDialgBody(),
-  //       );
-  //     },
-  //   );
-  // }
+  addPaymentMethodValue(
+    context,
+    build,
+    TextEditingController controller,
+  ) {
+    showModalBottomSheet(
+      isScrollControlled: false,
+      elevation: 0,
+      context: context,
+      builder: (buildContext) {
+        return Padding(
+          padding: EdgeInsets.all(12.h),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              TextFormField(
+                controller: controller,
+                keyboardType: TextInputType.number,
+                textAlign: TextAlign.right,
+                cursorColor: MyColors.primary,
+                decoration: InputDecoration(
+                    hintText: " ادخل القيمة",
+                    hintStyle: TextStyle(fontSize: 18.sp, color: MyColors.grey),
+                    focusColor: MyColors.primary),
+              ),
+              SizedBox(height: 15.h),
+              DefaultButton(
+                  title: "اضافة",
+                  onTap: () {
+                    if (controller.text.isNotEmpty) {
+                      paymentMethod.add(controller.text);
+                      Navigator.of(context).pop();
+                    }
+                  }),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  addWalletCategoryValue(context, build, TextEditingController controller) {
+    showModalBottomSheet(
+      isScrollControlled: false,
+      elevation: 0,
+      context: context,
+      builder: (buildContext) {
+        return Padding(
+          padding: EdgeInsets.all(12.h),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              TextFormField(
+                controller: controller,
+                keyboardType: TextInputType.number,
+                textAlign: TextAlign.right,
+                cursorColor: MyColors.primary,
+                decoration: InputDecoration(
+                    hintText: " ادخل القيمة",
+                    hintStyle: TextStyle(fontSize: 18.sp, color: MyColors.grey),
+                    focusColor: MyColors.primary),
+              ),
+              SizedBox(height: 16),
+              DefaultButton(
+                  title: "اضافة",
+                  onTap: () {
+                    if (controller.text.isNotEmpty) {
+                      walletCategory.add(controller.text);
+                      Navigator.of(context).pop();
+                    }
+                  }),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  addEncomeValue(context, build, TextEditingController controller) {
+    showModalBottomSheet(
+      isScrollControlled: false,
+      elevation: 0,
+      context: context,
+      builder: (buildContext) {
+        return Padding(
+          padding: EdgeInsets.all(12.h),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              TextFormField(
+                controller: controller,
+                keyboardType: TextInputType.number,
+                textAlign: TextAlign.right,
+                cursorColor: MyColors.primary,
+                decoration: InputDecoration(
+                    hintText: " ادخل القيمة",
+                    hintStyle: TextStyle(fontSize: 18.sp, color: MyColors.grey),
+                    focusColor: MyColors.primary),
+              ),
+              SizedBox(height: 16),
+              DefaultButton(
+                  title: "اضافة",
+                  onTap: () {
+                    if (controller.text.isNotEmpty) {
+                      encomeSource.add(controller.text);
+                      Navigator.of(context).pop();
+                    }
+                  }),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  addValueCategory(context, build, TextEditingController controller) {
+    showModalBottomSheet(
+      isScrollControlled: false,
+      elevation: 0,
+      context: context,
+      builder: (buildContext) {
+        return Padding(
+          padding: EdgeInsets.all(12.h),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              TextFormField(
+                controller: controller,
+                keyboardType: TextInputType.number,
+                textAlign: TextAlign.right,
+                cursorColor: MyColors.primary,
+                decoration: InputDecoration(
+                    hintText: " ادخل القيمة",
+                    hintStyle: TextStyle(fontSize: 18.sp, color: MyColors.grey),
+                    focusColor: MyColors.primary),
+              ),
+              SizedBox(height: 16),
+              DefaultButton(
+                  title: "اضافة",
+                  onTap: () {
+                    if (controller.text.isNotEmpty) {
+                      valueCategory.add(controller.text);
+                      Navigator.of(context).pop();
+                    }
+                  }),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }

@@ -9,6 +9,7 @@ class WalletCubit extends Cubit<WalletState> {
   DateTime endDate = DateTime.now().add(Duration(days: 30));
 
   WalletCubit() : super(WalletInitial());
+
   List<WalletModel> walletList = [];
   fetchAllData() async {
     emit(WalletInitial());

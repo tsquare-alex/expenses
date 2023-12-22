@@ -41,8 +41,13 @@ class _ExpandableCardState extends State<ExpandableCard> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                DatabaseDetails(databaseData: widget.databaseData),
+            builder: (context) => DatabaseDetails(
+              databaseData: widget.databaseData,
+              onDataChanged: () {
+                // This callback will be called when data is changed in DatabaseDetails
+                setState(() {});
+              },
+            ),
           ),
         );
       },

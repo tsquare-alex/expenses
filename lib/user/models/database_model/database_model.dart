@@ -7,57 +7,57 @@ part 'database_model.g.dart';
 @HiveType(typeId: 9)
 class DatabaseModel extends HiveObject {
   @HiveField(0)
-  final String category;
+   String category;
   @HiveField(1)
-  final String adjective;
+   String adjective;
   @HiveField(2)
-  late final String firstName;
+    String firstName;
   @HiveField(3)
-  final String secondName;
+   String secondName;
   @HiveField(4)
-  late final String phoneNumber;
+    String phoneNumber;
   @HiveField(5)
-  final String workName;
+   String workName;
   @HiveField(6)
-  final String department;
+   String department;
   @HiveField(7)
-  late final String company;
+    String company;
   @HiveField(8)
-  final String country;
+   String country;
   @HiveField(9)
-  final String governorate;
+   String governorate;
   @HiveField(10)
-  late final String city;
+    String city;
   @HiveField(11)
-  final String street;
+   String street;
   @HiveField(12)
-  final String buildingNumber;
+   String buildingNumber;
   @HiveField(13)
-  final String apartmentNumber;
+   String apartmentNumber;
   @HiveField(14)
-  final String postalNumber;
+   String postalNumber;
   @HiveField(15)
-  final String emailAddress;
+   String emailAddress;
   @HiveField(16)
-  final String eventTitle;
+   String eventTitle;
   @HiveField(17)
-  final String eventDate;
+   String eventDate;
   @HiveField(18)
-  final String eventDetails;
+   String eventDetails;
   @HiveField(19)
-  final String notes;
+   String notes;
   @HiveField(20)
-  final String web;
+   String web;
   @HiveField(21)
-  final String facebook;
+   String facebook;
   @HiveField(22)
-  final String instagram;
+   String instagram;
   @HiveField(23)
-  final String youtube;
+   String youtube;
   @HiveField(24)
-  final String messenger;
+   String messenger;
   @HiveField(25)
-  final Uint8List image;
+   Uint8List image;
 
   DatabaseModel(
       {required this.category,

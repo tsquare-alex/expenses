@@ -6,6 +6,8 @@ import 'package:hive/hive.dart';
 
 class BudgetCubit extends Cubit<BudgetState> {
   BudgetCubit() : super(AddBudgetInitial());
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now();
   List<WalletModel> walletList = [];
 
   fetchdataFromWallet() async {

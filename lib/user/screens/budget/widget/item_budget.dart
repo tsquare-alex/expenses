@@ -1,21 +1,17 @@
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/widgets/MyText.dart';
+import 'package:expenses/user/screens/budget/data/model/budget_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class ItemBudget extends StatelessWidget {
-  final String title;
-  final String value;
-  final String secValue;
-  final double precent;
+  final BudgetModel model;
 
-  const ItemBudget(
-      {super.key,
-      required this.title,
-      required this.value,
-      required this.precent,
-      required this.secValue});
+  const ItemBudget({
+    super.key,
+    required this.model,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +21,7 @@ class ItemBudget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          MyText(title: title, color: MyColors.black, size: 18.sp),
+          MyText(title: model.name, color: MyColors.black, size: 18.sp),
           SizedBox(
             height: 5.h,
           ),
@@ -36,7 +32,7 @@ class ItemBudget extends StatelessWidget {
             animation: true,
             lineHeight: 20.0,
             animationDuration: 2000,
-            percent: precent,
+            percent: 0.3,
             progressColor: MyColors.primary,
           ),
           SizedBox(
@@ -48,7 +44,6 @@ class ItemBudget extends StatelessWidget {
               SizedBox(
                 width: 6.w,
               ),
-              const Text("valu"),
               SizedBox(
                 width: 60.w,
               ),
@@ -56,7 +51,6 @@ class ItemBudget extends StatelessWidget {
               SizedBox(
                 width: 95.w,
               ),
-              MyText(title: secValue, color: MyColors.black, size: 12.sp)
             ],
           )
         ],

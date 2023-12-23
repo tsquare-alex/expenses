@@ -1,49 +1,53 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:expenses/general/constants/MyColors.dart';
-import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
-import 'package:expenses/user/screens/budget/data/cubit/budget_cubit.dart';
-import 'package:expenses/user/screens/budget/widget/item_budget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+part of 'budget_imports.dart';
 
-class Budget extends StatelessWidget {
+class Budget extends StatefulWidget {
   const Budget({super.key});
 
   @override
+  State<Budget> createState() => _BudgetState();
+}
+
+class _BudgetState extends State<Budget> {
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => BudgetCubit(),
-      child: Scaffold(
-        body: Column(children: [
-          Expanded(
-            child: ListView.separated(
-              itemCount: 2,
-              itemBuilder: (context, index) => const ItemBudget(
-                  precent: 0.4,
-                  title: "title",
-                  value: "value",
-                  secValue: "secValue"),
-              separatorBuilder: (BuildContext context, int index) {
-                return Divider(
-                  color: MyColors.black,
-                );
-              },
+    return BlocConsumer<BudgetCubit, BudgetState>(
+      listener: (context, state) {
+        if (state is SuccessFetchData) {}
+      },
+      builder: (context, state) {
+        return Scaffold(
+          body: Column(children: [
+            Expanded(
+              child: BlocBuilder<BudgetCubit, BudgetState>(
+                builder: (context, state) {
+                  List<BudgetModel> data =
+                      BlocProvider.of<BudgetCubit>(context).budgetList;
+                  return ListView.builder(
+                    itemCount: data.length,
+                    itemBuilder: (context, index) => ItemBudget(
+                      model: data[index],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ]),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () async {
+              await AutoRouter.of(context)
+                  .push(const AddTransactionBudgetRoute());
+              if (context.mounted) {
+                context.read<BudgetCubit>().fetchData();
+              }
+            },
+            backgroundColor: MyColors.primary,
+            child: Icon(
+              Icons.add,
+              size: 20.sp,
+              color: MyColors.white,
             ),
           ),
-        ]),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            AutoRouter.of(context).push(const AddTransactionBudgetRoute());
-          },
-          backgroundColor: MyColors.primary,
-          child: Icon(
-            Icons.add,
-            size: 20.sp,
-            color: MyColors.white,
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

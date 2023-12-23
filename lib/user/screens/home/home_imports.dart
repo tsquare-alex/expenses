@@ -8,7 +8,7 @@ import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/general/widgets/widgets_imports.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/models/tab_model/tab_model.dart';
-import 'package:expenses/user/screens/budget/budget.dart';
+import 'package:expenses/user/screens/budget/budget_imports.dart';
 import 'package:expenses/user/screens/cash_transactions/cash_transactions_imports.dart';
 import 'package:expenses/user/screens/database/database_imports.dart';
 import 'package:expenses/user/screens/expense/expense_imports.dart';

@@ -1,8 +1,8 @@
 import 'package:expenses/user/models/add_transaction_model/add_transaction_model.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_state.dart';
+import 'package:expenses/user/screens/budget/data/model/budget_model.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
 import 'package:expenses/user/screens/wallet/widgets/constants.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 
@@ -13,8 +13,7 @@ class BudgetCubit extends Cubit<BudgetState> {
   DateTime endDate = DateTime.now().add(Duration(days: 30));
 
   late List<WalletModel> wallets;
-  fetchdataFromWallet(context) async {
-    emit(AddBudgetInitial());
+  Future<void> fetchdataFromWallet(context) async {
     var walletBox = Hive.box<WalletModel>(databaseBox);
     List<WalletModel> data = walletBox.values.toList();
     wallets = data;
@@ -30,11 +29,12 @@ class BudgetCubit extends Cubit<BudgetState> {
     transactioList = data;
   }
 
-  Future addData(WalletModel model) async {
+  Future addData(BudgetModel model) async {
     emit(AddBudgetLoading());
+    var budgetbox = Hive.box<BudgetModel>("budgetBox");
+    await budgetbox.add(model);
+
     try {
-      var walletBox = Hive.box<WalletModel>(databaseBox);
-      await walletBox.add(model);
       emit(AddBudgetSuccess());
     } catch (e) {
       emit(AddBudgetFaliuer(message: e.toString()));
@@ -43,10 +43,15 @@ class BudgetCubit extends Cubit<BudgetState> {
 
   Future<void> getBudgetData(context) async {
     emit(AddBudgetLoading());
-    await Future.wait([
-      fetchDataFromTransations(context),
-      fetchdataFromWallet(context)
-    ] as Iterable<Future>);
-    emit(AddBudgetSuccess());
+    await Future.wait(
+        [fetchDataFromTransations(context), fetchdataFromWallet(context)]);
+    emit(OpenBudget());
+  }
+
+  List<BudgetModel> budgetList = [];
+  fetchData() async {
+    var budgetBox = Hive.box<BudgetModel>("budgetBox");
+    budgetList = budgetBox.values.toList();
+    emit(SuccessFetchData(budgets: budgetList));
   }
 }

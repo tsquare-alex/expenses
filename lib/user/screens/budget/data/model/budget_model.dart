@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 part 'budget_model.g.dart';
 
-@HiveType(typeId: 8)
+@HiveType(typeId: 30)
 class BudgetModel extends HiveObject {
   @HiveField(0)
   String name;
@@ -10,17 +10,14 @@ class BudgetModel extends HiveObject {
   @HiveField(2)
   String selectWallet;
   @HiveField(3)
-  String startBudget;
+  String budgetPeriod;
   @HiveField(4)
-  String endBudget;
-  @HiveField(5)
-  String transactionRepeat;
+  String? transactionRepeat;
 
   BudgetModel(
-      {required this.endBudget,
-      required this.selectTransaction,
+      {required this.selectTransaction,
       required this.selectWallet,
-      required this.startBudget,
-      required this.transactionRepeat,
+      required this.budgetPeriod,
+      this.transactionRepeat,
       required this.name});
 }

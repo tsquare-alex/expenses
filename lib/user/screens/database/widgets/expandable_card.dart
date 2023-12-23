@@ -180,127 +180,266 @@ class _ExpandableCardState extends State<ExpandableCard> {
                 ],
               ),
               if (isExpanded)
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   mainAxisSize: MainAxisSize.min,
+                //   children: [
+                //     const SizedBox(height: 10.0),
+                //     MyText(
+                //       title: widget.databaseData.department,
+                //       color: MyColors.primary,
+                //       size: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //     MyText(
+                //       title: widget.databaseData.emailAddress,
+                //       color: MyColors.primary,
+                //       size: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //     MyText(
+                //       title: widget.databaseData.adjective,
+                //       color: MyColors.primary,
+                //       size: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //     MyText(
+                //       title: widget.databaseData.firstName,
+                //       color: MyColors.primary,
+                //       size: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //     MyText(
+                //       title: widget.databaseData.secondName,
+                //       color: MyColors.primary,
+                //       size: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //     MyText(
+                //       title: widget.databaseData.workName,
+                //       color: MyColors.primary,
+                //       size: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //     MyText(
+                //       title: widget.databaseData.street,
+                //       color: MyColors.primary,
+                //       size: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //     MyText(
+                //       title: widget.databaseData.buildingNumber,
+                //       color: MyColors.primary,
+                //       size: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //     MyText(
+                //       title: widget.databaseData.apartmentNumber,
+                //       color: MyColors.primary,
+                //       size: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //     MyText(
+                //       title: widget.databaseData.postalNumber,
+                //       color: MyColors.primary,
+                //       size: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //     MyText(
+                //       title: widget.databaseData.eventTitle,
+                //       color: MyColors.primary,
+                //       size: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //     MyText(
+                //       title: widget.databaseData.eventDate,
+                //       color: MyColors.primary,
+                //       size: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //     MyText(
+                //       title: widget.databaseData.eventDetails,
+                //       color: MyColors.primary,
+                //       size: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //     MyText(
+                //       title: widget.databaseData.notes,
+                //       color: MyColors.primary,
+                //       size: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //     MyText(
+                //       title: widget.databaseData.web,
+                //       color: MyColors.primary,
+                //       size: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //     MyText(
+                //       title: widget.databaseData.facebook,
+                //       color: MyColors.primary,
+                //       size: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //     MyText(
+                //       title: widget.databaseData.instagram,
+                //       color: MyColors.primary,
+                //       size: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //     MyText(
+                //       title: widget.databaseData.youtube,
+                //       color: MyColors.primary,
+                //       size: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //     MyText(
+                //       title: widget.databaseData.messenger,
+                //       color: MyColors.primary,
+                //       size: 15.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //   ],
+                // )
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const SizedBox(height: 10.0),
-                    MyText(
-                      title: widget.databaseData.department,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: widget.databaseData.emailAddress,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: widget.databaseData.adjective,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: widget.databaseData.firstName,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: widget.databaseData.secondName,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: widget.databaseData.workName,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: widget.databaseData.street,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: widget.databaseData.buildingNumber,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: widget.databaseData.apartmentNumber,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: widget.databaseData.postalNumber,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: widget.databaseData.eventTitle,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: widget.databaseData.eventDate,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: widget.databaseData.eventDetails,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: widget.databaseData.notes,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: widget.databaseData.web,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: widget.databaseData.facebook,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: widget.databaseData.instagram,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: widget.databaseData.youtube,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: widget.databaseData.messenger,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    if (widget.databaseData.department.isNotEmpty)
+                      MyText(
+                        title: widget.databaseData.department,
+                        color: MyColors.primary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    if (widget.databaseData.emailAddress.isNotEmpty)
+                      MyText(
+                        title: widget.databaseData.emailAddress,
+                        color: MyColors.primary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    if (widget.databaseData.adjective.isNotEmpty)
+                      MyText(
+                        title: widget.databaseData.adjective,
+                        color: MyColors.primary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    if (widget.databaseData.firstName.isNotEmpty)
+                      MyText(
+                        title: widget.databaseData.firstName,
+                        color: MyColors.primary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    if (widget.databaseData.secondName.isNotEmpty)
+                      MyText(
+                        title: widget.databaseData.secondName,
+                        color: MyColors.primary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    if (widget.databaseData.workName.isNotEmpty)
+                      MyText(
+                        title: widget.databaseData.workName,
+                        color: MyColors.primary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    if (widget.databaseData.street.isNotEmpty)
+                      MyText(
+                        title: widget.databaseData.street,
+                        color: MyColors.primary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    if (widget.databaseData.buildingNumber.isNotEmpty)
+                      MyText(
+                        title: widget.databaseData.buildingNumber,
+                        color: MyColors.primary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    if (widget.databaseData.apartmentNumber.isNotEmpty)
+                      MyText(
+                        title: widget.databaseData.apartmentNumber,
+                        color: MyColors.primary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    if (widget.databaseData.postalNumber.isNotEmpty)
+                      MyText(
+                        title: widget.databaseData.postalNumber,
+                        color: MyColors.primary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    if (widget.databaseData.eventTitle.isNotEmpty)
+                      MyText(
+                        title: widget.databaseData.eventTitle,
+                        color: MyColors.primary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    if (widget.databaseData.eventDate.isNotEmpty)
+                      MyText(
+                        title: widget.databaseData.eventDate,
+                        color: MyColors.primary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    if (widget.databaseData.eventDetails.isNotEmpty)
+                      MyText(
+                        title: widget.databaseData.eventDetails,
+                        color: MyColors.primary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    if (widget.databaseData.notes.isNotEmpty)
+                      MyText(
+                        title: widget.databaseData.notes,
+                        color: MyColors.primary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    if (widget.databaseData.web.isNotEmpty)
+                      MyText(
+                        title: widget.databaseData.web,
+                        color: MyColors.primary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    if (widget.databaseData.facebook.isNotEmpty)
+                      MyText(
+                        title: widget.databaseData.facebook,
+                        color: MyColors.primary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    if (widget.databaseData.instagram.isNotEmpty)
+                      MyText(
+                        title: widget.databaseData.instagram,
+                        color: MyColors.primary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    if (widget.databaseData.youtube.isNotEmpty)
+                      MyText(
+                        title: widget.databaseData.youtube,
+                        color: MyColors.primary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    if (widget.databaseData.messenger.isNotEmpty)
+                      MyText(
+                        title: widget.databaseData.messenger,
+                        color: MyColors.primary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
                   ],
-                )
+                ),
             ],
           ),
         ),

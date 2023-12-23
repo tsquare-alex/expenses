@@ -122,10 +122,16 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
                     },
                     child: Column(
                       children: [
-                        CircleAvatar(
+                        widget.databaseData.image.isNotEmpty
+                            ? CircleAvatar(
+                          radius: 50.0,
+                          backgroundImage: MemoryImage(widget.databaseData.image),
+                          // child: Image.memory(widget.databaseData.image),
+                        )
+                            : CircleAvatar(
                           radius: 25.0,
-                          child: Image.memory(
-                            widget.databaseData.image,
+                          child: Image.asset(
+                            "assets/images/user.png",
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -208,37 +214,43 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
     );
   }
 
-  Widget buildImageContainer() {
-    return GestureDetector(
-      onTap: () async {
-        // Handle image selection logic if needed
-      },
-      child: Column(
-        children: [
-          CircleAvatar(
-            radius: 25.0,
-            child: Image.asset(
-              "assets/images/user.png",
-              fit: BoxFit.cover,
-            ),
-          ),
-          MyText(
-            title: "أضف صورة",
-            color: MyColors.primary,
-            size: 12.sp,
-          ),
-          // Display the selected image if available
-          // Use widget.databaseData.image or any other field that contains the image data
-          if (widget.databaseData.image != null)
-            Container(
-              height: 100,
-              width: 100,
-              child: Image.memory(widget.databaseData.image),
-            ),
-        ],
-      ),
-    );
-  }
+  // Widget buildImageContainer() {
+  //   return GestureDetector(
+  //     onTap: () async {
+  //       // Handle image selection logic if needed
+  //     },
+  //     child: Column(
+  //       children: [
+  //         widget.databaseData.image.isNotEmpty
+  //             ? CircleAvatar(
+  //           radius: 25.0,
+  //           // backgroundImage: MemoryImage(widget.databaseData.image),
+  //           // child: Image.memory(widget.databaseData.image),
+  //         )
+  //             : CircleAvatar(
+  //           radius: 25.0,
+  //           child: Image.asset(
+  //             "assets/images/user.png",
+  //             fit: BoxFit.cover,
+  //           ),
+  //         ),
+  //         MyText(
+  //           title: "أضف صورة",
+  //           color: MyColors.primary,
+  //           size: 12.sp,
+  //         ),
+  //         // Display the selected image if available
+  //         // Use widget.databaseData.image or any other field that contains the image data
+  //         if (widget.databaseData.image != null)
+  //           Container(
+  //             height: 100,
+  //             width: 100,
+  //             child: Image.memory(widget.databaseData.image),
+  //           ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget buildTextFormField(String fieldName, TextEditingController controller) {
     return Card(

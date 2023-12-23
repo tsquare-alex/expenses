@@ -108,6 +108,10 @@ class MainData {
       create: (context) => DatabaseCubit(),
 
     ),
+    BlocProvider<FavoriteCubit>(
+      create: (context) => FavoriteCubit(),
+
+    ),
     // BlocProvider<UserCubit>(
     //     create: (BuildContext context)=> UserCubit()
     // ),

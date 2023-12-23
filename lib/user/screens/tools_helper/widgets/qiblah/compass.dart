@@ -1,3 +1,5 @@
+
+
 import 'dart:async';
 import 'dart:math' show pi;
 import 'package:expenses/res.dart';
@@ -6,128 +8,74 @@ import 'package:flutter_qiblah/flutter_qiblah.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'location_error_widget.dart';
-class QiblahCompass extends StatefulWidget {
-  @override
-  _QiblahCompassState createState() => _QiblahCompassState();
-}
 
-class _QiblahCompassState extends State<QiblahCompass> {
-  final _locationStreamController = StreamController<LocationStatus>.broadcast();
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-  get stream => _locationStreamController.stream;
 
-  Future<void> _checkLocationStatus() async {
-
-    final locationStatus = await FlutterQiblah.checkLocationStatus();
-    if (locationStatus.enabled &&
-        locationStatus.status == LocationPermission.denied) {
-      await FlutterQiblah.requestPermissions();
-      final s = await FlutterQiblah.checkLocationStatus();
-      _locationStreamController.sink.add(s);
-    } else
-      _locationStreamController.sink.add(locationStatus);
-  }
-
-  @override
-  void initState() {
-    _checkLocationStatus();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _locationStreamController.close();
-    FlutterQiblah().dispose();
-  }
+class QiblahScreen extends StatelessWidget {
+  const QiblahScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      padding: const EdgeInsets.all(8.0),
-      child: StreamBuilder(
-        stream: stream,
-        builder: (context, AsyncSnapshot<LocationStatus> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (snapshot.data!.enabled == true) {
-            switch (snapshot.data!.status) {
-              case LocationPermission.always:
-              case LocationPermission.whileInUse:
-                return QiblahCompassWidget();
-
-              case LocationPermission.denied:
-                return LocationErrorWidget(
-                  error: "Location service permission denied",
-                  callback: _checkLocationStatus,
-                );
-              case LocationPermission.deniedForever:
-                return LocationErrorWidget(
-                  error: "Location service Denied Forever !",
-                  callback: _checkLocationStatus,
-                );
-              default:
-                return Container();
-            }
-          } else {
-            return LocationErrorWidget(
-              error: "Please enable Location service",
-              callback: _checkLocationStatus,
-            );
-          }
-        },
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back, color: Colors.white)),
+        actions: [
+          IconButton(
+              onPressed: () => Navigator.pushNamed(context, '/bookmarks'),
+              icon: const Icon(Icons.bookmark, color: Colors.white)),
+          IconButton(
+              onPressed: () => Navigator.pushNamed(context, '/setting'),
+              icon: const Icon(Icons.settings, color: Colors.white)),
+        ],
       ),
-    );
-  }
-
-}
-class QiblahCompassWidget extends StatelessWidget {
-  final _compassSvg = SvgPicture.asset(Res.compass);
-  final _needleSvg = SvgPicture.asset(
-    Res.needle,
-    fit: BoxFit.contain,
-    height: 300,
-    alignment: Alignment.center,
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<QiblahDirection>(
-      stream: FlutterQiblah.qiblahStream,
-      builder: (_, AsyncSnapshot<QiblahDirection> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        if (!snapshot.hasData || snapshot.data == null) {
-          return const Center(child: Text("No Qiblah data available"));
-        }
-
-        final qiblahDirection = snapshot.data!;
-
-        return Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            Transform.rotate(
-              angle: (qiblahDirection.direction * (pi / 180) * -1),
-              child: _compassSvg,
-            ),
-            Transform.rotate(
-              angle: (qiblahDirection.qiblah * (pi / 180) * -1),
-              alignment: Alignment.center,
-              child: _needleSvg,
-            ),
-            Positioned(
-              bottom: 8,
-              child: Text("${qiblahDirection.offset.toStringAsFixed(3)}°"),
-            )
-          ],
-        );
-      },
-    );
+      body: Center(
+        child: Text(""),
+          // child: SmoothCompass(
+          //   height: 250,
+          //   width: 280,
+          //   isQiblahCompass: true,
+          //   compassBuilder: (context, snapshot, child) {
+          //     return SizedBox(
+          //       height: 280,
+          //       width: 280,
+          //       child: AnimatedRotation(
+          //         duration: const Duration(milliseconds: 800),
+          //         turns: snapshot?.data?.turns ?? 0,
+          //         child: Stack(
+          //           children: [
+          //             Positioned(
+          //                 top: 0,
+          //                 left: 0,
+          //                 right: 0,
+          //                 bottom: 0,
+          //                 child: SvgPicture.asset(
+          //                   'assets/svg/compass.svg',
+          //                   fit: BoxFit.cover,
+          //                 )),
+          //             Positioned(
+          //               top: 0,
+          //               left: 0,
+          //               right: 0,
+          //               bottom: 0,
+          //               child: AnimatedRotation(
+          //                   duration: const Duration(milliseconds: 500),
+          //                   turns: (snapshot?.data?.qiblahOffset ?? 0) / 360,
+          //                   //Place your qiblah needle here
+          //                   child: SvgPicture.asset(
+          //                     'assets/svg/needle.svg',
+          //                     fit: BoxFit.fitHeight,
+          //                   )),
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //     );
+          //   },
+          // )),
+    ));
   }
 }

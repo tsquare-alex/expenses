@@ -138,7 +138,6 @@
   "convertCMtoKilo" : "Convert from CentiMeter to KiloMeter",
   "convertKiloToM" : "Convert from KiloMeter to Meter",
   "convertKiloToCM" : "Convert from KiloMeter to CentiMeter",
-  "convert" : "Convert",
   "convertSquareMToKiloM" : "Convert from Square Meter to Square Kilometer",
   "convertSquareMToMile" : "Convert from Square Meter to Square Mile",
   "convertSquareMToHectare" : "Convert from Square Meter to Hectare",
@@ -150,8 +149,7 @@
   "categoryPlace": "Place / Location",
   "categoryPerson": "Person / individual",
   "categoryItem": "Commodity / Item",
-  "lengthConvert": "Length Convert",
-  "areaConvert": "Area Convert"
+  "convert": "Convert"
 
 
 

@@ -308,7 +308,6 @@
   "convertCMtoKilo" : "تحويل من سنتيمتر إلى كيلو متر",
   "convertKiloToM" : "تحويل من كيلو متر إلى متر",
   "convertKiloToCM" : "تحويل من كيلو متر إلى سنتيمتر",
-  "convert" : "تحويل",
   "convertSquareMToKiloM" : "تحويل من متر مربع إلى كيلومتر مربع",
   "convertSquareMToMile" : "تحويل من متر مربع إلى ميل مربع",
   "convertSquareMToHectare" : "تحويل من متر مربع إلى هكتار",
@@ -322,8 +321,7 @@
   "categoryPerson": "الشخص / الفرد",
   "categoryItem": "السلعة / البند",
 
-  "lengthConvert": "تحويل الطول",
-  "areaConvert": "تحويل المساحة"
+  "convert": "التحويلات"
 
 
 

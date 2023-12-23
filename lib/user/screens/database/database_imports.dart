@@ -17,12 +17,15 @@ import 'package:expenses/user/screens/database/widgets/build_phone_expansion.dar
 import 'package:expenses/user/screens/database/widgets/build_work_expansion.dart';
 import 'package:expenses/user/screens/database/widgets/expandable_card.dart';
 import 'package:expenses/user/screens/database/widgets/my_expansion.dart';
+// import 'package:expenses/user/screens/favorite.dart';
+import 'package:expenses/user/screens/tools_helper/cubit/favorite_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../general/models/data_base_model/data_base_model.dart';
+import '../tools_helper/favorite.dart';
 import 'cubit/database_cubit.dart';
 import 'cubit/my_expansion_cubit/my_expansion_cubit.dart';
 // import 'database_data.dart';

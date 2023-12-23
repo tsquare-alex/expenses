@@ -27,7 +27,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       const Settings(),
       ToolsHelper(),
       Database(),
-      Container(),
+      FavoriteScreen(),
       const Wallet(),
       const Budget(),
     ];

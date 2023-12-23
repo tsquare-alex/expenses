@@ -21,11 +21,11 @@ part of 'RouterImports.dart';
     AdaptiveRoute(page: Home),
     AdaptiveRoute(page: DatabaseDetails),
     AdaptiveRoute(page: AddDatabase),
-    AdaptiveRoute(page: QiblahCompassWidget),
+    // AdaptiveRoute(page: QiblahCompassWidget),
 
 
     AdaptiveRoute(page: AddTransaction),
-    AdaptiveRoute(page: AreaConverter),
+    // AdaptiveRoute(page: AreaConverter),
 
 
     AdaptiveRoute(page: BMICalculator),

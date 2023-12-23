@@ -22,5 +22,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../tools_helper/favorite.dart';
+
 part 'home.dart';
 part 'home_data.dart';

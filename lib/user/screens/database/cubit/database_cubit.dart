@@ -21,12 +21,7 @@ class DatabaseCubit extends Cubit<DatabaseState> {
   }
 
 
-  bool isExpanded = false;
 
-  void toggleExpanded() {
-    isExpanded = !isExpanded;
-    emit(DatabaseToggle(isExpanded: isExpanded));
-  }
 
 
 }

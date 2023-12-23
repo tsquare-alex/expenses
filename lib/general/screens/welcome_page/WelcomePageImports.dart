@@ -1,10 +1,12 @@
 import 'package:expenses/general/models/WelcomeEntity.dart';
 import 'package:expenses/general/packages/generic_bloc/generic_cubit.dart';
 import 'package:expenses/res.dart';
+import 'package:expenses/user/models/auth_model/authentication_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:local_auth/local_auth.dart';
 
 

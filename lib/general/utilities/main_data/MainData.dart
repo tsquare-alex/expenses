@@ -112,6 +112,10 @@ class MainData {
       create: (context) => FavoriteCubit(),
 
     ),
+    BlocProvider<AuthenticationCubit>(
+      create: (context) => AuthenticationCubit()..loadAuthenticationStatus(),
+
+    ),
     // BlocProvider<UserCubit>(
     //     create: (BuildContext context)=> UserCubit()
     // ),

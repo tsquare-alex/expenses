@@ -73,9 +73,15 @@ class _WelcomePageState extends State<WelcomePage> {
       setState(() {
         _isAuthenticated = authenticated;
       });
+      _saveAuthenticationStatus(authenticated);
       print("Authenticated : $authenticated");
     }on PlatformException catch(e){
       print(e);
     }
+  }
+
+  void _saveAuthenticationStatus(bool isAuthenticated) async {
+    final box = await Hive.openBox<AuthenticationInfo>('authentication_box');
+    await box.put(1, AuthenticationInfo(isAuthenticated: isAuthenticated));
   }
 }

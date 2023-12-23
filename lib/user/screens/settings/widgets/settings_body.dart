@@ -115,6 +115,52 @@ class SettingsBody extends StatelessWidget {
           ],
         ),
         SizedBox(height: 10.h),
+        Container(
+          // height: 200,
+          child: Column(
+            children: [
+              BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                builder: (context, state) {
+                  return SwitchListTile(
+                    title: Text('Enable Authentication'),
+                    value: state.isAuthenticated,
+                    onChanged: (value) async {
+                      final authenticationCubit = context.read<AuthenticationCubit>();
+                      if (value && authenticationCubit.isAuthenticationRequired()) {
+                        // Show authentication dialog
+                        bool authenticated = await authenticationCubit.showAuthenticationDialog();
+                        // Only update the status if the authentication was successful
+                        if (authenticated) {
+                          authenticationCubit.emit(AuthenticationState(isAuthenticated: true));
+                        }
+                      } else {
+                        // If authentication is not required or the user turns off the switch
+                        if (!value) {
+                          authenticationCubit.clearAuthenticationStatus();
+                        }
+                        authenticationCubit.emit(AuthenticationState(isAuthenticated: value));
+                      }
+                    },
+                  );
+                },
+              ),
+              BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                builder: (context, state) {
+                  return Visibility(
+                    visible: state.isAuthenticated,
+                    child: Text(
+                      'Authentication is enabled',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
         CustomTile(
           children: [
             Padding(

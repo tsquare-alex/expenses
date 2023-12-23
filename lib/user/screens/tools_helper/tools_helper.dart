@@ -122,6 +122,8 @@
 // }
 //
 import 'package:auto_route/auto_route.dart';
+import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/acceleration_converter/accekeration_converter.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/area_converter/area_converter.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/electric_converter/electric_converter.dart';
@@ -153,9 +155,9 @@ class ToolsHelper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(14.0),
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -207,83 +209,78 @@ class ToolsHelper extends StatelessWidget {
                 onFavoriteTap: () => _toggleFavoriteStatus(context, "clothesSize"),
               ),
               const SizedBox(height: 20),
-              BuildToolsWidget(
-                onTap: () => _navigateToToolScreen(context, "convert"),
-                title: "convert",
-                icon: FontAwesomeIcons.exchange,
-                isFavorite: context.watch<FavoriteCubit>().isFavorite("convert"),
-                onFavoriteTap: () => _toggleFavoriteStatus(context, "convert"),
-              ),
-              BuildToolsWidget(
-                onTap: () => _navigateToToolScreen(context, "bmi"),
-                title: "bmi",
-                icon: FontAwesomeIcons.weightHanging,
-                isFavorite: context.watch<FavoriteCubit>().isFavorite("bmi"),
-                onFavoriteTap: () => _toggleFavoriteStatus(context, "bmi"),
-              ),
-              BuildToolsWidget(
-                onTap: () => _navigateToToolScreen(context, "currency"),
-                title: "currency",
-                icon: FontAwesomeIcons.moneyCheckDollar,
-                isFavorite: context.watch<FavoriteCubit>().isFavorite("currency"),
-                onFavoriteTap: () => _toggleFavoriteStatus(context, "currency"),
-              ),
-              BuildToolsWidget(
-                onTap: () => _navigateToToolScreen(context, "length"),
-                title: "length",
-                icon: FontAwesomeIcons.leaf,
-                isFavorite: context.watch<FavoriteCubit>().isFavorite("length"),
-                onFavoriteTap: () => _toggleFavoriteStatus(context, "length"),
-              ),
-              BuildToolsWidget(
-                onTap: () => _navigateToToolScreen(context, "mass"),
-                title: "mass",
-                icon: FontAwesomeIcons.leaf,
-                isFavorite: context.watch<FavoriteCubit>().isFavorite("mass"),
-                onFavoriteTap: () => _toggleFavoriteStatus(context, "mass"),
-              ),
-              BuildToolsWidget(
-                onTap: () => _navigateToToolScreen(context, "time"),
-                title: "time",
-                icon: FontAwesomeIcons.times,
-                isFavorite: context.watch<FavoriteCubit>().isFavorite("time"),
-                onFavoriteTap: () => _toggleFavoriteStatus(context, "time"),
-              ),
-              BuildToolsWidget(
-                onTap: () => _navigateToToolScreen(context, "electric"),
-                title: "electric",
-                icon: FontAwesomeIcons.lightbulb,
-                isFavorite: context.watch<FavoriteCubit>().isFavorite("electric"),
-                onFavoriteTap: () => _toggleFavoriteStatus(context, "electric"),
-              ),
-              BuildToolsWidget(
-                onTap: () => _navigateToToolScreen(context, "temperature"),
-                title: "temperature",
-                icon: FontAwesomeIcons.temperature1,
-                isFavorite: context.watch<FavoriteCubit>().isFavorite("temperature"),
-                onFavoriteTap: () => _toggleFavoriteStatus(context, "temperature"),
-              ),
-              BuildToolsWidget(
-                onTap: () => _navigateToToolScreen(context, "acceleration"),
-                title: "acceleration",
-                icon: FontAwesomeIcons.fastForward,
-                isFavorite: context.watch<FavoriteCubit>().isFavorite("acceleration"),
-                onFavoriteTap: () => _toggleFavoriteStatus(context, "acceleration"),
-              ),
-              BuildToolsWidget(
-                onTap: () => _navigateToToolScreen(context, "area"),
-                title: "area",
-                icon: FontAwesomeIcons.chartArea,
-                isFavorite: context.watch<FavoriteCubit>().isFavorite("area"),
-                onFavoriteTap: () => _toggleFavoriteStatus(context, "area"),
-              ),
-              BuildToolsWidget(
-                onTap: () => _navigateToToolScreen(context, "speed"),
-                title: "speed",
-                icon: FontAwesomeIcons.fastForward,
-                isFavorite: context.watch<FavoriteCubit>().isFavorite("speed"),
-                onFavoriteTap: () => _toggleFavoriteStatus(context, "speed"),
-              ),
+           ExpandableTile(title: "tools", children: [
+             BuildToolsWidget(
+               onTap: () => _navigateToToolScreen(context, "bmi"),
+               title: "bmi",
+               icon: FontAwesomeIcons.weightHanging,
+               isFavorite: context.watch<FavoriteCubit>().isFavorite("bmi"),
+               onFavoriteTap: () => _toggleFavoriteStatus(context, "bmi"),
+             ),
+             BuildToolsWidget(
+               onTap: () => _navigateToToolScreen(context, "currency"),
+               title: "convertCurrency",
+               icon: FontAwesomeIcons.moneyCheckDollar,
+               isFavorite: context.watch<FavoriteCubit>().isFavorite("currency"),
+               onFavoriteTap: () => _toggleFavoriteStatus(context, "currency"),
+             ),
+             BuildToolsWidget(
+               onTap: () => _navigateToToolScreen(context, "length"),
+               title: "convertLength",
+               icon: FontAwesomeIcons.leaf,
+               isFavorite: context.watch<FavoriteCubit>().isFavorite("length"),
+               onFavoriteTap: () => _toggleFavoriteStatus(context, "length"),
+             ),
+             BuildToolsWidget(
+               onTap: () => _navigateToToolScreen(context, "mass"),
+               title: "convertMass",
+               icon: FontAwesomeIcons.leaf,
+               isFavorite: context.watch<FavoriteCubit>().isFavorite("mass"),
+               onFavoriteTap: () => _toggleFavoriteStatus(context, "mass"),
+             ),
+             BuildToolsWidget(
+               onTap: () => _navigateToToolScreen(context, "time"),
+               title: "convertTime",
+               icon: FontAwesomeIcons.times,
+               isFavorite: context.watch<FavoriteCubit>().isFavorite("time"),
+               onFavoriteTap: () => _toggleFavoriteStatus(context, "time"),
+             ),
+             BuildToolsWidget(
+               onTap: () => _navigateToToolScreen(context, "electric"),
+               title: "convertElectric",
+               icon: FontAwesomeIcons.lightbulb,
+               isFavorite: context.watch<FavoriteCubit>().isFavorite("electric"),
+               onFavoriteTap: () => _toggleFavoriteStatus(context, "electric"),
+             ),
+             BuildToolsWidget(
+               onTap: () => _navigateToToolScreen(context, "temperature"),
+               title: "convertTemperature",
+               icon: FontAwesomeIcons.temperature1,
+               isFavorite: context.watch<FavoriteCubit>().isFavorite("temperature"),
+               onFavoriteTap: () => _toggleFavoriteStatus(context, "temperature"),
+             ),
+             BuildToolsWidget(
+               onTap: () => _navigateToToolScreen(context, "acceleration"),
+               title: "convertAcceleration",
+               icon: FontAwesomeIcons.fastForward,
+               isFavorite: context.watch<FavoriteCubit>().isFavorite("acceleration"),
+               onFavoriteTap: () => _toggleFavoriteStatus(context, "acceleration"),
+             ),
+             BuildToolsWidget(
+               onTap: () => _navigateToToolScreen(context, "area"),
+               title: "convertArea",
+               icon: FontAwesomeIcons.chartArea,
+               isFavorite: context.watch<FavoriteCubit>().isFavorite("area"),
+               onFavoriteTap: () => _toggleFavoriteStatus(context, "area"),
+             ),
+             BuildToolsWidget(
+               onTap: () => _navigateToToolScreen(context, "speed"),
+               title: "convertSpeed",
+               icon: FontAwesomeIcons.fastForward,
+               isFavorite: context.watch<FavoriteCubit>().isFavorite("speed"),
+               onFavoriteTap: () => _toggleFavoriteStatus(context, "speed"),
+             ),
+           ])
             ],
           ),
         ),
@@ -311,9 +308,10 @@ class ToolsHelper extends StatelessWidget {
       case "clothesSize":
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => ClothesSizeScreen()));
         break;
-      case "convert":
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ConverterScreen()));
-        break; case "bmi":
+      // case "convert":
+      //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => ConverterScreen()));
+      //   break;
+        case "bmi":
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => BMICalculator()));
         break;
         case "currency":
@@ -383,75 +381,27 @@ class ToolsHelper extends StatelessWidget {
   }
 }
 
-// // class ToolsHelper extends StatelessWidget {
-// //   const ToolsHelper({Key? key}) : super(key: key);
-// //
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return Scaffold(
-// //       body: Padding(
-// //         padding: const EdgeInsets.all(14.0),
-// //         child: Column(
-// //           crossAxisAlignment: CrossAxisAlignment.stretch,
-// //           children: [
-// //             BuildToolsWidget(
-// //               onTap: () => AutoRouter.of(context).push(QiblahCompassWidgetRoute()),
-// //               title: "qiblah",
-// //               icon: FontAwesomeIcons.kaaba,
-// //               isFavorite: context.watch<FavoriteCubit>().isFavorite("qiblah"),
-// //               onFavoriteTap: () => context.read<FavoriteCubit>().toggleFavoriteStatus("qiblah"),
-// //             ),
-// //             const SizedBox(height: 20),
-// //             BuildToolsWidget(
-// //               onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => CalenderScreen())),
-// //               title: "calender",
-// //               icon: FontAwesomeIcons.calendar,
-// //               isFavorite: context.watch<FavoriteCubit>().isFavorite("calender"),
-// //               onFavoriteTap: () => context.read<FavoriteCubit>().toggleFavoriteStatus("calender"),
-// //             ),
-// //             const SizedBox(height: 20),
-// //             BuildToolsWidget(
-// //               onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => CalculatorScreen())),
-// //               title: "calculator",
-// //               icon: FontAwesomeIcons.calculator,
-// //               isFavorite: context.watch<FavoriteCubit>().isFavorite("calculator"),
-// //               onFavoriteTap: () => context.read<FavoriteCubit>().toggleFavoriteStatus("calculator"),
-// //             ),
-// //             const SizedBox(height: 20),
-// //             BuildToolsWidget(
-// //               onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ShoesSizeScreen())),
-// //               title: "shoesSize",
-// //               icon: FontAwesomeIcons.shoePrints,
-// //               isFavorite: context.watch<FavoriteCubit>().isFavorite("shoesSize"),
-// //               onFavoriteTap: () => context.read<FavoriteCubit>().toggleFavoriteStatus("shoesSize"),
-// //             ),
-// //             const SizedBox(height: 20),
-// //             BuildToolsWidget(
-// //               onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => RingSizeScreen())),
-// //               title: "ringSize",
-// //               icon: FontAwesomeIcons.ring,
-// //               isFavorite: context.watch<FavoriteCubit>().isFavorite("ringSize"),
-// //               onFavoriteTap: () => context.read<FavoriteCubit>().toggleFavoriteStatus("ringSize"),
-// //             ),
-// //             const SizedBox(height: 20),
-// //             BuildToolsWidget(
-// //               onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ClothesSizeScreen())),
-// //               title: "clothesSize",
-// //               icon: FontAwesomeIcons.shirt,
-// //               isFavorite: context.watch<FavoriteCubit>().isFavorite("clothesSize"),
-// //               onFavoriteTap: () => context.read<FavoriteCubit>().toggleFavoriteStatus("clothesSize"),
-// //             ),
-// //             const SizedBox(height: 20),
-// //             BuildToolsWidget(
-// //               title: "convert",
-// //               icon: FontAwesomeIcons.exchange,
-// //               isFavorite: context.watch<FavoriteCubit>().isFavorite("convert"),
-// //               onFavoriteTap: () => context.read<FavoriteCubit>().toggleFavoriteStatus("convert"),
-// //               onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ConverterScreen())),
-// //             ),
-// //           ],
-// //         ),
-// //       ),
-// //     );
-// //   }
-// // }
+class ExpandableTile extends StatelessWidget {
+  final String title;
+  final List<Widget> children;
+
+  ExpandableTile({required this.title, required this.children});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      surfaceTintColor: Colors.white,
+      child: ExpansionTile(
+        title: Row(
+          children: [
+            Icon(FontAwesomeIcons.toolbox,color: MyColors.primary,),
+            const SizedBox(width: 15,),
+            Text(tr(context, title)),
+
+          ],
+        ),
+        children: children,
+      ),
+    );
+  }
+}

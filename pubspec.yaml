@@ -77,7 +77,6 @@ dependencies:
   table_calendar:
   font_awesome_flutter:
   flutter_barcode_scanner:
-  smooth_compass:
 
 dev_dependencies:
   flutter_test:

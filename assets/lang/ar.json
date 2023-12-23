@@ -321,7 +321,24 @@
   "categoryPerson": "الشخص / الفرد",
   "categoryItem": "السلعة / البند",
 
-  "convert": "التحويلات"
+  "convert": "التحويلات",
+  "convertLength": "تحويل الطول",
+  "convertCurrency": "تحويل العملة",
+  "convertMass": "تحويل الكتلة",
+  "convertTime": "تحويل الوقت",
+  "convertElectric": "تحويل الكهربائية",
+  "convertTemperature": "تحويل درجة الحرارة",
+  "convertAcceleration": "تحويل التسارع",
+  "convertArea": "تحويل المساحة",
+  "convertSpeed": "تحويل السرعة",
+
+
+
+  "bmi": "مؤشر كتلة الجسم",
+  "tools": "ادوات"
+
+
+
 
 
 

@@ -149,7 +149,18 @@
   "categoryPlace": "Place / Location",
   "categoryPerson": "Person / individual",
   "categoryItem": "Commodity / Item",
-  "convert": "Convert"
+  "convert": "Convert",
+  "convertLength": "Convert Length",
+  "convertMass": "Convert Mass",
+  "convertTime": "Convert Time",
+  "convertElectric": "Convert Electric",
+  "convertTemperature": "Convert Temperature",
+  "convertAcceleration": "Convert Acceleration",
+  "convertArea": "Convert Area",
+  "convertSpeed": "Convert Speed",
+  "bmi": "Bmi",
+  "tools": "Tools"
+
 
 
 

@@ -217,12 +217,10 @@ class _AddWalletState extends State<AddWallet> {
                             IconButton(
                                 onPressed: () {
                                   data.addWalletCategoryValue(
-                                      context, build, categoryController, () {
-                                    if (controller.text.isNotEmpty) {
-                                      walletCategory.add(controller.text);
-                                      Navigator.of(context).pop();
-                                    }
-                                  });
+                                    context,
+                                    build,
+                                    categoryController,
+                                  );
                                 },
                                 icon: const Icon(Icons.add))
                           ],

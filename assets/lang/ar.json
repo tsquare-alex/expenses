@@ -316,5 +316,6 @@
   "durationTo": "المدة إلى",
   "residual": "المتبقي",
   "transactionsHistory": "سجل المعاملات",
-  "seeAll": "استعراض الكل"
+  "seeAll": "استعراض الكل",
+  "reportDetails" : "تفاصيل التقرير"
 }

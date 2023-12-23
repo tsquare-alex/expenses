@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
-import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/screens/budget/widget/custom_icon.dart';
 import 'package:expenses/user/screens/budget/widget/item_budget.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,7 @@ class Budget extends StatelessWidget {
       body: Column(children: [
         Expanded(
           child: ListView.separated(
-            itemCount: 5,
+            itemCount: 2,
             itemBuilder: (context, index) => const ItemBudget(
                 precent: 0.4,
                 title: "title",
@@ -29,12 +28,18 @@ class Budget extends StatelessWidget {
             },
           ),
         ),
-        CustomIcon(
-          onPressed: () {
-            AutoRouter.of(context).push(const AddTransactionBudgetRoute());
-          },
-        ),
       ]),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          AutoRouter.of(context).push(const AddTransactionBudgetRoute());
+        },
+        backgroundColor: MyColors.primary,
+        child: Icon(
+          Icons.add,
+          size: 20.sp,
+          color: MyColors.white,
+        ),
+      ),
     );
   }
 }

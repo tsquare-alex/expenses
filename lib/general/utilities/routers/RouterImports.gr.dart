@@ -38,7 +38,7 @@ import 'package:expenses/user/screens/add_transaction/add_transaction_imports.da
 import 'package:expenses/user/screens/bmi_calculator/bmi_calculator_imports.dart'
     as _i17;
 import 'package:expenses/user/screens/budget/widget/add_transaction.dart'
-    as _i24;
+    as _i32;
 import 'package:expenses/user/screens/cash_transactions/cash_transactions_imports.dart'
     as _i21;
 import 'package:expenses/user/screens/change_currency/change_currency_imports.dart'
@@ -52,10 +52,10 @@ import 'package:expenses/user/screens/home/home_imports.dart' as _i10;
 import 'package:expenses/user/screens/repeated_transactions/repeated_transactions_imports.dart'
     as _i22;
 import 'package:expenses/user/screens/reports/statistics/statistics_imports.dart'
-    as _i27;
+    as _i26;
 import 'package:expenses/user/screens/shopping/shopping_imports.dart' as _i19;
 import 'package:expenses/user/screens/target/target_imports.dart' as _i20;
-import 'package:expenses/user/screens/tools_helper/tools_helper.dart' as _i32;
+import 'package:expenses/user/screens/tools_helper/tools_helper.dart' as _i31;
 import 'package:expenses/user/screens/tools_helper/widgets/arena_converter/arena_converter.dart'
     as _i16;
 import 'package:expenses/user/screens/tools_helper/widgets/qiblah/compass.dart'
@@ -64,14 +64,14 @@ import 'package:expenses/user/screens/transaction_details/transaction_details_im
     as _i15;
 import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart'
     as _i38;
-import 'package:expenses/user/screens/wallet/wallet_imports.dart' as _i28;
-import 'package:expenses/user/screens/wallet/widgets/add_balance.dart' as _i31;
-import 'package:expenses/user/screens/wallet/widgets/add_wallet.dart' as _i26;
+import 'package:expenses/user/screens/wallet/wallet_imports.dart' as _i27;
+import 'package:expenses/user/screens/wallet/widgets/add_balance.dart' as _i30;
+import 'package:expenses/user/screens/wallet/widgets/add_wallet.dart' as _i25;
 import 'package:expenses/user/screens/wallet/widgets/balance_transfer.dart'
-    as _i25;
+    as _i24;
 import 'package:expenses/user/screens/wallet/widgets/balance_withdrawal.dart'
-    as _i30;
-import 'package:expenses/user/screens/wallet/widgets/edit_Wallet.dart' as _i29;
+    as _i29;
+import 'package:expenses/user/screens/wallet/widgets/edit_Wallet.dart' as _i28;
 import 'package:flutter/material.dart' as _i34;
 
 class AppRouter extends _i33.RootStackRouter {
@@ -262,24 +262,17 @@ class AppRouter extends _i33.RootStackRouter {
         opaque: true,
       );
     },
-    AddTransactionBudgetRoute.name: (routeData) {
-      return _i33.AdaptivePage<dynamic>(
-        routeData: routeData,
-        child: const _i24.AddTransactionBudget(),
-        opaque: true,
-      );
-    },
     BalanceTransferRoute.name: (routeData) {
       return _i33.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i25.BalanceTransfer(),
+        child: const _i24.BalanceTransfer(),
         opaque: true,
       );
     },
     AddWalletRoute.name: (routeData) {
       return _i33.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i26.AddWallet(),
+        child: const _i25.AddWallet(),
         opaque: true,
       );
     },
@@ -287,7 +280,7 @@ class AppRouter extends _i33.RootStackRouter {
       final args = routeData.argsAs<StatisticsRouteArgs>();
       return _i33.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: _i27.Statistics(
+        child: _i26.Statistics(
           key: args.key,
           option: args.option,
         ),
@@ -297,7 +290,7 @@ class AppRouter extends _i33.RootStackRouter {
     WalletRoute.name: (routeData) {
       return _i33.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i28.Wallet(),
+        child: const _i27.Wallet(),
         opaque: true,
       );
     },
@@ -305,7 +298,7 @@ class AppRouter extends _i33.RootStackRouter {
       final args = routeData.argsAs<EditWalletRouteArgs>();
       return _i33.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: _i29.EditWallet(
+        child: _i28.EditWallet(
           key: args.key,
           model: args.model,
         ),
@@ -316,7 +309,7 @@ class AppRouter extends _i33.RootStackRouter {
       final args = routeData.argsAs<BalanceWithdrawalRouteArgs>();
       return _i33.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: _i30.BalanceWithdrawal(
+        child: _i29.BalanceWithdrawal(
           key: args.key,
           model: args.model,
         ),
@@ -327,7 +320,7 @@ class AppRouter extends _i33.RootStackRouter {
       final args = routeData.argsAs<AddBalanceRouteArgs>();
       return _i33.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: _i31.AddBalance(
+        child: _i30.AddBalance(
           key: args.key,
           model: args.model,
         ),
@@ -339,7 +332,14 @@ class AppRouter extends _i33.RootStackRouter {
           orElse: () => const ToolsHelperRouteArgs());
       return _i33.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: _i32.ToolsHelper(key: args.key),
+        child: _i31.ToolsHelper(key: args.key),
+        opaque: true,
+      );
+    },
+    AddTransactionBudgetRoute.name: (routeData) {
+      return _i33.AdaptivePage<dynamic>(
+        routeData: routeData,
+        child: const _i32.AddTransactionBudget(),
         opaque: true,
       );
     },
@@ -440,10 +440,6 @@ class AppRouter extends _i33.RootStackRouter {
           path: '/Expense',
         ),
         _i33.RouteConfig(
-          AddTransactionBudgetRoute.name,
-          path: '/add-transaction-budget',
-        ),
-        _i33.RouteConfig(
           BalanceTransferRoute.name,
           path: '/balance-transfer',
         ),
@@ -474,6 +470,10 @@ class AppRouter extends _i33.RootStackRouter {
         _i33.RouteConfig(
           ToolsHelperRoute.name,
           path: '/tools-helper',
+        ),
+        _i33.RouteConfig(
+          AddTransactionBudgetRoute.name,
+          path: '/add-transaction-budget',
         ),
       ];
 }
@@ -857,19 +857,7 @@ class ExpenseRoute extends _i33.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i24.AddTransactionBudget]
-class AddTransactionBudgetRoute extends _i33.PageRouteInfo<void> {
-  const AddTransactionBudgetRoute()
-      : super(
-          AddTransactionBudgetRoute.name,
-          path: '/add-transaction-budget',
-        );
-
-  static const String name = 'AddTransactionBudgetRoute';
-}
-
-/// generated route for
-/// [_i25.BalanceTransfer]
+/// [_i24.BalanceTransfer]
 class BalanceTransferRoute extends _i33.PageRouteInfo<void> {
   const BalanceTransferRoute()
       : super(
@@ -881,7 +869,7 @@ class BalanceTransferRoute extends _i33.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i26.AddWallet]
+/// [_i25.AddWallet]
 class AddWalletRoute extends _i33.PageRouteInfo<void> {
   const AddWalletRoute()
       : super(
@@ -893,7 +881,7 @@ class AddWalletRoute extends _i33.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i27.Statistics]
+/// [_i26.Statistics]
 class StatisticsRoute extends _i33.PageRouteInfo<StatisticsRouteArgs> {
   StatisticsRoute({
     _i34.Key? key,
@@ -927,7 +915,7 @@ class StatisticsRouteArgs {
 }
 
 /// generated route for
-/// [_i28.Wallet]
+/// [_i27.Wallet]
 class WalletRoute extends _i33.PageRouteInfo<void> {
   const WalletRoute()
       : super(
@@ -939,7 +927,7 @@ class WalletRoute extends _i33.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i29.EditWallet]
+/// [_i28.EditWallet]
 class EditWalletRoute extends _i33.PageRouteInfo<EditWalletRouteArgs> {
   EditWalletRoute({
     _i34.Key? key,
@@ -973,7 +961,7 @@ class EditWalletRouteArgs {
 }
 
 /// generated route for
-/// [_i30.BalanceWithdrawal]
+/// [_i29.BalanceWithdrawal]
 class BalanceWithdrawalRoute
     extends _i33.PageRouteInfo<BalanceWithdrawalRouteArgs> {
   BalanceWithdrawalRoute({
@@ -1008,7 +996,7 @@ class BalanceWithdrawalRouteArgs {
 }
 
 /// generated route for
-/// [_i31.AddBalance]
+/// [_i30.AddBalance]
 class AddBalanceRoute extends _i33.PageRouteInfo<AddBalanceRouteArgs> {
   AddBalanceRoute({
     _i34.Key? key,
@@ -1042,7 +1030,7 @@ class AddBalanceRouteArgs {
 }
 
 /// generated route for
-/// [_i32.ToolsHelper]
+/// [_i31.ToolsHelper]
 class ToolsHelperRoute extends _i33.PageRouteInfo<ToolsHelperRouteArgs> {
   ToolsHelperRoute({_i34.Key? key})
       : super(
@@ -1063,4 +1051,16 @@ class ToolsHelperRouteArgs {
   String toString() {
     return 'ToolsHelperRouteArgs{key: $key}';
   }
+}
+
+/// generated route for
+/// [_i32.AddTransactionBudget]
+class AddTransactionBudgetRoute extends _i33.PageRouteInfo<void> {
+  const AddTransactionBudgetRoute()
+      : super(
+          AddTransactionBudgetRoute.name,
+          path: '/add-transaction-budget',
+        );
+
+  static const String name = 'AddTransactionBudgetRoute';
 }

@@ -154,13 +154,9 @@ class AppRouter extends _i25.RootStackRouter {
       );
     },
     AddDatabaseRoute.name: (routeData) {
-      final args = routeData.argsAs<AddDatabaseRouteArgs>();
       return _i25.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: _i12.AddDatabase(
-          key: args.key,
-          onDataChanged: args.onDataChanged,
-        ),
+        child: _i12.AddDatabase(),
         opaque: true,
       );
     },
@@ -547,36 +543,14 @@ class DatabaseDetailsRouteArgs {
 
 /// generated route for
 /// [_i12.AddDatabase]
-class AddDatabaseRoute extends _i25.PageRouteInfo<AddDatabaseRouteArgs> {
-  AddDatabaseRoute({
-    _i26.Key? key,
-    required Function onDataChanged,
-  }) : super(
+class AddDatabaseRoute extends _i25.PageRouteInfo<void> {
+  const AddDatabaseRoute()
+      : super(
           AddDatabaseRoute.name,
           path: '/add-database',
-          args: AddDatabaseRouteArgs(
-            key: key,
-            onDataChanged: onDataChanged,
-          ),
         );
 
   static const String name = 'AddDatabaseRoute';
-}
-
-class AddDatabaseRouteArgs {
-  const AddDatabaseRouteArgs({
-    this.key,
-    required this.onDataChanged,
-  });
-
-  final _i26.Key? key;
-
-  final Function onDataChanged;
-
-  @override
-  String toString() {
-    return 'AddDatabaseRouteArgs{key: $key, onDataChanged: $onDataChanged}';
-  }
 }
 
 /// generated route for

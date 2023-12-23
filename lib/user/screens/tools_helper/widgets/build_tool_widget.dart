@@ -27,8 +27,11 @@ class BuildToolsWidget extends StatelessWidget {
       onTap: onTap,
       child: Row(
         children: [
-          Icon(icon, color: MyColors.primary),
-          const SizedBox(width: 15),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Icon(icon, color: MyColors.primary),
+          ),
+          const SizedBox(width: 10),
           MyText(
             title: tr(context, title),
             color: MyColors.primary,

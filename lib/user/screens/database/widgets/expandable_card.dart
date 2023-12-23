@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/user/models/database_model/database_model.dart';
 import 'package:expenses/user/screens/database/cubit/add_database_cubit/add_data_base_cubit.dart';
 import 'package:expenses/user/screens/database/cubit/add_database_cubit/add_data_base_cubit.dart';
@@ -186,144 +187,142 @@ class _ExpandableCardState extends State<ExpandableCard> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     if (widget.databaseData.department.isNotEmpty)
-                      MyText(
+                      DatabaseTitle(
                         title: widget.databaseData.department,
-                        color: MyColors.primary,
-                        size: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        titleLocalization: "databaseDepartment",
                       ),
                     if (widget.databaseData.emailAddress.isNotEmpty)
-                      MyText(
+                      DatabaseTitle(
                         title: widget.databaseData.emailAddress,
-                        color: MyColors.primary,
-                        size: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        titleLocalization: "databaseEmail",
                       ),
                     if (widget.databaseData.adjective.isNotEmpty)
-                      MyText(
+                      DatabaseTitle(
                         title: widget.databaseData.adjective,
-                        color: MyColors.primary,
-                        size: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        titleLocalization: "databaseAddNamesAdjective",
                       ),
                     if (widget.databaseData.firstName.isNotEmpty)
-                      MyText(
+                      DatabaseTitle(
                         title: widget.databaseData.firstName,
-                        color: MyColors.primary,
-                        size: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        titleLocalization: "databaseAddNamesFirstName",
                       ),
+
                     if (widget.databaseData.secondName.isNotEmpty)
-                      MyText(
+                      DatabaseTitle(
                         title: widget.databaseData.secondName,
-                        color: MyColors.primary,
-                        size: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        titleLocalization: "databaseAddNamesSecondName",
                       ),
                     if (widget.databaseData.workName.isNotEmpty)
-                      MyText(
+                      DatabaseTitle(
                         title: widget.databaseData.workName,
-                        color: MyColors.primary,
-                        size: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        titleLocalization: "databaseJobTitle",
                       ),
                     if (widget.databaseData.street.isNotEmpty)
-                      MyText(
+                      DatabaseTitle(
                         title: widget.databaseData.street,
-                        color: MyColors.primary,
-                        size: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        titleLocalization: "databaseAddressStreet",
                       ),
                     if (widget.databaseData.buildingNumber.isNotEmpty)
-                      MyText(
+                      DatabaseTitle(
                         title: widget.databaseData.buildingNumber,
-                        color: MyColors.primary,
-                        size: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        titleLocalization: "databaseAddressBuildingNumber",
                       ),
                     if (widget.databaseData.apartmentNumber.isNotEmpty)
-                      MyText(
+                      DatabaseTitle(
                         title: widget.databaseData.apartmentNumber,
-                        color: MyColors.primary,
-                        size: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        titleLocalization: "databaseAddressApartmentNumber",
                       ),
                     if (widget.databaseData.postalNumber.isNotEmpty)
-                      MyText(
+                      DatabaseTitle(
                         title: widget.databaseData.postalNumber,
-                        color: MyColors.primary,
-                        size: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        titleLocalization: "databaseAddressPostal",
                       ),
                     if (widget.databaseData.eventTitle.isNotEmpty)
-                      MyText(
+                      DatabaseTitle(
                         title: widget.databaseData.eventTitle,
-                        color: MyColors.primary,
-                        size: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        titleLocalization: "databaseEventTitle",
                       ),
                     if (widget.databaseData.eventDate.isNotEmpty)
-                      MyText(
+                      DatabaseTitle(
                         title: widget.databaseData.eventDate,
-                        color: MyColors.primary,
-                        size: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        titleLocalization: "databaseEventDate",
                       ),
                     if (widget.databaseData.eventDetails.isNotEmpty)
-                      MyText(
+                      DatabaseTitle(
                         title: widget.databaseData.eventDetails,
-                        color: MyColors.primary,
-                        size: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        titleLocalization: "databaseEventDetails",
                       ),
+
                     if (widget.databaseData.notes.isNotEmpty)
-                      MyText(
+                      DatabaseTitle(
                         title: widget.databaseData.notes,
-                        color: MyColors.primary,
-                        size: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        titleLocalization: "databaseComment",
                       ),
                     if (widget.databaseData.web.isNotEmpty)
-                      MyText(
+                      DatabaseTitle(
                         title: widget.databaseData.web,
-                        color: MyColors.primary,
-                        size: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        titleLocalization: "databaseSocialAddressWeb",
                       ),
+
                     if (widget.databaseData.facebook.isNotEmpty)
-                      MyText(
+                      DatabaseTitle(
                         title: widget.databaseData.facebook,
-                        color: MyColors.primary,
-                        size: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        titleLocalization: "databaseSocialAddressFacebook",
                       ),
                     if (widget.databaseData.instagram.isNotEmpty)
-                      MyText(
+                      DatabaseTitle(
                         title: widget.databaseData.instagram,
-                        color: MyColors.primary,
-                        size: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        titleLocalization: "databaseSocialAddressInstagram",
                       ),
                     if (widget.databaseData.youtube.isNotEmpty)
-                      MyText(
+                      DatabaseTitle(
                         title: widget.databaseData.youtube,
-                        color: MyColors.primary,
-                        size: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        titleLocalization: "databaseSocialAddressYoutube",
                       ),
+
                     if (widget.databaseData.messenger.isNotEmpty)
-                      MyText(
+                      DatabaseTitle(
                         title: widget.databaseData.messenger,
-                        color: MyColors.primary,
-                        size: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        titleLocalization: "databaseSocialAddressMessenger",
                       ),
+
                   ],
                 ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class DatabaseTitle extends StatelessWidget {
+  const DatabaseTitle({
+    super.key,
+     required this.titleLocalization, required this.title,
+  });
+
+  // final ExpandableCard widget;
+  final String titleLocalization;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        MyText(
+          title: "${tr(context, titleLocalization)} :",
+          color: MyColors.secondary,
+          size: 15.sp,
+          fontWeight: FontWeight.bold,
+        ),
+        MyText(
+          title: title,
+          color: MyColors.primary,
+          size: 15.sp,
+          fontWeight: FontWeight.bold,
+        ),
+      ],
     );
   }
 }

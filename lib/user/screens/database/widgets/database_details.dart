@@ -2,12 +2,14 @@ import 'dart:typed_data';
 
 import 'package:expenses/general/constants/constants.dart';
 import 'package:expenses/general/constants/validation.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/user/screens/database/cubit/database_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:expenses/user/models/database_model/database_model.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../general/constants/MyColors.dart';
 import '../../../../general/widgets/MyText.dart';
@@ -91,7 +93,7 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
         centerTitle: true,
         backgroundColor: MyColors.primary,
         title: MyText(
-          title: widget.databaseData.company,
+          title: tr(context, "databaseDetails"),
           color: MyColors.white,
           size: 18.sp,
           fontWeight: FontWeight.bold,
@@ -161,33 +163,32 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
                 },
               ),
               // Display Edit Cards for each field
-              buildTextFormField("Category", categoryController),
-              buildTextFormField("Adjective", adjectiveController),
-              buildTextFormField("First Name", firstNameController),
-              buildTextFormField("Second Name", secondNameController),
-              buildTextFormField("Phone Number", phoneController),
-              buildTextFormField("Work Position", workPositionController),
-              buildTextFormField("Department", departmentController),
-              buildTextFormField("Company", companyController),
-              buildTextFormField("Country", countryController),
-              buildTextFormField("Governorate", governorateController),
-              buildTextFormField("City", cityController),
-              buildTextFormField("Street", streetController),
-              buildTextFormField("Building Number", buildingNumberController),
-              buildTextFormField("Apartment Number", apartmentNumberController),
-              buildTextFormField("Postal Number", postalController),
-              buildTextFormField("Email Address", emailController),
-              buildTextFormField("Date Location", dateLocationController),
+              buildTextFormField("category", categoryController),
+              buildTextFormField("databaseAddNamesAdjective", adjectiveController),
+              buildTextFormField("databaseAddNamesFirstName", firstNameController),
+              buildTextFormField("databaseAddNamesSecondName", secondNameController),
+              buildTextFormField("databasePhoneNumbers", phoneController),
+              buildTextFormField("databaseJobTitle", workPositionController),
+              buildTextFormField("databaseDepartment", departmentController),
+              buildTextFormField("databaseCompany", companyController),
+              buildTextFormField("databaseAddressCountry", countryController),
+              buildTextFormField("databaseAddressGovernorate", governorateController),
+              buildTextFormField("databaseAddressCity", cityController),
+              buildTextFormField("databaseAddressStreet", streetController),
+              buildTextFormField("databaseAddressBuildingNumber", buildingNumberController),
+              buildTextFormField("databaseAddressApartmentNumber", apartmentNumberController),
+              buildTextFormField("databaseAddressPostal", postalController),
+              buildTextFormField("databaseEmail", emailController),
+              buildTextFormField("databaseEventTitle", dateLocationController),
               // buildTextFormField("Date Time", dateTimeController),
-              buildDateTimePicker("Date Time", dateTimeController),
-
-              buildTextFormField("Date Details", dateDetailsController),
-              buildTextFormField("Comment", commentController),
-              buildTextFormField("Social Web", socialWebController),
-              buildTextFormField("Facebook", facebookController),
-              buildTextFormField("Instagram", instagramController),
-              buildTextFormField("Youtube", youtubeController),
-              buildTextFormField("Messenger", messengerController),
+              buildDateTimePicker("databaseEventDate", dateTimeController),
+              buildTextFormField("databaseEventDetails", dateDetailsController),
+              buildTextFormField("databaseComment", commentController),
+              buildTextFormField("databaseSocialAddressWeb", socialWebController),
+              buildTextFormField("databaseSocialAddressFacebook", facebookController),
+              buildTextFormField("databaseSocialAddressInstagram", instagramController),
+              buildTextFormField("databaseSocialAddressYoutube", youtubeController),
+              buildTextFormField("databaseSocialAddressMessenger", messengerController),
               // buildTextFormField("The Social", theSocialController),
 
               ElevatedButton(
@@ -257,7 +258,8 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
       child: TextFormField(
         controller: controller,
         decoration: InputDecoration(
-          labelText: "$fieldName",
+          // labelText: "$fieldName",
+          labelText: tr(context, "$fieldName"),
         ),
       ),
     );
@@ -310,6 +312,53 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
     Navigator.pop(context);
   }
 
+  // Widget buildDateTimePicker(String fieldName, TextEditingController controller) {
+  //   return Card(
+  //     child: GestureDetector(
+  //       onTap: () async {
+  //         DateTime? pickedDate = await showDatePicker(
+  //           context: context,
+  //           initialDate: DateTime.now(),
+  //           firstDate: DateTime(2000),
+  //           lastDate: DateTime(2101),
+  //         );
+  //
+  //         if (pickedDate != null) {
+  //           TimeOfDay? pickedTime = await showTimePicker(
+  //             context: context,
+  //             initialTime: TimeOfDay.now(),
+  //           );
+  //
+  //           if (pickedTime != null) {
+  //             DateTime pickedDateTime = DateTime(
+  //               pickedDate.year,
+  //               pickedDate.month,
+  //               pickedDate.day,
+  //               pickedTime.hour,
+  //               pickedTime.minute,
+  //             );
+  //
+  //             setState(() {
+  //               controller.text = pickedDateTime.toString();
+  //             });
+  //           }
+  //         }
+  //       },
+  //       child: AbsorbPointer(
+  //         child: TextFormField(
+  //           validator: (value) => validateField(value),
+  //           readOnly: true,
+  //           decoration: InputDecoration(
+  //             labelText: tr(context, "$fieldName"),
+  //           ),
+  //           controller: controller,
+  //           onChanged: (value) {},
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
   Widget buildDateTimePicker(String fieldName, TextEditingController controller) {
     return Card(
       child: GestureDetector(
@@ -336,8 +385,10 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
                 pickedTime.minute,
               );
 
+              String formattedDateTime = DateFormat('yyyy-MM-dd HH:mm').format(pickedDateTime);
+
               setState(() {
-                controller.text = pickedDateTime.toString();
+                controller.text = formattedDateTime;
               });
             }
           }
@@ -347,7 +398,7 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
             validator: (value) => validateField(value),
             readOnly: true,
             decoration: InputDecoration(
-              labelText: "$fieldName",
+              labelText: tr(context, "$fieldName"),
             ),
             controller: controller,
             onChanged: (value) {},

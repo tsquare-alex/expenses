@@ -159,7 +159,17 @@
   "convertArea": "Convert Area",
   "convertSpeed": "Convert Speed",
   "bmi": "Bmi",
-  "tools": "Tools"
+  "tools": "Tools",
+  "authentication": "Subscribe or you will never find any data",
+  "health": "Health",
+  "units": "Units",
+  "databaseDetails": "Database Details",
+  "enableAuthentication": "Enable Authentication",
+  "authenticationIsEnabled": "Authentication Is Enabled"
+
+
+
+
 
 
 

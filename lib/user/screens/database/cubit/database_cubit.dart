@@ -16,7 +16,9 @@ class DatabaseCubit extends Cubit<DatabaseState> {
   List<DatabaseModel>? dataBase;
 
   fetchAllDatabase(){
+    emit(DatabaseInitial());
     var databaseData = Hive.box<DatabaseModel>(databaseBox);
     dataBase = databaseData.values.toList();
+    emit(DatabaseSuccess());
   }
 }

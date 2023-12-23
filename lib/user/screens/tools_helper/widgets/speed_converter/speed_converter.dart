@@ -1,4 +1,8 @@
+import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SpeedConverterScreen extends StatefulWidget {
   @override
@@ -46,7 +50,8 @@ class _SpeedConverterScreenState extends State<SpeedConverterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Speed Converter'),
+        title:MyText(title: tr(context, "convertSpeed"), color: Colors.white, size: 18.sp,fontWeight: FontWeight.bold,),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -112,7 +117,7 @@ class _SpeedConverterScreenState extends State<SpeedConverterScreen> {
             SizedBox(height: 32.0),
             ElevatedButton(
               onPressed: _performConversion,
-              child: Text('Convert'),
+              child: Text(tr(context, "convert")),
             ),
             SizedBox(height: 16.0),
             Text(result),

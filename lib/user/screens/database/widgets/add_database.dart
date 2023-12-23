@@ -32,9 +32,9 @@ import 'build_work_expansion.dart';
 import 'my_expansion.dart';
 
 class AddDatabase extends StatefulWidget {
-  final Function onDataChanged;
-
-  const AddDatabase({super.key, required this.onDataChanged});
+  // final Function onDataChanged;
+  //
+  // const AddDatabase({super.key, required this.onDataChanged});
   @override
   State<AddDatabase> createState() => _AddDatabaseState();
 }
@@ -44,6 +44,7 @@ class _AddDatabaseState extends State<AddDatabase> {
 
 
   AddDataBaseCubit dataBaseCubit = AddDataBaseCubit();
+  DatabaseCubit dataBaseCubitx = DatabaseCubit();
 
 
   final CollectionReference _collectionReference =
@@ -270,7 +271,7 @@ class _AddDatabaseState extends State<AddDatabase> {
                       messengerController: myCubit.messengerController,
                       theSocialController: myCubit.theSocialController),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async{
                       // myCubit.onPressedHandler();
 
                       var dataBase = DatabaseModel(
@@ -304,11 +305,16 @@ class _AddDatabaseState extends State<AddDatabase> {
                       if (myCubit.state is MyExpansionError) {
 
                       } else {
-                        BlocProvider.of<AddDataBaseCubit>(context).addDataBase(dataBase);
+                        await BlocProvider.of<AddDataBaseCubit>(context).addDataBase(dataBase);
                         // Emit a state indicating that data is added successfully
                         // BlocProvider.of<DatabaseCubit>(context).emit(DatabaseAdded());
                         // AutoRouter.of(context).pop();
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home(index: 1)));
+
+                        if(context.mounted){
+                          Navigator.of(context).pop();
+                        }
+
+                        // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home(index: 1)));
                        // AutoRouter.of(context).replace(HomeRoute(index: 1));
                       }
                     },

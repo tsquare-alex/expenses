@@ -1,4 +1,7 @@
+import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AreaConverterScreen extends StatefulWidget {
   @override
@@ -54,7 +57,8 @@ class _AreaConverterScreenState extends State<AreaConverterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Area Converter'),
+        title:MyText(title: tr(context, "convertArea"), color: Colors.white, size: 18.sp,fontWeight: FontWeight.bold,),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

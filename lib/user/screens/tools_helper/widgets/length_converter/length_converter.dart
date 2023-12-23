@@ -1,4 +1,7 @@
+import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LengthConverterScreen extends StatefulWidget {
   @override
@@ -62,7 +65,8 @@ class _LengthConverterScreenState extends State<LengthConverterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Length Converter'),
+        title:MyText(title: tr(context, "convertLength"), color: Colors.white, size: 18.sp,fontWeight: FontWeight.bold,),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

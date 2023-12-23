@@ -321,7 +321,7 @@
   "categoryPerson": "الشخص / الفرد",
   "categoryItem": "السلعة / البند",
 
-  "convert": "التحويلات",
+  "convert": "تحويل",
   "convertLength": "تحويل الطول",
   "convertCurrency": "تحويل العملة",
   "convertMass": "تحويل الكتلة",
@@ -335,7 +335,14 @@
 
 
   "bmi": "مؤشر كتلة الجسم",
-  "tools": "ادوات"
+  "tools": "ادوات",
+  "authentication": "اشترك وإلا فلن تجد أي بيانات أبدًا",
+  "health": "الصحة",
+  "units": "الوحدات",
+  "databaseDetails": "تفاصيل قاعدة البيانات",
+  "authentication": "تمكين المصادقة",
+  "authenticationIsEnabled": "تم تمكين المصادقة"
+
 
 
 

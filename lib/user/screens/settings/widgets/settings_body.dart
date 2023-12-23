@@ -122,13 +122,13 @@ class SettingsBody extends StatelessWidget {
               BlocBuilder<AuthenticationCubit, AuthenticationState>(
                 builder: (context, state) {
                   return SwitchListTile(
-                    title: Text('Enable Authentication'),
+                    title: MyText(title: tr(context, "authentication"), color: MyColors.primary, size: 15.sp,fontWeight: FontWeight.bold,),
                     value: state.isAuthenticated,
                     onChanged: (value) async {
                       final authenticationCubit = context.read<AuthenticationCubit>();
                       if (value && authenticationCubit.isAuthenticationRequired()) {
                         // Show authentication dialog
-                        bool authenticated = await authenticationCubit.showAuthenticationDialog();
+                        bool authenticated = await authenticationCubit.showAuthenticationDialog(context);
                         // Only update the status if the authentication was successful
                         if (authenticated) {
                           authenticationCubit.emit(AuthenticationState(isAuthenticated: true));
@@ -148,13 +148,7 @@ class SettingsBody extends StatelessWidget {
                 builder: (context, state) {
                   return Visibility(
                     visible: state.isAuthenticated,
-                    child: Text(
-                      'Authentication is enabled',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green,
-                      ),
-                    ),
+                    child:  MyText(title: tr(context, "authenticationIsEnabled"), color: MyColors.secondary, size: 15.sp,fontWeight: FontWeight.bold,),
                   );
                 },
               ),

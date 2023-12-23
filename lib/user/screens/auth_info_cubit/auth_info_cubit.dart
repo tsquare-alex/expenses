@@ -37,7 +37,9 @@
 //   }
 //
 // }
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/user/models/auth_model/authentication_info.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:local_auth/local_auth.dart';
@@ -45,11 +47,11 @@ import 'package:local_auth/local_auth.dart';
 class AuthenticationCubit extends Cubit<AuthenticationState> {
   AuthenticationCubit() : super(AuthenticationState(isAuthenticated: false));
 
-  Future<bool> authenticate() async {
+  Future<bool> authenticate(BuildContext context) async {
     final LocalAuthentication auth = LocalAuthentication();
     try {
       bool authenticated = await auth.authenticate(
-        localizedReason: "Subscribe or you will never find any data",
+        localizedReason: tr(context, "authentication"),
         options: AuthenticationOptions(
           stickyAuth: true,
           biometricOnly: false,
@@ -69,8 +71,8 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     }
   }
 
-  Future<bool> showAuthenticationDialog() async {
-    return await authenticate();
+  Future<bool> showAuthenticationDialog(BuildContext context) async {
+    return await authenticate(context);
   }
 
   bool isAuthenticationRequired() {

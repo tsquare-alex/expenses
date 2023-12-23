@@ -42,16 +42,44 @@ class _BuildDateExpansionState extends State<BuildDateExpansion> {
             label: tr(context, "databaseEventTitle"),
             margin: const EdgeInsets.only(top: 20),
           ),
-          GenericTextField(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-            controller: widget.dateTimeController,
-            fieldTypes: FieldTypes.normal,
-            type: TextInputType.emailAddress,
-            action: TextInputAction.next,
-            validate: (value)=> validateField(value),
-            label: tr(context, "databaseEventDate"),
-            margin: const EdgeInsets.only(top: 20),
+          // GenericTextField(
+          //   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+          //   controller: widget.dateTimeController,
+          //   fieldTypes: FieldTypes.normal,
+          //   type: TextInputType.emailAddress,
+          //   action: TextInputAction.next,
+          //   validate: (value)=> validateField(value),
+          //   label: tr(context, "databaseEventDate"),
+          //   margin: const EdgeInsets.only(top: 20),
+          // ),
+          GestureDetector(
+            onTap: () async {
+              DateTime? selectedDate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2000),
+                lastDate: DateTime(2101),
+              );
+
+              if (selectedDate != null && selectedDate != widget.dateTimeController.text) {
+                setState(() {
+                  widget.dateTimeController.text = selectedDate.toString();
+                });
+              }
+            },
+            child: AbsorbPointer(
+              child: TextFormField(
+                validator: (value) => validateField(value),
+                readOnly: true,
+                decoration: InputDecoration(
+                  hintText: tr(context, "databaseEventDate"),
+                ),
+                controller: widget.dateTimeController,
+                onChanged: (value) {},
+              ),
+            ),
           ),
+
           GenericTextField(
             contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: widget.dateDetailsController,

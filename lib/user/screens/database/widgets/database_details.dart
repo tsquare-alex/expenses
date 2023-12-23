@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:expenses/general/constants/constants.dart';
+import 'package:expenses/general/constants/validation.dart';
 import 'package:expenses/user/screens/database/cubit/database_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,7 +49,6 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
   late TextEditingController instagramController;
   late TextEditingController youtubeController;
   late TextEditingController messengerController;
-  // late TextEditingController theSocialController;
 
   @override
   void initState() {
@@ -172,7 +172,9 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
               buildTextFormField("Postal Number", postalController),
               buildTextFormField("Email Address", emailController),
               buildTextFormField("Date Location", dateLocationController),
-              buildTextFormField("Date Time", dateTimeController),
+              // buildTextFormField("Date Time", dateTimeController),
+              buildDateTimePicker("Date Time", dateTimeController),
+
               buildTextFormField("Date Details", dateDetailsController),
               buildTextFormField("Comment", commentController),
               buildTextFormField("Social Web", socialWebController),
@@ -296,44 +298,51 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
     Navigator.pop(context);
   }
 
-//   void saveChanges() async {
-//     // Update the data in the widget
-//     setState(() {
-//       widget.databaseData.category = categoryController.text;
-//       widget.databaseData.adjective = adjectiveController.text;
-//       widget.databaseData.firstName = firstNameController.text;
-//       widget.databaseData.secondName = secondNameController.text;
-//       widget.databaseData.phoneNumber = phoneController.text;
-//       widget.databaseData.workName = workPositionController.text;
-//       widget.databaseData.department = departmentController.text;
-//       widget.databaseData.company = companyController.text;
-//       widget.databaseData.country = countryController.text;
-//       widget.databaseData.governorate = governorateController.text;
-//       widget.databaseData.city = cityController.text;
-//       widget.databaseData.street = streetController.text;
-//       widget.databaseData.buildingNumber = buildingNumberController.text;
-//       widget.databaseData.apartmentNumber = apartmentNumberController.text;
-//       widget.databaseData.postalNumber = postalController.text;
-//       widget.databaseData.emailAddress = emailController.text;
-//       widget.databaseData.eventTitle = dateLocationController.text;
-//       widget.databaseData.eventDate = dateTimeController.text;
-//       widget.databaseData.eventDetails = dateDetailsController.text;
-//       widget.databaseData.notes = commentController.text;
-//       widget.databaseData.web = socialWebController.text;
-//       widget.databaseData.facebook = facebookController.text;
-//       widget.databaseData.instagram = instagramController.text;
-//       widget.databaseData.youtube = youtubeController.text;
-//       widget.databaseData.messenger = messengerController.text;
-//       // widget.databaseData.theSocialController = theSocialController.text; // Uncomment if needed
-//     });
-// // Update image if it's changed
-//     if (dataBaseCubit.imageBytes != null) {
-//       widget.databaseData.image = Uint8List.fromList(dataBaseCubit.imageBytes!);
-//     }
-//     // Save changes in Hive
-//     var databaseDataBox = await Hive.openBox<DatabaseModel>(databaseBox);
-//     databaseDataBox.put(widget.databaseData.key, widget.databaseData);
-//
-//   }
+  Widget buildDateTimePicker(String fieldName, TextEditingController controller) {
+    return Card(
+      child: GestureDetector(
+        onTap: () async {
+          DateTime? pickedDate = await showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2000),
+            lastDate: DateTime(2101),
+          );
+
+          if (pickedDate != null) {
+            TimeOfDay? pickedTime = await showTimePicker(
+              context: context,
+              initialTime: TimeOfDay.now(),
+            );
+
+            if (pickedTime != null) {
+              DateTime pickedDateTime = DateTime(
+                pickedDate.year,
+                pickedDate.month,
+                pickedDate.day,
+                pickedTime.hour,
+                pickedTime.minute,
+              );
+
+              setState(() {
+                controller.text = pickedDateTime.toString();
+              });
+            }
+          }
+        },
+        child: AbsorbPointer(
+          child: TextFormField(
+            validator: (value) => validateField(value),
+            readOnly: true,
+            decoration: InputDecoration(
+              labelText: "$fieldName",
+            ),
+            controller: controller,
+            onChanged: (value) {},
+          ),
+        ),
+      ),
+    );
+  }
 
 }

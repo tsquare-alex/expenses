@@ -31,10 +31,10 @@ class _ExpandableCardState extends State<ExpandableCard> {
 
   @override
   Widget build(BuildContext context) {
-    print('==================================================');
-
-    print(widget.databaseData.image);
-    print('==================================================');
+    // print('==================================================');
+    //
+    // print(widget.databaseData.image);
+    // print('==================================================');
 
     return InkWell(
       onTap: () {
@@ -68,8 +68,6 @@ class _ExpandableCardState extends State<ExpandableCard> {
                     backgroundImage: MemoryImage(widget.databaseData.image),
                     // child: Image.memory(widget.databaseData.image),
                   )
-
-
                       : CircleAvatar(
                     radius: 25.0,
                     child: Image.asset(
@@ -115,11 +113,29 @@ class _ExpandableCardState extends State<ExpandableCard> {
                             ),
                           ],
                         ),
-                        MyText(
-                          title: widget.databaseData.city,
-                          color: MyColors.primary,
-                          size: 10.sp,
-                          fontWeight: FontWeight.bold,
+                        Row(
+                          children: [
+                            MyText(
+                              title: widget.databaseData.country,
+                              color: MyColors.primary,
+                              size: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            const SizedBox(width: 8),
+                            MyText(
+                              title: widget.databaseData.city,
+                              color: MyColors.primary,
+                              size: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            const SizedBox(width: 8),
+                            MyText(
+                              title: widget.databaseData.governorate,
+                              color: MyColors.primary,
+                              size: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -166,6 +182,7 @@ class _ExpandableCardState extends State<ExpandableCard> {
               if (isExpanded)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     const SizedBox(height: 10.0),
                     MyText(
@@ -176,6 +193,108 @@ class _ExpandableCardState extends State<ExpandableCard> {
                     ),
                     MyText(
                       title: widget.databaseData.emailAddress,
+                      color: MyColors.primary,
+                      size: 15.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: widget.databaseData.adjective,
+                      color: MyColors.primary,
+                      size: 15.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: widget.databaseData.firstName,
+                      color: MyColors.primary,
+                      size: 15.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: widget.databaseData.secondName,
+                      color: MyColors.primary,
+                      size: 15.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: widget.databaseData.workName,
+                      color: MyColors.primary,
+                      size: 15.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: widget.databaseData.street,
+                      color: MyColors.primary,
+                      size: 15.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: widget.databaseData.buildingNumber,
+                      color: MyColors.primary,
+                      size: 15.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: widget.databaseData.apartmentNumber,
+                      color: MyColors.primary,
+                      size: 15.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: widget.databaseData.postalNumber,
+                      color: MyColors.primary,
+                      size: 15.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: widget.databaseData.eventTitle,
+                      color: MyColors.primary,
+                      size: 15.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: widget.databaseData.eventDate,
+                      color: MyColors.primary,
+                      size: 15.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: widget.databaseData.eventDetails,
+                      color: MyColors.primary,
+                      size: 15.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: widget.databaseData.notes,
+                      color: MyColors.primary,
+                      size: 15.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: widget.databaseData.web,
+                      color: MyColors.primary,
+                      size: 15.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: widget.databaseData.facebook,
+                      color: MyColors.primary,
+                      size: 15.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: widget.databaseData.instagram,
+                      color: MyColors.primary,
+                      size: 15.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: widget.databaseData.youtube,
+                      color: MyColors.primary,
+                      size: 15.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: widget.databaseData.messenger,
                       color: MyColors.primary,
                       size: 15.sp,
                       fontWeight: FontWeight.bold,

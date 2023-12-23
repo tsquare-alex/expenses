@@ -69,7 +69,7 @@ class _AddBalanceState extends State<AddBalance> {
           },
           borderColor: MyColors.primary,
           title: "إضافة رصيد",
-          color: MyColors.primary,
+          color: MyColors.black,
         ),
       ],
     );

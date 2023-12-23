@@ -34,6 +34,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
  late final LocalAuthentication auth;
 
  bool _supportState = false;
+ bool _isAuthenticated = false;
 
  @override
   void initState() {
@@ -64,10 +65,11 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             else
               const Text("This Device is is not supported"),
 
-            ElevatedButton(onPressed: _getAvalibaleBiometrics, child: Text("Get available biometrics")),
-            const SizedBox(height: 100,),
-
-            ElevatedButton(onPressed: _authenticate, child: Text("Authenticate")),
+            // ElevatedButton(onPressed: _getAvalibaleBiometrics, child: Text("Get available biometrics")),
+            // const SizedBox(height: 100,),
+            //
+            // ElevatedButton(onPressed: _authenticate, child: Text("Authenticate")),
+            // if (_isAuthenticated) Text("Hi, I'm Montaser"),
 
             BlocBuilder<FavoriteCubit, FavoriteState>(
               builder: (context, state) {
@@ -170,29 +172,32 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         break;
     }
   }
-
-  void _getAvalibaleBiometrics()  async{
-   List<BiometricType> availableBiometrics = await auth.getAvailableBiometrics();
-   print("List of availableBiometrics $availableBiometrics");
-
-   if(!mounted){
-     return;
-   }
-  }
-
-  void _authenticate() async {
-   try{
-     bool authenticated = await auth.authenticate(
-       localizedReason: "Subcribe or you will never find any data",
-       options: const AuthenticationOptions(
-         stickyAuth: true,
-         biometricOnly: false,
-       ),
-     );
-     print("Authenticated : $authenticated");
-   }on PlatformException catch(e){
-     print(e);
-   }
-  }
+  //
+  // void _getAvalibaleBiometrics()  async{
+  //  List<BiometricType> availableBiometrics = await auth.getAvailableBiometrics();
+  //  print("List of availableBiometrics $availableBiometrics");
+  //
+  //  if(!mounted){
+  //    return;
+  //  }
+  // }
+  //
+  // void _authenticate() async {
+  //  try{
+  //    bool authenticated = await auth.authenticate(
+  //      localizedReason: "Subcribe or you will never find any data",
+  //      options: const AuthenticationOptions(
+  //        stickyAuth: true,
+  //        biometricOnly: false,
+  //      ),
+  //    );
+  //    setState(() {
+  //      _isAuthenticated = authenticated;
+  //    });
+  //    print("Authenticated : $authenticated");
+  //  }on PlatformException catch(e){
+  //    print(e);
+  //  }
+  // }
 }
 

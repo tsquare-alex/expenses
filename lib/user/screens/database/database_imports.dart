@@ -6,6 +6,8 @@ import 'package:expenses/general/packages/generic_bloc/generic_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/models/database_model/database_model.dart';
+import 'package:expenses/user/screens/database/cubit/add_database_cubit/add_data_base_cubit.dart';
+import 'package:expenses/user/screens/database/widgets/add_database.dart';
 import 'package:expenses/user/screens/database/widgets/build_address_expansion.dart';
 import 'package:expenses/user/screens/database/widgets/build_category_expansion.dart';
 import 'package:expenses/user/screens/database/widgets/build_comment_expansion.dart';

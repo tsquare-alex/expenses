@@ -1,17 +1,33 @@
 part of 'database_imports.dart';
 
 class Database extends StatelessWidget {
-  // DatabaseData databaseData = DatabaseData();
-  // DatabaseCubit databaseCubit = DatabaseCubit();
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => DatabaseCubit()..fetchAllDatabase(),
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-            onPressed: () => AutoRouter.of(context).push(AddDatabaseRoute()),
-            child: const Icon(Icons.add)),
+        // floatingActionButton: FloatingActionButton(
+        //     onPressed: () => AutoRouter.of(context).push(AddDatabaseRoute()),
+        //     child: const Icon(Icons.add)),
+        floatingActionButton:   FloatingActionButton(
+          onPressed: () async {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AddDatabase(
+                  onDataChanged: () {
+                    // Trigger a rebuild of the Database screen
+                    BlocProvider.of<DatabaseCubit>(context).fetchAllDatabase();
+                  },
+                ),
+              ),
+            );
+
+            // You can handle the result if needed
+          },
+          child: const Icon(Icons.add),
+        ),
+
         backgroundColor: MyColors.headerColor.withOpacity(0.2),
         body: SingleChildScrollView(
           child: Padding(

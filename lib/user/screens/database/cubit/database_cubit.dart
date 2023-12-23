@@ -19,9 +19,4 @@ class DatabaseCubit extends Cubit<DatabaseState> {
     var databaseData = Hive.box<DatabaseModel>(databaseBox);
     dataBase = databaseData.values.toList();
   }
-
-
-
-
-
 }

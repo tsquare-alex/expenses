@@ -105,7 +105,7 @@ class WalletData {
                     hintStyle: TextStyle(fontSize: 18.sp, color: MyColors.grey),
                     focusColor: MyColors.primary),
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 16.h),
               DefaultButton(
                   title: "اضافة",
                   onTap: () {
@@ -142,7 +142,7 @@ class WalletData {
                     hintStyle: TextStyle(fontSize: 18.sp, color: MyColors.grey),
                     focusColor: MyColors.primary),
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 16.h),
               DefaultButton(
                   title: "اضافة",
                   onTap: () {
@@ -179,7 +179,7 @@ class WalletData {
                     hintStyle: TextStyle(fontSize: 18.sp, color: MyColors.grey),
                     focusColor: MyColors.primary),
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 16.h),
               DefaultButton(
                   title: "اضافة",
                   onTap: () {

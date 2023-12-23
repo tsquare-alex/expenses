@@ -74,7 +74,7 @@ class FavoriteScreen extends StatelessWidget {
   void navigateToScreen(BuildContext context, String toolName) {
     switch (toolName) {
       case "qiblah":
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => QiblahScreen()));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => QiblahCompass()));
         break;
       case "calender":
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => CalenderScreen()));

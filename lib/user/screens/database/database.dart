@@ -26,14 +26,13 @@ class Database extends StatelessWidget {
                     fontWeight: FontWeight.bold),
                 BlocBuilder<DatabaseCubit, DatabaseState>(
                   builder: (context, state) {
-                    List<DatabaseModel> dataBase = BlocProvider.of<DatabaseCubit>(context).dataBase!;
+                    List<DatabaseModel> dataBase =
+                        BlocProvider.of<DatabaseCubit>(context).dataBase!;
                     return ListView.builder(
                       shrinkWrap: true,
                       itemCount: dataBase.length,
                       itemBuilder: (context, index) {
-                        return ExpandableCard(
-                            databaseData: dataBase[index]
-                        );
+                        return ExpandableCard(databaseData: dataBase[index]);
                       },
                     );
                   },

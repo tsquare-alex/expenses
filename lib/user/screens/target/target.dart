@@ -53,6 +53,50 @@ class _TargetState extends State<Target> {
                   model: state.data[i], onDelete: ()=>data.deleteItem(state.data[i],),
                 ),
               ),
+              // child: ListView.builder(
+              //   itemCount: state.data.length,
+              //   itemBuilder: (context, index) {
+              //     AddTransactionModel model = state.data[index];
+              //     data.calculateTargetPrice(model, context);
+              //     return Container(
+              //       decoration: BoxDecoration(
+              //           borderRadius: BorderRadius.circular(15.r),
+              //           color: MyColors.primary.withOpacity(0.3)),
+              //       child: ListTile(
+              //         onTap: () => AutoRouter.of(context).push(
+              //           TransactionDetailsRoute(
+              //             model: model,
+              //           ),
+              //         ),
+              //         title: MyText(
+              //           title: "${model.transactionDate}",
+              //           color: MyColors.black,
+              //           size: 14.sp,
+              //           fontWeight: FontWeight.bold,
+              //         ),
+              //         leading: MyText(
+              //           title: model.targetType?.name ?? "",
+              //           color: MyColors.black,
+              //           size: 14.sp,
+              //           fontWeight: FontWeight.bold,
+              //         ),
+              //         subtitle: LinearPercentIndicator(
+              //           lineHeight: 10.0.h,
+              //           percent: data.percent,
+              //           progressColor: Colors.blue,
+              //         ),
+              //         trailing: IconButton(
+              //           onPressed: () =>
+              //               () => data.deleteItem(state.data[index]),
+              //           icon: Icon(
+              //             Icons.delete,
+              //             color: MyColors.primary,
+              //           ),
+              //         ),
+              //       ),
+              //     );
+              //   },
+              // ),
             );
           }
         },

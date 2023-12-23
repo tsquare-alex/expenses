@@ -30,7 +30,7 @@ class BuildIterateTransaction extends StatelessWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        MyText(title: type!="الاهداف المالية المستهدفة"?"تكرار المعاملة":"توقيت التحويل",
+                        MyText(title: type!="الاهداف المالية المستهدفة"?tr(context, "repeatTransaction"):tr(context, "repeatTransfer"),
                           color: MyColors.black,
                           size: 14.sp,
                           fontWeight: FontWeight.bold,),
@@ -52,7 +52,7 @@ class BuildIterateTransaction extends StatelessWidget {
                             finData: (data) => addTransactionData.getIterateTransaction(context),
                             useName: true,
                             buttonsColor: MyColors.primary,
-                            searchHint: "بحث",
+                            searchHint: tr(context, "search"),
                           ),
                         ),
                       ],

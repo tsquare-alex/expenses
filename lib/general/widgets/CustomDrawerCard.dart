@@ -47,11 +47,13 @@ class CustomDrawerCard extends StatelessWidget {
             SizedBox(
               width: 10.w,
             ),
-            MyText(
-              title: "$title",
-              fontWeight: FontWeight.bold,
-              size: 14,
-              color: textColor??MyColors.white,
+            Expanded(
+              child: MyText(
+                title: "$title",
+                fontWeight: FontWeight.bold,
+                size: 14,
+                color: textColor??MyColors.white,
+              ),
             )
           ],
         ),

@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
                     theme: AppThemes.lightTheme,
                     darkTheme: AppThemes.darkTheme,
                     themeMode: context.watch<AppThemeCubit>().themeMode,
-                    title: "Money Tracker",
+                    title: "My Expenses",
                     supportedLocales: const [
                       Locale('en', 'US'),
                       Locale('ar', 'EG')

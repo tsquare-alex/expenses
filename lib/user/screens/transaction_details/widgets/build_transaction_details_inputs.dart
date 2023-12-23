@@ -17,7 +17,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
           Row(
             children: [
               MyText(
-                title: "المعاملة",
+                title: tr(context, "transaction"),
                 color: MyColors.black,
                 size: 12.sp,
                 fontWeight: FontWeight.bold,
@@ -36,10 +36,10 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                     return null;
                   },
                   label: model.transactionName == "الالتزامات"
-                      ? "الالتزام"
+                      ? tr(context,"commitment")
                       : model.transactionName == "التسوق والشراء"
-                          ? "جهة التسوق والشراء"
-                          : "المعاملة",
+                          ? tr(context, "shoppingParty")
+                          : tr(context, "transaction"),
                   margin: EdgeInsets.symmetric(vertical: 10.r),
                 ),
               ),
@@ -50,7 +50,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
             Row(
               children: [
                 MyText(
-                  title: "محتوي المعاملة",
+                  title: tr(context, "transactionContent"),
                   color: MyColors.black,
                   size: 12.sp,
                   fontWeight: FontWeight.bold,
@@ -69,7 +69,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                     validate: (value) {
                       return null;
                     },
-                    label: "المحتوي",
+                    label: tr(context, "contain"),
                     margin: EdgeInsets.symmetric(vertical: 10.r),
                   ),
                 ),
@@ -80,7 +80,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
             Row(
               children: [
                 MyText(
-                  title: "تحديد الوحدة",
+                  title: tr(context, "selectUnit"),
                   color: MyColors.black,
                   size: 12.sp,
                   fontWeight: FontWeight.bold,
@@ -91,7 +91,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                 Expanded(
                   child: DropdownTextField<DropdownModel>(
                     dropKey: transactionDetailsData.unitsDropKey,
-                    label: "الوحدة",
+                    label: tr(context, "unit"),
                     selectedItem:
                         transactionDetailsData.selectedUnit ?? model.unit,
                     margin: const EdgeInsets.symmetric(vertical: 5),
@@ -104,7 +104,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                     ),
                     useName: true,
                     buttonsColor: MyColors.primary,
-                    searchHint: "بحث",
+                    searchHint:tr(context, "search"),
                   ),
                 )
               ],
@@ -118,7 +118,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
             validate: (value) {
               return null;
             },
-            label: "الكمية",
+            label: tr(context, "amount"),
             margin: EdgeInsets.symmetric(vertical: 10.r),
           ),
           GenericTextField(
@@ -130,7 +130,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
             validate: (value) {
               return null;
             },
-            label: "الاجمالي",
+            label: tr(context, "total"),
             margin: EdgeInsets.symmetric(vertical: 10.r),
           ),
           GenericTextField(
@@ -142,7 +142,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
             validate: (value) {
               return null;
             },
-            label: "المحفظة",
+            label: tr(context, "wallet"),
             margin: EdgeInsets.symmetric(vertical: 10.r),
           ),
           if (model.transactionName != "الاهداف المالية المستهدفة")
@@ -155,7 +155,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
               validate: (value) {
                 return null;
               },
-              label: "الجهة",
+              label: tr(context, "registry"),
               margin: EdgeInsets.symmetric(vertical: 10.r),
             ),
           if (model.transactionName == "التسوق والشراء")
@@ -168,7 +168,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
               validate: (value) {
                 return null;
               },
-              label: "اسم البراند",
+              label: tr(context, "brand"),
               margin: EdgeInsets.symmetric(vertical: 10.r),
             ),
           if (model.image!=null)
@@ -185,7 +185,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
             Row(
               children: [
                 MyText(
-                  title: "نسبة الاولوية",
+                  title: tr(context, "priorityRatio"),
                   color: MyColors.black,
                   size: 12.sp,
                   fontWeight: FontWeight.bold,
@@ -196,7 +196,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                 Expanded(
                   child: DropdownTextField<DropdownModel>(
                     dropKey: transactionDetailsData.priorityDropKey,
-                    label: "الاولوية",
+                    label: tr(context, "priority"),
                     selectedItem: transactionDetailsData.selectedPriority ??
                         model.priority,
                     margin: const EdgeInsets.symmetric(vertical: 5),
@@ -212,7 +212,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                     ),
                     useName: true,
                     buttonsColor: MyColors.primary,
-                    searchHint: "بحث",
+                    searchHint:tr(context, "search"),
                   ),
                 )
               ],
@@ -227,7 +227,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                     color: MyColors.primary,
                   ),
                   MyText(
-                    title: "ميعاد المعاملة",
+                    title: tr(context, "transactionDate"),
                     color: MyColors.black,
                     size: 9.sp,
                     fontWeight: FontWeight.bold,
@@ -248,7 +248,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                   fieldTypes: FieldTypes.clickable,
                   type: TextInputType.text,
                   action: TextInputAction.next,
-                  label: "التاريخ",
+                  label: tr(context, "date"),
                   validate: (value) {
                     if (value!.isEmpty) {
                       return 'Enter transaction date';
@@ -275,7 +275,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                   fieldTypes: FieldTypes.clickable,
                   type: TextInputType.text,
                   action: TextInputAction.next,
-                  label: "الوقت",
+                  label: tr(context, "time"),
                   validate: (value) {
                     if (value!.isEmpty) {
                       return 'Enter the time';
@@ -302,7 +302,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                   fieldTypes: FieldTypes.clickable,
                   type: TextInputType.text,
                   action: TextInputAction.next,
-                  label: "تاريخ البداية",
+                  label: tr(context, "startDate"),
                   prefixIcon: Icon(
                     Icons.date_range,
                     color: MyColors.primary,
@@ -337,7 +337,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                   fieldTypes: FieldTypes.clickable,
                   type: TextInputType.text,
                   action: TextInputAction.next,
-                  label: "تاريخ النهاية",
+                  label: tr(context, "endDate"),
                   prefixIcon: Icon(
                     Icons.date_range,
                     color: MyColors.primary,
@@ -381,11 +381,13 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                         Expanded(
                           child: Row(
                             children: [
-                              MyText(
-                                title: "تكرار المعاملة",
-                                color: MyColors.black,
-                                size: 14.sp,
-                                fontWeight: FontWeight.bold,
+                              Expanded(
+                                child: MyText(
+                                  title: tr(context, "repeatTransaction"),
+                                  color: MyColors.black,
+                                  size: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               SizedBox(
                                 width: 5.w,
@@ -395,7 +397,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                                   child: DropdownTextField<DropdownModel>(
                                     dropKey: transactionDetailsData
                                         .iterateTransactionDropKey,
-                                    label: "مدة التكرار",
+                                    label: tr(context, "repeatDuration"),
                                     selectedItem: transactionDetailsData.selectedIterateTransaction??model.repeated ,
                                     margin:
                                         const EdgeInsets.symmetric(vertical: 5),
@@ -410,7 +412,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                                         .getIterateTransaction(context),
                                     useName: true,
                                     buttonsColor: MyColors.primary,
-                                    searchHint: "بحث",
+                                    searchHint:tr(context, "search"),
                                   ),
                                 ),
                             ],
@@ -448,7 +450,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     MyText(
-                                      title: "التنبيه بالمعاملة",
+                                      title: tr(context, "notify"),
                                       color: MyColors.black,
                                       size: 14.sp,
                                       fontWeight: FontWeight.bold,
@@ -457,7 +459,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                                       width: 10.w,
                                     ),
                                     MyText(
-                                      title: "(سيتم تذكيرك قبل الموعد)",
+                                      title: "(${tr(context, "remember")})",
                                       color: MyColors.black,
                                       size: 9.sp,
                                       fontWeight: FontWeight.bold,

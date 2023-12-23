@@ -74,7 +74,7 @@ class AddTransactionData {
         minDate:DateTime.now().subtract(Duration(days: 30)),
         onConfirm: (date) {
           startDateController.text =
-              DateFormat("dd MMMM yyyy", local).format(date!);
+              DateFormat("dd MMMM yyyy", "en").format(date!);
         },
         title: '');
   }
@@ -86,15 +86,15 @@ class AddTransactionData {
     var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
       initial: startDateController.text.isNotEmpty
-          ? DateFormat("dd MMMM yyyy", local).parse(startDateController.text)
+          ? DateFormat("dd MMMM yyyy", "en").parse(startDateController.text)
           : DateTime.now(),
         minDate: startDateController.text.isNotEmpty
-    ? DateFormat("dd MMMM yyyy", local).parse(startDateController.text)
+    ? DateFormat("dd MMMM yyyy", "en").parse(startDateController.text)
         : DateTime.now(),
         context: context,
         onConfirm: (date) {
           endDateController.text =
-              DateFormat("dd MMMM yyyy", local).format(date!);
+              DateFormat("dd MMMM yyyy", "en").format(date!);
         },
         title: '');
   }
@@ -606,8 +606,7 @@ class AddTransactionData {
   addTransaction(BuildContext context, String type) async {
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
     if (formKey.currentState!.validate() &&
-        formKey1.currentState!.validate() &&
-        formKey2.currentState!.validate()) {
+        formKey1.currentState!.validate() ) {
       if (type == "الالتزامات") {
         AddTransactionModel model = AddTransactionModel(
           transactionName: "الالتزامات",
@@ -619,8 +618,8 @@ class AddTransactionData {
           total: totalController.text,
           database: selectedDatabaseModel,
           priority: selectedPriority,
-          time: timeController.text,
-          transactionDate: dateController.text,
+          time: DateFormat("hh:mm aa","en").format(DateTime.now()),
+          transactionDate: DateFormat('dd MMMM yyyy',"en").format(DateTime.now()),
           repeated: iterateCubit.state.data != false
               ? selectedIterateTransaction
               : null,
@@ -661,8 +660,8 @@ class AddTransactionData {
           total: totalController.text,
           brandName: brandController.text,
           priority: selectedPriority,
-          time: timeController.text,
-          transactionDate: dateController.text,
+          time: DateFormat("hh:mm aa","en").format(DateTime.now()),
+          transactionDate: DateFormat('dd MMMM yyyy',"en").format(DateTime.now()),
           image: imageBloc.state.data,
           repeated: iterateCubit.state.data != false
               ? selectedIterateTransaction
@@ -701,8 +700,8 @@ class AddTransactionData {
           targetValue: targetController.text,
           startDate: startDateController.text,
           endDate: endDateController.text,
-          time: timeController.text,
-          transactionDate: dateController.text,
+          time: DateFormat("hh:mm aa","en").format(DateTime.now()),
+          transactionDate: DateFormat('dd MMMM yyyy',"en").format(DateTime.now()),
           repeated: iterateCubit.state.data != false
               ? selectedIterateTransaction
               : null,
@@ -739,8 +738,8 @@ class AddTransactionData {
           database: selectedDatabaseModel,
           priority: selectedPriority,
           total: transferController.text,
-          time: timeController.text,
-          transactionDate: dateController.text,
+          time: DateFormat("hh:mm aa","en").format(DateTime.now()),
+          transactionDate: DateFormat('dd MMMM yyyy',"en").format(DateTime.now()),
           repeated: iterateCubit.state.data != false
               ? selectedIterateTransaction
               : null,

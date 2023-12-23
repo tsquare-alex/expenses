@@ -37,7 +37,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
         ),
         centerTitle: true,
         title: MyText(
-          title: "تفاصيل المعاملة",
+          title: tr(context, "transactionDetails"),
           color: MyColors.white,
           size: 16.sp,
           fontWeight: FontWeight.bold,

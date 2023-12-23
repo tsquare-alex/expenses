@@ -63,4 +63,38 @@ class TargetData{
     }
   }
 
+  double percent =0.0;
+  GenericBloc<double> percentCubit = GenericBloc(0.0);
+
+  calculateTargetPrice(AddTransactionModel model,BuildContext context){
+    // Calculate and decrement total on a daily basis
+    DateTime firstDate = DateFormat("dd MMMM yyyy","en").parse(model.startDate!);
+    DateTime lastDate = DateFormat("dd MMMM yyyy","en").parse(model.endDate!);
+    double total = double.parse(model.total!);
+    if(model.repeated?.name == "يوميا" ){
+      int days=lastDate.difference(firstDate).inDays;
+      double dailyPrice = total / days;
+      percent = dailyPrice > 0 ? dailyPrice / total : 0.0;
+      print(percent);
+      for (int day = 0; day <= days; day++) {
+        DateTime currentDate = firstDate.add(Duration(days: day));
+        print(currentDate);
+        Timer(
+            Duration(days: day),
+                () {
+              if(currentDate== DateTime.now()){
+                var walletBox = Hive.box<WalletModel>(databaseBox);
+                var walletList = walletBox.values.toList();
+                WalletModel? targetModel = walletList.firstWhere(
+                      (item) => item.name == model.incomeSource?.name,
+                );
+                targetModel.balance =targetModel.balance-total;
+              }
+            }
+        );
+      }
+    }else if(model.repeated?.name == "شهريا"){}
+
+  }
+
 }

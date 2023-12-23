@@ -28,7 +28,7 @@ class BuildEndDrawer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomDrawerCard(
-                        title: 'المصادر المالية',
+                        title: tr(context, "wallets"),
                         onTap: (){
                           Navigator.of(context).pop();
                           homeTabCubit.onUpdateData(7);
@@ -37,7 +37,7 @@ class BuildEndDrawer extends StatelessWidget {
                         endDrawer: true,
                       ),
                       CustomDrawerCard(
-                        title: 'المعاملات و المصروفات',
+                        title: tr(context, "transactions"),
                         onTap: (){
                           Navigator.of(context).pop();
                           homeTabCubit.onUpdateData(0);
@@ -46,7 +46,7 @@ class BuildEndDrawer extends StatelessWidget {
                         endDrawer: true,
                       ),
                       CustomDrawerCard(
-                        title: 'الميزانية والخطط المالية',
+                        title: tr(context, "budget"),
                         onTap: (){
                           Navigator.of(context).pop();
                           homeTabCubit.onUpdateData(8);
@@ -55,7 +55,7 @@ class BuildEndDrawer extends StatelessWidget {
                         endDrawer: true,
                       ),
                       CustomDrawerCard(
-                        title: 'التقارير والإحصائيات',
+                        title: tr(context, "reports"),
                         onTap: (){
                           Navigator.of(context).pop();
                           homeTabCubit.onUpdateData(2);
@@ -64,8 +64,10 @@ class BuildEndDrawer extends StatelessWidget {
                         endDrawer: true,
                       ),
                       CustomDrawerCard(
-                        title: 'إنشاء السلة',
-                        onTap: (){},
+                        title: tr(context, "addCart"),
+                        onTap: (){
+                          CustomToast.showSimpleToast(msg: "تحت التطوير",color: Colors.red,);
+                        },
                         image: Res.cart,
                         endDrawer: true,
                       ),

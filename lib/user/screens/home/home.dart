@@ -60,7 +60,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 bloc: data.homeTabCubit,
                 builder: (context, state) {
                   return MyText(
-                    title: data.titles[state.data],
+                    title: tr(context, data.titles[state.data]),
                     color: MyColors.white,
                     size: 14.sp,
                     alien: TextAlign.center,

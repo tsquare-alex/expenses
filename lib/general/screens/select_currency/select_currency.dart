@@ -17,19 +17,21 @@ class _SelectCurrencyState extends State<SelectCurrency> {
       backgroundColor: MyColors.backgroundColor,
       body: Padding(
         padding: EdgeInsets.all(15.r),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              children: [
-                HeaderLogo(topPadding: 100.r,image: Res.currency,),
-                const BuildSelectCurrencyText(),
-                BuildSelectCurrencyInput(currencyData: data,),
-              ],
-            ),
-            const BuildSelectCurrencyNextButton()
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  HeaderLogo(topPadding: 100.r,image: Res.currency,color: MyColors.primary,),
+                  const BuildSelectCurrencyText(),
+                  BuildSelectCurrencyInput(currencyData: data,),
+                ],
+              ),
+              BuildSelectCurrencyNextButton(data: data,)
+            ],
+          ),
         ),
       ),
     );

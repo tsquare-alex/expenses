@@ -10,7 +10,7 @@ class BuildTransactionDetailsButton extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 10.r),
       child: DefaultButton(
         onTap: ()=>data.editTransaction(context, model),
-        title: "تعديل المعاملة",
+        title: tr(context, "save"),
         fontWeight: FontWeight.bold,
         fontSize: 14.sp,
       ),

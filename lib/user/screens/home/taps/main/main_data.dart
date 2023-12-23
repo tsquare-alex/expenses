@@ -7,17 +7,17 @@ class MainData{
   int? touchedIndex;
 
 
-  List<PieChartSectionData> getSections()=> data.asMap().map<int,PieChartSectionData>((i,data){
+  List<PieChartSectionData> getSections(BuildContext context)=> data.asMap().map<int,PieChartSectionData>((i,data){
     final value= PieChartSectionData(
       color: data.color,
       value: data.percent,
-      title: data.name,
-      radius: 100.r,
+      title: tr(context, data.name!),
+      radius: 115.r,
       badgeWidget: Padding(
-        padding: EdgeInsets.only(top: 60.0.r),
+        padding: EdgeInsets.only(top: 64.0.r),
         child: Image.asset(data.image!,width: 20.w,height: 20.h,color: MyColors.white,),
       ),
-      titlePositionPercentageOffset: 0.5,
+      titlePositionPercentageOffset: 0.54,
       titleStyle: TextStyle(
         color: MyColors.white,
         fontWeight: FontWeight.bold,
@@ -30,49 +30,49 @@ class MainData{
 
   List<PieChartDataModel> data = [
     PieChartDataModel(
-      name: "المساعدة \nوالشرح",
+      name: "flHelp",
       percent: 45,
       color: MyColors.primary,
       image: Res.explain,
     ),
     PieChartDataModel(
-      name: "المعاملات \nوالمصروفات",
+      name: "flTransactions",
       percent: 45,
-      color: Colors.deepPurple,
+      color: Colors.amber,
       image: Res.transaction,
     ),
     PieChartDataModel(
-      name: "التقارير \nوالاحصائيات",
+      name: "flReports",
       percent: 45,
       color: Colors.lightGreen,
       image: Res.report,
     ),
     PieChartDataModel(
-      name: "الضبط \nوالاعدادات",
+      name: "flSettings",
       percent: 45,
       color: MyColors.amber,
       image: Res.settings,
     ),
     PieChartDataModel(
-      name: "السجل \nوقواعد البيانات",
+      name: "flDatabase",
       percent: 45,
-      color: Colors.amber,
+      color: Colors.deepPurple,
       image: Res.database,
     ),
     PieChartDataModel(
-      name: "الميزانية و\nالخطط المالية",
+      name: "flBudget",
       percent: 45,
       color: Colors.green,
       image: Res.budget,
     ),
     PieChartDataModel(
-      name: "المصادر \nالمالية",
+      name: "flWallets",
       percent: 45,
       color: Colors.red,
       image: Res.wallet,
     ),
     PieChartDataModel(
-      name: "الأدوات \nالمساعدة",
+      name: "flTools",
       percent: 45,
       color: Colors.deepOrange,
       image: Res.tools,

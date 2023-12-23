@@ -6,7 +6,7 @@ class TransactionTile extends StatelessWidget {
     required this.transaction,
   }) : super(key: key);
 
-  final TransactionsModel transaction;
+  final AddTransactionModel transaction;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,28 +15,28 @@ class TransactionTile extends StatelessWidget {
         titleAlignment: ListTileTitleAlignment.center,
         contentPadding: EdgeInsets.only(left: 25.r, right: 16.r),
         title: Text(
-          transaction.title,
+          transaction.database!.adjective,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 13.r,
+            fontSize: 13.sp,
           ),
         ),
         subtitle: Text(
-          transaction.time,
+          DateFormat('EEE, dd MMMM yyyy').format(
+              DateFormat('dd MMMM yyyy', 'ar')
+                  .parse(transaction.transactionDate!)),
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 11.r,
+            fontSize: 11.sp,
             color: Colors.grey,
           ),
         ),
         trailing: Text(
-          transaction.cost,
+          '- ${NumberFormat('##0.00').format(double.parse(transaction.total!))}',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 15.r,
-            color: transaction.cost.startsWith('+')
-                ? Colors.greenAccent.shade700
-                : Colors.red.shade300,
+            fontSize: 15.sp,
+            color: Colors.red.shade300,
           ),
         ),
       ),

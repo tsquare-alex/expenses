@@ -11,8 +11,8 @@ class DateField extends StatelessWidget {
         children: [
           Text(
             context.read<ReportsCubit>().dateTimeNowFormatted,
-            style: const TextStyle(
-              fontSize: 16,
+            style: TextStyle(
+              fontSize: 12.sp,
               fontWeight: FontWeight.bold,
               color: Colors.grey,
             ),

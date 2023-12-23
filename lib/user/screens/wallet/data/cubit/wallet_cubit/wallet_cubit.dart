@@ -5,7 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 
 class WalletCubit extends Cubit<WalletState> {
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now().add(Duration(days: 30));
+
   WalletCubit() : super(WalletInitial());
+
   List<WalletModel> walletList = [];
   fetchAllData() async {
     emit(WalletInitial());

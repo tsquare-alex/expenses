@@ -205,5 +205,6 @@
   "expense" : "Expense",
   "residual": "Residual",
   "transactionsHistory" : "Transactions history",
-  "seeAll" : "See all"
+  "seeAll" : "See all",
+  "reportDetails" : "Report Details"
 }

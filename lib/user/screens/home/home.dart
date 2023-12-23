@@ -21,7 +21,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     List<Widget> screen = [
-      const Transactions(),
+      Transactions(homeTabCubit: data.homeTabCubit,),
       Main(homeTabCubit: data.homeTabCubit,),
       const Reports(),
       const Settings(),
@@ -30,6 +30,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       Container(),
       const Wallet(),
       const Budget(),
+      const Expense(),
+      const Target(),
+      const CashTransactions(),
+      const RepeatedTransactions(),
     ];
     return WillPopScope(
         onWillPop: () async {
@@ -45,7 +49,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           return data.homeTabCubit.state.data == 0;
         },
         child: DefaultTabController(
-          length: 3,
+          length: 12,
           initialIndex: widget.index,
           child: Scaffold(
             key: data.scaffold,
@@ -58,7 +62,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   return MyText(
                     title: data.titles[state.data],
                     color: MyColors.white,
-                    size: 16.sp,
+                    size: 14.sp,
                     alien: TextAlign.center,
                     fontWeight: FontWeight.bold,
                   );
@@ -118,7 +122,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             endDrawer: BuildEndDrawer(homeTabCubit: data.homeTabCubit,),
             body: BlocBuilder<GenericBloc<int>, GenericState<int>>(
               bloc: data.homeTabCubit,
-              builder: (context, state) => screen[data.homeTabCubit.state.data],
+              builder: (context, state) {
+                var index = widget.index;
+                index= state.data;
+                return screen[index];
+              },
             ),
             bottomNavigationBar:
             BuildBottomNavigationBar(controller: data),

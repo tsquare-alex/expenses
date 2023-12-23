@@ -49,7 +49,7 @@ class BuildCurrencyRateInput extends StatelessWidget {
                     onChange: currencyRateData.setSelectCurrency,
                     finData: (data) => currencyRateData.getCurrencies(context),
                     useName: true,
-                    buttonsColor: MyColors.yellow,
+                    buttonsColor: MyColors.primary,
                     searchHint: "بحث",
                   ),
                 ),

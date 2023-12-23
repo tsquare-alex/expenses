@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
@@ -18,6 +19,7 @@ class AddTransactionBudget extends StatefulWidget {
 class _AddTransactionBudgetState extends State<AddTransactionBudget> {
   bool repeatSwitchValue = false;
   bool notificationSwitchvalu = false;
+  DateTime startDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -100,10 +102,33 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
               SizedBox(height: 15.h),
               Row(
                 children: [
-                  MyText(
-                      title: "اختيار المدة",
-                      color: MyColors.black,
-                      size: 14.sp),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      MyText(
+                          title: "اختيار المدة",
+                          color: MyColors.black,
+                          size: 14.sp),
+                      GenericTextField(
+                        onTab: () => () {},
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 20.r, vertical: 10.r),
+                        radius: 10.r,
+                        fieldTypes: FieldTypes.clickable,
+                        type: TextInputType.text,
+                        action: TextInputAction.next,
+                        label: "التاريخ",
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter transaction date';
+                          }
+                        },
+                        margin: const EdgeInsets.symmetric(
+                          vertical: 10,
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
               SizedBox(height: 15.h),
@@ -174,5 +199,18 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
         ),
       ],
     );
+  }
+
+  void chosenDate() async {
+    var chosenDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime.now().add(const Duration(days: 365)));
+
+    if (chosenDate != null) {
+      startDate = chosenDate;
+      setState(() {});
+    }
   }
 }

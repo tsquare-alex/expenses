@@ -22,7 +22,7 @@ class BudgetModelAdapter extends TypeAdapter<BudgetModel> {
       selectWallet: fields[2] as String,
       startBudget: fields[3] as String,
       transactionRepeat: fields[5] as String,
-      value: fields[0] as String,
+      name: fields[0] as String,
     );
   }
 
@@ -31,7 +31,7 @@ class BudgetModelAdapter extends TypeAdapter<BudgetModel> {
     writer
       ..writeByte(6)
       ..writeByte(0)
-      ..write(obj.value)
+      ..write(obj.name)
       ..writeByte(1)
       ..write(obj.selectTransaction)
       ..writeByte(2)

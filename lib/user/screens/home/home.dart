@@ -68,9 +68,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   );
                 },
               ),
-              leadingWidth: 61.w,
+              leadingWidth: 71.w,
               leading: Row(
                 children: [
+                  SizedBox(
+                    width: 10.w,
+                  ),
                   InkWell(
                     onTap: () {
                       data.scaffold.currentState?.openDrawer();

@@ -25,7 +25,7 @@ class _CurrencyRateState extends State<CurrencyRate> {
             children: [
               Column(
                 children: [
-                  HeaderLogo(topPadding: 100.r,image: Res.currencyExchange,),
+                  HeaderLogo(topPadding: 100.r,image: Res.currencyExchange,color: MyColors.primary,),
                   const BuildCurrencyRateText(),
                   BuildCurrencyRateInput(currencyRateData: data,),
                   BuildAutoEdit(data:data,),

@@ -71,9 +71,10 @@ class AddTransactionData {
     var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
         context: context,
+        minDate:DateTime.now().subtract(Duration(days: 30)),
         onConfirm: (date) {
           startDateController.text =
-              DateFormat("dd MMMM yyyy", local).format(date!);
+              DateFormat("dd MMMM yyyy", "en").format(date!);
         },
         title: '');
   }
@@ -84,10 +85,16 @@ class AddTransactionData {
     FocusScope.of(context).requestFocus(FocusNode());
     var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
+      initial: startDateController.text.isNotEmpty
+          ? DateFormat("dd MMMM yyyy", "en").parse(startDateController.text)
+          : DateTime.now(),
+        minDate: startDateController.text.isNotEmpty
+    ? DateFormat("dd MMMM yyyy", "en").parse(startDateController.text)
+        : DateTime.now(),
         context: context,
         onConfirm: (date) {
           endDateController.text =
-              DateFormat("dd MMMM yyyy", local).format(date!);
+              DateFormat("dd MMMM yyyy", "en").format(date!);
         },
         title: '');
   }
@@ -599,8 +606,7 @@ class AddTransactionData {
   addTransaction(BuildContext context, String type) async {
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
     if (formKey.currentState!.validate() &&
-        formKey1.currentState!.validate() &&
-        formKey2.currentState!.validate()) {
+        formKey1.currentState!.validate() ) {
       if (type == "الالتزامات") {
         AddTransactionModel model = AddTransactionModel(
           transactionName: "الالتزامات",
@@ -611,9 +617,9 @@ class AddTransactionData {
           amount: amountController.text,
           total: totalController.text,
           database: selectedDatabaseModel,
-          priority: selectedPriority?.name,
-          time: timeController.text,
-          transactionDate: dateController.text,
+          priority: selectedPriority,
+          time: DateFormat("hh:mm aa","en").format(DateTime.now()),
+          transactionDate: DateFormat('dd MMMM yyyy',"en").format(DateTime.now()),
           repeated: iterateCubit.state.data != false
               ? selectedIterateTransaction
               : null,
@@ -642,7 +648,6 @@ class AddTransactionData {
               msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
               color: Colors.red);
         }
-        print(addTransactionCubit.state.data[2].transactionContent?.name);
       } else if (type == "التسوق والشراء") {
         AddTransactionModel model = AddTransactionModel(
           transactionName: "التسوق والشراء",
@@ -654,9 +659,9 @@ class AddTransactionData {
           amount: amountController.text,
           total: totalController.text,
           brandName: brandController.text,
-          priority: selectedPriority?.name,
-          time: timeController.text,
-          transactionDate: dateController.text,
+          priority: selectedPriority,
+          time: DateFormat("hh:mm aa","en").format(DateTime.now()),
+          transactionDate: DateFormat('dd MMMM yyyy',"en").format(DateTime.now()),
           image: imageBloc.state.data,
           repeated: iterateCubit.state.data != false
               ? selectedIterateTransaction
@@ -690,12 +695,13 @@ class AddTransactionData {
         AddTransactionModel model = AddTransactionModel(
           transactionName: "الاهداف المالية المستهدفة",
           targetType: selectedTarget,
+          total: targetController.text,
           incomeSource: selectedWalletModel,
           targetValue: targetController.text,
           startDate: startDateController.text,
           endDate: endDateController.text,
-          time: timeController.text,
-          transactionDate: dateController.text,
+          time: DateFormat("hh:mm aa","en").format(DateTime.now()),
+          transactionDate: DateFormat('dd MMMM yyyy',"en").format(DateTime.now()),
           repeated: iterateCubit.state.data != false
               ? selectedIterateTransaction
               : null,
@@ -730,10 +736,10 @@ class AddTransactionData {
           cashTransactionType: selectedCashTransaction,
           incomeSource: selectedWalletModel,
           database: selectedDatabaseModel,
-          priority: selectedPriority?.name,
+          priority: selectedPriority,
           total: transferController.text,
-          time: timeController.text,
-          transactionDate: dateController.text,
+          time: DateFormat("hh:mm aa","en").format(DateTime.now()),
+          transactionDate: DateFormat('dd MMMM yyyy',"en").format(DateTime.now()),
           repeated: iterateCubit.state.data != false
               ? selectedIterateTransaction
               : null,

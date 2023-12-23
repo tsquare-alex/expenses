@@ -1,5 +1,3 @@
-
-
 import 'package:hive/hive.dart';
 
 part 'country_model.g.dart';

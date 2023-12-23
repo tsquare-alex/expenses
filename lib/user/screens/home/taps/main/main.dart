@@ -25,7 +25,9 @@ class _MainState extends State<Main> {
     return Scaffold(
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          CustomToast.showSimpleToast(msg: "تحت التطوير",color: Colors.red,);
+        },
         shape: const CircleBorder(),
         backgroundColor: context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.primary:MyColors.primary,
         child: Icon(

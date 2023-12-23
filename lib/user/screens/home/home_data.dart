@@ -15,32 +15,49 @@ class HomeData{
   List<TabModel> tabs = [
     TabModel(
       image: Res.dollar,
-      title: "المعاملات والمصروفات",
+      title: "transactions",
     ),
     TabModel(
       image: Res.home,
-      title: "القائمة الرئيسية",
+      title: "main",
     ),
     TabModel(
       image: Res.cart,
-      title: "التقارير والاحصائيات",
+      title: "reports",
     ),
   ];
   List<String> titles=[
-    "المعاملات والمصروفات",
-    "القائمة الرئيسية",
-    "التقارير والاحصائيات",
-    "الاعدادات والضبط",
-    "الادوات المساعده",
-    "السجل وقاعدة البيانات",
-    "المساعدة والشرح",
-    "المصادر المالية",
-    "الميزانية والخطط المالية",
-    "المصروفات",
-    "الأهداف المالية المستهدفة",
-    "المعاملات النقدية",
-    "المعاملات المتكررة",
+    "transactions",
+    "main",
+    "reports",
+    "settings",
+    "tools",
+    "database",
+    "help",
+    "wallets",
+    "budget",
+    "expense",
+    "target",
+    "cashTransactions",
+    "recurringTransactions",
   ];
+
+  List<String> icons=[
+    Res.transaction,
+    Res.home,
+    Res.report,
+    Res.settings,
+    Res.tools,
+    Res.database,
+    Res.explain,
+    Res.wallet,
+    Res.budget,
+    Res.transaction,
+    Res.budget,
+    Res.cashTransactions,
+    Res.repeatedTransactions,
+  ];
+
 
 
   void initBottomNavigation(TickerProvider ticker,int index) {

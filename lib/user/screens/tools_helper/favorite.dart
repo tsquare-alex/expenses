@@ -16,18 +16,37 @@ import 'package:expenses/user/screens/tools_helper/widgets/speed_converter/speed
 import 'package:expenses/user/screens/tools_helper/widgets/temperature_converter/temperature_converter.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/time_converter/time_converter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:expenses/user/screens/tools_helper/cubit/favorite_cubit.dart';
+import 'package:local_auth/local_auth.dart';
 
 import '../bmi_calculator/bmi_calculator_imports.dart';
 import '../change_currency/change_currency_imports.dart';
 
-class FavoriteScreen extends StatelessWidget {
-  const FavoriteScreen({Key? key}) : super(key: key);
+class FavoriteScreen extends StatefulWidget {
+  @override
+  State<FavoriteScreen> createState() => _FavoriteScreenState();
+}
+
+class _FavoriteScreenState extends State<FavoriteScreen> {
+  // const FavoriteScreen({Key? key}) : super(key: key);
+ late final LocalAuthentication auth;
+
+ bool _supportState = false;
+
+ @override
+  void initState() {
+    super.initState();
+    auth = LocalAuthentication();
+    auth.isDeviceSupported().then((bool isSupported) => setState((){
+      _supportState = isSupported;
+    }));
+  }
 
   @override
   Widget build(BuildContext context) {
-    print('Building FavoriteScreen');
+
 
     return BlocProvider(
       create: (context) {
@@ -38,46 +57,60 @@ class FavoriteScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text("Favorite"),
         ),
-        body: BlocBuilder<FavoriteCubit, FavoriteState>(
-          builder: (context, state) {
-            if (state is FavoriteUpdatedState) {
-              print("=============================================");
-              print(state.favoriteTools);
-              print("=============================================");
-              return Container(
-                height: 200,
-                color: Colors.blue,
-                child: ListView.builder(
-                  itemCount: state.favoriteTools.length,
-                  itemBuilder: (context, index) {
-                    FavoriteModel tool = state.favoriteTools[index];
-                    return GestureDetector(
-                      onTap: () {
-                        // Navigate to the respective screen based on the tool type
-                        navigateToScreen(context, tool.toolName);
+        body: Column(
+          children: [
+            if(_supportState)
+              const Text("This Device is supported")
+            else
+              const Text("This Device is is not supported"),
+
+            ElevatedButton(onPressed: _getAvalibaleBiometrics, child: Text("Get available biometrics")),
+            const SizedBox(height: 100,),
+
+            ElevatedButton(onPressed: _authenticate, child: Text("Authenticate")),
+
+            BlocBuilder<FavoriteCubit, FavoriteState>(
+              builder: (context, state) {
+                if (state is FavoriteUpdatedState) {
+                  print("=============================================");
+                  print(state.favoriteTools);
+                  print("=============================================");
+                  return Container(
+                    height: 200,
+                    color: Colors.blue,
+                    child: ListView.builder(
+                      itemCount: state.favoriteTools.length,
+                      itemBuilder: (context, index) {
+                        FavoriteModel tool = state.favoriteTools[index];
+                        return GestureDetector(
+                          onTap: () {
+                            // Navigate to the respective screen based on the tool type
+                            navigateToScreen(context, tool.toolName);
+                          },
+                          child: ListTile(
+                            title: Text(tr(context, tool.toolName)),
+                            // Add onTap logic as needed
+                          ),
+                        );
                       },
-                      child: ListTile(
-                        title: Text(tr(context, tool.toolName)),
-                        // Add onTap logic as needed
-                      ),
-                    );
-                  },
-                ),
-              );
-            } else if (state is FavoriteExceededLimitState) {
-              return Center(
-                child: Text("Exceeded the favorite limit!"),
-              );
-            } else if (state is FavoriteErrorState) {
-              return Center(
-                child: Text("Error: ${state.errorMessage}"),
-              );
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
+                    ),
+                  );
+                } else if (state is FavoriteExceededLimitState) {
+                  return Center(
+                    child: Text("Exceeded the favorite limit!"),
+                  );
+                } else if (state is FavoriteErrorState) {
+                  return Center(
+                    child: Text("Error: ${state.errorMessage}"),
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
+          ],
         ),
       ),
     );
@@ -136,6 +169,30 @@ class FavoriteScreen extends StatelessWidget {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => SpeedConverterScreen()));
         break;
     }
+  }
+
+  void _getAvalibaleBiometrics()  async{
+   List<BiometricType> availableBiometrics = await auth.getAvailableBiometrics();
+   print("List of availableBiometrics $availableBiometrics");
+
+   if(!mounted){
+     return;
+   }
+  }
+
+  void _authenticate() async {
+   try{
+     bool authenticated = await auth.authenticate(
+       localizedReason: "Subcribe or you will never find any data",
+       options: const AuthenticationOptions(
+         stickyAuth: true,
+         biometricOnly: false,
+       ),
+     );
+     print("Authenticated : $authenticated");
+   }on PlatformException catch(e){
+     print(e);
+   }
   }
 }
 

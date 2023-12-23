@@ -77,6 +77,7 @@ dependencies:
   table_calendar:
   font_awesome_flutter:
   flutter_barcode_scanner:
+  local_auth: ^2.1.7
 
 dev_dependencies:
   flutter_test:

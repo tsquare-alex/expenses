@@ -11,4 +11,8 @@ class AddBudgetLoading extends BudgetState {}
 
 class AddBudgetSuccess extends BudgetState {}
 
-class AddBudgetFaliuer extends BudgetState {}
+class AddBudgetFaliuer extends BudgetState {
+  final String message;
+
+  AddBudgetFaliuer({required this.message});
+}

@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
-import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_cubit.dart';
@@ -31,7 +30,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
     WalletData data = WalletData();
 
     return BlocProvider(
-      create: (context) => BudgetCubit(),
+      create: (context) => BudgetCubit()
+        ..fetchDataFromTransations()
+        ..fetchdataFromWallet(),
       child: Column(
         children: [
           Container(
@@ -49,8 +50,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
           ),
           Padding(
             padding: EdgeInsets.all(16.w),
-            child: BlocConsumer<BudgetCubit, BudgetState>(
-              listener: (context, state) {},
+            child: BlocBuilder<BudgetCubit, BudgetState>(
               builder: (context, state) {
                 return Form(
                   child: Column(
@@ -80,7 +80,29 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MyText(
-                              title: "اختيار معاملة",
+                              title: "اختيار محفظة",
+                              color: MyColors.black,
+                              size: 14.sp),
+                          SizedBox(
+                            width: 150.w,
+                            child: TileDropdownButton(
+                              menuList: context
+                                  .read<BudgetCubit>()
+                                  .wallets
+                                  .map((wallet) => wallet.name)
+                                  .toList(),
+                              value: "",
+                              onChanged: (value) => {},
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 15.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          MyText(
+                              title: "اختيار المعاملة",
                               color: MyColors.black,
                               size: 14.sp),
                           SizedBox(
@@ -98,28 +120,13 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MyText(
-                              title: "اختيار محفظة",
-                              color: MyColors.black,
-                              size: 14.sp),
-                          SizedBox(
-                            width: 150.w,
-                            child: TileDropdownButton(
-                              menuList: data.paymentMethod,
-                              value: data.paymentMethod.first,
-                              onChanged: (value) => {},
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 15.h),
-                      Row(
-                        children: [
-                          MyText(
                               title: "اختيار المدة",
                               color: MyColors.black,
                               size: 14.sp),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                dateRange();
+                              },
                               icon: Icon(Icons.calendar_month_outlined))
                         ],
                       ),

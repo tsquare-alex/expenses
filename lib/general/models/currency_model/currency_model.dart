@@ -1,18 +1,23 @@
-import 'package:json_annotation/json_annotation.dart'; 
 
-part 'currency_model.g.dart'; 
+import 'package:hive/hive.dart';
 
-@JsonSerializable(nullable: false, ignoreUnannotated: false)
+part 'currency_model.g.dart';
+@HiveType(typeId: 67)
+
 class CurrencyModel {
-  @JsonKey(name: 'id')
-  int? id;
-  @JsonKey(name: 'name')
-  String? name;
+  @HiveField(0)
+  String mainCurrency;
 
-  CurrencyModel({this.id, this.name});
+  @HiveField(1)
+  String subCurrency;
 
-   factory CurrencyModel.fromJson(Map<String, dynamic> json) => _$CurrencyModelFromJson(json);
+  @HiveField(2)
+  double value;
 
-   Map<String, dynamic> toJson() => _$CurrencyModelToJson(this);
+  CurrencyModel({required this.mainCurrency,
+    required this.subCurrency,
+    required this.value,});
+
+
 }
 

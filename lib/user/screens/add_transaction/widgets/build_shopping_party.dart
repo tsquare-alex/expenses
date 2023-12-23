@@ -35,7 +35,7 @@ class BuildShoppingParty extends StatelessWidget {
             ),
             useName: true,
             buttonsColor: MyColors.primary,
-            searchHint: "بحث",
+            searchHint: tr(context, "search"),
           )
         ],
       ),

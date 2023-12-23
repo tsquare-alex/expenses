@@ -60,7 +60,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 bloc: data.homeTabCubit,
                 builder: (context, state) {
                   return MyText(
-                    title: data.titles[state.data],
+                    title: tr(context, data.titles[state.data]),
                     color: MyColors.white,
                     size: 14.sp,
                     alien: TextAlign.center,
@@ -68,17 +68,33 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   );
                 },
               ),
-              leading: Padding(
-                padding: EdgeInsets.only(right: 15.0.r),
-                child: IconButton(
-                  onPressed: () {
-                    data.scaffold.currentState?.openDrawer();
-                  },
-                  icon: Icon(
-                    Icons.menu,
-                    color: MyColors.white,
-                    size: 30.w,
-                  ),),
+              leadingWidth: 71.w,
+              leading: Row(
+                children: [
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      data.scaffold.currentState?.openDrawer();
+                    },
+                    child: Icon(
+                      Icons.menu,
+                      color: MyColors.white,
+                      size: 30.w,
+                    ),),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  BlocBuilder<GenericBloc<int>, GenericState<int>>(
+                    bloc: data.homeTabCubit,
+                    builder: (context, state) {
+                      return Image.asset(
+                        data.icons[state.data], color: MyColors.white,width: 20.w,height: 20.h,);
+                    },
+                  ),
+
+                ],
               ),
               actions: [
                 BlocBuilder<AppThemeCubit, AppThemeState>(
@@ -124,7 +140,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               bloc: data.homeTabCubit,
               builder: (context, state) {
                 var index = widget.index;
-                index= state.data;
+                index = state.data;
                 return screen[index];
               },
             ),

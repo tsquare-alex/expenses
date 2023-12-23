@@ -17,7 +17,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         padding: EdgeInsets.all(15.r),
         child: Column(
           children: [
-            HeaderLogo(topPadding: 100.r,image: Res.forgetPassword,),
+            HeaderLogo(topPadding: 100.r,image: Res.forgetPassword,color: MyColors.primary,),
             BuildForgetForm(forgetPasswordData: forgetPasswordData),
             BuildForgetPasswordButton(forgetPasswordData: forgetPasswordData),
           ],

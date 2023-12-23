@@ -5,7 +5,10 @@ class ExpenseData{
   GenericBloc<List<TransactionModel>> commitmentsCubit = GenericBloc([]);
   final GenericBloc<int> tabCubit = GenericBloc(0);
 
-
+  List<String> titles=[
+    "commitments",
+    "shopping"
+  ];
   List<TransactionModel> commitments=[
     TransactionModel(
         name: "الالتزامات",
@@ -203,8 +206,205 @@ class ExpenseData{
     ),
   ];
 
+  // var changed=[
+  //   TransactionModel(
+  //       name: "الالتزامات",
+  //       isSelected: true,
+  //       image: Res.commitment,
+  //       content: [
+  //         TransactionTypeModel(
+  //           name: local=="ar"?"فواتير":"Bills",
+  //           content: [
+  //             TransactionContentModel(
+  //               name: local=="ar"?"كهرباء":"electricity",
+  //             ),
+  //             TransactionContentModel(
+  //               name: local=="ar"?"مياه":"water",
+  //             ),
+  //             TransactionContentModel(
+  //               name: local=="ar"?"غاز":"gas",
+  //             ),
+  //             TransactionContentModel(
+  //               name: local=="ar"?"تليفون أرضي":"Landline phone",
+  //             ),
+  //             TransactionContentModel(
+  //               name: local=="ar"?"رصيد":"credit",
+  //             ),
+  //             TransactionContentModel(
+  //               name: local=="ar"?"انترنت":"internet",
+  //             ),
+  //           ],
+  //         ),
+  //         TransactionTypeModel(
+  //           name: local=="ar"?"إيجار":"Rent",
+  //           content: [
+  //             TransactionContentModel(
+  //               name: local=="ar"?"منزل":"house",
+  //             ),
+  //           ],
+  //         ),
+  //         TransactionTypeModel(
+  //           name: local=="ar"?"أقساط":"Installments",
+  //           content: [
+  //             TransactionContentModel(
+  //               name: local=="ar"?"موبايل":"mobile",
+  //             ),
+  //           ],
+  //         ),
+  //         TransactionTypeModel(
+  //           name: local=="ar"?"تأمينات":"insurances",
+  //           content: [
+  //             TransactionContentModel(
+  //               name: local=="ar"?"سيارة":"car",
+  //             ),
+  //           ],
+  //         ),
+  //         TransactionTypeModel(
+  //           name: local=="ar"?"اشتراكات":"Subscriptions",
+  //           content: [
+  //             TransactionContentModel(
+  //               name: local=="ar"?"نادي":"club",
+  //             ),
+  //             TransactionContentModel(
+  //               name: local=="ar"?"جيم":"gym",
+  //             ),
+  //           ],
+  //         ),
+  //         TransactionTypeModel(
+  //           name: local=="ar"?"مصاريف سيارة":"Car expenses",
+  //           content: [
+  //             TransactionContentModel(
+  //               name: local=="ar"?"نظافة":"cleanliness",
+  //             ),
+  //             TransactionContentModel(
+  //               name: local=="ar"?"صيانة":"maintenance",
+  //             ),
+  //           ],
+  //         ),
+  //         TransactionTypeModel(
+  //           name: local=="ar"?"تبرعات و اعانات":"Donations & Subsidies",
+  //           content: [
+  //             TransactionContentModel(
+  //               name: local=="ar"?"الهلال الأحمر":"Red Crescent",
+  //             ),
+  //           ],
+  //         ),
+  //         TransactionTypeModel(
+  //           name: local=="ar"?"ادوية":"medicines",
+  //           content: [
+  //             TransactionContentModel(
+  //               name: local=="ar"?"أدوية الضغط":"Pressure medications",
+  //             ),
+  //           ],
+  //         ),
+  //         TransactionTypeModel(
+  //           name: local=="ar"?"مواصلات":"Transportation",
+  //           content: [
+  //             TransactionContentModel(
+  //               name: local=="ar"?"سفر":"travel",
+  //             ),
+  //           ],
+  //         ),
+  //       ]
+  //   ),
+  //   TransactionModel(
+  //     name: local=="ar"?"التسوق والشراء":"Shopping & Buying",
+  //     image: Res.bag,
+  //     content: [
+  //       TransactionTypeModel(
+  //         name: local=="ar"?"سوبر ماركت":"Supermarket",
+  //         content: [
+  //           TransactionContentModel(
+  //             name: local=="ar"?"خضار":"vegetables",
+  //           ),
+  //           TransactionContentModel(
+  //             name: local=="ar"?"فاكهة":"fruit",
+  //           ),
+  //           TransactionContentModel(
+  //             name: local=="ar"?"بقوليات":"legumes",
+  //           ),
+  //           TransactionContentModel(
+  //             name: local=="ar"?"زيوت":"oils",
+  //           ),
+  //         ],
+  //       ),
+  //       TransactionTypeModel(
+  //         name: local=="ar"?"بقالة":"Grocery",
+  //         content: [
+  //         ],
+  //       ),
+  //       TransactionTypeModel(
+  //         name: local=="ar"?"محل":"store",
+  //         content: [
+  //         ],
+  //       ),
+  //       TransactionTypeModel(
+  //         name: local=="ar"?"شركة":"company",
+  //         content: [
+  //         ],
+  //       ),
+  //       TransactionTypeModel(
+  //         name: local=="ar"?"سوق":"market",
+  //         content: [
+  //         ],
+  //       ),
+  //       TransactionTypeModel(
+  //         name: local=="ar"?"مصنع":"factory",
+  //         content: [
+  //         ],
+  //       ),
+  //       TransactionTypeModel(
+  //         name: local=="ar"?"ورشة":"workshop",
+  //         content: [
+  //         ],
+  //       ),
+  //       TransactionTypeModel(
+  //         name: local=="ar"?"شخص":"person",
+  //         content: [
+  //         ],
+  //       ),
+  //       TransactionTypeModel(
+  //         name: local=="ar"?"موقع الأكتروني":"website",
+  //         content: [
+  //         ],
+  //       ),
+  //       TransactionTypeModel(
+  //         name: local=="ar"?"فيسبوك":"facebook",
+  //         content: [
+  //         ],
+  //       ),
+  //       TransactionTypeModel(
+  //         name: local=="ar"?"انستجرام":"Instagram",
+  //         content: [
+  //         ],
+  //       ),
+  //       TransactionTypeModel(
+  //         name: local=="ar"?"اعلان":"announcement",
+  //         content: [
+  //         ],
+  //       ),
+  //       TransactionTypeModel(
+  //         name: local=="ar"?"تيكتوك":"tiktok",
+  //         content: [
+  //         ],
+  //       ),
+  //       TransactionTypeModel(
+  //         name: local=="ar"?"عيادة":"clinic",
+  //         content: [
+  //         ],
+  //       ),
+  //       TransactionTypeModel(
+  //         name: local=="ar"?"مستشفي":"hospital",
+  //         content: [
+  //         ],
+  //       ),
+  //
+  //     ],
+  //   ),
+  // ];
 
-  getCommitments(){
+
+  getCommitments(local){
     commitmentsCubit.onUpdateData(commitments);
   }
 }

@@ -39,7 +39,7 @@ class ReportTable extends StatelessWidget {
                       StatsRowCell(title: transaction.incomeSource!.name),
                       StatsRowCell(title: transaction.transactionName!),
                       StatsRowCell(title: transaction.database!.adjective),
-                      StatsRowCell(title: transaction.priority!),
+                      StatsRowCell(title: transaction.priority!.name!),
                       StatsRowCell(title: transaction.total!),
                     ],
                   ),

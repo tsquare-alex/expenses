@@ -13,7 +13,7 @@ class WelcomePageData {
       BuildPageView(
         key: const Key("1"),
         model: WelcomeEntity(
-            title: "Welcome on Money Tracker",
+            title: "Welcome on My Expenses",
             desc: "Plan your finance any time, any where",
             image: Res.onboardingOne,
             index: 0,

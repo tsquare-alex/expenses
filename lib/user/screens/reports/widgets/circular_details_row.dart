@@ -23,7 +23,7 @@ class CircularDetailsRow extends StatelessWidget {
                 tr(context, 'expense'),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 14.r,
+                  fontSize: 14.sp,
                 ),
               ),
             ],
@@ -39,7 +39,7 @@ class CircularDetailsRow extends StatelessWidget {
                 tr(context, 'residual'),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 14.r,
+                  fontSize: 14.sp,
                 ),
               ),
             ],

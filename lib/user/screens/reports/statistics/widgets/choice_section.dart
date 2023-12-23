@@ -4,36 +4,23 @@ class ChoiceSection extends StatelessWidget {
   const ChoiceSection({
     Key? key,
     required this.label,
-    this.icon,
-    required this.onTap,
+    required this.menuList,
+    this.onSelect,
   }) : super(key: key);
 
+  final Function(
+  String key
+  )? onSelect;
   final String label;
-  final IconData? icon;
-  final Function onTap;
+  final Map menuList;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: FieldSection(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              label,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey,
-              ),
-            ),
-            Icon(
-              icon ?? Icons.keyboard_arrow_down,
-              color: Colors.grey,
-            ),
-          ],
-        ),
+    return FieldSection(
+      child: StatisticsDropdown(
+        menuList: menuList,
+        label: label,
+        onSelect: onSelect!,
       ),
     );
   }

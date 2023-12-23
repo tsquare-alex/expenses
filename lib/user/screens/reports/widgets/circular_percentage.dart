@@ -13,14 +13,15 @@ class CircularPercentage extends StatelessWidget {
         animationDuration: 1000,
         radius: 65.r,
         lineWidth: 22.r,
-        startAngle: 340,
+        startAngle: 0,
         animation: true,
-        percent: 0.75,
+        percent: ReportsCubit.get(context).circleChartPercentage,
         center: Text(
-          '75%',
+          NumberFormat.percentPattern()
+              .format(ReportsCubit.get(context).circleChartPercentage),
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 14.r,
+            fontSize: 16.sp,
           ),
         ),
         circularStrokeCap: CircularStrokeCap.round,

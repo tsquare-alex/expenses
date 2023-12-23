@@ -1,0 +1,92 @@
+{
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "source.dart",
+        "settings": {
+          "foreground": "#d4d4d4"
+        }
+      },
+      {
+        "scope": "variable.parameter.dart",
+        "settings": {
+          "foreground": "#00aeff"
+        }
+      },
+      {
+        "scope": "variable.language.dart",
+        "settings": {
+          "foreground": "#ff4848"
+        }
+      },
+      {
+        "scope": "keyword.control.dart",
+        "settings": {
+          "fontStyle": "italic",
+          "foreground": "#fa74e8"
+        }
+      },
+      {
+        "scope": "storage.type.primitive.dart",
+        "settings": {
+          "foreground": "#fa74e8"
+        }
+      },
+      {
+        "scope": "storage.type.annotation.dart",
+        "settings": {
+          "foreground": "#fa74e8"
+        }
+      },
+      {
+        "scope": "keyword.other.import.dart",
+        "settings": {
+          "foreground": "#fa74e8"
+        }
+      },
+      {
+        "scope": "keyword.declaration.dart",
+        "settings": {
+          "foreground": "#fa74e8"
+        }
+      },
+      {
+        "scope": "storage.modifier.dart",
+        "settings": {
+          "foreground": "#fa74e8"
+        }
+      },
+      {
+        "scope": "constant.language.dart",
+        "settings": {
+          "foreground": "#fc8727"
+        }
+      },
+      {
+        "scope": "constant.numeric.dart",
+        "settings": {
+          "foreground": "#fc8727"
+        }
+      },
+      {
+        "scope": "entity.name.function.dart",
+        "settings": {
+          "foreground": "#00aeff"
+        }
+      },
+      {
+        "scope": "string.interpolated.single.dart",
+        "settings": {
+          "foreground": "#1bd149"
+        }
+      },
+      {
+        "scope": "support.class.dart",
+        "settings": {
+          "foreground": "#fac71fe3"
+        }
+      }
+    ],
+    "comments": ""
+  }
+}

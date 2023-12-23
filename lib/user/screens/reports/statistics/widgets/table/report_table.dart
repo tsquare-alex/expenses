@@ -1,7 +1,12 @@
 part of '../../statistics_imports.dart';
 
 class ReportTable extends StatelessWidget {
-  const ReportTable({super.key});
+  const ReportTable({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
+
+  final List<AddTransactionModel> data;
 
   @override
   Widget build(BuildContext context) {
@@ -18,48 +23,55 @@ class ReportTable extends StatelessWidget {
             width: 2.r,
           ),
           children: [
-            TableRow(
+            const TableRow(
               children: [
-                ...List.generate(
-                  4,
-                  (index) => Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 15.r),
-                      child: Text(
-                        'Data ${index + 1}',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                StatsRowCell(title: 'المحفظة', padding: 10),
+                StatsRowCell(title: 'المعاملة', padding: 10),
+                StatsRowCell(title: 'المعاملة الفرعية', padding: 10),
+                StatsRowCell(title: 'الأولوية', padding: 10),
+                StatsRowCell(title: 'المبلغ', padding: 10),
               ],
             ),
-            ...List.generate(
-              3,
-              (index) => TableRow(
-                children: [
-                  ...List.generate(
-                    4,
-                    (index) => Center(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20.r),
-                        child: Text(
-                          'Data ${index + 1}',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
+            ...data
+                .map(
+                  (transaction) => TableRow(
+                    children: [
+                      StatsRowCell(title: transaction.incomeSource!.name),
+                      StatsRowCell(title: transaction.transactionName!),
+                      StatsRowCell(title: transaction.database!.adjective),
+                      StatsRowCell(title: transaction.priority!),
+                      StatsRowCell(title: transaction.total!),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                )
+                .toList(),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class StatsRowCell extends StatelessWidget {
+  const StatsRowCell({
+    Key? key,
+    required this.title,
+    this.padding,
+  }) : super(key: key);
+
+  final String title;
+  final double? padding;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: padding ?? 20.r),
+      child: Text(
+        title,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 14.sp,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );

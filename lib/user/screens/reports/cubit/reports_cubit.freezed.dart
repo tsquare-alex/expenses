@@ -21,6 +21,11 @@ mixin _$ReportsState {
     required TResult Function() initial,
     required TResult Function() changeDate,
     required TResult Function() showReportDetails,
+    required TResult Function() reportDataLoading,
+    required TResult Function() reportDataLoaded,
+    required TResult Function() statsDataLoading,
+    required TResult Function() statsDataLoaded,
+    required TResult Function() statsWalletsSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +33,11 @@ mixin _$ReportsState {
     TResult? Function()? initial,
     TResult? Function()? changeDate,
     TResult? Function()? showReportDetails,
+    TResult? Function()? reportDataLoading,
+    TResult? Function()? reportDataLoaded,
+    TResult? Function()? statsDataLoading,
+    TResult? Function()? statsDataLoaded,
+    TResult? Function()? statsWalletsSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +45,11 @@ mixin _$ReportsState {
     TResult Function()? initial,
     TResult Function()? changeDate,
     TResult Function()? showReportDetails,
+    TResult Function()? reportDataLoading,
+    TResult Function()? reportDataLoaded,
+    TResult Function()? statsDataLoading,
+    TResult Function()? statsDataLoaded,
+    TResult Function()? statsWalletsSelected,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +58,11 @@ mixin _$ReportsState {
     required TResult Function(Initial value) initial,
     required TResult Function(ChangeDate value) changeDate,
     required TResult Function(ShowReportDetails value) showReportDetails,
+    required TResult Function(ReportDataLoading value) reportDataLoading,
+    required TResult Function(ReportDataLoaded value) reportDataLoaded,
+    required TResult Function(StatsDataLoading value) statsDataLoading,
+    required TResult Function(StatsDataLoaded value) statsDataLoaded,
+    required TResult Function(StatsWalletsSelected value) statsWalletsSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +70,11 @@ mixin _$ReportsState {
     TResult? Function(Initial value)? initial,
     TResult? Function(ChangeDate value)? changeDate,
     TResult? Function(ShowReportDetails value)? showReportDetails,
+    TResult? Function(ReportDataLoading value)? reportDataLoading,
+    TResult? Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult? Function(StatsDataLoading value)? statsDataLoading,
+    TResult? Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult? Function(StatsWalletsSelected value)? statsWalletsSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +82,11 @@ mixin _$ReportsState {
     TResult Function(Initial value)? initial,
     TResult Function(ChangeDate value)? changeDate,
     TResult Function(ShowReportDetails value)? showReportDetails,
+    TResult Function(ReportDataLoading value)? reportDataLoading,
+    TResult Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult Function(StatsDataLoading value)? statsDataLoading,
+    TResult Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult Function(StatsWalletsSelected value)? statsWalletsSelected,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -121,6 +151,11 @@ class _$InitialImpl implements Initial {
     required TResult Function() initial,
     required TResult Function() changeDate,
     required TResult Function() showReportDetails,
+    required TResult Function() reportDataLoading,
+    required TResult Function() reportDataLoaded,
+    required TResult Function() statsDataLoading,
+    required TResult Function() statsDataLoaded,
+    required TResult Function() statsWalletsSelected,
   }) {
     return initial();
   }
@@ -131,6 +166,11 @@ class _$InitialImpl implements Initial {
     TResult? Function()? initial,
     TResult? Function()? changeDate,
     TResult? Function()? showReportDetails,
+    TResult? Function()? reportDataLoading,
+    TResult? Function()? reportDataLoaded,
+    TResult? Function()? statsDataLoading,
+    TResult? Function()? statsDataLoaded,
+    TResult? Function()? statsWalletsSelected,
   }) {
     return initial?.call();
   }
@@ -141,6 +181,11 @@ class _$InitialImpl implements Initial {
     TResult Function()? initial,
     TResult Function()? changeDate,
     TResult Function()? showReportDetails,
+    TResult Function()? reportDataLoading,
+    TResult Function()? reportDataLoaded,
+    TResult Function()? statsDataLoading,
+    TResult Function()? statsDataLoaded,
+    TResult Function()? statsWalletsSelected,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -155,6 +200,11 @@ class _$InitialImpl implements Initial {
     required TResult Function(Initial value) initial,
     required TResult Function(ChangeDate value) changeDate,
     required TResult Function(ShowReportDetails value) showReportDetails,
+    required TResult Function(ReportDataLoading value) reportDataLoading,
+    required TResult Function(ReportDataLoaded value) reportDataLoaded,
+    required TResult Function(StatsDataLoading value) statsDataLoading,
+    required TResult Function(StatsDataLoaded value) statsDataLoaded,
+    required TResult Function(StatsWalletsSelected value) statsWalletsSelected,
   }) {
     return initial(this);
   }
@@ -165,6 +215,11 @@ class _$InitialImpl implements Initial {
     TResult? Function(Initial value)? initial,
     TResult? Function(ChangeDate value)? changeDate,
     TResult? Function(ShowReportDetails value)? showReportDetails,
+    TResult? Function(ReportDataLoading value)? reportDataLoading,
+    TResult? Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult? Function(StatsDataLoading value)? statsDataLoading,
+    TResult? Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult? Function(StatsWalletsSelected value)? statsWalletsSelected,
   }) {
     return initial?.call(this);
   }
@@ -175,6 +230,11 @@ class _$InitialImpl implements Initial {
     TResult Function(Initial value)? initial,
     TResult Function(ChangeDate value)? changeDate,
     TResult Function(ShowReportDetails value)? showReportDetails,
+    TResult Function(ReportDataLoading value)? reportDataLoading,
+    TResult Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult Function(StatsDataLoading value)? statsDataLoading,
+    TResult Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult Function(StatsWalletsSelected value)? statsWalletsSelected,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -229,6 +289,11 @@ class _$ChangeDateImpl implements ChangeDate {
     required TResult Function() initial,
     required TResult Function() changeDate,
     required TResult Function() showReportDetails,
+    required TResult Function() reportDataLoading,
+    required TResult Function() reportDataLoaded,
+    required TResult Function() statsDataLoading,
+    required TResult Function() statsDataLoaded,
+    required TResult Function() statsWalletsSelected,
   }) {
     return changeDate();
   }
@@ -239,6 +304,11 @@ class _$ChangeDateImpl implements ChangeDate {
     TResult? Function()? initial,
     TResult? Function()? changeDate,
     TResult? Function()? showReportDetails,
+    TResult? Function()? reportDataLoading,
+    TResult? Function()? reportDataLoaded,
+    TResult? Function()? statsDataLoading,
+    TResult? Function()? statsDataLoaded,
+    TResult? Function()? statsWalletsSelected,
   }) {
     return changeDate?.call();
   }
@@ -249,6 +319,11 @@ class _$ChangeDateImpl implements ChangeDate {
     TResult Function()? initial,
     TResult Function()? changeDate,
     TResult Function()? showReportDetails,
+    TResult Function()? reportDataLoading,
+    TResult Function()? reportDataLoaded,
+    TResult Function()? statsDataLoading,
+    TResult Function()? statsDataLoaded,
+    TResult Function()? statsWalletsSelected,
     required TResult orElse(),
   }) {
     if (changeDate != null) {
@@ -263,6 +338,11 @@ class _$ChangeDateImpl implements ChangeDate {
     required TResult Function(Initial value) initial,
     required TResult Function(ChangeDate value) changeDate,
     required TResult Function(ShowReportDetails value) showReportDetails,
+    required TResult Function(ReportDataLoading value) reportDataLoading,
+    required TResult Function(ReportDataLoaded value) reportDataLoaded,
+    required TResult Function(StatsDataLoading value) statsDataLoading,
+    required TResult Function(StatsDataLoaded value) statsDataLoaded,
+    required TResult Function(StatsWalletsSelected value) statsWalletsSelected,
   }) {
     return changeDate(this);
   }
@@ -273,6 +353,11 @@ class _$ChangeDateImpl implements ChangeDate {
     TResult? Function(Initial value)? initial,
     TResult? Function(ChangeDate value)? changeDate,
     TResult? Function(ShowReportDetails value)? showReportDetails,
+    TResult? Function(ReportDataLoading value)? reportDataLoading,
+    TResult? Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult? Function(StatsDataLoading value)? statsDataLoading,
+    TResult? Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult? Function(StatsWalletsSelected value)? statsWalletsSelected,
   }) {
     return changeDate?.call(this);
   }
@@ -283,6 +368,11 @@ class _$ChangeDateImpl implements ChangeDate {
     TResult Function(Initial value)? initial,
     TResult Function(ChangeDate value)? changeDate,
     TResult Function(ShowReportDetails value)? showReportDetails,
+    TResult Function(ReportDataLoading value)? reportDataLoading,
+    TResult Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult Function(StatsDataLoading value)? statsDataLoading,
+    TResult Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult Function(StatsWalletsSelected value)? statsWalletsSelected,
     required TResult orElse(),
   }) {
     if (changeDate != null) {
@@ -337,6 +427,11 @@ class _$ShowReportDetailsImpl implements ShowReportDetails {
     required TResult Function() initial,
     required TResult Function() changeDate,
     required TResult Function() showReportDetails,
+    required TResult Function() reportDataLoading,
+    required TResult Function() reportDataLoaded,
+    required TResult Function() statsDataLoading,
+    required TResult Function() statsDataLoaded,
+    required TResult Function() statsWalletsSelected,
   }) {
     return showReportDetails();
   }
@@ -347,6 +442,11 @@ class _$ShowReportDetailsImpl implements ShowReportDetails {
     TResult? Function()? initial,
     TResult? Function()? changeDate,
     TResult? Function()? showReportDetails,
+    TResult? Function()? reportDataLoading,
+    TResult? Function()? reportDataLoaded,
+    TResult? Function()? statsDataLoading,
+    TResult? Function()? statsDataLoaded,
+    TResult? Function()? statsWalletsSelected,
   }) {
     return showReportDetails?.call();
   }
@@ -357,6 +457,11 @@ class _$ShowReportDetailsImpl implements ShowReportDetails {
     TResult Function()? initial,
     TResult Function()? changeDate,
     TResult Function()? showReportDetails,
+    TResult Function()? reportDataLoading,
+    TResult Function()? reportDataLoaded,
+    TResult Function()? statsDataLoading,
+    TResult Function()? statsDataLoaded,
+    TResult Function()? statsWalletsSelected,
     required TResult orElse(),
   }) {
     if (showReportDetails != null) {
@@ -371,6 +476,11 @@ class _$ShowReportDetailsImpl implements ShowReportDetails {
     required TResult Function(Initial value) initial,
     required TResult Function(ChangeDate value) changeDate,
     required TResult Function(ShowReportDetails value) showReportDetails,
+    required TResult Function(ReportDataLoading value) reportDataLoading,
+    required TResult Function(ReportDataLoaded value) reportDataLoaded,
+    required TResult Function(StatsDataLoading value) statsDataLoading,
+    required TResult Function(StatsDataLoaded value) statsDataLoaded,
+    required TResult Function(StatsWalletsSelected value) statsWalletsSelected,
   }) {
     return showReportDetails(this);
   }
@@ -381,6 +491,11 @@ class _$ShowReportDetailsImpl implements ShowReportDetails {
     TResult? Function(Initial value)? initial,
     TResult? Function(ChangeDate value)? changeDate,
     TResult? Function(ShowReportDetails value)? showReportDetails,
+    TResult? Function(ReportDataLoading value)? reportDataLoading,
+    TResult? Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult? Function(StatsDataLoading value)? statsDataLoading,
+    TResult? Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult? Function(StatsWalletsSelected value)? statsWalletsSelected,
   }) {
     return showReportDetails?.call(this);
   }
@@ -391,6 +506,11 @@ class _$ShowReportDetailsImpl implements ShowReportDetails {
     TResult Function(Initial value)? initial,
     TResult Function(ChangeDate value)? changeDate,
     TResult Function(ShowReportDetails value)? showReportDetails,
+    TResult Function(ReportDataLoading value)? reportDataLoading,
+    TResult Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult Function(StatsDataLoading value)? statsDataLoading,
+    TResult Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult Function(StatsWalletsSelected value)? statsWalletsSelected,
     required TResult orElse(),
   }) {
     if (showReportDetails != null) {
@@ -402,4 +522,695 @@ class _$ShowReportDetailsImpl implements ShowReportDetails {
 
 abstract class ShowReportDetails implements ReportsState {
   const factory ShowReportDetails() = _$ShowReportDetailsImpl;
+}
+
+/// @nodoc
+abstract class _$$ReportDataLoadingImplCopyWith<$Res> {
+  factory _$$ReportDataLoadingImplCopyWith(_$ReportDataLoadingImpl value,
+          $Res Function(_$ReportDataLoadingImpl) then) =
+      __$$ReportDataLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ReportDataLoadingImplCopyWithImpl<$Res>
+    extends _$ReportsStateCopyWithImpl<$Res, _$ReportDataLoadingImpl>
+    implements _$$ReportDataLoadingImplCopyWith<$Res> {
+  __$$ReportDataLoadingImplCopyWithImpl(_$ReportDataLoadingImpl _value,
+      $Res Function(_$ReportDataLoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ReportDataLoadingImpl implements ReportDataLoading {
+  const _$ReportDataLoadingImpl();
+
+  @override
+  String toString() {
+    return 'ReportsState.reportDataLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ReportDataLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() changeDate,
+    required TResult Function() showReportDetails,
+    required TResult Function() reportDataLoading,
+    required TResult Function() reportDataLoaded,
+    required TResult Function() statsDataLoading,
+    required TResult Function() statsDataLoaded,
+    required TResult Function() statsWalletsSelected,
+  }) {
+    return reportDataLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? changeDate,
+    TResult? Function()? showReportDetails,
+    TResult? Function()? reportDataLoading,
+    TResult? Function()? reportDataLoaded,
+    TResult? Function()? statsDataLoading,
+    TResult? Function()? statsDataLoaded,
+    TResult? Function()? statsWalletsSelected,
+  }) {
+    return reportDataLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? changeDate,
+    TResult Function()? showReportDetails,
+    TResult Function()? reportDataLoading,
+    TResult Function()? reportDataLoaded,
+    TResult Function()? statsDataLoading,
+    TResult Function()? statsDataLoaded,
+    TResult Function()? statsWalletsSelected,
+    required TResult orElse(),
+  }) {
+    if (reportDataLoading != null) {
+      return reportDataLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(ChangeDate value) changeDate,
+    required TResult Function(ShowReportDetails value) showReportDetails,
+    required TResult Function(ReportDataLoading value) reportDataLoading,
+    required TResult Function(ReportDataLoaded value) reportDataLoaded,
+    required TResult Function(StatsDataLoading value) statsDataLoading,
+    required TResult Function(StatsDataLoaded value) statsDataLoaded,
+    required TResult Function(StatsWalletsSelected value) statsWalletsSelected,
+  }) {
+    return reportDataLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(ChangeDate value)? changeDate,
+    TResult? Function(ShowReportDetails value)? showReportDetails,
+    TResult? Function(ReportDataLoading value)? reportDataLoading,
+    TResult? Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult? Function(StatsDataLoading value)? statsDataLoading,
+    TResult? Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult? Function(StatsWalletsSelected value)? statsWalletsSelected,
+  }) {
+    return reportDataLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(ChangeDate value)? changeDate,
+    TResult Function(ShowReportDetails value)? showReportDetails,
+    TResult Function(ReportDataLoading value)? reportDataLoading,
+    TResult Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult Function(StatsDataLoading value)? statsDataLoading,
+    TResult Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult Function(StatsWalletsSelected value)? statsWalletsSelected,
+    required TResult orElse(),
+  }) {
+    if (reportDataLoading != null) {
+      return reportDataLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ReportDataLoading implements ReportsState {
+  const factory ReportDataLoading() = _$ReportDataLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$ReportDataLoadedImplCopyWith<$Res> {
+  factory _$$ReportDataLoadedImplCopyWith(_$ReportDataLoadedImpl value,
+          $Res Function(_$ReportDataLoadedImpl) then) =
+      __$$ReportDataLoadedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ReportDataLoadedImplCopyWithImpl<$Res>
+    extends _$ReportsStateCopyWithImpl<$Res, _$ReportDataLoadedImpl>
+    implements _$$ReportDataLoadedImplCopyWith<$Res> {
+  __$$ReportDataLoadedImplCopyWithImpl(_$ReportDataLoadedImpl _value,
+      $Res Function(_$ReportDataLoadedImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ReportDataLoadedImpl implements ReportDataLoaded {
+  const _$ReportDataLoadedImpl();
+
+  @override
+  String toString() {
+    return 'ReportsState.reportDataLoaded()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ReportDataLoadedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() changeDate,
+    required TResult Function() showReportDetails,
+    required TResult Function() reportDataLoading,
+    required TResult Function() reportDataLoaded,
+    required TResult Function() statsDataLoading,
+    required TResult Function() statsDataLoaded,
+    required TResult Function() statsWalletsSelected,
+  }) {
+    return reportDataLoaded();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? changeDate,
+    TResult? Function()? showReportDetails,
+    TResult? Function()? reportDataLoading,
+    TResult? Function()? reportDataLoaded,
+    TResult? Function()? statsDataLoading,
+    TResult? Function()? statsDataLoaded,
+    TResult? Function()? statsWalletsSelected,
+  }) {
+    return reportDataLoaded?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? changeDate,
+    TResult Function()? showReportDetails,
+    TResult Function()? reportDataLoading,
+    TResult Function()? reportDataLoaded,
+    TResult Function()? statsDataLoading,
+    TResult Function()? statsDataLoaded,
+    TResult Function()? statsWalletsSelected,
+    required TResult orElse(),
+  }) {
+    if (reportDataLoaded != null) {
+      return reportDataLoaded();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(ChangeDate value) changeDate,
+    required TResult Function(ShowReportDetails value) showReportDetails,
+    required TResult Function(ReportDataLoading value) reportDataLoading,
+    required TResult Function(ReportDataLoaded value) reportDataLoaded,
+    required TResult Function(StatsDataLoading value) statsDataLoading,
+    required TResult Function(StatsDataLoaded value) statsDataLoaded,
+    required TResult Function(StatsWalletsSelected value) statsWalletsSelected,
+  }) {
+    return reportDataLoaded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(ChangeDate value)? changeDate,
+    TResult? Function(ShowReportDetails value)? showReportDetails,
+    TResult? Function(ReportDataLoading value)? reportDataLoading,
+    TResult? Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult? Function(StatsDataLoading value)? statsDataLoading,
+    TResult? Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult? Function(StatsWalletsSelected value)? statsWalletsSelected,
+  }) {
+    return reportDataLoaded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(ChangeDate value)? changeDate,
+    TResult Function(ShowReportDetails value)? showReportDetails,
+    TResult Function(ReportDataLoading value)? reportDataLoading,
+    TResult Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult Function(StatsDataLoading value)? statsDataLoading,
+    TResult Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult Function(StatsWalletsSelected value)? statsWalletsSelected,
+    required TResult orElse(),
+  }) {
+    if (reportDataLoaded != null) {
+      return reportDataLoaded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ReportDataLoaded implements ReportsState {
+  const factory ReportDataLoaded() = _$ReportDataLoadedImpl;
+}
+
+/// @nodoc
+abstract class _$$StatsDataLoadingImplCopyWith<$Res> {
+  factory _$$StatsDataLoadingImplCopyWith(_$StatsDataLoadingImpl value,
+          $Res Function(_$StatsDataLoadingImpl) then) =
+      __$$StatsDataLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$StatsDataLoadingImplCopyWithImpl<$Res>
+    extends _$ReportsStateCopyWithImpl<$Res, _$StatsDataLoadingImpl>
+    implements _$$StatsDataLoadingImplCopyWith<$Res> {
+  __$$StatsDataLoadingImplCopyWithImpl(_$StatsDataLoadingImpl _value,
+      $Res Function(_$StatsDataLoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$StatsDataLoadingImpl implements StatsDataLoading {
+  const _$StatsDataLoadingImpl();
+
+  @override
+  String toString() {
+    return 'ReportsState.statsDataLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$StatsDataLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() changeDate,
+    required TResult Function() showReportDetails,
+    required TResult Function() reportDataLoading,
+    required TResult Function() reportDataLoaded,
+    required TResult Function() statsDataLoading,
+    required TResult Function() statsDataLoaded,
+    required TResult Function() statsWalletsSelected,
+  }) {
+    return statsDataLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? changeDate,
+    TResult? Function()? showReportDetails,
+    TResult? Function()? reportDataLoading,
+    TResult? Function()? reportDataLoaded,
+    TResult? Function()? statsDataLoading,
+    TResult? Function()? statsDataLoaded,
+    TResult? Function()? statsWalletsSelected,
+  }) {
+    return statsDataLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? changeDate,
+    TResult Function()? showReportDetails,
+    TResult Function()? reportDataLoading,
+    TResult Function()? reportDataLoaded,
+    TResult Function()? statsDataLoading,
+    TResult Function()? statsDataLoaded,
+    TResult Function()? statsWalletsSelected,
+    required TResult orElse(),
+  }) {
+    if (statsDataLoading != null) {
+      return statsDataLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(ChangeDate value) changeDate,
+    required TResult Function(ShowReportDetails value) showReportDetails,
+    required TResult Function(ReportDataLoading value) reportDataLoading,
+    required TResult Function(ReportDataLoaded value) reportDataLoaded,
+    required TResult Function(StatsDataLoading value) statsDataLoading,
+    required TResult Function(StatsDataLoaded value) statsDataLoaded,
+    required TResult Function(StatsWalletsSelected value) statsWalletsSelected,
+  }) {
+    return statsDataLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(ChangeDate value)? changeDate,
+    TResult? Function(ShowReportDetails value)? showReportDetails,
+    TResult? Function(ReportDataLoading value)? reportDataLoading,
+    TResult? Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult? Function(StatsDataLoading value)? statsDataLoading,
+    TResult? Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult? Function(StatsWalletsSelected value)? statsWalletsSelected,
+  }) {
+    return statsDataLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(ChangeDate value)? changeDate,
+    TResult Function(ShowReportDetails value)? showReportDetails,
+    TResult Function(ReportDataLoading value)? reportDataLoading,
+    TResult Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult Function(StatsDataLoading value)? statsDataLoading,
+    TResult Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult Function(StatsWalletsSelected value)? statsWalletsSelected,
+    required TResult orElse(),
+  }) {
+    if (statsDataLoading != null) {
+      return statsDataLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class StatsDataLoading implements ReportsState {
+  const factory StatsDataLoading() = _$StatsDataLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$StatsDataLoadedImplCopyWith<$Res> {
+  factory _$$StatsDataLoadedImplCopyWith(_$StatsDataLoadedImpl value,
+          $Res Function(_$StatsDataLoadedImpl) then) =
+      __$$StatsDataLoadedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$StatsDataLoadedImplCopyWithImpl<$Res>
+    extends _$ReportsStateCopyWithImpl<$Res, _$StatsDataLoadedImpl>
+    implements _$$StatsDataLoadedImplCopyWith<$Res> {
+  __$$StatsDataLoadedImplCopyWithImpl(
+      _$StatsDataLoadedImpl _value, $Res Function(_$StatsDataLoadedImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$StatsDataLoadedImpl implements StatsDataLoaded {
+  const _$StatsDataLoadedImpl();
+
+  @override
+  String toString() {
+    return 'ReportsState.statsDataLoaded()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$StatsDataLoadedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() changeDate,
+    required TResult Function() showReportDetails,
+    required TResult Function() reportDataLoading,
+    required TResult Function() reportDataLoaded,
+    required TResult Function() statsDataLoading,
+    required TResult Function() statsDataLoaded,
+    required TResult Function() statsWalletsSelected,
+  }) {
+    return statsDataLoaded();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? changeDate,
+    TResult? Function()? showReportDetails,
+    TResult? Function()? reportDataLoading,
+    TResult? Function()? reportDataLoaded,
+    TResult? Function()? statsDataLoading,
+    TResult? Function()? statsDataLoaded,
+    TResult? Function()? statsWalletsSelected,
+  }) {
+    return statsDataLoaded?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? changeDate,
+    TResult Function()? showReportDetails,
+    TResult Function()? reportDataLoading,
+    TResult Function()? reportDataLoaded,
+    TResult Function()? statsDataLoading,
+    TResult Function()? statsDataLoaded,
+    TResult Function()? statsWalletsSelected,
+    required TResult orElse(),
+  }) {
+    if (statsDataLoaded != null) {
+      return statsDataLoaded();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(ChangeDate value) changeDate,
+    required TResult Function(ShowReportDetails value) showReportDetails,
+    required TResult Function(ReportDataLoading value) reportDataLoading,
+    required TResult Function(ReportDataLoaded value) reportDataLoaded,
+    required TResult Function(StatsDataLoading value) statsDataLoading,
+    required TResult Function(StatsDataLoaded value) statsDataLoaded,
+    required TResult Function(StatsWalletsSelected value) statsWalletsSelected,
+  }) {
+    return statsDataLoaded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(ChangeDate value)? changeDate,
+    TResult? Function(ShowReportDetails value)? showReportDetails,
+    TResult? Function(ReportDataLoading value)? reportDataLoading,
+    TResult? Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult? Function(StatsDataLoading value)? statsDataLoading,
+    TResult? Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult? Function(StatsWalletsSelected value)? statsWalletsSelected,
+  }) {
+    return statsDataLoaded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(ChangeDate value)? changeDate,
+    TResult Function(ShowReportDetails value)? showReportDetails,
+    TResult Function(ReportDataLoading value)? reportDataLoading,
+    TResult Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult Function(StatsDataLoading value)? statsDataLoading,
+    TResult Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult Function(StatsWalletsSelected value)? statsWalletsSelected,
+    required TResult orElse(),
+  }) {
+    if (statsDataLoaded != null) {
+      return statsDataLoaded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class StatsDataLoaded implements ReportsState {
+  const factory StatsDataLoaded() = _$StatsDataLoadedImpl;
+}
+
+/// @nodoc
+abstract class _$$StatsWalletsSelectedImplCopyWith<$Res> {
+  factory _$$StatsWalletsSelectedImplCopyWith(_$StatsWalletsSelectedImpl value,
+          $Res Function(_$StatsWalletsSelectedImpl) then) =
+      __$$StatsWalletsSelectedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$StatsWalletsSelectedImplCopyWithImpl<$Res>
+    extends _$ReportsStateCopyWithImpl<$Res, _$StatsWalletsSelectedImpl>
+    implements _$$StatsWalletsSelectedImplCopyWith<$Res> {
+  __$$StatsWalletsSelectedImplCopyWithImpl(_$StatsWalletsSelectedImpl _value,
+      $Res Function(_$StatsWalletsSelectedImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$StatsWalletsSelectedImpl implements StatsWalletsSelected {
+  const _$StatsWalletsSelectedImpl();
+
+  @override
+  String toString() {
+    return 'ReportsState.statsWalletsSelected()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$StatsWalletsSelectedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() changeDate,
+    required TResult Function() showReportDetails,
+    required TResult Function() reportDataLoading,
+    required TResult Function() reportDataLoaded,
+    required TResult Function() statsDataLoading,
+    required TResult Function() statsDataLoaded,
+    required TResult Function() statsWalletsSelected,
+  }) {
+    return statsWalletsSelected();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? changeDate,
+    TResult? Function()? showReportDetails,
+    TResult? Function()? reportDataLoading,
+    TResult? Function()? reportDataLoaded,
+    TResult? Function()? statsDataLoading,
+    TResult? Function()? statsDataLoaded,
+    TResult? Function()? statsWalletsSelected,
+  }) {
+    return statsWalletsSelected?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? changeDate,
+    TResult Function()? showReportDetails,
+    TResult Function()? reportDataLoading,
+    TResult Function()? reportDataLoaded,
+    TResult Function()? statsDataLoading,
+    TResult Function()? statsDataLoaded,
+    TResult Function()? statsWalletsSelected,
+    required TResult orElse(),
+  }) {
+    if (statsWalletsSelected != null) {
+      return statsWalletsSelected();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(ChangeDate value) changeDate,
+    required TResult Function(ShowReportDetails value) showReportDetails,
+    required TResult Function(ReportDataLoading value) reportDataLoading,
+    required TResult Function(ReportDataLoaded value) reportDataLoaded,
+    required TResult Function(StatsDataLoading value) statsDataLoading,
+    required TResult Function(StatsDataLoaded value) statsDataLoaded,
+    required TResult Function(StatsWalletsSelected value) statsWalletsSelected,
+  }) {
+    return statsWalletsSelected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(ChangeDate value)? changeDate,
+    TResult? Function(ShowReportDetails value)? showReportDetails,
+    TResult? Function(ReportDataLoading value)? reportDataLoading,
+    TResult? Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult? Function(StatsDataLoading value)? statsDataLoading,
+    TResult? Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult? Function(StatsWalletsSelected value)? statsWalletsSelected,
+  }) {
+    return statsWalletsSelected?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(ChangeDate value)? changeDate,
+    TResult Function(ShowReportDetails value)? showReportDetails,
+    TResult Function(ReportDataLoading value)? reportDataLoading,
+    TResult Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult Function(StatsDataLoading value)? statsDataLoading,
+    TResult Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult Function(StatsWalletsSelected value)? statsWalletsSelected,
+    required TResult orElse(),
+  }) {
+    if (statsWalletsSelected != null) {
+      return statsWalletsSelected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class StatsWalletsSelected implements ReportsState {
+  const factory StatsWalletsSelected() = _$StatsWalletsSelectedImpl;
 }

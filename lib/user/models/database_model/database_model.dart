@@ -59,7 +59,7 @@ class DatabaseModel extends HiveObject {
   @HiveField(25)
   final Uint8List image;
   @HiveField(26)
-  final String name;
+  final String? name;
 
   DatabaseModel(
       {required this.category,
@@ -87,6 +87,6 @@ class DatabaseModel extends HiveObject {
       required this.instagram,
       required this.youtube,
       required this.messenger,
-        required this.image, required this.name,
+        required this.image, this.name,
       });
 }

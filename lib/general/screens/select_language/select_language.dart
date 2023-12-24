@@ -22,7 +22,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
           children: [
             Column(
               children: [
-                HeaderLogo(topPadding: 100.r,image: Res.lang,),
+                HeaderLogo(topPadding: 100.r,image: Res.lang,color: MyColors.primary,),
                 const BuildSelectLanguageText(),
                 BuildSelectLanguageButtons(data: data),
               ],

@@ -44,9 +44,8 @@ class _SplashState extends State<Splash> {
               tag: Res.logo,
               child: Image.asset(
                 Res.logo,
-                color: MyColors.primary,
-                width: 250,
-                height: 250,
+                width: 350.w,
+                height: 350.h,
               ),
             ),
           ),

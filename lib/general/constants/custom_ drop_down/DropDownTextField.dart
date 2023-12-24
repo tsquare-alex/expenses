@@ -1,4 +1,5 @@
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -100,7 +101,7 @@ class _DropdownTextFieldState<DataType> extends State<DropdownTextField> {
           fontWeight: FontWeight.bold
         ),
         searchBoxDecoration: InputDecoration(
-          hintText: widget.searchHint ?? "بحث",
+          hintText: widget.searchHint ?? tr(context, "search"),
           enabledBorder: OutlineInputBorder(
             borderSide:
             BorderSide(color: Colors.black, width: .7.w),

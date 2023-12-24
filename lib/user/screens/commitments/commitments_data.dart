@@ -34,9 +34,24 @@ class CommitmentsData{
     // Find the index of the target model in the list
     var modelList =box.values.toList();
     int index = modelList.indexWhere((model) => model.key == targetModel.key);
+    var walletBox = Hive.box<WalletModel>(databaseBox);
+    var walletList = walletBox.values.toList();
+    WalletModel? targetWallet = walletList.firstWhere(
+          (item) => item.name == targetModel.incomeSource?.name,
+    );
+    double total = double.parse(targetModel.total!);
+    targetWallet.balance = targetWallet.balance + total;
+    print("balance ${targetWallet.balance}");
+    await walletBox.put(targetWallet.key, targetWallet);
     box.deleteAt(index);
     var boxList = box.values.toList();
-    addTransactionCubit.onUpdateData(boxList);
+    List<AddTransactionModel> newList = [];
+    for (AddTransactionModel item in boxList) {
+      if (item.transactionName == "الالتزامات") {
+        newList.add(item);
+      }
+    }
+    addTransactionCubit.onUpdateData(newList);
     if (index != -1) {
       print('Index of the target model: $index');
     } else {

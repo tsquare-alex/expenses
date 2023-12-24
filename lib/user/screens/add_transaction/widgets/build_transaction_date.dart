@@ -1,9 +1,9 @@
 part of 'add_transaction_widgets_imports.dart';
 
 class BuildTransactionDate extends StatelessWidget {
-  const BuildTransactionDate({Key? key, required this.data}) : super(key: key);
+  const BuildTransactionDate({Key? key, required this.data, required this.type}) : super(key: key);
   final AddTransactionData data;
-
+  final String type;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +21,7 @@ class BuildTransactionDate extends StatelessWidget {
               children: [
                 Icon(Icons.date_range,color: MyColors.primary,),
                 MyText(
-                  title: "ميعاد المعاملة",
+                  title: type!="الاهداف المالية المستهدفة"?"ميعاد المعاملة":"توقت الانشاء",
                   color: MyColors.black,
                   size: 9.sp,
                   fontWeight: FontWeight.bold,

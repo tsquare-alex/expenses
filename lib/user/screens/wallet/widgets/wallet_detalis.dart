@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
+import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,8 @@ class WalletDetails extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  AutoRouter.of(context).push(const BalanceTransferRoute());
+                  // AutoRouter.of(context).push(const BalanceTransferRoute());
+                  CustomToast.showSimpleToast(msg: 'قيد التطوير حاليا');
                 },
                 child: Row(
                   children: [
@@ -89,7 +91,9 @@ class WalletDetails extends StatelessWidget {
           child: Column(
             children: [
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  CustomToast.showSimpleToast(msg: 'قيد التطوير حاليا');
+                },
                 child: Row(
                   children: [
                     const Icon(Icons.money),

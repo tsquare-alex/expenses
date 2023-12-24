@@ -1,6 +1,8 @@
 import 'package:expenses/general/MyApp.dart';
 import 'package:expenses/general/blocks/lang_cubit/lang_cubit.dart';
 import 'package:expenses/general/constants/constants.dart';
+import 'package:expenses/general/models/country_model/country_model.dart';
+import 'package:expenses/general/models/currency_model/currency_model.dart';
 import 'package:expenses/user/models/add_transaction_model/add_transaction_model.dart';
 import 'package:expenses/user/models/database_model/database_model.dart';
 import 'package:expenses/user/models/dropdown_model/dropdown_model.dart';
@@ -21,23 +23,28 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Bloc.observer = SimpleBlocObserver();
-  Hive.registerAdapter(WalletModelAdapter());
-  Hive.registerAdapter(DatabaseModelAdapter());
-  Hive.registerAdapter(BudgetModelAdapter());
-  await Hive.openBox<WalletModel>(databaseBox);
-  await Hive.openBox<DatabaseModel>(database);
-  await Hive.openBox<BudgetModel>("budgetBox");
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   // myBox = await openHiveBox(ApiNames.kTransactionTypes);
-  await Hive.initFlutter();
+  // await Hive.initFlutter();
   Hive.registerAdapter(TransactionTypeModelAdapter());
   Hive.registerAdapter(TransactionContentModelAdapter());
   Hive.registerAdapter(AddTransactionModelAdapter());
   Hive.registerAdapter(DropdownModelAdapter());
-
+  Hive.registerAdapter(WalletModelAdapter());
+  Hive.registerAdapter(DatabaseModelAdapter());
+  Hive.registerAdapter(CountryModelAdapter());
+  //Hive.registerAdapter(CurrencyModelAdapter());
+  Hive.registerAdapter(CurrencyModelAdapter());
+  Hive.registerAdapter(BudgetModelAdapter());
+  await Hive.openBox<BudgetModel>("budgetBox");
+  await Hive.openBox<CurrencyModel>('currencyBox');
+  await Hive.openBox<CountryModel>('countryBox');
+  await Hive.openBox<WalletModel>(databaseBox);
+  await Hive.openBox<DatabaseModel>(database);
+  await Hive.openBox<CountryModel>("countryBox");
   runApp(BlocProvider(
     create: (BuildContext context) => LangCubit(),
     child: Phoenix(child: const MyApp()),

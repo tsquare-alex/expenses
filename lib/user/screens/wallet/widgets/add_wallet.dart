@@ -23,18 +23,23 @@ class _AddWalletState extends State<AddWallet> {
   var formKey = GlobalKey<FormState>();
   final TextEditingController walletNameController = TextEditingController();
   final TextEditingController balanceController = TextEditingController();
-  final TextEditingController dropdownButtonController =
-      TextEditingController();
+  final TextEditingController dateController = TextEditingController();
+  final TextEditingController timeController = TextEditingController();
+  final TextEditingController rangeDateController = TextEditingController();
+  final TextEditingController categoryController = TextEditingController();
+  final TextEditingController encomSourceController = TextEditingController();
+  final TextEditingController valueCategoryController = TextEditingController();
+
+  final TextEditingController paymentMethodController = TextEditingController();
   WalletData data = WalletData();
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedtTime = TimeOfDay.now();
   bool repeatSwitchValue = false;
   bool notificationSwitchvalu = false;
-  // String formattedTime = selectedtTime.format(context);
-  // String formattedDate = selectedDate.format(context);
+  DateTimeRange selectRangeDate =
+      DateTimeRange(start: DateTime.now(), end: DateTime.now());
 
   _AddWalletState();
-  String? balance;
   double parsedNumber = 0;
   @override
   Widget build(BuildContext context) {
@@ -174,11 +179,20 @@ class _AddWalletState extends State<AddWallet> {
                                 menuList: data.paymentMethod,
                                 value: data.paymentMethod.first,
                                 onChanged: (value) => {
-                                  dropdownButtonController.text =
+                                  paymentMethodController.text =
                                       value as String,
                                 },
                               ),
                             ),
+                            IconButton(
+                                onPressed: () {
+                                  data.addPaymentMethodValue(
+                                    context,
+                                    build,
+                                    paymentMethodController,
+                                  );
+                                },
+                                icon: const Icon(Icons.add))
                           ],
                         ),
                         SizedBox(
@@ -196,8 +210,19 @@ class _AddWalletState extends State<AddWallet> {
                               child: TileDropdownButton(
                                   menuList: data.walletCategory,
                                   value: data.walletCategory.first,
-                                  onChanged: (value) {}),
+                                  onChanged: (value) {
+                                    categoryController.text = value as String;
+                                  }),
                             ),
+                            IconButton(
+                                onPressed: () {
+                                  data.addWalletCategoryValue(
+                                    context,
+                                    build,
+                                    categoryController,
+                                  );
+                                },
+                                icon: const Icon(Icons.add))
                           ],
                         ),
                         SizedBox(
@@ -213,10 +238,19 @@ class _AddWalletState extends State<AddWallet> {
                             SizedBox(
                               width: 150.w,
                               child: TileDropdownButton(
-                                  menuList: data.encomeSource,
-                                  value: data.encomeSource.first,
-                                  onChanged: (value) {}),
+                                menuList: data.encomeSource,
+                                value: data.encomeSource.first,
+                                onChanged: (value) {
+                                  encomSourceController.text = value as String;
+                                },
+                              ),
                             ),
+                            IconButton(
+                                onPressed: () {
+                                  data.addEncomeValue(
+                                      context, build, encomSourceController);
+                                },
+                                icon: const Icon(Icons.add))
                           ],
                         ),
                         SizedBox(
@@ -234,8 +268,17 @@ class _AddWalletState extends State<AddWallet> {
                               child: TileDropdownButton(
                                   menuList: data.valueCategory,
                                   value: data.valueCategory.first,
-                                  onChanged: (value) {}),
+                                  onChanged: (value) {
+                                    valueCategoryController.text =
+                                        value as String;
+                                  }),
                             ),
+                            IconButton(
+                                onPressed: () {
+                                  data.addValueCategory(
+                                      context, build, valueCategoryController);
+                                },
+                                icon: const Icon(Icons.add))
                           ],
                         ),
                         SizedBox(
@@ -245,7 +288,7 @@ class _AddWalletState extends State<AddWallet> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             MyText(
-                                title: "تكرار المعاملة",
+                                title: "تكرار المحفظة",
                                 color: MyColors.black,
                                 size: 14.sp),
                             Visibility(
@@ -253,8 +296,8 @@ class _AddWalletState extends State<AddWallet> {
                               child: SizedBox(
                                 width: 150.w,
                                 child: TileDropdownButton(
-                                    menuList: data.repeatTransaction,
-                                    value: data.repeatTransaction.first,
+                                    menuList: data.repeatWallet,
+                                    value: data.repeatWallet.first,
                                     onChanged: (value) {}),
                               ),
                             ),
@@ -275,7 +318,7 @@ class _AddWalletState extends State<AddWallet> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             MyText(
-                                title: "التنبيه بالمعاملة",
+                                title: "تنبيه انتهاء المعالمة",
                                 color: MyColors.black,
                                 size: 14.sp),
                             Visibility(
@@ -295,17 +338,51 @@ class _AddWalletState extends State<AddWallet> {
                             ),
                           ],
                         ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            MyText(
+                                title: "مدة المحفظة",
+                                color: MyColors.black,
+                                size: 14.sp),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                dateRange();
+                              },
+                              icon: const Icon(Icons.calendar_month_outlined),
+                            ),
+                          ],
+                        ),
                         DefaultButton(
                           fontSize: 14.sp,
                           onTap: () async {
                             if (formKey.currentState!.validate()) {
                               var walletModel = WalletModel(
+                                  walletPeriod: rangeDateController.text,
+                                  valueCategory:
+                                      valueCategoryController.text == ""
+                                          ? data.valueCategory.first
+                                          : valueCategoryController.text,
+                                  encomeSource: encomSourceController.text == ""
+                                      ? data.encomeSource.first
+                                      : encomSourceController.text,
+                                  date: selectedDate.microsecondsSinceEpoch,
+                                  time: selectedtTime.minute,
+                                  category: categoryController.text == ""
+                                      ? data.walletCategory.first
+                                      : categoryController.text,
                                   name: walletNameController.text,
                                   balance: parsedNumber,
                                   paymentMethod:
-                                      dropdownButtonController.text == ""
+                                      paymentMethodController.text == ""
                                           ? data.paymentMethod.first
-                                          : dropdownButtonController.text);
+                                          : paymentMethodController.text);
                               await BlocProvider.of<WalletCubit>(context)
                                   .addNote(walletModel);
                               if (context.mounted) {
@@ -336,6 +413,7 @@ class _AddWalletState extends State<AddWallet> {
     );
     if (chosenDate != null) {
       selectedtTime = chosenDate;
+      timeController.text = selectedtTime.toString();
       setState(() {});
     }
   }
@@ -349,7 +427,24 @@ class _AddWalletState extends State<AddWallet> {
 
     if (chosenDate != null) {
       selectedDate = chosenDate;
+      dateController.text = selectedDate.toString();
       setState(() {});
+    }
+  }
+
+  void dateRange() async {
+    DateTimeRange? dateRange = await showDateRangePicker(
+      context: context,
+      firstDate: context.read<WalletCubit>().startDate,
+      lastDate: context.read<WalletCubit>().endDate,
+    );
+
+    if (dateRange != null) {
+      setState(() {
+        selectRangeDate = dateRange;
+        rangeDateController.text =
+            "${dateRange.start.day}/${dateRange.start.month}/${dateRange.start.year} - ${dateRange.end.day}/${dateRange.end.month}/${dateRange.end.year}";
+      });
     }
   }
 }

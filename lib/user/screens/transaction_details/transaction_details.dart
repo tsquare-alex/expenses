@@ -12,7 +12,15 @@ class _TransactionDetailsState extends State<TransactionDetails> {
 
   TransactionDetailsData data = TransactionDetailsData();
 
-
+  @override
+  void initState() {
+    data.fetchData(widget.model);
+    data.iterateCubit.onUpdateData(widget.model.repeated!=null?true:false);
+    data.notifyCubit.onUpdateData(widget.model.notify??false);
+    data.selectedIterateTransaction= widget.model.repeated;
+    data.selectedUnit= widget.model.unit;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +37,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
         ),
         centerTitle: true,
         title: MyText(
-          title: "تفاصيل المعاملة",
+          title: tr(context, "transactionDetails"),
           color: MyColors.white,
           size: 16.sp,
           fontWeight: FontWeight.bold,
@@ -40,7 +48,8 @@ class _TransactionDetailsState extends State<TransactionDetails> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              BuildTransactionDetailsInputs(transactionDetailsData: data,model: widget.model,)
+              BuildTransactionDetailsInputs(transactionDetailsData: data,model: widget.model,),
+              BuildTransactionDetailsButton(data: data, model: widget.model!),
             ],
           ),
         ),
@@ -50,8 +59,15 @@ class _TransactionDetailsState extends State<TransactionDetails> {
 
   @override
   void dispose() {
-    data.endDateController.dispose();
-    data.startDateController.clear();
+    data.transactionTypeController.dispose();
+    data.transactionContentController.dispose();
+    data.amountController.dispose();
+    data.totalController.dispose();
+    data.partyController.dispose();
+    data.walletController.dispose();
+    data.transactionDateController.dispose();
+    data.timeController.dispose();
+    data.brandNameController.dispose();
 
     super.dispose();
   }

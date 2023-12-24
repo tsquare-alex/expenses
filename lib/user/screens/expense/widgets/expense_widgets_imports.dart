@@ -9,7 +9,7 @@ import 'package:expenses/user/screens/expense/expense_imports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-part 'build_expense_view.dart';
+// part 'build_expense_view.dart';
 part 'build_commitments_view.dart';
 part 'build_shopping_view.dart';
 part 'build_no_record.dart';

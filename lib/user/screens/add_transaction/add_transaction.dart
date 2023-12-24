@@ -33,7 +33,7 @@ class _AddTransactionState extends State<AddTransaction> {
         ),
         centerTitle: true,
         title: MyText(
-          title: "إضافة معاملة",
+          title: tr(context, "addTransaction"),
           color: MyColors.white,
           size: 16.sp,
           fontWeight: FontWeight.bold,
@@ -46,11 +46,9 @@ class _AddTransactionState extends State<AddTransaction> {
           child: Column(
             children: [
               BuildTransactionType(addTransactionData: data, type: widget.model?.name??"",),
-              //if(widget.model?.name=="التسوق والشراء")BuildShoppingParty(addTransactionData: data),
               BuildTransactionInputs(addTransactionData: data, type: widget.model?.name??"",),
-              BuildTransactionDate(data: data),
               if(widget.model?.name=="التسوق والشراء")BuildAddProductPhoto(data: data,),
-              BuildIterateTransaction(addTransactionData: data,),
+              BuildIterateTransaction(addTransactionData: data,type: widget.model?.name??"",),
               BuildTransactionButton(data: data,type: widget.model?.name??"",),
 
             ],

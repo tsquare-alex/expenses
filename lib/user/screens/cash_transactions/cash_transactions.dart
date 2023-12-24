@@ -41,11 +41,14 @@ class _CashTransactionsState extends State<CashTransactions> {
           if(state.data.isEmpty){
             return SingleChildScrollView(child: BuildNoRecord());
           }else{
-            return ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: state.data.length,
-              itemBuilder: (context,i)=>BuildTransactionCard(model: state.data[i],onDelete: ()=>data.deleteItem(state.data[i]),),
+            return Padding(
+              padding: EdgeInsets.all(15.0.r),
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: state.data.length,
+                itemBuilder: (context,i)=>BuildTransactionCard(model: state.data[i],onDelete: ()=>data.deleteItem(state.data[i]),),
+              ),
             );
           }
         },

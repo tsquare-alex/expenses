@@ -105,5 +105,8 @@ class MainData {
         // BlocProvider<UserCubit>(
         //     create: (BuildContext context)=> UserCubit()
         // ),
+        BlocProvider<WalletCubit>(
+          create: (context) => WalletCubit(),
+        )
       ];
 }

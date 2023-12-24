@@ -28,7 +28,7 @@ class AddTransactionModel extends HiveObject{
   @HiveField(7)
   DatabaseModel? database;
   @HiveField(8)
-  String? priority;
+  DropdownModel? priority;
   @HiveField(9)
   String? transactionDate;
   @HiveField(10)
@@ -37,8 +37,10 @@ class AddTransactionModel extends HiveObject{
   DropdownModel? cashTransactionType;
   @HiveField(12)
   String? endDate;
+  //
   @HiveField(13)
   DropdownModel? repeated;
+  //
   @HiveField(14)
   bool? notify;
   @HiveField(15)

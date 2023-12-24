@@ -23,7 +23,7 @@ class TabIcon extends StatelessWidget {
           ),
           SizedBox(height: 5.h),
           MyText(
-            title: "${userHomeData.tabs[index].title}",
+            title: tr(context, userHomeData.tabs[index].title!),
             size: 9.sp,
             color: color,
             fontWeight: FontWeight.bold,

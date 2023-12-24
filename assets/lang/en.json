@@ -222,5 +222,6 @@
   "units": "Units",
   "databaseDetails": "Database Details",
   "enableAuthentication": "Enable Authentication",
-  "authenticationIsEnabled": "Authentication Is Enabled"
+  "authenticationIsEnabled": "Authentication Is Enabled",
+  "addWallet": "Add new wallet"
 }

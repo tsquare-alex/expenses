@@ -15,7 +15,7 @@ class TransactionTile extends StatelessWidget {
         titleAlignment: ListTileTitleAlignment.center,
         contentPadding: EdgeInsets.only(left: 25.r, right: 16.r),
         title: Text(
-          transaction.database!.adjective,
+          '${transaction.transactionType!.name!} ${transaction.transactionContent!.name!}',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 13.sp,

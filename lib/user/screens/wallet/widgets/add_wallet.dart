@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
@@ -49,15 +50,26 @@ class _AddWalletState extends State<AddWallet> {
         child: Column(
           children: [
             Container(
-              height: 105.h,
+              height: 65.h,
               width: double.infinity,
               color: MyColors.primary,
               child: Align(
                 alignment: Alignment.bottomRight,
-                child: IconButton(
-                  onPressed: () => AutoRouter.of(context).pop(),
-                  icon: const Icon(Icons.arrow_back_ios),
-                  color: MyColors.white,
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () => AutoRouter.of(context).pop(),
+                      icon: const Icon(Icons.arrow_back_ios),
+                      color: MyColors.white,
+                    ),
+                    SizedBox(width: 15.w),
+                    MyText(
+                      title: tr(context, 'addWallet'),
+                      color: Colors.white,
+                      size: 16.sp,
+                      fontWeight: FontWeight.bold,
+                    )
+                  ],
                 ),
               ),
             ),

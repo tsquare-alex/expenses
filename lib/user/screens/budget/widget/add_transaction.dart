@@ -250,7 +250,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
               ],
             );
           }
-          return SizedBox();
+          return const SizedBox();
         }));
   }
 

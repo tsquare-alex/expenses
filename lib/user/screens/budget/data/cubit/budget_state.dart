@@ -25,3 +25,9 @@ class AddBudgetFaliuer extends BudgetState {
 
   AddBudgetFaliuer({required this.message});
 }
+
+class BudgetValu extends BudgetState {
+  final double value;
+
+  BudgetValu({required this.value});
+}

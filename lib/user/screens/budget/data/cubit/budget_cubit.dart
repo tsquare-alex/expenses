@@ -1,4 +1,5 @@
 import 'package:expenses/user/models/add_transaction_model/add_transaction_model.dart';
+import 'package:expenses/user/models/transaction_model/transaction_model.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_state.dart';
 import 'package:expenses/user/screens/budget/data/model/budget_model.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
@@ -11,7 +12,8 @@ class BudgetCubit extends Cubit<BudgetState> {
 
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now().add(Duration(days: 30));
-
+  late WalletModel walletModel;
+  late TransactionModel transactionModel;
   late List<WalletModel> wallets;
   Future<void> fetchdataFromWallet(context) async {
     var walletBox = Hive.box<WalletModel>(databaseBox);
@@ -49,9 +51,18 @@ class BudgetCubit extends Cubit<BudgetState> {
   }
 
   List<BudgetModel> budgetList = [];
-  fetchData() async {
+  Future<void> fetchData() async {
+    emit(AddBudgetInitial());
     var budgetBox = Hive.box<BudgetModel>("budgetBox");
     budgetList = budgetBox.values.toList();
     emit(SuccessFetchData(budgets: budgetList));
+  }
+
+  Future<void> budgetValue(
+      AddTransactionModel transactionModel, WalletModel walletModel) async {
+    double walletValue = walletModel.balance;
+    double transactionValue = double.parse(transactionModel.total ?? '0');
+    var res = transactionValue / walletValue;
+    emit(BudgetValu(value: res));
   }
 }

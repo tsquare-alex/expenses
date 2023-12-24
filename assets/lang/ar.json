@@ -401,5 +401,8 @@
   "databaseDetails": "تفاصيل قاعدة البيانات",
   "enableAuthentication": "تمكين المصادقة",
   "authenticationIsEnabled": "تم تمكين المصادقة",
-  "addWallet" : "إضافة محفظة جديدة"
+  "addWallet" : "إضافة محفظة جديدة",
+  "showTransactions" : "عرض معاملات المحفظة",
+  "transactionTransfer" : "تحويل المعاملة",
+  "transfer" : "تحويل"
 }

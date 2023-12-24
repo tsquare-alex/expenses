@@ -223,5 +223,8 @@
   "databaseDetails": "Database Details",
   "enableAuthentication": "Enable Authentication",
   "authenticationIsEnabled": "Authentication Is Enabled",
-  "addWallet": "Add new wallet"
+  "addWallet": "Add new wallet",
+  "showTransactions" : "Wallet Transactions",
+  "transactionTransfer" : "Transfer Transaction",
+  "transfer" : "Transfer"
 }

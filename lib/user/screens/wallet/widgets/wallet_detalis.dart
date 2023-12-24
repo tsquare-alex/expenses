@@ -92,7 +92,7 @@ class WalletDetails extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  CustomToast.showSimpleToast(msg: 'قيد التطوير حاليا');
+                  AutoRouter.of(context).push(WalletTransactionsRoute(model: model));
                 },
                 child: Row(
                   children: [

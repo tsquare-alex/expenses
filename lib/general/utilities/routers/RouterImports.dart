@@ -20,6 +20,7 @@ import 'package:expenses/user/screens/expense/expense_imports.dart';
 import 'package:expenses/user/screens/home/home_imports.dart';
 import 'package:expenses/user/screens/reports/statistics/statistics_imports.dart';
 import 'package:expenses/user/screens/repeated_transactions/repeated_transactions_imports.dart';
+import 'package:expenses/user/screens/transfer_wallet_transaction/transfer_wallet_transaction_imports.dart';
 import 'package:expenses/user/screens/wallet/wallet_imports.dart';
 import 'package:expenses/user/screens/wallet/widgets/add_balance.dart';
 import 'package:expenses/user/screens/tools_helper/tools_helper.dart';
@@ -32,6 +33,7 @@ import 'package:expenses/user/screens/target/target_imports.dart';
 import 'package:expenses/user/screens/transaction_details/transaction_details_imports.dart';
 import 'package:expenses/user/screens/wallet/widgets/balance_withdrawal.dart';
 import 'package:expenses/user/screens/wallet/widgets/edit_Wallet.dart';
+import 'package:expenses/user/screens/wallet_transactions/wallet_transactions_imports.dart';
 
 
 part 'Router.dart';

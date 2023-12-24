@@ -8,7 +8,7 @@ part of 'authentication_info.dart';
 
 class AuthenticationInfoAdapter extends TypeAdapter<AuthenticationInfo> {
   @override
-  final int typeId = 2;
+  final int typeId = 100;
 
   @override
   AuthenticationInfo read(BinaryReader reader) {

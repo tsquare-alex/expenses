@@ -300,7 +300,7 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
     }
 
     // Save changes in Hive
-    var databaseDataBox = await Hive.openBox<DatabaseModel>(databaseBox);
+    var databaseDataBox = await Hive.openBox<DatabaseModel>(database);
     databaseDataBox.put(widget.databaseData.key, widget.databaseData);
 
     // Fetch updated data in the previous screen

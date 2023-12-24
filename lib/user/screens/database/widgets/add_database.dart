@@ -44,7 +44,6 @@ class _AddDatabaseState extends State<AddDatabase> {
 
 
   AddDataBaseCubit dataBaseCubit = AddDataBaseCubit();
-  DatabaseCubit dataBaseCubitx = DatabaseCubit();
 
 
   final CollectionReference _collectionReference =
@@ -272,7 +271,7 @@ class _AddDatabaseState extends State<AddDatabase> {
                       theSocialController: myCubit.theSocialController),
                   ElevatedButton(
                     onPressed: () async{
-                      // myCubit.onPressedHandler();
+                      myCubit.onPressedHandler();
 
                       var dataBase = DatabaseModel(
                         category: myCubit.categoryController.text,
@@ -301,6 +300,7 @@ class _AddDatabaseState extends State<AddDatabase> {
                         youtube: myCubit.youtubeController.text,
                         messenger: myCubit.messengerController.text,
                         image: dataBaseCubit.imageBytes ?? Uint8List.fromList([]),
+                        name:"${myCubit.firstNameController} ${myCubit.lastNameController}",
                       );
                       if (myCubit.state is MyExpansionError) {
 

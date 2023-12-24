@@ -180,7 +180,7 @@ class TransactionDetailsData{
         var total = double.parse(totalController.text);
         var lastTotal = double.parse(model.total!);
         if (total < lastTotal) {
-          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
           var walletList = walletBox.values.toList();
           WalletModel? targetModel = walletList.firstWhere(
                 (item) => item.name == model.incomeSource?.name,
@@ -195,7 +195,7 @@ class TransactionDetailsData{
           AutoRouter.of(context).pop();
           AutoRouter.of(context).replace(HomeRoute(index: 0));
         } else if (total > lastTotal) {
-          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
           var walletList = walletBox.values.toList();
           WalletModel? targetModel = walletList.firstWhere(
                 (item) => item.name == model.incomeSource?.name,
@@ -238,7 +238,7 @@ class TransactionDetailsData{
         var total = double.parse(totalController.text);
         var lastTotal = double.parse(model.total!);
         if (total < lastTotal) {
-          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
           var walletList = walletBox.values.toList();
           WalletModel? targetModel = walletList.firstWhere(
                 (item) => item.name == model.incomeSource?.name,
@@ -253,7 +253,7 @@ class TransactionDetailsData{
           AutoRouter.of(context).pop();
           AutoRouter.of(context).replace(HomeRoute(index: 0));
         } else if (total > lastTotal) {
-          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
           var walletList = walletBox.values.toList();
           WalletModel? targetModel = walletList.firstWhere(
                 (item) => item.name == model.incomeSource?.name,
@@ -291,7 +291,7 @@ class TransactionDetailsData{
         var total = double.parse(totalController.text);
         var lastTotal = double.parse(model.total!);
         if (total < lastTotal) {
-          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
           var walletList = walletBox.values.toList();
           WalletModel? targetModel = walletList.firstWhere(
                 (item) => item.name == model.incomeSource?.name,
@@ -306,7 +306,7 @@ class TransactionDetailsData{
           AutoRouter.of(context).pop();
           AutoRouter.of(context).replace(HomeRoute(index: 0));
         } else if (total > lastTotal) {
-          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
           var walletList = walletBox.values.toList();
           WalletModel? targetModel = walletList.firstWhere(
                 (item) => item.name == model.incomeSource?.name,
@@ -343,7 +343,7 @@ class TransactionDetailsData{
         var total = double.parse(totalController.text);
         var lastTotal = double.parse(model.total!);
         if (total < lastTotal) {
-          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
           var walletList = walletBox.values.toList();
           WalletModel? targetModel = walletList.firstWhere(
                 (item) => item.name == model.incomeSource?.name,
@@ -358,7 +358,7 @@ class TransactionDetailsData{
           AutoRouter.of(context).pop();
           AutoRouter.of(context).replace(HomeRoute(index: 0));
         } else if (total > lastTotal) {
-          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
           var walletList = walletBox.values.toList();
           WalletModel? targetModel = walletList.firstWhere(
                 (item) => item.name == model.incomeSource?.name,

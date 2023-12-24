@@ -58,6 +58,8 @@ class DatabaseModel extends HiveObject {
    String messenger;
   @HiveField(25)
    Uint8List image;
+  @HiveField(26)
+  String name;
 
   DatabaseModel(
       {required this.category,
@@ -86,5 +88,6 @@ class DatabaseModel extends HiveObject {
       required this.youtube,
       required this.messenger,
         required this.image,
+        required  this.name
       });
 }

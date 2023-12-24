@@ -1,7 +1,7 @@
 
 import 'package:hive_flutter/hive_flutter.dart';
 part 'authentication_info.g.dart';
-@HiveType(typeId: 2)
+@HiveType(typeId: 100)
 class AuthenticationInfo {
   @HiveField(0)
   late bool isAuthenticated;

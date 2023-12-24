@@ -3,9 +3,10 @@ import 'package:expenses/user/models/transaction_model/transaction_model.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_state.dart';
 import 'package:expenses/user/screens/budget/data/model/budget_model.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
-import 'package:expenses/user/screens/wallet/widgets/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+
+import '../../../../../general/constants/constants.dart';
 
 class BudgetCubit extends Cubit<BudgetState> {
   BudgetCubit() : super(AddBudgetInitial());
@@ -16,7 +17,7 @@ class BudgetCubit extends Cubit<BudgetState> {
   late TransactionModel transactionModel;
   late List<WalletModel> wallets;
   Future<void> fetchdataFromWallet(context) async {
-    var walletBox = Hive.box<WalletModel>(databaseBox);
+    var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
     List<WalletModel> data = walletBox.values.toList();
     wallets = data;
   }

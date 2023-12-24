@@ -143,11 +143,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ) :  Container(
               // height: 200,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   BlocBuilder<AuthenticationCubit, AuthenticationState>(
                     builder: (context, state) {
                       return SwitchListTile(
-                        title: Text('Enable Authentication'),
+                        title: Center(child: MyText(title: tr(context, "enableAuthentication"), color: MyColors.primary, size: 20.sp,fontWeight: FontWeight.bold,)),
                         value: state.isAuthenticated,
                         onChanged: (value) async {
                           final authenticationCubit = context.read<AuthenticationCubit>();

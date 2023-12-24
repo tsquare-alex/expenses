@@ -132,7 +132,7 @@ class SettingsBody extends StatelessWidget {
               BlocBuilder<AuthenticationCubit, AuthenticationState>(
                 builder: (context, state) {
                   return SwitchListTile(
-                    title: MyText(title: tr(context, "authentication"), color: MyColors.primary, size: 15.sp,fontWeight: FontWeight.bold,),
+                    title: MyText(title: tr(context, "enableAuthentication"), color: MyColors.primary, size: 15.sp,fontWeight: FontWeight.bold,),
                     value: state.isAuthenticated,
                     onChanged: (value) async {
                       final authenticationCubit = context.read<AuthenticationCubit>();

@@ -1,1 +1,0 @@
-const databaseBox = "database_box";

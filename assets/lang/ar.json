@@ -399,6 +399,6 @@
   "health": "الصحة",
   "units": "الوحدات",
   "databaseDetails": "تفاصيل قاعدة البيانات",
-  "authentication": "تمكين المصادقة",
+  "enableAuthentication": "تمكين المصادقة",
   "authenticationIsEnabled": "تم تمكين المصادقة"
 }

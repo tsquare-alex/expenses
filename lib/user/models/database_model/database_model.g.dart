@@ -43,6 +43,7 @@ class DatabaseModelAdapter extends TypeAdapter<DatabaseModel> {
       youtube: fields[23] as String,
       messenger: fields[24] as String,
       image: fields[25] as Uint8List,
+      name: fields[26] as String,
     );
   }
 
@@ -101,7 +102,9 @@ class DatabaseModelAdapter extends TypeAdapter<DatabaseModel> {
       ..writeByte(24)
       ..write(obj.messenger)
       ..writeByte(25)
-      ..write(obj.image);
+      ..write(obj.image)
+      ..writeByte(26)
+      ..write(obj.name);
   }
 
   @override

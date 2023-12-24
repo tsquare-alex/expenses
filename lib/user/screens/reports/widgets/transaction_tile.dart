@@ -23,7 +23,7 @@ class TransactionTile extends StatelessWidget {
         ),
         subtitle: Text(
           DateFormat('EEE, dd MMMM yyyy').format(
-              DateFormat('dd MMMM yyyy', 'ar')
+              DateFormat('dd MMMM yyyy', 'en')
                   .parse(transaction.transactionDate!)),
           style: TextStyle(
             fontWeight: FontWeight.bold,

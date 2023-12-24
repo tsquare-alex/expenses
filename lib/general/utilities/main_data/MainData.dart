@@ -99,6 +99,12 @@ class MainData {
         BlocProvider<DatabaseCubit>(
           create: (context) => DatabaseCubit(),
         ),
+        BlocProvider<BudgetCubit>(
+          create: (context) => BudgetCubit(),
+        ),
+        // BlocProvider<UserCubit>(
+        //     create: (BuildContext context)=> UserCubit()
+        // ),
         BlocProvider<WalletCubit>(
           create: (context) => WalletCubit(),
         )

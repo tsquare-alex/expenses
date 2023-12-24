@@ -10,7 +10,6 @@ import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/general/widgets/widgets_imports.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/models/pie_chart_data_model/pie_chart_data_model.dart';
-import 'package:expenses/user/screens/budget/budget.dart';
 import 'package:expenses/user/screens/database/database_imports.dart';
 import 'package:expenses/user/screens/home/home_imports.dart';
 import 'package:expenses/user/screens/home/taps/main/widgets/main_widgets_imports.dart';
@@ -23,6 +22,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fl_chart/fl_chart.dart';
+
+import '../../../budget/budget_imports.dart';
 
 part 'main.dart';
 part 'main_data.dart';

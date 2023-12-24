@@ -1,9 +1,15 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
+import 'package:expenses/user/screens/budget/budget_imports.dart';
+import 'package:expenses/user/screens/budget/data/cubit/budget_cubit.dart';
+import 'package:expenses/user/screens/budget/data/cubit/budget_state.dart';
+import 'package:expenses/user/screens/budget/data/model/budget_model.dart';
+import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddTransactionBudget extends StatefulWidget {
@@ -14,269 +20,253 @@ class AddTransactionBudget extends StatefulWidget {
 }
 
 class _AddTransactionBudgetState extends State<AddTransactionBudget> {
-  DateTime selectedDate = DateTime.now();
-  TimeOfDay selectedtTime = TimeOfDay.now();
+  bool repeatSwitchValue = false;
+  bool notificationSwitchvalu = false;
+  DateTimeRange selectRangeDate =
+      DateTimeRange(start: DateTime.now(), end: DateTime.now());
+  TextEditingController rangeDateController = TextEditingController();
+  TextEditingController walletNameController = TextEditingController();
+  TextEditingController transactionController = TextEditingController();
+  TextEditingController budgetNameController = TextEditingController();
   var formKey = GlobalKey<FormState>();
 
-  String? selectedValue;
+  BudgetData data = BudgetData();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: MyColors.primary,
-          elevation: 0,
-          leading: IconButton(
-            onPressed: () => AutoRouter.of(context).pop(),
-            icon: const Icon(Icons.arrow_back_ios),
-            color: MyColors.white,
-          ),
-          centerTitle: true,
-          title: MyText(
-            title: "الميزانية والخطط المالية",
-            color: MyColors.white,
-            size: 18.sp,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        body: Padding(
-          padding: EdgeInsets.all(12.w),
-          child: SingleChildScrollView(
-            child: Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 45.w,
-                        height: 45.h,
-                        decoration: BoxDecoration(
-                            color: MyColors.white,
-                            borderRadius: BorderRadius.circular(8.r),
-                            border: Border.all(color: MyColors.primary)),
-                        child: const Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "ج.م",
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20.w,
-                      ),
-                      SizedBox(
-                        width: 270.w,
-                        child: TextFormField(
+    return BlocProvider(
+        create: (context) => BudgetCubit()..getBudgetData(context),
+        child: BlocBuilder<BudgetCubit, BudgetState>(
+            buildWhen: (previos, current) {
+          return (previos is AddBudgetLoading || current is AddBudgetLoading) ||
+              (current is OpenBudget || current is OpenBudget);
+        }, builder: (context, state) {
+          if (state is AddBudgetLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (state is OpenBudget) {
+            return Column(
+              children: [
+                Container(
+                  height: 105.h,
+                  width: double.infinity,
+                  color: MyColors.primary,
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: IconButton(
+                      onPressed: () => AutoRouter.of(context).pop(),
+                      icon: const Icon(Icons.arrow_back_ios),
+                      color: MyColors.white,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(16.w),
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      children: [
+                        TextFormField(
                           validator: (text) {
                             if (text == null || text.isEmpty) {
-                              return "please enter the value";
+                              return "رجاء ادخال اسم المحفظة";
                             }
                             return null;
                           },
-                          keyboardType: TextInputType.number,
+                          controller: budgetNameController,
+                          keyboardType: TextInputType.name,
                           textAlign: TextAlign.right,
                           cursorColor: MyColors.primary,
                           decoration: InputDecoration(
-                              suffixIcon: Image.asset(
-                                "assets/images/calculator.png",
-                              ),
-                              hintText: "المبلغ",
+                              hoverColor: MyColors.primary,
+                              fillColor: MyColors.primary,
+                              hintText: " enter value",
                               hintStyle: TextStyle(
                                   fontSize: 18.sp, color: MyColors.grey),
                               focusColor: MyColors.primary),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
-                  const Divider(),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  DropdownButtonHideUnderline(
-                    child: DropdownButton2<String>(
-                        isExpanded: true,
-                        hint: Text(
-                          'Select Item',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Theme.of(context).hintColor,
-                          ),
+                        SizedBox(
+                          height: 15.h,
                         ),
-                        items: items
-                            .map((String item) => DropdownMenuItem<String>(
-                                  value: item,
-                                  child: Text(
-                                    item,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ))
-                            .toList(),
-                        value: selectedValue,
-                        onChanged: (String? value) {
-                          setState(() {
-                            selectedValue = value;
-                          });
-                        }),
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  const Divider(),
-                  DropdownButtonHideUnderline(
-                    child: DropdownButton2<String>(
-                        isExpanded: true,
-                        hint: Text(
-                          'Select Item',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Theme.of(context).hintColor,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            MyText(
+                                title: "اختيار محفظة",
+                                color: MyColors.black,
+                                size: 14.sp),
+                            SizedBox(
+                              width: 150.w,
+                              child: BlocBuilder<BudgetCubit, BudgetState>(
+                                builder: (context, state) {
+                                  List<String> walletNames = context
+                                      .read<BudgetCubit>()
+                                      .wallets
+                                      .map((wallet) => wallet.name)
+                                      .toList();
+
+                                  return TileDropdownButton(
+                                    menuList: walletNames,
+                                    onChanged: (value) => {
+                                      walletNameController.text =
+                                          value as String,
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
                         ),
-                        items: items
-                            .map((String item) => DropdownMenuItem<String>(
-                                  value: item,
-                                  child: Text(
-                                    item,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ))
-                            .toList(),
-                        value: selectedValue,
-                        onChanged: (String? value) {
-                          setState(() {
-                            selectedValue = value;
-                          });
-                        }),
-                  ),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Icon(Icons.menu_open_outlined, size: 40),
-                      SizedBox(
-                        width: 20.w,
-                      ),
-                      SizedBox(
-                        width: 270.w,
-                        child: TextFormField(
-                          validator: (text) {
-                            if (text == null || text.isEmpty) {
-                              return "please enter the value";
+                        SizedBox(height: 15.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            MyText(
+                                title: "اختيار المعاملة",
+                                color: MyColors.black,
+                                size: 14.sp),
+                            SizedBox(
+                              width: 150.w,
+                              child: BlocBuilder<BudgetCubit, BudgetState>(
+                                builder: (context, state) {
+                                  List<String> transactionName = context
+                                      .read<BudgetCubit>()
+                                      .transactioList
+                                      .map((transaction) =>
+                                          transaction.transactionName!)
+                                      .toList();
+                                  return TileDropdownButton(
+                                    menuList: transactionName,
+                                    onChanged: (value) => {
+                                      transactionController.text =
+                                          value as String,
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 15.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            MyText(
+                                title: "اختيار المدة",
+                                color: MyColors.black,
+                                size: 14.sp),
+                            IconButton(
+                                onPressed: () {
+                                  dateRange();
+                                },
+                                icon: const Icon(Icons.calendar_month_outlined))
+                          ],
+                        ),
+                        SizedBox(height: 15.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            MyText(
+                                title: "تكرار المحفظة",
+                                color: MyColors.black,
+                                size: 14.sp),
+                            Visibility(
+                              visible: repeatSwitchValue,
+                              child: SizedBox(
+                                width: 150.w,
+                                child: TileDropdownButton(
+                                    menuList: data.repeatTransaction,
+                                    value: data.repeatTransaction.first,
+                                    onChanged: (value) {}),
+                              ),
+                            ),
+                            CupertinoSwitch(
+                              value: repeatSwitchValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  repeatSwitchValue = value;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            MyText(
+                                title: "تنبيه انتهاء المعالمة",
+                                color: MyColors.black,
+                                size: 14.sp),
+                            Visibility(
+                              visible: notificationSwitchvalu,
+                              child: SizedBox(
+                                width: 150.w,
+                                child: Container(),
+                              ),
+                            ),
+                            CupertinoSwitch(
+                              value: notificationSwitchvalu,
+                              onChanged: (value) {
+                                setState(() {
+                                  notificationSwitchvalu = value;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30.h,
+                        ),
+                        DefaultButton(
+                          fontSize: 14.sp,
+                          borderColor: MyColors.primary,
+                          title: "إضافة محفظة",
+                          color: MyColors.primary,
+                          onTap: () async {
+                            if (formKey.currentState!.validate()) {
+                              var budgetModel = BudgetModel(
+                                  selectTransaction: transactionController.text,
+                                  selectWallet: walletNameController.text,
+                                  budgetPeriod: rangeDateController.text,
+                                  name: budgetNameController.text);
+                              await context
+                                  .read<BudgetCubit>()
+                                  .addData(budgetModel);
+                              if (context.mounted) {
+                                AutoRouter.of(context).pop();
+                              }
                             }
-                            return null;
                           },
-                          textAlign: TextAlign.right,
-                          cursorColor: MyColors.primary,
-                          decoration: InputDecoration(
-                              hintText: "الملاحظات",
-                              focusColor: MyColors.primary),
-                        ),
-                      ),
-                    ],
+                        )
+                      ],
+                    ),
                   ),
-                  SizedBox(
-                    height: 35.h,
-                  ),
-                  Row(
-                    children: [
-                      const Icon(Icons.calendar_month),
-                      SizedBox(
-                        width: 5.w,
-                      ),
-                      MyText(
-                          title: "تاريخ المعاملة",
-                          color: MyColors.black,
-                          size: 14.sp),
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                      InkWell(
-                          onTap: () {
-                            chosenDate();
-                          },
-                          child: Text(
-                            '${selectedDate.month}/${selectedDate.day}/${selectedDate.year}',
-                            style: TextStyle(fontSize: 16.sp),
-                          )),
-                      SizedBox(
-                        width: 60.w,
-                      ),
-                      InkWell(
-                          onTap: () {
-                            chosenTime();
-                          },
-                          child: Text(
-                            ' ${selectedtTime.minute}: ${selectedtTime.hour} ',
-                            style: TextStyle(fontSize: 16.sp),
-                          )),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 8.h,
-                  ),
-                  const Divider(),
-                  SizedBox(height: 50.h),
-                  DefaultButton(
-                    onTap: () {
-                      validation();
-                    },
-                    borderColor: MyColors.primary,
-                    title: "اصافة معاملة",
-                    color: MyColors.primary,
-                  )
-                ],
-              ),
-            ),
-          ),
-        ));
+                ),
+              ],
+            );
+          }
+          return const SizedBox();
+        }));
   }
 
-  void chosenDate() async {
-    var chosenDate = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime.now(),
-        lastDate: DateTime.now().add(const Duration(days: 365)));
-    if (chosenDate != null) {
-      selectedDate = chosenDate;
-      setState(() {});
-    }
-  }
-
-  void validation() {
-    if (formKey.currentState?.validate() == true) {
-      Navigator.pop(context);
-      setState(() {});
-    }
-  }
-
-  void chosenTime() async {
-    var chosenDate = await showTimePicker(
+  void dateRange() async {
+    DateTimeRange? dateRange = await showDateRangePicker(
       context: context,
-      initialTime: TimeOfDay.now(),
+      firstDate: context.read<BudgetCubit>().startDate,
+      lastDate: context.read<BudgetCubit>().endDate,
     );
-    if (chosenDate != null) {
-      selectedtTime = chosenDate;
-      setState(() {});
+
+    if (dateRange != null) {
+      setState(() {
+        selectRangeDate = dateRange;
+        rangeDateController.text =
+            "${dateRange.start.day}/${dateRange.start.month}/${dateRange.start.year} - ${dateRange.end.day}/${dateRange.end.month}/${dateRange.end.year}";
+      });
     }
   }
 }
-
-final List<String> items = [
-  'مصروف شهري',
-  'حساب بنكي',
-  'Item3',
-  'Item4',
-];

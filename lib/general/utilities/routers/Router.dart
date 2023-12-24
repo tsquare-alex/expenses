@@ -32,7 +32,6 @@ part of 'RouterImports.dart';
     AdaptiveRoute(page: CashTransactions),
     AdaptiveRoute(page: RepeatedTransactions),
     AdaptiveRoute(page: Expense),
-    AdaptiveRoute(page: AddTransactionBudget),
     AdaptiveRoute(page: BalanceTransfer),
     AdaptiveRoute(page: AddWallet),
     AdaptiveRoute(page: Statistics),
@@ -41,7 +40,7 @@ part of 'RouterImports.dart';
     AdaptiveRoute(page: BalanceWithdrawal),
     AdaptiveRoute(page: AddBalance),
     AdaptiveRoute(page: ToolsHelper),
-    AdaptiveRoute(page: AddBudgetItem),
+    AdaptiveRoute(page: AddTransactionBudget)
   ],
 )
 class $AppRouter {}

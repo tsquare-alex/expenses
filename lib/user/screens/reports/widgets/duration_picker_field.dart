@@ -17,7 +17,7 @@ class DurationPickerField extends StatelessWidget {
                   context: context,
                   initialEntryMode: DatePickerEntryMode.calendarOnly,
                   initialDate: ReportsCubit.get(context).selectedDateFrom!,
-                  firstDate: DateTime.now(),
+                  firstDate: DateTime.now().subtract(const Duration(days: 30)),
                   lastDate: DateTime.now().add(
                     const Duration(days: 365),
                   ),
@@ -49,8 +49,8 @@ class DurationPickerField extends StatelessWidget {
                       context.watch<ReportsCubit>().formattedDateFrom.isEmpty
                           ? tr(context, 'durationFrom')
                           : context.watch<ReportsCubit>().formattedDateFrom,
-                      style: const TextStyle(
-                        fontSize: 16,
+                      style: TextStyle(
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.bold,
                         color: Colors.grey,
                       ),
@@ -103,8 +103,8 @@ class DurationPickerField extends StatelessWidget {
                       context.watch<ReportsCubit>().formattedDateTo.isEmpty
                           ? tr(context, 'durationTo')
                           : context.watch<ReportsCubit>().formattedDateTo,
-                      style: const TextStyle(
-                        fontSize: 16,
+                      style: TextStyle(
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.bold,
                         color: Colors.grey,
                       ),

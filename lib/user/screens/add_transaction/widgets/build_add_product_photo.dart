@@ -17,7 +17,7 @@ class BuildAddProductPhoto extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              MyText(title: "إضافة صورة للمنتج", color: MyColors.black, size: 12.sp,fontWeight: FontWeight.bold,),
+              MyText(title: tr(context, "addPhoto"), color: MyColors.black, size: 12.sp,fontWeight: FontWeight.bold,),
               InkWell(
                 onTap: () => data.showSelectTypeDialog(context),
                 child: Container(

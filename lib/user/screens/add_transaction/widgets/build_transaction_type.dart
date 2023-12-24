@@ -19,13 +19,13 @@ class BuildTransactionType extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  MyText(title: type=="الالتزامات"?"اختار الالتزام":"تحديد جهة التسوق والشراء", color: MyColors.black, size: 12.sp,fontWeight: FontWeight.bold,),
+                  MyText(title: type=="الالتزامات"?tr(context, "selectCommitment"):tr(context, "selectShopping"), color: MyColors.black, size: 12.sp,fontWeight: FontWeight.bold,),
                   IconButton(onPressed: ()=>addTransactionData.addTransactionModel(context, type), icon: Icon(Icons.add))
                 ],
               ),
               DropdownTextField<TransactionTypeModel>(
                 dropKey: addTransactionData.commitmentDropKey,
-                label: "المعاملات",
+                label: tr(context, "transaction"),
                 selectedItem: addTransactionData.selectedCommitment,
                 margin: const EdgeInsets.symmetric(vertical: 5),
                 validate: (value) {
@@ -37,7 +37,7 @@ class BuildTransactionType extends StatelessWidget {
                 finData: (data) => addTransactionData.getCommitments(context,state.data),
                 useName: true,
                 buttonsColor: MyColors.primary,
-                searchHint: "بحث",
+                searchHint:tr(context, "search"),
               ),
               SizedBox(
                 height: 20.h,
@@ -45,13 +45,13 @@ class BuildTransactionType extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  MyText(title: "اختار محتوي المعاملة", color: MyColors.black, size: 12.sp,fontWeight: FontWeight.bold,),
+                  MyText(title: tr(context, "selectTransferContent"), color: MyColors.black, size: 12.sp,fontWeight: FontWeight.bold,),
                   IconButton(onPressed: ()=>addTransactionData.addTransactionContentModel(context,type), icon: Icon(Icons.add))
                 ],
               ),
               DropdownTextField<TransactionContentModel>(
                 dropKey: addTransactionData.commitmentContentDropKey,
-                label: "اختر",
+                label: tr(context, "select"),
                 selectedItem: addTransactionData.selectedCommitmentContent,
                 margin: const EdgeInsets.symmetric(vertical: 5),
                 validate: (value) {
@@ -63,7 +63,7 @@ class BuildTransactionType extends StatelessWidget {
                 finData: (data) => addTransactionData.getCommitmentsContent(context,),
                 useName: true,
                 buttonsColor: MyColors.primary,
-                searchHint: "بحث",
+                searchHint:tr(context, "search"),
               ),
             ],
           );
@@ -74,13 +74,13 @@ class BuildTransactionType extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  MyText(title: "تحديد اسم المستهدف", color: MyColors.black, size: 12.sp,fontWeight: FontWeight.bold,),
+                  MyText(title: tr(context, "selectTargetName"), color: MyColors.black, size: 12.sp,fontWeight: FontWeight.bold,),
                   IconButton(onPressed: ()=>addTransactionData.addTransactionContentModel(context, type), icon: Icon(Icons.add))
                 ],
               ),
               DropdownTextField<DropdownModel>(
                 dropKey: addTransactionData.targetDropKey,
-                label: "اختر",
+                label: tr(context, "select"),
                 selectedItem: addTransactionData.selectedTarget,
                 margin: const EdgeInsets.symmetric(vertical: 5),
                 validate: (value) {
@@ -92,7 +92,7 @@ class BuildTransactionType extends StatelessWidget {
                 finData: (data) => addTransactionData.getTarget(context,),
                 useName: true,
                 buttonsColor: MyColors.primary,
-                searchHint: "بحث",
+                searchHint:tr(context, "search"),
               ),
             ],
           ),
@@ -101,13 +101,13 @@ class BuildTransactionType extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  MyText(title: "نوع المعامله النقدية", color: MyColors.black, size: 12.sp,fontWeight: FontWeight.bold,),
+                  MyText(title: tr(context, "selectCashTransaction"), color: MyColors.black, size: 12.sp,fontWeight: FontWeight.bold,),
                   IconButton(onPressed: ()=>addTransactionData.addTransactionContentModel(context, type), icon: Icon(Icons.add))
                 ],
               ),
               DropdownTextField<DropdownModel>(
                 dropKey: addTransactionData.cashTransactionDropKey,
-                label: "اختر",
+                label: tr(context, "select"),
                 selectedItem: addTransactionData.selectedCashTransaction,
                 margin: const EdgeInsets.symmetric(vertical: 5),
                 validate: (value) {
@@ -119,7 +119,7 @@ class BuildTransactionType extends StatelessWidget {
                 finData: (data) => addTransactionData.getCashTransactions(context,),
                 useName: true,
                 buttonsColor: MyColors.primary,
-                searchHint: "بحث",
+                searchHint:tr(context, "search"),
               ),
             ],
           ),

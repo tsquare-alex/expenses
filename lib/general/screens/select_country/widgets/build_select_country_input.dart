@@ -19,7 +19,7 @@ class BuildSelectCountryInput extends StatelessWidget {
       finData: (data) => selectCountryData.getCountries(context),
       useName: true,
       buttonsColor: MyColors.primary,
-      searchHint: "بحث",
+      searchHint: tr(context, "search"),
     );
   }
 }

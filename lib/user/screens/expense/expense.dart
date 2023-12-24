@@ -9,10 +9,10 @@ class Expense extends StatefulWidget {
 
 class _ExpenseState extends State<Expense> with TickerProviderStateMixin {
   ExpenseData data = ExpenseData();
-
   @override
   void initState() {
-    data.getCommitments();
+    var local = context.read<LangCubit>().state.locale.languageCode;
+    data.getCommitments(local);
     super.initState();
   }
 
@@ -26,12 +26,17 @@ class _ExpenseState extends State<Expense> with TickerProviderStateMixin {
         bloc: data.tabCubit,
   builder: (context, state) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: BlocBuilder<GenericBloc<List<TransactionModel>>, GenericState<List<TransactionModel>>>(
+          bloc: data.commitmentsCubit,
+  builder: (context, state2) {
+    return FloatingActionButton(
           backgroundColor: MyColors.primary,
-          onPressed: ()=>AutoRouter.of(context).push(AddTransactionRoute(model: data.commitments[state.data],)),
+          onPressed: ()=>AutoRouter.of(context).push(AddTransactionRoute(model: state2.data[state.data],)),
           shape: const CircleBorder(),
           child: Icon(Icons.add,color: MyColors.white,),
-        ),
+        );
+  },
+),
         body: Column(
           children: [
 
@@ -64,7 +69,7 @@ class _ExpenseState extends State<Expense> with TickerProviderStateMixin {
                     tabs:
                     List.generate(
                         2,
-                            (index) =>Tab(text: data.commitments[index].name ??"",)
+                            (index) =>Tab(text: tr(context, data.titles[index]),)
                         //         Container(
                         //   height: 50.h,
                         //   alignment: Alignment.center,

@@ -23,12 +23,12 @@ class _SelectCountryState extends State<SelectCountry> {
           children: [
             Column(
               children: [
-                HeaderLogo(topPadding: 100.r,image: Res.country,),
+                HeaderLogo(topPadding: 100.r,image: Res.country,color: MyColors.primary,),
                 const BuildSelectCountryText(),
                 BuildSelectCountryInput(selectCountryData: data,),
               ],
             ),
-            const BuildSelectCountryButtons()
+            BuildSelectCountryButtons(data: data,),
           ],
         ),
       ),

@@ -24,7 +24,7 @@ class _RegisterState extends State<Register> {
           padding: EdgeInsets.all(15.r),
           child: Column(
             children: [
-              HeaderLogo(topPadding: 100.r,image: Res.register,),
+              HeaderLogo(topPadding: 100.r,image: Res.register,color: MyColors.primary,),
               const BuildRegisterText(),
               BuildRegisterFields(registerDate: registerDate),
               const BuildHaveAccount(),

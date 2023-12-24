@@ -23,7 +23,7 @@ class BuildDrawer extends StatelessWidget {
                 child: const HeaderLogo(),
               ),
               CustomDrawerCard(
-                title: 'الاعدادات والضبط',
+                title: tr(context, "settings"),
                 onTap: () {
                   Navigator.of(context).pop();
                   homeTabCubit.onUpdateData(3);
@@ -32,7 +32,7 @@ class BuildDrawer extends StatelessWidget {
                 endDrawer: false,
               ),
               CustomDrawerCard(
-                title: 'الادوات المساعدة',
+                title: tr(context, "tools"),
                 onTap: () {
                   Navigator.of(context).pop();
                   homeTabCubit.onUpdateData(4);
@@ -41,7 +41,7 @@ class BuildDrawer extends StatelessWidget {
                 endDrawer: false,
               ),
               CustomDrawerCard(
-                title: 'السجل وقاعدة البيانات',
+                title: tr(context, "database"),
                 onTap: () {
                   Navigator.of(context).pop();
                   homeTabCubit.onUpdateData(5);
@@ -50,7 +50,7 @@ class BuildDrawer extends StatelessWidget {
                 endDrawer: false,
               ),
               CustomDrawerCard(
-                title: 'المساعدة والشرح',
+                title: tr(context, "help"),
                 onTap: () {
                   Navigator.of(context).pop();
                   homeTabCubit.onUpdateData(6);
@@ -59,7 +59,7 @@ class BuildDrawer extends StatelessWidget {
                 endDrawer: false,
               ),
               CustomDrawerCard(
-                title: 'المشاركة',
+                title: tr(context, "share"),
                 onTap: () {
                   shareCubit.onUpdateData(!shareCubit.state.data);
                   print(shareCubit.state.data);
@@ -73,8 +73,10 @@ class BuildDrawer extends StatelessWidget {
                     ? Column(
                   children: [
                     CustomDrawerCard(
-                      title: 'عن التطبيق',
-                      onTap: () {},
+                      title: tr(context, "about"),
+                      onTap: () {
+                        CustomToast.showSimpleToast(msg: "تحت التطوير",color: Colors.red,);
+                      },
                       image: Res.about,
                       color: context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.backgroundColor:MyColors.white,
                       textColor: context.watch<AppThemeCubit>().isDarkMode?MyColors.white:MyColors.black,
@@ -82,8 +84,10 @@ class BuildDrawer extends StatelessWidget {
                       endDrawer: false,
                     ),
                     CustomDrawerCard(
-                      title: 'الشروط والاحكام',
-                      onTap: () {},
+                      title: tr(context, "terms"),
+                      onTap: () {
+                        CustomToast.showSimpleToast(msg: "تحت التطوير",color: Colors.red,);
+                      },
                       image: Res.terms,
                       color: context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.backgroundColor:MyColors.white,
                       textColor: context.watch<AppThemeCubit>().isDarkMode?MyColors.white:MyColors.black,
@@ -91,8 +95,10 @@ class BuildDrawer extends StatelessWidget {
                       endDrawer: false,
                     ),
                     CustomDrawerCard(
-                      title: 'تقييم',
-                      onTap: () {},
+                      title: tr(context, "rate"),
+                      onTap: () {
+                        CustomToast.showSimpleToast(msg: "تحت التطوير",color: Colors.red,);
+                      },
                       image: Res.star,
                       color: context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.backgroundColor:MyColors.white,
                       textColor: context.watch<AppThemeCubit>().isDarkMode?MyColors.white:MyColors.black,

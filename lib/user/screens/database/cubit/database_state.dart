@@ -12,6 +12,7 @@ abstract class DatabaseState extends Equatable {
 class DatabaseInitial extends DatabaseState {}
 
 class DatabaseLoading extends DatabaseState {}
+class DatabaseSuccess extends DatabaseState {}
 
 class DatabaseDataLoaded extends DatabaseState {
   final List<DatabaseModel> dataBaseModel;

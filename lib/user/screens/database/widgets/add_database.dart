@@ -1,9 +1,14 @@
 import 'dart:typed_data';
 
+import 'package:auto_route/auto_route.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/user/models/database_model/database_model.dart';
 import 'package:expenses/user/screens/database/cubit/add_database_cubit/add_data_base_cubit.dart';
 import 'package:expenses/user/screens/database/cubit/add_database_cubit/add_data_base_cubit.dart';
+import 'package:expenses/user/screens/database/cubit/database_cubit.dart';
+import 'package:expenses/user/screens/home/home_imports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -27,6 +32,9 @@ import 'build_work_expansion.dart';
 import 'my_expansion.dart';
 
 class AddDatabase extends StatefulWidget {
+  // final Function onDataChanged;
+  //
+  // const AddDatabase({super.key, required this.onDataChanged});
   @override
   State<AddDatabase> createState() => _AddDatabaseState();
 }
@@ -34,47 +42,66 @@ class AddDatabase extends StatefulWidget {
 class _AddDatabaseState extends State<AddDatabase> {
   MyExpansionCubit myCubit = MyExpansionCubit();
 
-  Uint8List? imageBytes;
 
-  getImage() async {
+  AddDataBaseCubit dataBaseCubit = AddDataBaseCubit();
+  DatabaseCubit dataBaseCubitx = DatabaseCubit();
+
+
+  final CollectionReference _collectionReference =
+  FirebaseFirestore.instance.collection('your_collection_name');
+
+  String _documentNumber = '';
+  String _documentData = '';
+  String _scanResult = 'QR Code Result';
+
+  Future<void> addDataToFirestore() async {
     try {
-      final ImagePicker picker = ImagePicker();
-      final XFile? imageCamera = await picker.pickImage(
-          source: ImageSource.camera);
+      // Document ID from scanned QR code
+      String documentId = '12345678';
 
-      if (imageCamera != null) {
-        imageBytes = await _getImageBytes(imageCamera);
-        setState(() {
-
-        });
-      } else {}
-    } catch (e) {}
-  }
-
-  Future<Uint8List> _getImageBytes(XFile image) async {
-    return await image.readAsBytes();
-  }
-
-  var getResult = 'QR Code Result';
-
-  void scanQRCode() async {
-    try {
-      final qrCode = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancel', true, ScanMode.QR);
-
-      if (!mounted) return;
-
-      setState(() {
-        getResult = qrCode;
+      // Add data to Firestore
+      await _collectionReference.doc(documentId).set({
+        'name': 'John Doe',
+        'phone': '123-456-7890',
+        'email': 'john.doe@example.com',
+        // Add more fields as needed
       });
-      print("QRCode_Result:--");
-      print(qrCode);
-    } on PlatformException {
-      getResult = 'Failed to scan QR Code.';
+
+      print('Data added to Firestore with document ID: $documentId');
+    } catch (e) {
+      print('Error adding data to Firestore: $e');
     }
   }
 
-  AddDataBaseCubit dataBaseCubit = AddDataBaseCubit();
+  Future<void> fetchDataFromFirestore(String documentNumber) async {
+    try {
+      DocumentSnapshot documentSnapshot =
+      await _collectionReference.doc(documentNumber).get();
+
+      if (documentSnapshot.exists) {
+        var data = documentSnapshot.data() as Map<String, dynamic>?;
+
+        if (data != null) {
+          String formattedData = '';
+
+          data.entries.forEach((entry) {
+            formattedData += '${entry.key}: ${entry.value}\n';
+          });
+
+          setState(() {
+            _documentData = formattedData;
+          });
+        }
+      } else {
+        print('No data found for document number $documentNumber');
+        setState(() {
+          _documentData = 'No data found';
+        });
+      }
+    } catch (e) {
+      print('Error fetching data from Firestore: $e');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -100,13 +127,44 @@ class _AddDatabaseState extends State<AddDatabase> {
               child: Column(
                 children: [
                   ElevatedButton(
-                    onPressed: () {
-                      scanQRCode();
+                    onPressed: () async {
+                      try {
+                        final qrCode = await FlutterBarcodeScanner.scanBarcode(
+                          '#ff6666',
+                          'Cancel',
+                          true,
+                          ScanMode.QR,
+                        );
+
+                        if (!mounted) return;
+
+                        setState(() {
+                          _documentNumber = qrCode;
+                          _scanResult = qrCode;
+                          _documentData = '';
+                        });
+
+                        print("QRCode_Result:--");
+                        print(qrCode);
+
+                        // Fetch data from Firebase based on the scanned QR code result
+                        // await fetchDataFromFirestore(_documentNumber);
+                      } on PlatformException {
+                        setState(() {
+                          _scanResult = 'Failed to scan QR Code.';
+                        });
+                      }
                     },
                     child: Text('Scan QR'),
                   ),
                   SizedBox(height: 20.0,),
-                  Text(getResult),
+                  Text('Scan Result: $_scanResult'),
+                  Text(
+                    _documentData,
+                    style: TextStyle(
+                      fontFamily: 'Courier New', // Use a monospaced font
+                    ),
+                  ),
                   BlocBuilder<AddDataBaseCubit, AddDataBaseState>(
                     bloc: dataBaseCubit,
                     builder: (context, state) {
@@ -213,11 +271,10 @@ class _AddDatabaseState extends State<AddDatabase> {
                       messengerController: myCubit.messengerController,
                       theSocialController: myCubit.theSocialController),
                   ElevatedButton(
-                    onPressed: () {
-                      myCubit.onPressedHandler();
+                    onPressed: () async{
+                      // myCubit.onPressedHandler();
 
                       var dataBase = DatabaseModel(
-                        name: "${myCubit.firstNameController.text} ${myCubit.lastNameController.text}",
                         category: myCubit.categoryController.text,
                         adjective: myCubit.designationController.text,
                         firstName: myCubit.firstNameController.text,
@@ -248,10 +305,17 @@ class _AddDatabaseState extends State<AddDatabase> {
                       if (myCubit.state is MyExpansionError) {
 
                       } else {
-                        BlocProvider.of<AddDataBaseCubit>(context).addDataBase(
-                            dataBase);
-                        Navigator.push(context, MaterialPageRoute(builder: (
-                            context) => Database()));
+                        await BlocProvider.of<AddDataBaseCubit>(context).addDataBase(dataBase);
+                        // Emit a state indicating that data is added successfully
+                        // BlocProvider.of<DatabaseCubit>(context).emit(DatabaseAdded());
+                        // AutoRouter.of(context).pop();
+
+                        if(context.mounted){
+                          Navigator.of(context).pop();
+                        }
+
+                        // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home(index: 1)));
+                       // AutoRouter.of(context).replace(HomeRoute(index: 1));
                       }
                     },
                     child: MyText(

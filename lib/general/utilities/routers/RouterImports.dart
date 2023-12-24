@@ -23,7 +23,7 @@ import 'package:expenses/user/screens/repeated_transactions/repeated_transaction
 import 'package:expenses/user/screens/wallet/wallet_imports.dart';
 import 'package:expenses/user/screens/wallet/widgets/add_balance.dart';
 import 'package:expenses/user/screens/tools_helper/tools_helper.dart';
-import 'package:expenses/user/screens/tools_helper/widgets/arena_converter/arena_converter.dart';
+// import 'package:expenses/user/screens/tools_helper/widgets/arena_converter/arena_converter.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/qiblah/compass.dart';
 import 'package:expenses/user/screens/wallet/widgets/add_wallet.dart';
 import 'package:expenses/user/screens/wallet/widgets/balance_transfer.dart';

@@ -16,17 +16,9 @@ class DatabaseCubit extends Cubit<DatabaseState> {
   List<DatabaseModel>? dataBase;
 
   fetchAllDatabase(){
-    var databaseData = Hive.box<DatabaseModel>(database);
+    emit(DatabaseInitial());
+    var databaseData = Hive.box<DatabaseModel>(databaseBox);
     dataBase = databaseData.values.toList();
+    emit(DatabaseSuccess());
   }
-
-
-  bool isExpanded = false;
-
-  void toggleExpanded() {
-    isExpanded = !isExpanded;
-    emit(DatabaseToggle(isExpanded: isExpanded));
-  }
-
-
 }

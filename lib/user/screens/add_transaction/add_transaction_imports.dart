@@ -29,7 +29,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 
-import '../wallet/widgets/constants.dart';
 
 part 'add_transaction.dart';
 part 'add_transaction_data.dart';

@@ -81,9 +81,12 @@ class MainData {
   );
 
   static List<BlocProvider> providers(BuildContext context) => [
-        BlocProvider<LangCubit>(create: (BuildContext context) => LangCubit()),
+        BlocProvider<LangCubit>(
+          create: (BuildContext context) => LangCubit(),
+        ),
         BlocProvider<MyExpansionCubit>(
-            create: (BuildContext context) => MyExpansionCubit()),
+          create: (BuildContext context) => MyExpansionCubit(),
+        ),
         BlocProvider<AppThemeCubit>(
           create: (context) => AppThemeCubit()..applyAppTheme(),
         ),
@@ -99,12 +102,19 @@ class MainData {
         BlocProvider<DatabaseCubit>(
           create: (context) => DatabaseCubit(),
         ),
+        BlocProvider<FavoriteCubit>(
+          create: (context) => FavoriteCubit(),
+        ),
+        BlocProvider<AuthenticationCubit>(
+          create: (context) =>
+              AuthenticationCubit()..loadAuthenticationStatus(),
+        ),
+        BlocProvider<LengthConverterCubit>(
+          create: (context) => LengthConverterCubit(),
+        ),
         BlocProvider<BudgetCubit>(
           create: (context) => BudgetCubit(),
         ),
-        // BlocProvider<UserCubit>(
-        //     create: (BuildContext context)=> UserCubit()
-        // ),
         BlocProvider<WalletCubit>(
           create: (context) => WalletCubit(),
         )

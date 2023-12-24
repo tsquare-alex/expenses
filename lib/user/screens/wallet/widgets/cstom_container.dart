@@ -38,16 +38,14 @@ class CustomContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 MyText(title: model.name, color: MyColors.white, size: 16.sp),
-                endDatePassed
-                    ? IconButton(
-                        onPressed: () {
-                          data.showButtomSheet(context, build, model);
-                        },
-                        icon: Icon(
-                          Icons.arrow_drop_down_outlined,
-                          color: MyColors.white,
-                        ))
-                    : const Text("hi")
+                IconButton(
+                    onPressed: () {
+                      data.showButtomSheet(context, build, model);
+                    },
+                    icon: Icon(
+                      Icons.arrow_drop_down_outlined,
+                      color: MyColors.white,
+                    ))
               ],
             ),
             MyText(

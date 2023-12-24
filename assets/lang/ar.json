@@ -400,5 +400,6 @@
   "units": "الوحدات",
   "databaseDetails": "تفاصيل قاعدة البيانات",
   "enableAuthentication": "تمكين المصادقة",
-  "authenticationIsEnabled": "تم تمكين المصادقة"
+  "authenticationIsEnabled": "تم تمكين المصادقة",
+  "addWallet" : "إضافة محفظة جديدة"
 }

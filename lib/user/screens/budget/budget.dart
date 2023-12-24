@@ -5,11 +5,8 @@ class Budget extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BudgetCubit(),
-      child: BlocConsumer<BudgetCubit, BudgetState>(
-        listener: (context, state) {
-          if (state is SuccessFetchData) {}
-        },
+      create: (context) => BudgetCubit()..fetchData(),
+      child: BlocBuilder<BudgetCubit, BudgetState>(
         builder: (context, state) {
           return Scaffold(
             body: Column(children: [

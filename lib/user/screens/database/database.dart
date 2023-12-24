@@ -15,6 +15,9 @@ class Database extends StatelessWidget {
             //     onPressed: () => AutoRouter.of(context).push(AddDatabaseRoute()),
             //     child: const Icon(Icons.add)),
             floatingActionButton: FloatingActionButton(
+              backgroundColor: context.read<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.primary
+                      : MyColors.primary,
               onPressed: () async {
                 await AutoRouter.of(context).push(AddDatabaseRoute());
                 // await Navigator.push(
@@ -37,11 +40,11 @@ class Database extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    MyText(
-                        title: "عرض البيانات",
-                        color: MyColors.primary,
-                        size: 20.sp,
-                        fontWeight: FontWeight.bold),
+                    // MyText(
+                    //     title: "عرض البيانات",
+                    //     color: MyColors.primary,
+                    //     size: 20.sp,
+                    //     fontWeight: FontWeight.bold),
                     BlocBuilder<DatabaseCubit, DatabaseState>(
                       builder: (context, state) {
                         List<DatabaseModel> dataBase =

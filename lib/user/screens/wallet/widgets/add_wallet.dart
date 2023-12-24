@@ -287,10 +287,12 @@ class _AddWalletState extends State<AddWallet> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            MyText(
-                                title: "تكرار المحفظة",
-                                color: MyColors.black,
-                                size: 14.sp),
+                            Expanded(
+                              child: MyText(
+                                  title: "تكرار المحفظة",
+                                  color: MyColors.black,
+                                  size: 14.sp),
+                            ),
                             Visibility(
                               visible: repeatSwitchValue,
                               child: SizedBox(
@@ -317,10 +319,12 @@ class _AddWalletState extends State<AddWallet> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            MyText(
-                                title: "تنبيه انتهاء المعالمة",
-                                color: MyColors.black,
-                                size: 14.sp),
+                            Expanded(
+                              child: MyText(
+                                  title: "تنبيه انتهاء المعالمة",
+                                  color: MyColors.black,
+                                  size: 14.sp),
+                            ),
                             Visibility(
                               visible: notificationSwitchvalu,
                               child: SizedBox(

@@ -31,7 +31,6 @@ class TransactionDetailsData{
     totalController.text = model.total.toString();
     amountController.text = model.amount.toString().isNotEmpty?model.amount.toString():"1";
     walletController.text = model.incomeSource!.name;
-    partyController.text = model.database?.name??"";
     transactionDateController.text = model.transactionDate??"";
     timeController.text = model.time??"";
     brandNameController.text = model.brandName??"";

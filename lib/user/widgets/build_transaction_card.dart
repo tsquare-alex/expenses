@@ -1,7 +1,9 @@
 part of 'widgets_imports.dart';
 
 class BuildTransactionCard extends StatelessWidget {
-  const BuildTransactionCard({Key? key, required this.model, required this.onDelete}) : super(key: key);
+  const BuildTransactionCard(
+      {Key? key, required this.model, required this.onDelete})
+      : super(key: key);
   final AddTransactionModel model;
   final GestureTapCallback onDelete;
 
@@ -9,7 +11,11 @@ class BuildTransactionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        AutoRouter.of(context).push(TransactionDetailsRoute(model: model,),);
+        AutoRouter.of(context).push(
+          TransactionDetailsRoute(
+            model: model,
+          ),
+        );
       },
       child: Container(
         padding: EdgeInsets.all(15.r),
@@ -30,7 +36,12 @@ class BuildTransactionCard extends StatelessWidget {
                   size: 13.sp,
                   fontWeight: FontWeight.bold,
                 ),
-                IconButton(onPressed: onDelete, icon: Icon(Icons.delete,color: MyColors.primary,))
+                IconButton(
+                    onPressed: onDelete,
+                    icon: Icon(
+                      Icons.delete,
+                      color: MyColors.primary,
+                    ))
               ],
             ),
             Row(
@@ -57,37 +68,27 @@ class BuildTransactionCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             MyText(
-                              title:"${
-                                  model.transactionName=="الالتزامات"||model.transactionName=="التسوق والشراء"
-                                      ?model.transactionType?.name
-                                      :model.transactionName=="الاهداف المالية المستهدفة"
-                                      ?model.targetType?.name
-                                      :model.transactionName=="المعاملات النقدية"
-                                      ?model.cashTransactionType?.name
-                              :""}",
+                              title:
+                                  "${model.transactionName == "الالتزامات" || model.transactionName == "التسوق والشراء" ? model.transactionType?.name : model.transactionName == "الاهداف المالية المستهدفة" ? model.targetType?.name : model.transactionName == "المعاملات النقدية" ? model.cashTransactionType?.name : ""}",
                               color: MyColors.black,
                               size: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
-                            if(model.transactionName=="الالتزامات"||model.transactionName=="التسوق والشراء")Row(
-                              children: [
-                                Image.asset(
-                                  Res.contacts,
-                                  width: 25.w,
-                                  height: 25.h,
-                                  color: MyColors.primary,
-                                ),
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                MyText(
-                                  title: model.database?.name??"",
-                                  color: MyColors.black,
-                                  size: 11.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ],
-                            ),
+                            if (model.transactionName == "الالتزامات" ||
+                                model.transactionName == "التسوق والشراء")
+                              Row(
+                                children: [
+                                  Image.asset(
+                                    Res.contacts,
+                                    width: 25.w,
+                                    height: 25.h,
+                                    color: MyColors.primary,
+                                  ),
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                ],
+                              ),
                           ],
                         ),
                       )
@@ -113,7 +114,7 @@ class BuildTransactionCard extends StatelessWidget {
                           width: 10.w,
                         ),
                         MyText(
-                          title: model.incomeSource?.paymentMethod??"",
+                          title: model.incomeSource?.paymentMethod ?? "",
                           color: MyColors.black,
                           size: 13.sp,
                           fontWeight: FontWeight.bold,
@@ -121,7 +122,7 @@ class BuildTransactionCard extends StatelessWidget {
                       ],
                     ),
                     MyText(
-                      title: model.total??"",
+                      title: model.total ?? "",
                       color: MyColors.black,
                       size: 13.sp,
                       fontWeight: FontWeight.bold,

@@ -6,5 +6,6 @@ import 'package:expenses/res.dart';
 import 'package:expenses/user/models/add_transaction_model/add_transaction_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 part 'build_transaction_card.dart';

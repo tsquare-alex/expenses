@@ -131,6 +131,12 @@ class BuildTransactionCard extends StatelessWidget {
                 )
               ],
             ),
+            if (model.transactionName == "الاهداف المالية المستهدفة")
+              LinearPercentIndicator(
+                lineHeight: 10.0.h,
+                percent: 0.25,
+                progressColor: Colors.blue,
+              ),
           ],
         ),
       ),

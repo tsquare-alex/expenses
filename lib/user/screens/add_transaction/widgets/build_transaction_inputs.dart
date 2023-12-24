@@ -40,7 +40,6 @@ class BuildTransactionInputs extends StatelessWidget {
                     validate: (value) {
                       if (value == null) {
                         return ("Please fill this field");
-                        print("Please fill this field");
                       }
                     },
                     onChange: addTransactionData.setSelectWalletModel,

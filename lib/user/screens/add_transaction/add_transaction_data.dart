@@ -788,6 +788,7 @@ class AddTransactionData {
 
   void setSelectDatabaseModel(DatabaseModel? model) {
     selectedDatabaseModel = model;
+    databaseName = model?.name;
   }
 
   Future<List<WalletModel>> getWalletData(BuildContext context) async {

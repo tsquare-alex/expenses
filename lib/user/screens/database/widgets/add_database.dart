@@ -274,6 +274,7 @@ class _AddDatabaseState extends State<AddDatabase> {
                       myCubit.onPressedHandler();
 
                       var dataBase = DatabaseModel(
+                        name: "${myCubit.firstNameController.text} ${myCubit.lastNameController.text}",
                         category: myCubit.categoryController.text,
                         adjective: myCubit.designationController.text,
                         firstName: myCubit.firstNameController.text,
@@ -300,7 +301,6 @@ class _AddDatabaseState extends State<AddDatabase> {
                         youtube: myCubit.youtubeController.text,
                         messenger: myCubit.messengerController.text,
                         image: dataBaseCubit.imageBytes ?? Uint8List.fromList([]),
-                        name:"${myCubit.firstNameController} ${myCubit.lastNameController}",
                       );
                       if (myCubit.state is MyExpansionError) {
 

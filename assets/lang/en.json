@@ -40,11 +40,79 @@
   "invitationCode": "Invitation Code",
 
   "main": "Main",
+  "transactions": "Transactions & Expenses",
+  "reports": "Reports & Statistics",
+  "database": "Registry and databases",
+  "tools": "Utilities",
+  "help": "Help & Explanation",
+  "wallets": "Financial Resources",
+  "budget": "Budget and financial plans",
+  "share": "Share",
+  "about": "About app",
+  "terms": "Terms & Conditions",
+  "rate": "Rate",
+  "addCart": "Add Cart",
+  "commitments": "Commitments",
+  "shopping": "Shopping & Buying",
+
+  "flTransactions": "Transactions &\nExpenses",
+  "flReports": "Reports &\nStatistics",
+  "flDatabase": "Registry and\ndatabases",
+  "flTools": "Utilities",
+  "flHelp": "Help &\nExplanation",
+  "flWallets": "Financial\nResources",
+  "flBudget": "Budget and\nfinancial plans",
+  "flSettings": "Settings",
+
+
+
+  "transaction": "Transaction",
+  "commitment": "Commitment",
+  "shoppingParty": "Shopping & Purchasing Destination",
+  "transactionContent": "Transaction Content",
+  "contain": "Content",
+  "selectUnit": "Select Unit",
+  "unit": "Unit",
+  "amount": "Amount",
+  "total": "Total",
+  "wallet": "Wallet",
+  "priorityRatio": "Priority Ratio",
+  "priority": "Priority",
+  "registry": "Registry",
+  "transactionDate": "Transaction Date",
+  "repeatTransaction": "Repeat Transaction",
+  "repeatDuration": "Duration",
+  "date": "Date",
+  "startDate": "Start Date",
+  "endDate": "End Date",
+  "time": "Time",
+  "notify": "Notify",
+  "remember": "Remember before time",
+  "brand": "Brand Name",
+  "search": "Search",
+  "selectWallet": "Select wallet",
+  "targetValue": "Target value",
+  "value": "value",
+  "transferValue": "transfer value",
+  "enterTransferValue": "Enter transfer value",
+  "selectStartDate": "Select start date",
+  "selectAmount": "Select amount",
+  "repeatTransfer": "Repeat transfer",
+  "transferTo": "Transfer To",
+  "select": "Select",
+  "selectCommitment": "Select commitment",
+  "selectShopping": "Select Shopping & Purchasing Destination",
+  "selectTransferContent": "Select transaction content",
+  "selectTargetName": "Select Financial Targets",
+  "selectCashTransaction": "Select Cash Transactions",
+  "addTransaction": "New Transaction",
+  "transactionDetails": "Transaction Details",
+  "addPhoto": "Add Photo",
+  "currency": "Main Currency",
+  "subCurrency": "Sub Currency",
 
   "category": "Category",
   "categoryAddNewCategory": "Add a new category",
-
-
   "databaseAddNames": "Names",
   "databaseAddNamesAdjective": "Adjective",
   "databaseAddNamesFirstName": "First Name",
@@ -63,15 +131,12 @@
   "databaseAddressGovernorate": "Governorate",
   "databaseAddressCity": "City",
   "databaseAddressStreet": "Street",
-  "databaseAddressBuildingNumber" : "Building Number",
-  "databaseAddressApartmentNumber" : "Apartment Number",
+  "databaseAddressBuildingNumber": "Building Number",
+  "databaseAddressApartmentNumber": "Apartment Number",
   "databaseAddressPostal": "Postal Code",
-
-
   "databaseEmail": "Email",
   "databaseAddEmail": "Add Email",
   "databaseTheNewEmail": "Add New Email",
-
   "databaseImportantHistory": "Important History",
   "databaseEventTitle": "Event Title",
   "databaseEventDate": "EventDate",
@@ -85,28 +150,6 @@
   "databaseSocialAddressYoutube": "YouTube",
   "databaseSocialAddressMessenger": "Messenger",
   "databaseSocialAddressAddWeb": "Add Web",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   "language": "Language",
   "monthFirstDay": "First day of month",
   "weekFirstDay": "First day of week",
@@ -149,6 +192,20 @@
   "categoryPlace": "Place / Location",
   "categoryPerson": "Person / individual",
   "categoryItem": "Commodity / Item",
+  "lengthConvert": "Length Convert",
+  "areaConvert": "Area Convert",
+  "settings" : "Settings",
+  "expense" : "Expense",
+  "target": "Financial Targets",
+  "cashTransactions": "Cash Transactions",
+  "recurringTransactions": "Recurring transactions",
+  "durationFrom" : "Duration from",
+  "durationTo" : "Duration to",
+  "expense" : "Expense",
+  "residual": "Residual",
+  "transactionsHistory" : "Transactions history",
+  "seeAll" : "See all",
+  "reportDetails" : "Report Details"
   "convert": "Convert",
   "convertLength": "Convert Length",
   "convertMass": "Convert Mass",
@@ -166,17 +223,4 @@
   "databaseDetails": "Database Details",
   "enableAuthentication": "Enable Authentication",
   "authenticationIsEnabled": "Authentication Is Enabled"
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

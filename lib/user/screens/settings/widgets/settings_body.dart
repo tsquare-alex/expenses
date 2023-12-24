@@ -52,13 +52,18 @@ class SettingsBody extends StatelessWidget {
         SizedBox(height: 10.h),
         CustomTile(
           children: [
-            TileRow(
-              icon: Res.country,
-              title: tr(context, 'selectCountry'),
-              trailing: TileDropdownButton(
-                menuList: data.countries,
-                value: data.countries.first,
-                onChanged: (value) {},
+            InkWell(
+              onTap: () =>
+                  AutoRouter.of(context).push(const SelectCountryRoute()),
+              child: TileRow(
+                icon: Res.country,
+                title: tr(context, 'selectCountry'),
+                trailing: Icon(
+                  Icons.edit,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.secondary
+                      : MyColors.primary,
+                ),
               ),
             ),
           ],
@@ -66,13 +71,18 @@ class SettingsBody extends StatelessWidget {
         SizedBox(height: 10.h),
         CustomTile(
           children: [
-            TileRow(
-              icon: Res.currency,
-              title: tr(context, 'selectCurrency'),
-              trailing: TileDropdownButton(
-                menuList: data.currency,
-                value: data.currency.first,
-                onChanged: (value) {},
+            InkWell(
+              onTap: () =>
+                  AutoRouter.of(context).push(const SelectCurrencyRoute()),
+              child: TileRow(
+                icon: Res.currency,
+                title: tr(context, 'selectCurrency'),
+                trailing: Icon(
+                  Icons.edit,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.secondary
+                      : MyColors.primary,
+                ),
               ),
             ),
           ],

@@ -1,8 +1,8 @@
 part of 'add_transaction_imports.dart';
 
 class AddTransaction extends StatefulWidget {
-  const AddTransaction({Key? key}) : super(key: key);
-
+  const AddTransaction({Key? key, required this.model,}) : super(key: key);
+  final TransactionModel? model;
   @override
   State<AddTransaction> createState() => _AddTransactionState();
 }
@@ -10,6 +10,12 @@ class AddTransaction extends StatefulWidget {
 class _AddTransactionState extends State<AddTransaction> {
 
   AddTransactionData data = AddTransactionData();
+
+  @override
+  void initState() {
+    data.initialTransaction(widget.model!);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,20 +33,26 @@ class _AddTransactionState extends State<AddTransaction> {
         ),
         centerTitle: true,
         title: MyText(
-          title: "أصناف/أنواع المعاملات",
+          title: tr(context, "addTransaction"),
           color: MyColors.white,
           size: 16.sp,
           fontWeight: FontWeight.bold,
         ),
       ),
-      body: DefaultTabController(
-        length: 3,
-        child: Column(
-          children: [
-            // Content for Tab 1
-            BuildTransactionsView(data: data,),
+      body: Padding(
+        padding: EdgeInsets.all(15.0.r),
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              BuildTransactionType(addTransactionData: data, type: widget.model?.name??"",),
+              BuildTransactionInputs(addTransactionData: data, type: widget.model?.name??"",),
+              if(widget.model?.name=="التسوق والشراء")BuildAddProductPhoto(data: data,),
+              BuildIterateTransaction(addTransactionData: data,type: widget.model?.name??"",),
+              BuildTransactionButton(data: data,type: widget.model?.name??"",),
 
-          ],
+            ],
+          ),
         ),
       ),
     );

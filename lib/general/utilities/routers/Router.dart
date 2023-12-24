@@ -22,23 +22,24 @@ part of 'RouterImports.dart';
     AdaptiveRoute(page: DatabaseDetails),
     AdaptiveRoute(page: AddDatabase),
     // AdaptiveRoute(page: QiblahCompassWidget),
-
-
     AdaptiveRoute(page: AddTransaction),
-    // AdaptiveRoute(page: AreaConverter),
-
-
+    AdaptiveRoute(page: TransactionDetails),
     AdaptiveRoute(page: BMICalculator),
     AdaptiveRoute(page: ChangeCurrency),
-    AdaptiveRoute(page: Commitments),
     AdaptiveRoute(page: Shopping),
     AdaptiveRoute(page: Target),
     AdaptiveRoute(page: CashTransactions),
-    AdaptiveRoute(page: RecurringTransactions),
-    AdaptiveRoute(page: AddTransactionBudget),
+    AdaptiveRoute(page: RepeatedTransactions),
+    AdaptiveRoute(page: Expense),
     AdaptiveRoute(page: BalanceTransfer),
     AdaptiveRoute(page: AddWallet),
+    AdaptiveRoute(page: Statistics),
+    AdaptiveRoute(page: Wallet),
+    AdaptiveRoute(page: EditWallet),
+    AdaptiveRoute(page: BalanceWithdrawal),
+    AdaptiveRoute(page: AddBalance),
     AdaptiveRoute(page: ToolsHelper),
+    AdaptiveRoute(page: AddTransactionBudget)
   ],
 )
 class $AppRouter {}

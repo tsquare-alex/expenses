@@ -21,7 +21,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     List<Widget> screen = [
-      const Transactions(),
+      Transactions(homeTabCubit: data.homeTabCubit,),
       Main(homeTabCubit: data.homeTabCubit,),
       const Reports(),
       const Settings(),
@@ -30,6 +30,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       FavoriteScreen(),
       const Wallet(),
       const Budget(),
+      const Expense(),
+      const Target(),
+      const CashTransactions(),
+      const RepeatedTransactions(),
     ];
     return WillPopScope(
         onWillPop: () async {
@@ -45,7 +49,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           return data.homeTabCubit.state.data == 0;
         },
         child: DefaultTabController(
-          length: 3,
+          length: 12,
           initialIndex: widget.index,
           child: Scaffold(
             key: data.scaffold,
@@ -56,25 +60,41 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 bloc: data.homeTabCubit,
                 builder: (context, state) {
                   return MyText(
-                    title: data.titles[state.data],
+                    title: tr(context, data.titles[state.data]),
                     color: MyColors.white,
-                    size: 16.sp,
+                    size: 14.sp,
                     alien: TextAlign.center,
                     fontWeight: FontWeight.bold,
                   );
                 },
               ),
-              leading: Padding(
-                padding: EdgeInsets.only(right: 15.0.r),
-                child: IconButton(
-                  onPressed: () {
-                    data.scaffold.currentState?.openDrawer();
-                  },
-                  icon: Icon(
-                    Icons.menu,
-                    color: MyColors.white,
-                    size: 30.w,
-                  ),),
+              leadingWidth: 71.w,
+              leading: Row(
+                children: [
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      data.scaffold.currentState?.openDrawer();
+                    },
+                    child: Icon(
+                      Icons.menu,
+                      color: MyColors.white,
+                      size: 30.w,
+                    ),),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  BlocBuilder<GenericBloc<int>, GenericState<int>>(
+                    bloc: data.homeTabCubit,
+                    builder: (context, state) {
+                      return Image.asset(
+                        data.icons[state.data], color: MyColors.white,width: 20.w,height: 20.h,);
+                    },
+                  ),
+
+                ],
               ),
               actions: [
                 BlocBuilder<AppThemeCubit, AppThemeState>(

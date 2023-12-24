@@ -13,8 +13,12 @@ class BuildPageView extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(model.image ?? ""),
-          fit: BoxFit.fill,
+          image: AssetImage(model.image ?? "",),
+          fit: BoxFit.cover,
+          colorFilter: ColorFilter.mode(
+            MyColors.greyWhite, // Use the desired gray color here
+            BlendMode.saturation,
+          ),
         ),
       ),
       child: Container(
@@ -27,8 +31,9 @@ class BuildPageView extends StatelessWidget {
               child: MyText(
                 title: model.title ?? "",
                 size: 24,
-                color: MyColors.white,
+                color: MyColors.primary,
                 alien: TextAlign.center,
+                fontWeight: FontWeight.bold,
               ),
             ),
             Container(
@@ -36,8 +41,9 @@ class BuildPageView extends StatelessWidget {
               child: MyText(
                 title: model.desc ?? "",
                 size: 18,
-                color: MyColors.greyWhite,
+                color: MyColors.grey,
                 alien: TextAlign.center,
+                fontWeight: FontWeight.bold,
               ),
             ),
             Row(
@@ -45,9 +51,12 @@ class BuildPageView extends StatelessWidget {
               children: [
                 Expanded(
                   child: GestureDetector(
-                    onTap: () => AutoRouter.of(context).push(const SelectLanguageRoute()),
+                    onTap: () => AutoRouter.of(context)
+                        .push(const SelectLanguageRoute()),
                     child: MyText(
-                      title: (model.index! == 2) ?tr(context, "start") : tr(context, "skip"),
+                      title: (model.index! == 2)
+                          ? tr(context, "start")
+                          : tr(context, "skip"),
                       size: 18,
                       color: MyColors.white,
                     ),
@@ -56,7 +65,8 @@ class BuildPageView extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     onTap: () => model.last
-                        ? AutoRouter.of(context).push(const SelectLanguageRoute())
+                        ? AutoRouter.of(context)
+                            .push(const SelectLanguageRoute())
                         : model.pageCubit?.onUpdateData(model.index! + 1),
                     child: Container(
                         margin: const EdgeInsets.all(17),
@@ -68,14 +78,16 @@ class BuildPageView extends StatelessWidget {
                             child: Container(
                                 margin: const EdgeInsets.all(8),
                                 padding:
-                                const EdgeInsetsDirectional.only(start: 7),
+                                    const EdgeInsetsDirectional.only(start: 7),
                                 decoration: BoxDecoration(
                                   color: MyColors.primary,
                                   borderRadius: BorderRadius.circular(150),
                                 ),
                                 alignment: Alignment.center,
                                 child: Icon(
-                                  lang=="ar"?Icons.arrow_back_ios:Icons.arrow_forward_ios,
+                                  lang == "ar"
+                                      ? Icons.arrow_back_ios
+                                      : Icons.arrow_forward_ios,
                                   size: 25,
                                   color: MyColors.white,
                                 )))),

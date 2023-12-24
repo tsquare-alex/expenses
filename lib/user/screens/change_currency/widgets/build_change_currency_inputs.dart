@@ -14,7 +14,7 @@ class BuildChangeCurrencyInputs extends StatelessWidget {
             children: [
               MyText(title: "من: ", color: MyColors.txtColor, size: 14.sp),
               Expanded(
-                child: DropdownTextField<CurrencyModel>(
+                child: DropdownTextField<DropdownModel>(
                   dropKey: changeCurrencyData.fromCurrencyDropKey,
                   label: "العملة",
                   selectedItem: changeCurrencyData.selectedCurrency,
@@ -27,8 +27,8 @@ class BuildChangeCurrencyInputs extends StatelessWidget {
                   onChange: changeCurrencyData.setSelectCurrency,
                   finData: (data) => changeCurrencyData.getCurrencies(context),
                   useName: true,
-                  buttonsColor: MyColors.yellow,
-                  searchHint: "بحث",
+                  buttonsColor: MyColors.primary,
+                  searchHint:tr(context, "search"),
                 ),
               ),
             ],
@@ -40,7 +40,7 @@ class BuildChangeCurrencyInputs extends StatelessWidget {
             children: [
               MyText(title: "الي: ", color: MyColors.txtColor, size: 14.sp),
               Expanded(
-                child: DropdownTextField<CurrencyModel>(
+                child: DropdownTextField<DropdownModel>(
                   dropKey: changeCurrencyData.toCurrencyDropKey,
                   label: "العملة",
                   selectedItem: changeCurrencyData.selectedCurrency,
@@ -53,8 +53,8 @@ class BuildChangeCurrencyInputs extends StatelessWidget {
                   onChange: changeCurrencyData.setSelectCurrency,
                   finData: (data) => changeCurrencyData.getCurrencies(context),
                   useName: true,
-                  buttonsColor: MyColors.yellow,
-                  searchHint: "بحث",
+                  buttonsColor: MyColors.primary,
+                  searchHint:tr(context, "search"),
                 ),
               ),
             ],

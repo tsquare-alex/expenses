@@ -36,7 +36,7 @@ class BuildCurrencyRateInput extends StatelessWidget {
               children: [
                 MyText(title: "الي: ", color: MyColors.txtColor, size: 14.sp),
                 Expanded(
-                  child: DropdownTextField<CurrencyModel>(
+                  child: DropdownTextField<DropdownModel>(
                     dropKey: currencyRateData.currencyDropKey,
                     label: "العملة",
                     selectedItem: currencyRateData.selectedCurrency,
@@ -49,8 +49,8 @@ class BuildCurrencyRateInput extends StatelessWidget {
                     onChange: currencyRateData.setSelectCurrency,
                     finData: (data) => currencyRateData.getCurrencies(context),
                     useName: true,
-                    buttonsColor: MyColors.yellow,
-                    searchHint: "بحث",
+                    buttonsColor: MyColors.primary,
+                    searchHint: tr(context, "search"),
                   ),
                 ),
               ],

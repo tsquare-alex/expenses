@@ -1,38 +1,105 @@
 part of 'target_imports.dart';
 
 class Target extends StatefulWidget {
-  const Target({Key? key}) : super(key: key);
+  const Target({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<Target> createState() => _TargetState();
 }
 
 class _TargetState extends State<Target> {
+  TargetData data = TargetData();
+
+  @override
+  void initState() {
+    data.fetchData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => AutoRouter.of(context).pop(),
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: MyColors.white,
-            size: 20.sp,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => AutoRouter.of(context).push(
+          AddTransactionRoute(
+            model: data.model,
           ),
         ),
-        centerTitle: true,
-        title: MyText(
-          title: "الأهداف المالية المستهدفة",
+        backgroundColor: MyColors.primary,
+        shape: const CircleBorder(),
+        child: Icon(
+          Icons.add,
           color: MyColors.white,
-          size: 16.sp,
-          fontWeight: FontWeight.bold,
         ),
       ),
-      body: const Column(
-        children: [
-
-        ],
+      body: BlocBuilder<GenericBloc<List<AddTransactionModel>>,
+          GenericState<List<AddTransactionModel>>>(
+        bloc: data.addTransactionCubit,
+        builder: (context, state) {
+          if (state.data.isEmpty) {
+            return const SingleChildScrollView(
+              child: BuildNoRecord(),
+            );
+          } else {
+            return Padding(
+              padding: EdgeInsets.all(15.0.r),
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: state.data.length,
+                itemBuilder: (context, i) => BuildTransactionCard(
+                  model: state.data[i], onDelete: ()=>data.deleteItem(state.data[i],),
+                ),
+              ),
+              // child: ListView.builder(
+              //   itemCount: state.data.length,
+              //   itemBuilder: (context, index) {
+              //     AddTransactionModel model = state.data[index];
+              //     data.calculateTargetPrice(model, context);
+              //     return Container(
+              //       decoration: BoxDecoration(
+              //           borderRadius: BorderRadius.circular(15.r),
+              //           color: MyColors.primary.withOpacity(0.3)),
+              //       child: ListTile(
+              //         onTap: () => AutoRouter.of(context).push(
+              //           TransactionDetailsRoute(
+              //             model: model,
+              //           ),
+              //         ),
+              //         title: MyText(
+              //           title: "${model.transactionDate}",
+              //           color: MyColors.black,
+              //           size: 14.sp,
+              //           fontWeight: FontWeight.bold,
+              //         ),
+              //         leading: MyText(
+              //           title: model.targetType?.name ?? "",
+              //           color: MyColors.black,
+              //           size: 14.sp,
+              //           fontWeight: FontWeight.bold,
+              //         ),
+              //         subtitle: LinearPercentIndicator(
+              //           lineHeight: 10.0.h,
+              //           percent: data.percent,
+              //           progressColor: Colors.blue,
+              //         ),
+              //         trailing: IconButton(
+              //           onPressed: () =>
+              //               () => data.deleteItem(state.data[index]),
+              //           icon: Icon(
+              //             Icons.delete,
+              //             color: MyColors.primary,
+              //           ),
+              //         ),
+              //       ),
+              //     );
+              //   },
+              // ),
+            );
+          }
+        },
       ),
     );
   }

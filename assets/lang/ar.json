@@ -137,7 +137,6 @@
   "addNotes": "اضافة ملاحظات",
   "WriteMsgHere": "اكتب رسالتك هنا !",
   "WriteNotesHere": "اكتب ملاحظاتك هنا !",
-  "search": "البحث",
   "doOrder": "تنفيذ الطلب",
   "item": "قطعه",
   "delete": "حذف",
@@ -174,10 +173,8 @@
   "enterInstagram": "ادخل رابط الانستجرام",
   "enterTwitter": "ادخل رابط تويتر",
   "enterYoutube": "ادخل رابط اليوتيوب",
-"enterSnapchat": "ادخل رابط سناب شات",
+  "enterSnapchat": "ادخل رابط سناب شات",
   "enterWhatsapp": "ادخل رقم الواتس اب",
-
-
   "addPlace": "اضافة مكان",
   "selectWorkTime": "تحديد وقت العمل",
   "addPlaceImg": "من فضلك ادخل صورة المكان",
@@ -228,25 +225,83 @@
   "pickImg": "التقط صورة",
   "invitationCode": "كود الدعوة",
 
-
   "main": "القائمة الرئيسية",
+  "transactions": "المعاملات والمصروفات",
+  "reports": "التقارير والاحصائيات",
+  "database": "السجل وقواعد البيانات",
+  "tools": "الأدوات المساعدة",
+  "help": "المساعدة والشرح",
+  "wallets": "المصادر المالية",
+  "budget": "الميزانية والخطط المالية",
+  "share": "المشاركة",
+  "rate": "تقييم",
+  "addCart": "انشاء سلة",
+  "commitments": "الالتزامات",
+  "shopping": "التسوق والشراء",
+
+  "flTransactions": "المعاملات و\nالمصروفات",
+  "flReports": "التقارير و\nالاحصائيات",
+  "flDatabase": "السجل \nوقواعد البيانات",
+  "flTools": "الأدوات \nالمساعدة",
+  "flHelp": "المساعدة \nوالشرح",
+  "flWallets": "المصادر\n المالية",
+  "flBudget": "الميزانية و\nالخطط المالية",
+  "flSettings": "الضبط\nوالاعدادات",
+
+
+  "transaction": "المعاملة",
+  "commitment": "الالتزام",
+  "shoppingParty": "جهة التسوق والشراء",
+  "transactionContent": "محتوي المعاملة",
+  "contain": "المحتوي",
+  "selectUnit": "تحديد الوحدة",
+  "unit": "الوحدة",
+  "amount": "الكمية",
+  "priorityRatio": "نسبة الاولوية",
+  "priority": "الاولوية",
+  "registry": "السجل",
+  "transactionDate": "ميعاد المعاملة",
+  "repeatTransaction": "تكرار المعاملة",
+  "repeatTransfer": "تكرار التحويل",
+  "repeatDuration": "مدة التكرار",
+  "date": "التاريخ",
+  "startDate": "تاريخ البداية",
+  "endDate": "تاريخ النهاية",
+  "time": "الوقت",
+  "notify": "التنبية بالمعاملة",
+  "remember": "سيتم تذكيرك قبل الميعاد",
+  "brand": "اسم البراند",
+  "search": "بحث",
+  "selectWallet": "تحديد مصدر الدخل",
+  "targetValue": "القيمة المستهدفة",
+  "value": "القيمة",
+  "transferValue": "قيمة التحويل",
+  "enterTransferValue": "ادخل قيمة التحويل",
+  "selectStartDate": "حدد بداية المدة أولا",
+  "selectAmount": "حدد الكمية",
+  "transferTo": "التحويل الي",
+  "select": "اختر",
+  "selectCommitment": "تحديد الالتزام",
+  "selectShopping": "تحديد جهة التسوق والشراء",
+  "selectTransferContent": "اختر محتوي المعامله",
+  "selectTargetName": "تحديد اسم المستهدف",
+  "selectCashTransaction": "نوع المعامله النقدية",
+  "addTransaction": "معاملة جديدة",
+  "transactionDetails": "تفاصيل المعاملة",
+  "addPhoto": "إضافة صورة للمنتج",
+  "currency": "العملة الرئيسية",
+  "subCurrency": "العملة الفرعية",
 
   "category": "التصنيف",
-
   "categoryAddNewCategory": "إضافة تصنيف جديد",
-
   "databaseAddNames": "ألاسماء",
   "databaseAddNamesAdjective": "الصفة",
   "databaseAddNamesFirstName": "الأسم الاول",
   "databaseAddNamesSecondName": "الأسم الثانى",
-
-
   "databasePhoneNumbers": "أرقام الهاتف",
   "databaseTheNewNumber": "الرقم الجديد",
   "cancel": "إلغاء",
-  "add": "أضافة",
   "databaseAddPhoneNumber": "أضافة رقم تليفون",
-
   "databaseJob": "العمل",
   "databaseJobTitle": "المسمى الوظيفى",
   "databaseDepartment": "القسم",
@@ -259,18 +314,15 @@
   "databaseAddressBuildingNumber": "رقم البناية",
   "databaseAddressApartmentNumber": "رقم الشقة",
   "databaseAddressPostal": "الصندوق البريدى",
-
   "databaseEmail": "البريد الالكترونى",
   "databaseAddEmail": "اضافة بريد الكترونى",
   "databaseTheNewEmail": "البريد الالكترونى الجديد",
-
   "databaseImportantHistory": "تاريخ هام",
   "databaseEventTitle": "عنوان المناسبة",
   "databaseEventDate": "تاريخ المناسبة",
   "databaseEventDetails": "تفاصيل المناسبة",
   "databaseEventDate": "التاريخ",
   "databaseComment": "ملاحظات",
-
   "databaseSocialAddress": "عناوين الكترونية",
   "databaseSocialAddressWeb": "الموقع الالكترونى",
   "databaseSocialAddressFacebook": "الفيس بوك",
@@ -292,6 +344,10 @@
   "deleteData": "مسح البيانات",
   "resetSettings": "اعدادات إفتراضية",
   "egypt": "مصر",
+  "expense": "المصروفات",
+  "target": "الاهداف المالية المستهدفة",
+  "cashTransactions": "المعاملات النقدية",
+  "recurringTransactions": "المعاملات المتكررة",
   "ksa": "السعودية",
   "clothesSize" : "مقاسات الملابس",
   "clothesSizeMen" : "مقاسات ملابس الرجال",
@@ -316,11 +372,17 @@
   "convertSquareMToSquareMill" : "تحويل من متر مربع إلى مليمتر مربع",
   "convertSquareMToSquareInch" : "تحويل من متر مربع إلى بوصة مربعة",
   "convertSquareMToSquareDeci" : "تحويل من متر مربع إلى ديسيمتر مربع",
-
   "categoryPlace": "المكان / الموقع",
   "categoryPerson": "الشخص / الفرد",
   "categoryItem": "السلعة / البند",
-
+  "lengthConvert": "تحويل الطول",
+  "areaConvert": "تحويل المساحة",
+  "durationFrom": "المدة من",
+  "durationTo": "المدة إلى",
+  "residual": "المتبقي",
+  "transactionsHistory": "سجل المعاملات",
+  "seeAll": "استعراض الكل",
+  "reportDetails" : "تفاصيل التقرير",
   "convert": "تحويل",
   "convertLength": "تحويل الطول",
   "convertCurrency": "تحويل العملة",
@@ -331,9 +393,6 @@
   "convertAcceleration": "تحويل التسارع",
   "convertArea": "تحويل المساحة",
   "convertSpeed": "تحويل السرعة",
-
-
-
   "bmi": "مؤشر كتلة الجسم",
   "tools": "ادوات",
   "authentication": "اشترك وإلا فلن تجد أي بيانات أبدًا",
@@ -342,21 +401,4 @@
   "databaseDetails": "تفاصيل قاعدة البيانات",
   "authentication": "تمكين المصادقة",
   "authenticationIsEnabled": "تم تمكين المصادقة"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
-
-

@@ -16,7 +16,7 @@ class AddDataBaseCubit extends Cubit<AddDataBaseState> {
   addDataBase(DatabaseModel dataBase)async{
     emit(AddDataBaseLoading());
     try{
-      var dataBaseBox = Hive.box<DatabaseModel>(databaseBox);
+      var dataBaseBox = Hive.box<DatabaseModel>(database);
       await dataBaseBox.add(dataBase);
       // await dataBaseBox.clear();
       emit(AddDataBaseSuccess());

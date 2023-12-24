@@ -1,16 +1,18 @@
 part of 'settings_widgets_imports.dart';
 
 class TileDropdownButton extends StatelessWidget {
-  const TileDropdownButton({
-    Key? key,
-    required this.menuList,
-    required this.value,
-    required this.onChanged,
-  }) : super(key: key);
+  const TileDropdownButton(
+      {Key? key,
+      required this.menuList,
+      this.value,
+      required this.onChanged,
+      this.onSaved})
+      : super(key: key);
 
   final List menuList;
-  final Object value;
+  final Object? value;
   final Function(Object? value)? onChanged;
+  final Function(Object? value)? onSaved;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +49,7 @@ class TileDropdownButton extends StatelessWidget {
         },
       ).toList(),
       onChanged: onChanged,
+      onSaved: onSaved,
     );
   }
 }

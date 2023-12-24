@@ -1,73 +1,94 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/MyText.dart';
+import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
+import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
 import 'package:expenses/user/screens/wallet/wallet_imports.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 
 class CustomContainer extends StatelessWidget {
-  final String walletNumber;
-  final String walletCategory;
-  final String availableBalance;
-  final String balance;
-  const CustomContainer(
-      {super.key,
-      required this.walletNumber,
-      required this.walletCategory,
-      required this.availableBalance,
-      required this.balance});
+  final WalletModel model;
+
+  const CustomContainer({
+    super.key,
+    required this.model,
+  });
 
   @override
   Widget build(BuildContext context) {
     WalletData data = WalletData();
-    return Container(
-        padding: EdgeInsets.all(18.w),
+    DateTime currentDate = DateTime.now();
+    bool endDatePassed =
+        currentDate.isAfter(context.read<WalletCubit>().endDate);
+    return BlocProvider(
+      create: (context) => WalletCubit(),
+      child: Container(
+        padding: EdgeInsets.all(20.w),
         height: 180.h,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.r), color: MyColors.primary),
-        child: Slidable(
-          key: const ValueKey(0),
-          startActionPane: ActionPane(
-            motion: const ScrollMotion(),
-            extentRatio: 0.3,
-            children: [
-              SlidableAction(
-                onPressed: (context) {},
-                backgroundColor: const Color(0xFFFE4A49),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(12.r),
-                    bottomLeft: Radius.circular(12.r)),
-                foregroundColor: Colors.white,
-                icon: Icons.delete,
-                label: 'Delete',
-              ),
-            ],
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MyText(
-                      title: walletNumber, color: MyColors.white, size: 16.sp),
-                  IconButton(
-                      onPressed: () {
-                        data.showButtomSheet(context, build);
-                      },
-                      icon: Icon(
-                        Icons.arrow_drop_down_outlined,
-                        color: MyColors.white,
-                      ))
-                ],
-              ),
-              MyText(title: walletCategory, color: MyColors.white, size: 16.sp),
-              MyText(
-                  title: availableBalance, color: MyColors.white, size: 16.sp),
-              MyText(title: balance, color: MyColors.white, size: 16.sp),
-            ],
-          ),
-        ));
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                MyText(title: model.name, color: MyColors.white, size: 16.sp),
+                IconButton(
+                    onPressed: () {
+                      data.showButtomSheet(context, build, model);
+                    },
+                    icon: Icon(
+                      Icons.arrow_drop_down_outlined,
+                      color: MyColors.white,
+                    ))
+              ],
+            ),
+            MyText(
+                title: model.paymentMethod, color: MyColors.white, size: 16.sp),
+            Row(
+              children: [
+                MyText(title: "الرصيد الحالي", color: MyColors.white, size: 16),
+                SizedBox(
+                  width: 10.w,
+                ),
+                MyText(
+                    title: "${model.balance}",
+                    color: MyColors.white,
+                    size: 16.sp),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    model.delete();
+                    BlocProvider.of<WalletCubit>(context).fetchAllData();
+                  },
+                  icon: const Icon(Icons.delete),
+                  color: MyColors.white,
+                ),
+                IconButton(
+                  onPressed: () async {
+                    await AutoRouter.of(context)
+                        .push(EditWalletRoute(model: model));
+                    if (context.mounted) {
+                      BlocProvider.of<WalletCubit>(context).fetchAllData();
+                    }
+                  },
+                  icon: const Icon(Icons.edit_sharp),
+                  color: MyColors.white,
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

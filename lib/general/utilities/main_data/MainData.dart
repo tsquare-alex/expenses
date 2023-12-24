@@ -1,13 +1,11 @@
 part of 'MainDataImports.dart';
 
-
 class MainData {
-
   static ThemeData darkTheme = ThemeData(
     fontFamily: 'Janna',
     primarySwatch: Colors.blueGrey,
     floatingActionButtonTheme:
-    FloatingActionButtonThemeData(backgroundColor: MyColors.primary),
+        FloatingActionButtonThemeData(backgroundColor: MyColors.primary),
     scaffoldBackgroundColor: const Color(0xFF262424),
     appBarTheme: AppBarTheme(
         iconTheme: IconThemeData(
@@ -30,7 +28,7 @@ class MainData {
       selectedItemColor: Colors.blue,
       unselectedItemColor: Colors.grey,
       elevation: 30,
-      backgroundColor: MyColors.black  ,
+      backgroundColor: MyColors.black,
     ),
     textTheme: const TextTheme(
       bodyText1: TextStyle(
@@ -46,7 +44,7 @@ class MainData {
     fontFamily: 'Janna',
     primarySwatch: Colors.blueGrey,
     floatingActionButtonTheme:
-    FloatingActionButtonThemeData(backgroundColor: MyColors.primary),
+        FloatingActionButtonThemeData(backgroundColor: MyColors.primary),
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: AppBarTheme(
         titleSpacing: 20,
@@ -82,44 +80,43 @@ class MainData {
     ),
   );
 
-  static List<BlocProvider>  providers(BuildContext context)=>[
-    BlocProvider<LangCubit>(
-      create: (BuildContext context)=> LangCubit()
-    ),
-    BlocProvider<MyExpansionCubit>(
-        create: (BuildContext context)=> MyExpansionCubit()
-    ),
-    BlocProvider<AppThemeCubit>(
-      create: (context) => AppThemeCubit()..applyAppTheme(),
-    ),
-    BlocProvider<LengthConverterCubit>(
-      create: (context) => LengthConverterCubit(),
-
-    ),
-    BlocProvider<AreaConverterCubit>(
-      create: (context) => AreaConverterCubit(),
-
-    ),
-    BlocProvider<AddDataBaseCubit>(
-      create: (context) => AddDataBaseCubit(),
-
-    ),
-    BlocProvider<DatabaseCubit>(
-      create: (context) => DatabaseCubit(),
-
-    ),
-    BlocProvider<FavoriteCubit>(
-      create: (context) => FavoriteCubit(),
-
-    ),
-    BlocProvider<AuthenticationCubit>(
-      create: (context) => AuthenticationCubit()..loadAuthenticationStatus(),
-
-    ),
-    // BlocProvider<UserCubit>(
-    //     create: (BuildContext context)=> UserCubit()
-    // ),
-  ];
-
-
+  static List<BlocProvider> providers(BuildContext context) => [
+        BlocProvider<LangCubit>(
+          create: (BuildContext context) => LangCubit(),
+        ),
+        BlocProvider<MyExpansionCubit>(
+          create: (BuildContext context) => MyExpansionCubit(),
+        ),
+        BlocProvider<AppThemeCubit>(
+          create: (context) => AppThemeCubit()..applyAppTheme(),
+        ),
+        BlocProvider<LengthConverterCubit>(
+          create: (context) => LengthConverterCubit(),
+        ),
+        BlocProvider<AreaConverterCubit>(
+          create: (context) => AreaConverterCubit(),
+        ),
+        BlocProvider<AddDataBaseCubit>(
+          create: (context) => AddDataBaseCubit(),
+        ),
+        BlocProvider<DatabaseCubit>(
+          create: (context) => DatabaseCubit(),
+        ),
+        BlocProvider<FavoriteCubit>(
+          create: (context) => FavoriteCubit(),
+        ),
+        BlocProvider<AuthenticationCubit>(
+          create: (context) =>
+              AuthenticationCubit()..loadAuthenticationStatus(),
+        ),
+        BlocProvider<LengthConverterCubit>(
+          create: (context) => LengthConverterCubit(),
+        ),
+        BlocProvider<BudgetCubit>(
+          create: (context) => BudgetCubit(),
+        ),
+        BlocProvider<WalletCubit>(
+          create: (context) => WalletCubit(),
+        )
+      ];
 }

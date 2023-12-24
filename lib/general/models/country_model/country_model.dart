@@ -1,18 +1,15 @@
-import 'package:json_annotation/json_annotation.dart'; 
+import 'package:hive/hive.dart';
 
-part 'country_model.g.dart'; 
+part 'country_model.g.dart';
 
-@JsonSerializable(nullable: false, ignoreUnannotated: false)
+@HiveType(typeId:44)
 class CountryModel {
-  @JsonKey(name: 'id')
+  @HiveField(0)
   int? id;
-  @JsonKey(name: 'name')
+  @HiveField(1)
   String? name;
 
   CountryModel({this.id, this.name});
 
-   factory CountryModel.fromJson(Map<String, dynamic> json) => _$CountryModelFromJson(json);
-
-   Map<String, dynamic> toJson() => _$CountryModelToJson(this);
 }
 

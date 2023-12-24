@@ -17,22 +17,22 @@ class ChangeCurrencyData{
   double result = 0.0;
 
   int? currencyId;
-  CurrencyModel? selectedCurrency;
+  DropdownModel? selectedCurrency;
 
-  List<CurrencyModel> currencies=[
-    CurrencyModel(
+  List<DropdownModel> currencies=[
+    DropdownModel(
         id:12,name:"الجنيه المصري"
     ),
-    CurrencyModel(
+    DropdownModel(
         id:11,name:"الريال السعودي"
     ),
   ];
 
-  Future<List<CurrencyModel>> getCurrencies(BuildContext context) async {
+  Future<List<DropdownModel>> getCurrencies(BuildContext context) async {
     return currencies;
   }
 
-  void setSelectCurrency(CurrencyModel? model) {
+  void setSelectCurrency(DropdownModel? model) {
     selectedCurrency = model;
     currencyId = model?.id;
   }

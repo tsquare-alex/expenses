@@ -22,7 +22,7 @@ class HeaderLogo extends StatelessWidget {
         bottom: 20,
       ),
       child: Image(
-        color: color??MyColors.primary,
+        color: color,
         height: width??MediaQuery.of(context).size.height * 0.18,
         width: height??MediaQuery.of(context).size.width * 0.55,
         image: AssetImage(image??Res.logo),

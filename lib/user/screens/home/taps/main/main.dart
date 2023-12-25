@@ -55,7 +55,7 @@ class _MainState extends State<Main> {
                   ? AppDarkColors.primary
                   : MyColors.primary,
               heroTag: null,
-              child: Icon(IconData(tool.iconCode, fontFamily: 'MaterialIcons')),
+              child: Icon(IconData(tool.iconCode)),
               onPressed: () {
                 print(tool.iconCode);
                 _navigateToToolScreen(context, tool);

@@ -9,6 +9,7 @@ class WalletCubit extends Cubit<WalletState> {
   DateTime endDate = DateTime.now().add(Duration(days: 30));
 
   WalletCubit() : super(WalletInitial());
+  bool? isBalanceVisible = true;
 
   List<WalletModel> walletList = [];
   fetchAllData() async {
@@ -27,5 +28,14 @@ class WalletCubit extends Cubit<WalletState> {
     } catch (e) {
       emit(AddWalletfaliuer(message: e.toString()));
     }
+  }
+
+  void toggleBalanceVisibility() {
+    if (isBalanceVisible == true) {
+      isBalanceVisible = false;
+    } else {
+      isBalanceVisible = true;
+    }
+    emit(WalletVisibilityState());
   }
 }

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
@@ -50,7 +51,7 @@ class _AddWalletState extends State<AddWallet> {
         child: Column(
           children: [
             Container(
-              height: 65.h,
+              height: 110.h,
               width: double.infinity,
               color: MyColors.primary,
               child: Align(
@@ -62,12 +63,14 @@ class _AddWalletState extends State<AddWallet> {
                       icon: const Icon(Icons.arrow_back_ios),
                       color: MyColors.white,
                     ),
-                    SizedBox(width: 15.w),
-                    MyText(
-                      title: tr(context, 'addWallet'),
-                      color: Colors.white,
-                      size: 16.sp,
-                      fontWeight: FontWeight.bold,
+                    SizedBox(width: 45.w),
+                    Center(
+                      child: MyText(
+                        title: tr(context, 'addWallet'),
+                        color: Colors.white,
+                        size: 16.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
                     )
                   ],
                 ),
@@ -102,44 +105,28 @@ class _AddWalletState extends State<AddWallet> {
                               focusColor: MyColors.primary),
                         ),
                         SizedBox(height: 40.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            SizedBox(
-                              width: 100.w,
-                              child: TileDropdownButton(
-                                  menuList: data.curancyType,
-                                  value: data.curancyType.first,
-                                  onChanged: (value) {}),
-                            ),
-                            SizedBox(
-                              width: 170.w,
-                              child: TextFormField(
-                                onChanged: (value) {
-                                  parsedNumber =
-                                      double.parse(balanceController.text);
-                                },
-                                validator: (text) {
-                                  if (text == null || text.isEmpty) {
-                                    return "رجاء ادخال الرصيد";
-                                  }
-                                  return null;
-                                },
-                                controller: balanceController,
-                                keyboardType: TextInputType.number,
-                                textAlign: TextAlign.right,
-                                cursorColor: MyColors.primary,
-                                decoration: InputDecoration(
-                                    hintText: "الرصيد الحالي",
-                                    hintStyle: TextStyle(
-                                        fontSize: 18.sp, color: MyColors.grey),
-                                    focusColor: MyColors.primary),
-                              ),
-                            ),
-                          ],
+                        TextFormField(
+                          onChanged: (value) {
+                            parsedNumber = double.parse(balanceController.text);
+                          },
+                          validator: (text) {
+                            if (text == null || text.isEmpty) {
+                              return "رجاء ادخال الرصيد";
+                            }
+                            return null;
+                          },
+                          controller: balanceController,
+                          keyboardType: TextInputType.number,
+                          textAlign: TextAlign.right,
+                          cursorColor: MyColors.primary,
+                          decoration: InputDecoration(
+                              hintText: "الرصيد الحالي",
+                              hintStyle: TextStyle(
+                                  fontSize: 18.sp, color: MyColors.grey),
+                              focusColor: MyColors.primary),
                         ),
                         SizedBox(
-                          height: 15.h,
+                          height: 45.h,
                         ),
                         Row(
                           children: [

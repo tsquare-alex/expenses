@@ -35,7 +35,7 @@ class _ReportsState extends State<Reports> {
             if (state is ReportDataLoaded) {
               return ReportsBody(data: data);
             }
-            return const SizedBox();
+            return const Center(child: ReportNoRecord());
           },
         ),
       ),

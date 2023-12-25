@@ -28,7 +28,12 @@ class ItemBudget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              MyText(title: model.name, color: MyColors.black, size: 18.sp),
+              Align(
+                child: MyText(
+                    title: "${model.value}",
+                    color: MyColors.black,
+                    size: 18.sp),
+              ),
               SizedBox(
                 height: 5.h,
               ),

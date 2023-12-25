@@ -1,10 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
-import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/MyText.dart';
+import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WalletDetails extends StatelessWidget {
@@ -27,9 +28,12 @@ class WalletDetails extends StatelessWidget {
           child: Column(
             children: [
               InkWell(
-                onTap: () {
-                  AutoRouter.of(context)
+                onTap: () async {
+                  await AutoRouter.of(context)
                       .push(BalanceWithdrawalRoute(model: model));
+                  if (context.mounted) {
+                    context.read<WalletCubit>().fetchAllData();
+                  }
                 },
                 child: Row(
                   children: [
@@ -44,8 +48,12 @@ class WalletDetails extends StatelessWidget {
                 height: 8.h,
               ),
               InkWell(
-                onTap: () {
-                  AutoRouter.of(context).push(AddBalanceRoute(model: model));
+                onTap: () async {
+                  await AutoRouter.of(context)
+                      .push(AddBalanceRoute(model: model));
+                  if (context.mounted) {
+                    context.read<WalletCubit>().fetchAllData();
+                  }
                 },
                 child: Row(
                   children: [
@@ -63,8 +71,9 @@ class WalletDetails extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  AutoRouter.of(context).push(WalletBalanceTransferRoute(model: model),);
-                  //CustomToast.showSimpleToast(msg: 'قيد التطوير حاليا');
+                  AutoRouter.of(context).push(
+                    WalletBalanceTransferRoute(model: model),
+                  );
                 },
                 child: Row(
                   children: [
@@ -92,17 +101,22 @@ class WalletDetails extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  AutoRouter.of(context).push(WalletTransactionsRoute(model: model));
+                  AutoRouter.of(context)
+                      .push(WalletTransactionsRoute(model: model));
                 },
-                child: Row(
-                  children: [
-                    const Icon(Icons.money),
-                    SizedBox(width: 12.w),
-                    MyText(
-                        title: "عرض المعاملات",
-                        color: MyColors.black,
-                        size: 12.sp),
-                  ],
+                child: InkWell(
+                  onTap: () => AutoRouter.of(context)
+                      .push(WalletBalanceTransferRoute(model: model)),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.money),
+                      SizedBox(width: 12.w),
+                      MyText(
+                          title: "عرض المعاملات",
+                          color: MyColors.black,
+                          size: 12.sp),
+                    ],
+                  ),
                 ),
               ),
             ],

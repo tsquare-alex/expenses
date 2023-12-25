@@ -3,8 +3,6 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/generic_bloc/generic_cubit.dart';
 import 'package:expenses/general/packages/generic_bloc/generic_cubit.dart';
-import 'package:expenses/general/themes/app_colors.dart';
-import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/models/database_model/database_model.dart';
@@ -27,6 +25,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../general/models/data_base_model/data_base_model.dart';
 import '../tools_helper/favorite.dart';

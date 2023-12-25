@@ -16,6 +16,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../user/screens/tools_helper/cubit/favorite_cubit.dart';
 import '../../../user/screens/tools_helper/widgets/area_converter/cubit/arena_converter_cubit.dart';
+import '../../../user/screens/tools_helper/widgets/bmr/bmr_cubit.dart';
+import '../../../user/screens/tools_helper/widgets/discount/dicount_cubit.dart';
 import '../../../user/screens/tools_helper/widgets/length_converter/cubit/length_converter_cubit.dart';
+import '../../../user/screens/tools_helper/widgets/percentage/percentage_cubit.dart';
+import '../../../user/screens/tools_helper/widgets/services_tax/services_tax_cubit.dart';
 
 part 'MainData.dart';

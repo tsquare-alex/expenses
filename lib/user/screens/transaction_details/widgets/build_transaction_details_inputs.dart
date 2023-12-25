@@ -36,7 +36,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                     return null;
                   },
                   label: model.transactionName == "الالتزامات"
-                      ? tr(context, "commitment")
+                      ? tr(context,"commitment")
                       : model.transactionName == "التسوق والشراء"
                           ? tr(context, "shoppingParty")
                           : tr(context, "transaction"),
@@ -104,25 +104,23 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                     ),
                     useName: true,
                     buttonsColor: MyColors.primary,
-                    searchHint: tr(context, "search"),
+                    searchHint:tr(context, "search"),
                   ),
                 )
               ],
             ),
-          if (model.transactionName == "الالتزامات" ||
-              model.transactionName == "التسوق والشراء")
-            GenericTextField(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-              controller: transactionDetailsData.amountController,
-              fieldTypes: FieldTypes.normal,
-              type: TextInputType.number,
-              action: TextInputAction.next,
-              validate: (value) {
-                return null;
-              },
-              label: tr(context, "amount"),
-              margin: EdgeInsets.symmetric(vertical: 10.r),
-            ),
+          if (model.transactionName == "الالتزامات"||model.transactionName=="التسوق والشراء")GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+            controller: transactionDetailsData.amountController,
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.number,
+            action: TextInputAction.next,
+            validate: (value) {
+              return null;
+            },
+            label: tr(context, "amount"),
+            margin: EdgeInsets.symmetric(vertical: 10.r),
+          ),
           GenericTextField(
             contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: transactionDetailsData.totalController,
@@ -173,7 +171,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
               label: tr(context, "brand"),
               margin: EdgeInsets.symmetric(vertical: 10.r),
             ),
-          if (model.image != null)
+          if (model.image!=null)
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0.r),
               child: Image.memory(
@@ -214,7 +212,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                     ),
                     useName: true,
                     buttonsColor: MyColors.primary,
-                    searchHint: tr(context, "search"),
+                    searchHint:tr(context, "search"),
                   ),
                 )
               ],
@@ -362,9 +360,11 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
               if (state.data == false) {
                 transactionDetailsData.notifyCubit.onUpdateData(false);
                 print(transactionDetailsData.notifyCubit.state.data);
-              } else {
+              }
+              else{
                 transactionDetailsData.notifyCubit.onUpdateData(model.notify!);
                 print(transactionDetailsData.notifyCubit.state.data);
+
               }
               return Column(
                 children: [
@@ -398,9 +398,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                                     dropKey: transactionDetailsData
                                         .iterateTransactionDropKey,
                                     label: tr(context, "repeatDuration"),
-                                    selectedItem: transactionDetailsData
-                                            .selectedIterateTransaction ??
-                                        model.repeated,
+                                    selectedItem: transactionDetailsData.selectedIterateTransaction??model.repeated ,
                                     margin:
                                         const EdgeInsets.symmetric(vertical: 5),
                                     validate: (value) {
@@ -414,7 +412,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                                         .getIterateTransaction(context),
                                     useName: true,
                                     buttonsColor: MyColors.primary,
-                                    searchHint: tr(context, "search"),
+                                    searchHint:tr(context, "search"),
                                   ),
                                 ),
                             ],
@@ -429,7 +427,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                           onChanged: (value) {
                             transactionDetailsData.iterateCubit
                                 .onUpdateData(value);
-                          },
+                            },
                         )
                       ],
                     ),

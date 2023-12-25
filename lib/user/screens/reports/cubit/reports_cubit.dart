@@ -91,7 +91,8 @@ class ReportsCubit extends Cubit<ReportsState> {
   void changeStatsDateTo() {
     emit(const ReportsState.initial());
     if (statsSelectedDateTo != null) {
-      statsFormattedDateTo = DateFormat('EEE, dd-MM-yyyy').format(statsSelectedDateTo!);
+      statsFormattedDateTo =
+          DateFormat('EEE, dd-MM-yyyy').format(statsSelectedDateTo!);
       emit(const ReportsState.changeDate());
       return;
     }
@@ -176,6 +177,10 @@ class ReportsCubit extends Cubit<ReportsState> {
   Future<void> getReportData(BuildContext context) async {
     emit(const ReportsState.reportDataLoading());
     await Future.wait([getWalletData(context), getTransactionsData(context)]);
+    if (wallets.isEmpty) {
+      emit(const ReportsState.initial());
+      return;
+    }
     createMoneyPercentage();
     emit(const ReportsState.reportDataLoaded());
   }

@@ -1,33 +1,40 @@
 part of 'home_imports.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key, required this.index}) : super(key: key);
+  const Home({Key? key, required this.index, this.pageIndex}) : super(key: key);
   final int index;
+  final int? pageIndex;
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
-
   HomeData data = HomeData();
 
   @override
   void initState() {
     data.initBottomNavigation(this, widget.index);
+    if (widget.pageIndex != null) {
+      data.homeTabCubit.onUpdateData(widget.pageIndex!);
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     List<Widget> screen = [
-      Transactions(homeTabCubit: data.homeTabCubit,),
-      Main(homeTabCubit: data.homeTabCubit,),
+      Transactions(
+        homeTabCubit: data.homeTabCubit,
+      ),
+      Main(
+        homeTabCubit: data.homeTabCubit,
+      ),
       const Reports(),
       const Settings(),
       ToolsHelper(),
       Database(),
-      FavoriteScreen(),
+      Container(),
       const Wallet(),
       const Budget(),
       const Expense(),
@@ -82,7 +89,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       Icons.menu,
                       color: MyColors.white,
                       size: 30.w,
-                    ),),
+                    ),
+                  ),
                   SizedBox(
                     width: 10.w,
                   ),
@@ -90,10 +98,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     bloc: data.homeTabCubit,
                     builder: (context, state) {
                       return Image.asset(
-                        data.icons[state.data], color: MyColors.white,width: 20.w,height: 20.h,);
+                        data.icons[state.data],
+                        color: MyColors.white,
+                        width: 20.w,
+                        height: 20.h,
+                      );
                     },
                   ),
-
                 ],
               ),
               actions: [
@@ -108,7 +119,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         Icons.dark_mode_outlined,
                         color: MyColors.white,
                         size: 20.w,
-                      ),);
+                      ),
+                    );
                   },
                 ),
                 // IconButton(
@@ -135,62 +147,81 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               shareCubit: data.shareCubit,
               homeTabCubit: data.homeTabCubit,
             ),
-            endDrawer: BuildEndDrawer(homeTabCubit: data.homeTabCubit,),
-            body:BlocProvider.of<AuthenticationCubit>(context).state.isAuthenticated ?
-            BlocBuilder<GenericBloc<int>, GenericState<int>>(
-              bloc: data.homeTabCubit,
-              builder: (context, state) => screen[data.homeTabCubit.state.data],
-            ) :  Container(
-              // height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                    builder: (context, state) {
-                      return SwitchListTile(
-                        title: Center(child: MyText(title: tr(context, "enableAuthentication"), color: MyColors.primary, size: 20.sp,fontWeight: FontWeight.bold,)),
-                        value: state.isAuthenticated,
-                        onChanged: (value) async {
-                          final authenticationCubit = context.read<AuthenticationCubit>();
-                          if (value && authenticationCubit.isAuthenticationRequired()) {
-                            // Show authentication dialog
-                            bool authenticated = await authenticationCubit.showAuthenticationDialog(context);
-                            setState(() {});
-                            // Only update the status if the authentication was successful
-                            if (authenticated) {
-                              authenticationCubit.emit(AuthenticationState(isAuthenticated: true));
-                              setState(() {});
-                            }
-                          } else {
-                            // If authentication is not required or the user turns off the switch
-                            if (!value) {
-                              authenticationCubit.clearAuthenticationStatus();
-                            }
-                            authenticationCubit.emit(AuthenticationState(isAuthenticated: value));
-                          }
-                        },
-                      );
-                    },
-                  ),
-                  BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                    builder: (context, state) {
-                      return Visibility(
-                        visible: state.isAuthenticated,
-                        child: Text(
-                          'Authentication is enabled',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.green,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
+            endDrawer: BuildEndDrawer(
+              homeTabCubit: data.homeTabCubit,
             ),
-            bottomNavigationBar:
-            BuildBottomNavigationBar(controller: data),
+            body: BlocProvider.of<AuthenticationCubit>(context)
+                    .state
+                    .isAuthenticated
+                ? BlocBuilder<GenericBloc<int>, GenericState<int>>(
+                    bloc: data.homeTabCubit,
+                    builder: (context, state) =>
+                        screen[data.homeTabCubit.state.data],
+                  )
+                : Container(
+                    // height: 200,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                          builder: (context, state) {
+                            return SwitchListTile(
+                              title: Center(
+                                  child: MyText(
+                                title: tr(context, "enableAuthentication"),
+                                color: MyColors.primary,
+                                size: 20.sp,
+                                fontWeight: FontWeight.bold,
+                              )),
+                              value: state.isAuthenticated,
+                              onChanged: (value) async {
+                                final authenticationCubit =
+                                    context.read<AuthenticationCubit>();
+                                if (value &&
+                                    authenticationCubit
+                                        .isAuthenticationRequired()) {
+                                  // Show authentication dialog
+                                  bool authenticated = await authenticationCubit
+                                      .showAuthenticationDialog(context);
+                                  setState(() {});
+                                  // Only update the status if the authentication was successful
+                                  if (authenticated) {
+                                    authenticationCubit.emit(
+                                        AuthenticationState(
+                                            isAuthenticated: true));
+                                    setState(() {});
+                                  }
+                                } else {
+                                  // If authentication is not required or the user turns off the switch
+                                  if (!value) {
+                                    authenticationCubit
+                                        .clearAuthenticationStatus();
+                                  }
+                                  authenticationCubit.emit(AuthenticationState(
+                                      isAuthenticated: value));
+                                }
+                              },
+                            );
+                          },
+                        ),
+                        BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                          builder: (context, state) {
+                            return Visibility(
+                              visible: state.isAuthenticated,
+                              child: Text(
+                                'Authentication is enabled',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+            bottomNavigationBar: BuildBottomNavigationBar(controller: data),
           ),
         ));
   }

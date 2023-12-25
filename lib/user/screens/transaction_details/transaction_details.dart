@@ -19,6 +19,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
     data.notifyCubit.onUpdateData(widget.model.notify??false);
     data.selectedIterateTransaction= widget.model.repeated;
     data.selectedUnit= widget.model.unit;
+    data.selectedWalletModel= widget.model.incomeSource;
     super.initState();
   }
 

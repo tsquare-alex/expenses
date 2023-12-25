@@ -7,5 +7,8 @@ class FavoriteModel {
   @HiveField(0)
   String toolName;
 
-  FavoriteModel({required this.toolName});
+  @HiveField(1)
+  int iconCode; // You can change the type as per the IconData
+
+  FavoriteModel({required this.toolName, required this.iconCode});
 }

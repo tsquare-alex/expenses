@@ -11,6 +11,7 @@ class TransactionDetailsData {
   final GlobalKey<DropdownSearchState> unitsDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> priorityDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> iterateTransactionDropKey = GlobalKey();
+  final GlobalKey<DropdownSearchState> walletDropKey = GlobalKey();
 
   TextEditingController transactionTypeController = TextEditingController();
   TextEditingController transactionContentController = TextEditingController();
@@ -166,7 +167,7 @@ class TransactionDetailsData {
         transactionName: "الالتزامات",
         transactionType: model.transactionType,
         transactionContent: model.transactionContent,
-        incomeSource: model.incomeSource,
+        incomeSource: selectedWalletModel,
         unit: selectedUnit,
         amount: amountController.text,
         total: totalController.text,
@@ -192,7 +193,7 @@ class TransactionDetailsData {
         targetModel.balance = targetModel.balance + edit;
         print("balance ${targetModel.balance}");
         await walletBox.put(targetModel.key, targetModel);
-        print(model.incomeSource!.balance);
+        print(selectedWalletModel!.balance);
         box.put(model.key, editModel);
         AutoRouter.of(context).pop();
         AutoRouter.of(context).replace(HomeRoute(index: 0));
@@ -200,14 +201,14 @@ class TransactionDetailsData {
         var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
         var walletList = walletBox.values.toList();
         WalletModel? targetModel = walletList.firstWhere(
-          (item) => item.name == model.incomeSource?.name,
+          (item) => item.name == selectedWalletModel?.name,
         );
         var edit = total - lastTotal;
         print("object ${targetModel.name}");
         targetModel.balance = targetModel.balance - edit;
         print("balance ${targetModel.balance}");
         await walletBox.put(targetModel.key, targetModel);
-        print(model.incomeSource!.balance);
+        print(selectedWalletModel!.balance);
         box.put(model.key, editModel);
         AutoRouter.of(context).pop();
         AutoRouter.of(context).replace(HomeRoute(index: 0));
@@ -216,13 +217,14 @@ class TransactionDetailsData {
         AutoRouter.of(context).pop();
         AutoRouter.of(context).replace(HomeRoute(index: 0));
       }
-    } else if (model.transactionName == "التسوق والشراء") {
+    }
+    else if (model.transactionName == "التسوق والشراء") {
       AddTransactionModel editModel = AddTransactionModel(
         transactionName: "التسوق والشراء",
         transactionType: model.transactionType,
         transactionContent: model.transactionContent,
         database: model.database,
-        incomeSource: model.incomeSource,
+        incomeSource: selectedWalletModel,
         unit: selectedUnit,
         amount: amountController.text,
         total: totalController.text,
@@ -242,7 +244,7 @@ class TransactionDetailsData {
         var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
         var walletList = walletBox.values.toList();
         WalletModel? targetModel = walletList.firstWhere(
-          (item) => item.name == model.incomeSource?.name,
+          (item) => item.name == selectedWalletModel?.name,
         );
         var edit = lastTotal - total;
         print("object ${targetModel.name}");
@@ -273,12 +275,13 @@ class TransactionDetailsData {
         AutoRouter.of(context).pop();
         AutoRouter.of(context).replace(HomeRoute(index: 0));
       }
-    } else if (model.transactionName == "الاهداف المالية المستهدفة") {
+    }
+    else if (model.transactionName == "الاهداف المالية المستهدفة") {
       AddTransactionModel editModel = AddTransactionModel(
         transactionName: "الاهداف المالية المستهدفة",
         targetType: model.targetType,
         total: totalController.text,
-        incomeSource: model.incomeSource,
+        incomeSource: selectedWalletModel,
         targetValue: totalController.text,
         startDate: startDateController.text,
         endDate: endDateController.text,
@@ -326,11 +329,12 @@ class TransactionDetailsData {
         AutoRouter.of(context).pop();
         AutoRouter.of(context).replace(HomeRoute(index: 0));
       }
-    } else if (model.transactionName == "المعاملات النقدية") {
+    }
+    else if (model.transactionName == "المعاملات النقدية") {
       AddTransactionModel editModel = AddTransactionModel(
         transactionName: "المعاملات النقدية",
         cashTransactionType: model.cashTransactionType,
-        incomeSource: model.incomeSource,
+        incomeSource: selectedWalletModel,
         database: model.database,
         priority: selectedPriority ?? model.priority,
         total: totalController.text,
@@ -379,5 +383,21 @@ class TransactionDetailsData {
         AutoRouter.of(context).replace(HomeRoute(index: 0));
       }
     }
+  }
+
+
+  WalletModel? selectedWalletModel;
+  String? walletName;
+
+
+  void setSelectWalletModel(WalletModel? model) {
+    selectedWalletModel = model;
+    walletName = model?.name;
+  }
+
+  Future<List<WalletModel>> getWalletData(BuildContext context) async {
+    var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+    List<WalletModel> total = walletBox.values.toList();
+    return total;
   }
 }

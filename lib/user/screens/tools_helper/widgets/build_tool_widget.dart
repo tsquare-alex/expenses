@@ -6,20 +6,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BuildToolsWidget extends StatelessWidget {
-  const BuildToolsWidget({
-    Key? key,
-    required this.title,
-    this.onTap,
-    this.onFavoriteTap,
-    required this.icon,
-    required this.isFavorite,
-  }) : super(key: key);
-
+  final VoidCallback onTap;
   final String title;
-  final void Function()? onTap;
-  final void Function()? onFavoriteTap;
-  final IconData icon;
+  final IconData icon; // Add this line
   final bool isFavorite;
+  final VoidCallback onFavoriteTap;
+
+  const BuildToolsWidget({
+    required this.onTap,
+    required this.title,
+    required this.icon, // Add this line
+    required this.isFavorite,
+    required this.onFavoriteTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,7 @@ class BuildToolsWidget extends StatelessWidget {
       child: Row(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Icon(icon, color: MyColors.primary),
           ),
           const SizedBox(width: 10),

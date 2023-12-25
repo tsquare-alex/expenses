@@ -10,27 +10,52 @@ part 'favorite_state.dart';
 
 class FavoriteCubit extends Cubit<FavoriteState> {
   FavoriteCubit() : super(FavoriteInitialState());
+  List<FavoriteModel> _favoriteModels = [];
 
-  void toggleFavoriteStatus(String toolName) async {
+  void toggleFavoriteStatus(String toolName, int iconCode) async {
     try {
       await Hive.openBox<FavoriteModel>(favoriteTools);
       var favoriteBox = Hive.box<FavoriteModel>(favoriteTools);
-      if (favoriteBox.containsKey(toolName)) {
+
+      if (isFavorite(toolName)) {
         favoriteBox.delete(toolName);
       } else {
         if (favoriteBox.length < 4) {
-          favoriteBox.put(toolName, FavoriteModel(toolName: toolName));
+          favoriteBox.put(toolName, FavoriteModel(toolName: toolName, iconCode: iconCode));
         } else {
           emit(FavoriteExceededLimitState());
           return;
         }
       }
+
       List<FavoriteModel> updatedFavorites = favoriteBox.values.toList();
       emit(FavoriteUpdatedState(favoriteTools: updatedFavorites));
     } catch (e) {
       emit(FavoriteErrorState(errorMessage: e.toString()));
     }
   }
+
+
+  // void toggleFavoriteStatus(String toolName) async {
+  //   try {
+  //     await Hive.openBox<FavoriteModel>(favoriteTools);
+  //     var favoriteBox = Hive.box<FavoriteModel>(favoriteTools);
+  //     if (favoriteBox.containsKey(toolName)) {
+  //       favoriteBox.delete(toolName);
+  //     } else {
+  //       if (favoriteBox.length < 4) {
+  //         favoriteBox.put(toolName, FavoriteModel(toolName: toolName));
+  //       } else {
+  //         emit(FavoriteExceededLimitState());
+  //         return;
+  //       }
+  //     }
+  //     List<FavoriteModel> updatedFavorites = favoriteBox.values.toList();
+  //     emit(FavoriteUpdatedState(favoriteTools: updatedFavorites));
+  //   } catch (e) {
+  //     emit(FavoriteErrorState(errorMessage: e.toString()));
+  //   }
+  // }
 
   bool isFavorite(String toolName) {
     var favoriteBox = Hive.box<FavoriteModel>(favoriteTools);

@@ -72,8 +72,8 @@ class WalletDetails extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  // AutoRouter.of(context).push(const BalanceTransferRoute());
-                  CustomToast.showSimpleToast(msg: 'قيد التطوير حاليا');
+                  AutoRouter.of(context).push(WalletBalanceTransferRoute(model: model),);
+                  //CustomToast.showSimpleToast(msg: 'قيد التطوير حاليا');
                 },
                 child: Row(
                   children: [
@@ -101,7 +101,7 @@ class WalletDetails extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  CustomToast.showSimpleToast(msg: 'قيد التطوير حاليا');
+                  AutoRouter.of(context).push(WalletTransactionsRoute(model: model));
                 },
                 child: Row(
                   children: [

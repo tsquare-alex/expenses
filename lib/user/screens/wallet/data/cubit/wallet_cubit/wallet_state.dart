@@ -30,6 +30,10 @@ class AddWalletLoading extends WalletState {}
 
 class AddWalletSucess extends WalletState {}
 
+class WalletVisibilityState extends WalletState {}
+
+class WalletLock extends WalletState {}
+
 class AddWalletfaliuer extends WalletState {
   final String message;
 

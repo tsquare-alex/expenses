@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
@@ -30,7 +31,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
   TextEditingController transactionController = TextEditingController();
   TextEditingController budgetNameController = TextEditingController();
   var formKey = GlobalKey<FormState>();
-
+  double parsedNumber = 0;
   BudgetData data = BudgetData();
 
   @override
@@ -51,7 +52,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
             return Column(
               children: [
                 Container(
-                  height: 65.h,
+                  height: 110.h,
                   width: double.infinity,
                   color: MyColors.primary,
                   child: Align(
@@ -79,25 +80,32 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                   child: Form(
                     key: formKey,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TextFormField(
-                          validator: (text) {
+                        SizedBox(height: 15.h),
+                        MyText(
+                            title: "قيمة الميزانية",
+                            color: MyColors.black,
+                            size: 16.sp),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        GenericTextField(
+                          hint: "pleas enter value",
+                          fieldTypes: FieldTypes.normal,
+                          type: TextInputType.number,
+                          action: TextInputAction.next,
+                          validate: (text) {
                             if (text == null || text.isEmpty) {
                               return "رجاء ادخال اسم المحفظة";
                             }
                             return null;
                           },
-                          controller: budgetNameController,
-                          keyboardType: TextInputType.name,
-                          textAlign: TextAlign.right,
-                          cursorColor: MyColors.primary,
-                          decoration: InputDecoration(
-                              hoverColor: MyColors.primary,
-                              fillColor: MyColors.primary,
-                              hintText: " enter value",
-                              hintStyle: TextStyle(
-                                  fontSize: 18.sp, color: MyColors.grey),
-                              focusColor: MyColors.primary),
+                          onChange: (value) {
+                            parsedNumber =
+                                double.parse(budgetNameController.text);
+                          },
                         ),
                         SizedBox(
                           height: 15.h,
@@ -249,7 +257,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                   selectTransaction: transactionController.text,
                                   selectWallet: walletNameController.text,
                                   budgetPeriod: rangeDateController.text,
-                                  name: budgetNameController.text);
+                                  value: parsedNumber);
                               await context
                                   .read<BudgetCubit>()
                                   .addData(budgetModel);

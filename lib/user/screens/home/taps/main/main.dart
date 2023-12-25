@@ -57,7 +57,6 @@ class _MainState extends State<Main> {
               heroTag: null,
               child: Icon(IconData(tool.iconCode)),
               onPressed: () {
-                print(tool.iconCode);
                 _navigateToToolScreen(context, tool);
               },
             );

@@ -120,7 +120,7 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
                   return GestureDetector(
                     onTap: () async {
                       // await myCubit.getImage();
-                      await dataBaseCubit.getImage();
+                      await dataBaseCubit.getImage(context);
                     },
                     child: Column(
                       children: [

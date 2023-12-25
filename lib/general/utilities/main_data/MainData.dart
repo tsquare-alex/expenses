@@ -117,6 +117,39 @@ class MainData {
         ),
         BlocProvider<WalletCubit>(
           create: (context) => WalletCubit(),
-        )
+        ),
+    BlocProvider<AreaConverterCubit>(
+      create: (context) => AreaConverterCubit(),
+
+    ),
+    BlocProvider<AddDataBaseCubit>(
+      create: (context) => AddDataBaseCubit(),
+
+    ),
+    BlocProvider<DatabaseCubit>(
+      create: (context) => DatabaseCubit(),
+
+    ),
+    BlocProvider<FavoriteCubit>(
+      create: (context) => FavoriteCubit(),
+
+    ),
+    BlocProvider<AuthenticationCubit>(
+      create: (context) => AuthenticationCubit()..loadAuthenticationStatus(),
+
+    ),
+    BlocProvider<BmrCubit>(
+      create: (context) => BmrCubit(),
+
+    ),
+    BlocProvider<PercentageCubit>(
+      create: (context) => PercentageCubit(),
+    ),
+    BlocProvider<ServiceTaxCubit>(
+      create: (context) => ServiceTaxCubit(),
+    ),
+    BlocProvider<DiscountCubit>(
+      create: (context) => DiscountCubit(),
+    ),
       ];
 }

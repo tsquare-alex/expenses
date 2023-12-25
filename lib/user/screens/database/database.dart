@@ -15,13 +15,11 @@ class Database extends StatelessWidget {
             //     onPressed: () => AutoRouter.of(context).push(AddDatabaseRoute()),
             //     child: const Icon(Icons.add)),
             floatingActionButton: FloatingActionButton(
-              backgroundColor: context.read<AppThemeCubit>().isDarkMode
-                      ? AppDarkColors.primary
-                      : MyColors.primary,
+              backgroundColor: MyColors.primary,
               onPressed: () async {
                 await AutoRouter.of(context).push(AddDatabaseRoute());
                 // await Navigator.push(
-                //   context,
+                 //   context,
                 //   MaterialPageRoute(
                 //     builder: (context) => AddDatabase(),
                 //   ),
@@ -33,18 +31,98 @@ class Database extends StatelessWidget {
               },
               child: const Icon(Icons.add),
             ),
-            backgroundColor: MyColors.headerColor.withOpacity(0.2),
+            // backgroundColor: MyColors.headerColor.withOpacity(0.2),
             body: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // MyText(
-                    //     title: "عرض البيانات",
-                    //     color: MyColors.primary,
-                    //     size: 20.sp,
-                    //     fontWeight: FontWeight.bold),
+                    BlocBuilder<DatabaseCubit, DatabaseState>(
+                      builder: (context, state) {
+                        if (state is DatabaseScannedResult) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Scan Result:',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                state.scanResult,
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(height: 20),
+                              IconButton(
+                                onPressed: () {
+                                  BlocProvider.of<DatabaseCubit>(context).scanQRCode();
+                                },
+                                icon:  Icon(FontAwesomeIcons.qrcode),
+                              ),
+                            ],
+                          );
+                        } else if (state is DatabaseDataFirestoreLoaded) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Scan Result:',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                state.documentData,
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(height: 10),
+                              // Text(
+                              //   'Document Number: ${state.documentNumber}',
+                              //   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              // ),
+                              // SizedBox(height: 10),
+                              // Text(
+                              //   'Document Data: ${state.documentData}',
+                              //   style: TextStyle(fontSize: 18),
+                              // ),
+                              // SizedBox(height: 20),
+                              IconButton(
+                                onPressed: () {
+                                  BlocProvider.of<DatabaseCubit>(context).scanQRCode();
+                                },
+                                icon:  Icon(FontAwesomeIcons.qrcode),
+                              ),
+                            ],
+                          );
+                        } else if (state is DatabaseError) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text('Result: No Data Found'),
+                              IconButton(
+                                onPressed: () {
+                                  BlocProvider.of<DatabaseCubit>(context).scanQRCode();
+                                },
+                                icon:  Icon(FontAwesomeIcons.qrcode),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return Center(
+                            child: IconButton(
+                              onPressed: () {
+                                BlocProvider.of<DatabaseCubit>(context).scanQRCode();
+                              },
+                              icon:  Icon(FontAwesomeIcons.qrcode),
+                            ),
+                          );
+                        }
+                      },
+                    ),
+
                     BlocBuilder<DatabaseCubit, DatabaseState>(
                       builder: (context, state) {
                         List<DatabaseModel> dataBase =

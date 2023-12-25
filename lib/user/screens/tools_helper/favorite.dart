@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:expenses/user/screens/tools_helper/cubit/favorite_cubit.dart';
+import 'package:local_auth/local_auth.dart';
 
 import '../auth_info_cubit/auth_info_cubit.dart';
 import '../bmi_calculator/bmi_calculator_imports.dart';
@@ -31,6 +32,11 @@ class FavoriteScreen extends StatefulWidget {
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
 
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

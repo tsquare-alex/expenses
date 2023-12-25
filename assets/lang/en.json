@@ -227,5 +227,20 @@
   "showTransactions" : "Wallet Transactions",
   "transactionTransfer" : "Transfer Transaction",
   "transfer" : "Transfer",
-  "balanceTransfer" : "تحويل مبلغ مالي"
+  "balanceTransfer" : "تحويل مبلغ مالي",
+  "scanner": "Scanner",
+  "bmr": "Normal burning rate",
+  "result": "Result",
+  "enterNumber": "Enter Number",
+  "enterPercentage": "Enter Percentage",
+  "percentage": "Percentage Calculator",
+  "calculate": "Calculate",
+  "tax": "Service Tax Calculator",
+  "enterTax": "Enter Tax Rate",
+  "taxAmount": "Service Tax Amount",
+  "totalAmount": "Total Amount",
+  "discount": "Discount Calculator",
+  "discountAmount": "Discount Amount",
+  "commercial": "Commercial"
+
 }

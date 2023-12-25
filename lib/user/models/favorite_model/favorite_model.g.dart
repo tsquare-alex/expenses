@@ -18,15 +18,18 @@ class FavoriteModelAdapter extends TypeAdapter<FavoriteModel> {
     };
     return FavoriteModel(
       toolName: fields[0] as String,
+      iconCode: fields[1] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, FavoriteModel obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.toolName);
+      ..write(obj.toolName)
+      ..writeByte(1)
+      ..write(obj.iconCode);
   }
 
   @override

@@ -18,104 +18,106 @@ class WalletDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => WalletCubit(),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            height: 120.h,
-            width: double.infinity,
-            padding: EdgeInsets.all(16.w),
-            decoration: BoxDecoration(color: MyColors.greyWhite),
-            child: Column(
-              children: [
-                InkWell(
-                  onTap: () {
-                    AutoRouter.of(context)
-                        .push(BalanceWithdrawalRoute(model: model));
-                  },
-                  child: Row(
-                    children: [
-                      const Icon(Icons.money),
-                      SizedBox(width: 12.w),
-                      MyText(
-                          title: "سحب رصيد",
-                          color: MyColors.black,
-                          size: 12.sp),
-                    ],
-                  ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          height: 120.h,
+          width: double.infinity,
+          padding: EdgeInsets.all(16.w),
+          decoration: BoxDecoration(color: MyColors.greyWhite),
+          child: Column(
+            children: [
+              InkWell(
+                onTap: () async {
+                  await AutoRouter.of(context)
+                      .push(BalanceWithdrawalRoute(model: model));
+                  if (context.mounted) {
+                    context.read<WalletCubit>().fetchAllData();
+                  }
+                },
+                child: Row(
+                  children: [
+                    const Icon(Icons.money),
+                    SizedBox(width: 12.w),
+                    MyText(
+                        title: "سحب رصيد", color: MyColors.black, size: 12.sp),
+                  ],
                 ),
-                SizedBox(
-                  height: 8.h,
+              ),
+              SizedBox(
+                height: 8.h,
+              ),
+              InkWell(
+                onTap: () async {
+                  await AutoRouter.of(context)
+                      .push(AddBalanceRoute(model: model));
+                  if (context.mounted) {
+                    context.read<WalletCubit>().fetchAllData();
+                  }
+                },
+                child: Row(
+                  children: [
+                    const Icon(Icons.money),
+                    SizedBox(width: 12.w),
+                    MyText(
+                        title: "اضافة رصيد",
+                        color: MyColors.black,
+                        size: 12.sp),
+                  ],
                 ),
-                InkWell(
-                  onTap: () {
-                    AutoRouter.of(context).push(AddBalanceRoute(model: model));
-                  },
-                  child: Row(
-                    children: [
-                      const Icon(Icons.money),
-                      SizedBox(width: 12.w),
-                      MyText(
-                          title: "اضافة رصيد",
-                          color: MyColors.black,
-                          size: 12.sp),
-                    ],
-                  ),
+              ),
+              SizedBox(
+                height: 8.h,
+              ),
+              InkWell(
+                onTap: () {
+                  // AutoRouter.of(context).push(const BalanceTransferRoute());
+                  CustomToast.showSimpleToast(msg: 'قيد التطوير حاليا');
+                },
+                child: Row(
+                  children: [
+                    const Icon(Icons.money),
+                    SizedBox(width: 12.w),
+                    MyText(
+                        title: "تحويل رصيد بين المحفظة",
+                        color: MyColors.black,
+                        size: 12.sp),
+                  ],
                 ),
-                SizedBox(
-                  height: 8.h,
-                ),
-                InkWell(
-                  onTap: () {
-                    // AutoRouter.of(context).push(const BalanceTransferRoute());
-                    CustomToast.showSimpleToast(msg: 'قيد التطوير حاليا');
-                  },
-                  child: Row(
-                    children: [
-                      const Icon(Icons.money),
-                      SizedBox(width: 12.w),
-                      MyText(
-                          title: "تحويل رصيد بين المحفظة",
-                          color: MyColors.black,
-                          size: 12.sp),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-          SizedBox(
-            height: 15.h,
-          ),
-          Container(
-            height: 60.h,
-            width: double.infinity,
-            padding: EdgeInsets.all(16.w),
-            decoration: BoxDecoration(color: MyColors.greyWhite),
-            child: Column(
-              children: [
-                InkWell(
-                  onTap: () {
-                    CustomToast.showSimpleToast(msg: 'قيد التطوير حاليا');
-                  },
-                  child: Row(
-                    children: [
-                      const Icon(Icons.money),
-                      SizedBox(width: 12.w),
-                      MyText(
-                          title: "عرض المعاملات",
-                          color: MyColors.black,
-                          size: 12.sp),
-                    ],
-                  ),
+        ),
+        SizedBox(
+          height: 15.h,
+        ),
+        Container(
+          height: 60.h,
+          width: double.infinity,
+          padding: EdgeInsets.all(16.w),
+          decoration: BoxDecoration(color: MyColors.greyWhite),
+          child: Column(
+            children: [
+              InkWell(
+                onTap: () {
+                  CustomToast.showSimpleToast(msg: 'قيد التطوير حاليا');
+                },
+                child: Row(
+                  children: [
+                    const Icon(Icons.money),
+                    SizedBox(width: 12.w),
+                    MyText(
+                        title: "عرض المعاملات",
+                        color: MyColors.black,
+                        size: 12.sp),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
@@ -31,175 +32,172 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 110.h,
-          width: double.infinity,
-          color: MyColors.primary,
-          child: Align(
-            alignment: Alignment.bottomRight,
-            child: IconButton(
-              onPressed: () => AutoRouter.of(context).pop(),
-              icon: const Icon(Icons.arrow_back_ios),
-              color: MyColors.white,
-            ),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: MyText(
+          title: tr(context, 'withdrawbalance'),
+          color: MyColors.white,
+          size: 16.sp,
+          fontWeight: FontWeight.bold,
         ),
-        Padding(
-          padding: EdgeInsets.all(18.w),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 20.h),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  MyText(
-                      title: "المبلغ المطلوب سحبه",
-                      color: MyColors.black,
-                      size: 14.sp),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  GenericTextField(
-                    controller: controller,
-                    fieldTypes: FieldTypes.normal,
-                    type: TextInputType.number,
-                    action: TextInputAction.next,
-                    validate: (text) {
-                      if (text == null || text.isEmpty) {
-                        return "رجاء ادخال اسم المحفظة";
-                      }
-                      return null;
-                    },
-                    onChange: (value) {
-                      parsedNumber = double.parse(controller.text);
-                    },
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      MyText(
-                          title: "المبلغ الحالي",
-                          color: MyColors.black,
-                          size: 16.sp),
-                      MyText(
-                          title: "${widget.model.balance}",
-                          color: MyColors.primary,
-                          size: 16.sp)
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      MyText(
-                          title: "المبلغ المتبقي",
-                          color: MyColors.black,
-                          size: 16.sp),
-                      MyText(
-                          title: "${widget.model.balance}",
-                          color: MyColors.primary,
-                          size: 16.sp)
-                    ],
-                  ),
-                  SizedBox(
-                    height: 25.h,
-                  ),
-                  Row(
-                    children: [
-                      const Icon(Icons.calendar_month),
-                      SizedBox(
-                        width: 5.w,
-                      ),
-                      MyText(
-                          title: "تاريخ المعاملة",
-                          color: MyColors.black,
-                          size: 14.sp),
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                      InkWell(
-                          onTap: () {
-                            chosenDate();
-                          },
-                          child: Text(
-                            '${selectedDate.month}/${selectedDate.day}/${selectedDate.year}',
-                            style: TextStyle(fontSize: 14.sp),
-                          )),
-                      SizedBox(
-                        width: 60.w,
-                      ),
-                      InkWell(
-                          onTap: () {
-                            chosenTime();
-                          },
-                          child: Text(
-                            ' ${selectedtTime.minute}: ${selectedtTime.hour} ',
-                            style: TextStyle(fontSize: 14.sp),
-                          )),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 25.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: MyText(
-                            title: "التكرار",
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(18.w),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 20.h),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MyText(
+                        title: "المبلغ المطلوب سحبه",
+                        color: MyColors.black,
+                        size: 14.sp),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    GenericTextField(
+                      controller: controller,
+                      fieldTypes: FieldTypes.normal,
+                      type: TextInputType.number,
+                      action: TextInputAction.next,
+                      validate: (text) {
+                        if (text == null || text.isEmpty) {
+                          return "رجاء ادخال اسم المحفظة";
+                        }
+                        return null;
+                      },
+                      onChange: (value) {
+                        parsedNumber = double.parse(controller.text);
+                      },
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        MyText(
+                            title: "المبلغ الحالي",
+                            color: MyColors.black,
+                            size: 16.sp),
+                        MyText(
+                            title: "${widget.model.balance}",
+                            color: MyColors.primary,
+                            size: 16.sp)
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        MyText(
+                            title: "المبلغ المتبقي",
+                            color: MyColors.black,
+                            size: 16.sp),
+                        MyText(
+                            title: "${widget.model.balance}",
+                            color: MyColors.primary,
+                            size: 16.sp)
+                      ],
+                    ),
+                    SizedBox(
+                      height: 25.h,
+                    ),
+                    Row(
+                      children: [
+                        const Icon(Icons.calendar_month),
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        MyText(
+                            title: "تاريخ المعاملة",
                             color: MyColors.black,
                             size: 14.sp),
-                      ),
-                      Visibility(
-                        visible: repeatSwitchValue,
-                        child: SizedBox(
-                          width: 150.w,
-                          child: TileDropdownButton(
-                              menuList: data.repeatWallet,
-                              value: data.repeatWallet.first,
-                              onChanged: (value) {}),
+                        SizedBox(
+                          width: 10.w,
                         ),
-                      ),
-                      CupertinoSwitch(
-                        value: repeatSwitchValue,
-                        onChanged: (value) {
-                          setState(() {
-                            repeatSwitchValue = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
+                        InkWell(
+                            onTap: () {
+                              chosenDate();
+                            },
+                            child: Text(
+                              '${selectedDate.month}/${selectedDate.day}/${selectedDate.year}',
+                              style: TextStyle(fontSize: 14.sp),
+                            )),
+                        SizedBox(
+                          width: 60.w,
+                        ),
+                        InkWell(
+                            onTap: () {
+                              chosenTime();
+                            },
+                            child: Text(
+                              ' ${selectedtTime.minute}: ${selectedtTime.hour} ',
+                              style: TextStyle(fontSize: 14.sp),
+                            )),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 25.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: MyText(
+                              title: "التكرار",
+                              color: MyColors.black,
+                              size: 14.sp),
+                        ),
+                        Visibility(
+                          visible: repeatSwitchValue,
+                          child: SizedBox(
+                            width: 150.w,
+                            child: TileDropdownButton(
+                                menuList: data.repeatWallet,
+                                value: data.repeatWallet.first,
+                                onChanged: (value) {}),
+                          ),
+                        ),
+                        CupertinoSwitch(
+                          value: repeatSwitchValue,
+                          onChanged: (value) {
+                            setState(() {
+                              repeatSwitchValue = value;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
-        SizedBox(
-          height: 30.h,
-        ),
-        DefaultButton(
-          fontSize: 12.sp,
-          onTap: () {
-            double result = widget.model.balance - parsedNumber;
-            widget.model.balance = result;
-            widget.model.save();
-            AutoRouter.of(context).pop();
-          },
-          borderColor: MyColors.primary,
-          title: "سحب رصيد",
-          color: MyColors.primary,
-        ),
-      ],
+          SizedBox(
+            height: 30.h,
+          ),
+          DefaultButton(
+            fontSize: 12.sp,
+            onTap: () {
+              double result = widget.model.balance - parsedNumber;
+              widget.model.balance = result;
+              widget.model.save();
+              AutoRouter.of(context).pop();
+            },
+            borderColor: MyColors.primary,
+            title: "سحب رصيد",
+            color: MyColors.primary,
+          ),
+        ],
+      ),
     );
   }
 

@@ -23,6 +23,10 @@ class WalletModel extends HiveObject {
   String? repeatWallet;
   @HiveField(9)
   String? walletPeriod;
+  @HiveField(10)
+  bool? isHide;
+  @HiveField(11)
+  bool? isClosed;
 
   WalletModel({
     required this.name,
@@ -34,6 +38,8 @@ class WalletModel extends HiveObject {
     required this.encomeSource,
     required this.valueCategory,
     this.repeatWallet,
+    this.isClosed = false,
+    this.isHide = false,
     this.walletPeriod,
   });
 }

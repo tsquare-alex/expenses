@@ -175,8 +175,12 @@ class _AddWalletState extends State<AddWallet> {
                             SizedBox(
                               width: 150.w,
                               child: TileDropdownButton(
-                                menuList: data.paymentMethod,
-                                value: data.paymentMethod.first,
+                                menuList:
+                                    context.watch<WalletCubit>().paymentMethod,
+                                value: context
+                                    .read<WalletCubit>()
+                                    .paymentMethod
+                                    .first,
                                 onChanged: (value) => {
                                   paymentMethodController.text =
                                       value as String,
@@ -185,11 +189,13 @@ class _AddWalletState extends State<AddWallet> {
                             ),
                             IconButton(
                                 onPressed: () {
-                                  data.addPaymentMethodValue(
-                                    context,
-                                    build,
-                                    paymentMethodController,
-                                  );
+                                  context
+                                      .read<WalletCubit>()
+                                      .addPaymentMethodValue(
+                                        context,
+                                        build,
+                                        paymentMethodController,
+                                      );
                                 },
                                 icon: const Icon(Icons.add))
                           ],
@@ -207,19 +213,26 @@ class _AddWalletState extends State<AddWallet> {
                             SizedBox(
                               width: 150.w,
                               child: TileDropdownButton(
-                                  menuList: data.walletCategory,
-                                  value: data.walletCategory.first,
+                                  menuList: context
+                                      .watch<WalletCubit>()
+                                      .walletCategory,
+                                  value: context
+                                      .read<WalletCubit>()
+                                      .walletCategory
+                                      .first,
                                   onChanged: (value) {
                                     categoryController.text = value as String;
                                   }),
                             ),
                             IconButton(
                                 onPressed: () {
-                                  data.addWalletCategoryValue(
-                                    context,
-                                    build,
-                                    categoryController,
-                                  );
+                                  context
+                                      .read<WalletCubit>()
+                                      .addCategoryMethodValue(
+                                        context,
+                                        build,
+                                        categoryController,
+                                      );
                                 },
                                 icon: const Icon(Icons.add))
                           ],
@@ -237,8 +250,12 @@ class _AddWalletState extends State<AddWallet> {
                             SizedBox(
                               width: 150.w,
                               child: TileDropdownButton(
-                                menuList: data.encomeSource,
-                                value: data.encomeSource.first,
+                                menuList:
+                                    context.watch<WalletCubit>().encomeSource,
+                                value: context
+                                    .read<WalletCubit>()
+                                    .encomeSource
+                                    .first,
                                 onChanged: (value) {
                                   encomSourceController.text = value as String;
                                 },
@@ -246,8 +263,10 @@ class _AddWalletState extends State<AddWallet> {
                             ),
                             IconButton(
                                 onPressed: () {
-                                  data.addEncomeValue(
-                                      context, build, encomSourceController);
+                                  context
+                                      .read<WalletCubit>()
+                                      .addEncomeSourceValue(context, build,
+                                          encomSourceController);
                                 },
                                 icon: const Icon(Icons.add))
                           ],
@@ -265,8 +284,13 @@ class _AddWalletState extends State<AddWallet> {
                             SizedBox(
                               width: 150.w,
                               child: TileDropdownButton(
-                                  menuList: data.valueCategory,
-                                  value: data.valueCategory.first,
+                                  menuList: context
+                                      .watch<WalletCubit>()
+                                      .valueCategory,
+                                  value: context
+                                      .read<WalletCubit>()
+                                      .valueCategory
+                                      .first,
                                   onChanged: (value) {
                                     valueCategoryController.text =
                                         value as String;
@@ -274,7 +298,7 @@ class _AddWalletState extends State<AddWallet> {
                             ),
                             IconButton(
                                 onPressed: () {
-                                  data.addValueCategory(
+                                  context.read<WalletCubit>().addValueCategory(
                                       context, build, valueCategoryController);
                                 },
                                 icon: const Icon(Icons.add))

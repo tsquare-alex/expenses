@@ -9,16 +9,22 @@ class BuildWalletTransactionsView extends StatelessWidget {
     return BlocBuilder<GenericBloc<List<AddTransactionModel>>,
         GenericState<List<AddTransactionModel>>>(
       bloc: data.addTransactionCubit,
-      builder: (BuildContext context, state) => ListView.builder(
-        itemCount: state.data.length,
-        itemBuilder: (context, i) => BuildWalletTransactionsItem(
-          model: state.data[i],
-          // onArrowTap: () => AutoRouter.of(context).push(
-          //   TransferWalletTransactionRoute(model: state.data[i]),
-          // ),
-          onArrowTap: ()=>data.showSelectTypeDialog(context,state.data[i]),
-        ),
-      ),
+      builder: (BuildContext context, state){
+        if(state.data.isNotEmpty){
+          return ListView.builder(
+            itemCount: state.data.length,
+            itemBuilder: (context, i) => BuildWalletTransactionsItem(
+              model: state.data[i],
+              // onArrowTap: () => AutoRouter.of(context).push(
+              //   TransferWalletTransactionRoute(model: state.data[i]),
+              // ),
+              onArrowTap: ()=>data.showSelectTypeDialog(context,state.data[i]),
+            ),
+          );
+        }else{
+          return const BuildNoRecord();
+        }
+      },
     );
   }
 }

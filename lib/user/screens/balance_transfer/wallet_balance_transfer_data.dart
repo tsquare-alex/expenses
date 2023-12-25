@@ -1,11 +1,12 @@
-part of 'transfer_wallet_transaction_imports.dart';
+part of 'wallet_balance_transfer_imports.dart';
 
-class TransferWalletTransactionData{
+class WalletBalanceTransferData{
   final GlobalKey<FormState> formKey = GlobalKey();
 
   final GlobalKey<DropdownSearchState> walletDropKey = GlobalKey();
 
   TextEditingController walletController = TextEditingController();
+  TextEditingController transferValueController = TextEditingController();
 
   WalletModel? selectedWalletModel;
   String? walletName;
@@ -22,28 +23,26 @@ class TransferWalletTransactionData{
     return total;
   }
 
-  editWallet(BuildContext context, AddTransactionModel model) async{
-    final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
-    var modelList = box.values.toList();
-    var targetModel = modelList.firstWhere((element) => element.key==model.key);
-    targetModel.incomeSource = selectedWalletModel!;
+  balanceTransfer(BuildContext context, WalletModel model) async{
     var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
     var walletList = walletBox.values.toList();
-    if(selectedWalletModel!=null){
+    if(formKey.currentState!.validate()){
       WalletModel? currentWallet = walletList.firstWhere(
-            (item) => item.name == model.incomeSource?.name,
+            (item) => item.name == model.name,
       );
       WalletModel? targetWallet = walletList.firstWhere(
             (item) => item.name == selectedWalletModel?.name,
       );
-      double total = double.parse(model.total!);
-      currentWallet.balance=currentWallet.balance+total;
-      targetWallet.balance=targetWallet.balance-total;
+      double transferValue = double.parse(transferValueController.text);
+      currentWallet.balance=currentWallet.balance - transferValue;
+      targetWallet.balance=targetWallet.balance + transferValue;
       walletBox.put(currentWallet.key, currentWallet);
       walletBox.put(targetWallet.key, targetWallet);
-      box.put(targetModel.key, targetModel);
+      AutoRouter.of(context).pop();
+      AutoRouter.of(context).replace(HomeRoute(index: 1,pageIndex: 7));
+    }else{
+      CustomToast.showSimpleToast(msg: "check wallet and transfer value");
     }
-    AutoRouter.of(context).pop();
-    AutoRouter.of(context).replace(HomeRoute(index: 1,pageIndex: 7));
+
   }
 }

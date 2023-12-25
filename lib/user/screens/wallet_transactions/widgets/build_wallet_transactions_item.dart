@@ -3,7 +3,7 @@ part of 'wallet_transactions_widgets_imports.dart';
 class BuildWalletTransactionsItem extends StatelessWidget {
   const BuildWalletTransactionsItem({Key? key, required this.model, this.onArrowTap}) : super(key: key);
   final AddTransactionModel model;
-  final GestureTapCallback? onArrowTap;
+  final GestureTapCallback?  onArrowTap;
   @override
   Widget build(BuildContext context) {
     return Container(

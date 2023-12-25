@@ -13,9 +13,10 @@ class BuildWalletTransactionsView extends StatelessWidget {
         itemCount: state.data.length,
         itemBuilder: (context, i) => BuildWalletTransactionsItem(
           model: state.data[i],
-          onArrowTap: () => AutoRouter.of(context).push(
-            TransferWalletTransactionRoute(model: state.data[i]),
-          ),
+          // onArrowTap: () => AutoRouter.of(context).push(
+          //   TransferWalletTransactionRoute(model: state.data[i]),
+          // ),
+          onArrowTap: ()=>data.showSelectTypeDialog(context,state.data[i]),
         ),
       ),
     );

@@ -1,8 +1,9 @@
 part of 'home_imports.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key, required this.index}) : super(key: key);
+  const Home({Key? key, required this.index, this.pageIndex}) : super(key: key);
   final int index;
+  final int? pageIndex;
 
   @override
   State<Home> createState() => _HomeState();
@@ -15,6 +16,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   void initState() {
     data.initBottomNavigation(this, widget.index);
+    if(widget.pageIndex!=null){
+      data.homeTabCubit.onUpdateData(widget.pageIndex!);
+    }
     super.initState();
   }
 

@@ -404,5 +404,6 @@
   "addWallet" : "إضافة محفظة جديدة",
   "showTransactions" : "عرض معاملات المحفظة",
   "transactionTransfer" : "تحويل المعاملة",
-  "transfer" : "تحويل"
+  "transfer" : "تحويل",
+  "balanceTransfer" : "تحويل مبلغ مالي"
 }

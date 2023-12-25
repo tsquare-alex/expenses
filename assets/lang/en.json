@@ -226,5 +226,6 @@
   "addWallet": "Add new wallet",
   "showTransactions" : "Wallet Transactions",
   "transactionTransfer" : "Transfer Transaction",
-  "transfer" : "Transfer"
+  "transfer" : "Transfer",
+  "balanceTransfer" : "تحويل مبلغ مالي"
 }

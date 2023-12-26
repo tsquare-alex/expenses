@@ -214,7 +214,7 @@
   "convertArea": "Convert Area",
   "convertSpeed": "Convert Speed",
   "bmi": "Bmi",
-  "tools": "Tools",
+  "tool": "Tools",
   "authentication": "Subscribe or you will never find any data",
   "health": "Health",
   "units": "Units",
@@ -241,5 +241,12 @@
   "commercial": "Commercial",
   "addWallet": "Add new wallet",
   "addBalance": "Add balance",
-  "withdrawbalance": "Withdraw balance"
+  "withdrawbalance": "Withdraw balance",
+  "enterValue": "Enter Value",
+  "convertData": "Convert Data",
+  "convertVolume": "Convert Size",
+  "maxFavoriteReached": "Max Favorites Reached",
+  "maxFavoriteNumber": "You cannot choose more than 4 favorites.",
+  "ok": "Ok"
+
 }

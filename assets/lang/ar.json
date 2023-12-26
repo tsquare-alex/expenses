@@ -393,7 +393,7 @@
   "convertArea": "تحويل المساحة",
   "convertSpeed": "تحويل السرعة",
   "bmi": "مؤشر كتلة الجسم",
-  "tools": "ادوات",
+  "tool": "ادوات",
   "authentication": "اشترك وإلا فلن تجد أي بيانات أبدًا",
   "health": "الصحة",
   "units": "الوحدات",
@@ -420,5 +420,16 @@
   "discountAmount": "المبلغ بعد الخصوم",
   "commercial": "تجارى",
   "addBalance": "إضافة رصيد",
-  "withdrawbalance": "سحب رصيد"
+  "withdrawbalance": "سحب رصيد",
+  "enterValue": "ادخل القيمة",
+  "convertData": "تحويل البيانات",
+  "convertVolume": "تحويل الوزن",
+  "maxFavoriteReached": "تم الوصول إلى الحد الأقصى للمفضلة",
+  "maxFavoriteNumber": "لا يمكنك اختيار أكثر من 4 المفضلة.",
+  "ok": "نعم"
+
+
+
+
+
 }

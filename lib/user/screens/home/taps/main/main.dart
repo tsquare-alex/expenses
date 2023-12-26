@@ -121,9 +121,6 @@ class _MainState extends State<Main> {
         Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => const ClothesSizeScreen()));
         break;
-      // case "convert":
-      //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => ConverterScreen()));
-      //   break;
       case "bmi":
         Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => const BMICalculator()));
@@ -144,21 +141,9 @@ class _MainState extends State<Main> {
         Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => MassConverterScreen()));
         break;
-      case "convertTime":
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => TimeConverterScreen()));
-        break;
-      case "convertElectric":
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => ElectricCurrentConverterScreen()));
-        break;
       case "convertTemperature":
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => TemperatureConverterScreen()));
-        break;
-      case "convertAcceleration":
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => AccelerationConverterScreen()));
         break;
       case "convertArea":
         Navigator.of(context).push(
@@ -167,6 +152,14 @@ class _MainState extends State<Main> {
       case "convertSpeed":
         Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => SpeedConverterScreen()));
+        break;
+      case "convertData":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => DataConverterScreen()));
+        break;
+      case "convertVolume":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => VolumeConverterScreen()));
         break;
     }
   }

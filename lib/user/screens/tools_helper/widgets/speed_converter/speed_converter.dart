@@ -117,7 +117,7 @@ class _SpeedConverterScreenState extends State<SpeedConverterScreen> {
             SizedBox(height: 32.0),
             ElevatedButton(
               onPressed: _performConversion,
-              child: Text(tr(context, "convert")),
+              child: MyText(title: tr(context, "calculate"), color: MyColors.primary, size: 25.sp,fontWeight: FontWeight.bold,),
             ),
             SizedBox(height: 16.0),
             Text(result),

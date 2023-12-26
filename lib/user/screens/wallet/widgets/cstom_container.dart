@@ -157,24 +157,24 @@ class _CustomContainerState extends State<CustomContainer> {
                                 SizedBox(
                                   height: 8.h,
                                 ),
-                                Container(
-                                  height: 60.h,
-                                  width: double.infinity,
-                                  padding: EdgeInsets.all(16.w),
-                                  decoration:
-                                      BoxDecoration(color: MyColors.greyWhite),
-                                  child: Column(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          AutoRouter.of(context).push(
-                                              WalletTransactionsRoute(
-                                                  model: widget.model));
-                                        },
-                                        child: InkWell(
-                                          onTap: () => AutoRouter.of(context)
-                                              .push(WalletBalanceTransferRoute(
-                                                  model: widget.model)),
+                                Column(
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        AutoRouter.of(context).push(
+                                            WalletTransactionsRoute(
+                                                model: widget.model));
+                                      },
+                                      child: InkWell(
+                                        onTap: () => AutoRouter.of(context)
+                                            .push(WalletBalanceTransferRoute(
+                                                model: widget.model)),
+                                        child: Container(
+                                          height: 60.h,
+                                          width: double.infinity,
+                                          padding: EdgeInsets.all(16.w),
+                                          decoration: BoxDecoration(
+                                              color: MyColors.greyWhite),
                                           child: Row(
                                             children: [
                                               const Icon(Icons.newspaper),
@@ -187,8 +187,8 @@ class _CustomContainerState extends State<CustomContainer> {
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),

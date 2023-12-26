@@ -160,31 +160,24 @@ class _CustomContainerState extends State<CustomContainer> {
                                 Column(
                                   children: [
                                     InkWell(
-                                      onTap: () {
-                                        AutoRouter.of(context).push(
-                                            WalletTransactionsRoute(
-                                                model: widget.model));
-                                      },
-                                      child: InkWell(
-                                        onTap: () => AutoRouter.of(context)
-                                            .push(WalletBalanceTransferRoute(
-                                                model: widget.model)),
-                                        child: Container(
-                                          height: 60.h,
-                                          width: double.infinity,
-                                          padding: EdgeInsets.all(16.w),
-                                          decoration: BoxDecoration(
-                                              color: MyColors.greyWhite),
-                                          child: Row(
-                                            children: [
-                                              const Icon(Icons.newspaper),
-                                              SizedBox(width: 12.w),
-                                              MyText(
-                                                  title: "عرض المعاملات",
-                                                  color: MyColors.black,
-                                                  size: 12.sp),
-                                            ],
-                                          ),
+                                      onTap: () => AutoRouter.of(context).push(
+                                          WalletTransactionsRoute(
+                                              model: widget.model)),
+                                      child: Container(
+                                        height: 60.h,
+                                        width: double.infinity,
+                                        padding: EdgeInsets.all(16.w),
+                                        decoration: BoxDecoration(
+                                            color: MyColors.greyWhite),
+                                        child: Row(
+                                          children: [
+                                            const Icon(Icons.newspaper),
+                                            SizedBox(width: 12.w),
+                                            MyText(
+                                                title: "عرض المعاملات",
+                                                color: MyColors.black,
+                                                size: 12.sp),
+                                          ],
                                         ),
                                       ),
                                     ),

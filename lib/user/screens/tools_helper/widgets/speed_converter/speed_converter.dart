@@ -20,7 +20,7 @@ class _SpeedConverterScreenState extends State<SpeedConverterScreen> {
       double? convertedValue = convertSpeed(inputValue, fromUnit, toUnit);
       if (convertedValue != null) {
         setState(() {
-          result = 'Result: $convertedValue $toUnit';
+          result = '$convertedValue $toUnit';
         });
       } else {
         setState(() {
@@ -61,7 +61,7 @@ class _SpeedConverterScreenState extends State<SpeedConverterScreen> {
           children: [
             TextFormField(
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Enter Value'),
+              decoration: InputDecoration(labelText: tr(context, "enterValue")),
               onChanged: (value) {
                 setState(() {
                   inputValue = double.tryParse(value) ?? 0.0;
@@ -120,7 +120,7 @@ class _SpeedConverterScreenState extends State<SpeedConverterScreen> {
               child: MyText(title: tr(context, "calculate"), color: MyColors.primary, size: 25.sp,fontWeight: FontWeight.bold,),
             ),
             SizedBox(height: 16.0),
-            Text(result),
+            MyText(title:"${tr(context, "result")}: $result", color: MyColors.primary, size: 25.sp,fontWeight: FontWeight.bold,),
           ],
         ),
       ),

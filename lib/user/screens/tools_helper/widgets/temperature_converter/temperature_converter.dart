@@ -21,7 +21,7 @@ class _TemperatureConverterScreenState extends State<TemperatureConverterScreen>
       double? convertedValue = convertTemperature(inputValue, fromUnit, toUnit);
       if (convertedValue != null) {
         setState(() {
-          result = 'Result: $convertedValue $toUnit';
+          result = ' $convertedValue $toUnit';
         });
       } else {
         setState(() {
@@ -104,7 +104,7 @@ class _TemperatureConverterScreenState extends State<TemperatureConverterScreen>
           children: [
             TextFormField(
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Enter Value'),
+              decoration: InputDecoration(labelText: tr(context, "enterValue")),
               onChanged: (value) {
                 setState(() {
                   inputValue = double.tryParse(value) ?? 0.0;
@@ -151,7 +151,7 @@ class _TemperatureConverterScreenState extends State<TemperatureConverterScreen>
               child: MyText(title: tr(context, "calculate"), color: MyColors.primary, size: 25.sp,fontWeight: FontWeight.bold,),
             ),
             SizedBox(height: 16.0),
-            Text(result),
+            MyText(title:"${tr(context, "result")}: $result", color: MyColors.primary, size: 25.sp,fontWeight: FontWeight.bold,),
           ],
         ),
       ),

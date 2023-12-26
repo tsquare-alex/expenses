@@ -70,7 +70,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       return false;
     }
   }
-
+//
   Future<bool> showAuthenticationDialog(BuildContext context) async {
     return await authenticate(context);
   }

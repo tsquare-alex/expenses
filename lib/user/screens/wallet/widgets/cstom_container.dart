@@ -59,7 +59,7 @@ class _CustomContainerState extends State<CustomContainer> {
                         context: context,
                         builder: (buildContext) {
                           return Container(
-                            height: 120.h,
+                            height: 300.h,
                             width: double.infinity,
                             padding: EdgeInsets.all(16.w),
                             decoration:
@@ -77,15 +77,22 @@ class _CustomContainerState extends State<CustomContainer> {
                                           .fetchAllData();
                                     }
                                   },
-                                  child: Row(
-                                    children: [
-                                      const Icon(Icons.money),
-                                      SizedBox(width: 12.w),
-                                      MyText(
-                                          title: "سحب رصيد",
-                                          color: MyColors.black,
-                                          size: 12.sp),
-                                    ],
+                                  child: Container(
+                                    height: 60.h,
+                                    width: double.infinity,
+                                    padding: EdgeInsets.all(16.w),
+                                    decoration: BoxDecoration(
+                                        color: MyColors.greyWhite),
+                                    child: Row(
+                                      children: [
+                                        const Icon(Icons.arrow_right_alt),
+                                        SizedBox(width: 12.w),
+                                        MyText(
+                                            title: "سحب رصيد",
+                                            color: MyColors.black,
+                                            size: 12.sp),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 SizedBox(
@@ -101,15 +108,22 @@ class _CustomContainerState extends State<CustomContainer> {
                                           .fetchAllData();
                                     }
                                   },
-                                  child: Row(
-                                    children: [
-                                      const Icon(Icons.money),
-                                      SizedBox(width: 12.w),
-                                      MyText(
-                                          title: "اضافة رصيد",
-                                          color: MyColors.black,
-                                          size: 12.sp),
-                                    ],
+                                  child: Container(
+                                    height: 60.h,
+                                    width: double.infinity,
+                                    padding: EdgeInsets.all(16.w),
+                                    decoration: BoxDecoration(
+                                        color: MyColors.greyWhite),
+                                    child: Row(
+                                      children: [
+                                        const Icon(Icons.plus_one),
+                                        SizedBox(width: 12.w),
+                                        MyText(
+                                            title: "اضافة رصيد",
+                                            color: MyColors.black,
+                                            size: 12.sp),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 SizedBox(
@@ -117,17 +131,62 @@ class _CustomContainerState extends State<CustomContainer> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    CustomToast.showSimpleToast(
-                                        msg: 'قيد التطوير حاليا');
+                                    AutoRouter.of(context).push(
+                                      WalletBalanceTransferRoute(
+                                          model: widget.model),
+                                    );
                                   },
-                                  child: Row(
+                                  child: Container(
+                                    height: 60.h,
+                                    width: double.infinity,
+                                    padding: EdgeInsets.all(16.w),
+                                    decoration: BoxDecoration(
+                                        color: MyColors.greyWhite),
+                                    child: Row(
+                                      children: [
+                                        const Icon(Icons.money),
+                                        SizedBox(width: 12.w),
+                                        MyText(
+                                            title: "تحويل رصيد بين المحفظة",
+                                            color: MyColors.black,
+                                            size: 12.sp),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 8.h,
+                                ),
+                                Container(
+                                  height: 60.h,
+                                  width: double.infinity,
+                                  padding: EdgeInsets.all(16.w),
+                                  decoration:
+                                      BoxDecoration(color: MyColors.greyWhite),
+                                  child: Column(
                                     children: [
-                                      const Icon(Icons.money),
-                                      SizedBox(width: 12.w),
-                                      MyText(
-                                          title: "تحويل رصيد بين المحفظة",
-                                          color: MyColors.black,
-                                          size: 12.sp),
+                                      InkWell(
+                                        onTap: () {
+                                          AutoRouter.of(context).push(
+                                              WalletTransactionsRoute(
+                                                  model: widget.model));
+                                        },
+                                        child: InkWell(
+                                          onTap: () => AutoRouter.of(context)
+                                              .push(WalletBalanceTransferRoute(
+                                                  model: widget.model)),
+                                          child: Row(
+                                            children: [
+                                              const Icon(Icons.newspaper),
+                                              SizedBox(width: 12.w),
+                                              MyText(
+                                                  title: "عرض المعاملات",
+                                                  color: MyColors.black,
+                                                  size: 12.sp),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),

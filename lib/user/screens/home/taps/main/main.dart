@@ -12,15 +12,17 @@ class _MainState extends State<Main> {
 
   @override
   Widget build(BuildContext context) {
-    Map<Widget,int> widgets={
-      Container():6,
-      Transactions(homeTabCubit: widget.homeTabCubit,):0,
-      const Reports():2,
-      const Settings():3,
-      Database():5,
-      const Budget():8,
-      const Wallet():7,
-      Container():4,
+    Map<Widget, int> widgets = {
+      Container(): 6,
+      Transactions(
+        homeTabCubit: widget.homeTabCubit,
+      ): 0,
+      const Reports(): 2,
+      const Settings(): 3,
+      Database(): 5,
+      const Budget(): 8,
+      const Wallet(): 7,
+      Container(): 4,
     };
     return Scaffold(
 /*
@@ -34,7 +36,7 @@ class _MainState extends State<Main> {
           child: const Icon(Icons.account_box),
           fabSize: ExpandableFabSize.regular,
           foregroundColor: Colors.white,
-          backgroundColor:  context.watch<AppThemeCubit>().isDarkMode
+          backgroundColor: context.watch<AppThemeCubit>().isDarkMode
               ? AppDarkColors.primary
               : MyColors.primary,
           shape: const CircleBorder(),
@@ -42,8 +44,8 @@ class _MainState extends State<Main> {
         closeButtonBuilder: DefaultFloatingActionButtonBuilder(
           child: const Icon(Icons.close),
           fabSize: ExpandableFabSize.small,
-          foregroundColor:  Colors.white,
-          backgroundColor:  context.watch<AppThemeCubit>().isDarkMode
+          foregroundColor: Colors.white,
+          backgroundColor: context.watch<AppThemeCubit>().isDarkMode
               ? AppDarkColors.primary
               : MyColors.primary,
           shape: const CircleBorder(),
@@ -55,8 +57,9 @@ class _MainState extends State<Main> {
                   ? AppDarkColors.primary
                   : MyColors.primary,
               heroTag: null,
-              child: Icon(IconData(tool.iconCode)),
+              child: Icon(IconData(tool.iconCode, fontFamily: 'MaterialIcons')),
               onPressed: () {
+                print(tool.iconCode);
                 _navigateToToolScreen(context, tool);
               },
             );
@@ -68,24 +71,27 @@ class _MainState extends State<Main> {
         width: double.infinity,
         height: double.infinity,
         child: BuildPieChart(
-          mainData: data, homeTabCubit: widget.homeTabCubit, widgets: widgets,
+          mainData: data,
+          homeTabCubit: widget.homeTabCubit,
+          widgets: widgets,
         ),
       ),
     );
   }
+
   void _navigateToToolScreen(BuildContext context, FavoriteModel tool) {
     switch (tool.toolName) {
       case "percentage":
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => PercentageCalculatorScreen()));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => PercentageCalculatorScreen()));
         break;
       case "tax":
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => ServiceTaxCalculatorScreen()));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ServiceTaxCalculatorScreen()));
         break;
       case "discount":
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => DiscountCalculatorScreen()));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => DiscountCalculatorScreen()));
         break;
       case "qiblah":
         Navigator.of(context)
@@ -115,16 +121,16 @@ class _MainState extends State<Main> {
         Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => const ClothesSizeScreen()));
         break;
-    // case "convert":
-    //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => ConverterScreen()));
-    //   break;
+      // case "convert":
+      //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => ConverterScreen()));
+      //   break;
       case "bmi":
         Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => const BMICalculator()));
         break;
       case "bmr":
         Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) =>  BmrCalculatorScreen()));
+            MaterialPageRoute(builder: (context) => BmrCalculatorScreen()));
         break;
       case "convertCurrency":
         Navigator.of(context).push(
@@ -165,10 +171,10 @@ class _MainState extends State<Main> {
     }
   }
 }
+
 class YourTool {
   final IconData icon;
   final String toolName;
 
   YourTool({required this.icon, required this.toolName});
 }
-

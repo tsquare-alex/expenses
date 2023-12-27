@@ -249,5 +249,7 @@
   "maxFavoriteNumber": "You cannot choose more than 4 favorites.",
   "ok": "Ok",
   "enterPattern": "Enter Pattern",
-  "enterFingerPrint": "Or Enter Fingerprint"
+  "enterFingerPrint": "Or Enter Fingerprint",
+  "setupSecurity": "Set Up Security",
+  "securityMsg": "Please set up a password or biometrics on your device."
 }

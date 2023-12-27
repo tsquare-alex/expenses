@@ -20,10 +20,12 @@ class BuildLoginButton extends StatelessWidget {
               msg: "Login Success",
               color: Colors.green,
             );
-            Storage.setToken(state.uId!).then((value) {
+            Storage.setToken(state.uId!).then((value) async{
               final isAuthenticated =
                   context.read<AuthenticationCubit>().state.isAuthenticated;
-              if (isAuthenticated) {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              bool skipAuthentication = prefs.getBool(authSharedPrefSkip) ?? false;
+              if (isAuthenticated || skipAuthentication) {
                 AutoRouter.of(context).push(HomeRoute(index: 1));
               } else {
                 Navigator.push(

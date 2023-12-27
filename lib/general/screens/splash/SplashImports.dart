@@ -20,6 +20,7 @@ import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../user/screens/auth_info_cubit/auth_info_cubit.dart';
+import '../../constants/constants.dart';
 import '../../packages/localization/Localizations.dart';
 import '../../widgets/MyText.dart';
 

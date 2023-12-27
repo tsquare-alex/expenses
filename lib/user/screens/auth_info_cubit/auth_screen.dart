@@ -66,14 +66,15 @@ import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../general/constants/constants.dart';
 import 'auth_info_cubit.dart';
 
 class AuthenticationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<AuthenticationCubit>();
-    bool isAuthenticationRequired = cubit.isAuthenticationRequired();
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -99,7 +100,7 @@ class AuthenticationScreen extends StatelessWidget {
                 onPressed: () {
                   _authenticate(context);
                 },
-                child:MyText(title: tr(context, "enableAuthentication"), color: Colors.black, size: 15.sp,fontWeight: FontWeight.bold,),
+                child:MyText(title: tr(context, "enableAuthentication"), color:Colors.white, size: 15.sp,fontWeight: FontWeight.bold,),
               ),
             ),
             const SizedBox(height: 20),
@@ -116,7 +117,8 @@ class AuthenticationScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  AutoRouter.of(context).push(HomeRoute(index: 1));
+                  _handleSkip(context);
+
                 },
                 child: MyText(title: tr(context, "skip"), color: MyColors.primary, size: 15.sp),
               ),
@@ -139,6 +141,16 @@ class AuthenticationScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+  void _handleSkip(BuildContext context) async {
+    // Retrieve the shared preferences instance
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // Save the skip state in SharedPreferences
+    prefs.setBool(authSharedPrefSkip, true);
+
+    // Navigate to the home screen
+    AutoRouter.of(context).push(HomeRoute(index: 1));
   }
 
   void _authenticate(BuildContext context) async {

@@ -10,7 +10,7 @@ class SplashController {
   }
 
   Future<void> manipulateSplashData(BuildContext context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
     var lang = await Storage.getLang();
     InitUtils.initCustomWidgets(language: lang ?? "ar");
     Utils.changeLanguage(lang ?? "ar",context);
@@ -20,11 +20,17 @@ class SplashController {
     print('uId = $uId');
     print('ApiNames.uId = ${ApiNames.uId}');
     if (uId != null) {
-      final isAuthenticated = context.read<AuthenticationCubit>().state.isAuthenticated;
-      if (isAuthenticated) {
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+
+
+      bool skipAuthentication = prefs.getBool(authSharedPrefSkip) ?? false;
+
+      if (skipAuthentication) {
 
         AutoRouter.of(context).push(HomeRoute(index: 1));
       } else {
+
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => AuthenticationScreen()),
@@ -32,8 +38,11 @@ class SplashController {
         );
       }
     } else {
+
       AutoRouter.of(context).push(const WelcomePageRoute());
     }
+
+
   }
 
 }

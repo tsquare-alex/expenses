@@ -332,6 +332,13 @@ class _CustomContainerState extends State<CustomContainer> {
                 icon: const Icon(Icons.settings),
                 color: MyColors.white,
               ),
+              widget.model.checkedValue == true
+                  ? IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.star),
+                      color: MyColors.white,
+                    )
+                  : const SizedBox(),
             ],
           )
         ],

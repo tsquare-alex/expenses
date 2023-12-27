@@ -3,6 +3,7 @@ import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubi
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
 import 'package:expenses/user/screens/wallet/widgets/cstom_container.dart';
+import 'package:expenses/user/screens/wallet/widgets/wallet_category_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,14 +24,17 @@ class _WalletBodyState extends State<WalletBody> {
 
   @override
   Widget build(BuildContext context) {
+    List<WalletModel> wallet;
+
     return BlocBuilder<WalletCubit, WalletState>(
       builder: (context, state) {
-        List<WalletModel> wallet =
-            BlocProvider.of<WalletCubit>(context).walletList;
+        wallet = BlocProvider.of<WalletCubit>(context).walletList;
+        wallet.sort((a, b) => b.checkedValue ? 1 : -1);
+
         return Padding(
           padding: EdgeInsets.all(12.w),
           child: wallet.isEmpty
-              ? const BuildNoRecord()
+              ? const WalletCategory()
               : ListView.builder(
                   itemCount: wallet.length,
                   physics: const BouncingScrollPhysics(),

@@ -15,6 +15,7 @@ class WalletCubit extends Cubit<WalletState> {
   WalletCubit() : super(WalletInitial());
   bool? isBalanceVisible = true;
   bool? isLocked = true;
+  bool checkedValue = false;
 
   List<String> valueCategory = [
     "نقدي",
@@ -24,8 +25,62 @@ class WalletCubit extends Cubit<WalletState> {
     "نقاط",
     "انستاباي",
   ];
+  List<Image> Images = [
+    Image.asset(
+      "assets/images/currency.png",
+      height: 36.h,
+    ),
+    Image.asset(
+      "assets/images/currency.png",
+      height: 36.h,
+    ),
+    Image.asset(
+      "assets/images/currency.png",
+      height: 36.h,
+    ),
+    Image.asset(
+      "assets/images/currency.png",
+      height: 36.h,
+    ),
+    Image.asset(
+      "assets/images/cashTransactions.png",
+      height: 36.h,
+    ),
+    Image.asset(
+      "assets/images/dollar.png",
+      height: 36.h,
+    ),
+    Image.asset(
+      "assets/images/expense.png",
+      height: 36.h,
+    ),
+    Image.asset(
+      "assets/images/register.png",
+      height: 36.h,
+    ),
+    Image.asset(
+      "assets/images/repeatedTransactions.png",
+      height: 36.h,
+    ),
+    Image.asset(
+      "assets/images/repeatedTransactions.png",
+      height: 36.h,
+    ),
+  ];
 
   List<String> paymentMethod = ["تحويل بنكي", "حساب بنكي", "نقدي"];
+  List<String> walletDuplicate = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10"
+  ];
   List<String> walletCategory = [
     "حافز",
     "راتب",
@@ -36,6 +91,7 @@ class WalletCubit extends Cubit<WalletState> {
     "إيجار",
     "عائد مشروع",
     "صفقة",
+    "اخري"
   ];
   List<String> encomeSource = ["شخص", "جهة"];
   List<String> curancyType = ["ر.س", "ج.م"];

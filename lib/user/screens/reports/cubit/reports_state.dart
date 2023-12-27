@@ -4,6 +4,7 @@ part of 'reports_cubit.dart';
 class ReportsState with _$ReportsState {
   const factory ReportsState.initial() = Initial;
   const factory ReportsState.changeDate()= ChangeDate;
+  const factory ReportsState.changeWallet()= ChangeWallet;
   const factory ReportsState.showReportDetails()= ShowReportDetails;
   const factory ReportsState.reportDataLoading()= ReportDataLoading;
   const factory ReportsState.reportDataLoaded()= ReportDataLoaded;

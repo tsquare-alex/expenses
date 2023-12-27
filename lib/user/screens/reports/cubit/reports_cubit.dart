@@ -21,36 +21,42 @@ class ReportsCubit extends Cubit<ReportsState> {
   final DateTime dateTimeNow = DateTime.now();
   late String dateTimeNowFormatted =
       DateFormat('EEE, dd MMM yyyy').format(dateTimeNow);
-  late DateTime? selectedDateFrom = dateTimeNow;
+  late DateTimeRange reportInitialDate =
+      DateTimeRange(start: dateTimeNow, end: dateTimeNow);
+  late DateTimeRange? reportSelectedDate;
+  // late DateTime? reportSelectedDateFrom;
+  // late DateTime? reportSelectedDateTo;
   late DateTime? statsSelectedDateFrom = dateTimeNow;
-  late DateTime? selectedDateTo = selectedDateFrom!;
-  late DateTime? statsSelectedDateTo = selectedDateFrom!;
-  String formattedDateFrom = '';
+  late DateTime? statsSelectedDateTo = statsSelectedDateFrom!;
+  String reportFormattedDateFrom = '';
+  String reportFormattedDateTo = '';
   String statsFormattedDateFrom = '';
-  String formattedDateTo = '';
   String statsFormattedDateTo = '';
 
-  void changeDateFrom() {
-    emit(const ReportsState.initial());
-    if (selectedDateFrom != null) {
-      formattedDateFrom =
-          DateFormat('EEE, dd-MM-yyyy').format(selectedDateFrom!);
-
-      if (selectedDateTo!.isBefore(selectedDateFrom!) ||
-          formattedDateTo.isEmpty) {
-        selectedDateTo = selectedDateFrom;
-        if (formattedDateTo.isNotEmpty) {
-          formattedDateTo =
-              DateFormat('EEE, dd-MM-yyyy').format(selectedDateTo!);
-        }
-      }
-
+  void changeReportDateRange() {
+    if (reportSelectedDate != null && reportSelectedDate != reportInitialDate) {
+      emit(const ReportsState.initial());
+      reportInitialDate = reportSelectedDate!;
+      List<String> dateParts = reportSelectedDate.toString().split(' - ');
+      reportFormattedDateFrom = _formatDateTime(dateParts.first);
+      reportFormattedDateTo = _formatDateTime(dateParts.last);
+      reportFilteredTransactions = transactions
+          .where((transaction) => (DateFormat('dd MMMM yyyy', 'en')
+                  .parse(transaction.transactionDate!)
+                  .isAfter(reportSelectedDate!.start) &&
+              DateFormat('dd MMMM yyyy', 'en')
+                  .parse(transaction.transactionDate!)
+                  .isBefore(reportSelectedDate!.end)))
+          .toList();
       emit(const ReportsState.changeDate());
       return;
     }
-    selectedDateFrom ??= formattedDateFrom.isEmpty
-        ? dateTimeNow
-        : DateFormat('EEE, dd-MM-yyyy').parse(formattedDateFrom);
+  }
+
+  String _formatDateTime(String dateTimeString) {
+    final parsedDate =
+        DateFormat('yyyy-MM-dd HH:mm:ss.SSS', 'en').parse(dateTimeString);
+    return DateFormat('dd-MM-yyyy').format(parsedDate);
   }
 
   void changeStatsDateFrom() {
@@ -67,25 +73,12 @@ class ReportsCubit extends Cubit<ReportsState> {
               DateFormat('EEE, dd-MM-yyyy').format(statsSelectedDateTo!);
         }
       }
-
       emit(const ReportsState.changeDate());
       return;
     }
     statsSelectedDateFrom ??= statsFormattedDateFrom.isEmpty
         ? dateTimeNow
         : DateFormat('EEE, dd-MM-yyyy').parse(statsFormattedDateFrom);
-  }
-
-  void changeDateTo() {
-    emit(const ReportsState.initial());
-    if (selectedDateTo != null) {
-      formattedDateTo = DateFormat('EEE, dd-MM-yyyy').format(selectedDateTo!);
-      emit(const ReportsState.changeDate());
-      return;
-    }
-    selectedDateTo ??= formattedDateTo.isEmpty
-        ? selectedDateFrom
-        : DateFormat('EEE, dd-MM-yyyy').parse(formattedDateTo);
   }
 
   void changeStatsDateTo() {
@@ -131,7 +124,7 @@ class ReportsCubit extends Cubit<ReportsState> {
   late double circleChartPercentage;
   late String moneyPercentage;
 
-  double getUserResidualMoney() {
+  double getUserResidualMoney(List<WalletModel> wallets) {
     double total = 0;
     for (var wallet in wallets) {
       total += wallet.balance;
@@ -139,7 +132,7 @@ class ReportsCubit extends Cubit<ReportsState> {
     return total;
   }
 
-  double getUserSpentMoney() {
+  double getUserSpentMoney(List<AddTransactionModel> transactions) {
     double total = 0;
     for (var transaction in transactions) {
       total += double.parse(transaction.total!);
@@ -147,8 +140,10 @@ class ReportsCubit extends Cubit<ReportsState> {
     return spentMoney = total;
   }
 
-  double getUserTotalMoney() {
-    return totalMoney = getUserResidualMoney() + getUserSpentMoney();
+  double getUserTotalMoney(
+      List<WalletModel> wallets, List<AddTransactionModel> transactions) {
+    return totalMoney =
+        getUserResidualMoney(wallets) + getUserSpentMoney(transactions);
   }
 
   late List<WalletModel> wallets;
@@ -158,10 +153,11 @@ class ReportsCubit extends Cubit<ReportsState> {
     wallets = data;
   }
 
-  void createMoneyPercentage() {
-    getUserTotalMoney();
+  void createMoneyPercentage(
+      List<WalletModel> wallets, List<AddTransactionModel> transactions) {
+    getUserTotalMoney(wallets, transactions);
     circleChartPercentage = spentMoney / totalMoney;
-    moneyPercentage = '${(circleChartPercentage * 100).round()}';
+    // moneyPercentage = '${(circleChartPercentage * 100).round()}';
   }
 
   late List<AddTransactionModel> transactions;
@@ -181,8 +177,30 @@ class ReportsCubit extends Cubit<ReportsState> {
       emit(const ReportsState.initial());
       return;
     }
-    createMoneyPercentage();
+    createMoneyPercentage(wallets, transactions);
     emit(const ReportsState.reportDataLoaded());
+  }
+
+  late String selectedWallet = '';
+  late List<AddTransactionModel> reportFilteredTransactions = List.empty();
+  void changeWallet(String walletValue) async {
+    if (walletValue != selectedWallet) {
+      emit(const ReportsState.initial());
+      selectedWallet = walletValue;
+      if (selectedWallet != 'all' && selectedWallet.isNotEmpty) {
+        reportFilteredTransactions = transactions
+            .where((transaction) =>
+                transaction.incomeSource!.name == selectedWallet)
+            .toList();
+        createMoneyPercentage(
+            [wallets.firstWhere((wallet) => wallet.name == selectedWallet)],
+            reportFilteredTransactions);
+      } else {
+        reportFilteredTransactions = List.empty();
+        createMoneyPercentage(wallets, transactions);
+      }
+      emit(const ReportsState.changeWallet());
+    }
   }
 
   Future<void> getStatsData(BuildContext context) async {

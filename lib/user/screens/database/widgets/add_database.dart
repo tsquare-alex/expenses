@@ -159,7 +159,7 @@ class _AddDatabaseState extends State<AddDatabase> {
                   return GestureDetector(
                     onTap: () async {
                       // await myCubit.getImage();
-                      await dataBaseCubit.getImage();
+                      await dataBaseCubit.getImage(context);
                     },
                     child: Column(
                       children: [
@@ -261,7 +261,7 @@ class _AddDatabaseState extends State<AddDatabase> {
                   theSocialController: myCubit.theSocialController),
               ElevatedButton(
                 onPressed: () async {
-                  // myCubit.onPressedHandler();
+                  myCubit.onPressedHandler();
 
                   var dataBase = DatabaseModel(
                     category: myCubit.categoryController.text,

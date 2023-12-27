@@ -1,4 +1,3 @@
-import 'package:expenses/user/screens/expense/widgets/expense_widgets_imports.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
@@ -30,7 +29,6 @@ class _WalletBodyState extends State<WalletBody> {
       builder: (context, state) {
         wallet = BlocProvider.of<WalletCubit>(context).walletList;
         wallet.sort((a, b) => b.checkedValue ? 1 : -1);
-
         return Padding(
           padding: EdgeInsets.all(12.w),
           child: wallet.isEmpty
@@ -50,7 +48,6 @@ class _WalletBodyState extends State<WalletBody> {
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight,
                           );
-
                     return Padding(
                       padding: EdgeInsets.symmetric(vertical: 4.h),
                       child: CustomContainer(

@@ -291,7 +291,7 @@ class _AddDatabaseState extends State<AddDatabase> {
                     messenger: myCubit.messengerController.text,
                     image:
                         dataBaseCubit.imageBytes ?? Uint8List.fromList([]),
-                    name: "${myCubit.firstNameController} ${myCubit.lastNameController}",
+                    name: "${myCubit.firstNameController.text} ${myCubit.lastNameController.text}",
                   );
                   if (myCubit.state is MyExpansionError) {
                   } else {

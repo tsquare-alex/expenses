@@ -19,7 +19,7 @@ class SplashController {
     uId = await Storage.getToken();
     print('uId = $uId');
     print('ApiNames.uId = ${ApiNames.uId}');
-    if (uId != null) {
+    if (uId == null) {
       AutoRouter.of(context).push(HomeRoute(index: 1));
     } else {
       AutoRouter.of(context).push(const WelcomePageRoute());

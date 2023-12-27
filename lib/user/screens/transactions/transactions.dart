@@ -21,15 +21,24 @@ class _TransactionsState extends State<Transactions> {
       //     color: MyColors.white,
       //   ),
       // ),
-      body: Padding(
-        padding: EdgeInsets.all(15.r),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              BuildTransactionTypesView(data: data, homeTabCubit: widget.homeTabCubit,),
-            ],
+      body: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            color: MyColors.amber,
+            height: 50.h,
           ),
-        ),
+          Padding(
+            padding: EdgeInsets.all(15.r),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  BuildTransactionTypesView(data: data, homeTabCubit: widget.homeTabCubit,),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

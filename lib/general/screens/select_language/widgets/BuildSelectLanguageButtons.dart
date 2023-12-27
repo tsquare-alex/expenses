@@ -8,6 +8,7 @@ class BuildSelectLanguageButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var local = context.read<LangCubit>().state.locale.languageCode;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -16,8 +17,12 @@ class BuildSelectLanguageButtons extends StatelessWidget {
               borderRadius: 8,
               title: tr(context, "langAr"),
               onTap: (){
-                Utils.changeLanguage("ar",context);
-                Phoenix.rebirth(context);
+               if(local == "ar"){
+                 AutoRouter.of(context).push(const SelectCountryRoute());
+               }else{
+                 Utils.changeLanguage("ar",context);
+                 Phoenix.rebirth(context);
+               }
               },
               color: MyColors.primary,
               textColor: MyColors.white,
@@ -28,8 +33,12 @@ class BuildSelectLanguageButtons extends StatelessWidget {
               borderRadius: 8,
               title: tr(context, "langEn"),
               onTap: (){
-                Utils.changeLanguage("en",context);
-                Phoenix.rebirth(context);
+                if(local == "en"){
+                  AutoRouter.of(context).push(const SelectCountryRoute());
+                }else{
+                  Utils.changeLanguage("en",context);
+                  Phoenix.rebirth(context);
+                }
               },
               borderColor: MyColors.primary.withOpacity(0.1),
               color: MyColors.primary.withOpacity(0.1),

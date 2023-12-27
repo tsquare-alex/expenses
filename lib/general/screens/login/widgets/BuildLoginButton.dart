@@ -21,8 +21,20 @@ class BuildLoginButton extends StatelessWidget {
               color: Colors.green,
             );
             Storage.setToken(state.uId!).then((value) {
-              AutoRouter.of(context).push(HomeRoute(index: 1));
+              final isAuthenticated =
+                  context.read<AuthenticationCubit>().state.isAuthenticated;
+              if (isAuthenticated) {
+                AutoRouter.of(context).push(HomeRoute(index: 1));
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AuthenticationScreen(),
+                  ),
+                );
+              }
             });
+
           }
         },
         builder: (context,state)=>LoadingButton(

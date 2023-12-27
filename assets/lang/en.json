@@ -247,6 +247,7 @@
   "convertVolume": "Convert Size",
   "maxFavoriteReached": "Max Favorites Reached",
   "maxFavoriteNumber": "You cannot choose more than 4 favorites.",
-  "ok": "Ok"
-
+  "ok": "Ok",
+  "enterPattern": "Enter Pattern",
+  "enterFingerPrint": "Or Enter Fingerprint"
 }

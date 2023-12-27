@@ -150,77 +150,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             endDrawer: BuildEndDrawer(
               homeTabCubit: data.homeTabCubit,
             ),
-            body: BlocProvider.of<AuthenticationCubit>(context)
-                    .state
-                    .isAuthenticated
-                ? BlocBuilder<GenericBloc<int>, GenericState<int>>(
+            body: BlocBuilder<GenericBloc<int>, GenericState<int>>(
                     bloc: data.homeTabCubit,
                     builder: (context, state) =>
                         screen[data.homeTabCubit.state.data],
-                  )
-                : Container(
-                    // height: 200,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                          builder: (context, state) {
-                            return SwitchListTile(
-                              title: Center(
-                                  child: MyText(
-                                title: tr(context, "enableAuthentication"),
-                                color: MyColors.primary,
-                                size: 20.sp,
-                                fontWeight: FontWeight.bold,
-                              )),
-                              value: state.isAuthenticated,
-                              onChanged: (value) async {
-                                final authenticationCubit =
-                                    context.read<AuthenticationCubit>();
-                                if (value &&
-                                    authenticationCubit
-                                        .isAuthenticationRequired()) {
-                                  // Show authentication dialog
-                                  bool authenticated = await authenticationCubit
-                                      .showAuthenticationDialog(context);
-                                  setState(() {});
-                                  // Only update the status if the authentication was successful
-                                  if (authenticated) {
-                                    authenticationCubit.emit(
-                                        AuthenticationState(
-                                            isAuthenticated: true));
-                                    setState(() {});
-                                  }
-                                } else {
-                                  // If authentication is not required or the user turns off the switch
-                                  if (!value) {
-                                    authenticationCubit
-                                        .clearAuthenticationStatus();
-                                  }
-                                  authenticationCubit.emit(AuthenticationState(
-                                      isAuthenticated: value));
-                                }
-                              },
-                            );
-                          },
-                        ),
-                        BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                          builder: (context, state) {
-                            return Visibility(
-                              visible: state.isAuthenticated,
-                              child: Text(
-                                'Authentication is enabled',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
                   ),
+
             bottomNavigationBar: BuildBottomNavigationBar(controller: data),
           ),
         ));

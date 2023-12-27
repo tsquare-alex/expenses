@@ -11,12 +11,17 @@ import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/utilities/utils_functions/ApiNames.dart';
 import 'package:expenses/general/utilities/utils_functions/utils.dart';
 import 'package:expenses/res.dart';
+import 'package:expenses/user/screens/auth_info_cubit/auth_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../user/screens/auth_info_cubit/auth_info_cubit.dart';
+import '../../packages/localization/Localizations.dart';
+import '../../widgets/MyText.dart';
 
 part 'Splash.dart';
 part 'SplashData.dart';

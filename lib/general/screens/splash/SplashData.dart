@@ -20,7 +20,17 @@ class SplashController {
     print('uId = $uId');
     print('ApiNames.uId = ${ApiNames.uId}');
     if (uId != null) {
-      AutoRouter.of(context).push(HomeRoute(index: 1));
+      final isAuthenticated = context.read<AuthenticationCubit>().state.isAuthenticated;
+      if (isAuthenticated) {
+
+        AutoRouter.of(context).push(HomeRoute(index: 1));
+      } else {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => AuthenticationScreen()),
+              (route) => false,
+        );
+      }
     } else {
       AutoRouter.of(context).push(const WelcomePageRoute());
     }

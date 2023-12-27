@@ -3,6 +3,8 @@ import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../general/constants/MyColors.dart';
+
 class LengthConverterScreen extends StatefulWidget {
   @override
   _LengthConverterScreenState createState() => _LengthConverterScreenState();
@@ -122,7 +124,7 @@ class _LengthConverterScreenState extends State<LengthConverterScreen> {
             SizedBox(height: 32.0),
             ElevatedButton(
               onPressed: _performConversion,
-              child: Text('Convert'),
+              child: MyText(title: tr(context, "calculate"), color: MyColors.primary, size: 25.sp,fontWeight: FontWeight.bold,),
             ),
             SizedBox(height: 16.0),
             Text(result),

@@ -8,7 +8,7 @@ part of 'wallet_model.dart';
 
 class WalletModelAdapter extends TypeAdapter<WalletModel> {
   @override
-  final int typeId = 8;
+  final int typeId = 13;
 
   @override
   WalletModel read(BinaryReader reader) {
@@ -26,6 +26,8 @@ class WalletModelAdapter extends TypeAdapter<WalletModel> {
       encomeSource: fields[6] as String,
       valueCategory: fields[7] as String,
       repeatWallet: fields[8] as String?,
+      isClosed: fields[11] as bool?,
+      isHide: fields[10] as bool?,
       walletPeriod: fields[9] as String?,
     );
   }
@@ -33,7 +35,7 @@ class WalletModelAdapter extends TypeAdapter<WalletModel> {
   @override
   void write(BinaryWriter writer, WalletModel obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -53,7 +55,11 @@ class WalletModelAdapter extends TypeAdapter<WalletModel> {
       ..writeByte(8)
       ..write(obj.repeatWallet)
       ..writeByte(9)
-      ..write(obj.walletPeriod);
+      ..write(obj.walletPeriod)
+      ..writeByte(10)
+      ..write(obj.isHide)
+      ..writeByte(11)
+      ..write(obj.isClosed);
   }
 
   @override

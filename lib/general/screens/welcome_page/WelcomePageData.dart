@@ -15,7 +15,7 @@ class WelcomePageData {
         model: WelcomeEntity(
             title: "Welcome on My Expenses",
             desc: "Plan your finance any time, any where",
-            image: Res.onboardingOne,
+            image: Res.transaction,
             index: 0,
             pageCubit: pagesCubit),
       ),
@@ -25,7 +25,7 @@ class WelcomePageData {
             title: "One touch and send money",
             desc:
             "Send money to everyone by one step and organize your wallet easier",
-            image: Res.onboardingTwo,
+            image: Res.currencyExchange,
             index: 1,
             pageCubit: pagesCubit),
       ),
@@ -34,7 +34,7 @@ class WelcomePageData {
         model: WelcomeEntity(
             title: "Automatically organize",
             desc:"Organize your expenses and secure your account",
-            image: Res.onboardingThree,
+            image: Res.database,
             last: true,
             index: 2,
             pageCubit: pagesCubit),

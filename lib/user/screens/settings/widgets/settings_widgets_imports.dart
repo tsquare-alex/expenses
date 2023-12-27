@@ -17,6 +17,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../general/themes/cubit/app_theme_cubit.dart';
+import '../../auth_info_cubit/auth_info_cubit.dart';
 
 part 'build_language_bottom_sheet.dart';
 part 'settings_body.dart';

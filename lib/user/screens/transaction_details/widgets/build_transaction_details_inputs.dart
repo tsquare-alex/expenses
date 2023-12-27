@@ -145,7 +145,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
             label: tr(context, "wallet"),
             margin: EdgeInsets.symmetric(vertical: 10.r),
           ),
-          if (model.transactionName != "الاهداف المالية المستهدفة")
+          if (model.database != null)
             GenericTextField(
               contentPadding: const EdgeInsets.symmetric(horizontal: 16),
               controller: transactionDetailsData.partyController,

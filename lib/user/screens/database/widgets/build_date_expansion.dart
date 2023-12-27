@@ -4,6 +4,7 @@ import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../general/packages/input_fields/GenericTextField.dart';
 
@@ -42,16 +43,66 @@ class _BuildDateExpansionState extends State<BuildDateExpansion> {
             label: tr(context, "databaseEventTitle"),
             margin: const EdgeInsets.only(top: 20),
           ),
-          GenericTextField(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-            controller: widget.dateTimeController,
-            fieldTypes: FieldTypes.normal,
-            type: TextInputType.emailAddress,
-            action: TextInputAction.next,
-            validate: (value)=> validateField(value),
-            label: tr(context, "databaseEventDate"),
-            margin: const EdgeInsets.only(top: 20),
+          // GenericTextField(
+          //   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+          //   controller: widget.dateTimeController,
+          //   fieldTypes: FieldTypes.normal,
+          //   type: TextInputType.emailAddress,
+          //   action: TextInputAction.next,
+          //   validate: (value)=> validateField(value),
+          //   label: tr(context, "databaseEventDate"),
+          //   margin: const EdgeInsets.only(top: 20),
+          // ),
+          GestureDetector(
+            onTap: () async {
+              DateTime? selectedDate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2000),
+                lastDate: DateTime(2101),
+              );
+
+              // if (selectedDate != null && selectedDate != widget.dateTimeController.text) {
+              //   setState(() {
+              //     widget.dateTimeController.text = selectedDate.toString();
+              //   });
+              // }
+              if (selectedDate != null) {
+                TimeOfDay? pickedTime = await showTimePicker(
+                  context: context,
+                  initialTime: TimeOfDay.now(),
+                );
+
+                if (pickedTime != null) {
+                  DateTime pickedDateTime = DateTime(
+                    selectedDate.year,
+                    selectedDate.month,
+                    selectedDate.day,
+                    pickedTime.hour,
+                    pickedTime.minute,
+                  );
+
+                  String formattedDateTime = DateFormat('yyyy-MM-dd HH:mm').format(pickedDateTime);
+
+                  setState(() {
+                    widget.dateTimeController.text = formattedDateTime;
+                  });
+                }
+              }
+            },
+            child: AbsorbPointer(
+              child: TextFormField(
+                validator: (value) => validateField(value),
+                readOnly: true,
+                decoration: InputDecoration(
+                  hintText: tr(context, "databaseEventDate"),
+                ),
+                controller: widget.dateTimeController,
+                onChanged: (value) {},
+              ),
+            ),
           ),
+
           GenericTextField(
             contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: widget.dateDetailsController,

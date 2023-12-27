@@ -34,7 +34,7 @@ class ShoppingData{
     // Find the index of the target model in the list
     var modelList =box.values.toList();
     int index = modelList.indexWhere((model) => model.key == targetModel.key);
-    var walletBox = Hive.box<WalletModel>(databaseBox);
+    var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
     var walletList = walletBox.values.toList();
     WalletModel? targetWallet = walletList.firstWhere(
           (item) => item.name == targetModel.incomeSource?.name,

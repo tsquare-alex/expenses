@@ -15,7 +15,7 @@ class TransactionTile extends StatelessWidget {
         titleAlignment: ListTileTitleAlignment.center,
         contentPadding: EdgeInsets.only(left: 25.r, right: 16.r),
         title: Text(
-          transaction.database!.adjective,
+          "${transaction.transactionName == "الالتزامات" || transaction.transactionName == "التسوق والشراء" ? transaction.transactionType!.name! : transaction.transactionName == "الاهداف المالية المستهدفة" ? transaction.targetType?.name : transaction.transactionName == "المعاملات النقدية" ? transaction.cashTransactionType?.name : ""}",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 13.sp,
@@ -23,7 +23,7 @@ class TransactionTile extends StatelessWidget {
         ),
         subtitle: Text(
           DateFormat('EEE, dd MMMM yyyy').format(
-              DateFormat('dd MMMM yyyy', 'ar')
+              DateFormat('dd MMMM yyyy', 'en')
                   .parse(transaction.transactionDate!)),
           style: TextStyle(
             fontWeight: FontWeight.bold,

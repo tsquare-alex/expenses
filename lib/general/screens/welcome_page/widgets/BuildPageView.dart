@@ -12,20 +12,16 @@ class BuildPageView extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(model.image ?? "",),
-          fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            MyColors.greyWhite, // Use the desired gray color here
-            BlendMode.saturation,
-          ),
-        ),
+        color: MyColors.greyWhite
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
-            const Spacer(),
+            Expanded(child: Image.asset(model.image!,color: MyColors.primary,width: 250.w,)),
+            SizedBox(
+              height: 20.h,
+            ),
             Container(
               padding: const EdgeInsets.only(bottom: 20),
               child: MyText(
@@ -58,7 +54,8 @@ class BuildPageView extends StatelessWidget {
                           ? tr(context, "start")
                           : tr(context, "skip"),
                       size: 18,
-                      color: MyColors.white,
+                      color: MyColors.grey,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),

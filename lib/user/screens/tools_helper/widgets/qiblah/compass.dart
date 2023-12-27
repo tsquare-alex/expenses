@@ -4,28 +4,30 @@ import 'package:expenses/res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart'; // Add this import
 import 'location_error_widget.dart';
+
 class QiblahCompass extends StatefulWidget {
   @override
   _QiblahCompassState createState() => _QiblahCompassState();
 }
 
 class _QiblahCompassState extends State<QiblahCompass> {
-  final _locationStreamController = StreamController<LocationStatus>.broadcast();
+  final _locationStreamController =
+  StreamController<LocationStatus>.broadcast();
 
   get stream => _locationStreamController.stream;
 
   Future<void> _checkLocationStatus() async {
-
     final locationStatus = await FlutterQiblah.checkLocationStatus();
     if (locationStatus.enabled &&
         locationStatus.status == LocationPermission.denied) {
       await FlutterQiblah.requestPermissions();
       final s = await FlutterQiblah.checkLocationStatus();
       _locationStreamController.sink.add(s);
-    } else
+    } else {
       _locationStreamController.sink.add(locationStatus);
+    }
   }
 
   @override
@@ -83,8 +85,8 @@ class _QiblahCompassState extends State<QiblahCompass> {
       ),
     );
   }
-
 }
+
 class QiblahCompassWidget extends StatelessWidget {
   final _compassSvg = SvgPicture.asset(Res.compass);
   final _needleSvg = SvgPicture.asset(
@@ -96,15 +98,11 @@ class QiblahCompassWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QiblahDirection>(
+    return StreamBuilder(
       stream: FlutterQiblah.qiblahStream,
       builder: (_, AsyncSnapshot<QiblahDirection> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
-        }
-
-        if (!snapshot.hasData || snapshot.data == null) {
-          return const Center(child: Text("No Qiblah data available"));
         }
 
         final qiblahDirection = snapshot.data!;
@@ -128,6 +126,45 @@ class QiblahCompassWidget extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+class LocationErrorWidget extends StatelessWidget {
+  final String? error;
+  final Function? callback;
+
+  const LocationErrorWidget({Key? key, this.error, this.callback})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    const errorColor = Color(0xffb00020);
+
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          const Icon(
+            Icons.location_off,
+            size: 150,
+            color: errorColor,
+          ),
+          const SizedBox(height: 32),
+          Text(
+            error!,
+            style: const TextStyle(
+                color: errorColor, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 32),
+          ElevatedButton(
+            child: const Text("Retry"),
+            onPressed: () {
+              if (callback != null) callback!();
+            },
+          )
+        ],
+      ),
     );
   }
 }

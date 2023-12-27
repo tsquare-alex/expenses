@@ -76,10 +76,13 @@ dependencies:
   adaptive_action_sheet:
   flutter_image_compress:
   font_awesome_flutter:
-  flutter_barcode_scanner:
+#  flutter_barcode_scanner:
+  local_auth: ^2.1.7
   flutter_rounded_date_picker:
   intl: ^0.18.1
   macos_ui: ^2.0.2
+  barcode_scan2: ^4.3.0
+  flutter_expandable_fab: ^2.0.0
 
 dev_dependencies:
   flutter_test:

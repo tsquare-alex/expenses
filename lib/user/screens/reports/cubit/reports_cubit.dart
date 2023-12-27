@@ -6,9 +6,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../general/constants/constants.dart';
 import '../../../models/add_transaction_model/add_transaction_model.dart';
 import '../../wallet/data/model/wallet_model.dart';
-import '../../wallet/widgets/constants.dart';
 
 part 'reports_cubit.freezed.dart';
 part 'reports_state.dart';
@@ -91,7 +91,8 @@ class ReportsCubit extends Cubit<ReportsState> {
   void changeStatsDateTo() {
     emit(const ReportsState.initial());
     if (statsSelectedDateTo != null) {
-      statsFormattedDateTo = DateFormat('EEE, dd-MM-yyyy').format(statsSelectedDateTo!);
+      statsFormattedDateTo =
+          DateFormat('EEE, dd-MM-yyyy').format(statsSelectedDateTo!);
       emit(const ReportsState.changeDate());
       return;
     }
@@ -152,7 +153,7 @@ class ReportsCubit extends Cubit<ReportsState> {
 
   late List<WalletModel> wallets;
   Future<void> getWalletData(BuildContext context) async {
-    var walletBox = Hive.box<WalletModel>(databaseBox);
+    var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
     List<WalletModel> data = walletBox.values.toList();
     wallets = data;
   }
@@ -176,6 +177,10 @@ class ReportsCubit extends Cubit<ReportsState> {
   Future<void> getReportData(BuildContext context) async {
     emit(const ReportsState.reportDataLoading());
     await Future.wait([getWalletData(context), getTransactionsData(context)]);
+    if (wallets.isEmpty) {
+      emit(const ReportsState.initial());
+      return;
+    }
     createMoneyPercentage();
     emit(const ReportsState.reportDataLoaded());
   }

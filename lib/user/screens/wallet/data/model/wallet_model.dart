@@ -1,7 +1,7 @@
 import 'package:hive_flutter/adapters.dart';
 part 'wallet_model.g.dart';
 
-@HiveType(typeId: 8)
+@HiveType(typeId: 13)
 class WalletModel extends HiveObject {
   @HiveField(0)
   String name;
@@ -23,6 +23,10 @@ class WalletModel extends HiveObject {
   String? repeatWallet;
   @HiveField(9)
   String? walletPeriod;
+  @HiveField(10)
+  bool? isHide;
+  @HiveField(11)
+  bool? isClosed;
 
   WalletModel({
     required this.name,
@@ -34,6 +38,8 @@ class WalletModel extends HiveObject {
     required this.encomeSource,
     required this.valueCategory,
     this.repeatWallet,
+    this.isClosed = false,
+    this.isHide = false,
     this.walletPeriod,
   });
 }

@@ -4,13 +4,13 @@ class TileDropdownButton extends StatelessWidget {
   const TileDropdownButton(
       {Key? key,
       required this.menuList,
-      required this.value,
+      this.value,
       required this.onChanged,
       this.onSaved})
       : super(key: key);
 
   final List menuList;
-  final Object value;
+  final Object? value;
   final Function(Object? value)? onChanged;
   final Function(Object? value)? onSaved;
 

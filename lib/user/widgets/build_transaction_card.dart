@@ -95,6 +95,21 @@ class BuildTransactionCard extends StatelessWidget {
                                   ),
                                 ],
                               ),
+                            if (model.transactionName == "الالتزامات" ||
+                                model.transactionName == "التسوق والشراء")
+                              Row(
+                                children: [
+                                  Image.asset(
+                                    Res.contacts,
+                                    width: 25.w,
+                                    height: 25.h,
+                                    color: MyColors.primary,
+                                  ),
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                ],
+                              ),
                           ],
                         ),
                       )
@@ -137,6 +152,12 @@ class BuildTransactionCard extends StatelessWidget {
                 )
               ],
             ),
+            if (model.transactionName == "الاهداف المالية المستهدفة")
+              LinearPercentIndicator(
+                lineHeight: 10.0.h,
+                percent: 0.25,
+                progressColor: Colors.blue,
+              ),
           ],
         ),
       ),

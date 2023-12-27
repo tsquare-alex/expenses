@@ -81,9 +81,12 @@ class MainData {
   );
 
   static List<BlocProvider> providers(BuildContext context) => [
-        BlocProvider<LangCubit>(create: (BuildContext context) => LangCubit()),
+        BlocProvider<LangCubit>(
+          create: (BuildContext context) => LangCubit(),
+        ),
         BlocProvider<MyExpansionCubit>(
-            create: (BuildContext context) => MyExpansionCubit()),
+          create: (BuildContext context) => MyExpansionCubit(),
+        ),
         BlocProvider<AppThemeCubit>(
           create: (context) => AppThemeCubit()..applyAppTheme(),
         ),
@@ -99,8 +102,54 @@ class MainData {
         BlocProvider<DatabaseCubit>(
           create: (context) => DatabaseCubit(),
         ),
+        BlocProvider<FavoriteCubit>(
+          create: (context) => FavoriteCubit(),
+        ),
+        BlocProvider<AuthenticationCubit>(
+          create: (context) =>
+              AuthenticationCubit()..loadAuthenticationStatus(),
+        ),
+        BlocProvider<LengthConverterCubit>(
+          create: (context) => LengthConverterCubit(),
+        ),
+        BlocProvider<BudgetCubit>(
+          create: (context) => BudgetCubit(),
+        ),
         BlocProvider<WalletCubit>(
           create: (context) => WalletCubit(),
-        )
+        ),
+    BlocProvider<AreaConverterCubit>(
+      create: (context) => AreaConverterCubit(),
+
+    ),
+    BlocProvider<AddDataBaseCubit>(
+      create: (context) => AddDataBaseCubit(),
+
+    ),
+    BlocProvider<DatabaseCubit>(
+      create: (context) => DatabaseCubit(),
+
+    ),
+    BlocProvider<FavoriteCubit>(
+      create: (context) => FavoriteCubit(),
+
+    ),
+    BlocProvider<AuthenticationCubit>(
+      create: (context) => AuthenticationCubit()..loadAuthenticationStatus(),
+
+    ),
+    BlocProvider<BmrCubit>(
+      create: (context) => BmrCubit(),
+
+    ),
+    BlocProvider<PercentageCubit>(
+      create: (context) => PercentageCubit(),
+    ),
+    BlocProvider<ServiceTaxCubit>(
+      create: (context) => ServiceTaxCubit(),
+    ),
+    BlocProvider<DiscountCubit>(
+      create: (context) => DiscountCubit(),
+    ),
       ];
 }

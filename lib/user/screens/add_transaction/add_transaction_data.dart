@@ -627,7 +627,7 @@ class AddTransactionData {
         );
         var total = double.parse(totalController.text);
         if (total <= selectedWalletModel!.balance) {
-          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
           var walletList = walletBox.values.toList();
           WalletModel? targetModel = walletList.firstWhere(
             (model) => model.name == selectedWalletModel?.name,
@@ -670,7 +670,7 @@ class AddTransactionData {
         );
         var total = double.parse(totalController.text);
         if (total <= selectedWalletModel!.balance) {
-          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
           var walletList = walletBox.values.toList();
           WalletModel? targetModel = walletList.firstWhere(
             (model) => model.name == selectedWalletModel?.name,
@@ -709,7 +709,7 @@ class AddTransactionData {
         );
         var total = double.parse(targetController.text);
         if (total <= selectedWalletModel!.balance) {
-          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
           var walletList = walletBox.values.toList();
           WalletModel? targetModel = walletList.firstWhere(
             (model) => model.name == selectedWalletModel?.name,
@@ -747,7 +747,7 @@ class AddTransactionData {
         );
         var total = double.parse(transferController.text);
         if (total <= selectedWalletModel!.balance) {
-          var walletBox = Hive.box<WalletModel>(databaseBox);
+          var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
           var walletList = walletBox.values.toList();
           WalletModel? targetModel = walletList.firstWhere(
             (model) => model.name == selectedWalletModel?.name,
@@ -792,7 +792,7 @@ class AddTransactionData {
   }
 
   Future<List<WalletModel>> getWalletData(BuildContext context) async {
-    var walletBox = Hive.box<WalletModel>(databaseBox);
+    var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
     List<WalletModel> total = walletBox.values.toList();
     return total;
   }

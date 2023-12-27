@@ -92,13 +92,14 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           height: 10.h,
                         ),
                         GenericTextField(
+                          controller: budgetNameController,
                           hint: "pleas enter value",
                           fieldTypes: FieldTypes.normal,
                           type: TextInputType.number,
                           action: TextInputAction.next,
                           validate: (text) {
                             if (text == null || text.isEmpty) {
-                              return "رجاء ادخال اسم المحفظة";
+                              return "رجاء إدخال قيمة الميزانية";
                             }
                             return null;
                           },
@@ -249,11 +250,49 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         DefaultButton(
                           fontSize: 14.sp,
                           borderColor: MyColors.primary,
-                          title: "إضافة محفظة",
+                          title: "إضافة ميزانية",
                           color: MyColors.primary,
                           onTap: () async {
                             if (formKey.currentState!.validate()) {
+                              // List<String?> transactionValue = context
+                              //     .read<BudgetCubit>()
+                              //     .transactioList
+                              //     .map((value) => value.total)
+                              //     .toList();
+
+                              // List<double> parsedValues = context
+                              //     .read<BudgetCubit>()
+                              //     .transactioList
+                              //     .map((value) =>
+                              //         double.tryParse(value.total ?? '0.0') ??
+                              //         0.0)
+                              //     .toList();
+                              // List<double> dividedValues = parsedValues.map((value) => value / 100.0).toList();
+                              // List<double> parsedValues = transactionValue
+                              //     .where((value) =>
+                              //         value != null) // Filter out null values
+                              //     .map((value) => double.parse(
+                              //         value!)) // Convert String to double
+                              //     .toList();
+
+                              // var result= parsedNumber/parsedValues
+                              double transactionValue = context
+                                  .read<BudgetCubit>()
+                                  .transactioList
+                                  .map((value) =>
+                                      double.tryParse(value.total ?? '0.0') ??
+                                      0.0)
+                                  .fold(
+                                      0.0,
+                                      ((previousValue, current) =>
+                                          previousValue + current));
+                              double deficiency =
+                                  parsedNumber - transactionValue;
+                              double percentageValue =
+                                  deficiency / parsedNumber;
+
                               var budgetModel = BudgetModel(
+                                  percentValue: percentageValue,
                                   selectTransaction: transactionController.text,
                                   selectWallet: walletNameController.text,
                                   budgetPeriod: rangeDateController.text,

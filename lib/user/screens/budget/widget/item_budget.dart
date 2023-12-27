@@ -10,12 +10,10 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class ItemBudget extends StatelessWidget {
   final BudgetModel model;
-  final double percent;
 
   const ItemBudget({
     super.key,
     required this.model,
-    required this.percent,
   });
 
   @override
@@ -44,7 +42,7 @@ class ItemBudget extends StatelessWidget {
                 animation: true,
                 lineHeight: 20.0,
                 animationDuration: 2000,
-                percent: percent,
+                percent: model.percentValue!,
                 progressColor: MyColors.primary,
               ),
               SizedBox(

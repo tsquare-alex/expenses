@@ -19,7 +19,7 @@ class StatisticsBody extends StatelessWidget {
               Flexible(
                 flex: 3,
                 child: ChoiceSection(
-                  label: 'اختيار المحفظة',
+                  label: tr(context, 'chooseWallet'),
                   menuList: context.watch<ReportsCubit>().selectedWalletsMap,
                   onSelect: (key) =>
                       ReportsCubit.get(context).onWalletMapSelect(key),

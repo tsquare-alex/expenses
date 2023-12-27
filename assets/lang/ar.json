@@ -420,5 +420,14 @@
   "discountAmount": "المبلغ بعد الخصوم",
   "commercial": "تجارى",
   "addBalance": "إضافة رصيد",
-  "withdrawbalance": "سحب رصيد"
+  "withdrawbalance": "سحب رصيد",
+  "chooseWallet": "إختيار المحفظة",
+  "allWallets": "كل المحافظ",
+  "chooseDuration": "إختيار المدة",
+  "showDetails": "إستعراض التفاصيل",
+  "from": "من",
+  "to": "إلى",
+  "showTable": "إستعراض في جدول",
+  "showChart": "إستعراض في رسم بياني",
+  "compareTransactions": "المقارنة بين المعاملات"
 }

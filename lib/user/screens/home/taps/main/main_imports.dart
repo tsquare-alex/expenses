@@ -13,6 +13,7 @@ import 'package:expenses/user/models/pie_chart_data_model/pie_chart_data_model.d
 import 'package:expenses/user/screens/database/database_imports.dart';
 import 'package:expenses/user/screens/home/home_imports.dart';
 import 'package:expenses/user/screens/home/taps/main/widgets/main_widgets_imports.dart';
+import 'package:expenses/user/screens/reports/cubit/reports_cubit.dart';
 import 'package:expenses/user/screens/reports/reports_imports.dart';
 import 'package:expenses/user/screens/settings/settings_imports.dart';
 import 'package:expenses/user/screens/tools_helper/tools_helper.dart';

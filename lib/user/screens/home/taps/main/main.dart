@@ -66,14 +66,54 @@ class _MainState extends State<Main> {
           }).toList(),
         ],
       ),
-      body: Container(
-        padding: EdgeInsets.all(15.r),
-        width: double.infinity,
-        height: double.infinity,
-        child: BuildPieChart(
-          mainData: data,
-          homeTabCubit: widget.homeTabCubit,
-          widgets: widgets,
+      body: BlocProvider(
+        create: (context) => ReportsCubit()..getReportData(context),
+        child: BlocBuilder<ReportsCubit, ReportsState>(
+          buildWhen: (previous, current) {
+            return (previous == const ReportsState.reportDataLoading() ||
+                current == const ReportsState.reportDataLoading());
+          },
+          builder: (context, state) {
+            if (state is ReportDataLoading) {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: context.read<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.primary
+                      : MyColors.primary,
+                ),
+              );
+            }
+            if (state is ReportDataLoaded) {
+              return Container(
+                padding: EdgeInsets.all(15.r),
+                width: double.infinity,
+                height: double.infinity,
+                //TODO: to build circules
+                child: Column(
+                  children: [
+                    const WalletDetailsRow(),
+                    Expanded(
+                      child: BuildPieChart(
+                        mainData: data,
+                        homeTabCubit: widget.homeTabCubit,
+                        widgets: widgets,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+            return Container(
+              padding: EdgeInsets.all(15.r),
+              width: double.infinity,
+              height: double.infinity,
+              child: BuildPieChart(
+                mainData: data,
+                homeTabCubit: widget.homeTabCubit,
+                widgets: widgets,
+              ),
+            );
+          },
         ),
       ),
     );

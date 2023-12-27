@@ -29,7 +29,7 @@ class _ReportsState extends State<Reports> {
               width: 10.w,
             ),
             MyText(
-              title: 'التقارير و الاحصائيات',
+              title: tr(context, 'reports'),
               color: Colors.white,
               size: 14.sp,
               fontWeight: FontWeight.bold,

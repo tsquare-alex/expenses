@@ -121,6 +121,7 @@ class ReportsCubit extends Cubit<ReportsState> {
 
   late double totalMoney;
   late double spentMoney;
+  late double residualMoney;
   late double circleChartPercentage;
   late String moneyPercentage;
 
@@ -129,7 +130,7 @@ class ReportsCubit extends Cubit<ReportsState> {
     for (var wallet in wallets) {
       total += wallet.balance;
     }
-    return total;
+    return residualMoney = total;
   }
 
   double getUserSpentMoney(List<AddTransactionModel> transactions) {

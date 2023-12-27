@@ -37,7 +37,7 @@ class ReportsBody extends StatelessWidget {
                                       .watch<ReportsCubit>()
                                       .selectedWallet,
                               hint: Text(
-                                'اختيار المحفظة',
+                                tr(context, 'chooseWallet'),
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.bold,
@@ -53,7 +53,7 @@ class ReportsBody extends StatelessWidget {
                                     DropdownMenuItem(
                                       value: 'all',
                                       child: Text(
-                                        'كل المحافظ',
+                                        tr(context, 'allWallets'),
                                         style: TextStyle(
                                           fontSize: 12.sp,
                                           fontWeight: FontWeight.bold,
@@ -131,17 +131,19 @@ class ReportsBody extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  context
-                                          .watch<ReportsCubit>()
-                                          .reportFormattedDateFrom
-                                          .isEmpty
-                                      ? 'اختيار المدة'
-                                      : 'من ${context.watch<ReportsCubit>().reportFormattedDateFrom} إلى ${context.watch<ReportsCubit>().reportFormattedDateTo}',
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey,
+                                Flexible(
+                                  child: Text(
+                                    context
+                                            .watch<ReportsCubit>()
+                                            .reportFormattedDateFrom
+                                            .isEmpty
+                                        ? tr(context, 'chooseDuration')
+                                        : '${tr(context, 'from')} ${context.watch<ReportsCubit>().reportFormattedDateFrom} ${tr(context, 'to')} ${context.watch<ReportsCubit>().reportFormattedDateTo}',
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
+                                    ),
                                   ),
                                 ),
                                 const Icon(
@@ -189,7 +191,7 @@ class ReportsBody extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          'استعراض التفاصيل',
+                          tr(context, 'showDetails'),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 14.sp,

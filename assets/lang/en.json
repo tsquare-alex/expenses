@@ -241,5 +241,14 @@
   "commercial": "Commercial",
   "addWallet": "Add new wallet",
   "addBalance": "Add balance",
-  "withdrawbalance": "Withdraw balance"
+  "withdrawbalance": "Withdraw balance",
+  "chooseWallet" : "Choose Wallet",
+  "allWallets": "All Wallets",
+  "chooseDuration" : "Choose Duration",
+  "showDetails" : "Show Details",
+  "from" : "From",
+  "to" : "to",
+  "showTable" : "Show in table",
+  "showChart" : "Show on chart drawing",
+  "compareTransactions" : "Compare between transactions"
 }

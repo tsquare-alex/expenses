@@ -3,23 +3,25 @@ import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ElectricCurrentConverterScreen extends StatefulWidget {
+import '../../../../../general/constants/MyColors.dart';
+
+class VolumeConverterScreen extends StatefulWidget {
   @override
-  _ElectricCurrentConverterScreenState createState() => _ElectricCurrentConverterScreenState();
+  _VolumeConverterScreenState createState() => _VolumeConverterScreenState();
 }
 
-class _ElectricCurrentConverterScreenState extends State<ElectricCurrentConverterScreen> {
+class _VolumeConverterScreenState extends State<VolumeConverterScreen> {
   double inputValue = 1.0;
-  String fromUnit = 'A';
-  String toUnit = 'mA';
+  String fromUnit = 'Milliliter';
+  String toUnit = 'Liter';
   String result = '';
 
   void _performConversion() {
     try {
-      double? convertedValue = convertElectricCurrent(inputValue, fromUnit, toUnit);
+      double? convertedValue = convertVolume(inputValue, fromUnit, toUnit);
       if (convertedValue != null) {
         setState(() {
-          result = 'Result: $convertedValue $toUnit';
+          result = '$convertedValue $toUnit';
         });
       } else {
         setState(() {
@@ -33,27 +35,39 @@ class _ElectricCurrentConverterScreenState extends State<ElectricCurrentConverte
     }
   }
 
-  double? convertElectricCurrent(double value, String fromUnit, String toUnit) {
-    const Map<String, double> electricCurrentConversionFactors = {
-      'A': 1.0,
-      'mA': 0.001,
-      'kA': 1000.0,
-      'statA': 3.336e-10,
-      'abA': 10.0,
+  double? convertVolume(double value, String fromUnit, String toUnit) {
+    const Map<String, double> volumeConversionFactors = {
+      'Milliliter': 1.0,
+      'Centiliter': 10.0,
+      'Deciliter': 100.0,
+      'Liter': 1000.0,
+      'CubicCentimeter': 1.0,
+      'CubicMeter': 1e6,
+      'MillionCubicMeters': 1e12,
+      'Gallon': 3785.41,
+      'Quart': 946.353,
+      'Pint': 473.176,
+      'Cup': 240.0,
+      'FluidOunce': 29.5735,
     };
 
     if (fromUnit == toUnit) {
       return value;
     }
 
-    return value * electricCurrentConversionFactors[fromUnit]! / electricCurrentConversionFactors[toUnit]!;
+    return value * volumeConversionFactors[fromUnit]! / volumeConversionFactors[toUnit]!;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:MyText(title: tr(context, "convertElectric"), color: Colors.white, size: 18.sp,fontWeight: FontWeight.bold,),
+        title: MyText(
+          title: tr(context, "convertVolume"),
+          color: Colors.white,
+          size: 18.sp,
+          fontWeight: FontWeight.bold,
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -74,7 +88,20 @@ class _ElectricCurrentConverterScreenState extends State<ElectricCurrentConverte
             SizedBox(height: 16.0),
             DropdownButton<String>(
               value: fromUnit,
-              items: ['A', 'mA', 'kA', 'statA', 'abA'].map((String value) {
+              items: [
+                'Milliliter',
+                'Centiliter',
+                'Deciliter',
+                'Liter',
+                'CubicCentimeter',
+                'CubicMeter',
+                'MillionCubicMeters',
+                'Gallon',
+                'Quart',
+                'Pint',
+                'Cup',
+                'FluidOunce',
+              ].map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
@@ -91,7 +118,20 @@ class _ElectricCurrentConverterScreenState extends State<ElectricCurrentConverte
             SizedBox(height: 16.0),
             DropdownButton<String>(
               value: toUnit,
-              items: ['A', 'mA', 'kA', 'statA', 'abA'].map((String value) {
+              items: [
+                'Milliliter',
+                'Centiliter',
+                'Deciliter',
+                'Liter',
+                'CubicCentimeter',
+                'CubicMeter',
+                'MillionCubicMeters',
+                'Gallon',
+                'Quart',
+                'Pint',
+                'Cup',
+                'FluidOunce',
+              ].map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
@@ -108,10 +148,10 @@ class _ElectricCurrentConverterScreenState extends State<ElectricCurrentConverte
             SizedBox(height: 32.0),
             ElevatedButton(
               onPressed: _performConversion,
-              child: Text('Convert'),
+              child: MyText(title: tr(context, "calculate"), color: MyColors.primary, size: 25.sp,fontWeight: FontWeight.bold,),
             ),
             SizedBox(height: 16.0),
-            Text(result),
+            MyText(title:"${tr(context, "result")}: $result", color: MyColors.primary, size: 25.sp,fontWeight: FontWeight.bold,),
           ],
         ),
       ),

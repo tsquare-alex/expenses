@@ -421,6 +421,15 @@
   "commercial": "تجارى",
   "addBalance": "إضافة رصيد",
   "withdrawbalance": "سحب رصيد",
+  "chooseWallet": "إختيار المحفظة",
+  "allWallets": "كل المحافظ",
+  "chooseDuration": "إختيار المدة",
+  "showDetails": "إستعراض التفاصيل",
+  "from": "من",
+  "to": "إلى",
+  "showTable": "إستعراض في جدول",
+  "showChart": "إستعراض في رسم بياني",
+  "compareTransactions": "المقارنة بين المعاملات",
   "enterValue": "ادخل القيمة",
   "convertData": "تحويل البيانات",
   "convertVolume": "تحويل الوزن",
@@ -431,14 +440,4 @@
   "enterFingerPrint": "او أدخل بصمة الإصبع",
   "setupSecurity": "إعداد الأمان",
   "securityMsg": "يرجى إعداد كلمة مرور أو القياسات الحيوية على جهازك."
-
-
-
-
-
-
-
-
-
-
 }

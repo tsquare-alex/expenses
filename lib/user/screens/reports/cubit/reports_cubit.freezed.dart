@@ -20,6 +20,7 @@ mixin _$ReportsState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() changeDate,
+    required TResult Function() changeWallet,
     required TResult Function() showReportDetails,
     required TResult Function() reportDataLoading,
     required TResult Function() reportDataLoaded,
@@ -32,6 +33,7 @@ mixin _$ReportsState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? changeDate,
+    TResult? Function()? changeWallet,
     TResult? Function()? showReportDetails,
     TResult? Function()? reportDataLoading,
     TResult? Function()? reportDataLoaded,
@@ -44,6 +46,7 @@ mixin _$ReportsState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? changeDate,
+    TResult Function()? changeWallet,
     TResult Function()? showReportDetails,
     TResult Function()? reportDataLoading,
     TResult Function()? reportDataLoaded,
@@ -57,6 +60,7 @@ mixin _$ReportsState {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(ChangeDate value) changeDate,
+    required TResult Function(ChangeWallet value) changeWallet,
     required TResult Function(ShowReportDetails value) showReportDetails,
     required TResult Function(ReportDataLoading value) reportDataLoading,
     required TResult Function(ReportDataLoaded value) reportDataLoaded,
@@ -69,6 +73,7 @@ mixin _$ReportsState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
     TResult? Function(ChangeDate value)? changeDate,
+    TResult? Function(ChangeWallet value)? changeWallet,
     TResult? Function(ShowReportDetails value)? showReportDetails,
     TResult? Function(ReportDataLoading value)? reportDataLoading,
     TResult? Function(ReportDataLoaded value)? reportDataLoaded,
@@ -81,6 +86,7 @@ mixin _$ReportsState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(ChangeDate value)? changeDate,
+    TResult Function(ChangeWallet value)? changeWallet,
     TResult Function(ShowReportDetails value)? showReportDetails,
     TResult Function(ReportDataLoading value)? reportDataLoading,
     TResult Function(ReportDataLoaded value)? reportDataLoaded,
@@ -150,6 +156,7 @@ class _$InitialImpl implements Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() changeDate,
+    required TResult Function() changeWallet,
     required TResult Function() showReportDetails,
     required TResult Function() reportDataLoading,
     required TResult Function() reportDataLoaded,
@@ -165,6 +172,7 @@ class _$InitialImpl implements Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? changeDate,
+    TResult? Function()? changeWallet,
     TResult? Function()? showReportDetails,
     TResult? Function()? reportDataLoading,
     TResult? Function()? reportDataLoaded,
@@ -180,6 +188,7 @@ class _$InitialImpl implements Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? changeDate,
+    TResult Function()? changeWallet,
     TResult Function()? showReportDetails,
     TResult Function()? reportDataLoading,
     TResult Function()? reportDataLoaded,
@@ -199,6 +208,7 @@ class _$InitialImpl implements Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(ChangeDate value) changeDate,
+    required TResult Function(ChangeWallet value) changeWallet,
     required TResult Function(ShowReportDetails value) showReportDetails,
     required TResult Function(ReportDataLoading value) reportDataLoading,
     required TResult Function(ReportDataLoaded value) reportDataLoaded,
@@ -214,6 +224,7 @@ class _$InitialImpl implements Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
     TResult? Function(ChangeDate value)? changeDate,
+    TResult? Function(ChangeWallet value)? changeWallet,
     TResult? Function(ShowReportDetails value)? showReportDetails,
     TResult? Function(ReportDataLoading value)? reportDataLoading,
     TResult? Function(ReportDataLoaded value)? reportDataLoaded,
@@ -229,6 +240,7 @@ class _$InitialImpl implements Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(ChangeDate value)? changeDate,
+    TResult Function(ChangeWallet value)? changeWallet,
     TResult Function(ShowReportDetails value)? showReportDetails,
     TResult Function(ReportDataLoading value)? reportDataLoading,
     TResult Function(ReportDataLoaded value)? reportDataLoaded,
@@ -288,6 +300,7 @@ class _$ChangeDateImpl implements ChangeDate {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() changeDate,
+    required TResult Function() changeWallet,
     required TResult Function() showReportDetails,
     required TResult Function() reportDataLoading,
     required TResult Function() reportDataLoaded,
@@ -303,6 +316,7 @@ class _$ChangeDateImpl implements ChangeDate {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? changeDate,
+    TResult? Function()? changeWallet,
     TResult? Function()? showReportDetails,
     TResult? Function()? reportDataLoading,
     TResult? Function()? reportDataLoaded,
@@ -318,6 +332,7 @@ class _$ChangeDateImpl implements ChangeDate {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? changeDate,
+    TResult Function()? changeWallet,
     TResult Function()? showReportDetails,
     TResult Function()? reportDataLoading,
     TResult Function()? reportDataLoaded,
@@ -337,6 +352,7 @@ class _$ChangeDateImpl implements ChangeDate {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(ChangeDate value) changeDate,
+    required TResult Function(ChangeWallet value) changeWallet,
     required TResult Function(ShowReportDetails value) showReportDetails,
     required TResult Function(ReportDataLoading value) reportDataLoading,
     required TResult Function(ReportDataLoaded value) reportDataLoaded,
@@ -352,6 +368,7 @@ class _$ChangeDateImpl implements ChangeDate {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
     TResult? Function(ChangeDate value)? changeDate,
+    TResult? Function(ChangeWallet value)? changeWallet,
     TResult? Function(ShowReportDetails value)? showReportDetails,
     TResult? Function(ReportDataLoading value)? reportDataLoading,
     TResult? Function(ReportDataLoaded value)? reportDataLoaded,
@@ -367,6 +384,7 @@ class _$ChangeDateImpl implements ChangeDate {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(ChangeDate value)? changeDate,
+    TResult Function(ChangeWallet value)? changeWallet,
     TResult Function(ShowReportDetails value)? showReportDetails,
     TResult Function(ReportDataLoading value)? reportDataLoading,
     TResult Function(ReportDataLoaded value)? reportDataLoaded,
@@ -384,6 +402,150 @@ class _$ChangeDateImpl implements ChangeDate {
 
 abstract class ChangeDate implements ReportsState {
   const factory ChangeDate() = _$ChangeDateImpl;
+}
+
+/// @nodoc
+abstract class _$$ChangeWalletImplCopyWith<$Res> {
+  factory _$$ChangeWalletImplCopyWith(
+          _$ChangeWalletImpl value, $Res Function(_$ChangeWalletImpl) then) =
+      __$$ChangeWalletImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ChangeWalletImplCopyWithImpl<$Res>
+    extends _$ReportsStateCopyWithImpl<$Res, _$ChangeWalletImpl>
+    implements _$$ChangeWalletImplCopyWith<$Res> {
+  __$$ChangeWalletImplCopyWithImpl(
+      _$ChangeWalletImpl _value, $Res Function(_$ChangeWalletImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ChangeWalletImpl implements ChangeWallet {
+  const _$ChangeWalletImpl();
+
+  @override
+  String toString() {
+    return 'ReportsState.changeWallet()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ChangeWalletImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() changeDate,
+    required TResult Function() changeWallet,
+    required TResult Function() showReportDetails,
+    required TResult Function() reportDataLoading,
+    required TResult Function() reportDataLoaded,
+    required TResult Function() statsDataLoading,
+    required TResult Function() statsDataLoaded,
+    required TResult Function() statsWalletsSelected,
+  }) {
+    return changeWallet();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? changeDate,
+    TResult? Function()? changeWallet,
+    TResult? Function()? showReportDetails,
+    TResult? Function()? reportDataLoading,
+    TResult? Function()? reportDataLoaded,
+    TResult? Function()? statsDataLoading,
+    TResult? Function()? statsDataLoaded,
+    TResult? Function()? statsWalletsSelected,
+  }) {
+    return changeWallet?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? changeDate,
+    TResult Function()? changeWallet,
+    TResult Function()? showReportDetails,
+    TResult Function()? reportDataLoading,
+    TResult Function()? reportDataLoaded,
+    TResult Function()? statsDataLoading,
+    TResult Function()? statsDataLoaded,
+    TResult Function()? statsWalletsSelected,
+    required TResult orElse(),
+  }) {
+    if (changeWallet != null) {
+      return changeWallet();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(ChangeDate value) changeDate,
+    required TResult Function(ChangeWallet value) changeWallet,
+    required TResult Function(ShowReportDetails value) showReportDetails,
+    required TResult Function(ReportDataLoading value) reportDataLoading,
+    required TResult Function(ReportDataLoaded value) reportDataLoaded,
+    required TResult Function(StatsDataLoading value) statsDataLoading,
+    required TResult Function(StatsDataLoaded value) statsDataLoaded,
+    required TResult Function(StatsWalletsSelected value) statsWalletsSelected,
+  }) {
+    return changeWallet(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(ChangeDate value)? changeDate,
+    TResult? Function(ChangeWallet value)? changeWallet,
+    TResult? Function(ShowReportDetails value)? showReportDetails,
+    TResult? Function(ReportDataLoading value)? reportDataLoading,
+    TResult? Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult? Function(StatsDataLoading value)? statsDataLoading,
+    TResult? Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult? Function(StatsWalletsSelected value)? statsWalletsSelected,
+  }) {
+    return changeWallet?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(ChangeDate value)? changeDate,
+    TResult Function(ChangeWallet value)? changeWallet,
+    TResult Function(ShowReportDetails value)? showReportDetails,
+    TResult Function(ReportDataLoading value)? reportDataLoading,
+    TResult Function(ReportDataLoaded value)? reportDataLoaded,
+    TResult Function(StatsDataLoading value)? statsDataLoading,
+    TResult Function(StatsDataLoaded value)? statsDataLoaded,
+    TResult Function(StatsWalletsSelected value)? statsWalletsSelected,
+    required TResult orElse(),
+  }) {
+    if (changeWallet != null) {
+      return changeWallet(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ChangeWallet implements ReportsState {
+  const factory ChangeWallet() = _$ChangeWalletImpl;
 }
 
 /// @nodoc
@@ -426,6 +588,7 @@ class _$ShowReportDetailsImpl implements ShowReportDetails {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() changeDate,
+    required TResult Function() changeWallet,
     required TResult Function() showReportDetails,
     required TResult Function() reportDataLoading,
     required TResult Function() reportDataLoaded,
@@ -441,6 +604,7 @@ class _$ShowReportDetailsImpl implements ShowReportDetails {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? changeDate,
+    TResult? Function()? changeWallet,
     TResult? Function()? showReportDetails,
     TResult? Function()? reportDataLoading,
     TResult? Function()? reportDataLoaded,
@@ -456,6 +620,7 @@ class _$ShowReportDetailsImpl implements ShowReportDetails {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? changeDate,
+    TResult Function()? changeWallet,
     TResult Function()? showReportDetails,
     TResult Function()? reportDataLoading,
     TResult Function()? reportDataLoaded,
@@ -475,6 +640,7 @@ class _$ShowReportDetailsImpl implements ShowReportDetails {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(ChangeDate value) changeDate,
+    required TResult Function(ChangeWallet value) changeWallet,
     required TResult Function(ShowReportDetails value) showReportDetails,
     required TResult Function(ReportDataLoading value) reportDataLoading,
     required TResult Function(ReportDataLoaded value) reportDataLoaded,
@@ -490,6 +656,7 @@ class _$ShowReportDetailsImpl implements ShowReportDetails {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
     TResult? Function(ChangeDate value)? changeDate,
+    TResult? Function(ChangeWallet value)? changeWallet,
     TResult? Function(ShowReportDetails value)? showReportDetails,
     TResult? Function(ReportDataLoading value)? reportDataLoading,
     TResult? Function(ReportDataLoaded value)? reportDataLoaded,
@@ -505,6 +672,7 @@ class _$ShowReportDetailsImpl implements ShowReportDetails {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(ChangeDate value)? changeDate,
+    TResult Function(ChangeWallet value)? changeWallet,
     TResult Function(ShowReportDetails value)? showReportDetails,
     TResult Function(ReportDataLoading value)? reportDataLoading,
     TResult Function(ReportDataLoaded value)? reportDataLoaded,
@@ -564,6 +732,7 @@ class _$ReportDataLoadingImpl implements ReportDataLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() changeDate,
+    required TResult Function() changeWallet,
     required TResult Function() showReportDetails,
     required TResult Function() reportDataLoading,
     required TResult Function() reportDataLoaded,
@@ -579,6 +748,7 @@ class _$ReportDataLoadingImpl implements ReportDataLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? changeDate,
+    TResult? Function()? changeWallet,
     TResult? Function()? showReportDetails,
     TResult? Function()? reportDataLoading,
     TResult? Function()? reportDataLoaded,
@@ -594,6 +764,7 @@ class _$ReportDataLoadingImpl implements ReportDataLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? changeDate,
+    TResult Function()? changeWallet,
     TResult Function()? showReportDetails,
     TResult Function()? reportDataLoading,
     TResult Function()? reportDataLoaded,
@@ -613,6 +784,7 @@ class _$ReportDataLoadingImpl implements ReportDataLoading {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(ChangeDate value) changeDate,
+    required TResult Function(ChangeWallet value) changeWallet,
     required TResult Function(ShowReportDetails value) showReportDetails,
     required TResult Function(ReportDataLoading value) reportDataLoading,
     required TResult Function(ReportDataLoaded value) reportDataLoaded,
@@ -628,6 +800,7 @@ class _$ReportDataLoadingImpl implements ReportDataLoading {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
     TResult? Function(ChangeDate value)? changeDate,
+    TResult? Function(ChangeWallet value)? changeWallet,
     TResult? Function(ShowReportDetails value)? showReportDetails,
     TResult? Function(ReportDataLoading value)? reportDataLoading,
     TResult? Function(ReportDataLoaded value)? reportDataLoaded,
@@ -643,6 +816,7 @@ class _$ReportDataLoadingImpl implements ReportDataLoading {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(ChangeDate value)? changeDate,
+    TResult Function(ChangeWallet value)? changeWallet,
     TResult Function(ShowReportDetails value)? showReportDetails,
     TResult Function(ReportDataLoading value)? reportDataLoading,
     TResult Function(ReportDataLoaded value)? reportDataLoaded,
@@ -702,6 +876,7 @@ class _$ReportDataLoadedImpl implements ReportDataLoaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() changeDate,
+    required TResult Function() changeWallet,
     required TResult Function() showReportDetails,
     required TResult Function() reportDataLoading,
     required TResult Function() reportDataLoaded,
@@ -717,6 +892,7 @@ class _$ReportDataLoadedImpl implements ReportDataLoaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? changeDate,
+    TResult? Function()? changeWallet,
     TResult? Function()? showReportDetails,
     TResult? Function()? reportDataLoading,
     TResult? Function()? reportDataLoaded,
@@ -732,6 +908,7 @@ class _$ReportDataLoadedImpl implements ReportDataLoaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? changeDate,
+    TResult Function()? changeWallet,
     TResult Function()? showReportDetails,
     TResult Function()? reportDataLoading,
     TResult Function()? reportDataLoaded,
@@ -751,6 +928,7 @@ class _$ReportDataLoadedImpl implements ReportDataLoaded {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(ChangeDate value) changeDate,
+    required TResult Function(ChangeWallet value) changeWallet,
     required TResult Function(ShowReportDetails value) showReportDetails,
     required TResult Function(ReportDataLoading value) reportDataLoading,
     required TResult Function(ReportDataLoaded value) reportDataLoaded,
@@ -766,6 +944,7 @@ class _$ReportDataLoadedImpl implements ReportDataLoaded {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
     TResult? Function(ChangeDate value)? changeDate,
+    TResult? Function(ChangeWallet value)? changeWallet,
     TResult? Function(ShowReportDetails value)? showReportDetails,
     TResult? Function(ReportDataLoading value)? reportDataLoading,
     TResult? Function(ReportDataLoaded value)? reportDataLoaded,
@@ -781,6 +960,7 @@ class _$ReportDataLoadedImpl implements ReportDataLoaded {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(ChangeDate value)? changeDate,
+    TResult Function(ChangeWallet value)? changeWallet,
     TResult Function(ShowReportDetails value)? showReportDetails,
     TResult Function(ReportDataLoading value)? reportDataLoading,
     TResult Function(ReportDataLoaded value)? reportDataLoaded,
@@ -840,6 +1020,7 @@ class _$StatsDataLoadingImpl implements StatsDataLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() changeDate,
+    required TResult Function() changeWallet,
     required TResult Function() showReportDetails,
     required TResult Function() reportDataLoading,
     required TResult Function() reportDataLoaded,
@@ -855,6 +1036,7 @@ class _$StatsDataLoadingImpl implements StatsDataLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? changeDate,
+    TResult? Function()? changeWallet,
     TResult? Function()? showReportDetails,
     TResult? Function()? reportDataLoading,
     TResult? Function()? reportDataLoaded,
@@ -870,6 +1052,7 @@ class _$StatsDataLoadingImpl implements StatsDataLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? changeDate,
+    TResult Function()? changeWallet,
     TResult Function()? showReportDetails,
     TResult Function()? reportDataLoading,
     TResult Function()? reportDataLoaded,
@@ -889,6 +1072,7 @@ class _$StatsDataLoadingImpl implements StatsDataLoading {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(ChangeDate value) changeDate,
+    required TResult Function(ChangeWallet value) changeWallet,
     required TResult Function(ShowReportDetails value) showReportDetails,
     required TResult Function(ReportDataLoading value) reportDataLoading,
     required TResult Function(ReportDataLoaded value) reportDataLoaded,
@@ -904,6 +1088,7 @@ class _$StatsDataLoadingImpl implements StatsDataLoading {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
     TResult? Function(ChangeDate value)? changeDate,
+    TResult? Function(ChangeWallet value)? changeWallet,
     TResult? Function(ShowReportDetails value)? showReportDetails,
     TResult? Function(ReportDataLoading value)? reportDataLoading,
     TResult? Function(ReportDataLoaded value)? reportDataLoaded,
@@ -919,6 +1104,7 @@ class _$StatsDataLoadingImpl implements StatsDataLoading {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(ChangeDate value)? changeDate,
+    TResult Function(ChangeWallet value)? changeWallet,
     TResult Function(ShowReportDetails value)? showReportDetails,
     TResult Function(ReportDataLoading value)? reportDataLoading,
     TResult Function(ReportDataLoaded value)? reportDataLoaded,
@@ -978,6 +1164,7 @@ class _$StatsDataLoadedImpl implements StatsDataLoaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() changeDate,
+    required TResult Function() changeWallet,
     required TResult Function() showReportDetails,
     required TResult Function() reportDataLoading,
     required TResult Function() reportDataLoaded,
@@ -993,6 +1180,7 @@ class _$StatsDataLoadedImpl implements StatsDataLoaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? changeDate,
+    TResult? Function()? changeWallet,
     TResult? Function()? showReportDetails,
     TResult? Function()? reportDataLoading,
     TResult? Function()? reportDataLoaded,
@@ -1008,6 +1196,7 @@ class _$StatsDataLoadedImpl implements StatsDataLoaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? changeDate,
+    TResult Function()? changeWallet,
     TResult Function()? showReportDetails,
     TResult Function()? reportDataLoading,
     TResult Function()? reportDataLoaded,
@@ -1027,6 +1216,7 @@ class _$StatsDataLoadedImpl implements StatsDataLoaded {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(ChangeDate value) changeDate,
+    required TResult Function(ChangeWallet value) changeWallet,
     required TResult Function(ShowReportDetails value) showReportDetails,
     required TResult Function(ReportDataLoading value) reportDataLoading,
     required TResult Function(ReportDataLoaded value) reportDataLoaded,
@@ -1042,6 +1232,7 @@ class _$StatsDataLoadedImpl implements StatsDataLoaded {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
     TResult? Function(ChangeDate value)? changeDate,
+    TResult? Function(ChangeWallet value)? changeWallet,
     TResult? Function(ShowReportDetails value)? showReportDetails,
     TResult? Function(ReportDataLoading value)? reportDataLoading,
     TResult? Function(ReportDataLoaded value)? reportDataLoaded,
@@ -1057,6 +1248,7 @@ class _$StatsDataLoadedImpl implements StatsDataLoaded {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(ChangeDate value)? changeDate,
+    TResult Function(ChangeWallet value)? changeWallet,
     TResult Function(ShowReportDetails value)? showReportDetails,
     TResult Function(ReportDataLoading value)? reportDataLoading,
     TResult Function(ReportDataLoaded value)? reportDataLoaded,
@@ -1117,6 +1309,7 @@ class _$StatsWalletsSelectedImpl implements StatsWalletsSelected {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() changeDate,
+    required TResult Function() changeWallet,
     required TResult Function() showReportDetails,
     required TResult Function() reportDataLoading,
     required TResult Function() reportDataLoaded,
@@ -1132,6 +1325,7 @@ class _$StatsWalletsSelectedImpl implements StatsWalletsSelected {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? changeDate,
+    TResult? Function()? changeWallet,
     TResult? Function()? showReportDetails,
     TResult? Function()? reportDataLoading,
     TResult? Function()? reportDataLoaded,
@@ -1147,6 +1341,7 @@ class _$StatsWalletsSelectedImpl implements StatsWalletsSelected {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? changeDate,
+    TResult Function()? changeWallet,
     TResult Function()? showReportDetails,
     TResult Function()? reportDataLoading,
     TResult Function()? reportDataLoaded,
@@ -1166,6 +1361,7 @@ class _$StatsWalletsSelectedImpl implements StatsWalletsSelected {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(ChangeDate value) changeDate,
+    required TResult Function(ChangeWallet value) changeWallet,
     required TResult Function(ShowReportDetails value) showReportDetails,
     required TResult Function(ReportDataLoading value) reportDataLoading,
     required TResult Function(ReportDataLoaded value) reportDataLoaded,
@@ -1181,6 +1377,7 @@ class _$StatsWalletsSelectedImpl implements StatsWalletsSelected {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
     TResult? Function(ChangeDate value)? changeDate,
+    TResult? Function(ChangeWallet value)? changeWallet,
     TResult? Function(ShowReportDetails value)? showReportDetails,
     TResult? Function(ReportDataLoading value)? reportDataLoading,
     TResult? Function(ReportDataLoaded value)? reportDataLoaded,
@@ -1196,6 +1393,7 @@ class _$StatsWalletsSelectedImpl implements StatsWalletsSelected {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(ChangeDate value)? changeDate,
+    TResult Function(ChangeWallet value)? changeWallet,
     TResult Function(ShowReportDetails value)? showReportDetails,
     TResult Function(ReportDataLoading value)? reportDataLoading,
     TResult Function(ReportDataLoaded value)? reportDataLoaded,

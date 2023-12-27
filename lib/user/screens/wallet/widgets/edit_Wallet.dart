@@ -4,10 +4,12 @@ import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
+import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
 import 'package:expenses/user/screens/wallet/wallet_imports.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EditWallet extends StatefulWidget {
@@ -26,6 +28,8 @@ class _EditWalletState extends State<EditWallet> {
   final TextEditingController categoryController = TextEditingController();
   final TextEditingController encomSourceController = TextEditingController();
   final TextEditingController valueCategoryController = TextEditingController();
+  final TextEditingController openDateController = TextEditingController();
+  final TextEditingController openTimeController = TextEditingController();
   WalletData data = WalletData();
   var formKey = GlobalKey<FormState>();
 
@@ -33,6 +37,8 @@ class _EditWalletState extends State<EditWallet> {
   bool repeatSwitchValue = false;
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedtTime = TimeOfDay.now();
+  DateTime selectOpenDate = DateTime.now();
+  TimeOfDay selectOpenTime = TimeOfDay.now();
   bool notificationSwitchvalu = false;
   DateTimeRange selectRangeDate =
       DateTimeRange(start: DateTime.now(), end: DateTime.now());
@@ -115,9 +121,10 @@ class _EditWalletState extends State<EditWallet> {
                       focusColor: MyColors.primary),
                 ),
                 SizedBox(
-                  height: 45.h,
+                  height: 30.h,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Icon(Icons.calendar_month),
                     SizedBox(
@@ -152,6 +159,46 @@ class _EditWalletState extends State<EditWallet> {
                   ],
                 ),
                 SizedBox(
+                  height: 15.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Icon(Icons.calendar_month),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    Expanded(
+                      child: MyText(
+                          title: "تاريخ فتح المحفظة",
+                          color: MyColors.black,
+                          size: 14.sp),
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    InkWell(
+                        onTap: () {
+                          chosenOpenDate();
+                        },
+                        child: Text(
+                          '${selectOpenDate.month}/${selectOpenDate.day}/${selectOpenDate.year}',
+                          style: TextStyle(fontSize: 14.sp),
+                        )),
+                    SizedBox(
+                      width: 60.w,
+                    ),
+                    InkWell(
+                        onTap: () {
+                          chosenOpenTime();
+                        },
+                        child: Text(
+                          ' ${selectOpenTime.minute}: ${selectOpenTime.hour} ',
+                          style: TextStyle(fontSize: 14.sp),
+                        )),
+                  ],
+                ),
+                SizedBox(
                   height: 30.h,
                 ),
                 Row(
@@ -164,8 +211,8 @@ class _EditWalletState extends State<EditWallet> {
                     SizedBox(
                       width: 150.w,
                       child: TileDropdownButton(
-                        menuList: data.paymentMethod,
-                        value: data.paymentMethod.first,
+                        menuList: context.watch<WalletCubit>().paymentMethod,
+                        value: context.read<WalletCubit>().paymentMethod.first,
                         onChanged: (value) => {
                           paymentMethodController.text = value as String,
                         },
@@ -173,11 +220,11 @@ class _EditWalletState extends State<EditWallet> {
                     ),
                     IconButton(
                         onPressed: () {
-                          data.addPaymentMethodValue(
-                            context,
-                            build,
-                            paymentMethodController,
-                          );
+                          context.read<WalletCubit>().addPaymentMethodValue(
+                                context,
+                                build,
+                                paymentMethodController,
+                              );
                         },
                         icon: const Icon(Icons.add))
                   ],
@@ -193,19 +240,20 @@ class _EditWalletState extends State<EditWallet> {
                     SizedBox(
                       width: 150.w,
                       child: TileDropdownButton(
-                          menuList: data.walletCategory,
-                          value: data.walletCategory.first,
+                          menuList: context.watch<WalletCubit>().walletCategory,
+                          value:
+                              context.read<WalletCubit>().walletCategory.first,
                           onChanged: (value) {
                             categoryController.text = value as String;
                           }),
                     ),
                     IconButton(
                         onPressed: () {
-                          data.addWalletCategoryValue(
-                            context,
-                            build,
-                            categoryController,
-                          );
+                          context.read<WalletCubit>().addCategoryMethodValue(
+                                context,
+                                build,
+                                categoryController,
+                              );
                         },
                         icon: const Icon(Icons.add))
                   ],
@@ -223,8 +271,8 @@ class _EditWalletState extends State<EditWallet> {
                     SizedBox(
                       width: 150.w,
                       child: TileDropdownButton(
-                        menuList: data.encomeSource,
-                        value: data.encomeSource.first,
+                        menuList: context.watch<WalletCubit>().encomeSource,
+                        value: context.read<WalletCubit>().encomeSource.first,
                         onChanged: (value) {
                           encomSourceController.text = value as String;
                         },
@@ -232,7 +280,7 @@ class _EditWalletState extends State<EditWallet> {
                     ),
                     IconButton(
                         onPressed: () {
-                          data.addEncomeValue(
+                          context.read<WalletCubit>().addEncomeSourceValue(
                               context, build, encomSourceController);
                         },
                         icon: const Icon(Icons.add))
@@ -251,18 +299,40 @@ class _EditWalletState extends State<EditWallet> {
                     SizedBox(
                       width: 150.w,
                       child: TileDropdownButton(
-                          menuList: data.valueCategory,
-                          value: data.valueCategory.first,
+                          menuList: context.watch<WalletCubit>().valueCategory,
+                          value:
+                              context.read<WalletCubit>().valueCategory.first,
                           onChanged: (value) {
                             valueCategoryController.text = value as String;
                           }),
                     ),
                     IconButton(
                         onPressed: () {
-                          data.addValueCategory(
+                          context.read<WalletCubit>().addValueCategory(
                               context, build, valueCategoryController);
                         },
                         icon: const Icon(Icons.add))
+                  ],
+                ),
+                SizedBox(
+                  height: 15.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    MyText(
+                        title: "تحديد  المحفظة الافتراضية",
+                        color: MyColors.black,
+                        size: 14.sp),
+                    Checkbox(
+                        activeColor: MyColors.primary,
+                        value: context.read<WalletCubit>().checkedValue,
+                        onChanged: (newValue) {
+                          setState(() {
+                            context.read<WalletCubit>().checkedValue =
+                                newValue!;
+                          });
+                        })
                   ],
                 ),
                 SizedBox(
@@ -282,8 +352,9 @@ class _EditWalletState extends State<EditWallet> {
                       child: SizedBox(
                         width: 150.w,
                         child: TileDropdownButton(
-                            menuList: data.repeatWallet,
-                            value: data.repeatWallet.first,
+                            menuList: context.watch<WalletCubit>().repeatWallet,
+                            value:
+                                context.read<WalletCubit>().repeatWallet.first,
                             onChanged: (value) {}),
                       ),
                     ),
@@ -300,12 +371,38 @@ class _EditWalletState extends State<EditWallet> {
                 SizedBox(
                   height: 15.h,
                 ),
+                Visibility(
+                  visible: repeatSwitchValue,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      MyText(
+                          title: "عدد مرات تكرار المحفظة",
+                          color: MyColors.black,
+                          size: 14.sp),
+                      SizedBox(
+                        width: 150.w,
+                        child: TileDropdownButton(
+                            menuList:
+                                context.watch<WalletCubit>().walletDuplicate,
+                            value: context
+                                .read<WalletCubit>()
+                                .walletDuplicate
+                                .first,
+                            onChanged: (value) {}),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 15.h,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                       child: MyText(
-                          title: "تنبيه انتهاء المعالمة",
+                          title: "تنبيه عند انتهاء 20%",
                           color: MyColors.black,
                           size: 14.sp),
                     ),
@@ -351,7 +448,13 @@ class _EditWalletState extends State<EditWallet> {
                   fontSize: 12.sp,
                   onTap: () {
                     if (formKey.currentState!.validate()) {
+                      widget.model.walletOpiningDate = openDateController.text;
+                      widget.model.walletOpiningTime = openTimeController.text;
+                      widget.model.checkedValue =
+                          context.read<WalletCubit>().checkedValue;
+
                       widget.model.walletPeriod = rangeDateController.text;
+                      widget.model.walletOpiningDate = openDateController.text;
                       widget.model.valueCategory =
                           valueCategoryController.text == ""
                               ? data.valueCategory.first
@@ -421,6 +524,32 @@ class _EditWalletState extends State<EditWallet> {
 
     if (chosenDate != null) {
       selectedDate = chosenDate;
+      setState(() {});
+    }
+  }
+
+  void chosenOpenDate() async {
+    var chosenDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now().add(const Duration(days: 30)),
+        firstDate: DateTime.now(),
+        lastDate: DateTime.now().add(const Duration(days: 365)));
+
+    if (chosenDate != null) {
+      selectOpenDate = chosenDate;
+      openDateController.text = selectedDate.toString();
+      setState(() {});
+    }
+  }
+
+  void chosenOpenTime() async {
+    var chosenDate = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (chosenDate != null) {
+      selectOpenTime = chosenDate;
+      openTimeController.text = selectedtTime.toString();
       setState(() {});
     }
   }

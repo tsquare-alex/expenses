@@ -31,8 +31,11 @@ class WalletModel extends HiveObject {
   bool checkedValue;
   @HiveField(13)
   String walletOpiningDate;
+  @HiveField(14)
+  String walletOpiningTime;
 
   WalletModel({
+    required this.walletOpiningTime,
     required this.name,
     required this.balance,
     required this.date,

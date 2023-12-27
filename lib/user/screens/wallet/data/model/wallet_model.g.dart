@@ -17,6 +17,7 @@ class WalletModelAdapter extends TypeAdapter<WalletModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return WalletModel(
+      walletOpiningTime: fields[14] as String,
       name: fields[0] as String,
       balance: fields[1] as double,
       date: fields[2] as int,
@@ -37,7 +38,7 @@ class WalletModelAdapter extends TypeAdapter<WalletModel> {
   @override
   void write(BinaryWriter writer, WalletModel obj) {
     writer
-      ..writeByte(14)
+      ..writeByte(15)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -65,7 +66,9 @@ class WalletModelAdapter extends TypeAdapter<WalletModel> {
       ..writeByte(12)
       ..write(obj.checkedValue)
       ..writeByte(13)
-      ..write(obj.walletOpiningDate);
+      ..write(obj.walletOpiningDate)
+      ..writeByte(14)
+      ..write(obj.walletOpiningTime);
   }
 
   @override

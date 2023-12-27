@@ -1,11 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
-import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
-import 'package:expenses/user/screens/home/home_imports.dart';
 import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
@@ -486,7 +484,8 @@ class _AddWalletState extends State<AddWallet> {
                           onTap: () async {
                             if (formKey.currentState!.validate()) {
                               var walletModel = WalletModel(
-                                  walletOpiningDate: "",
+                                  walletOpiningTime: openTimeController.text,
+                                  walletOpiningDate: openDateController.text,
                                   checkedValue:
                                       context.read<WalletCubit>().checkedValue,
                                   walletPeriod: rangeDateController.text,

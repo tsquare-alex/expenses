@@ -16,7 +16,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddWallet extends StatefulWidget {
   const AddWallet({super.key});
-
   @override
   State<AddWallet> createState() => _AddWalletState();
 }

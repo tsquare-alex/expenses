@@ -95,21 +95,21 @@ class BuildTransactionCard extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                            if (model.transactionName == "الالتزامات" ||
-                                model.transactionName == "التسوق والشراء")
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    Res.contacts,
-                                    width: 25.w,
-                                    height: 25.h,
-                                    color: MyColors.primary,
-                                  ),
-                                  SizedBox(
-                                    width: 10.w,
-                                  ),
-                                ],
-                              ),
+                            // if (model.transactionName == "الالتزامات" ||
+                            //     model.transactionName == "التسوق والشراء")
+                            //   Row(
+                            //     children: [
+                            //       Image.asset(
+                            //         Res.contacts,
+                            //         width: 25.w,
+                            //         height: 25.h,
+                            //         color: MyColors.primary,
+                            //       ),
+                            //       SizedBox(
+                            //         width: 10.w,
+                            //       ),
+                            //     ],
+                            //   ),
                           ],
                         ),
                       )

@@ -17,19 +17,15 @@ class _SelectCountryState extends State<SelectCountry> {
       backgroundColor: MyColors.backgroundColor,
       body: Padding(
         padding: EdgeInsets.all(15.r),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              children: [
-                HeaderLogo(topPadding: 100.r,image: Res.country,color: MyColors.primary,),
-                const BuildSelectCountryText(),
-                BuildSelectCountryInput(selectCountryData: data,),
-              ],
-            ),
-            BuildSelectCountryButtons(data: data,),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              HeaderLogo(topPadding: 100.r,image: Res.country,color: MyColors.primary,),
+              const BuildSelectCountryText(),
+              BuildSelectCountryInput(selectCountryData: data,),
+              BuildSelectCountryButtons(data: data,),
+            ],
+          ),
         ),
       ),
     );

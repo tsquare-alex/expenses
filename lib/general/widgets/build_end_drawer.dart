@@ -66,7 +66,8 @@ class BuildEndDrawer extends StatelessWidget {
                       CustomDrawerCard(
                         title: tr(context, "addCart"),
                         onTap: (){
-                          CustomToast.showSimpleToast(msg: "تحت التطوير",color: Colors.red,);
+                          Navigator.of(context).pop();
+                          homeTabCubit.onUpdateData(15);
                         },
                         image: Res.cart,
                         endDrawer: true,

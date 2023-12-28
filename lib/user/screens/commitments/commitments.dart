@@ -24,7 +24,7 @@ class _CommitmentsState extends State<Commitments> {
         bloc: data.addTransactionCubit,
         builder: (context, state) {
           if(state.data.isEmpty){
-            return SingleChildScrollView(child: BuildNoRecord());
+            return AddTransaction(model: data.model);
           }else{
             return ListView.builder(
               physics: const BouncingScrollPhysics(),

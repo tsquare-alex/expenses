@@ -40,6 +40,9 @@ class HomeData{
     "target",
     "cashTransactions",
     "recurringTransactions",
+    "commitments",
+    "shopping",
+    "cart",
   ];
 
   List<String> icons=[
@@ -56,6 +59,9 @@ class HomeData{
     Res.budget,
     Res.cashTransactions,
     Res.repeatedTransactions,
+    Res.commitment,
+    Res.bag,
+    Res.cart,
   ];
 
 

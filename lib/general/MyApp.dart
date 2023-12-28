@@ -1,3 +1,4 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:expenses/general/themes/app_themes.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
@@ -44,6 +45,8 @@ class _MyAppState extends State<MyApp> {
                     ],
                     localizationsDelegates: const [
                       LocalizationHelper.localizationsDelegate,
+                      CountryLocalizations.delegate,
+
                       GlobalMaterialLocalizations.delegate,
                       GlobalWidgetsLocalizations.delegate,
                       GlobalCupertinoLocalizations.delegate,

@@ -47,19 +47,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     ];
     return WillPopScope(
         onWillPop: () async {
-          if (data.homeTabCubit.state.data == 0) {
+          if (data.homeTabCubit.state.data == 1) {
             await SystemNavigator.pop();
           }
 
           Future.delayed(const Duration(milliseconds: 200), () {
-            data.homeTabCubit.onUpdateData(0);
-            data.tabController.animateTo(0);
+            data.homeTabCubit.onUpdateData(1);
+            data.tabController.animateTo(1);
           });
 
-          return data.homeTabCubit.state.data == 0;
+          return data.homeTabCubit.state.data == 1;
         },
         child: DefaultTabController(
-          length: 12,
+          length: 15,
           initialIndex: widget.index,
           child: Scaffold(
             key: data.scaffold,

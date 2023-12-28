@@ -32,7 +32,7 @@ class MainData{
     PieChartDataModel(
       name: "flHelp",
       percent: 45,
-      color: MyColors.primary,
+      color: Colors.lightGreen,
       image: Res.explain,
     ),
     PieChartDataModel(
@@ -44,7 +44,7 @@ class MainData{
     PieChartDataModel(
       name: "flReports",
       percent: 45,
-      color: Colors.lightGreen,
+      color: MyColors.primary,
       image: Res.report,
     ),
     PieChartDataModel(
@@ -62,13 +62,13 @@ class MainData{
     PieChartDataModel(
       name: "flBudget",
       percent: 45,
-      color: Colors.green,
+      color: Colors.red,
       image: Res.budget,
     ),
     PieChartDataModel(
       name: "flWallets",
       percent: 45,
-      color: Colors.red,
+      color: Colors.green,
       image: Res.wallet,
     ),
     PieChartDataModel(

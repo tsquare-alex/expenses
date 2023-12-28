@@ -3,23 +3,25 @@ import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class TimeConverterScreen extends StatefulWidget {
+import '../../../../../general/constants/MyColors.dart';
+
+class DataConverterScreen extends StatefulWidget {
   @override
-  _TimeConverterScreenState createState() => _TimeConverterScreenState();
+  _DataConverterScreenState createState() => _DataConverterScreenState();
 }
 
-class _TimeConverterScreenState extends State<TimeConverterScreen> {
+class _DataConverterScreenState extends State<DataConverterScreen> {
   double inputValue = 1.0;
-  String fromUnit = 's';
-  String toUnit = 'min';
+  String fromUnit = 'Byte';
+  String toUnit = 'Kilobyte';
   String result = '';
 
   void _performConversion() {
     try {
-      double? convertedValue = convertTime(inputValue, fromUnit, toUnit);
+      double? convertedValue = convertDataSize(inputValue, fromUnit, toUnit);
       if (convertedValue != null) {
         setState(() {
-          result = 'Result: $convertedValue $toUnit';
+          result = ' $convertedValue $toUnit';
         });
       } else {
         setState(() {
@@ -33,42 +35,37 @@ class _TimeConverterScreenState extends State<TimeConverterScreen> {
     }
   }
 
-  double? convertTime(double value, String fromUnit, String toUnit) {
-    const Map<String, double> timeConversionFactors = {
-      's': 1.0,
-      'ds': 0.1,
-      'cs': 0.01,
-      'ms': 0.001,
-      'µs': 1e-6,
-      'ns': 1e-9,
-      'das': 10.0,
-      'hs': 100.0,
-      'ks': 1000.0,
-      'Ms': 1e6,
-      'Gs': 1e9,
-      'min': 60.0,
-      'h': 3600.0,
-      'd': 86400.0,
-      'wk': 604800.0,
-      'fn': 1209600.0,
-      'mo': 2629800.0,
-      'y': 31536000.0,
-      'dec': 315360000.0,
-      'c': 3153600000.0,
+  double? convertDataSize(double value, String fromUnit, String toUnit) {
+    const Map<String, double> dataConversionFactors = {
+      'Bit': 1.0,
+      'Byte': 8.0,
+      'Kilobit': 1e3,
+      'Kilobyte': 8e3,
+      'Megabit': 1e6,
+      'Megabyte': 8e6,
+      'Gigabit': 1e9,
+      'Gigabyte': 8e9,
+      'Terabit': 1e12,
+      'Terabyte': 8e12,
     };
 
     if (fromUnit == toUnit) {
       return value;
     }
 
-    return value * timeConversionFactors[fromUnit]! / timeConversionFactors[toUnit]!;
+    return value * dataConversionFactors[fromUnit]! / dataConversionFactors[toUnit]!;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:MyText(title: tr(context, "convertTime"), color: Colors.white, size: 18.sp,fontWeight: FontWeight.bold,),
+        title: MyText(
+          title: tr(context, "convertData"),
+          color: Colors.white,
+          size: 18.sp,
+          fontWeight: FontWeight.bold,
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -79,7 +76,7 @@ class _TimeConverterScreenState extends State<TimeConverterScreen> {
           children: [
             TextFormField(
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Enter Value'),
+              decoration: InputDecoration(labelText: tr(context, "enterValue")),
               onChanged: (value) {
                 setState(() {
                   inputValue = double.tryParse(value) ?? 0.0;
@@ -90,7 +87,16 @@ class _TimeConverterScreenState extends State<TimeConverterScreen> {
             DropdownButton<String>(
               value: fromUnit,
               items: [
-                's', 'ds', 'cs', 'ms', 'µs', 'ns', 'das', 'hs', 'ks', 'Ms', 'Gs', 'min', 'h', 'd', 'wk', 'fn', 'mo', 'y', 'dec', 'c'
+                'Bit',
+                'Byte',
+                'Kilobit',
+                'Kilobyte',
+                'Megabit',
+                'Megabyte',
+                'Gigabit',
+                'Gigabyte',
+                'Terabit',
+                'Terabyte',
               ].map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -109,7 +115,16 @@ class _TimeConverterScreenState extends State<TimeConverterScreen> {
             DropdownButton<String>(
               value: toUnit,
               items: [
-                's', 'ds', 'cs', 'ms', 'µs', 'ns', 'das', 'hs', 'ks', 'Ms', 'Gs', 'min', 'h', 'd', 'wk', 'fn', 'mo', 'y', 'dec', 'c'
+                'Bit',
+                'Byte',
+                'Kilobit',
+                'Kilobyte',
+                'Megabit',
+                'Megabyte',
+                'Gigabit',
+                'Gigabyte',
+                'Terabit',
+                'Terabyte',
               ].map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -127,10 +142,11 @@ class _TimeConverterScreenState extends State<TimeConverterScreen> {
             SizedBox(height: 32.0),
             ElevatedButton(
               onPressed: _performConversion,
-              child: Text('Convert'),
+              child: MyText(title: tr(context, "calculate"), color: MyColors.primary, size: 25.sp,fontWeight: FontWeight.bold,),
             ),
             SizedBox(height: 16.0),
-            Text(result),
+           MyText(title:"${tr(context, "result")}: $result", color: MyColors.primary, size: 25.sp,fontWeight: FontWeight.bold,),
+
           ],
         ),
       ),

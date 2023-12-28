@@ -2,7 +2,22 @@ part of 'select_country_imports.dart';
 
 class SelectCountryData {
   final GlobalKey<DropdownSearchState> countryDropKey = GlobalKey();
+  final GlobalKey<FormState> formKey = GlobalKey();
 
+  TextEditingController countryController = TextEditingController();
+
+  GenericBloc<Country> countryCubit = GenericBloc(Country(
+    phoneCode: '+1',
+    countryCode: 'US',
+    e164Sc: 123,
+    geographic: true,
+    level: 1,
+    name: 'United States',
+    example: '1XXXXXXXXXX',
+    displayName: 'United States',
+    displayNameNoCountryCode: 'United States',
+    e164Key: 'E164_KEY_VALUE',
+  ));
   //
   int? countryId;
   CountryModel? selectedCountry;
@@ -26,17 +41,21 @@ class SelectCountryData {
     Box<CountryModel> countryBox = Hive.box<CountryModel>('countryBox');
     
     var country = countryBox.values.toList();
-    if (selectedCountry==null) {
+    if (!formKey.currentState!.validate()) {
       CustomToast.showSimpleToast(
         msg: "please select the country",
         color: Colors.red,
       );
     } else {
+      CountryModel model = CountryModel(
+        id: 0,
+        name: countryCubit?.state.data.name,
+      );
       if(country.isEmpty){
-        countryBox.add(selectedCountry!);
+        countryBox.add(model);
       }else{
         var myBox = countryBox.getAt(0);
-        myBox?.name=selectedCountry?.name;
+        myBox?.name=model.name;
         var key = countryBox.keyAt(0);
         countryBox.put(key, myBox!);
         print(country[0].name);

@@ -8,6 +8,7 @@ import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/models/add_transaction_model/add_transaction_model.dart';
 import 'package:expenses/user/models/transaction_model/transaction_model.dart';
+import 'package:expenses/user/screens/add_transaction/add_transaction_imports.dart';
 import 'package:expenses/user/screens/expense/widgets/expense_widgets_imports.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
 import 'package:expenses/user/widgets/widgets_imports.dart';

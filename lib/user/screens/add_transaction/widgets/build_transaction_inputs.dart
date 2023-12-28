@@ -386,8 +386,7 @@ class BuildTransactionInputs extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     validate: (value) {
                       if (value == null) {
-                        print("Please fill this field");
-                        return ("Please fill this field");
+                        return null;
                       }
                     },
                     onChange: addTransactionData.setSelectDatabaseModel,

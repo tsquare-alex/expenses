@@ -9,46 +9,78 @@ class BuildSelectCurrencyInput extends StatelessWidget {
       key: currencyData.formKey,
       child: Column(
         children: [
-          DropdownTextField<DropdownModel>(
-            dropKey: currencyData.currencyDropKey,
-            label: tr(context, "currency"),
-            selectedItem: currencyData.selectedCurrency,
-            margin: const EdgeInsets.symmetric(vertical: 5),
-            validate: (value) {
-              if(value==null){
-                return "Please fill this field";
-              }
+          BlocBuilder<GenericBloc<Currency>,GenericState<Currency>>(
+            bloc: currencyData.currencyCubit,
+            builder: (context,state){
+              currencyData.mainCurrencyController.text = currencyData.currencyCubit.state.data.name;
+              return GenericTextField(
+                onTab: () {
+                  showCurrencyPicker(
+                    context: context,
+                    showFlag: true,
+                    showSearchField: true,
+                    showCurrencyName: true,
+                    showCurrencyCode: true,
+                    favorite: ['EGP','USD','SAR'],
+                    onSelect: (Currency currency) {
+                      currencyData.currencyCubit.onUpdateData(currency);
+                      print('Select currency: ${currency.name}');
+                    },
+                  );
+                },
+                contentPadding: EdgeInsets.symmetric(horizontal: 16.r),
+                suffixIcon: Icon(Icons.keyboard_arrow_down_outlined,color: MyColors.grey,size: 18.w,),
+                controller: currencyData.mainCurrencyController,
+                fieldTypes: FieldTypes.clickable,
+                type: TextInputType.text,
+                action: TextInputAction.next,
+                validate: (value) {
+                  if (value!.isEmpty) {
+                    return 'Select country';
+                  }
+                },
+                label: tr(context, "selectCountry"),
+                margin: EdgeInsets.symmetric(vertical: 10.r),
+              );
             },
-            onChange: currencyData.setSelectCurrency,
-            finData: (data) => currencyData.getCurrencies(context),
-            useName: true,
-            buttonsColor: MyColors.primary,
-            searchHint: tr(context, "search"),
           ),
-          SizedBox(
-            height: 15.h,
-          ),
-          DropdownTextField<DropdownModel>(
-            dropKey: currencyData.subCurrencyDropKey,
-            label: tr(context, "subCurrency"),
-            selectedItem: currencyData.selectedSubCurrency,
-            margin: const EdgeInsets.symmetric(vertical: 5),
-            validate: (value) {
-              if(value==null){
-                return "Please fill this field";
-              }
+          BlocBuilder<GenericBloc<Currency>,GenericState<Currency>>(
+            bloc: currencyData.subCurrencyCubit,
+            builder: (context,state){
+              currencyData.subCurrencyController.text = currencyData.subCurrencyCubit.state.data.name;
+              return GenericTextField(
+                onTab: () {
+                  showCurrencyPicker(
+                    context: context,
+                    showFlag: true,
+                    showSearchField: true,
+                    showCurrencyName: true,
+                    showCurrencyCode: true,
+                    favorite: ['EGP','USD','SAR'],
+                    onSelect: (Currency currency) {
+                      currencyData.subCurrencyCubit.onUpdateData(currency);
+                      print('Select currency: ${currency.name}');
+                    },
+                  );
+                },
+                suffixIcon: Icon(Icons.keyboard_arrow_down_outlined,color: MyColors.grey,size: 18.w,),
+                contentPadding: EdgeInsets.symmetric(horizontal: 16.r),
+                controller: currencyData.subCurrencyController,
+                fieldTypes: FieldTypes.clickable,
+                type: TextInputType.text,
+                action: TextInputAction.next,
+                validate: (value) {
+                  if (value!.isEmpty) {
+                    return 'Select country';
+                  }
+                },
+                label: tr(context, "selectCountry"),
+                margin: EdgeInsets.symmetric(vertical: 10.r),
+              );
             },
-            onChange: currencyData.setSelectSubCurrency,
-            finData: (data) => currencyData.getSubCurrencies(context),
-            useName: true,
-            buttonsColor: MyColors.primary,
-            searchHint: tr(context, "search"),
-          ),
-          SizedBox(
-            height: 10.h,
           ),
           GenericTextField(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+            contentPadding: EdgeInsets.symmetric(horizontal: 16.r),
             controller: currencyData.valueController,
             fieldTypes: FieldTypes.normal,
             type: TextInputType.number,
@@ -59,7 +91,7 @@ class BuildSelectCurrencyInput extends StatelessWidget {
               }
             },
             label: tr(context, "transferValue"),
-            margin: const EdgeInsets.only(top: 20),
+            margin: EdgeInsets.symmetric(vertical: 10.r),
           ),
         ],
       ),

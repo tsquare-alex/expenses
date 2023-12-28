@@ -5,6 +5,100 @@ class ShoppingData{
 
   List<AddTransactionModel> addTransactionList = [];
 
+  TransactionModel model = TransactionModel(
+    name: "التسوق والشراء",
+    image: Res.bag,
+    content: [
+      TransactionTypeModel(
+        name: "سوبر ماركت",
+        content: [
+          TransactionContentModel(
+            name: "خضار",
+          ),
+          TransactionContentModel(
+            name: "فاكهة",
+          ),
+          TransactionContentModel(
+            name: "بقوليات",
+          ),
+          TransactionContentModel(
+            name: "زيوت",
+          ),
+        ],
+      ),
+      TransactionTypeModel(
+        name: "بقالة",
+        content: [
+        ],
+      ),
+      TransactionTypeModel(
+        name: "محل",
+        content: [
+        ],
+      ),
+      TransactionTypeModel(
+        name: "شركة",
+        content: [
+        ],
+      ),
+      TransactionTypeModel(
+        name: "سوق",
+        content: [
+        ],
+      ),
+      TransactionTypeModel(
+        name: "مصنع",
+        content: [
+        ],
+      ),
+      TransactionTypeModel(
+        name: "ورشة",
+        content: [
+        ],
+      ),
+      TransactionTypeModel(
+        name: "شخص",
+        content: [
+        ],
+      ),
+      TransactionTypeModel(
+        name: "موقع الأكتروني",
+        content: [
+        ],
+      ),
+      TransactionTypeModel(
+        name: "فيسبوك",
+        content: [
+        ],
+      ),
+      TransactionTypeModel(
+        name: "انستجرام",
+        content: [
+        ],
+      ),
+      TransactionTypeModel(
+        name: "اعلان",
+        content: [
+        ],
+      ),
+      TransactionTypeModel(
+        name: "تيكتوك",
+        content: [
+        ],
+      ),
+      TransactionTypeModel(
+        name: "عيادة",
+        content: [
+        ],
+      ),
+      TransactionTypeModel(
+        name: "مستشفي",
+        content: [
+        ],
+      ),
+
+    ],
+  );
 
   Future<void> fetchData() async {
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");

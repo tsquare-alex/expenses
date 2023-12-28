@@ -36,4 +36,11 @@ class _SelectCurrencyState extends State<SelectCurrency> {
       ),
     );
   }
+  @override
+  void dispose() {
+    data.mainCurrencyController.dispose();
+    data.subCurrencyController.dispose();
+    data.valueController.dispose();
+    super.dispose();
+  }
 }

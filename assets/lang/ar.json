@@ -238,6 +238,7 @@
   "addCart": "انشاء سلة",
   "commitments": "الالتزامات",
   "shopping": "التسوق والشراء",
+  "cart": "السلة",
 
   "flTransactions": "المعاملات و\nالمصروفات",
   "flReports": "التقارير و\nالاحصائيات",
@@ -290,6 +291,7 @@
   "addPhoto": "إضافة صورة للمنتج",
   "currency": "العملة الرئيسية",
   "subCurrency": "العملة الفرعية",
+  "selectCountry": "اختر البلد",
 
   "category": "التصنيف",
   "categoryAddNewCategory": "إضافة تصنيف جديد",

@@ -202,7 +202,7 @@ class _CustomContainerState extends State<CustomContainer> {
                   visible: !widget.model.isHide!,
                   child: MyText(
                       alien: TextAlign.end,
-                      title: "${widget.model.balance}",
+                      title: "${widget.model.category}",
                       color: MyColors.white,
                       size: 22.sp),
                 ),

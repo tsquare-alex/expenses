@@ -14,11 +14,17 @@ class Wallet extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             backgroundColor: MyColors.white,
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                // AutoRouter.of(context).push();
-              },
-            ),
+            // floatingActionButton: FloatingActionButton(
+            //   onPressed: () {
+            //     AutoRouter.of(context).push(const WalletCategoryRoute());
+            //   },
+            //   backgroundColor: MyColors.primary,
+            //   child: Icon(
+            //     Icons.add,
+            //     size: 20.sp,
+            //     color: MyColors.white,
+            //   ),
+            // ),
             // floatingActionButton: FloatingActionButton(
             //   onPressed: () async {
             //     await AutoRouter.of(context).push(

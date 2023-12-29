@@ -16,6 +16,7 @@ class WalletCubit extends Cubit<WalletState> {
   bool? isBalanceVisible = true;
   bool? isLocked = true;
   bool checkedValue = false;
+  ValueNotifier<int> selectedCategoryIndex = ValueNotifier<int>(0);
 
   List<String> valueCategory = [
     "نقدي",

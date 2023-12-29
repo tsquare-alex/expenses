@@ -1,4 +1,3 @@
-import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
 import 'package:hive/hive.dart';
 part 'budget_model.g.dart';
 
@@ -16,9 +15,12 @@ class BudgetModel extends HiveObject {
   String? transactionRepeat;
   @HiveField(5)
   double? percentValue;
+  @HiveField(6)
+  String budgetName;
 
   BudgetModel(
       {required this.selectTransaction,
+      required this.budgetName,
       required this.selectWallet,
       required this.budgetPeriod,
       this.transactionRepeat,

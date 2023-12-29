@@ -262,11 +262,26 @@ class _AddWalletState extends State<AddWallet> {
                                       .watch<WalletCubit>()
                                       .walletCategory,
                                   value: context
-                                      .read<WalletCubit>()
-                                      .walletCategory
-                                      .first,
+                                          .watch<WalletCubit>()
+                                          .walletCategory[
+                                      context
+                                          .watch<WalletCubit>()
+                                          .selectedCategoryIndex
+                                          .value],
+                                  // context
+                                  //     .read<WalletCubit>()
+                                  //     .walletCategory
+                                  //     .first,
                                   onChanged: (value) {
-                                    categoryController.text = value as String;
+                                    int newIndex = context
+                                        .read<WalletCubit>()
+                                        .walletCategory
+                                        .indexOf(value as String);
+                                    context
+                                        .read<WalletCubit>()
+                                        .selectedCategoryIndex
+                                        .value = newIndex;
+                                    // categoryController.text = value as String;
                                   }),
                             ),
                             IconButton(
@@ -597,5 +612,21 @@ class _AddWalletState extends State<AddWallet> {
       openTimeController.text = selectedtTime.toString();
       setState(() {});
     }
+  }
+
+  @override
+  void dispose() {
+    walletNameController.dispose();
+    balanceController.dispose();
+    dateController.dispose();
+    timeController.dispose();
+    rangeDateController.dispose();
+    categoryController.dispose();
+    encomSourceController.dispose();
+    valueCategoryController.dispose();
+    openDateController.dispose();
+    openTimeController.dispose();
+    paymentMethodController.dispose();
+    super.dispose();
   }
 }

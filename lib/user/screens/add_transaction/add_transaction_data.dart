@@ -8,6 +8,10 @@ class AddTransactionData {
   GenericBloc<bool> iterateCubit = GenericBloc(false);
   GenericBloc<bool> notifyCubit = GenericBloc(false);
   final GenericBloc<Uint8List?> imageBloc = GenericBloc(null);
+  final GenericBloc<TransactionTypeModel?> typeCubit = GenericBloc(null);
+  final GenericBloc<TransactionContentModel?> typeContentCubit = GenericBloc(null);
+  final GenericBloc<DropdownModel?> targetTypeCubit = GenericBloc(null);
+  final GenericBloc<DropdownModel?> cashTypeCubit = GenericBloc(null);
 
   final GlobalKey<DropdownSearchState> commitmentDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> commitmentContentDropKey = GlobalKey();
@@ -22,6 +26,7 @@ class AddTransactionData {
   final GlobalKey<DropdownSearchState> transferDropKey = GlobalKey();
 
   TextEditingController dateController = TextEditingController();
+  TextEditingController transactionController = TextEditingController();
   TextEditingController startDateController = TextEditingController();
   TextEditingController endDateController = TextEditingController();
   TextEditingController timeController = TextEditingController();
@@ -208,9 +213,9 @@ class AddTransactionData {
     box.add(model);
     print(box.values.length);
     print('success');
+    print(model.name);
     targetList = box.values.cast<DropdownModel>().toList();
     targetCubit.onUpdateData(targetList);
-    print(targetList[1].name);
   }
 
   addCashTransaction(DropdownModel model) async {
@@ -218,21 +223,22 @@ class AddTransactionData {
     box.add(model);
     print(box.values.length);
     print('success');
+    print(model.name);
     cashTransactionList = box.values.cast<DropdownModel>().toList();
-    cashTransactionCubit.onUpdateData(cashTransactionList);
-    print(cashTransactionList[1].name);
+    cashTransactionCubit.onUpdateData(box.values.toList());
   }
 
-  addTransactionContent(TransactionContentModel model, String type) async {
+  addTransactionContent(TransactionContentModel model, String type,TransactionTypeModel typeModel) async {
     if (type == "الالتزامات") {
       final box = await Hive.openBox<TransactionTypeModel>("transactionBox");
       int modelIndex =
-          box.values.toList().indexWhere((model) => model.name == commitmentId);
+          box.values.toList().indexWhere((model) => model.key == typeModel.key);
       var transactionType = box.getAt(modelIndex);
       print(modelIndex);
       transactionType?.content?.add(model);
       box.putAt(modelIndex, transactionType!);
       transactionContentCubit.onUpdateData(transactionType.content!);
+      transactionTypeCubit.onUpdateData(box.values.toList());
       print(transactionType.content?[0].name);
       print(box.values.length);
       print('success');
@@ -240,12 +246,13 @@ class AddTransactionData {
       final box =
           await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
       int modelIndex =
-          box.values.toList().indexWhere((model) => model.name == commitmentId);
+          box.values.toList().indexWhere((model) => model.key == typeModel.key);
       var shoppingType = box.getAt(modelIndex);
       print(modelIndex);
       shoppingType?.content?.add(model);
       box.putAt(modelIndex, shoppingType!);
       transactionContentCubit.onUpdateData(shoppingType.content!);
+      shoppingTypeCubit.onUpdateData(box.values.toList());
       print(shoppingType.content?[0].name);
       print(box.values.length);
       print('success');
@@ -355,7 +362,7 @@ class AddTransactionData {
     );
   }
 
-  addTransactionContentModel(BuildContext context, String type) {
+  addTransactionContentModel(BuildContext context, String type,TransactionTypeModel typeModel) {
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -366,6 +373,7 @@ class AddTransactionData {
           child: BuildAddTransactionContent(
             data: this,
             type: type,
+            typeModel: typeModel,
           )),
     );
   }
@@ -444,12 +452,16 @@ class AddTransactionData {
     DropdownModel(id: 0, name: "Commitment Party1"),
   ];
   List<DropdownModel> units = [
-    DropdownModel(id: 0, name: "كيلوغرام"),
-    DropdownModel(id: 1, name: "غرام"),
-    DropdownModel(id: 2, name: "طن"),
-    DropdownModel(id: 3, name: "متر"),
-    DropdownModel(id: 4, name: "كيلومتر"),
-    DropdownModel(id: 5, name: "سنتيمتر"),
+    DropdownModel(id: 0, name: "زمن"),
+    DropdownModel(id: 1, name: "طول"),
+    DropdownModel(id: 2, name: "وزن"),
+    DropdownModel(id: 3, name: "كتلة"),
+    DropdownModel(id: 4, name: "حجم"),
+    DropdownModel(id: 5, name: "سرعة"),
+    DropdownModel(id: 6, name: "قوة"),
+    DropdownModel(id: 7, name: "ضغط"),
+    DropdownModel(id: 8, name: "طاقة"),
+    DropdownModel(id: 9, name: "كهرباء"),
   ];
   List<DropdownModel> iterateTransaction = [
     DropdownModel(id: 0, name: "يوميا"),
@@ -605,21 +617,20 @@ class AddTransactionData {
 
   addTransaction(BuildContext context, String type) async {
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
-    if (formKey.currentState!.validate() &&
-        formKey1.currentState!.validate() ) {
+    if (formKey1.currentState!.validate()&&formKey.currentState!.validate()&&formKey2.currentState!.validate()) {
       if (type == "الالتزامات") {
         AddTransactionModel model = AddTransactionModel(
           transactionName: "الالتزامات",
-          transactionType: selectedCommitment,
-          transactionContent: selectedCommitmentContent,
+          transactionType: typeCubit.state.data,
+          transactionContent: typeContentCubit.state.data,
           incomeSource: selectedWalletModel,
           unit: selectedUnit,
           amount: amountController.text,
           total: totalController.text,
           database: selectedDatabaseModel,
           priority: selectedPriority,
-          time: DateFormat("hh:mm aa","en").format(DateTime.now()),
-          transactionDate: DateFormat('dd MMMM yyyy',"en").format(DateTime.now()),
+          time: timeController.text,
+          transactionDate: dateController.text,
           repeated: iterateCubit.state.data != false
               ? selectedIterateTransaction
               : null,
@@ -641,7 +652,7 @@ class AddTransactionData {
           addTransactionList = box.values.toList();
           addTransactionCubit.onUpdateData(addTransactionList);
           AutoRouter.of(context).pop();
-          AutoRouter.of(context).replace(HomeRoute(index: 0));
+          AutoRouter.of(context).replace(HomeRoute(index: 1));
         } else if (total > selectedWalletModel!.balance) {
           print(selectedWalletModel!.balance);
           CustomToast.showSimpleToast(
@@ -651,8 +662,8 @@ class AddTransactionData {
       } else if (type == "التسوق والشراء") {
         AddTransactionModel model = AddTransactionModel(
           transactionName: "التسوق والشراء",
-          transactionType: selectedCommitment,
-          transactionContent: selectedCommitmentContent,
+          transactionType: typeCubit.state.data,
+          transactionContent: typeContentCubit.state.data,
           database: selectedDatabaseModel,
           incomeSource: selectedWalletModel,
           unit: selectedUnit,
@@ -660,8 +671,8 @@ class AddTransactionData {
           total: totalController.text,
           brandName: brandController.text,
           priority: selectedPriority,
-          time: DateFormat("hh:mm aa","en").format(DateTime.now()),
-          transactionDate: DateFormat('dd MMMM yyyy',"en").format(DateTime.now()),
+          time: timeController.text,
+          transactionDate: dateController.text,
           image: imageBloc.state.data,
           repeated: iterateCubit.state.data != false
               ? selectedIterateTransaction
@@ -684,7 +695,7 @@ class AddTransactionData {
           addTransactionList = box.values.toList();
           addTransactionCubit.onUpdateData(addTransactionList);
           AutoRouter.of(context).pop();
-          AutoRouter.of(context).replace(HomeRoute(index: 0));
+          AutoRouter.of(context).replace(HomeRoute(index: 1));
         } else if (total > selectedWalletModel!.balance) {
           print(selectedWalletModel!.balance);
           CustomToast.showSimpleToast(
@@ -694,14 +705,14 @@ class AddTransactionData {
       } else if (type == "الاهداف المالية المستهدفة") {
         AddTransactionModel model = AddTransactionModel(
           transactionName: "الاهداف المالية المستهدفة",
-          targetType: selectedTarget,
+          targetType: targetTypeCubit.state.data,
           total: targetController.text,
           incomeSource: selectedWalletModel,
           targetValue: targetController.text,
           startDate: startDateController.text,
           endDate: endDateController.text,
-          time: DateFormat("hh:mm aa","en").format(DateTime.now()),
-          transactionDate: DateFormat('dd MMMM yyyy',"en").format(DateTime.now()),
+          time: timeController.text,
+          transactionDate: dateController.text,
           repeated: iterateCubit.state.data != false
               ? selectedIterateTransaction
               : null,
@@ -723,7 +734,7 @@ class AddTransactionData {
           addTransactionList = box.values.toList();
           addTransactionCubit.onUpdateData(addTransactionList);
           AutoRouter.of(context).pop();
-          AutoRouter.of(context).replace(HomeRoute(index: 0));
+          AutoRouter.of(context).replace(HomeRoute(index: 1));
         } else if (total > selectedWalletModel!.balance) {
           print(selectedWalletModel!.balance);
           CustomToast.showSimpleToast(
@@ -733,13 +744,13 @@ class AddTransactionData {
       } else if (type == "المعاملات النقدية") {
         AddTransactionModel model = AddTransactionModel(
           transactionName: "المعاملات النقدية",
-          cashTransactionType: selectedCashTransaction,
+          cashTransactionType: cashTypeCubit.state.data,
           incomeSource: selectedWalletModel,
           database: selectedDatabaseModel,
           priority: selectedPriority,
           total: transferController.text,
-          time: DateFormat("hh:mm aa","en").format(DateTime.now()),
-          transactionDate: DateFormat('dd MMMM yyyy',"en").format(DateTime.now()),
+          time: timeController.text,
+          transactionDate: dateController.text,
           repeated: iterateCubit.state.data != false
               ? selectedIterateTransaction
               : null,
@@ -761,7 +772,7 @@ class AddTransactionData {
           addTransactionList = box.values.toList();
           addTransactionCubit.onUpdateData(addTransactionList);
           AutoRouter.of(context).pop();
-          AutoRouter.of(context).replace(HomeRoute(index: 0));
+          AutoRouter.of(context).replace(HomeRoute(index: 1));
         } else if (total > selectedWalletModel!.balance) {
           print(selectedWalletModel!.balance);
           CustomToast.showSimpleToast(

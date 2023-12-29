@@ -85,6 +85,7 @@ dependencies:
   flutter_expandable_fab: ^2.0.0
   country_picker:
   currency_picker:
+  animations:
 
 dev_dependencies:
   flutter_test:

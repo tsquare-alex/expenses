@@ -14,7 +14,7 @@ class HomeData{
 
   List<TabModel> tabs = [
     TabModel(
-      image: Res.dollar,
+      image: Res.transaction,
       title: "transactions",
     ),
     TabModel(
@@ -22,7 +22,7 @@ class HomeData{
       title: "main",
     ),
     TabModel(
-      image: Res.cart,
+      image: Res.report,
       title: "reports",
     ),
   ];

@@ -6,6 +6,9 @@ class BuildBagItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return ListView.builder(
+      itemCount: model.length,
+      itemBuilder: (context,i)=>Container(),
+    );
   }
 }

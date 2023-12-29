@@ -181,6 +181,37 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
             ),
+          Row(
+            children: [
+              MyText(
+                title: tr(context, "selectedBudget"),
+                color: MyColors.black,
+                size: 12.sp,
+                fontWeight: FontWeight.bold,
+              ),
+              SizedBox(
+                width: 10.h,
+              ),
+              Expanded(
+                child: DropdownTextField<BudgetModel>(
+                  dropKey: transactionDetailsData.budgetDropKey,
+                  label: tr(context, "budgetName"),
+                  selectedItem: transactionDetailsData.selectedBudget,
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                  validate: (value) {
+                    return null;
+                  },
+                  onChange: transactionDetailsData.setSelectBudgetModel,
+                  finData: (data) => transactionDetailsData.getBudgetData(
+                    context,
+                  ),
+                  useName: true,
+                  buttonsColor: MyColors.primary,
+                  searchHint:tr(context, "search"),
+                ),
+              )
+            ],
+          ),
           if (model.transactionName != "الاهداف المالية المستهدفة")
             Row(
               children: [

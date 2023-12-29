@@ -109,6 +109,8 @@
   "currency": "Main Currency",
   "subCurrency": "Sub Currency",
   "cart": "Bag",
+  "selectedBudget": "Select budget",
+  "budgetName": "budget",
 
   "category": "Category",
   "categoryAddNewCategory": "Add a new category",

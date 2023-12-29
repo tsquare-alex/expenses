@@ -24,6 +24,7 @@ class AddTransactionData {
   final GlobalKey<DropdownSearchState> targetDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> cashTransactionDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> transferDropKey = GlobalKey();
+  final GlobalKey<DropdownSearchState> budgetDropKey = GlobalKey();
 
   TextEditingController dateController = TextEditingController();
   TextEditingController transactionController = TextEditingController();
@@ -617,7 +618,7 @@ class AddTransactionData {
 
   addTransaction(BuildContext context, String type) async {
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
-    if (formKey1.currentState!.validate()&&formKey.currentState!.validate()&&formKey2.currentState!.validate()) {
+    if (formKey1.currentState!.validate()&&formKey.currentState!.validate()&&formKey2.currentState!.validate()&&typeCubit.state.data!=null) {
       if (type == "الالتزامات") {
         AddTransactionModel model = AddTransactionModel(
           transactionName: "الالتزامات",
@@ -628,6 +629,7 @@ class AddTransactionData {
           amount: amountController.text,
           total: totalController.text,
           database: selectedDatabaseModel,
+          budget: selectedBudget,
           priority: selectedPriority,
           time: timeController.text,
           transactionDate: dateController.text,
@@ -665,6 +667,7 @@ class AddTransactionData {
           transactionType: typeCubit.state.data,
           transactionContent: typeContentCubit.state.data,
           database: selectedDatabaseModel,
+          budget: selectedBudget,
           incomeSource: selectedWalletModel,
           unit: selectedUnit,
           amount: amountController.text,
@@ -710,6 +713,7 @@ class AddTransactionData {
           incomeSource: selectedWalletModel,
           targetValue: targetController.text,
           startDate: startDateController.text,
+          budget: selectedBudget,
           endDate: endDateController.text,
           time: timeController.text,
           transactionDate: dateController.text,
@@ -751,6 +755,7 @@ class AddTransactionData {
           total: transferController.text,
           time: timeController.text,
           transactionDate: dateController.text,
+          budget: selectedBudget,
           repeated: iterateCubit.state.data != false
               ? selectedIterateTransaction
               : null,
@@ -788,13 +793,20 @@ class AddTransactionData {
   }
 
   WalletModel? selectedWalletModel;
+  BudgetModel? selectedBudget;
   DatabaseModel? selectedDatabaseModel;
   String? walletName;
+  String? budgetName;
   String? databaseName;
 
   void setSelectWalletModel(WalletModel? model) {
     selectedWalletModel = model;
     walletName = model?.name;
+  }
+
+  void setSelectBudgetModel(BudgetModel? model) {
+    selectedBudget = model;
+    budgetName = model?.name;
   }
 
   void setSelectDatabaseModel(DatabaseModel? model) {
@@ -813,4 +825,11 @@ class AddTransactionData {
     List<DatabaseModel> total = databaseData.values.toList();
     return total;
   }
+
+  Future<List<BudgetModel>> getBudgetData(BuildContext context) async {
+    var budgetData = Hive.box<BudgetModel>("budgetBox");
+    List<BudgetModel> total = budgetData.values.toList();
+    return total;
+  }
+
 }

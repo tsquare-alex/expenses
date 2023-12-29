@@ -7,6 +7,7 @@ class AddBagItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: bagData.formKey,
       child: Column(
         children: [
           OpenContainer(
@@ -91,107 +92,137 @@ class AddBagItem extends StatelessWidget {
             ),
             closedBuilder: (_, openContainer) => Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0.r),
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
-                    //margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 7),
-                    decoration: BoxDecoration(
-                        color: MyColors.backgroundColor,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: const [BoxShadow(color: MyColors.shadow,spreadRadius: 0,blurRadius: 12)]
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                //margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 7),
+                decoration: BoxDecoration(
+                    color: MyColors.backgroundColor,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: const [BoxShadow(color: MyColors.shadow,spreadRadius: 0,blurRadius: 12)]
+                ),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 20.r,
+                      backgroundColor: MyColors.primary,
+                      child: Image.asset(
+                        Res.transaction,
+                        color: MyColors.white,
+                        width: 18.w,
+                        height: 18.h,
+                      ),
                     ),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 20.r,
-                          backgroundColor: MyColors.primary,
-                          child: Image.asset(
-                            Res.transaction,
-                            color: MyColors.white,
-                            width: 18.w,
-                            height: 18.h,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 20.w,
-                        ),
-                        BlocBuilder<GenericBloc<DropdownModel?>, GenericState<DropdownModel?>>(
-                          bloc: bagData.typeCubit,
-                          builder: (context, state) {
-                            return MyText(title: state.data?.name??tr(context, "transaction"), color: MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,);
-                          },
-                        ),
-                      ],
+                    SizedBox(
+                      width: 20.w,
                     ),
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Row(
-                    children: [
-                      MyText(
-                        title: tr(context, "selectUnit"),
-                        color: MyColors.black,
-                        size: 12.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      SizedBox(
-                        width: 10.h,
-                      ),
-                      Expanded(
-                        child: DropdownTextField<DropdownModel>(
-                          dropKey: bagData.unitsDropKey,
-                          label: tr(context, "unit"),
-                          selectedItem: bagData.selectedUnit,
-                          margin: const EdgeInsets.symmetric(vertical: 5),
-                          validate: (value) {
-                            return null;
-                          },
-                          onChange: bagData.setSelectUnit,
-                          finData: (data) => bagData.getUnits(
-                            context,
-                          ),
-                          useName: true,
-                          buttonsColor: MyColors.primary,
-                          searchHint:tr(context, "search"),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Row(
-                    children: [
-                      MyText(title: tr(context, "amount"), color: MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,),
-                      SizedBox(
-                        width: 30.w,
-                      ),
-                      Expanded(
-                        child: GenericTextField(
-                          contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 16),
-                          controller: bagData.amountController,
-                          fieldTypes: FieldTypes.normal,
-                          type: TextInputType.number,
-                          action: TextInputAction.next,
-                          validate: (value) {
-                            if (value!.isEmpty) {
-                              return 'Enter brand name';
-                            }
-                          },
-                          label: tr(context, "amount"),
-                          margin: const EdgeInsets.only(top: 0),
-                        ),
-                      ),
-                    ],
-                  ),
-                  AddBagItemButton(data:bagData,),
-                ],
+                    BlocBuilder<GenericBloc<DropdownModel?>, GenericState<DropdownModel?>>(
+                      bloc: bagData.typeCubit,
+                      builder: (context, state) {
+                        return MyText(title: state.data?.name??tr(context, "transaction"), color: MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,);
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Row(
+            children: [
+              MyText(
+                title: tr(context, "selectUnit"),
+                color: MyColors.black,
+                size: 12.sp,
+                fontWeight: FontWeight.bold,
+              ),
+              SizedBox(
+                width: 10.h,
+              ),
+              Expanded(
+                child: DropdownTextField<DropdownModel>(
+                  dropKey: bagData.unitsDropKey,
+                  label: tr(context, "unit"),
+                  selectedItem: bagData.selectedUnit,
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                  validate: (value) {
+                    return null;
+                  },
+                  onChange: bagData.setSelectUnit,
+                  finData: (data) => bagData.getUnits(
+                    context,
+                  ),
+                  useName: true,
+                  buttonsColor: MyColors.primary,
+                  searchHint:tr(context, "search"),
+                ),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Row(
+            children: [
+              MyText(title: tr(context, "amount"), color: MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,),
+              SizedBox(
+                width: 30.w,
+              ),
+              Expanded(
+                child: GenericTextField(
+                  contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 16),
+                  controller: bagData.amountController,
+                  fieldTypes: FieldTypes.normal,
+                  type: TextInputType.number,
+                  action: TextInputAction.next,
+                  validate: (value) {
+                    if (value!.isEmpty) {
+                      return 'Enter the amount';
+                    }
+                  },
+                  label: tr(context, "amount"),
+                  margin: const EdgeInsets.only(top: 0),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Row(
+            children: [
+              MyText(
+                title: tr(context, "priorityRatio"),
+                color: MyColors.black,
+                size: 12.sp,
+                fontWeight: FontWeight.bold,
+              ),
+              SizedBox(
+                width: 10.h,
+              ),
+              Expanded(
+                child: DropdownTextField<DropdownModel>(
+                  dropKey: bagData.priorityDropKey,
+                  label: tr(context, "priority"),
+                  selectedItem: bagData.selectedPriority,
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                  validate: (value) {
+                    return null;
+                  },
+                  onChange: bagData.selectedPriority,
+                  finData: (data) => bagData.getPriority(
+                    context,
+                  ),
+                  useName: true,
+                  buttonsColor: MyColors.primary,
+                  searchHint:tr(context, "search"),
+                ),
+              )
+            ],
+          ),
+          AddBagItemButton(data:bagData,),
         ],
       ),
     );

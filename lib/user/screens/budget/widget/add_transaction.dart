@@ -315,7 +315,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                   deficiency / parsedNumber;
 
                               var budgetModel = BudgetModel(
-                                  budgetName: budgetName.text,
+                                  name: budgetName.text,
                                   percentValue: percentageValue,
                                   selectTransaction: transactionController.text,
                                   selectWallet: walletNameController.text,

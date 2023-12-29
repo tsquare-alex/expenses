@@ -20,6 +20,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
     data.selectedIterateTransaction= widget.model.repeated;
     data.selectedUnit= widget.model.unit;
     data.selectedWalletModel= widget.model.incomeSource;
+    data.selectedBudget= widget.model.budget;
     super.initState();
   }
 

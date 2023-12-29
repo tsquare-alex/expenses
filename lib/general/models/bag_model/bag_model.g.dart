@@ -18,10 +18,11 @@ class BagModelAdapter extends TypeAdapter<BagModel> {
     };
     return BagModel(
       type: fields[0] as String?,
-      content: fields[1] as String?,
+      priority: fields[1] as DropdownModel?,
       amount: fields[2] as double?,
       unit: fields[3] as DropdownModel?,
-    )..completed = fields[4] as bool?;
+      completed: fields[4] as bool?,
+    );
   }
 
   @override
@@ -31,7 +32,7 @@ class BagModelAdapter extends TypeAdapter<BagModel> {
       ..writeByte(0)
       ..write(obj.type)
       ..writeByte(1)
-      ..write(obj.content)
+      ..write(obj.priority)
       ..writeByte(2)
       ..write(obj.amount)
       ..writeByte(3)

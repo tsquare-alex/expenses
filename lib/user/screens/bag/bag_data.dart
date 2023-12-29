@@ -1,14 +1,26 @@
 part of 'bag_imports.dart';
 
 class BagData{
+  final GlobalKey<FormState> formKey = GlobalKey();
+
 
   TextEditingController amountController = TextEditingController();
   TextEditingController nameController = TextEditingController();
 
   final GlobalKey<DropdownSearchState> unitsDropKey = GlobalKey();
+  final GlobalKey<DropdownSearchState> priorityDropKey = GlobalKey();
 
+  int? priorityId;
   int? unitId;
+  DropdownModel? selectedPriority;
   DropdownModel? selectedUnit;
+
+
+  List<DropdownModel> priorities = [
+    DropdownModel(id: 0, name: "ضروري"),
+    DropdownModel(id: 1, name: "هام"),
+    DropdownModel(id: 2, name: "عادي"),
+  ];
 
   List<DropdownModel> units = [
     DropdownModel(id: 0, name: "زمن"),
@@ -39,13 +51,21 @@ class BagData{
     selectedUnit = model;
     unitId = model?.id;
   }
+  void setSelectPriority(DropdownModel? model) {
+    selectedPriority = model;
+    priorityId = model?.id;
+  }
 
   Future<List<DropdownModel>> getUnits(BuildContext context) async {
     return units;
   }
+  Future<List<DropdownModel>> getPriority(BuildContext context) async {
+    return priorities;
+  }
+
 
   initialTransaction() async {
-    final box = await Hive.openBox<DropdownModel>("bagBox");
+    final box = await Hive.openBox<DropdownModel>("bagTransactionBox");
     var boxItems = box.values.cast<DropdownModel>().toList();
     for (var item in cart) {
       // Check if the name of the item in list1 is not equal to any name in list2
@@ -62,7 +82,7 @@ class BagData{
   }
 
   Future<void> fetchBagData() async {
-    final box = Hive.box<DropdownModel>("bagBox");
+    final box = Hive.box<DropdownModel>("bagTransactionBox");
     try {
       var list = box.values.map((dynamic value) {
         if (value is DropdownModel) {
@@ -79,7 +99,7 @@ class BagData{
   }
 
   addBagItem(DropdownModel model) async {
-    final box = await Hive.openBox<DropdownModel>("bagBox");
+    final box = await Hive.openBox<DropdownModel>("bagTransactionBox");
     box.add(model);
     print(box.values.length);
     print('success');
@@ -101,4 +121,29 @@ class BagData{
     );
   }
 
-}
+  List<BagModel> itemsList = [];
+  GenericBloc<List<BagModel>> cartCubit = GenericBloc([]);
+
+  addToCart(BuildContext context) async {
+    final box = await Hive.openBox<BagModel>("bagBox");
+    if (typeCubit.state.data!=null&&formKey.currentState!.validate()) {
+      double amount = double.parse(amountController.text);
+      BagModel model = BagModel(
+        type: typeCubit.state.data?.name,
+        unit: selectedUnit,
+        amount: amount,
+        priority: selectedPriority,
+      );
+      box.add(model);
+      cartCubit.onUpdateData(box.values.toList());
+      AutoRouter.of(context).replace(HomeRoute(index: 0,pageIndex: 15));
+
+      } else  {
+      CustomToast.showSimpleToast(
+          msg: "أكمل بيانات الإضافة أولا لاتمام اضافة المعاملة",
+          color: Colors.red);
+      }
+    }
+  }
+
+

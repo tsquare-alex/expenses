@@ -8,7 +8,7 @@ class AddBagItemButton extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10.r),
       child: DefaultButton(
-        onTap: () {},
+        onTap: () =>data.addToCart(context),
         title: tr(context, "add"),
         fontWeight: FontWeight.bold,
         fontSize: 14.sp,

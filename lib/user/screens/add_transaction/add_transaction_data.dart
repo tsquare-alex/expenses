@@ -617,7 +617,7 @@ class AddTransactionData {
 
   addTransaction(BuildContext context, String type) async {
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
-    if (formKey1.currentState!.validate()&&formKey.currentState!.validate()&&formKey2.currentState!.validate()) {
+    if (formKey1.currentState!.validate()&&formKey.currentState!.validate()&&formKey2.currentState!.validate()&&typeCubit.state.data!=null) {
       if (type == "الالتزامات") {
         AddTransactionModel model = AddTransactionModel(
           transactionName: "الالتزامات",

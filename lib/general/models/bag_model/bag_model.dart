@@ -8,7 +8,7 @@ class BagModel {
   @HiveField(0)
   String? type;
   @HiveField(1)
-  String? content;
+  DropdownModel? priority;
   @HiveField(2)
   double? amount;
   @HiveField(3)
@@ -16,7 +16,7 @@ class BagModel {
   @HiveField(4)
   bool? completed;
 
-  BagModel({this.type, this.content,this.amount,this.unit});
+  BagModel({this.type, this.priority,this.amount,this.unit,this.completed});
 
 }
 

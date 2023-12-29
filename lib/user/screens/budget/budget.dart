@@ -21,8 +21,9 @@ class Budget extends StatelessWidget {
                           ? const BuildNoRecord()
                           : ListView.builder(
                               itemCount: data.length,
-                              itemBuilder: (context, index) =>
-                                  ItemBudget(model: data[index], percent: 0.4),
+                              itemBuilder: (context, index) => ItemBudget(
+                                model: data[index],
+                              ),
                             ),
                     );
                   },

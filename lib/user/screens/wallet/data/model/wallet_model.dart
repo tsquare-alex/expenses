@@ -27,8 +27,15 @@ class WalletModel extends HiveObject {
   bool? isHide;
   @HiveField(11)
   bool? isClosed;
+  @HiveField(12)
+  bool checkedValue;
+  @HiveField(13)
+  String walletOpiningDate;
+  @HiveField(14)
+  String walletOpiningTime;
 
   WalletModel({
+    required this.walletOpiningTime,
     required this.name,
     required this.balance,
     required this.date,
@@ -40,6 +47,8 @@ class WalletModel extends HiveObject {
     this.repeatWallet,
     this.isClosed = false,
     this.isHide = false,
+    this.checkedValue = false,
     this.walletPeriod,
+    required this.walletOpiningDate,
   });
 }

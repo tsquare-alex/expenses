@@ -17,6 +17,7 @@ class WalletModelAdapter extends TypeAdapter<WalletModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return WalletModel(
+      walletOpiningTime: fields[14] as String,
       name: fields[0] as String,
       balance: fields[1] as double,
       date: fields[2] as int,
@@ -28,14 +29,16 @@ class WalletModelAdapter extends TypeAdapter<WalletModel> {
       repeatWallet: fields[8] as String?,
       isClosed: fields[11] as bool?,
       isHide: fields[10] as bool?,
+      checkedValue: fields[12] as bool,
       walletPeriod: fields[9] as String?,
+      walletOpiningDate: fields[13] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, WalletModel obj) {
     writer
-      ..writeByte(12)
+      ..writeByte(15)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -59,7 +62,13 @@ class WalletModelAdapter extends TypeAdapter<WalletModel> {
       ..writeByte(10)
       ..write(obj.isHide)
       ..writeByte(11)
-      ..write(obj.isClosed);
+      ..write(obj.isClosed)
+      ..writeByte(12)
+      ..write(obj.checkedValue)
+      ..writeByte(13)
+      ..write(obj.walletOpiningDate)
+      ..writeByte(14)
+      ..write(obj.walletOpiningTime);
   }
 
   @override

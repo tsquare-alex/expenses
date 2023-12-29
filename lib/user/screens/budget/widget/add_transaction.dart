@@ -29,7 +29,8 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
   TextEditingController rangeDateController = TextEditingController();
   TextEditingController walletNameController = TextEditingController();
   TextEditingController transactionController = TextEditingController();
-  TextEditingController budgetNameController = TextEditingController();
+  TextEditingController budgetValue = TextEditingController();
+  TextEditingController budgetName = TextEditingController();
   var formKey = GlobalKey<FormState>();
   double parsedNumber = 0;
   BudgetData data = BudgetData();
@@ -92,83 +93,106 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           height: 10.h,
                         ),
                         GenericTextField(
+                          controller: budgetValue,
                           hint: "pleas enter value",
                           fieldTypes: FieldTypes.normal,
                           type: TextInputType.number,
                           action: TextInputAction.next,
                           validate: (text) {
                             if (text == null || text.isEmpty) {
-                              return "رجاء ادخال اسم المحفظة";
+                              return "رجاء إدخال قيمة الميزانية";
                             }
                             return null;
                           },
                           onChange: (value) {
-                            parsedNumber =
-                                double.parse(budgetNameController.text);
+                            parsedNumber = double.parse(budgetValue.text);
                           },
                         ),
                         SizedBox(
                           height: 15.h,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            MyText(
-                                title: "اختيار محفظة",
-                                color: MyColors.black,
-                                size: 14.sp),
-                            SizedBox(
-                              width: 150.w,
-                              child: BlocBuilder<BudgetCubit, BudgetState>(
-                                builder: (context, state) {
-                                  List<String> walletNames = context
-                                      .read<BudgetCubit>()
-                                      .wallets
-                                      .map((wallet) => wallet.name)
-                                      .toList();
+                        MyText(
+                            title: "اسم الميزانية",
+                            color: MyColors.black,
+                            size: 16.sp),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        GenericTextField(
+                          controller: budgetName,
+                          hint: "pleas enter value",
+                          fieldTypes: FieldTypes.normal,
+                          type: TextInputType.text,
+                          action: TextInputAction.next,
+                          validate: (text) {
+                            if (text == null || text.isEmpty) {
+                              return "رجاء إدخال قيمة الميزانية";
+                            }
+                            return null;
+                          },
+                          onChange: (value) {
+                            parsedNumber = double.parse(budgetName.text);
+                          },
+                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     MyText(
+                        //         title: "اختيار محفظة",
+                        //         color: MyColors.black,
+                        //         size: 14.sp),
+                        //     SizedBox(
+                        //       width: 150.w,
+                        //       child: BlocBuilder<BudgetCubit, BudgetState>(
+                        //         builder: (context, state) {
+                        //           List<String> walletNames = context
+                        //               .read<BudgetCubit>()
+                        //               .wallets
+                        //               .map((wallet) => wallet.name)
+                        //               .toList();
 
-                                  return TileDropdownButton(
-                                    menuList: walletNames,
-                                    onChanged: (value) => {
-                                      walletNameController.text =
-                                          value as String,
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 15.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            MyText(
-                                title: "اختيار المعاملة",
-                                color: MyColors.black,
-                                size: 14.sp),
-                            SizedBox(
-                              width: 150.w,
-                              child: BlocBuilder<BudgetCubit, BudgetState>(
-                                builder: (context, state) {
-                                  List<String> transactionName = context
-                                      .read<BudgetCubit>()
-                                      .transactioList
-                                      .map((transaction) =>
-                                          transaction.transactionName!)
-                                      .toList();
-                                  return TileDropdownButton(
-                                    menuList: transactionName,
-                                    onChanged: (value) => {
-                                      transactionController.text =
-                                          value as String,
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
+                        //           return TileDropdownButton(
+                        //             menuList: walletNames,
+                        //             onChanged: (value) => {
+                        //               walletNameController.text =
+                        //                   value as String,
+                        //             },
+                        //           );
+                        //         },
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                        // SizedBox(height: 15.h),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     MyText(
+                        //         title: "اختيار المعاملة",
+                        //         color: MyColors.black,
+                        //         size: 14.sp),
+                        //     SizedBox(
+                        //       width: 150.w,
+                        //       child: BlocBuilder<BudgetCubit, BudgetState>(
+                        //         builder: (context, state) {
+                        //           List<String> transactionName = context
+                        //               .read<BudgetCubit>()
+                        //               .transactioList
+                        //               .map((transaction) =>
+                        //                   transaction.transactionName!)
+                        //               .toList();
+                        //           return TileDropdownButton(
+                        //             menuList: transactionName,
+                        //             onChanged: (value) => {
+                        //               transactionController.text =
+                        //                   value as String,
+                        //             },
+                        //           );
+                        //         },
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                         SizedBox(height: 15.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -224,7 +248,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                               child: MyText(
                                   title: "تنبيه انتهاء المعالمة",
                                   color: MyColors.black,
-                                  size: 14.sp),
+                                  size: 15.sp),
                             ),
                             Visibility(
                               visible: notificationSwitchvalu,
@@ -249,11 +273,50 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         DefaultButton(
                           fontSize: 14.sp,
                           borderColor: MyColors.primary,
-                          title: "إضافة محفظة",
+                          title: "إضافة ميزانية",
                           color: MyColors.primary,
                           onTap: () async {
                             if (formKey.currentState!.validate()) {
+                              // List<String?> transactionValue = context
+                              //     .read<BudgetCubit>()
+                              //     .transactioList
+                              //     .map((value) => value.total)
+                              //     .toList();
+
+                              // List<double> parsedValues = context
+                              //     .read<BudgetCubit>()
+                              //     .transactioList
+                              //     .map((value) =>
+                              //         double.tryParse(value.total ?? '0.0') ??
+                              //         0.0)
+                              //     .toList();
+                              // List<double> dividedValues = parsedValues.map((value) => value / 100.0).toList();
+                              // List<double> parsedValues = transactionValue
+                              //     .where((value) =>
+                              //         value != null) // Filter out null values
+                              //     .map((value) => double.parse(
+                              //         value!)) // Convert String to double
+                              //     .toList();
+
+                              // var result= parsedNumber/parsedValues
+                              double transactionValue = context
+                                  .read<BudgetCubit>()
+                                  .transactioList
+                                  .map((value) =>
+                                      double.tryParse(value.total ?? '0.0') ??
+                                      0.0)
+                                  .fold(
+                                      0.0,
+                                      ((previousValue, current) =>
+                                          previousValue + current));
+                              double deficiency =
+                                  parsedNumber - transactionValue;
+                              double percentageValue =
+                                  deficiency / parsedNumber;
+
                               var budgetModel = BudgetModel(
+                                  budgetName: budgetName.text,
+                                  percentValue: percentageValue,
                                   selectTransaction: transactionController.text,
                                   selectWallet: walletNameController.text,
                                   budgetPeriod: rangeDateController.text,
@@ -292,5 +355,16 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
             "${dateRange.start.day}/${dateRange.start.month}/${dateRange.start.year} - ${dateRange.end.day}/${dateRange.end.month}/${dateRange.end.year}";
       });
     }
+  }
+
+  @override
+  void dispose() {
+    budgetName.dispose();
+    budgetValue.dispose();
+    rangeDateController.dispose();
+    walletNameController.dispose();
+    transactionController.dispose();
+
+    super.dispose();
   }
 }

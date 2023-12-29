@@ -17,10 +17,12 @@ class BudgetModelAdapter extends TypeAdapter<BudgetModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return BudgetModel(
+      budgetName: fields[6] as String,
       selectTransaction: fields[1] as String,
       selectWallet: fields[2] as String,
       budgetPeriod: fields[3] as String,
       transactionRepeat: fields[4] as String?,
+      percentValue: fields[5] as double?,
       value: fields[0] as double,
     );
   }
@@ -28,7 +30,7 @@ class BudgetModelAdapter extends TypeAdapter<BudgetModel> {
   @override
   void write(BinaryWriter writer, BudgetModel obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.value)
       ..writeByte(1)
@@ -38,7 +40,9 @@ class BudgetModelAdapter extends TypeAdapter<BudgetModel> {
       ..writeByte(3)
       ..write(obj.budgetPeriod)
       ..writeByte(4)
-      ..write(obj.transactionRepeat);
+      ..write(obj.transactionRepeat)
+      ..writeByte(5)
+      ..write(obj.percentValue);
   }
 
   @override

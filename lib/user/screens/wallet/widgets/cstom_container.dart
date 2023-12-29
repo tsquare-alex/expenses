@@ -202,7 +202,7 @@ class _CustomContainerState extends State<CustomContainer> {
                   visible: !widget.model.isHide!,
                   child: MyText(
                       alien: TextAlign.end,
-                      title: "${widget.model.balance}",
+                      title: "${widget.model.category}",
                       color: MyColors.white,
                       size: 22.sp),
                 ),
@@ -332,6 +332,13 @@ class _CustomContainerState extends State<CustomContainer> {
                 icon: const Icon(Icons.settings),
                 color: MyColors.white,
               ),
+              widget.model.checkedValue == true
+                  ? IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.star),
+                      color: MyColors.white,
+                    )
+                  : const SizedBox(),
             ],
           )
         ],

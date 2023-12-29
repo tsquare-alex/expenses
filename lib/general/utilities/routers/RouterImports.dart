@@ -36,7 +36,7 @@ import 'package:expenses/user/screens/target/target_imports.dart';
 import 'package:expenses/user/screens/transaction_details/transaction_details_imports.dart';
 import 'package:expenses/user/screens/wallet/widgets/balance_withdrawal.dart';
 import 'package:expenses/user/screens/wallet/widgets/edit_Wallet.dart';
+import 'package:expenses/user/screens/wallet/widgets/wallet_category_screen.dart';
 import 'package:expenses/user/screens/wallet_transactions/wallet_transactions_imports.dart';
-
 
 part 'Router.dart';

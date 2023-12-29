@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
-import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
@@ -30,9 +30,13 @@ class _AddWalletState extends State<AddWallet> {
   final TextEditingController categoryController = TextEditingController();
   final TextEditingController encomSourceController = TextEditingController();
   final TextEditingController valueCategoryController = TextEditingController();
+  final TextEditingController openDateController = TextEditingController();
+  final TextEditingController openTimeController = TextEditingController();
 
   final TextEditingController paymentMethodController = TextEditingController();
   WalletData data = WalletData();
+  DateTime selectOpenDate = DateTime.now();
+  TimeOfDay selectOpenTime = TimeOfDay.now();
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedtTime = TimeOfDay.now();
   bool repeatSwitchValue = false;
@@ -128,6 +132,7 @@ class _AddWalletState extends State<AddWallet> {
                           height: 45.h,
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Icon(Icons.calendar_month),
                             SizedBox(
@@ -157,6 +162,46 @@ class _AddWalletState extends State<AddWallet> {
                                 },
                                 child: Text(
                                   ' ${selectedtTime.minute}: ${selectedtTime.hour} ',
+                                  style: TextStyle(fontSize: 14.sp),
+                                )),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Icon(Icons.calendar_month),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                            Expanded(
+                              child: MyText(
+                                  title: "تاريخ فتح المحفظة",
+                                  color: MyColors.black,
+                                  size: 14.sp),
+                            ),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  chosenOpenDate();
+                                },
+                                child: Text(
+                                  '${selectOpenDate.month}/${selectOpenDate.day}/${selectOpenDate.year}',
+                                  style: TextStyle(fontSize: 14.sp),
+                                )),
+                            SizedBox(
+                              width: 60.w,
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  chosenOpenTime();
+                                },
+                                child: Text(
+                                  ' ${selectOpenTime.minute}: ${selectOpenTime.hour} ',
                                   style: TextStyle(fontSize: 14.sp),
                                 )),
                           ],
@@ -216,11 +261,26 @@ class _AddWalletState extends State<AddWallet> {
                                       .watch<WalletCubit>()
                                       .walletCategory,
                                   value: context
-                                      .read<WalletCubit>()
-                                      .walletCategory
-                                      .first,
+                                          .watch<WalletCubit>()
+                                          .walletCategory[
+                                      context
+                                          .watch<WalletCubit>()
+                                          .selectedCategoryIndex
+                                          .value],
+                                  // context
+                                  //     .read<WalletCubit>()
+                                  //     .walletCategory
+                                  //     .first,
                                   onChanged: (value) {
-                                    categoryController.text = value as String;
+                                    int newIndex = context
+                                        .read<WalletCubit>()
+                                        .walletCategory
+                                        .indexOf(value as String);
+                                    context
+                                        .read<WalletCubit>()
+                                        .selectedCategoryIndex
+                                        .value = newIndex;
+                                    // categoryController.text = value as String;
                                   }),
                             ),
                             IconButton(
@@ -309,6 +369,27 @@ class _AddWalletState extends State<AddWallet> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            MyText(
+                                title: "تحديد  المحفظة الافتراضية",
+                                color: MyColors.black,
+                                size: 14.sp),
+                            Checkbox(
+                                activeColor: MyColors.primary,
+                                value: context.read<WalletCubit>().checkedValue,
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    context.read<WalletCubit>().checkedValue =
+                                        newValue!;
+                                  });
+                                })
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
                             Expanded(
                               child: MyText(
                                   title: "تكرار المحفظة",
@@ -338,12 +419,39 @@ class _AddWalletState extends State<AddWallet> {
                         SizedBox(
                           height: 15.h,
                         ),
+                        Visibility(
+                          visible: repeatSwitchValue,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              MyText(
+                                  title: "عدد مرات تكرار المحفظة",
+                                  color: MyColors.black,
+                                  size: 14.sp),
+                              SizedBox(
+                                width: 150.w,
+                                child: TileDropdownButton(
+                                    menuList: context
+                                        .watch<WalletCubit>()
+                                        .walletDuplicate,
+                                    value: context
+                                        .read<WalletCubit>()
+                                        .walletDuplicate
+                                        .first,
+                                    onChanged: (value) {}),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
                               child: MyText(
-                                  title: "تنبيه انتهاء المعالمة",
+                                  title: "تنبيه عند انتهاء 20%",
                                   color: MyColors.black,
                                   size: 14.sp),
                             ),
@@ -390,6 +498,10 @@ class _AddWalletState extends State<AddWallet> {
                           onTap: () async {
                             if (formKey.currentState!.validate()) {
                               var walletModel = WalletModel(
+                                  walletOpiningTime: openTimeController.text,
+                                  walletOpiningDate: openDateController.text,
+                                  checkedValue:
+                                      context.read<WalletCubit>().checkedValue,
                                   walletPeriod: rangeDateController.text,
                                   valueCategory:
                                       valueCategoryController.text == ""
@@ -412,7 +524,8 @@ class _AddWalletState extends State<AddWallet> {
                               await BlocProvider.of<WalletCubit>(context)
                                   .addNote(walletModel);
                               if (context.mounted) {
-                                AutoRouter.of(context).pop();
+                                AutoRouter.of(context)
+                                    .push(HomeRoute(index: 0, pageIndex: 7));
                               }
                             }
                           },
@@ -472,5 +585,47 @@ class _AddWalletState extends State<AddWallet> {
             "${dateRange.start.day}/${dateRange.start.month}/${dateRange.start.year} - ${dateRange.end.day}/${dateRange.end.month}/${dateRange.end.year}";
       });
     }
+  }
+
+  void chosenOpenDate() async {
+    var chosenDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now().add(const Duration(days: 30)),
+        firstDate: DateTime.now(),
+        lastDate: DateTime.now().add(const Duration(days: 365)));
+
+    if (chosenDate != null) {
+      selectOpenDate = chosenDate;
+      openDateController.text = selectedDate.toString();
+      setState(() {});
+    }
+  }
+
+  void chosenOpenTime() async {
+    var chosenDate = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (chosenDate != null) {
+      selectOpenTime = chosenDate;
+      openTimeController.text = selectedtTime.toString();
+      setState(() {});
+    }
+  }
+
+  @override
+  void dispose() {
+    walletNameController.dispose();
+    balanceController.dispose();
+    dateController.dispose();
+    timeController.dispose();
+    rangeDateController.dispose();
+    categoryController.dispose();
+    encomSourceController.dispose();
+    valueCategoryController.dispose();
+    openDateController.dispose();
+    openTimeController.dispose();
+    paymentMethodController.dispose();
+    super.dispose();
   }
 }

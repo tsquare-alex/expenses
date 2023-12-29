@@ -2,8 +2,26 @@ part of 'bag_imports.dart';
 
 class BagData{
 
-  TextEditingController transactionController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
 
+  final GlobalKey<DropdownSearchState> unitsDropKey = GlobalKey();
+
+  int? unitId;
+  DropdownModel? selectedUnit;
+
+  List<DropdownModel> units = [
+    DropdownModel(id: 0, name: "زمن"),
+    DropdownModel(id: 1, name: "طول"),
+    DropdownModel(id: 2, name: "وزن"),
+    DropdownModel(id: 3, name: "كتلة"),
+    DropdownModel(id: 4, name: "حجم"),
+    DropdownModel(id: 5, name: "سرعة"),
+    DropdownModel(id: 6, name: "قوة"),
+    DropdownModel(id: 7, name: "ضغط"),
+    DropdownModel(id: 8, name: "طاقة"),
+    DropdownModel(id: 9, name: "كهرباء"),
+  ];
 
   List<DropdownModel> cart = [
     DropdownModel(id: 0, name: "خضار"),
@@ -16,6 +34,15 @@ class BagData{
   GenericBloc<List<DropdownModel>> bagCubit = GenericBloc([]);
   GenericBloc<DropdownModel?> typeCubit = GenericBloc(null);
 
+
+  void setSelectUnit(DropdownModel? model) {
+    selectedUnit = model;
+    unitId = model?.id;
+  }
+
+  Future<List<DropdownModel>> getUnits(BuildContext context) async {
+    return units;
+  }
 
   initialTransaction() async {
     final box = await Hive.openBox<DropdownModel>("bagBox");
@@ -50,4 +77,28 @@ class BagData{
       print('Error fetching data from Hive: $e');
     }
   }
+
+  addBagItem(DropdownModel model) async {
+    final box = await Hive.openBox<DropdownModel>("bagBox");
+    box.add(model);
+    print(box.values.length);
+    print('success');
+    print(model.name);
+    bagCubit.onUpdateData(box.values.toList());
+  }
+
+  addBagModel(BuildContext context) {
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r))),
+      context: context,
+      builder: (context) => SizedBox(
+          height: 400.h,
+          child: BuildAddBagModel(
+            data: this,
+          )),
+    );
+  }
+
 }

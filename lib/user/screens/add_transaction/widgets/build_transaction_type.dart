@@ -11,6 +11,7 @@ class BuildTransactionType extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(type);
     return Column(
       children: [
         OpenContainer(
@@ -32,10 +33,10 @@ class BuildTransactionType extends StatelessWidget {
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                if(type == "الالتزامات" || type == "التسوق والشراء"){
+                if (type == "الالتزامات" || type == "التسوق والشراء") {
                   addTransactionData.addTransactionModel(context, type);
-
-                }else if(type == "المعاملات النقدية" || type == "الاهداف المالية المستهدفة"){
+                } else if (type == "المعاملات النقدية" ||
+                    type == "الاهداف المالية المستهدفة") {
                   addTransactionData.addTransactionModel(context, type);
                 }
               },
@@ -160,8 +161,11 @@ class BuildTransactionType extends StatelessWidget {
                   )
                 : type == "الاهداف المالية المستهدفة" ||
                         type == "المعاملات النقدية"
-                    ? BlocBuilder<GenericBloc<List<DropdownModel>>, GenericState<List<DropdownModel>>>(
-              bloc: type == "الاهداف المالية المستهدفة" ?addTransactionData.targetCubit:addTransactionData.cashTransactionCubit,
+                    ? BlocBuilder<GenericBloc<List<DropdownModel>>,
+                        GenericState<List<DropdownModel>>>(
+                        bloc: type == "الاهداف المالية المستهدفة"
+                            ? addTransactionData.targetCubit
+                            : addTransactionData.cashTransactionCubit,
                         builder: (context, state) => Padding(
                           padding: EdgeInsets.all(15.0.r),
                           child: ListView.builder(
@@ -172,20 +176,20 @@ class BuildTransactionType extends StatelessWidget {
                               padding: EdgeInsets.only(bottom: 5.0.r),
                               child: InkWell(
                                 onTap: () {
-                                  if(type=="المعاملات النقدية"){
+                                  if (type == "المعاملات النقدية") {
                                     addTransactionData.cashTypeCubit
                                         .onUpdateData(state.data[i]);
                                     AutoRouter.of(context).pop();
                                     print(addTransactionData
                                         .cashTypeCubit.state.data?.name);
-                                  }else if(type=="الاهداف المالية المستهدفة"){
+                                  } else if (type ==
+                                      "الاهداف المالية المستهدفة") {
                                     addTransactionData.targetTypeCubit
                                         .onUpdateData(state.data[i]);
                                     AutoRouter.of(context).pop();
                                     print(addTransactionData
                                         .targetTypeCubit.state.data?.name);
                                   }
-
                                 },
                                 child: Column(
                                   children: [
@@ -193,23 +197,30 @@ class BuildTransactionType extends StatelessWidget {
                                       children: [
                                         CircleAvatar(
                                           radius: 20.r,
-                                          backgroundColor:
-                                              MyColors.primary,
-                                          child: Image.asset(Res.transaction,color: MyColors.white,width: 18.w,height: 18.h,),
+                                          backgroundColor: MyColors.primary,
+                                          child: Image.asset(
+                                            Res.transaction,
+                                            color: MyColors.white,
+                                            width: 18.w,
+                                            height: 18.h,
+                                          ),
                                         ),
                                         SizedBox(
                                           width: 15.w,
                                         ),
                                         MyText(
-                                          title: state.data[i].name ??
-                                              "",
+                                          title: state.data[i].name ?? "",
                                           color: MyColors.black,
                                           size: 14.sp,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ],
                                     ),
-                                    if(i!=state.data.length-1)Divider(thickness: 1.w,color: MyColors.grey,),
+                                    if (i != state.data.length - 1)
+                                      Divider(
+                                        thickness: 1.w,
+                                        color: MyColors.grey,
+                                      ),
                                   ],
                                 ),
                               ),
@@ -221,241 +232,111 @@ class BuildTransactionType extends StatelessWidget {
                         ? Container()
                         : Container(),
           ),
-          closedBuilder: (_, openContainer) => Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            //margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
-            decoration: BoxDecoration(
-                color: MyColors.backgroundColor,
-                borderRadius: BorderRadius.circular(15.r),
-                boxShadow: const [
-                  BoxShadow(
-                      color: MyColors.shadow, spreadRadius: 0, blurRadius: 12)
-                ]),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          closedBuilder: (_, openContainer) => Form(
+            key: addTransactionData.formKey,
+            child: Column(
               children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 20.r,
-                      backgroundColor: MyColors.primary,
-                      child: Image.asset(
-                        Res.transaction,
-                        color: MyColors.white,
-                        width: 18.w,
-                        height: 18.h,
+                if(type=="الالتزامات"||type=="التسوق والشراء")BlocBuilder<GenericBloc<TransactionContentModel?>,
+                    GenericState<TransactionContentModel?>>(
+                  bloc: addTransactionData.typeContentCubit,
+                  builder: (context, state) {
+                    if (state.data != null) {
+                      addTransactionData.transactionController.text =
+                          state.data?.name ?? "";
+                    }
+                    return Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.0.r),
+                      child: GenericTextField(
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.only(left: 10.0.r),
+                          child: CircleAvatar(
+                            radius: 20.r,
+                            backgroundColor: MyColors.primary,
+                            child: Image.asset(
+                              Res.transaction,
+                              color: MyColors.white,
+                              width: 18.w,
+                              height: 18.h,
+                            ),
+                          ),
+                        ),
+                        contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 16),
+                        controller: addTransactionData.transactionController,
+                        fieldTypes: FieldTypes.clickable,
+                        type: TextInputType.text,
+                        action: TextInputAction.next,
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter brand name';
+                          }
+                        },
+                        label: tr(context, "transaction"),
+                        margin: const EdgeInsets.only(top: 0),
+                        suffixIcon: Icon(
+                          Icons.arrow_drop_down,
+                          color: MyColors.grey,
+                          size: 28.w,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                if(type == "المعاملات النقدية" ||
+                    type == "الاهداف المالية المستهدفة")  BlocBuilder<GenericBloc<DropdownModel?>,
+                    GenericState<DropdownModel?>>(
+                  bloc: type == "المعاملات النقدية"
+                      ? addTransactionData.cashTypeCubit
+                      : addTransactionData.targetTypeCubit,
+                  builder: (context, state) {
+                  if (state.data != null) {
+                    addTransactionData.transactionController.text =
+                        state.data?.name ?? "";
+                  }
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0.r),
+                    child: GenericTextField(
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only(left: 10.0.r),
+                        child: CircleAvatar(
+                          radius: 20.r,
+                          backgroundColor: MyColors.primary,
+                          child: Image.asset(
+                            Res.transaction,
+                            color: MyColors.white,
+                            width: 18.w,
+                            height: 18.h,
+                          ),
+                        ),
+                      ),
+                      contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16),
+                      controller: addTransactionData.transactionController,
+                      fieldTypes: FieldTypes.clickable,
+                      type: TextInputType.text,
+                      action: TextInputAction.next,
+                      validate: (value) {
+                        if (value!.isEmpty) {
+                          return 'Enter brand name';
+                        }
+                      },
+                      label: tr(context, "transaction"),
+                      margin: const EdgeInsets.only(top: 0),
+                      suffixIcon: Icon(
+                        Icons.arrow_drop_down,
+                        color: MyColors.grey,
+                        size: 28.w,
                       ),
                     ),
-                    SizedBox(
-                      width: 20.w,
-                    ),
-                    if(type=="الالتزامات"||type=="التسوق والشراء")BlocBuilder<GenericBloc<TransactionContentModel?>,
-                        GenericState<TransactionContentModel?>>(
-                      bloc: addTransactionData.typeContentCubit,
-                      builder: (context, state) {
-                        return MyText(
-                          title: state.data == null
-                              ? tr(context, "transaction")
-                              : "${state.data?.name}",
-                          color: MyColors.black,
-                          size: 14.sp,
-                          fontWeight: FontWeight.bold,
-                        );
-                      },
-                    ),
-                    if(type=="المعاملات النقدية"||type=="الاهداف المالية المستهدفة")BlocBuilder<GenericBloc<DropdownModel?>,
-                        GenericState<DropdownModel?>>(
-                      bloc: type=="المعاملات النقدية"?addTransactionData.cashTypeCubit:addTransactionData.targetTypeCubit,
-                      builder: (context, state) {
-                        return MyText(
-                          title: state.data == null
-                              ? tr(context, "transaction")
-                              : "${state.data?.name}",
-                          color: MyColors.black,
-                          size: 14.sp,
-                          fontWeight: FontWeight.bold,
-                        );
-                      },
-                    ),
-                  ],
+                  );
+                },
                 ),
-                Icon(
-                  Icons.arrow_drop_down,
-                  size: 30.w,
-                  color: MyColors.grey,
-                ),
+            
+            
               ],
             ),
           ),
         ),
-        // Form(
-        //   key: addTransactionData.formKey,
-        //   child: Column(
-        //     children: [
-        //       if (type == "الالتزامات" || type == "التسوق والشراء")
-        //         BlocBuilder<GenericBloc<List<TransactionTypeModel>>,
-        //             GenericState<List<TransactionTypeModel>>>(
-        //           bloc: type == "الالتزامات"
-        //               ? addTransactionData.transactionTypeCubit
-        //               : addTransactionData.shoppingTypeCubit,
-        //           builder: (context, state) {
-        //             return Column(
-        //               children: [
-        //                 Row(
-        //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //                   children: [
-        //                     MyText(
-        //                       title: type == "الالتزامات"
-        //                           ? tr(context, "selectCommitment")
-        //                           : tr(context, "selectShopping"),
-        //                       color: MyColors.black,
-        //                       size: 12.sp,
-        //                       fontWeight: FontWeight.bold,
-        //                     ),
-        //                     IconButton(
-        //                         onPressed: () => addTransactionData
-        //                             .addTransactionModel(context, type),
-        //                         icon: Icon(Icons.add))
-        //                   ],
-        //                 ),
-        //                 DropdownTextField<TransactionTypeModel>(
-        //                   dropKey: addTransactionData.commitmentDropKey,
-        //                   label: tr(context, "transaction"),
-        //                   selectedItem: addTransactionData.selectedCommitment,
-        //                   margin: const EdgeInsets.symmetric(vertical: 5),
-        //                   validate: (value) {
-        //                     if (value == null) {
-        //                       print("Please fill this field");
-        //                     }
-        //                   },
-        //                   onChange: addTransactionData.setSelectCommitment,
-        //                   finData: (data) => addTransactionData.getCommitments(
-        //                       context, state.data),
-        //                   useName: true,
-        //                   buttonsColor: MyColors.primary,
-        //                   searchHint: tr(context, "search"),
-        //                 ),
-        //                 SizedBox(
-        //                   height: 20.h,
-        //                 ),
-        //                 Row(
-        //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //                   children: [
-        //                     MyText(
-        //                       title: tr(context, "selectTransferContent"),
-        //                       color: MyColors.black,
-        //                       size: 12.sp,
-        //                       fontWeight: FontWeight.bold,
-        //                     ),
-        //                     IconButton(
-        //                         onPressed: () => addTransactionData
-        //                             .addTransactionContentModel(context, type),
-        //                         icon: Icon(Icons.add))
-        //                   ],
-        //                 ),
-        //                 DropdownTextField<TransactionContentModel>(
-        //                   dropKey: addTransactionData.commitmentContentDropKey,
-        //                   label: tr(context, "select"),
-        //                   selectedItem:
-        //                       addTransactionData.selectedCommitmentContent,
-        //                   margin: const EdgeInsets.symmetric(vertical: 5),
-        //                   validate: (value) {
-        //                     if (value == null) {
-        //                       print("Please fill this field");
-        //                     }
-        //                   },
-        //                   onChange: addTransactionData.setSelectCommitmentContent,
-        //                   finData: (data) =>
-        //                       addTransactionData.getCommitmentsContent(
-        //                     context,
-        //                   ),
-        //                   useName: true,
-        //                   buttonsColor: MyColors.primary,
-        //                   searchHint: tr(context, "search"),
-        //                 ),
-        //               ],
-        //             );
-        //           },
-        //         ),
-        //       if (type == "الاهداف المالية المستهدفة")
-        //         Column(
-        //           children: [
-        //             Row(
-        //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //               children: [
-        //                 MyText(
-        //                   title: tr(context, "selectTargetName"),
-        //                   color: MyColors.black,
-        //                   size: 12.sp,
-        //                   fontWeight: FontWeight.bold,
-        //                 ),
-        //                 IconButton(
-        //                     onPressed: () => addTransactionData
-        //                         .addTransactionContentModel(context, type),
-        //                     icon: Icon(Icons.add))
-        //               ],
-        //             ),
-        //             DropdownTextField<DropdownModel>(
-        //               dropKey: addTransactionData.targetDropKey,
-        //               label: tr(context, "select"),
-        //               selectedItem: addTransactionData.selectedTarget,
-        //               margin: const EdgeInsets.symmetric(vertical: 5),
-        //               validate: (value) {
-        //                 if (value == null) {
-        //                   print("Please fill this field");
-        //                 }
-        //               },
-        //               onChange: addTransactionData.setSelectTarget,
-        //               finData: (data) => addTransactionData.getTarget(
-        //                 context,
-        //               ),
-        //               useName: true,
-        //               buttonsColor: MyColors.primary,
-        //               searchHint: tr(context, "search"),
-        //             ),
-        //           ],
-        //         ),
-        //       if (type == "المعاملات النقدية")
-        //         Column(
-        //           children: [
-        //             Row(
-        //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //               children: [
-        //                 MyText(
-        //                   title: tr(context, "selectCashTransaction"),
-        //                   color: MyColors.black,
-        //                   size: 12.sp,
-        //                   fontWeight: FontWeight.bold,
-        //                 ),
-        //                 IconButton(
-        //                     onPressed: () => addTransactionData
-        //                         .addTransactionContentModel(context, type),
-        //                     icon: Icon(Icons.add))
-        //               ],
-        //             ),
-        //             DropdownTextField<DropdownModel>(
-        //               dropKey: addTransactionData.cashTransactionDropKey,
-        //               label: tr(context, "select"),
-        //               selectedItem: addTransactionData.selectedCashTransaction,
-        //               margin: const EdgeInsets.symmetric(vertical: 5),
-        //               validate: (value) {
-        //                 if (value == null) {
-        //                   print("Please fill this field");
-        //                 }
-        //               },
-        //               onChange: addTransactionData.setSelectCashTransactions,
-        //               finData: (data) => addTransactionData.getCashTransactions(
-        //                 context,
-        //               ),
-        //               useName: true,
-        //               buttonsColor: MyColors.primary,
-        //               searchHint: tr(context, "search"),
-        //             ),
-        //           ],
-        //         ),
-        //     ],
-        //   ),
-        // ),
       ],
     );
   }

@@ -21,7 +21,7 @@ class _BagState extends State<Bag> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(padding: EdgeInsets.all(15.r),
-      child: AddBagItem(data: data,),),
+      child: AddBagItem(bagData: data,),),
     );
   }
 }

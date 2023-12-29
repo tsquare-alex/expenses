@@ -1,14 +1,11 @@
-part of 'add_transaction_widgets_imports.dart';
+part of 'bag_widgets_imports.dart';
 
-class BuildAddTransactionModel extends StatelessWidget {
-  const BuildAddTransactionModel({Key? key, required this.data, required this.type})
-      : super(key: key);
-  final AddTransactionData data;
-  final String type;
+class BuildAddBagModel extends StatelessWidget {
+  const BuildAddBagModel({Key? key, required this.data}) : super(key: key);
+  final BagData data;
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: EdgeInsets.all(15.0.r),
       child: SingleChildScrollView(
@@ -39,29 +36,11 @@ class BuildAddTransactionModel extends StatelessWidget {
             ),
             DefaultButton(
               onTap: () {
-                // var box = Hive.box(ApiNames.kTransactionTypes);
-                // box.put("name", "Mohamed");
-                if(type == "الالتزامات"||type=="التسوق والشراء"){data.addTransactionType(
-                  TransactionTypeModel(
-                      name: data.nameController.text,
-                      content: [
-
-                      ]
+                data.addBagItem(
+                  DropdownModel(
+                    name: data.nameController.text
                   ),
-                  type
-                );}else if(type == "الاهداف المالية المستهدفة"){
-                  data.addTarget(
-                    DropdownModel(
-                      name: data.nameController.text,
-                    ),
-                  );
-                }else if (type == "المعاملات النقدية"){
-                  data.addCashTransaction(
-                    DropdownModel(
-                      name: data.nameController.text,
-                    ),
-                  );
-                }
+                );
                 AutoRouter.of(context).pop();
                 data.nameController.clear();
               },
@@ -73,7 +52,5 @@ class BuildAddTransactionModel extends StatelessWidget {
         ),
       ),
     );
-
-
   }
 }

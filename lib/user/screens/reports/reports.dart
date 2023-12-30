@@ -20,7 +20,7 @@ class _ReportsState extends State<Reports> {
         title: Row(
           children: [
             Image.asset(
-              Res.report,
+              Res.chart,
               width: 20.w,
               height: 20.h,
               color: MyColors.white,

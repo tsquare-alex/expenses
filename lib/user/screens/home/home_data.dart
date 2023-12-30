@@ -22,7 +22,7 @@ class HomeData{
       title: "main",
     ),
     TabModel(
-      image: Res.report,
+      image: Res.chart,
       title: "reports",
     ),
   ];

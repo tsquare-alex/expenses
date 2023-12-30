@@ -33,7 +33,7 @@ class MainData{
       name: "flHelp",
       percent: 45,
       color: Colors.lightGreen,
-      image: Res.explain,
+      image: Res.info,
     ),
     PieChartDataModel(
       name: "flTransactions",
@@ -45,7 +45,7 @@ class MainData{
       name: "flReports",
       percent: 45,
       color: MyColors.primary,
-      image: Res.report,
+      image: Res.chart,
     ),
     PieChartDataModel(
       name: "flSettings",

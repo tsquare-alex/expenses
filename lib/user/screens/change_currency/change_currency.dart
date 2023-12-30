@@ -23,7 +23,7 @@ class _ChangeCurrencyState extends State<ChangeCurrency> {
         ),
         centerTitle: true,
         title: MyText(
-          title: "Change Currency",
+          title: tr(context, "currencyTransfer"),
           color: MyColors.white,
           size: 18.sp,
           fontWeight: FontWeight.bold,

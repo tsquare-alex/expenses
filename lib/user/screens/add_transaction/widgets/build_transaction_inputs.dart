@@ -153,7 +153,7 @@ class BuildTransactionInputs extends StatelessWidget {
                   ),
                 ],
               ),
-            if (type == "الالتزامات" || type == "التسوق والشراء")
+            if (type == "التسوق والشراء")
               Column(
                 children: [
                   SizedBox(
@@ -223,43 +223,47 @@ class BuildTransactionInputs extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      MyText(
-                        title: tr(context, "total"),
-                        color: MyColors.black,
-                        size: 12.sp,
-                        fontWeight: FontWeight.bold,
-                        alien: TextAlign.center,
-                      ),
-                      SizedBox(
-                        width: 34.w,
-                      ),
-                      Expanded(
-                        child: GenericTextField(
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 16),
-                          controller: addTransactionData.totalController,
-                          fieldTypes: FieldTypes.normal,
-                          type: TextInputType.number,
-                          action: TextInputAction.next,
-                          validate: (value) {
-                            if (value!.isEmpty) {
-                              return 'Enter total price';
-                            }
-                          },
-                          label: tr(context, "total"),
-                          margin: const EdgeInsets.only(top: 0),
-                        ),
-                      ),
-                    ],
-                  ),
                 ],
               ),
+            if (type=="الالتزامات"||type == "التسوق والشراء")Column(
+              children: [
+                SizedBox(
+                  height: 10.h,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    MyText(
+                      title: tr(context, "total"),
+                      color: MyColors.black,
+                      size: 12.sp,
+                      fontWeight: FontWeight.bold,
+                      alien: TextAlign.center,
+                    ),
+                    SizedBox(
+                      width: 34.w,
+                    ),
+                    Expanded(
+                      child: GenericTextField(
+                        contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 16),
+                        controller: addTransactionData.totalController,
+                        fieldTypes: FieldTypes.normal,
+                        type: TextInputType.number,
+                        action: TextInputAction.next,
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter total price';
+                          }
+                        },
+                        label: tr(context, "total"),
+                        margin: const EdgeInsets.only(top: 0),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
             if (type == "المعاملات النقدية")
               Row(
                 children: [

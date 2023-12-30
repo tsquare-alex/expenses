@@ -23,6 +23,29 @@ class _ShoppingState extends State<Shopping> {
       bloc: data.addTransactionCubit,
       builder: (context, state) {
         return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.amber,
+            title: Row(
+              children: [
+                Image.asset(
+                  Res.cart,
+                  width: 20.w,
+                  height: 20.h,
+                  color: MyColors.white,
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                MyText(
+                  title: tr(context, "shopping"),
+                  color: Colors.white,
+                  size: 14.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ],
+            ),
+            automaticallyImplyLeading: false,
+          ),
           floatingActionButton: state.data.isNotEmpty?FloatingActionButton(
             backgroundColor: MyColors.primary,
             onPressed: () {

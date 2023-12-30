@@ -63,8 +63,7 @@ class Res {
   static const String save = "assets/images/save.png";
   static const String searchRecords = "assets/images/searchRecords.png";
   static const String secure = "assets/images/secure.png";
-  static const String security = "assets/images/security.jpg";
-  static const String security1 = "assets/images/security.png";
+  static const String security = "assets/images/security.png";
   static const String settings = "assets/images/settings.png";
   static const String share = "assets/images/share.png";
   static const String star = "assets/images/star.png";

@@ -96,25 +96,6 @@ class _ExpenseState extends State<Expense> with TickerProviderStateMixin {
                             (index) => Tab(
                                   text: tr(context, data.titles[index]),
                                 )
-                            //         Container(
-                            //   height: 50.h,
-                            //   alignment: Alignment.center,
-                            //   width: MediaQuery.of(context).size.width*0.5,
-                            //   decoration: BoxDecoration(
-                            //       color: state1.data[index].isSelected==true?MyColors.white:MyColors.primary.withOpacity(0.4),
-                            //       border: Border.all(
-                            //         color: state1.data[index].isSelected==true?MyColors.black:MyColors.primary,
-                            //         width: 2.w,
-                            //       ),
-                            //       borderRadius: BorderRadius.circular(15.r)
-                            //   ),
-                            //   child: MyText(
-                            //     title: data.commitments[index].name ??"",
-                            //     color: state1.data[index].isSelected==true?MyColors.primary:MyColors.black,
-                            //     size: 14.sp,
-                            //     fontWeight: FontWeight.bold,
-                            //   ),
-                            // ),
                             ),
                       ),
                     );

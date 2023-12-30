@@ -20,87 +20,39 @@ class _TargetState extends State<Target> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => AutoRouter.of(context).push(
-          AddTransactionRoute(
-            model: data.model,
-          ),
-        ),
-        backgroundColor: MyColors.primary,
-        shape: const CircleBorder(),
-        child: Icon(
-          Icons.add,
-          color: MyColors.white,
-        ),
-      ),
-      body: BlocBuilder<GenericBloc<List<AddTransactionModel>>,
-          GenericState<List<AddTransactionModel>>>(
-        bloc: data.addTransactionCubit,
-        builder: (context, state) {
-          if (state.data.isEmpty) {
-            return const SingleChildScrollView(
-              child: BuildNoRecord(),
-            );
-          } else {
-            return Padding(
-              padding: EdgeInsets.all(15.0.r),
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: state.data.length,
-                itemBuilder: (context, i) => BuildTransactionCard(
-                  model: state.data[i], onDelete: ()=>data.deleteItem(state.data[i],),
+    return BlocBuilder<GenericBloc<List<AddTransactionModel>>, GenericState<List<AddTransactionModel>>>(
+      bloc: data.addTransactionCubit,
+      builder: (context, state) {
+        return Scaffold(
+          floatingActionButton: state.data.isNotEmpty?FloatingActionButton(
+            onPressed: () =>
+                AutoRouter.of(context).push(
+                  AddTransactionRoute(
+                    model: data.model,
+                  ),
                 ),
-              ),
-              // child: ListView.builder(
-              //   itemCount: state.data.length,
-              //   itemBuilder: (context, index) {
-              //     AddTransactionModel model = state.data[index];
-              //     data.calculateTargetPrice(model, context);
-              //     return Container(
-              //       decoration: BoxDecoration(
-              //           borderRadius: BorderRadius.circular(15.r),
-              //           color: MyColors.primary.withOpacity(0.3)),
-              //       child: ListTile(
-              //         onTap: () => AutoRouter.of(context).push(
-              //           TransactionDetailsRoute(
-              //             model: model,
-              //           ),
-              //         ),
-              //         title: MyText(
-              //           title: "${model.transactionDate}",
-              //           color: MyColors.black,
-              //           size: 14.sp,
-              //           fontWeight: FontWeight.bold,
-              //         ),
-              //         leading: MyText(
-              //           title: model.targetType?.name ?? "",
-              //           color: MyColors.black,
-              //           size: 14.sp,
-              //           fontWeight: FontWeight.bold,
-              //         ),
-              //         subtitle: LinearPercentIndicator(
-              //           lineHeight: 10.0.h,
-              //           percent: data.percent,
-              //           progressColor: Colors.blue,
-              //         ),
-              //         trailing: IconButton(
-              //           onPressed: () =>
-              //               () => data.deleteItem(state.data[index]),
-              //           icon: Icon(
-              //             Icons.delete,
-              //             color: MyColors.primary,
-              //           ),
-              //         ),
-              //       ),
-              //     );
-              //   },
-              // ),
-            );
-          }
-        },
-      ),
+            backgroundColor: MyColors.primary,
+            child: Icon(
+              Icons.add,
+              color: MyColors.white,
+            ),
+          ):null,
+          body: state.data.isEmpty?AddTransaction(model: data.model):
+          Padding(
+            padding: EdgeInsets.all(15.0.r),
+            child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: state.data.length,
+              itemBuilder: (context, i) =>
+                  BuildTransactionCard(
+                    model: state.data[i], onDelete: () =>
+                      data.deleteItem(state.data[i],),
+                  ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

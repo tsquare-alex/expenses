@@ -14,7 +14,7 @@ class HomeData{
 
   List<TabModel> tabs = [
     TabModel(
-      image: Res.dollar,
+      image: Res.transaction,
       title: "transactions",
     ),
     TabModel(
@@ -22,7 +22,7 @@ class HomeData{
       title: "main",
     ),
     TabModel(
-      image: Res.cart,
+      image: Res.report,
       title: "reports",
     ),
   ];
@@ -40,6 +40,9 @@ class HomeData{
     "target",
     "cashTransactions",
     "recurringTransactions",
+    "commitments",
+    "shopping",
+    "cart",
   ];
 
   List<String> icons=[
@@ -56,6 +59,9 @@ class HomeData{
     Res.budget,
     Res.cashTransactions,
     Res.repeatedTransactions,
+    Res.commitment,
+    Res.bag,
+    Res.cart,
   ];
 
 

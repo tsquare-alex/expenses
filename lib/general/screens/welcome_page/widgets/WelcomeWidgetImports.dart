@@ -6,6 +6,7 @@ import 'package:expenses/general/models/WelcomeEntity.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/MyText.dart';
+import 'package:expenses/res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

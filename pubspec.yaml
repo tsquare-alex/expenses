@@ -83,6 +83,9 @@ dependencies:
   macos_ui: ^2.0.2
   barcode_scan2: ^4.3.0
   flutter_expandable_fab: ^2.0.0
+  country_picker:
+  currency_picker:
+  animations:
 
 dev_dependencies:
   flutter_test:

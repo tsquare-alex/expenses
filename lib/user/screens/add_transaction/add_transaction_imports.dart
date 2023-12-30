@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
+import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/blocks/lang_cubit/lang_cubit.dart';
 import 'package:expenses/general/constants/MyColors.dart';
@@ -14,6 +15,7 @@ import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/utilities/utils_functions/utils.dart';
 import 'package:expenses/general/widgets/MyText.dart';
+import 'package:expenses/res.dart';
 import 'package:expenses/user/models/add_transaction_model/add_transaction_model.dart';
 import 'package:expenses/user/models/database_model/database_model.dart';
 import 'package:expenses/user/models/dropdown_model/dropdown_model.dart';

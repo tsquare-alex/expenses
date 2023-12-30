@@ -16,12 +16,11 @@ class BuildTransactionDate extends StatelessWidget {
         key: data.formKey2,
         child: Row(
           children: [
-            //Icon(Icons.date_range,color: MyColors.primary,),
             Column(
               children: [
                 Icon(Icons.date_range,color: MyColors.primary,),
                 MyText(
-                  title: type!="الاهداف المالية المستهدفة"?"ميعاد المعاملة":"توقت الانشاء",
+                  title: "ميعاد المعاملة",
                   color: MyColors.black,
                   size: 9.sp,
                   fontWeight: FontWeight.bold,

@@ -1,12 +1,9 @@
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/user/models/favorite_model/favorite_model.dart';
-import 'package:expenses/user/screens/tools_helper/widgets/acceleration_converter/accekeration_converter.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/area_converter/area_converter.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/calculator/calculator_screen.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/calender/calender_screen.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/clothes_size/clothes_size_screen.dart';
-import 'package:expenses/user/screens/tools_helper/widgets/converter/converter_screen.dart';
-import 'package:expenses/user/screens/tools_helper/widgets/electric_converter/electric_converter.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/length_converter/length_converter.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/mass_converter/mass_converter.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/qiblah/compass.dart';
@@ -14,7 +11,6 @@ import 'package:expenses/user/screens/tools_helper/widgets/ring_size/ring_size_s
 import 'package:expenses/user/screens/tools_helper/widgets/shoes_size/shoes_size_screen.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/speed_converter/speed_converter.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/temperature_converter/temperature_converter.dart';
-import 'package:expenses/user/screens/tools_helper/widgets/time_converter/time_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,57 +49,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         ),
         body: Column(
           children: [
-            // Container(
-            //   height: 200,
-            //   child: Column(
-            //     children: [
-            //       BlocBuilder<AuthenticationCubit, bool>(
-            //         builder: (context, isAuthenticated) {
-            //           return Expanded(
-            //             child: SwitchListTile(
-            //               title: Text('Enable Authentication'),
-            //               value: isAuthenticated,
-            //               onChanged: (value) async {
-            //                 final authenticationCubit = context.read<AuthenticationCubit>();
-            //                 if (value && authenticationCubit.isAuthenticationRequired()) {
-            //                   // Show authentication dialog
-            //                   final authenticated = await _showAuthenticationDialog();
-            //                   if (authenticated) {
-            //                     // Save authentication status and update UI
-            //                     authenticationCubit.setAuthenticationCompleted();
-            //                     authenticationCubit.emit(true);
-            //                   }
-            //                 } else {
-            //                   // If authentication is not required or user turns off the switch
-            //                   if (!value) {
-            //                     authenticationCubit.clearAuthenticationStatus();
-            //                   }
-            //                   authenticationCubit.emit(value);
-            //                 }
-            //               },
-            //             )
-            //
-            //           );
-            //         },
-            //       ),
-            //       BlocBuilder<AuthenticationCubit, bool>(
-            //         builder: (context, isAuthenticated) {
-            //           return Visibility(
-            //             visible: isAuthenticated,
-            //             child: Text(
-            //               'Authentication is enabled',
-            //               style: TextStyle(
-            //                 fontWeight: FontWeight.bold,
-            //                 color: Colors.green,
-            //               ),
-            //             ),
-            //           );
-            //         },
-            //       ),
-            //     ],
-            //   ),
-            // ),
-
             BlocBuilder<FavoriteCubit, FavoriteState>(
               builder: (context, state) {
                 if (state is FavoriteUpdatedState) {
@@ -171,9 +116,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       case "clothesSize":
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => ClothesSizeScreen()));
         break;
-    // case "convert":
-    //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => ConverterScreen()));
-    //   break;
       case "bmi":
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => BMICalculator()));
         break;
@@ -185,18 +127,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         break;
       case "convertMass":
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => MassConverterScreen()));
-        break;
-      case "convertTime":
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => TimeConverterScreen()));
-        break;
-      case "convertElectric":
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ElectricCurrentConverterScreen()));
-        break;
-      case "convertTemperature":
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => TemperatureConverterScreen()));
-        break;
-      case "convertAcceleration":
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => AccelerationConverterScreen()));
         break;
       case "convertArea":
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => AreaConverterScreen()));

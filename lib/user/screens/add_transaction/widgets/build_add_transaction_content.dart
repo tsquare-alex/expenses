@@ -4,10 +4,11 @@ class BuildAddTransactionContent extends StatelessWidget {
   const BuildAddTransactionContent({
     Key? key,
     required this.data,
-    required this.type,
+    required this.type, required this.typeModel,
   }) : super(key: key);
   final AddTransactionData data;
   final String type;
+  final TransactionTypeModel typeModel;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -43,18 +44,7 @@ class BuildAddTransactionContent extends StatelessWidget {
                       name: data.newContentController.text,
                     ),
                     type,
-                  );
-                }else if(type == "الاهداف المالية المستهدفة"){
-                  data.addTarget(
-                    DropdownModel(
-                      name: data.newContentController.text,
-                    ),
-                  );
-                }else if (type == "المعاملات النقدية"){
-                  data.addCashTransaction(
-                    DropdownModel(
-                      name: data.newContentController.text,
-                    ),
+                    typeModel
                   );
                 }
                 AutoRouter.of(context).pop();

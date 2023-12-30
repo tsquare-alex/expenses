@@ -5,6 +5,106 @@ class CommitmentsData{
 
   List<AddTransactionModel> addTransactionList = [];
 
+  TransactionModel model = TransactionModel(
+      name: "الالتزامات",
+      isSelected: true,
+      image: Res.commitment,
+      content: [
+        TransactionTypeModel(
+          name: "فواتير",
+          content: [
+            TransactionContentModel(
+              name: "كهرباء",
+            ),
+            TransactionContentModel(
+              name: "مياه",
+            ),
+            TransactionContentModel(
+              name: "غاز",
+            ),
+            TransactionContentModel(
+              name: "تليفون أرضي",
+            ),
+            TransactionContentModel(
+              name: "رصيد",
+            ),
+            TransactionContentModel(
+              name: "انترنت",
+            ),
+          ],
+        ),
+        TransactionTypeModel(
+          name: "إيجار",
+          content: [
+            TransactionContentModel(
+              name: "منزل",
+            ),
+          ],
+        ),
+        TransactionTypeModel(
+          name: "أقساط",
+          content: [
+            TransactionContentModel(
+              name: "موبايل",
+            ),
+          ],
+        ),
+        TransactionTypeModel(
+          name: "تأمينات",
+          content: [
+            TransactionContentModel(
+              name: "سيارة",
+            ),
+          ],
+        ),
+        TransactionTypeModel(
+          name: "اشتراكات",
+          content: [
+            TransactionContentModel(
+              name: "نادي",
+            ),
+            TransactionContentModel(
+              name: "جيم",
+            ),
+          ],
+        ),
+        TransactionTypeModel(
+          name: "مصاريف سيارة",
+          content: [
+            TransactionContentModel(
+              name: "نظافة",
+            ),
+            TransactionContentModel(
+              name: "صيانة",
+            ),
+          ],
+        ),
+        TransactionTypeModel(
+          name: "تبرعات و اعانات",
+          content: [
+            TransactionContentModel(
+              name: "الهلال الأحمر",
+            ),
+          ],
+        ),
+        TransactionTypeModel(
+          name: "ادوية",
+          content: [
+            TransactionContentModel(
+              name: "أدوية الضغط",
+            ),
+          ],
+        ),
+        TransactionTypeModel(
+          name: "مواصلات",
+          content: [
+            TransactionContentModel(
+              name: "سفر",
+            ),
+          ],
+        ),
+      ]
+  );
 
   Future<void> fetchData() async {
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");

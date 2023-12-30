@@ -15,6 +15,29 @@ class _ReportsState extends State<Reports> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.lightGreen,
+        title: Row(
+          children: [
+            Image.asset(
+              Res.report,
+              width: 20.w,
+              height: 20.h,
+              color: MyColors.white,
+            ),
+            SizedBox(
+              width: 10.w,
+            ),
+            MyText(
+              title: tr(context, 'reports'),
+              color: Colors.white,
+              size: 14.sp,
+              fontWeight: FontWeight.bold,
+            ),
+          ],
+        ),
+        automaticallyImplyLeading: false,
+      ),
       body: BlocProvider(
         create: (context) => ReportsCubit()..getReportData(context),
         child: BlocBuilder<ReportsCubit, ReportsState>(

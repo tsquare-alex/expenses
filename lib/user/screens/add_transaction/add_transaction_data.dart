@@ -65,6 +65,7 @@ class AddTransactionData {
     var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
         context: context,
+        minDate: DateTime.now().subtract(Duration(days:30)),
         onConfirm: (date) {
           dateController.text = DateFormat("dd MMMM yyyy", "en").format(date!);
         },

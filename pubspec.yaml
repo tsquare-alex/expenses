@@ -86,6 +86,7 @@ dependencies:
   country_picker:
   currency_picker:
   animations:
+  pull_to_refresh:
 
 dev_dependencies:
   flutter_test:

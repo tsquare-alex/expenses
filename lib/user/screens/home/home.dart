@@ -100,12 +100,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   BlocBuilder<GenericBloc<int>, GenericState<int>>(
                     bloc: data.homeTabCubit,
                     builder: (context, state) {
-                      return Image.asset(
+                      return data.icons[state
+                      .data].isNotEmpty?Image.asset(
                         data.icons[state.data],
                         color: MyColors.white,
                         width: 20.w,
                         height: 20.h,
-                      );
+                      ):Container();
                     },
                   ),
                 ],

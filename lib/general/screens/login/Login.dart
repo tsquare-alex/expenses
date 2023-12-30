@@ -21,7 +21,7 @@ class _LoginState extends State<Login> {
             physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
-                HeaderLogo(topPadding: 100.r,height: MediaQuery.of(context).size.height * 0.35,width: MediaQuery.of(context).size.width * 0.70,),
+                HeaderLogo(topPadding: 100.r,height: MediaQuery.of(context).size.height * 0.35,width: MediaQuery.of(context).size.width * 0.50,),
                 BuildLoginForm(loginData: loginData),
                 BuildLoginButton(loginData: loginData),
                 const BuildForgetPasswordView(),

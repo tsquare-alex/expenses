@@ -1,5 +1,6 @@
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/widgets/MyText.dart';
+import 'package:expenses/user/screens/budget/budget_imports.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_cubit.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_state.dart';
 import 'package:expenses/user/screens/budget/data/model/budget_model.dart';
@@ -10,14 +11,17 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class ItemBudget extends StatelessWidget {
   final BudgetModel model;
-
+  final BudgetData data;
   const ItemBudget({
     super.key,
-    required this.model,
+    required this.model, required this.data,
   });
 
   @override
   Widget build(BuildContext context) {
+
+    data.getPercent(model);
+
     return BlocBuilder<BudgetCubit, BudgetState>(
       builder: (context, state) {
         return Padding(

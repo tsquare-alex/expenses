@@ -11,6 +11,29 @@ class Database extends StatelessWidget {
         },
         builder: (context, state) {
           return Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.deepPurple,
+              title: Row(
+                children: [
+                  Image.asset(
+                    Res.database,
+                    width: 20.w,
+                    height: 20.h,
+                    color: MyColors.white,
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  MyText(
+                    title: tr(context, 'database'),
+                    color: Colors.white,
+                    size: 14.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ],
+              ),
+              automaticallyImplyLeading: false,
+            ),
             // floatingActionButton: FloatingActionButton(
             //     onPressed: () => AutoRouter.of(context).push(AddDatabaseRoute()),
             //     child: const Icon(Icons.add)),

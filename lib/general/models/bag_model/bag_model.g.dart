@@ -8,7 +8,7 @@ part of 'bag_model.dart';
 
 class BagModelAdapter extends TypeAdapter<BagModel> {
   @override
-  final int typeId = 44;
+  final int typeId = 185;
 
   @override
   BagModel read(BinaryReader reader) {

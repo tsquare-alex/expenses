@@ -1,5 +1,6 @@
 import 'package:expenses/general/MyApp.dart';
 import 'package:expenses/general/blocks/lang_cubit/lang_cubit.dart';
+import 'package:expenses/general/models/bag_model/bag_model.dart';
 import 'package:expenses/general/models/country_model/country_model.dart';
 import 'package:expenses/general/models/currency_model/currency_model.dart';
 import 'package:expenses/user/models/add_transaction_model/add_transaction_model.dart';
@@ -42,9 +43,11 @@ Future<void> main() async {
   //Hive.registerAdapter(CurrencyModelAdapter());
   Hive.registerAdapter(CurrencyModelAdapter());
   Hive.registerAdapter(BudgetModelAdapter());
+  Hive.registerAdapter(BagModelAdapter());
   await Hive.openBox<FavoriteModel>(favoriteTools);
   await Hive.openBox<AuthenticationInfo>("authentication_box");
   await Hive.openBox<BudgetModel>("budgetBox");
+  await Hive.openBox<BagModel>("bagBox");
   await Hive.openBox<CurrencyModel>('currencyBox');
   await Hive.openBox<CountryModel>('countryBox');
   await Hive.openBox<WalletModel>(walletDatabaseBox);

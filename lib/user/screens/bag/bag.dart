@@ -13,6 +13,7 @@ class _BagState extends State<Bag> {
   @override
   void initState() {
     data.initialTransaction();
+    data.fetchData();
     super.initState();
   }
 
@@ -25,7 +26,9 @@ class _BagState extends State<Bag> {
         return Scaffold(
           floatingActionButton: state.data.isNotEmpty
               ? FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () =>Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_)=>AddBagItem(bagData: data),),
+                  ),
                   backgroundColor: MyColors.primary,
                   child: Icon(
                     Icons.add,
@@ -33,16 +36,13 @@ class _BagState extends State<Bag> {
                   ),
                 )
               : null,
-          body: Padding(
-            padding: EdgeInsets.all(15.r),
-            child: state.data.isEmpty
-                ? AddBagItem(
-                    bagData: data,
-                  )
-                : BuildBagItems(
-                    model: state.data,
-                  ),
-          ),
+          body: state.data.isEmpty
+              ? AddBagItem(
+                  bagData: data,
+                )
+              : BuildBagItems(
+                  model: state.data, data: data,
+                ),
         );
       },
     );

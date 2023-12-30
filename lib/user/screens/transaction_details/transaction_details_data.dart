@@ -12,6 +12,7 @@ class TransactionDetailsData {
   final GlobalKey<DropdownSearchState> priorityDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> iterateTransactionDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> walletDropKey = GlobalKey();
+  final GlobalKey<DropdownSearchState> budgetDropKey = GlobalKey();
 
   TextEditingController transactionTypeController = TextEditingController();
   TextEditingController transactionContentController = TextEditingController();
@@ -168,6 +169,7 @@ class TransactionDetailsData {
         transactionType: model.transactionType,
         transactionContent: model.transactionContent,
         incomeSource: selectedWalletModel,
+        budget: selectedBudget,
         unit: selectedUnit,
         amount: amountController.text,
         total: totalController.text,
@@ -225,6 +227,7 @@ class TransactionDetailsData {
         transactionContent: model.transactionContent,
         database: model.database,
         incomeSource: selectedWalletModel,
+        budget: selectedBudget,
         unit: selectedUnit,
         amount: amountController.text,
         total: totalController.text,
@@ -282,6 +285,7 @@ class TransactionDetailsData {
         targetType: model.targetType,
         total: totalController.text,
         incomeSource: selectedWalletModel,
+        budget: selectedBudget,
         targetValue: totalController.text,
         startDate: startDateController.text,
         endDate: endDateController.text,
@@ -335,6 +339,7 @@ class TransactionDetailsData {
         transactionName: "المعاملات النقدية",
         cashTransactionType: model.cashTransactionType,
         incomeSource: selectedWalletModel,
+        budget: selectedBudget,
         database: model.database,
         priority: selectedPriority ?? model.priority,
         total: totalController.text,
@@ -387,7 +392,9 @@ class TransactionDetailsData {
 
 
   WalletModel? selectedWalletModel;
+  BudgetModel? selectedBudget;
   String? walletName;
+  String? budgetName;
 
 
   void setSelectWalletModel(WalletModel? model) {
@@ -398,6 +405,17 @@ class TransactionDetailsData {
   Future<List<WalletModel>> getWalletData(BuildContext context) async {
     var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
     List<WalletModel> total = walletBox.values.toList();
+    return total;
+  }
+
+  void setSelectBudgetModel(BudgetModel? model) {
+    selectedBudget = model;
+    budgetName = model?.name;
+  }
+
+  Future<List<BudgetModel>> getBudgetData(BuildContext context) async {
+    var budgetData = Hive.box<BudgetModel>("budgetBox");
+    List<BudgetModel> total = budgetData.values.toList();
     return total;
   }
 }

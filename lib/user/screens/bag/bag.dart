@@ -8,7 +8,6 @@ class Bag extends StatefulWidget {
 }
 
 class _BagState extends State<Bag> {
-
   BagData data = BagData();
 
   @override
@@ -19,9 +18,33 @@ class _BagState extends State<Bag> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(padding: EdgeInsets.all(15.r),
-      child: AddBagItem(bagData: data,),),
+    return BlocBuilder<GenericBloc<List<BagModel>>,
+        GenericState<List<BagModel>>>(
+      bloc: data.cartCubit,
+      builder: (context, state) {
+        return Scaffold(
+          floatingActionButton: state.data.isNotEmpty
+              ? FloatingActionButton(
+                  onPressed: () {},
+                  backgroundColor: MyColors.primary,
+                  child: Icon(
+                    Icons.add,
+                    color: MyColors.white,
+                  ),
+                )
+              : null,
+          body: Padding(
+            padding: EdgeInsets.all(15.r),
+            child: state.data.isEmpty
+                ? AddBagItem(
+                    bagData: data,
+                  )
+                : BuildBagItems(
+                    model: state.data,
+                  ),
+          ),
+        );
+      },
     );
   }
 }

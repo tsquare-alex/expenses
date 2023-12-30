@@ -351,9 +351,7 @@ class BuildTransactionInputs extends StatelessWidget {
                       selectedItem: addTransactionData.selectedDatabaseModel,
                       margin: const EdgeInsets.symmetric(vertical: 5),
                       validate: (value) {
-                        if (value == null) {
-                          print("Please fill this field");
-                        }
+                        return null;
                       },
                       onChange: addTransactionData.setSelectDatabaseModel,
                       finData: (data) => addTransactionData.getDatabaseData(
@@ -366,6 +364,37 @@ class BuildTransactionInputs extends StatelessWidget {
                   )
                 ],
               ),
+            Row(
+              children: [
+                MyText(
+                  title: tr(context, "selectedBudget"),
+                  color: MyColors.black,
+                  size: 12.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+                SizedBox(
+                  width: 10.h,
+                ),
+                Expanded(
+                  child: DropdownTextField<BudgetModel>(
+                    dropKey: addTransactionData.budgetDropKey,
+                    label: tr(context, "budgetName"),
+                    selectedItem: addTransactionData.selectedBudget,
+                    margin: const EdgeInsets.symmetric(vertical: 5),
+                    validate: (value) {
+                      return null;
+                    },
+                    onChange: addTransactionData.setSelectBudgetModel,
+                    finData: (data) => addTransactionData.getBudgetData(
+                      context,
+                    ),
+                    useName: true,
+                    buttonsColor: MyColors.primary,
+                    searchHint:tr(context, "search"),
+                  ),
+                )
+              ],
+            ),
             if (type == "المعاملات النقدية")
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

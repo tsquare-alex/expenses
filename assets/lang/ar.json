@@ -291,7 +291,8 @@
   "addPhoto": "إضافة صورة للمنتج",
   "currency": "العملة الرئيسية",
   "subCurrency": "العملة الفرعية",
-  "selectCountry": "اختر البلد",
+  "selectedBudget": "حدد الميزانية",
+  "budgetName": "الميزانية",
 
   "category": "التصنيف",
   "categoryAddNewCategory": "إضافة تصنيف جديد",

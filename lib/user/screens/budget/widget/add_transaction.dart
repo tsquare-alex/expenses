@@ -150,7 +150,6 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         //               .wallets
                         //               .map((wallet) => wallet.name)
                         //               .toList();
-
                         //           return TileDropdownButton(
                         //             menuList: walletNames,
                         //             onChanged: (value) => {
@@ -282,7 +281,6 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                               //     .transactioList
                               //     .map((value) => value.total)
                               //     .toList();
-
                               // List<double> parsedValues = context
                               //     .read<BudgetCubit>()
                               //     .transactioList
@@ -297,7 +295,6 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                               //     .map((value) => double.parse(
                               //         value!)) // Convert String to double
                               //     .toList();
-
                               // var result= parsedNumber/parsedValues
                               double transactionValue = context
                                   .read<BudgetCubit>()
@@ -321,6 +318,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                   selectWallet: walletNameController.text,
                                   budgetPeriod: rangeDateController.text,
                                   value: parsedNumber);
+
                               await context
                                   .read<BudgetCubit>()
                                   .addData(budgetModel);

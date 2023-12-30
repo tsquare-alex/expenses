@@ -265,9 +265,13 @@ class AppRouter extends _i37.RootStackRouter {
       );
     },
     AddWalletRoute.name: (routeData) {
+      final args = routeData.argsAs<AddWalletRouteArgs>();
       return _i37.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i23.AddWallet(),
+        child: _i23.AddWallet(
+          key: args.key,
+          selectItemIndex: args.selectItemIndex,
+        ),
         opaque: true,
       );
     },
@@ -919,14 +923,36 @@ class BalanceTransferRoute extends _i37.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i23.AddWallet]
-class AddWalletRoute extends _i37.PageRouteInfo<void> {
-  const AddWalletRoute()
-      : super(
+class AddWalletRoute extends _i37.PageRouteInfo<AddWalletRouteArgs> {
+  AddWalletRoute({
+    _i38.Key? key,
+    required int selectItemIndex,
+  }) : super(
           AddWalletRoute.name,
           path: '/add-wallet',
+          args: AddWalletRouteArgs(
+            key: key,
+            selectItemIndex: selectItemIndex,
+          ),
         );
 
   static const String name = 'AddWalletRoute';
+}
+
+class AddWalletRouteArgs {
+  const AddWalletRouteArgs({
+    this.key,
+    required this.selectItemIndex,
+  });
+
+  final _i38.Key? key;
+
+  final int selectItemIndex;
+
+  @override
+  String toString() {
+    return 'AddWalletRouteArgs{key: $key, selectItemIndex: $selectItemIndex}';
+  }
 }
 
 /// generated route for

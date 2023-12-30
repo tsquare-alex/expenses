@@ -15,7 +15,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddWallet extends StatefulWidget {
-  const AddWallet({super.key});
+  final int selectItemIndex;
+
+  const AddWallet({super.key, required this.selectItemIndex});
   @override
   State<AddWallet> createState() => _AddWalletState();
 }
@@ -261,16 +263,8 @@ class _AddWalletState extends State<AddWallet> {
                                       .watch<WalletCubit>()
                                       .walletCategory,
                                   value: context
-                                          .watch<WalletCubit>()
-                                          .walletCategory[
-                                      context
-                                          .watch<WalletCubit>()
-                                          .selectedCategoryIndex
-                                          .value],
-                                  // context
-                                  //     .read<WalletCubit>()
-                                  //     .walletCategory
-                                  //     .first,
+                                      .read<WalletCubit>()
+                                      .walletCategory[widget.selectItemIndex],
                                   onChanged: (value) {
                                     int newIndex = context
                                         .read<WalletCubit>()
@@ -498,6 +492,9 @@ class _AddWalletState extends State<AddWallet> {
                           onTap: () async {
                             if (formKey.currentState!.validate()) {
                               var walletModel = WalletModel(
+                                  walletCategory: context
+                                      .read<WalletCubit>()
+                                      .walletCategory,
                                   walletOpiningTime: openTimeController.text,
                                   walletOpiningDate: openDateController.text,
                                   checkedValue:

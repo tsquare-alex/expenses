@@ -49,7 +49,8 @@ class WalletCategory extends StatelessWidget {
                             .read<WalletCubit>()
                             .selectedCategoryIndex
                             .value = index;
-                        AutoRouter.of(context).push(const AddWalletRoute());
+                        AutoRouter.of(context)
+                            .push(AddWalletRoute(selectItemIndex: index));
                       },
                       child: Container(
                         height: 28.h,

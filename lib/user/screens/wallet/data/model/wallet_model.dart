@@ -1,3 +1,4 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/adapters.dart';
 part 'wallet_model.g.dart';
 
@@ -33,6 +34,19 @@ class WalletModel extends HiveObject {
   String walletOpiningDate;
   @HiveField(14)
   String walletOpiningTime;
+  @HiveField(15)
+  List<String> walletCategory = [
+    "حافز",
+    "راتب",
+    "إضافي",
+    "مكافأة",
+    "هدايا",
+    "حساب بنكي",
+    "إيجار",
+    "عائد مشروع",
+    "صفقة",
+    "اخري"
+  ];
 
   WalletModel({
     required this.walletOpiningTime,
@@ -50,5 +64,6 @@ class WalletModel extends HiveObject {
     this.checkedValue = false,
     this.walletPeriod,
     required this.walletOpiningDate,
+    required this.walletCategory,
   });
 }

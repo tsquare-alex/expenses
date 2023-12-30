@@ -12,7 +12,7 @@ class BudgetCubit extends Cubit<BudgetState> {
   BudgetCubit() : super(AddBudgetInitial());
 
   DateTime startDate = DateTime.now();
-  DateTime endDate = DateTime.now().add(Duration(days: 30));
+  DateTime endDate = DateTime.now().add(const Duration(days: 30));
   late WalletModel walletModel;
   late TransactionModel transactionModel;
   late List<WalletModel> wallets;
@@ -29,6 +29,7 @@ class BudgetCubit extends Cubit<BudgetState> {
     List<AddTransactionModel> data = transactionBox.values.toList();
     box.close();
     data.sort((a, b) => b.transactionDate!.compareTo(a.transactionDate!));
+
     transactioList = data;
   }
 

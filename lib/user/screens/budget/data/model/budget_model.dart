@@ -16,11 +16,11 @@ class BudgetModel extends HiveObject {
   @HiveField(5)
   double? percentValue;
   @HiveField(6)
-  String name;
+  String budgetName;
 
   BudgetModel(
       {required this.selectTransaction,
-      required this.name,
+      required this.budgetName,
       required this.selectWallet,
       required this.budgetPeriod,
       this.transactionRepeat,

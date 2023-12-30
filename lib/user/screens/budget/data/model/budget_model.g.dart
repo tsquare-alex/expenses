@@ -17,7 +17,7 @@ class BudgetModelAdapter extends TypeAdapter<BudgetModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return BudgetModel(
-      name: fields[6] as String,
+      budgetName: fields[6] as String,
       selectTransaction: fields[1] as String,
       selectWallet: fields[2] as String,
       budgetPeriod: fields[3] as String,

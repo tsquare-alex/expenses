@@ -248,7 +248,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                               child: MyText(
                                   title: "تنبيه انتهاء المعالمة",
                                   color: MyColors.black,
-                                  size: 14.sp),
+                                  size: 15.sp),
                             ),
                             Visibility(
                               visible: notificationSwitchvalu,

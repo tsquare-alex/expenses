@@ -12,12 +12,14 @@ class Res {
   static const String calendar7 = "assets/images/calendar7.png";
   static const String cart = "assets/images/cart.png";
   static const String cashTransactions = "assets/images/cashTransactions.png";
+  static const String chart = "assets/images/chart.png";
   static const String commitment = "assets/images/commitment.png";
   static const String compass = "assets/images/compass.svg";
   static const String contacts = "assets/images/contacts.png";
   static const String country = "assets/images/country.png";
   static const String currency = "assets/images/currency.png";
   static const String currencyExchange = "assets/images/currencyExchange.png";
+  static const String data_security = "assets/images/data_security.jpg";
   static const String database = "assets/images/database.png";
   static const String decimal = "assets/images/decimal.png";
   static const String delete = "assets/images/delete.png";
@@ -27,10 +29,12 @@ class Res {
   static const String expense = "assets/images/expense.png";
   static const String explain = "assets/images/explain.png";
   static const String facebook = "assets/images/facebook.svg";
+  static const String fingerprint = "assets/images/fingerprint.png";
   static const String forgetPassword = "assets/images/forgetPassword.png";
   static const String home = "assets/images/home.png";
   static const String hourglass = "assets/images/hourglass.png";
   static const String icon = "assets/images/icon.png";
+  static const String info = "assets/images/info.png";
   static const String lang = "assets/images/lang.png";
   static const String launcher_icon = "assets/images/launcher_icon.png";
   static const String logo = "assets/images/logo.png";
@@ -48,6 +52,7 @@ class Res {
   static const String one = "assets/images/one.png";
   static const String pantSize = "assets/images/pantSize.png";
   static const String password = "assets/images/password.svg";
+  static const String pattern = "assets/images/pattern.png";
   static const String plus = "assets/images/plus.png";
   static const String register = "assets/images/register.png";
   static const String reminders = "assets/images/reminders.png";
@@ -58,6 +63,8 @@ class Res {
   static const String save = "assets/images/save.png";
   static const String searchRecords = "assets/images/searchRecords.png";
   static const String secure = "assets/images/secure.png";
+  static const String security = "assets/images/security.jpg";
+  static const String security1 = "assets/images/security.png";
   static const String settings = "assets/images/settings.png";
   static const String share = "assets/images/share.png";
   static const String star = "assets/images/star.png";

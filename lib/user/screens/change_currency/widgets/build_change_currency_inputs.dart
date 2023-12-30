@@ -12,11 +12,11 @@ class BuildChangeCurrencyInputs extends StatelessWidget {
         children: [
           Row(
             children: [
-              MyText(title: "من: ", color: MyColors.txtColor, size: 14.sp),
+              MyText(title: tr(context, "from"), color: MyColors.txtColor, size: 14.sp),
               Expanded(
                 child: DropdownTextField<DropdownModel>(
                   dropKey: changeCurrencyData.fromCurrencyDropKey,
-                  label: "العملة",
+                  label: tr(context, "currency"),
                   selectedItem: changeCurrencyData.selectedCurrency,
                   margin: const EdgeInsets.symmetric(vertical: 5),
                   validate: (value) {
@@ -38,11 +38,11 @@ class BuildChangeCurrencyInputs extends StatelessWidget {
           ),
           Row(
             children: [
-              MyText(title: "الي: ", color: MyColors.txtColor, size: 14.sp),
+              MyText(title: tr(context, "to"), color: MyColors.txtColor, size: 14.sp),
               Expanded(
                 child: DropdownTextField<DropdownModel>(
                   dropKey: changeCurrencyData.toCurrencyDropKey,
-                  label: "العملة",
+                  label: tr(context, "subCurrency"),
                   selectedItem: changeCurrencyData.selectedCurrency,
                   margin: const EdgeInsets.symmetric(vertical: 5),
                   validate: (value) {
@@ -65,7 +65,7 @@ class BuildChangeCurrencyInputs extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              MyText(title: "القيمة: ", color: MyColors.txtColor, size: 14.sp),
+              MyText(title: tr(context, "value"), color: MyColors.txtColor, size: 14.sp),
               SizedBox(
                 width: 120.w,
                 child: GenericTextField(
@@ -87,7 +87,7 @@ class BuildChangeCurrencyInputs extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              MyText(title: "المبلغ المراد تحويله: ", color: MyColors.txtColor, size: 14.sp),
+              MyText(title: tr(context, "transferValue"), color: MyColors.txtColor, size: 14.sp),
               SizedBox(
                 width: 120.w,
                 child: GenericTextField(

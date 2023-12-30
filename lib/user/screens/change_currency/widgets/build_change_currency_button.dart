@@ -10,7 +10,7 @@ class BuildChangeCurrencyButton extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 20.r),
       child: DefaultButton(
         onTap: ()=>data.changeCurrency(),
-        title: "Change Currency",
+        title: tr(context, "currencyTransfer"),
         fontWeight: FontWeight.bold,
         fontSize: 14.sp,
       ),

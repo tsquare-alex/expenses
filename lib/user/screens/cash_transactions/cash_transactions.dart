@@ -24,6 +24,29 @@ class _CashTransactionsState extends State<CashTransactions> {
       bloc: data.addTransactionCubit,
       builder: (context, state) {
         return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.amber,
+            title: Row(
+              children: [
+                Image.asset(
+                  Res.cashTransactions,
+                  width: 20.w,
+                  height: 20.h,
+                  color: MyColors.white,
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                MyText(
+                  title: tr(context, "cashTransactions"),
+                  color: Colors.white,
+                  size: 14.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ],
+            ),
+            automaticallyImplyLeading: false,
+          ),
           floatingActionButton: state.data.isNotEmpty?FloatingActionButton(
             onPressed: () =>
                 AutoRouter.of(context).push(

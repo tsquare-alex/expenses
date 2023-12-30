@@ -13,8 +13,8 @@ class WelcomePageData {
       BuildPageView(
         key: const Key("1"),
         model: WelcomeEntity(
-            title: "Welcome on My Expenses",
-            desc: "Plan your finance any time, any where",
+            title: "title1",
+            desc: "body1",
             image: Res.transaction,
             index: 0,
             pageCubit: pagesCubit),
@@ -22,9 +22,8 @@ class WelcomePageData {
       BuildPageView(
         key: const Key("2"),
         model: WelcomeEntity(
-            title: "One touch and send money",
-            desc:
-            "Send money to everyone by one step and organize your wallet easier",
+            title: "title2",
+            desc: "body2",
             image: Res.currencyExchange,
             index: 1,
             pageCubit: pagesCubit),
@@ -32,8 +31,8 @@ class WelcomePageData {
       BuildPageView(
         key: const Key("3"),
         model: WelcomeEntity(
-            title: "Automatically organize",
-            desc:"Organize your expenses and secure your account",
+            title: "title3",
+            desc: "body3",
             image: Res.database,
             last: true,
             index: 2,

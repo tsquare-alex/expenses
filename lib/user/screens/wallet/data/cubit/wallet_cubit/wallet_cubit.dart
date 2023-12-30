@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/constants/constants.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
@@ -26,6 +28,15 @@ class WalletCubit extends Cubit<WalletState> {
     "نقاط",
     "انستاباي",
   ];
+  Color generateRandomColor() {
+    Random random = Random();
+    return Color.fromARGB(
+      255,
+      random.nextInt(256),
+      random.nextInt(256),
+      random.nextInt(256),
+    );
+  }
   List<Image> Images = [
     Image.asset(
       "assets/images/currency.png",

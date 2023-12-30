@@ -7,7 +7,6 @@ import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_stat
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'dart:math';
 
 import '../../../../general/packages/localization/Localizations.dart';
 
@@ -34,6 +33,10 @@ class WalletCategory extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 12.w),
             child: BlocBuilder<WalletCubit, WalletState>(
               builder: (context, state) {
+                final colorList = List.generate(
+                  context.read<WalletCubit>().walletCategory.length,
+                  (_) => context.read<WalletCubit>().generateRandomColor(),
+                );
                 return GridView.builder(
                   itemCount: context.read<WalletCubit>().walletCategory.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -42,7 +45,8 @@ class WalletCategory extends StatelessWidget {
                     mainAxisSpacing: 12.h,
                   ),
                   itemBuilder: (context, index) {
-                    double randomOpacity = 0.2 + Random().nextDouble() * 0.4;
+                    // double randomOpacity = 0.2 + Random().nextDouble() * 0.4;
+
                     return InkWell(
                       onTap: () {
                         context
@@ -56,21 +60,24 @@ class WalletCategory extends StatelessWidget {
                         width: 34.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12.w),
-                          color: MyColors.primary.withOpacity(randomOpacity),
+                          color: colorList[index],
                         ),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox(height: 18.h),
-                            Center(
-                              child: context.read<WalletCubit>().Images[index],
-                            ),
+                            // SizedBox(height: 18.h),
+                            // Center(
+                            //   child: context.read<WalletCubit>().Images[index],
+                            // ),
                             Center(
                               child: MyText(
-                                  title: context
-                                      .read<WalletCubit>()
-                                      .walletCategory[index],
-                                  color: MyColors.primary,
-                                  size: 12.sp),
+                                title: context
+                                    .read<WalletCubit>()
+                                    .walletCategory[index],
+                                color: MyColors.white,
+                                size: 12.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),

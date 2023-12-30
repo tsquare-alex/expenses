@@ -45,11 +45,11 @@ class _CustomContainerState extends State<CustomContainer> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               MyText(
-                  title: widget.model.paymentMethod,
+                  title: widget.model.name,
                   color: MyColors.white,
                   size: 18.sp),
               MyText(
-                  title: widget.model.name, color: MyColors.white, size: 14.sp),
+                  title: widget.model.category, color: MyColors.white, size: 14.sp),
               Visibility(
                 visible: !widget.model.isClosed!,
                 child: IconButton(
@@ -202,7 +202,7 @@ class _CustomContainerState extends State<CustomContainer> {
                   visible: !widget.model.isHide!,
                   child: MyText(
                       alien: TextAlign.end,
-                      title: "${widget.model.category}",
+                      title: "${widget.model.balance.toStringAsFixed(2)}",
                       color: MyColors.white,
                       size: 22.sp),
                 ),

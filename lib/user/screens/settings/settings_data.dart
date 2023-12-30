@@ -6,7 +6,7 @@ class SettingsData {
   List<String> languages = ['عربي', 'انجليزي'];
 
   List<String> monthDays =
-      List.generate(30, (index) => (1 + index++).toString());
+      List.generate(31, (index) => (1 + index++).toString());
 
   List<String> weekDays = [
     'السبت',

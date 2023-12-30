@@ -7,7 +7,7 @@ class Database extends StatelessWidget {
       create: (context) => DatabaseCubit()..fetchAllDatabase(),
       child: BlocConsumer<DatabaseCubit, DatabaseState>(
         listener: (context, state) {
-          if(state is DatabaseSuccess){}
+          if (state is DatabaseSuccess) {}
         },
         builder: (context, state) {
           return Scaffold(
@@ -33,6 +33,15 @@ class Database extends StatelessWidget {
                 ],
               ),
               automaticallyImplyLeading: false,
+              actions: [
+                IconButton(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  onPressed: () {
+                    BlocProvider.of<DatabaseCubit>(context).scanQRCode();
+                  },
+                  icon: Icon(FontAwesomeIcons.qrcode),
+                ),
+              ],
             ),
             // floatingActionButton: FloatingActionButton(
             //     onPressed: () => AutoRouter.of(context).push(AddDatabaseRoute()),
@@ -42,7 +51,7 @@ class Database extends StatelessWidget {
               onPressed: () async {
                 await AutoRouter.of(context).push(AddDatabaseRoute());
                 // await Navigator.push(
-                 //   context,
+                //   context,
                 //   MaterialPageRoute(
                 //     builder: (context) => AddDatabase(),
                 //   ),
@@ -50,7 +59,6 @@ class Database extends StatelessWidget {
                 if (context.mounted) {
                   context.read<DatabaseCubit>().fetchAllDatabase();
                 }
-
               },
               child: const Icon(Icons.add),
             ),
@@ -75,14 +83,16 @@ class Database extends StatelessWidget {
                               SizedBox(height: 10),
                               Text(
                                 state.scanResult,
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                               SizedBox(height: 20),
                               IconButton(
                                 onPressed: () {
-                                  BlocProvider.of<DatabaseCubit>(context).scanQRCode();
+                                  BlocProvider.of<DatabaseCubit>(context)
+                                      .scanQRCode();
                                 },
-                                icon:  Icon(FontAwesomeIcons.qrcode),
+                                icon: Icon(FontAwesomeIcons.qrcode),
                               ),
                             ],
                           );
@@ -98,7 +108,8 @@ class Database extends StatelessWidget {
                               SizedBox(height: 10),
                               Text(
                                 state.documentData,
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                               SizedBox(height: 10),
                               // Text(
@@ -113,9 +124,10 @@ class Database extends StatelessWidget {
                               // SizedBox(height: 20),
                               IconButton(
                                 onPressed: () {
-                                  BlocProvider.of<DatabaseCubit>(context).scanQRCode();
+                                  BlocProvider.of<DatabaseCubit>(context)
+                                      .scanQRCode();
                                 },
-                                icon:  Icon(FontAwesomeIcons.qrcode),
+                                icon: Icon(FontAwesomeIcons.qrcode),
                               ),
                             ],
                           );
@@ -127,25 +139,38 @@ class Database extends StatelessWidget {
                               Text('Result: No Data Found'),
                               IconButton(
                                 onPressed: () {
-                                  BlocProvider.of<DatabaseCubit>(context).scanQRCode();
+                                  BlocProvider.of<DatabaseCubit>(context)
+                                      .scanQRCode();
                                 },
-                                icon:  Icon(FontAwesomeIcons.qrcode),
+                                icon: Icon(FontAwesomeIcons.qrcode),
                               ),
                             ],
                           );
                         } else {
                           return Center(
-                            child: IconButton(
-                              onPressed: () {
-                                BlocProvider.of<DatabaseCubit>(context).scanQRCode();
-                              },
-                              icon:  Icon(FontAwesomeIcons.qrcode),
+                            child: Column(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(top: 20.r),
+                                  child: Image.asset(
+                                    Res.searchRecords,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 15.h,
+                                ),
+                                MyText(
+                                  title: "No Record",
+                                  color: MyColors.black,
+                                  size: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                )
+                              ],
                             ),
                           );
                         }
                       },
                     ),
-
                     BlocBuilder<DatabaseCubit, DatabaseState>(
                       builder: (context, state) {
                         List<DatabaseModel> dataBase =

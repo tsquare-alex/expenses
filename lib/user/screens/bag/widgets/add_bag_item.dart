@@ -23,8 +23,8 @@ class AddBagItem extends StatelessWidget {
             OpenContainer(
               closedElevation: 0,
               closedColor: Colors.transparent,
-              closedShape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              closedShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
               transitionDuration: const Duration(milliseconds: 400),
               openBuilder: (_, closeContainer) => Scaffold(
                 floatingActionButton: FloatingActionButton(
@@ -103,13 +103,18 @@ class AddBagItem extends StatelessWidget {
               closedBuilder: (_, openContainer) => Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0.r),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   //margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 7),
                   decoration: BoxDecoration(
                       color: MyColors.backgroundColor,
                       borderRadius: BorderRadius.circular(20),
-                      boxShadow: const [BoxShadow(color: MyColors.shadow,spreadRadius: 0,blurRadius: 12)]
-                  ),
+                      boxShadow: const [
+                        BoxShadow(
+                            color: MyColors.shadow,
+                            spreadRadius: 0,
+                            blurRadius: 12)
+                      ]),
                   child: Row(
                     children: [
                       CircleAvatar(
@@ -125,10 +130,17 @@ class AddBagItem extends StatelessWidget {
                       SizedBox(
                         width: 20.w,
                       ),
-                      BlocBuilder<GenericBloc<DropdownModel?>, GenericState<DropdownModel?>>(
+                      BlocBuilder<GenericBloc<DropdownModel?>,
+                          GenericState<DropdownModel?>>(
                         bloc: bagData.typeCubit,
                         builder: (context, state) {
-                          return MyText(title: state.data?.name??tr(context, "transaction"), color: MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,);
+                          return MyText(
+                            title:
+                                state.data?.name ?? tr(context, "transaction"),
+                            color: MyColors.black,
+                            size: 13.sp,
+                            fontWeight: FontWeight.bold,
+                          );
                         },
                       ),
                     ],
@@ -157,7 +169,9 @@ class AddBagItem extends StatelessWidget {
                     selectedItem: bagData.selectedUnit,
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     validate: (value) {
-                      return "Select unit";
+                      if (value == null) {
+                        return ("Please fill this field");
+                      }
                     },
                     onChange: bagData.setSelectUnit,
                     finData: (data) => bagData.getUnits(
@@ -165,7 +179,7 @@ class AddBagItem extends StatelessWidget {
                     ),
                     useName: true,
                     buttonsColor: MyColors.primary,
-                    searchHint:tr(context, "search"),
+                    searchHint: tr(context, "search"),
                   ),
                 )
               ],
@@ -175,14 +189,18 @@ class AddBagItem extends StatelessWidget {
             ),
             Row(
               children: [
-                MyText(title: tr(context, "amount"), color: MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,),
+                MyText(
+                  title: tr(context, "amount"),
+                  color: MyColors.black,
+                  size: 13.sp,
+                  fontWeight: FontWeight.bold,
+                ),
                 SizedBox(
                   width: 30.w,
                 ),
                 Expanded(
                   child: GenericTextField(
-                    contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 16),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     controller: bagData.amountController,
                     fieldTypes: FieldTypes.normal,
                     type: TextInputType.number,
@@ -219,7 +237,9 @@ class AddBagItem extends StatelessWidget {
                     selectedItem: bagData.selectedPriority,
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     validate: (value) {
-                      return "Select the priority";
+                      if (value == null) {
+                        return ("Please fill this field");
+                      }
                     },
                     onChange: bagData.selectedPriority,
                     finData: (data) => bagData.getPriority(
@@ -227,12 +247,14 @@ class AddBagItem extends StatelessWidget {
                     ),
                     useName: true,
                     buttonsColor: MyColors.primary,
-                    searchHint:tr(context, "search"),
+                    searchHint: tr(context, "search"),
                   ),
                 )
               ],
             ),
-            AddBagItemButton(data:bagData,),
+            AddBagItemButton(
+              data: bagData,
+            ),
           ],
         ),
       ),

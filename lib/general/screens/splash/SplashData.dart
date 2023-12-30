@@ -38,7 +38,7 @@ class SplashController {
     //     );
     //   }
     // }
-    if (uId != null) {
+    if (uId == null) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
       bool isAuthenticated = await context.read<AuthenticationCubit>().isAuthenticationRequired();

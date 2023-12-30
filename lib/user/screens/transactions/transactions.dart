@@ -30,7 +30,6 @@ class _TransactionsState extends State<Transactions> {
           appBar: AppBar(
             backgroundColor: Colors.amber,
             title: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
                   Res.transaction,

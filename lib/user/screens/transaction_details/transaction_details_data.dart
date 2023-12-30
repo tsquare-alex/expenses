@@ -28,7 +28,7 @@ class TransactionDetailsData {
 
   fetchData(AddTransactionModel model) {
     transactionTypeController.text =
-        "${model.transactionName == "الالتزامات" || model.transactionName == "التسوق والشراء" ? model.transactionType!.name! : model.transactionName == "الاهداف المالية المستهدفة" ? model.targetType?.name : model.transactionName == "المعاملات النقدية" ? model.cashTransactionType?.name : ""}";
+        "${model.transactionName == "الالتزامات" || model.transactionName == "التسوق والشراء" ? model.transactionType?.name??"" : model.transactionName == "الاهداف المالية المستهدفة" ? model.targetType?.name : model.transactionName == "المعاملات النقدية" ? model.cashTransactionType?.name : ""}";
     transactionContentController.text = model.transactionContent?.name ?? "";
     totalController.text = model.total.toString();
     amountController.text =

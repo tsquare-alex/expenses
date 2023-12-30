@@ -157,7 +157,7 @@ class AddBagItem extends StatelessWidget {
                     selectedItem: bagData.selectedUnit,
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     validate: (value) {
-                      return null;
+                      return "Select unit";
                     },
                     onChange: bagData.setSelectUnit,
                     finData: (data) => bagData.getUnits(
@@ -219,7 +219,7 @@ class AddBagItem extends StatelessWidget {
                     selectedItem: bagData.selectedPriority,
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     validate: (value) {
-                      return null;
+                      return "Select the priority";
                     },
                     onChange: bagData.selectedPriority,
                     finData: (data) => bagData.getPriority(

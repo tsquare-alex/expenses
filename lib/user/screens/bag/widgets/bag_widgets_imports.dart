@@ -14,6 +14,8 @@ import 'package:expenses/user/screens/bag/bag_imports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 part 'add_bag_item.dart';
 part 'build_add_bag_model.dart';

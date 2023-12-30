@@ -65,7 +65,7 @@ class AddTransactionData {
     AdaptivePicker.datePicker(
         context: context,
         onConfirm: (date) {
-          dateController.text = DateFormat("dd MMMM yyyy", local).format(date!);
+          dateController.text = DateFormat("dd MMMM yyyy", "en").format(date!);
         },
         title: '');
   }

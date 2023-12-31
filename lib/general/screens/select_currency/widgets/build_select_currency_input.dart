@@ -75,7 +75,7 @@ class BuildSelectCurrencyInput extends StatelessWidget {
                   showCurrencyCode: true,
                   favorite: ['EGP', 'USD', 'SAR'],
                   onSelect: (Currency currency) {
-                    currencyData.currencyCubit.onUpdateData(currency);
+                    currencyData.subCurrencyCubit.onUpdateData(currency);
                     print('Select currency: ${currency.name}');
                   },
                 );

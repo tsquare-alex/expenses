@@ -130,31 +130,60 @@ class SettingsBody extends StatelessWidget {
          children: [
            Column(
              children: [
+               // BlocBuilder<AuthenticationCubit, AuthenticationState>(
+               //   builder: (context, state) {
+               //     return SwitchListTile(
+               //       title: MyText(title: tr(context, "enableAuthentication"), color: MyColors.primary, size: 15.sp,fontWeight: FontWeight.bold,),
+               //       value: state.isAuthenticated,
+               //       onChanged: (value) async {
+               //         final authenticationCubit = context.read<AuthenticationCubit>();
+               //         if (value && authenticationCubit.isAuthenticationRequired()) {
+               //           // Show authentication dialog
+               //           bool authenticated = await authenticationCubit.showAuthenticationDialog(context);
+               //           // Only update the status if the authentication was successful
+               //           if (authenticated) {
+               //             authenticationCubit.emit(AuthenticationState(isAuthenticated: true));
+               //           }
+               //         } else {
+               //           // If authentication is not required or the user turns off the switch
+               //           if (!value) {
+               //             authenticationCubit.clearAuthenticationStatus();
+               //           }
+               //           authenticationCubit.emit(AuthenticationState(isAuthenticated: value));
+               //         }
+               //       },
+               //     );
+               //   },
+               // ),
                BlocBuilder<AuthenticationCubit, AuthenticationState>(
                  builder: (context, state) {
                    return SwitchListTile(
-                     title: MyText(title: tr(context, "enableAuthentication"), color: MyColors.primary, size: 15.sp,fontWeight: FontWeight.bold,),
+                     title: MyText(title: tr(context, "enableAuthentication"), color: MyColors.primary, size: 15.sp, fontWeight: FontWeight.bold),
                      value: state.isAuthenticated,
                      onChanged: (value) async {
                        final authenticationCubit = context.read<AuthenticationCubit>();
-                       if (value && authenticationCubit.isAuthenticationRequired()) {
+
+                       // If the user is enabling authentication, save the status in Hive
+                       if (value) {
                          // Show authentication dialog
                          bool authenticated = await authenticationCubit.showAuthenticationDialog(context);
+
                          // Only update the status if the authentication was successful
                          if (authenticated) {
+                           await authenticationCubit.saveAuthenticationStatus(true);
                            authenticationCubit.emit(AuthenticationState(isAuthenticated: true));
                          }
                        } else {
-                         // If authentication is not required or the user turns off the switch
-                         if (!value) {
-                           authenticationCubit.clearAuthenticationStatus();
-                         }
-                         authenticationCubit.emit(AuthenticationState(isAuthenticated: value));
+                         // If the user is disabling authentication, clear the status in Hive
+                         authenticationCubit.clearAuthenticationStatus();
+                         authenticationCubit.emit(AuthenticationState(isAuthenticated: false));
                        }
                      },
+
                    );
                  },
                ),
+
                BlocBuilder<AuthenticationCubit, AuthenticationState>(
                  builder: (context, state) {
                    return Visibility(

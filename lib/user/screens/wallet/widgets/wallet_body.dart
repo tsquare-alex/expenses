@@ -9,6 +9,7 @@ import 'package:expenses/user/screens/wallet/widgets/wallet_category_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:googleapis/bigquery/v2.dart';
 
 class WalletBody extends StatefulWidget {
   const WalletBody({super.key});
@@ -28,6 +29,7 @@ class _WalletBodyState extends State<WalletBody> {
   Widget build(BuildContext context) {
     List<WalletModel> wallet;
     bool isHide = false;
+    WalletModel model;
 
     return BlocBuilder<WalletCubit, WalletState>(
       builder: (context, state) {

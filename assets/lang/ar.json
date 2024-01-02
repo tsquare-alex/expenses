@@ -403,11 +403,11 @@
   "databaseDetails": "تفاصيل قاعدة البيانات",
   "enableAuthentication": "تمكين المصادقة",
   "authenticationIsEnabled": "تم تمكين المصادقة",
-  "addWallet" : "إضافة محفظة جديدة",
-  "showTransactions" : "عرض معاملات المحفظة",
-  "transactionTransfer" : "تحويل المعاملة",
-  "transfer" : "تحويل",
-  "balanceTransfer" : "تحويل مبلغ مالي",
+  "addWallet": "إضافة محفظة جديدة",
+  "showTransactions": "عرض معاملات المحفظة",
+  "transactionTransfer": "تحويل المعاملة",
+  "transfer": "تحويل",
+  "balanceTransfer": "تحويل مبلغ مالي",
   "scanner": "باركود",
   "bmr": "معدل الحرق الطبيعي",
   "result": "الناتج",
@@ -442,5 +442,7 @@
   "enterPattern": "أدخل نقش",
   "enterFingerPrint": "او أدخل بصمة الإصبع",
   "setupSecurity": "إعداد الأمان",
-  "securityMsg": "يرجى إعداد كلمة مرور أو القياسات الحيوية على جهازك."
+  "securityMsg": "يرجى إعداد كلمة مرور أو القياسات الحيوية على جهازك.",
+  "editWallet": "تعديل المحفظة",
+  "edit": "تعديل"
 }

@@ -29,8 +29,11 @@ class BudgetCubit extends Cubit<BudgetState> {
     List<AddTransactionModel> data = transactionBox.values.toList();
     box.close();
     data.sort((a, b) => b.transactionDate!.compareTo(a.transactionDate!));
+    print(data);
 
-    transactioList = data;
+    // transactioList = data;
+    transactioList = data.where((model) => model.budget?.name == "m").toList();
+    print(transactioList);
   }
 
   Future addData(BudgetModel model) async {

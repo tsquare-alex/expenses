@@ -64,7 +64,7 @@ class _EditWalletState extends State<EditWallet> {
                 SizedBox(width: 45.w),
                 Center(
                   child: MyText(
-                    title: tr(context, 'Edit Wallet'),
+                    title: tr(context, 'editWallet'),
                     color: Colors.white,
                     size: 16.sp,
                     fontWeight: FontWeight.bold,
@@ -479,7 +479,7 @@ class _EditWalletState extends State<EditWallet> {
                     }
                   },
                   borderColor: MyColors.primary,
-                  title: "تعديل",
+                  title: tr(context, "edit"),
                   color: MyColors.primary,
                 ),
               ],

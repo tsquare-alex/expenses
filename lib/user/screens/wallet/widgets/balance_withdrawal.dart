@@ -194,7 +194,7 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                 AutoRouter.of(context).pop();
               },
               borderColor: MyColors.primary,
-              title: "سحب رصيد",
+              title: tr(context, "withdrawbalance"),
               color: MyColors.primary,
             ),
           ],

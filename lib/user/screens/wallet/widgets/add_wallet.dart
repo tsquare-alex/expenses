@@ -527,7 +527,7 @@ class _AddWalletState extends State<AddWallet> {
                             }
                           },
                           borderColor: MyColors.primary,
-                          title: "إضافة محفظة",
+                          title: tr(context, "addWallet"),
                           color: MyColors.primary,
                         ),
                       ],

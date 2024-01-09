@@ -56,7 +56,8 @@ class Res {
   static const String plus = "assets/images/plus.png";
   static const String register = "assets/images/register.png";
   static const String reminders = "assets/images/reminders.png";
-  static const String repeatedTransactions = "assets/images/repeatedTransactions.png";
+  static const String repeatedTransactions =
+      "assets/images/repeatedTransactions.png";
   static const String report = "assets/images/report.png";
   static const String reset = "assets/images/reset.png";
   static const String ringSize = "assets/images/ring_size.png";
@@ -78,4 +79,17 @@ class Res {
   static const String wallet = "assets/images/wallet.png";
   static const String womenShoes = "assets/images/women_shoes.png";
   static const String womenSize = "assets/images/womensize.png";
+  static const String salary = "assets/images/salary.png";
+  static const String incentive = "assets/images/incentive.png";
+  static const String extra = "assets/images/extra.png";
+  static const String reward = "assets/images/reward.png";
+  static const String gift = "assets/images/gift.png";
+  static const String bankAccount = "assets/images/bank_account.png";
+  static const String projectIncome = "assets/images/project_income.png";
+  static const String deal = "assets/images/deal.png";
+  static const String rent = "assets/images/rent.png";
+  static const String commission = "assets/images/commission.png";
+  static const String sale = "assets/images/sale.png";
+  static const String speculation = "assets/images/Speculation.png";
+  static const String back = "assets/images/back.png";
 }

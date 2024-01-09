@@ -14,29 +14,29 @@ class Wallet extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             backgroundColor: MyColors.white,
-            appBar: AppBar(
-              backgroundColor: Colors.green,
-              title: Row(
-                children: [
-                  Image.asset(
-                    Res.wallet,
-                    width: 20.w,
-                    height: 20.h,
-                    color: MyColors.white,
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  MyText(
-                    title: tr(context, 'wallet'),
-                    color: Colors.white,
-                    size: 14.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ],
-              ),
-              automaticallyImplyLeading: false,
-            ),
+            // appBar: AppBar(
+            //   backgroundColor: Colors.green,
+            //   title: Row(
+            //     children: [
+            //       Image.asset(
+            //         Res.wallet,
+            //         width: 20.w,
+            //         height: 20.h,
+            //         color: MyColors.white,
+            //       ),
+            //       SizedBox(
+            //         width: 10.w,
+            //       ),
+            //       MyText(
+            //         title: tr(context, 'wallet'),
+            //         color: Colors.white,
+            //         size: 14.sp,
+            //         fontWeight: FontWeight.bold,
+            //       ),
+            //     ],
+            //   ),
+            //   automaticallyImplyLeading: false,
+            // ),
             // floatingActionButton: FloatingActionButton(
             //   onPressed: () {
             //     AutoRouter.of(context).push(const WalletCategoryRoute());

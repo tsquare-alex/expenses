@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/constants/constants.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
+import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
 import 'package:flutter/material.dart';
@@ -21,13 +22,12 @@ class WalletCubit extends Cubit<WalletState> {
   ValueNotifier<int> selectedCategoryIndex = ValueNotifier<int>(0);
 
   List<String> valueCategory = [
+    "تحويل بنكي",
+    "نقاط",
     "نقدي",
     "حساب بنكي",
-    "تحويل بنكي",
-    "موبايل كاش",
-    "نقاط",
-    "انستاباي",
   ];
+  List<String> walletSource = ["شخص", "جهة"];
   Color generateRandomColor() {
     Random random = Random();
     return Color.fromARGB(
@@ -37,6 +37,7 @@ class WalletCubit extends Cubit<WalletState> {
       random.nextInt(256),
     );
   }
+
   List<Image> Images = [
     Image.asset(
       "assets/images/currency.png",
@@ -98,13 +99,30 @@ class WalletCubit extends Cubit<WalletState> {
     "راتب",
     "إضافي",
     "مكافأة",
-    "هدايا",
+    "هدية",
     "حساب بنكي",
     "إيجار",
     "عائد مشروع",
     "صفقة",
-    "اخري"
+    "عمولة",
+    "بيع",
+    "مضاربة"
   ];
+  List<Image> walletCategoryImage = [
+    Image.asset(Res.salary),
+    Image.asset(Res.incentive),
+    Image.asset(Res.extra),
+    Image.asset(Res.reward),
+    Image.asset(Res.gift),
+    Image.asset(Res.bankAccount),
+    Image.asset(Res.projectIncome),
+    Image.asset(Res.deal),
+    Image.asset(Res.rent),
+    Image.asset(Res.commission),
+    Image.asset(Res.sale),
+    Image.asset(Res.speculation),
+  ];
+
   List<String> encomeSource = ["شخص", "جهة"];
   List<String> curancyType = ["ر.س", "ج.م"];
   List<String> repeatWallet = [

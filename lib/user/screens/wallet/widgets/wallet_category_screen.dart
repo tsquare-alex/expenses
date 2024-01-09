@@ -1,14 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
-import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../general/packages/localization/Localizations.dart';
 
 class WalletCategory extends StatelessWidget {
   const WalletCategory({super.key});
@@ -16,16 +13,6 @@ class WalletCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-        // automaticallyImplyLeading: false,
-        title: MyText(
-          title: tr(context, 'addWallet'),
-          color: Colors.white,
-          size: 16.sp,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
       body: Column(
         children: [
           Expanded(
@@ -33,57 +20,71 @@ class WalletCategory extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 12.w),
             child: BlocBuilder<WalletCubit, WalletState>(
               builder: (context, state) {
-                final colorList = List.generate(
-                  context.read<WalletCubit>().walletCategory.length,
-                  (_) => context.read<WalletCubit>().generateRandomColor(),
-                );
                 return GridView.builder(
-                  itemCount: context.read<WalletCubit>().walletCategory.length,
+                  itemCount: 12,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                     crossAxisSpacing: 12.w,
                     mainAxisSpacing: 12.h,
                   ),
                   itemBuilder: (context, index) {
-                    // double randomOpacity = 0.2 + Random().nextDouble() * 0.4;
-
                     return InkWell(
-                      onTap: () {
-                        context
-                            .read<WalletCubit>()
-                            .selectedCategoryIndex
-                            .value = index;
-                        AutoRouter.of(context)
-                            .push(AddWalletRoute(selectItemIndex: index));
-                      },
-                      child: Container(
-                        height: 28.h,
-                        width: 34.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12.w),
-                          color: colorList[index],
-                        ),
+                        onTap: () {
+                          context
+                              .read<WalletCubit>()
+                              .selectedCategoryIndex
+                              .value = index;
+                          AutoRouter.of(context)
+                              .push(AddWalletRoute(selectItemIndex: index));
+                        },
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            // SizedBox(height: 18.h),
-                            // Center(
-                            //   child: context.read<WalletCubit>().Images[index],
-                            // ),
-                            Center(
-                              child: MyText(
-                                title: context
-                                    .read<WalletCubit>()
-                                    .walletCategory[index],
-                                color: MyColors.white,
-                                size: 12.sp,
-                                fontWeight: FontWeight.bold,
+                            Container(
+                              height: 70.h,
+                              width: 70.w,
+                              decoration: BoxDecoration(
+                                  color: MyColors.greyWhite,
+                                  borderRadius: BorderRadius.circular(85.r)),
+                              child: ClipRect(
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: context
+                                      .read<WalletCubit>()
+                                      .walletCategoryImage[index],
+                                ),
                               ),
                             ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Text(context
+                                .read<WalletCubit>()
+                                .walletCategory[index]),
                           ],
-                        ),
-                      ),
-                    );
+                        )
+                        // ClipRRect(
+                        //   borderRadius: BorderRadius.circular(20),
+                        //   child: Container(
+                        //     decoration: BoxDecoration(color: MyColors.grey),
+                        //     child: Column(
+                        //       mainAxisAlignment: MainAxisAlignment.center,
+                        //       children: [
+                        //         Image.asset("assets/images/salary.png"),
+                        //         Center(
+                        //           child: MyText(
+                        //             title: context
+                        //                 .read<WalletCubit>()
+                        //                 .walletCategory[index],
+                        //             color: MyColors.white,
+                        //             size: 12.sp,
+                        //             fontWeight: FontWeight.bold,
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        );
                   },
                 );
               },

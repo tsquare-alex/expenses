@@ -37,9 +37,8 @@ class _AddWalletState extends State<AddWallet> {
 
   final TextEditingController paymentMethodController = TextEditingController();
   WalletData data = WalletData();
-  DateTime selectOpenDate = DateTime.now();
-  TimeOfDay selectOpenTime = TimeOfDay.now();
-  DateTime selectedDate = DateTime.now();
+  DateTime? selectedDate;
+  DateTime? closedDate;
   TimeOfDay selectedtTime = TimeOfDay.now();
   bool repeatSwitchValue = false;
 
@@ -329,7 +328,92 @@ class _AddWalletState extends State<AddWallet> {
                             color: MyColors.black,
                             size: 16.sp)
                       ],
-                    )
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                            height: 44.h,
+                            width: 160.w,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.r),
+                              border: Border.all(
+                                  color: MyColors.semiTransparentColor),
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                openDate(context);
+                              },
+                              child: Center(
+                                child: Padding(
+                                  padding: EdgeInsets.all(12.r),
+                                  child: Row(
+                                    children: [
+                                      Image.asset(Res.calender),
+                                      SizedBox(
+                                        width: 15.w,
+                                      ),
+                                      Text(
+                                        selectedDate != null
+                                            ? "${selectedDate?.toLocal()}"
+                                                .split(' ')[0]
+                                            : "تاريخ فتح المحفظة",
+                                        style: TextStyle(
+                                          fontSize: 12.sp,
+                                          color: selectedDate != null
+                                              ? Colors.black
+                                              : Colors.grey,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )),
+                        SizedBox(
+                          width: 20.w,
+                        ),
+                        Container(
+                            height: 44.h,
+                            width: 160.w,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.r),
+                              border: Border.all(
+                                  color: MyColors.semiTransparentColor),
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                closeDate(context);
+                              },
+                              child: Center(
+                                child: Padding(
+                                  padding: EdgeInsets.all(12.r),
+                                  child: Row(
+                                    children: [
+                                      Image.asset(Res.calender),
+                                      SizedBox(
+                                        width: 15.w,
+                                      ),
+                                      Text(
+                                        closedDate != null
+                                            ? "${closedDate?.toLocal()}"
+                                                .split(' ')[0]
+                                            : "تاريخ غلق المحفظة",
+                                        style: TextStyle(
+                                          fontSize: 12.sp,
+                                          color: closedDate != null
+                                              ? Colors.black
+                                              : Colors.grey,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )),
+                      ],
+                    ),
                   ],
                 ),
                 SizedBox(height: 20.h),
@@ -886,73 +970,77 @@ class _AddWalletState extends State<AddWallet> {
     // );
   }
 
-  void chosenTime() async {
-    var chosenDate = await showTimePicker(
+  // Future<void> chosenTime() async {
+  //   final chosenDate = await showTimePicker(
+  //     context: context,
+  //     initialTime: TimeOfDay.now(),
+  //   );
+  //   if (chosenDate != null) {
+  //     selectedtTime = chosenDate;
+  //     timeController.text = selectedtTime.toString();
+  //     setState(() {});
+  //   }
+  // }
+
+  Future<void> openDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
       context: context,
-      initialTime: TimeOfDay.now(),
-    );
-    if (chosenDate != null) {
-      selectedtTime = chosenDate;
-      timeController.text = selectedtTime.toString();
-      setState(() {});
-    }
-  }
-
-  void chosenDate() async {
-    var chosenDate = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime.now(),
-        lastDate: DateTime.now().add(const Duration(days: 365)));
-
-    if (chosenDate != null) {
-      selectedDate = chosenDate;
-      dateController.text = selectedDate.toString();
-      setState(() {});
-    }
-  }
-
-  void dateRange() async {
-    DateTimeRange? dateRange = await showDateRangePicker(
-      context: context,
-      firstDate: context.read<WalletCubit>().startDate,
-      lastDate: context.read<WalletCubit>().endDate,
+      initialDate: selectedDate ?? DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
     );
 
-    if (dateRange != null) {
+    if (picked != null && picked != selectedDate) {
       setState(() {
-        selectRangeDate = dateRange;
-        rangeDateController.text =
-            "${dateRange.start.day}/${dateRange.start.month}/${dateRange.start.year} - ${dateRange.end.day}/${dateRange.end.month}/${dateRange.end.year}";
+        selectedDate = picked;
       });
     }
   }
 
-  void chosenOpenDate() async {
-    var chosenDate = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now().add(const Duration(days: 30)),
-        firstDate: DateTime.now(),
-        lastDate: DateTime.now().add(const Duration(days: 365)));
-
-    if (chosenDate != null) {
-      selectOpenDate = chosenDate;
-      openDateController.text = selectedDate.toString();
-      setState(() {});
-    }
-  }
-
-  void chosenOpenTime() async {
-    var chosenDate = await showTimePicker(
+  Future<void> closeDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
       context: context,
-      initialTime: TimeOfDay.now(),
+      initialDate: closedDate ?? DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
     );
-    if (chosenDate != null) {
-      selectOpenTime = chosenDate;
-      openTimeController.text = selectedtTime.toString();
-      setState(() {});
+
+    if (picked != null && picked != closedDate) {
+      setState(() {
+        closedDate = picked;
+      });
     }
   }
+
+  // Future<void> chosenDate() async {
+  //   final DateTime picked = await showDatePicker(
+  //       context: context,
+  //       initialDate: selectedDate ?? DateTime.now(),
+  //       firstDate: DateTime.now(2000),
+  //       lastDate: DateTime.now().add(const Duration(days: 365)));
+
+  //   if (chosenDate != null) {
+  //     selectedDate = chosenDate;
+  //     dateController.text = selectedDate.toString();
+  //     setState(() {});
+  //   }
+  // }
+
+  // void dateRange() async {
+  //   DateTimeRange? dateRange = await showDateRangePicker(
+  //     context: context,
+  //     firstDate: context.read<WalletCubit>().startDate,
+  //     lastDate: context.read<WalletCubit>().endDate,
+  //   );
+
+  //   if (dateRange != null) {
+  //     setState(() {
+  //       selectRangeDate = dateRange;
+  //       rangeDateController.text =
+  //           "${dateRange.start.day}/${dateRange.start.month}/${dateRange.start.year} - ${dateRange.end.day}/${dateRange.end.month}/${dateRange.end.year}";
+  //     });
+  //   }
+  // }
 
   @override
   void dispose() {

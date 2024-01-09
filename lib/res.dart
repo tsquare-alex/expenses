@@ -92,4 +92,5 @@ class Res {
   static const String sale = "assets/images/sale.png";
   static const String speculation = "assets/images/Speculation.png";
   static const String back = "assets/images/back.png";
+  static const String calender = "assets/images/calendar.png";
 }

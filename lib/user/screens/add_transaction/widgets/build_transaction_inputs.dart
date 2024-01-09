@@ -183,6 +183,7 @@ class BuildTransactionInputs extends StatelessWidget {
                           finData: (data) => addTransactionData.getUnits(
                             context,
                           ),
+                          hasLocalization: true,
                           useName: true,
                           buttonsColor: MyColors.primary,
                           searchHint:tr(context, "search"),

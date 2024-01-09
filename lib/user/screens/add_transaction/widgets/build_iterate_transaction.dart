@@ -40,7 +40,7 @@ class BuildIterateTransaction extends StatelessWidget {
                         if(state.data==true)Expanded(
                           child: DropdownTextField<DropdownModel>(
                             dropKey: addTransactionData.iterateTransactionDropKey,
-                            label: type!="الاهداف المالية المستهدفة"?"مدة التكرار":"مدة التحويل",
+                            label: type!="الاهداف المالية المستهدفة"?tr(context, "repeatDuration"):tr(context, "repeatDuration"),
                             selectedItem: addTransactionData.selectedIterateTransaction,
                             margin: const EdgeInsets.symmetric(vertical: 5),
                             validate: (value) {
@@ -51,6 +51,7 @@ class BuildIterateTransaction extends StatelessWidget {
                             onChange: addTransactionData.setSelectIterateTransaction,
                             finData: (data) => addTransactionData.getIterateTransaction(context),
                             useName: true,
+                            hasLocalization: true,
                             buttonsColor: MyColors.primary,
                             searchHint: tr(context, "search"),
                           ),
@@ -87,14 +88,14 @@ class BuildIterateTransaction extends StatelessWidget {
                       Expanded(
                         child: Row(
                           children: [
-                            MyText(title: "التنبيه بالمعاملة",
+                            MyText(title: tr(context, "notify"),
                               color: MyColors.black,
                               size: 14.sp,
                               fontWeight: FontWeight.bold,),
                             SizedBox(
                               width: 10.w,
                             ),
-                            MyText(title: "(سيتم تذكيرك قبل الموعد)",
+                            MyText(title: "(${tr(context, "remember")})",
                               color: MyColors.black,
                               size: 9.sp,
                               fontWeight: FontWeight.bold,),

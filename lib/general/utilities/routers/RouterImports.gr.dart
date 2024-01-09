@@ -32,54 +32,57 @@ import 'package:expenses/user/models/add_transaction_model/add_transaction_model
 import 'package:expenses/user/models/database_model/database_model.dart'
     as _i40;
 import 'package:expenses/user/models/transaction_model/transaction_model.dart'
+    as _i43;
+import 'package:expenses/user/models/transaction_type_model/transaction_type_model.dart'
     as _i41;
 import 'package:expenses/user/screens/add_transaction/add_transaction_imports.dart'
     as _i13;
-import 'package:expenses/user/screens/auth_info_cubit/auth_screen.dart' as _i37;
-import 'package:expenses/user/screens/bag/bag_imports.dart' as _i34;
+import 'package:expenses/user/screens/auth_info_cubit/auth_screen.dart' as _i36;
+import 'package:expenses/user/screens/bag/bag_imports.dart' as _i33;
 import 'package:expenses/user/screens/balance_transfer/wallet_balance_transfer_imports.dart'
-    as _i33;
+    as _i32;
 import 'package:expenses/user/screens/bmi_calculator/bmi_calculator_imports.dart'
     as _i15;
 import 'package:expenses/user/screens/budget/widget/add_transaction.dart'
-    as _i30;
+    as _i29;
 import 'package:expenses/user/screens/cash_transactions/cash_transactions_imports.dart'
     as _i19;
 import 'package:expenses/user/screens/change_currency/change_currency_imports.dart'
     as _i16;
+import 'package:expenses/user/screens/commitments/commitments_imports.dart'
+    as _i37;
 import 'package:expenses/user/screens/database/widgets/add_database.dart'
     as _i12;
 import 'package:expenses/user/screens/database/widgets/database_details.dart'
     as _i11;
-import 'package:expenses/user/screens/expense/expense_imports.dart' as _i21;
 import 'package:expenses/user/screens/home/home_imports.dart' as _i10;
 import 'package:expenses/user/screens/repeated_transactions/repeated_transactions_imports.dart'
     as _i20;
 import 'package:expenses/user/screens/reports/statistics/statistics_imports.dart'
-    as _i24;
+    as _i23;
 import 'package:expenses/user/screens/shopping/shopping_imports.dart' as _i17;
 import 'package:expenses/user/screens/target/target_imports.dart' as _i18;
-import 'package:expenses/user/screens/tools_helper/tools_helper.dart' as _i29;
+import 'package:expenses/user/screens/tools_helper/tools_helper.dart' as _i28;
 import 'package:expenses/user/screens/transaction_details/transaction_details_imports.dart'
     as _i14;
 import 'package:expenses/user/screens/transaction_type/transaction_type_imports.dart'
-    as _i35;
+    as _i34;
 import 'package:expenses/user/screens/transfer_wallet_transaction/transfer_wallet_transaction_imports.dart'
-    as _i32;
-import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart'
-    as _i43;
-import 'package:expenses/user/screens/wallet/wallet_imports.dart' as _i25;
-import 'package:expenses/user/screens/wallet/widgets/add_balance.dart' as _i28;
-import 'package:expenses/user/screens/wallet/widgets/add_wallet.dart' as _i23;
-import 'package:expenses/user/screens/wallet/widgets/balance_transfer.dart'
-    as _i22;
-import 'package:expenses/user/screens/wallet/widgets/balance_withdrawal.dart'
-    as _i27;
-import 'package:expenses/user/screens/wallet/widgets/edit_Wallet.dart' as _i26;
-import 'package:expenses/user/screens/wallet/widgets/wallet_category_screen.dart'
-    as _i36;
-import 'package:expenses/user/screens/wallet_transactions/wallet_transactions_imports.dart'
     as _i31;
+import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart'
+    as _i44;
+import 'package:expenses/user/screens/wallet/wallet_imports.dart' as _i24;
+import 'package:expenses/user/screens/wallet/widgets/add_balance.dart' as _i27;
+import 'package:expenses/user/screens/wallet/widgets/add_wallet.dart' as _i22;
+import 'package:expenses/user/screens/wallet/widgets/balance_transfer.dart'
+    as _i21;
+import 'package:expenses/user/screens/wallet/widgets/balance_withdrawal.dart'
+    as _i26;
+import 'package:expenses/user/screens/wallet/widgets/edit_Wallet.dart' as _i25;
+import 'package:expenses/user/screens/wallet/widgets/wallet_category_screen.dart'
+    as _i35;
+import 'package:expenses/user/screens/wallet_transactions/wallet_transactions_imports.dart'
+    as _i30;
 import 'package:flutter/material.dart' as _i39;
 
 class AppRouter extends _i38.RootStackRouter {
@@ -194,6 +197,7 @@ class AppRouter extends _i38.RootStackRouter {
         child: _i13.AddTransaction(
           key: args.key,
           model: args.model,
+          transactionName: args.transactionName,
         ),
         opaque: true,
       );
@@ -224,23 +228,35 @@ class AppRouter extends _i38.RootStackRouter {
       );
     },
     ShoppingRoute.name: (routeData) {
+      final args = routeData.argsAs<ShoppingRouteArgs>();
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i17.Shopping(),
+        child: _i17.Shopping(
+          key: args.key,
+          model: args.model,
+        ),
         opaque: true,
       );
     },
     TargetRoute.name: (routeData) {
+      final args = routeData.argsAs<TargetRouteArgs>();
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i18.Target(),
+        child: _i18.Target(
+          key: args.key,
+          model: args.model,
+        ),
         opaque: true,
       );
     },
     CashTransactionsRoute.name: (routeData) {
+      final args = routeData.argsAs<CashTransactionsRouteArgs>();
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i19.CashTransactions(),
+        child: _i19.CashTransactions(
+          key: args.key,
+          model: args.model,
+        ),
         opaque: true,
       );
     },
@@ -251,24 +267,17 @@ class AppRouter extends _i38.RootStackRouter {
         opaque: true,
       );
     },
-    ExpenseRoute.name: (routeData) {
-      return _i38.AdaptivePage<dynamic>(
-        routeData: routeData,
-        child: const _i21.Expense(),
-        opaque: true,
-      );
-    },
     BalanceTransferRoute.name: (routeData) {
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i22.BalanceTransfer(),
+        child: const _i21.BalanceTransfer(),
         opaque: true,
       );
     },
     AddWalletRoute.name: (routeData) {
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i23.AddWallet(),
+        child: const _i22.AddWallet(),
         opaque: true,
       );
     },
@@ -276,7 +285,7 @@ class AppRouter extends _i38.RootStackRouter {
       final args = routeData.argsAs<StatisticsRouteArgs>();
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: _i24.Statistics(
+        child: _i23.Statistics(
           key: args.key,
           option: args.option,
         ),
@@ -286,7 +295,7 @@ class AppRouter extends _i38.RootStackRouter {
     WalletRoute.name: (routeData) {
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i25.Wallet(),
+        child: const _i24.Wallet(),
         opaque: true,
       );
     },
@@ -294,7 +303,7 @@ class AppRouter extends _i38.RootStackRouter {
       final args = routeData.argsAs<EditWalletRouteArgs>();
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: _i26.EditWallet(
+        child: _i25.EditWallet(
           key: args.key,
           model: args.model,
         ),
@@ -305,7 +314,7 @@ class AppRouter extends _i38.RootStackRouter {
       final args = routeData.argsAs<BalanceWithdrawalRouteArgs>();
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: _i27.BalanceWithdrawal(
+        child: _i26.BalanceWithdrawal(
           key: args.key,
           model: args.model,
         ),
@@ -316,7 +325,7 @@ class AppRouter extends _i38.RootStackRouter {
       final args = routeData.argsAs<AddBalanceRouteArgs>();
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: _i28.AddBalance(
+        child: _i27.AddBalance(
           key: args.key,
           model: args.model,
         ),
@@ -326,14 +335,14 @@ class AppRouter extends _i38.RootStackRouter {
     ToolsHelperRoute.name: (routeData) {
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i29.ToolsHelper(),
+        child: const _i28.ToolsHelper(),
         opaque: true,
       );
     },
     AddTransactionBudgetRoute.name: (routeData) {
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i30.AddTransactionBudget(),
+        child: const _i29.AddTransactionBudget(),
         opaque: true,
       );
     },
@@ -341,7 +350,7 @@ class AppRouter extends _i38.RootStackRouter {
       final args = routeData.argsAs<WalletTransactionsRouteArgs>();
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: _i31.WalletTransactions(
+        child: _i30.WalletTransactions(
           key: args.key,
           model: args.model,
         ),
@@ -352,7 +361,7 @@ class AppRouter extends _i38.RootStackRouter {
       final args = routeData.argsAs<TransferWalletTransactionRouteArgs>();
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: _i32.TransferWalletTransaction(
+        child: _i31.TransferWalletTransaction(
           key: args.key,
           model: args.model,
         ),
@@ -363,7 +372,7 @@ class AppRouter extends _i38.RootStackRouter {
       final args = routeData.argsAs<WalletBalanceTransferRouteArgs>();
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: _i33.WalletBalanceTransfer(
+        child: _i32.WalletBalanceTransfer(
           key: args.key,
           model: args.model,
         ),
@@ -373,28 +382,39 @@ class AppRouter extends _i38.RootStackRouter {
     BagRoute.name: (routeData) {
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i34.Bag(),
+        child: const _i33.Bag(),
         opaque: true,
       );
     },
     TransactionTypeRoute.name: (routeData) {
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i35.TransactionType(),
+        child: const _i34.TransactionType(),
         opaque: true,
       );
     },
     WalletCategoryRoute.name: (routeData) {
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i36.WalletCategory(),
+        child: const _i35.WalletCategory(),
         opaque: true,
       );
     },
     AuthenticationScreenRoute.name: (routeData) {
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: _i37.AuthenticationScreen(),
+        child: _i36.AuthenticationScreen(),
+        opaque: true,
+      );
+    },
+    CommitmentsRoute.name: (routeData) {
+      final args = routeData.argsAs<CommitmentsRouteArgs>();
+      return _i38.AdaptivePage<dynamic>(
+        routeData: routeData,
+        child: _i37.Commitments(
+          key: args.key,
+          model: args.model,
+        ),
         opaque: true,
       );
     },
@@ -483,10 +503,6 @@ class AppRouter extends _i38.RootStackRouter {
           path: '/repeated-transactions',
         ),
         _i38.RouteConfig(
-          ExpenseRoute.name,
-          path: '/Expense',
-        ),
-        _i38.RouteConfig(
           BalanceTransferRoute.name,
           path: '/balance-transfer',
         ),
@@ -549,6 +565,10 @@ class AppRouter extends _i38.RootStackRouter {
         _i38.RouteConfig(
           AuthenticationScreenRoute.name,
           path: '/authentication-screen',
+        ),
+        _i38.RouteConfig(
+          CommitmentsRoute.name,
+          path: '/Commitments',
         ),
       ];
 }
@@ -769,13 +789,15 @@ class AddDatabaseRoute extends _i38.PageRouteInfo<void> {
 class AddTransactionRoute extends _i38.PageRouteInfo<AddTransactionRouteArgs> {
   AddTransactionRoute({
     _i39.Key? key,
-    required _i41.TransactionModel? model,
+    required _i41.TransactionTypeModel? model,
+    String? transactionName,
   }) : super(
           AddTransactionRoute.name,
           path: '/add-transaction',
           args: AddTransactionRouteArgs(
             key: key,
             model: model,
+            transactionName: transactionName,
           ),
         );
 
@@ -786,15 +808,18 @@ class AddTransactionRouteArgs {
   const AddTransactionRouteArgs({
     this.key,
     required this.model,
+    this.transactionName,
   });
 
   final _i39.Key? key;
 
-  final _i41.TransactionModel? model;
+  final _i41.TransactionTypeModel? model;
+
+  final String? transactionName;
 
   @override
   String toString() {
-    return 'AddTransactionRouteArgs{key: $key, model: $model}';
+    return 'AddTransactionRouteArgs{key: $key, model: $model, transactionName: $transactionName}';
   }
 }
 
@@ -859,38 +884,105 @@ class ChangeCurrencyRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i17.Shopping]
-class ShoppingRoute extends _i38.PageRouteInfo<void> {
-  const ShoppingRoute()
-      : super(
+class ShoppingRoute extends _i38.PageRouteInfo<ShoppingRouteArgs> {
+  ShoppingRoute({
+    _i39.Key? key,
+    required _i43.TransactionModel model,
+  }) : super(
           ShoppingRoute.name,
           path: '/Shopping',
+          args: ShoppingRouteArgs(
+            key: key,
+            model: model,
+          ),
         );
 
   static const String name = 'ShoppingRoute';
 }
 
+class ShoppingRouteArgs {
+  const ShoppingRouteArgs({
+    this.key,
+    required this.model,
+  });
+
+  final _i39.Key? key;
+
+  final _i43.TransactionModel model;
+
+  @override
+  String toString() {
+    return 'ShoppingRouteArgs{key: $key, model: $model}';
+  }
+}
+
 /// generated route for
 /// [_i18.Target]
-class TargetRoute extends _i38.PageRouteInfo<void> {
-  const TargetRoute()
-      : super(
+class TargetRoute extends _i38.PageRouteInfo<TargetRouteArgs> {
+  TargetRoute({
+    _i39.Key? key,
+    required _i43.TransactionModel model,
+  }) : super(
           TargetRoute.name,
           path: '/Target',
+          args: TargetRouteArgs(
+            key: key,
+            model: model,
+          ),
         );
 
   static const String name = 'TargetRoute';
 }
 
+class TargetRouteArgs {
+  const TargetRouteArgs({
+    this.key,
+    required this.model,
+  });
+
+  final _i39.Key? key;
+
+  final _i43.TransactionModel model;
+
+  @override
+  String toString() {
+    return 'TargetRouteArgs{key: $key, model: $model}';
+  }
+}
+
 /// generated route for
 /// [_i19.CashTransactions]
-class CashTransactionsRoute extends _i38.PageRouteInfo<void> {
-  const CashTransactionsRoute()
-      : super(
+class CashTransactionsRoute
+    extends _i38.PageRouteInfo<CashTransactionsRouteArgs> {
+  CashTransactionsRoute({
+    _i39.Key? key,
+    required _i43.TransactionModel model,
+  }) : super(
           CashTransactionsRoute.name,
           path: '/cash-transactions',
+          args: CashTransactionsRouteArgs(
+            key: key,
+            model: model,
+          ),
         );
 
   static const String name = 'CashTransactionsRoute';
+}
+
+class CashTransactionsRouteArgs {
+  const CashTransactionsRouteArgs({
+    this.key,
+    required this.model,
+  });
+
+  final _i39.Key? key;
+
+  final _i43.TransactionModel model;
+
+  @override
+  String toString() {
+    return 'CashTransactionsRouteArgs{key: $key, model: $model}';
+  }
 }
 
 /// generated route for
@@ -906,19 +998,7 @@ class RepeatedTransactionsRoute extends _i38.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i21.Expense]
-class ExpenseRoute extends _i38.PageRouteInfo<void> {
-  const ExpenseRoute()
-      : super(
-          ExpenseRoute.name,
-          path: '/Expense',
-        );
-
-  static const String name = 'ExpenseRoute';
-}
-
-/// generated route for
-/// [_i22.BalanceTransfer]
+/// [_i21.BalanceTransfer]
 class BalanceTransferRoute extends _i38.PageRouteInfo<void> {
   const BalanceTransferRoute()
       : super(
@@ -930,7 +1010,7 @@ class BalanceTransferRoute extends _i38.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i23.AddWallet]
+/// [_i22.AddWallet]
 class AddWalletRoute extends _i38.PageRouteInfo<void> {
   const AddWalletRoute()
       : super(
@@ -942,7 +1022,7 @@ class AddWalletRoute extends _i38.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i24.Statistics]
+/// [_i23.Statistics]
 class StatisticsRoute extends _i38.PageRouteInfo<StatisticsRouteArgs> {
   StatisticsRoute({
     _i39.Key? key,
@@ -976,7 +1056,7 @@ class StatisticsRouteArgs {
 }
 
 /// generated route for
-/// [_i25.Wallet]
+/// [_i24.Wallet]
 class WalletRoute extends _i38.PageRouteInfo<void> {
   const WalletRoute()
       : super(
@@ -988,11 +1068,11 @@ class WalletRoute extends _i38.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i26.EditWallet]
+/// [_i25.EditWallet]
 class EditWalletRoute extends _i38.PageRouteInfo<EditWalletRouteArgs> {
   EditWalletRoute({
     _i39.Key? key,
-    required _i43.WalletModel model,
+    required _i44.WalletModel model,
   }) : super(
           EditWalletRoute.name,
           path: '/edit-wallet',
@@ -1013,7 +1093,7 @@ class EditWalletRouteArgs {
 
   final _i39.Key? key;
 
-  final _i43.WalletModel model;
+  final _i44.WalletModel model;
 
   @override
   String toString() {
@@ -1022,12 +1102,12 @@ class EditWalletRouteArgs {
 }
 
 /// generated route for
-/// [_i27.BalanceWithdrawal]
+/// [_i26.BalanceWithdrawal]
 class BalanceWithdrawalRoute
     extends _i38.PageRouteInfo<BalanceWithdrawalRouteArgs> {
   BalanceWithdrawalRoute({
     _i39.Key? key,
-    required _i43.WalletModel model,
+    required _i44.WalletModel model,
   }) : super(
           BalanceWithdrawalRoute.name,
           path: '/balance-withdrawal',
@@ -1048,7 +1128,7 @@ class BalanceWithdrawalRouteArgs {
 
   final _i39.Key? key;
 
-  final _i43.WalletModel model;
+  final _i44.WalletModel model;
 
   @override
   String toString() {
@@ -1057,11 +1137,11 @@ class BalanceWithdrawalRouteArgs {
 }
 
 /// generated route for
-/// [_i28.AddBalance]
+/// [_i27.AddBalance]
 class AddBalanceRoute extends _i38.PageRouteInfo<AddBalanceRouteArgs> {
   AddBalanceRoute({
     _i39.Key? key,
-    required _i43.WalletModel model,
+    required _i44.WalletModel model,
   }) : super(
           AddBalanceRoute.name,
           path: '/add-balance',
@@ -1082,7 +1162,7 @@ class AddBalanceRouteArgs {
 
   final _i39.Key? key;
 
-  final _i43.WalletModel model;
+  final _i44.WalletModel model;
 
   @override
   String toString() {
@@ -1091,7 +1171,7 @@ class AddBalanceRouteArgs {
 }
 
 /// generated route for
-/// [_i29.ToolsHelper]
+/// [_i28.ToolsHelper]
 class ToolsHelperRoute extends _i38.PageRouteInfo<void> {
   const ToolsHelperRoute()
       : super(
@@ -1103,7 +1183,7 @@ class ToolsHelperRoute extends _i38.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i30.AddTransactionBudget]
+/// [_i29.AddTransactionBudget]
 class AddTransactionBudgetRoute extends _i38.PageRouteInfo<void> {
   const AddTransactionBudgetRoute()
       : super(
@@ -1115,12 +1195,12 @@ class AddTransactionBudgetRoute extends _i38.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i31.WalletTransactions]
+/// [_i30.WalletTransactions]
 class WalletTransactionsRoute
     extends _i38.PageRouteInfo<WalletTransactionsRouteArgs> {
   WalletTransactionsRoute({
     _i39.Key? key,
-    required _i43.WalletModel model,
+    required _i44.WalletModel model,
   }) : super(
           WalletTransactionsRoute.name,
           path: '/wallet-transactions',
@@ -1141,7 +1221,7 @@ class WalletTransactionsRouteArgs {
 
   final _i39.Key? key;
 
-  final _i43.WalletModel model;
+  final _i44.WalletModel model;
 
   @override
   String toString() {
@@ -1150,7 +1230,7 @@ class WalletTransactionsRouteArgs {
 }
 
 /// generated route for
-/// [_i32.TransferWalletTransaction]
+/// [_i31.TransferWalletTransaction]
 class TransferWalletTransactionRoute
     extends _i38.PageRouteInfo<TransferWalletTransactionRouteArgs> {
   TransferWalletTransactionRoute({
@@ -1185,12 +1265,12 @@ class TransferWalletTransactionRouteArgs {
 }
 
 /// generated route for
-/// [_i33.WalletBalanceTransfer]
+/// [_i32.WalletBalanceTransfer]
 class WalletBalanceTransferRoute
     extends _i38.PageRouteInfo<WalletBalanceTransferRouteArgs> {
   WalletBalanceTransferRoute({
     _i39.Key? key,
-    required _i43.WalletModel model,
+    required _i44.WalletModel model,
   }) : super(
           WalletBalanceTransferRoute.name,
           path: '/wallet-balance-transfer',
@@ -1211,7 +1291,7 @@ class WalletBalanceTransferRouteArgs {
 
   final _i39.Key? key;
 
-  final _i43.WalletModel model;
+  final _i44.WalletModel model;
 
   @override
   String toString() {
@@ -1220,7 +1300,7 @@ class WalletBalanceTransferRouteArgs {
 }
 
 /// generated route for
-/// [_i34.Bag]
+/// [_i33.Bag]
 class BagRoute extends _i38.PageRouteInfo<void> {
   const BagRoute()
       : super(
@@ -1232,7 +1312,7 @@ class BagRoute extends _i38.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i35.TransactionType]
+/// [_i34.TransactionType]
 class TransactionTypeRoute extends _i38.PageRouteInfo<void> {
   const TransactionTypeRoute()
       : super(
@@ -1244,7 +1324,7 @@ class TransactionTypeRoute extends _i38.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i36.WalletCategory]
+/// [_i35.WalletCategory]
 class WalletCategoryRoute extends _i38.PageRouteInfo<void> {
   const WalletCategoryRoute()
       : super(
@@ -1256,7 +1336,7 @@ class WalletCategoryRoute extends _i38.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i37.AuthenticationScreen]
+/// [_i36.AuthenticationScreen]
 class AuthenticationScreenRoute extends _i38.PageRouteInfo<void> {
   const AuthenticationScreenRoute()
       : super(
@@ -1265,4 +1345,38 @@ class AuthenticationScreenRoute extends _i38.PageRouteInfo<void> {
         );
 
   static const String name = 'AuthenticationScreenRoute';
+}
+
+/// generated route for
+/// [_i37.Commitments]
+class CommitmentsRoute extends _i38.PageRouteInfo<CommitmentsRouteArgs> {
+  CommitmentsRoute({
+    _i39.Key? key,
+    required _i43.TransactionModel model,
+  }) : super(
+          CommitmentsRoute.name,
+          path: '/Commitments',
+          args: CommitmentsRouteArgs(
+            key: key,
+            model: model,
+          ),
+        );
+
+  static const String name = 'CommitmentsRoute';
+}
+
+class CommitmentsRouteArgs {
+  const CommitmentsRouteArgs({
+    this.key,
+    required this.model,
+  });
+
+  final _i39.Key? key;
+
+  final _i43.TransactionModel model;
+
+  @override
+  String toString() {
+    return 'CommitmentsRouteArgs{key: $key, model: $model}';
+  }
 }

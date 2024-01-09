@@ -1,7 +1,6 @@
 part of 'home_imports.dart';
 
 class HomeData{
-  final GlobalKey<ScaffoldState> scaffold = GlobalKey();
   final GenericBloc<int> navCubit = GenericBloc(0);
   GenericBloc<bool> shareCubit = GenericBloc(false);
 

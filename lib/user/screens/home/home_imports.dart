@@ -15,7 +15,6 @@ import 'package:expenses/user/screens/budget/budget_imports.dart';
 import 'package:expenses/user/screens/cash_transactions/cash_transactions_imports.dart';
 import 'package:expenses/user/screens/commitments/commitments_imports.dart';
 import 'package:expenses/user/screens/database/database_imports.dart';
-import 'package:expenses/user/screens/expense/expense_imports.dart';
 import 'package:expenses/user/screens/home/taps/main/main_imports.dart';
 import 'package:expenses/user/screens/home/widgets/HomeWidgetsImports.dart';
 import 'package:expenses/user/screens/repeated_transactions/repeated_transactions_imports.dart';

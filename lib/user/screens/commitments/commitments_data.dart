@@ -5,106 +5,49 @@ class CommitmentsData{
 
   List<AddTransactionModel> addTransactionList = [];
 
-  TransactionModel model = TransactionModel(
-      name: "الالتزامات",
-      isSelected: true,
-      image: Res.commitment,
-      content: [
-        TransactionTypeModel(
-          name: "فواتير",
-          content: [
-            TransactionContentModel(
-              name: "كهرباء",
-            ),
-            TransactionContentModel(
-              name: "مياه",
-            ),
-            TransactionContentModel(
-              name: "غاز",
-            ),
-            TransactionContentModel(
-              name: "تليفون أرضي",
-            ),
-            TransactionContentModel(
-              name: "رصيد",
-            ),
-            TransactionContentModel(
-              name: "انترنت",
-            ),
-          ],
-        ),
-        TransactionTypeModel(
-          name: "إيجار",
-          content: [
-            TransactionContentModel(
-              name: "منزل",
-            ),
-          ],
-        ),
-        TransactionTypeModel(
-          name: "أقساط",
-          content: [
-            TransactionContentModel(
-              name: "موبايل",
-            ),
-          ],
-        ),
-        TransactionTypeModel(
-          name: "تأمينات",
-          content: [
-            TransactionContentModel(
-              name: "سيارة",
-            ),
-          ],
-        ),
-        TransactionTypeModel(
-          name: "اشتراكات",
-          content: [
-            TransactionContentModel(
-              name: "نادي",
-            ),
-            TransactionContentModel(
-              name: "جيم",
-            ),
-          ],
-        ),
-        TransactionTypeModel(
-          name: "مصاريف سيارة",
-          content: [
-            TransactionContentModel(
-              name: "نظافة",
-            ),
-            TransactionContentModel(
-              name: "صيانة",
-            ),
-          ],
-        ),
-        TransactionTypeModel(
-          name: "تبرعات و اعانات",
-          content: [
-            TransactionContentModel(
-              name: "الهلال الأحمر",
-            ),
-          ],
-        ),
-        TransactionTypeModel(
-          name: "ادوية",
-          content: [
-            TransactionContentModel(
-              name: "أدوية الضغط",
-            ),
-          ],
-        ),
-        TransactionTypeModel(
-          name: "مواصلات",
-          content: [
-            TransactionContentModel(
-              name: "سفر",
-            ),
-          ],
-        ),
-      ]
-  );
+  List<TransactionTypeModel> transactionType = [];
+
+  GenericBloc<List<TransactionTypeModel>> transactionTypeCubit =
+  GenericBloc([]);
+
+  TextEditingController nameController = TextEditingController();
+
+  Future<void> initData(TransactionModel model) async {
+    final box = await Hive.openBox<TransactionTypeModel>("transactionBox");
+    var boxItems = box.values.cast<TransactionTypeModel>().toList();
+    var content = model.content;
+    for (var item in content!) {
+      // Check if the name of the item in list1 is not equal to any name in list2
+      if (!boxItems.any((element) => element.name == item.name)) {
+        // Add the item to list2
+        box.add(item);
+      }
+    }
+    getCommitments();
+    transactionType = box.values.cast<TransactionTypeModel>().toList();
+    print(transactionType[0].content?[0].name);
+    transactionTypeCubit.onUpdateData(transactionType);
+    await box.close();
+  }
+
+  Future<void> getCommitments() async {
+    final box = await Hive.openBox<TransactionTypeModel>("transactionBox");
+    try {
+      var list = box.values.map((dynamic value) {
+        if (value is TransactionTypeModel) {
+          return value;
+        } else {
+          return TransactionTypeModel(); // Replace with your default value or handle it accordingly
+        }
+      }).toList();
+      transactionType.addAll(list);
+      transactionTypeCubit.onUpdateData(transactionType);
+    } catch (e) {
+      print('Error fetching data from Hive: $e');
+    } finally {
+      await box.close();
+    }
+  }
 
   Future<void> fetchData() async {
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
@@ -157,6 +100,31 @@ class CommitmentsData{
     } else {
       print('Target model not found in the list.');
     }
+  }
+
+  addTransactionType(TransactionTypeModel model) async {
+    final box = await Hive.openBox<TransactionTypeModel>("transactionBox");
+    box.add(model);
+    print(box.values.length);
+    print('success');
+    transactionType = box.values.cast<TransactionTypeModel>().toList();
+    transactionTypeCubit.onUpdateData(transactionType);
+    print(transactionType[1].name);
+
+  }
+
+  addTransactionModel(BuildContext context) {
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r))),
+      context: context,
+      builder: (context) => SizedBox(
+          height: 400.h,
+          child: BuildAddCommitment(
+            data: this,
+          )),
+    );
   }
 
 }

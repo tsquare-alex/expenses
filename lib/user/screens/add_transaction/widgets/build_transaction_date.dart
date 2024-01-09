@@ -20,7 +20,7 @@ class BuildTransactionDate extends StatelessWidget {
               children: [
                 Icon(Icons.date_range,color: MyColors.primary,),
                 MyText(
-                  title: "ميعاد المعاملة",
+                  title: tr(context, "transactionDate"),
                   color: MyColors.black,
                   size: 9.sp,
                   fontWeight: FontWeight.bold,
@@ -41,7 +41,7 @@ class BuildTransactionDate extends StatelessWidget {
                 fieldTypes: FieldTypes.clickable,
                 type: TextInputType.text,
                 action: TextInputAction.next,
-                label: "التاريخ",
+                label: tr(context, "date"),
                 validate: (value) {
                   if(value!.isEmpty){
                     return 'Enter transaction date';
@@ -68,7 +68,7 @@ class BuildTransactionDate extends StatelessWidget {
                 fieldTypes: FieldTypes.clickable,
                 type: TextInputType.text,
                 action: TextInputAction.next,
-                label: "الوقت",
+                label: tr(context, "time"),
                 validate: (value) {
                   if(value!.isEmpty){
                     return 'Enter the time';

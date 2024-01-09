@@ -6,7 +6,11 @@ part 'transaction_content_model.g.dart';
 class TransactionContentModel extends HiveObject{
   @HiveField(0)
   String? name;
+  @HiveField(1)
+  String? image;
+  @HiveField(2)
+  bool? selected;
 
-  TransactionContentModel({this.name,});
+  TransactionContentModel({this.name,this.image,this.selected=false});
 
 }

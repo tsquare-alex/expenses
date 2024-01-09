@@ -1,6 +1,7 @@
 part of 'main_imports.dart';
 
 class MainData{
+  final GlobalKey<ScaffoldState> scaffold = GlobalKey();
 
   GenericBloc<int?> touchCubit = GenericBloc(-1);
 

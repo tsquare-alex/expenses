@@ -8,22 +8,25 @@ class BuildTransactionTypeItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      splashColor: Colors.transparent,
+      hoverColor: Colors.transparent,
       onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.all(10.r),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15.r),
-          color: MyColors.primary.withOpacity(0.3),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(image,width: 55.w,height: 55.h,color: MyColors.primary,),
-            SizedBox(height: 15.h,),
-            MyText(title: name, color: MyColors.primary, size: 14.sp,fontWeight: FontWeight.bold,alien: TextAlign.center,),
-          ],
-        ),
+      child: Column(
+        children: [
+          Container(
+            width: 170,
+            height: 170,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: MyColors.greyWhite
+            ),
+            child:  Image.asset(image,width: 55.w,height: 55.h,),
+
+          ),
+          SizedBox(height: 15.h,),
+          MyText(title: name, color: MyColors.black, size: 14.sp,fontWeight: FontWeight.bold,alien: TextAlign.center,),
+
+        ],
       ),
     );
   }

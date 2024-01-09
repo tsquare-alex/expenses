@@ -19,17 +19,20 @@ class TransactionTypeModelAdapter extends TypeAdapter<TransactionTypeModel> {
     return TransactionTypeModel(
       name: fields[0] as String?,
       content: (fields[1] as List?)?.cast<TransactionContentModel>(),
+      image: fields[2] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, TransactionTypeModel obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.content);
+      ..write(obj.content)
+      ..writeByte(2)
+      ..write(obj.image);
   }
 
   @override

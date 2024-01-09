@@ -9,7 +9,7 @@ class AddTransactionData {
   GenericBloc<bool> notifyCubit = GenericBloc(false);
   final GenericBloc<Uint8List?> imageBloc = GenericBloc(null);
   final GenericBloc<TransactionTypeModel?> typeCubit = GenericBloc(null);
-  final GenericBloc<TransactionContentModel?> typeContentCubit =
+  final GenericBloc<List<TransactionContentModel>?> typeContentCubit =
       GenericBloc(null);
   final GenericBloc<DropdownModel?> targetTypeCubit = GenericBloc(null);
   final GenericBloc<DropdownModel?> cashTypeCubit = GenericBloc(null);
@@ -123,72 +123,79 @@ class AddTransactionData {
   List<DropdownModel> cashTransactionList = [];
   List<AddTransactionModel> addTransactionList = [];
 
-  initialTransaction(TransactionModel model) async {
-    if (model.name == "الالتزامات") {
-      final box = await Hive.openBox<TransactionTypeModel>("transactionBox");
-      var boxItems = box.values.cast<TransactionTypeModel>().toList();
-      var content = model.content;
-      for (var item in content!) {
-        // Check if the name of the item in list1 is not equal to any name in list2
-        if (!boxItems.any((element) => element.name == item.name)) {
-          // Add the item to list2
-          box.add(item);
-        }
-      }
-      fetchData();
-      transactionType = box.values.cast<TransactionTypeModel>().toList();
-      print(transactionType[0].content?[0].name);
-      transactionTypeCubit.onUpdateData(transactionType);
-      await box.close();
-    } else if (model.name == "التسوق والشراء") {
-      final box =
-          await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
-      var boxItems = box.values.cast<TransactionTypeModel>().toList();
-      var content = model.content;
-      for (var item in content!) {
-        // Check if the name of the item in list1 is not equal to any name in list2
-        if (!boxItems.any((element) => element.name == item.name)) {
-          // Add the item to list2
-          box.add(item);
-        }
-      }
-      fetchShoppingData();
-      shoppingType = box.values.cast<TransactionTypeModel>().toList();
-      print(shoppingType[0].content?[0].name);
-      shoppingTypeCubit.onUpdateData(shoppingType);
-      await box.close();
-    } else if (model.name == "الاهداف المالية المستهدفة") {
-      final box = await Hive.openBox<DropdownModel>("targetBox");
-      var boxItems = box.values.cast<DropdownModel>().toList();
-      for (var item in targets) {
-        // Check if the name of the item in list1 is not equal to any name in list2
-        if (!boxItems.any((element) => element.name == item.name)) {
-          // Add the item to list2
-          box.add(item);
-        }
-      }
-      fetchTargetData();
-      targetList = box.values.cast<DropdownModel>().toList();
-      print(targetList[0].name);
-      targetCubit.onUpdateData(targetList);
-      await box.close();
-    } else if (model.name == "المعاملات النقدية") {
-      final box = await Hive.openBox<DropdownModel>("cashTransactionBox");
-      var boxItems = box.values.cast<DropdownModel>().toList();
-      for (var item in cashTransactions) {
-        // Check if the name of the item in list1 is not equal to any name in list2
-        if (!boxItems.any((element) => element.name == item.name)) {
-          // Add the item to list2
-          box.add(item);
-        }
-      }
-      fetchCashTransactionData();
-      cashTransactionList = box.values.cast<DropdownModel>().toList();
-      print(cashTransactionList[0].name);
-      cashTransactionCubit.onUpdateData(cashTransactionList);
-      await box.close();
-    }
+  getContents(TransactionTypeModel model) async{
+    final box = await Hive.openBox<TransactionTypeModel>("transactionBox");
+    var transactionTypeList = box.values.cast<TransactionTypeModel>().toList();
+    var targetModel = transactionTypeList.firstWhere((element) => element.key == model.key);
+    typeContentCubit.onUpdateData(targetModel.content);
   }
+
+  // initialTransaction(TransactionModel model) async {
+  //   if (model.name == "الالتزامات") {
+  //     final box = await Hive.openBox<TransactionTypeModel>("transactionBox");
+  //     var boxItems = box.values.cast<TransactionTypeModel>().toList();
+  //     var content = model.content;
+  //     for (var item in content!) {
+  //       // Check if the name of the item in list1 is not equal to any name in list2
+  //       if (!boxItems.any((element) => element.name == item.name)) {
+  //         // Add the item to list2
+  //         box.add(item);
+  //       }
+  //     }
+  //     fetchData();
+  //     transactionType = box.values.cast<TransactionTypeModel>().toList();
+  //     print(transactionType[0].content?[0].name);
+  //     transactionTypeCubit.onUpdateData(transactionType);
+  //     await box.close();
+  //   } else if (model.name == "التسوق والشراء") {
+  //     final box =
+  //         await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
+  //     var boxItems = box.values.cast<TransactionTypeModel>().toList();
+  //     var content = model.content;
+  //     for (var item in content!) {
+  //       // Check if the name of the item in list1 is not equal to any name in list2
+  //       if (!boxItems.any((element) => element.name == item.name)) {
+  //         // Add the item to list2
+  //         box.add(item);
+  //       }
+  //     }
+  //     fetchShoppingData();
+  //     shoppingType = box.values.cast<TransactionTypeModel>().toList();
+  //     print(shoppingType[0].content?[0].name);
+  //     shoppingTypeCubit.onUpdateData(shoppingType);
+  //     await box.close();
+  //   } else if (model.name == "الاهداف المالية المستهدفة") {
+  //     final box = await Hive.openBox<DropdownModel>("targetBox");
+  //     var boxItems = box.values.cast<DropdownModel>().toList();
+  //     for (var item in targets) {
+  //       // Check if the name of the item in list1 is not equal to any name in list2
+  //       if (!boxItems.any((element) => element.name == item.name)) {
+  //         // Add the item to list2
+  //         box.add(item);
+  //       }
+  //     }
+  //     fetchTargetData();
+  //     targetList = box.values.cast<DropdownModel>().toList();
+  //     print(targetList[0].name);
+  //     targetCubit.onUpdateData(targetList);
+  //     await box.close();
+  //   } else if (model.name == "المعاملات النقدية") {
+  //     final box = await Hive.openBox<DropdownModel>("cashTransactionBox");
+  //     var boxItems = box.values.cast<DropdownModel>().toList();
+  //     for (var item in cashTransactions) {
+  //       // Check if the name of the item in list1 is not equal to any name in list2
+  //       if (!boxItems.any((element) => element.name == item.name)) {
+  //         // Add the item to list2
+  //         box.add(item);
+  //       }
+  //     }
+  //     fetchCashTransactionData();
+  //     cashTransactionList = box.values.cast<DropdownModel>().toList();
+  //     print(cashTransactionList[0].name);
+  //     cashTransactionCubit.onUpdateData(cashTransactionList);
+  //     await box.close();
+  //   }
+  // }
 
   addTransactionType(TransactionTypeModel model, String type) async {
     if (type == "الالتزامات") {
@@ -238,13 +245,14 @@ class AddTransactionData {
       int modelIndex =
           box.values.toList().indexWhere((model) => model.key == typeModel.key);
       var transactionType = box.getAt(modelIndex);
-      print(modelIndex);
       transactionType?.content?.add(model);
       box.putAt(modelIndex, transactionType!);
       transactionContentCubit.onUpdateData(transactionType.content!);
       transactionTypeCubit.onUpdateData(box.values.toList());
-      print(transactionType.content?[0].name);
       print(box.values.length);
+      typeContentCubit.onUpdateData(transactionType.content!);
+      var editModel = box.getAt(modelIndex);
+      getContents(editModel!);
       print('success');
     } else if (type == "التسوق والشراء") {
       final box =
@@ -457,24 +465,23 @@ class AddTransactionData {
     DropdownModel(id: 0, name: "Commitment Party1"),
   ];
   List<DropdownModel> units = [
-    DropdownModel(id: 0, name: "زمن"),
-    DropdownModel(id: 1, name: "طول"),
-    DropdownModel(id: 2, name: "وزن"),
-    DropdownModel(id: 3, name: "كتلة"),
-    DropdownModel(id: 4, name: "حجم"),
-    DropdownModel(id: 5, name: "سرعة"),
-    DropdownModel(id: 6, name: "قوة"),
-    DropdownModel(id: 7, name: "ضغط"),
-    DropdownModel(id: 8, name: "طاقة"),
-    DropdownModel(id: 9, name: "كهرباء"),
+    DropdownModel(id: 0, name: "time1"),
+    DropdownModel(id: 1, name: "length"),
+    DropdownModel(id: 2, name: "weight"),
+    DropdownModel(id: 3, name: "mass"),
+    DropdownModel(id: 4, name: "speed"),
+    DropdownModel(id: 5, name: "power"),
+    DropdownModel(id: 6, name: "pressure"),
+    DropdownModel(id: 7, name: "energy"),
+    DropdownModel(id: 8, name: "electric"),
   ];
   List<DropdownModel> iterateTransaction = [
-    DropdownModel(id: 0, name: "يوميا"),
-    DropdownModel(id: 1, name: "أسبوعيا"),
-    DropdownModel(id: 2, name: "شهريا"),
-    DropdownModel(id: 3, name: "ربع سنويا"),
-    DropdownModel(id: 4, name: "نصف سنويا"),
-    DropdownModel(id: 5, name: "سنويا"),
+    DropdownModel(id: 0, name: "daily"),
+    DropdownModel(id: 1, name: "weekly"),
+    DropdownModel(id: 2, name: "monthly"),
+    DropdownModel(id: 3, name: "quarterly"),
+    DropdownModel(id: 4, name: "SemiAnnually"),
+    DropdownModel(id: 5, name: "annually"),
   ];
   List<DropdownModel> transfer = [
     DropdownModel(id: 0, name: "Transfer"),
@@ -620,17 +627,17 @@ class AddTransactionData {
 
   clearData() {}
 
-  addTransaction(BuildContext context, String type) async {
+  addTransaction(BuildContext context, String type,TransactionTypeModel transactionType) async {
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
     if (formKey1.currentState!.validate() &&
         formKey.currentState!.validate() &&
         formKey2.currentState!.validate()) {
       if (type == "الالتزامات") {
-        if(typeCubit.state.data !=null){
+        if(transactionType != null){
           AddTransactionModel model = AddTransactionModel(
             transactionName: "الالتزامات",
-            transactionType: typeCubit.state.data,
-            transactionContent: typeContentCubit.state.data,
+            transactionType: transactionType,
+            transactionContent: selectedContent,
             incomeSource: selectedWalletModel,
             unit: selectedUnit,
             amount: amountController.text,
@@ -675,11 +682,11 @@ class AddTransactionData {
               color: Colors.red);
         }
       } else if (type == "التسوق والشراء") {
-        if(typeCubit.state.data != null){
+        if(transactionType != null){
           AddTransactionModel model = AddTransactionModel(
             transactionName: "التسوق والشراء",
-            transactionType: typeCubit.state.data,
-            transactionContent: typeContentCubit.state.data,
+            transactionType: transactionType,
+            transactionContent: selectedContent,
             database: selectedDatabaseModel,
             budget: selectedBudget,
             incomeSource: selectedWalletModel,
@@ -862,5 +869,17 @@ class AddTransactionData {
     var budgetData = Hive.box<BudgetModel>("budgetBox");
     List<BudgetModel> total = budgetData.values.toList();
     return total;
+  }
+
+  GenericBloc<TransactionContentModel?> contentBloc = GenericBloc(null);
+
+  TransactionContentModel? selectedContent;
+
+  selectContent(bool value, TransactionTypeModel model,int index) {
+    model.content?.map((e) => e.selected = false).toList();
+    model.content?[index].selected = !value;
+    selectedContent = model.content?[index];
+    typeContentCubit.onUpdateData(model.content);
+    print(selectedContent?.name);
   }
 }

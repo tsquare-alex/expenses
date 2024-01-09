@@ -2,8 +2,9 @@ part of 'cash_transactions_imports.dart';
 
 class CashTransactions extends StatefulWidget {
   const CashTransactions({
-    Key? key,
+    Key? key, required this.model,
   }) : super(key: key);
+  final TransactionModel model;
 
   @override
   State<CashTransactions> createState() => _CashTransactionsState();
@@ -47,31 +48,31 @@ class _CashTransactionsState extends State<CashTransactions> {
             ),
             automaticallyImplyLeading: false,
           ),
-          floatingActionButton: state.data.isNotEmpty?FloatingActionButton(
-            onPressed: () =>
-                AutoRouter.of(context).push(
-                  AddTransactionRoute(
-                    model: data.model,
-                  ),
-                ),
-            backgroundColor: MyColors.primary,
-            child: Icon(
-              Icons.add,
-              color: MyColors.white,
-            ),
-          ):null,
-          body: state.data.isEmpty?AddTransaction(model: data.model):
-          Padding(
-            padding: EdgeInsets.all(15.0.r),
-            child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: state.data.length,
-              itemBuilder: (context, i) => BuildTransactionCard(
-                model: state.data[i], onDelete: () =>
-                  data.deleteItem(state.data[i]),),
-            ),
-          ),
+          // floatingActionButton: state.data.isNotEmpty?FloatingActionButton(
+          //   onPressed: () =>
+          //       AutoRouter.of(context).push(
+          //         AddTransactionRoute(
+          //           model: data.model,
+          //         ),
+          //       ),
+          //   backgroundColor: MyColors.primary,
+          //   child: Icon(
+          //     Icons.add,
+          //     color: MyColors.white,
+          //   ),
+          // ):null,
+          // body: state.data.isEmpty?AddTransaction(model: data.model):
+          // Padding(
+          //   padding: EdgeInsets.all(15.0.r),
+          //   child: ListView.builder(
+          //     physics: const BouncingScrollPhysics(),
+          //     shrinkWrap: true,
+          //     itemCount: state.data.length,
+          //     itemBuilder: (context, i) => BuildTransactionCard(
+          //       model: state.data[i], onDelete: () =>
+          //         data.deleteItem(state.data[i]),),
+          //   ),
+          // ),
         );
       },
     );

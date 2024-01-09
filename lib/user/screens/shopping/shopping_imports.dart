@@ -10,7 +10,7 @@ import 'package:expenses/user/models/transaction_model/transaction_model.dart';
 import 'package:expenses/user/models/transaction_type_model/transaction_content_model.dart';
 import 'package:expenses/user/models/transaction_type_model/transaction_type_model.dart';
 import 'package:expenses/user/screens/add_transaction/add_transaction_imports.dart';
-import 'package:expenses/user/screens/expense/widgets/expense_widgets_imports.dart';
+import 'package:expenses/user/screens/shopping/widgets/shopping_widgets_imports.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
 import 'package:expenses/user/widgets/widgets_imports.dart';
 import 'package:flutter/material.dart';

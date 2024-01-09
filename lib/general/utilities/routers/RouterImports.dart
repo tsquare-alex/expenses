@@ -8,6 +8,7 @@ import 'package:expenses/general/screens/select_currency/select_currency_imports
 import 'package:expenses/general/screens/select_language/select_language_imports.dart';
 import 'package:expenses/general/screens/splash/SplashImports.dart';
 import 'package:expenses/general/screens/welcome_page/WelcomePageImports.dart';
+import 'package:expenses/user/screens/auth_info_cubit/auth_screen.dart';
 import 'package:expenses/user/screens/bag/bag_imports.dart';
 import 'package:expenses/user/screens/balance_transfer/wallet_balance_transfer_imports.dart';
 import 'package:expenses/user/screens/budget/widget/add_budget_item.dart';

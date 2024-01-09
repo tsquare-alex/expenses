@@ -246,38 +246,40 @@ class BuildTransactionType extends StatelessWidget {
                     }
                     return Padding(
                       padding: EdgeInsets.symmetric(vertical: 10.0.r),
-                      child: GenericTextField(
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.only(left: 10.0.r),
-                          child: CircleAvatar(
-                            radius: 20.r,
-                            backgroundColor: MyColors.primary,
-                            child: Image.asset(
-                              Res.transaction,
-                              color: MyColors.white,
-                              width: 18.w,
-                              height: 18.h,
+                      child: BlocBuilder<GenericBloc<TransactionContentModel?>,GenericState<TransactionContentModel?>>(
+                        bloc: addTransactionData.typeContentCubit,
+                        builder: (context,state){
+                          return Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                            //margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 7),
+                            decoration: BoxDecoration(
+                                color: MyColors.backgroundColor,
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: MyColors.shadow, spreadRadius: 0, blurRadius: 12)
+                                ]),
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 20.r,
+                                  backgroundColor: MyColors.primary,
+                                  child: Image.asset(
+                                    Res.transaction,
+                                    color: MyColors.white,
+                                    width: 18.w,
+                                    height: 18.h,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 15.w,
+                                ),
+                                MyText(title: state.data?.name?? tr(context, "transaction"), color: MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,),
+                              ],
                             ),
-                          ),
-                        ),
-                        contentPadding:
-                        const EdgeInsets.symmetric(horizontal: 16),
-                        controller: addTransactionData.transactionController,
-                        fieldTypes: FieldTypes.clickable,
-                        type: TextInputType.text,
-                        action: TextInputAction.next,
-                        validate: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter brand name';
-                          }
+                          );
                         },
-                        label: tr(context, "transaction"),
-                        margin: const EdgeInsets.only(top: 0),
-                        suffixIcon: Icon(
-                          Icons.arrow_drop_down,
-                          color: MyColors.grey,
-                          size: 28.w,
-                        ),
                       ),
                     );
                   },
@@ -289,43 +291,37 @@ class BuildTransactionType extends StatelessWidget {
                       ? addTransactionData.cashTypeCubit
                       : addTransactionData.targetTypeCubit,
                   builder: (context, state) {
-                  if (state.data != null) {
-                    addTransactionData.transactionController.text =
-                        state.data?.name ?? "";
-                  }
+
                   return Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.0.r),
-                    child: GenericTextField(
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 10.0.r),
-                        child: CircleAvatar(
-                          radius: 20.r,
-                          backgroundColor: MyColors.primary,
-                          child: Image.asset(
-                            Res.transaction,
-                            color: MyColors.white,
-                            width: 18.w,
-                            height: 18.h,
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      //margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 7),
+                      decoration: BoxDecoration(
+                          color: MyColors.backgroundColor,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: const [
+                            BoxShadow(
+                                color: MyColors.shadow, spreadRadius: 0, blurRadius: 12)
+                          ]),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 20.r,
+                            backgroundColor: MyColors.primary,
+                            child: Image.asset(
+                              Res.transaction,
+                              color: MyColors.white,
+                              width: 18.w,
+                              height: 18.h,
+                            ),
                           ),
-                        ),
-                      ),
-                      contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 16),
-                      controller: addTransactionData.transactionController,
-                      fieldTypes: FieldTypes.clickable,
-                      type: TextInputType.text,
-                      action: TextInputAction.next,
-                      validate: (value) {
-                        if (value!.isEmpty) {
-                          return 'Enter brand name';
-                        }
-                      },
-                      label: tr(context, "transaction"),
-                      margin: const EdgeInsets.only(top: 0),
-                      suffixIcon: Icon(
-                        Icons.arrow_drop_down,
-                        color: MyColors.grey,
-                        size: 28.w,
+                          SizedBox(
+                            width: 15.w,
+                          ),
+                          MyText(title: state.data?.name?? tr(context, "transaction"), color: MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,),
+                        ],
                       ),
                     ),
                   );

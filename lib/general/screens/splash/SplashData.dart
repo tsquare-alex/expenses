@@ -19,26 +19,43 @@ class SplashController {
     uId = await Storage.getToken();
     print('uId = $uId');
     print('ApiNames.uId = ${ApiNames.uId}');
+
+    // if (uId != null) {
+    //   SharedPreferences prefs = await SharedPreferences.getInstance();
+    //
+    //   bool isAuthenticated = await context.read<AuthenticationCubit>().isAuthenticationRequired();
+    //   bool skipAuthentication = prefs.getBool(authSharedPrefSkip) ?? false;
+    //
+    //   if (skipAuthentication) {
+    //     AutoRouter.of(context).push(HomeRoute(index: 1));
+    //   } else if(!isAuthenticated) {
+    //     AutoRouter.of(context).push(AuthenticationScreenRoute());
+    //   }
+    // } else {
+    //   AutoRouter.of(context).push(const WelcomePageRoute());
+    // }
+
+
+
+
+
+
+
+
     if (uId != null) {
-
       SharedPreferences prefs = await SharedPreferences.getInstance();
-
-
       bool skipAuthentication = prefs.getBool(authSharedPrefSkip) ?? false;
 
-      if (skipAuthentication) {
+      bool isAuthenticated = await context.read<AuthenticationCubit>().isAuthenticationRequired();
 
+      if (!isAuthenticated && !skipAuthentication) {
+        AutoRouter.of(context).push(AuthenticationScreenRoute());
+      } else if (skipAuthentication) {
         AutoRouter.of(context).push(HomeRoute(index: 1));
       } else {
-
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => AuthenticationScreen()),
-              (route) => false,
-        );
+        AutoRouter.of(context).push(HomeRoute(index: 1));
       }
     } else {
-
       AutoRouter.of(context).push(const WelcomePageRoute());
     }
 

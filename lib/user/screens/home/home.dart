@@ -34,7 +34,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       const Settings(),
       ToolsHelper(),
       Database(),
-      Container(),
+      Container(child: Center(
+          child: Text(
+            'قيد التطوير حاليا',
+            style: TextStyle(
+              fontSize: 18.sp,
+              fontWeight: FontWeight.bold,
+              color: MyColors.primary,
+            ),
+          ),
+        ),),
       const Wallet(),
       const Budget(),
       const Expense(),
@@ -100,12 +109,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   BlocBuilder<GenericBloc<int>, GenericState<int>>(
                     bloc: data.homeTabCubit,
                     builder: (context, state) {
-                      return Image.asset(
-                        data.icons[state.data],
-                        color: MyColors.white,
-                        width: 20.w,
-                        height: 20.h,
-                      );
+                      return data.icons[state.data].isNotEmpty
+                          ? Image.asset(
+                              data.icons[state.data],
+                              color: MyColors.white,
+                              width: 20.w,
+                              height: 20.h,
+                            )
+                          : Container();
                     },
                   ),
                 ],
@@ -130,22 +141,32 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   color: Colors.black,
                   onSelected: _onFavoriteItemSelected,
                   itemBuilder: (BuildContext context) {
+                    if (getFavoriteModels(context).isEmpty) {
+                      CustomToast.showSimpleToast(
+                          msg: 'يرجى إضافة ادوات مساعدة');
+                    }
                     return [
                       for (FavoriteModel model in getFavoriteModels(context))
                         PopupMenuItem<FavoriteModel>(
                           value: model,
                           child: Row(
                             children: <Widget>[
-                              Icon(IconData(model.iconCode, fontFamily: 'MaterialIcons'),color: MyColors.primary), // Add an icon or any widget to represent the favorite item
+                              Icon(
+                                  IconData(model.iconCode,
+                                      fontFamily: 'MaterialIcons'),
+                                  color: MyColors
+                                      .primary), // Add an icon or any widget to represent the favorite item
                               SizedBox(width: 8.0),
-                            MyText(title: tr(context, model.toolName), color:Colors.white, size: 15.sp)
+                              MyText(
+                                  title: tr(context, model.toolName),
+                                  color: Colors.white,
+                                  size: 15.sp)
                             ],
                           ),
                         ),
                     ];
                   },
                 ),
-
 
                 // IconButton(
                 //   onPressed: () {},
@@ -182,6 +203,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           ),
         ));
   }
+
   void _onFavoriteItemSelected(FavoriteModel selectedModel) {
     // Handle the selected favorite item
     print('Selected: ${selectedModel.toolName}');
@@ -194,7 +216,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     // Use context.read instead of context.watch to avoid listening outside the widget tree
     return context.read<FavoriteCubit>().getFavoriteModels();
   }
-
 
   void _navigateToToolScreen(BuildContext context, FavoriteModel tool) {
     switch (tool.toolName) {

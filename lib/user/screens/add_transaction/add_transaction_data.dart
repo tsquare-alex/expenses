@@ -9,7 +9,8 @@ class AddTransactionData {
   GenericBloc<bool> notifyCubit = GenericBloc(false);
   final GenericBloc<Uint8List?> imageBloc = GenericBloc(null);
   final GenericBloc<TransactionTypeModel?> typeCubit = GenericBloc(null);
-  final GenericBloc<TransactionContentModel?> typeContentCubit = GenericBloc(null);
+  final GenericBloc<TransactionContentModel?> typeContentCubit =
+      GenericBloc(null);
   final GenericBloc<DropdownModel?> targetTypeCubit = GenericBloc(null);
   final GenericBloc<DropdownModel?> cashTypeCubit = GenericBloc(null);
 
@@ -64,8 +65,9 @@ class AddTransactionData {
     var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
         context: context,
+        minDate: DateTime.now().subtract(Duration(days:30)),
         onConfirm: (date) {
-          dateController.text = DateFormat("dd MMMM yyyy", local).format(date!);
+          dateController.text = DateFormat("dd MMMM yyyy", "en").format(date!);
         },
         title: '');
   }
@@ -77,7 +79,7 @@ class AddTransactionData {
     var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
         context: context,
-        minDate:DateTime.now().subtract(Duration(days: 30)),
+        minDate: DateTime.now().subtract(Duration(days: 30)),
         onConfirm: (date) {
           startDateController.text =
               DateFormat("dd MMMM yyyy", "en").format(date!);
@@ -91,12 +93,12 @@ class AddTransactionData {
     FocusScope.of(context).requestFocus(FocusNode());
     var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
-      initial: startDateController.text.isNotEmpty
-          ? DateFormat("dd MMMM yyyy", "en").parse(startDateController.text)
-          : DateTime.now(),
+        initial: startDateController.text.isNotEmpty
+            ? DateFormat("dd MMMM yyyy", "en").parse(startDateController.text)
+            : DateTime.now(),
         minDate: startDateController.text.isNotEmpty
-    ? DateFormat("dd MMMM yyyy", "en").parse(startDateController.text)
-        : DateTime.now(),
+            ? DateFormat("dd MMMM yyyy", "en").parse(startDateController.text)
+            : DateTime.now(),
         context: context,
         onConfirm: (date) {
           endDateController.text =
@@ -229,7 +231,8 @@ class AddTransactionData {
     cashTransactionCubit.onUpdateData(box.values.toList());
   }
 
-  addTransactionContent(TransactionContentModel model, String type,TransactionTypeModel typeModel) async {
+  addTransactionContent(TransactionContentModel model, String type,
+      TransactionTypeModel typeModel) async {
     if (type == "الالتزامات") {
       final box = await Hive.openBox<TransactionTypeModel>("transactionBox");
       int modelIndex =
@@ -363,7 +366,8 @@ class AddTransactionData {
     );
   }
 
-  addTransactionContentModel(BuildContext context, String type,TransactionTypeModel typeModel) {
+  addTransactionContentModel(
+      BuildContext context, String type, TransactionTypeModel typeModel) {
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -618,170 +622,198 @@ class AddTransactionData {
 
   addTransaction(BuildContext context, String type) async {
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
-    if (formKey1.currentState!.validate()&&formKey.currentState!.validate()&&formKey2.currentState!.validate()&&typeCubit.state.data!=null) {
+    if (formKey1.currentState!.validate() &&
+        formKey.currentState!.validate() &&
+        formKey2.currentState!.validate()) {
       if (type == "الالتزامات") {
-        AddTransactionModel model = AddTransactionModel(
-          transactionName: "الالتزامات",
-          transactionType: typeCubit.state.data,
-          transactionContent: typeContentCubit.state.data,
-          incomeSource: selectedWalletModel,
-          unit: selectedUnit,
-          amount: amountController.text,
-          total: totalController.text,
-          database: selectedDatabaseModel,
-          budget: selectedBudget,
-          priority: selectedPriority,
-          time: timeController.text,
-          transactionDate: dateController.text,
-          repeated: iterateCubit.state.data != false
-              ? selectedIterateTransaction
-              : null,
-          notify: notifyCubit.state.data,
-        );
-        var total = double.parse(totalController.text);
-        if (total <= selectedWalletModel!.balance) {
-          var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
-          var walletList = walletBox.values.toList();
-          WalletModel? targetModel = walletList.firstWhere(
-            (model) => model.name == selectedWalletModel?.name,
+        if(typeCubit.state.data !=null){
+          AddTransactionModel model = AddTransactionModel(
+            transactionName: "الالتزامات",
+            transactionType: typeCubit.state.data,
+            transactionContent: typeContentCubit.state.data,
+            incomeSource: selectedWalletModel,
+            unit: selectedUnit,
+            amount: amountController.text,
+            total: totalController.text,
+            database: selectedDatabaseModel,
+            budget: selectedBudget,
+            priority: selectedPriority,
+            time: timeController.text,
+            transactionDate: dateController.text,
+            repeated: iterateCubit.state.data != false
+                ? selectedIterateTransaction
+                : null,
+            notify: notifyCubit.state.data,
           );
-          print("object ${targetModel.name}");
-          targetModel.balance = targetModel.balance - total;
-          print("balance ${targetModel.balance}");
-          await walletBox.put(selectedWalletModel?.key, targetModel);
-          print(selectedWalletModel!.balance);
-          box.add(model);
-          addTransactionList = box.values.toList();
-          addTransactionCubit.onUpdateData(addTransactionList);
-          AutoRouter.of(context).pop();
-          AutoRouter.of(context).replace(HomeRoute(index: 1));
-        } else if (total > selectedWalletModel!.balance) {
-          print(selectedWalletModel!.balance);
+          var total = double.parse(totalController.text);
+          if (total <= selectedWalletModel!.balance) {
+            var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+            var walletList = walletBox.values.toList();
+            WalletModel? targetModel = walletList.firstWhere(
+                  (model) => model.name == selectedWalletModel?.name,
+            );
+            print("object ${targetModel.name}");
+            targetModel.balance = targetModel.balance - total;
+            print("balance ${targetModel.balance}");
+            await walletBox.put(selectedWalletModel?.key, targetModel);
+            print(selectedWalletModel!.balance);
+
+            box.add(model);
+            addTransactionList = box.values.toList();
+            addTransactionCubit.onUpdateData(addTransactionList);
+            AutoRouter.of(context).pop();
+            AutoRouter.of(context).replace(HomeRoute(index: 0));
+          } else if (total > selectedWalletModel!.balance) {
+            print(selectedWalletModel!.balance);
+            CustomToast.showSimpleToast(
+                msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
+                color: Colors.red);
+          }
+        }else{
           CustomToast.showSimpleToast(
-              msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
+              msg: "اختر المعاملة",
               color: Colors.red);
         }
       } else if (type == "التسوق والشراء") {
-        AddTransactionModel model = AddTransactionModel(
-          transactionName: "التسوق والشراء",
-          transactionType: typeCubit.state.data,
-          transactionContent: typeContentCubit.state.data,
-          database: selectedDatabaseModel,
-          budget: selectedBudget,
-          incomeSource: selectedWalletModel,
-          unit: selectedUnit,
-          amount: amountController.text,
-          total: totalController.text,
-          brandName: brandController.text,
-          priority: selectedPriority,
-          time: timeController.text,
-          transactionDate: dateController.text,
-          image: imageBloc.state.data,
-          repeated: iterateCubit.state.data != false
-              ? selectedIterateTransaction
-              : null,
-          notify: notifyCubit.state.data,
-        );
-        var total = double.parse(totalController.text);
-        if (total <= selectedWalletModel!.balance) {
-          var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
-          var walletList = walletBox.values.toList();
-          WalletModel? targetModel = walletList.firstWhere(
-            (model) => model.name == selectedWalletModel?.name,
+        if(typeCubit.state.data != null){
+          AddTransactionModel model = AddTransactionModel(
+            transactionName: "التسوق والشراء",
+            transactionType: typeCubit.state.data,
+            transactionContent: typeContentCubit.state.data,
+            database: selectedDatabaseModel,
+            budget: selectedBudget,
+            incomeSource: selectedWalletModel,
+            //unit: selectedUnit,
+            //amount: amountController.text,
+            total: totalController.text,
+            brandName: brandController.text,
+            priority: selectedPriority,
+            time: timeController.text,
+            transactionDate: dateController.text,
+            image: imageBloc.state.data,
+            repeated: iterateCubit.state.data != false
+                ? selectedIterateTransaction
+                : null,
+            notify: notifyCubit.state.data,
           );
-          print("object ${targetModel.name}");
-          targetModel.balance = targetModel.balance - total;
-          print("balance ${targetModel.balance}");
-          await walletBox.put(selectedWalletModel?.key, targetModel);
-          print(selectedWalletModel!.balance);
-          box.add(model);
-          addTransactionList = box.values.toList();
-          addTransactionCubit.onUpdateData(addTransactionList);
-          AutoRouter.of(context).pop();
-          AutoRouter.of(context).replace(HomeRoute(index: 1));
-        } else if (total > selectedWalletModel!.balance) {
-          print(selectedWalletModel!.balance);
+          var total = double.parse(totalController.text);
+          if (total <= selectedWalletModel!.balance) {
+            var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+            var walletList = walletBox.values.toList();
+            WalletModel? targetModel = walletList.firstWhere(
+                  (model) => model.name == selectedWalletModel?.name,
+            );
+            print("object ${targetModel.name}");
+            targetModel.balance = targetModel.balance - total;
+            print("balance ${targetModel.balance}");
+            await walletBox.put(selectedWalletModel?.key, targetModel);
+            print(selectedWalletModel!.balance);
+
+            box.add(model);
+            addTransactionList = box.values.toList();
+            addTransactionCubit.onUpdateData(addTransactionList);
+            AutoRouter.of(context).pop();
+            AutoRouter.of(context).replace(HomeRoute(index: 0));
+          } else if (total > selectedWalletModel!.balance) {
+            print(selectedWalletModel!.balance);
+            CustomToast.showSimpleToast(
+                msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
+                color: Colors.red);
+          }
+        }else{
           CustomToast.showSimpleToast(
-              msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
+              msg: "اختر المعاملة",
               color: Colors.red);
         }
       } else if (type == "الاهداف المالية المستهدفة") {
-        AddTransactionModel model = AddTransactionModel(
-          transactionName: "الاهداف المالية المستهدفة",
-          targetType: targetTypeCubit.state.data,
-          total: targetController.text,
-          incomeSource: selectedWalletModel,
-          targetValue: targetController.text,
-          startDate: startDateController.text,
-          budget: selectedBudget,
-          endDate: endDateController.text,
-          time: timeController.text,
-          transactionDate: dateController.text,
-          repeated: iterateCubit.state.data != false
-              ? selectedIterateTransaction
-              : null,
-          notify: notifyCubit.state.data,
-        );
-        var total = double.parse(targetController.text);
-        if (total <= selectedWalletModel!.balance) {
-          var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
-          var walletList = walletBox.values.toList();
-          WalletModel? targetModel = walletList.firstWhere(
-            (model) => model.name == selectedWalletModel?.name,
+        if(targetTypeCubit.state.data!=null){
+          AddTransactionModel model = AddTransactionModel(
+            transactionName: "الاهداف المالية المستهدفة",
+            targetType: targetTypeCubit.state.data,
+            total: targetController.text,
+            incomeSource: selectedWalletModel,
+            targetValue: targetController.text,
+            startDate: startDateController.text,
+            budget: selectedBudget,
+            endDate: endDateController.text,
+            time: timeController.text,
+            transactionDate: dateController.text,
+            repeated: iterateCubit.state.data != false
+                ? selectedIterateTransaction
+                : null,
+            notify: notifyCubit.state.data,
           );
-          print("object ${targetModel.name}");
-          targetModel.balance = targetModel.balance - total;
-          print("balance ${targetModel.balance}");
-          await walletBox.put(selectedWalletModel?.key, targetModel);
-          print(selectedWalletModel!.balance);
-          box.add(model);
-          addTransactionList = box.values.toList();
-          addTransactionCubit.onUpdateData(addTransactionList);
-          AutoRouter.of(context).pop();
-          AutoRouter.of(context).replace(HomeRoute(index: 1));
-        } else if (total > selectedWalletModel!.balance) {
-          print(selectedWalletModel!.balance);
+          var total = double.parse(targetController.text);
+          if (total <= selectedWalletModel!.balance) {
+            var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+            var walletList = walletBox.values.toList();
+            WalletModel? targetModel = walletList.firstWhere(
+                  (model) => model.name == selectedWalletModel?.name,
+            );
+            print("object ${targetModel.name}");
+            targetModel.balance = targetModel.balance - total;
+            print("balance ${targetModel.balance}");
+            await walletBox.put(selectedWalletModel?.key, targetModel);
+            print(selectedWalletModel!.balance);
+            box.add(model);
+            addTransactionList = box.values.toList();
+            addTransactionCubit.onUpdateData(addTransactionList);
+            AutoRouter.of(context).pop();
+            AutoRouter.of(context).replace(HomeRoute(index: 0));
+          } else if (total > selectedWalletModel!.balance) {
+            print(selectedWalletModel!.balance);
+            CustomToast.showSimpleToast(
+                msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
+                color: Colors.red);
+          }
+        }else{
           CustomToast.showSimpleToast(
-              msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
+              msg: "اختر المعاملة",
               color: Colors.red);
         }
       } else if (type == "المعاملات النقدية") {
-        AddTransactionModel model = AddTransactionModel(
-          transactionName: "المعاملات النقدية",
-          cashTransactionType: cashTypeCubit.state.data,
-          incomeSource: selectedWalletModel,
-          database: selectedDatabaseModel,
-          priority: selectedPriority,
-          total: transferController.text,
-          time: timeController.text,
-          transactionDate: dateController.text,
-          budget: selectedBudget,
-          repeated: iterateCubit.state.data != false
-              ? selectedIterateTransaction
-              : null,
-          notify: notifyCubit.state.data,
-        );
-        var total = double.parse(transferController.text);
-        if (total <= selectedWalletModel!.balance) {
-          var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
-          var walletList = walletBox.values.toList();
-          WalletModel? targetModel = walletList.firstWhere(
-            (model) => model.name == selectedWalletModel?.name,
+        if(cashTypeCubit.state.data!=null){
+          AddTransactionModel model = AddTransactionModel(
+            transactionName: "المعاملات النقدية",
+            cashTransactionType: cashTypeCubit.state.data,
+            incomeSource: selectedWalletModel,
+            database: selectedDatabaseModel,
+            priority: selectedPriority,
+            total: transferController.text,
+            time: timeController.text,
+            transactionDate: dateController.text,
+            budget: selectedBudget,
+            repeated: iterateCubit.state.data != false
+                ? selectedIterateTransaction
+                : null,
+            notify: notifyCubit.state.data,
           );
-          print("object ${targetModel.name}");
-          targetModel.balance = targetModel.balance - total;
-          print("balance ${targetModel.balance}");
-          await walletBox.put(selectedWalletModel?.key, targetModel);
-          print(selectedWalletModel!.balance);
-          box.add(model);
-          addTransactionList = box.values.toList();
-          addTransactionCubit.onUpdateData(addTransactionList);
-          AutoRouter.of(context).pop();
-          AutoRouter.of(context).replace(HomeRoute(index: 1));
-        } else if (total > selectedWalletModel!.balance) {
-          print(selectedWalletModel!.balance);
+          var total = double.parse(transferController.text);
+          if (total <= selectedWalletModel!.balance) {
+            var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+            var walletList = walletBox.values.toList();
+            WalletModel? targetModel = walletList.firstWhere(
+                  (model) => model.name == selectedWalletModel?.name,
+            );
+            print("object ${targetModel.name}");
+            targetModel.balance = targetModel.balance - total;
+            print("balance ${targetModel.balance}");
+            await walletBox.put(selectedWalletModel?.key, targetModel);
+            print(selectedWalletModel!.balance);
+            box.add(model);
+            addTransactionList = box.values.toList();
+            addTransactionCubit.onUpdateData(addTransactionList);
+            AutoRouter.of(context).pop();
+            AutoRouter.of(context).replace(HomeRoute(index: 0));
+          } else if (total > selectedWalletModel!.balance) {
+            print(selectedWalletModel!.balance);
+            CustomToast.showSimpleToast(
+                msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
+                color: Colors.red);
+          }
+        }else{
           CustomToast.showSimpleToast(
-              msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
+              msg: "اختر المعاملة",
               color: Colors.red);
         }
       }
@@ -831,5 +863,4 @@ class AddTransactionData {
     List<BudgetModel> total = budgetData.values.toList();
     return total;
   }
-
 }

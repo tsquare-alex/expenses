@@ -25,7 +25,7 @@ class BuildPageView extends StatelessWidget {
             Container(
               padding: const EdgeInsets.only(bottom: 20),
               child: MyText(
-                title: model.title ?? "",
+                title: tr(context, model.title??""),
                 size: 24,
                 color: MyColors.primary,
                 alien: TextAlign.center,
@@ -35,7 +35,7 @@ class BuildPageView extends StatelessWidget {
             Container(
               padding: const EdgeInsets.only(bottom: 30),
               child: MyText(
-                title: model.desc ?? "",
+                title: tr(context, model.desc??""),
                 size: 18,
                 color: MyColors.grey,
                 alien: TextAlign.center,

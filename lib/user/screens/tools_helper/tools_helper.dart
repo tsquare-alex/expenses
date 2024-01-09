@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/MyText.dart';
+import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/area_converter/area_converter.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/bmr/bmr.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/data_converter/data_converter.dart';
@@ -39,6 +40,29 @@ class ToolsHelper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.deepOrange,
+        title: Row(
+          children: [
+            Image.asset(
+              Res.tools,
+              width: 20.w,
+              height: 20.h,
+              color: MyColors.white,
+            ),
+            SizedBox(
+              width: 10.w,
+            ),
+            MyText(
+              title: tr(context, 'tools'),
+              color: Colors.white,
+              size: 14.sp,
+              fontWeight: FontWeight.bold,
+            ),
+          ],
+        ),
+        automaticallyImplyLeading: false,
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),

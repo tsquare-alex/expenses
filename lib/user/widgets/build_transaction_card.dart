@@ -87,11 +87,13 @@ class BuildTransactionCard extends StatelessWidget {
                                   SizedBox(
                                     width: 10.w,
                                   ),
-                                  MyText(
-                                    title: model.database?.name ?? "",
-                                    color: MyColors.black,
-                                    size: 11.sp,
-                                    fontWeight: FontWeight.bold,
+                                  Expanded(
+                                    child: MyText(
+                                      title: model.database?.name ?? "",
+                                      color: MyColors.black,
+                                      size: 11.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ],
                               ),

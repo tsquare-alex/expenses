@@ -9,7 +9,9 @@ class TabIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color color = active ? MyColors.white : MyColors.grey;
+    Color color = active ? context.watch<AppThemeCubit>().isDarkMode
+            ? MyColors.white
+            : MyColors.primary : MyColors.grey;
     return Container(
       padding: EdgeInsets.symmetric(vertical: 5.r),
       child: Column(
@@ -18,7 +20,10 @@ class TabIcon extends StatelessWidget {
           const SizedBox(height: 10),
           Image.asset(
             "${userHomeData.tabs[index].image}",
-            color: active?MyColors.white:MyColors.grey,
+            color: active? context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : MyColors.primary
+                :MyColors.grey,
             width: 25, height: 25,
           ),
           SizedBox(height: 5.h),

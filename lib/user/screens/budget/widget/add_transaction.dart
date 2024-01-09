@@ -313,7 +313,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
 
                               var budgetModel = BudgetModel(
                                   name: budgetName.text,
-                                  percentValue: percentageValue,
+                                  percentValue: 1.0,
                                   selectTransaction: transactionController.text,
                                   selectWallet: walletNameController.text,
                                   budgetPeriod: rangeDateController.text,

@@ -20,6 +20,29 @@ class _RepeatedTransactionsState extends State<RepeatedTransactions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.amber,
+        title: Row(
+          children: [
+            Image.asset(
+              Res.repeatedTransactions,
+              width: 20.w,
+              height: 20.h,
+              color: MyColors.white,
+            ),
+            SizedBox(
+              width: 10.w,
+            ),
+            MyText(
+              title: tr(context, "recurringTransactions"),
+              color: Colors.white,
+              size: 14.sp,
+              fontWeight: FontWeight.bold,
+            ),
+          ],
+        ),
+        automaticallyImplyLeading: false,
+      ),
       body: BlocBuilder<GenericBloc<List<AddTransactionModel>>,
           GenericState<List<AddTransactionModel>>>(
         bloc: data.addTransactionCubit,

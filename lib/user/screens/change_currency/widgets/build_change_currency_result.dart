@@ -10,7 +10,7 @@ class BuildChangeCurrencyResult extends StatelessWidget {
       bloc: data.currencyCubit,
       builder: (context, state) {
         return MyText(
-          title: "Result: ${state.data.toStringAsFixed(2)}",
+          title: "${tr(context, "result")} ${state.data.toStringAsFixed(2)}",
           color: MyColors.primary,
           size: 16.sp,
           fontWeight: FontWeight.bold,

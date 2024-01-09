@@ -3,6 +3,7 @@ part of 'bag_imports.dart';
 class BagData{
   final GlobalKey<FormState> formKey = GlobalKey();
 
+  GenericBloc<bool> checkCubit = GenericBloc(false);
 
   TextEditingController amountController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -78,11 +79,10 @@ class BagData{
     bagList = box.values.cast<DropdownModel>().toList();
     print(bagList[0].name);
     bagCubit.onUpdateData(bagList);
-    await box.close();
   }
 
   Future<void> fetchBagData() async {
-    final box = Hive.box<DropdownModel>("bagTransactionBox");
+    final box = await Hive.openBox<DropdownModel>("bagTransactionBox");
     try {
       var list = box.values.map((dynamic value) {
         if (value is DropdownModel) {
@@ -97,6 +97,15 @@ class BagData{
       print('Error fetching data from Hive: $e');
     }
   }
+
+  Future<void> fetchData() async {
+    final box = Hive.box<BagModel>("bagBox");
+
+    cartCubit.onUpdateData(box.values.toList());
+    print(box.values.length);
+  }
+
+
 
   addBagItem(DropdownModel model) async {
     final box = await Hive.openBox<DropdownModel>("bagTransactionBox");
@@ -125,7 +134,7 @@ class BagData{
   GenericBloc<List<BagModel>> cartCubit = GenericBloc([]);
 
   addToCart(BuildContext context) async {
-    final box = await Hive.openBox<BagModel>("bagBox");
+    final box = Hive.box<BagModel>("bagBox");
     if (typeCubit.state.data!=null&&formKey.currentState!.validate()) {
       double amount = double.parse(amountController.text);
       BagModel model = BagModel(
@@ -133,17 +142,60 @@ class BagData{
         unit: selectedUnit,
         amount: amount,
         priority: selectedPriority,
+        completed: false,
       );
       box.add(model);
       cartCubit.onUpdateData(box.values.toList());
-      AutoRouter.of(context).replace(HomeRoute(index: 0,pageIndex: 15));
-
+      AutoRouter.of(context).pop();
+      typeCubit.onUpdateData(null);
+      amountController.clear();
       } else  {
       CustomToast.showSimpleToast(
           msg: "أكمل بيانات الإضافة أولا لاتمام اضافة المعاملة",
           color: Colors.red);
       }
     }
+
+  void deleteAllDataInBox() async {
+    // Open the box
+    final box = Hive.box<BagModel>("bagBox");
+
+    // Clear all data in the box
+    await box.clear();
+
+    cartCubit.onUpdateData(box.values.toList());
+
   }
+
+
+  Future<void> deleteItem(BagModel targetModel) async {
+    final box = Hive.box<BagModel>("bagBox");
+    // Find the index of the target model in the list
+    var modelList = box.values.toList();
+    int index = modelList.indexWhere((model) => model == targetModel);
+    box.deleteAt(index);
+    cartCubit.onUpdateData(box.values.toList());
+  }
+
+  Future<void> editItem(BagModel targetModel,int index) async {
+    final box = Hive.box<BagModel>("bagBox");
+    var modelList = box.values.toList();
+    int index = modelList.indexWhere((model) => model == targetModel);
+    var key = box.keyAt(index);
+    var model = BagModel(
+      type: targetModel.type,
+      amount: targetModel.amount,
+      priority: targetModel.priority,
+      unit: targetModel.unit,
+      completed: checkCubit.state.data,
+    );
+    //print(index);
+    print(key);
+    box.put(key, model);
+    cartCubit.onUpdateData(box.values.toList());
+  }
+
+
+}
 
 

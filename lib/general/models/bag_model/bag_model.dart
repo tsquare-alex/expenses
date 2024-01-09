@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 
 part 'bag_model.g.dart';
 
-@HiveType(typeId:44)
+@HiveType(typeId:185)
 class BagModel {
   @HiveField(0)
   String? type;

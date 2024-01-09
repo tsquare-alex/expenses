@@ -182,6 +182,13 @@ class ReportsCubit extends Cubit<ReportsState> {
     emit(const ReportsState.reportDataLoaded());
   }
 
+  Future<void> getMainReportData(BuildContext context) async {
+    emit(const ReportsState.reportDataLoading());
+    await Future.wait([getWalletData(context), getTransactionsData(context)]);
+    createMoneyPercentage(wallets, transactions);
+    emit(const ReportsState.reportDataLoaded());
+  }
+
   late String selectedWallet = '';
   late List<AddTransactionModel> reportFilteredTransactions = List.empty();
   void changeWallet(String walletValue) async {

@@ -16,11 +16,11 @@ class _ReportsState extends State<Reports> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: MyColors.primary,
         title: Row(
           children: [
             Image.asset(
-              Res.report,
+              Res.chart,
               width: 20.w,
               height: 20.h,
               color: MyColors.white,

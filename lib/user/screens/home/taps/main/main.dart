@@ -62,7 +62,7 @@ class _MainState extends State<Main> {
       //   ],
       // ),
       body: BlocProvider(
-        create: (context) => ReportsCubit()..getReportData(context),
+        create: (context) => ReportsCubit()..getMainReportData(context),
         child: BlocBuilder<ReportsCubit, ReportsState>(
           buildWhen: (previous, current) {
             return (previous == const ReportsState.reportDataLoading() ||
@@ -83,7 +83,6 @@ class _MainState extends State<Main> {
                 padding: EdgeInsets.all(15.r),
                 width: double.infinity,
                 height: double.infinity,
-                //TODO: to build circules
                 child: Column(
                   children: [
                     const WalletDetailsRow(),

@@ -9,7 +9,6 @@ import 'package:expenses/user/screens/wallet/widgets/wallet_category_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:googleapis/bigquery/v2.dart';
 
 class WalletBody extends StatefulWidget {
   const WalletBody({super.key});
@@ -34,7 +33,7 @@ class _WalletBodyState extends State<WalletBody> {
     return BlocBuilder<WalletCubit, WalletState>(
       builder: (context, state) {
         wallet = BlocProvider.of<WalletCubit>(context).walletList;
-        wallet.sort((a, b) => b.checkedValue ? 1 : -1);
+        wallet.sort((a, b) => b.checkedValue! ? 1 : -1);
         return Scaffold(
           body: wallet.isEmpty
               ? const WalletCategory()
@@ -44,22 +43,22 @@ class _WalletBodyState extends State<WalletBody> {
                       itemCount: wallet.length,
                       physics: const BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
-                        Gradient itemGradient = index % 2 == 0
-                            ? const LinearGradient(
-                                colors: [Color(0xff24C6DC), Color(0xff514A9D)],
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                              )
-                            : const LinearGradient(
-                                colors: [Color(0xffC33764), Color(0xff1D2671)],
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                              );
+                        // Gradient itemGradient = index % 2 == 0
+                        // ? const LinearGradient(
+                        //     colors: [Color(0xff24C6DC), Color(0xff514A9D)],
+                        //     begin: Alignment.centerLeft,
+                        //     end: Alignment.centerRight,
+                        //   )
+                        // : const LinearGradient(
+                        //     colors: [Color(0xffC33764), Color(0xff1D2671)],
+                        //     begin: Alignment.centerLeft,
+                        //     end: Alignment.centerRight,
+                        //   );
                         return Padding(
                           padding: EdgeInsets.symmetric(vertical: 4.h),
                           child: CustomContainer(
                             model: wallet[index],
-                            gradient: itemGradient,
+                            // gradient: itemGradient,
                           ),
                         );
                       }),

@@ -34,6 +34,22 @@ class WalletVisibilityState extends WalletState {}
 
 class WalletLock extends WalletState {}
 
+class WalletCategoryListLoaded extends WalletState {
+  final List<String> categoryList;
+
+  WalletCategoryListLoaded({required this.categoryList});
+}
+
+class WalletCategoryListEmpty extends WalletState {}
+
+class WalletCategoryImageListLoaded extends WalletState {
+  final List<String> categoryImageList;
+
+  WalletCategoryImageListLoaded(this.categoryImageList);
+}
+
+class WalletCategoryImageListEmpty extends WalletState {}
+
 class AddWalletfaliuer extends WalletState {
   final String message;
 

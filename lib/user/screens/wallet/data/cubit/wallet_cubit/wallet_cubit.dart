@@ -20,6 +20,12 @@ class WalletCubit extends Cubit<WalletState> {
   bool? isLocked = true;
   bool checkedValue = false;
   ValueNotifier<int> selectedCategoryIndex = ValueNotifier<int>(0);
+  final TextEditingController walletNameController = TextEditingController();
+  final TextEditingController balanceController = TextEditingController();
+  final TextEditingController openDateController = TextEditingController();
+  final TextEditingController closedDateController = TextEditingController();
+  final TextEditingController valueCategoryController = TextEditingController();
+  final TextEditingController encomSourceController = TextEditingController();
 
   List<String> valueCategory = [
     "تحويل بنكي",
@@ -28,17 +34,8 @@ class WalletCubit extends Cubit<WalletState> {
     "حساب بنكي",
   ];
   List<String> walletSource = ["شخص", "جهة"];
-  Color generateRandomColor() {
-    Random random = Random();
-    return Color.fromARGB(
-      255,
-      random.nextInt(256),
-      random.nextInt(256),
-      random.nextInt(256),
-    );
-  }
 
-  List<Image> Images = [
+  List<Image> images = [
     Image.asset(
       "assets/images/currency.png",
       height: 36.h,
@@ -349,5 +346,21 @@ class WalletCubit extends Cubit<WalletState> {
         );
       },
     );
+  }
+
+  void displayCategoryList(WalletModel wallet) {
+    if (wallet.walletCategory != null) {
+      emit(WalletCategoryListLoaded(categoryList: wallet.walletCategory!));
+    } else {
+      emit(WalletCategoryListEmpty());
+    }
+  }
+
+  void displayCategoryImageList(WalletModel wallet) {
+    if (wallet.walletCategoryImage != null) {
+      emit(WalletCategoryImageListLoaded(wallet.walletCategoryImage!));
+    } else {
+      emit(WalletCategoryImageListEmpty());
+    }
   }
 }

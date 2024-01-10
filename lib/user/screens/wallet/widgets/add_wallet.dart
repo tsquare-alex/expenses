@@ -2,12 +2,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
+import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
 import 'package:expenses/user/screens/wallet/wallet_imports.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,35 +18,25 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddWallet extends StatefulWidget {
   final int selectItemIndex;
+  final String selectedCategory;
 
-  const AddWallet({super.key, required this.selectItemIndex});
+  const AddWallet(
+      {super.key,
+      required this.selectItemIndex,
+      required this.selectedCategory});
   @override
   State<AddWallet> createState() => _AddWalletState();
 }
 
 class _AddWalletState extends State<AddWallet> {
   var formKey = GlobalKey<FormState>();
-  final TextEditingController walletNameController = TextEditingController();
-  final TextEditingController balanceController = TextEditingController();
-  final TextEditingController dateController = TextEditingController();
-  final TextEditingController timeController = TextEditingController();
-  final TextEditingController rangeDateController = TextEditingController();
-  final TextEditingController categoryController = TextEditingController();
-  final TextEditingController encomSourceController = TextEditingController();
-  final TextEditingController valueCategoryController = TextEditingController();
-  final TextEditingController openDateController = TextEditingController();
-  final TextEditingController openTimeController = TextEditingController();
 
-  final TextEditingController paymentMethodController = TextEditingController();
   WalletData data = WalletData();
   DateTime? selectedDate;
   DateTime? closedDate;
-  TimeOfDay selectedtTime = TimeOfDay.now();
   bool repeatSwitchValue = false;
 
   bool notificationSwitchvalu = false;
-  DateTimeRange selectRangeDate =
-      DateTimeRange(start: DateTime.now(), end: DateTime.now());
 
   _AddWalletState();
   double parsedNumber = 0;
@@ -64,7 +56,7 @@ class _AddWalletState extends State<AddWallet> {
         backgroundColor: MyColors.white,
         title: Center(
           child: MyText(
-            title: tr(context, 'addWallet'),
+            title: widget.selectedCategory,
             color: MyColors.black,
             size: 16.sp,
             fontWeight: FontWeight.bold,
@@ -118,8 +110,10 @@ class _AddWalletState extends State<AddWallet> {
                                       onChanged: (value) {
                                         setState(() {
                                           selectedValue = value;
-                                          encomSourceController.text =
-                                              value.toString();
+                                          context
+                                              .read<WalletCubit>()
+                                              .encomSourceController
+                                              .text = value.toString();
                                           isFirstValidationError = false;
                                         });
                                       },
@@ -168,7 +162,7 @@ class _AddWalletState extends State<AddWallet> {
                   height: 20.h,
                 ),
                 GenericTextField(
-                  controller: walletNameController,
+                  controller: context.read<WalletCubit>().walletNameController,
                   hint: "إسم المحفظة",
                   fieldTypes: FieldTypes.normal,
                   type: TextInputType.text,
@@ -224,8 +218,10 @@ class _AddWalletState extends State<AddWallet> {
                                       onChanged: (value) {
                                         setState(() {
                                           selectedValue = value;
-                                          encomSourceController.text =
-                                              value.toString();
+                                          context
+                                              .read<WalletCubit>()
+                                              .valueCategoryController
+                                              .text = value.toString();
                                           isSecondValidationError = false;
                                         });
                                       },
@@ -279,7 +275,9 @@ class _AddWalletState extends State<AddWallet> {
                       height: 58.h,
                       width: 319.w,
                       child: GenericTextField(
-                        controller: walletNameController,
+                        enableBorderColor: MyColors.semiTransparentColor,
+                        controller:
+                            context.read<WalletCubit>().balanceController,
                         hint: "الرصيد",
                         fieldTypes: FieldTypes.normal,
                         type: TextInputType.number,
@@ -290,7 +288,12 @@ class _AddWalletState extends State<AddWallet> {
                           }
                           return null;
                         },
-                        onChange: (value) {},
+                        onChange: (value) {
+                          parsedNumber = double.parse(context
+                              .read<WalletCubit>()
+                              .balanceController
+                              .text);
+                        },
                       ),
                     ),
                   ],
@@ -515,7 +518,39 @@ class _AddWalletState extends State<AddWallet> {
                   width: 398.w,
                   title: tr(context, "addWallet"),
                   color: MyColors.primary,
-                  onTap: () {},
+                  onTap: () {
+                    if (formKey.currentState!.validate()) {
+                      var walletData = WalletModel(
+                          name: context
+                              .read<WalletCubit>()
+                              .walletNameController
+                              .text,
+                          balance: parsedNumber,
+                          openDate: context
+                              .read<WalletCubit>()
+                              .openDateController
+                              .text,
+                          closedDate: context
+                              .read<WalletCubit>()
+                              .closedDateController
+                              .text,
+                          encomeSource: context
+                              .read<WalletCubit>()
+                              .encomSourceController
+                              .text,
+                          category: widget.selectedCategory,
+                          valueCategory: context
+                              .read<WalletCubit>()
+                              .valueCategoryController
+                              .text);
+
+                      context.read<WalletCubit>().addNote(walletData);
+                      if (context.mounted) {
+                        AutoRouter.of(context)
+                            .push(HomeRoute(index: 0, pageIndex: 7));
+                      }
+                    }
+                  },
                 )
               ],
             ),
@@ -970,18 +1005,6 @@ class _AddWalletState extends State<AddWallet> {
     // );
   }
 
-  // Future<void> chosenTime() async {
-  //   final chosenDate = await showTimePicker(
-  //     context: context,
-  //     initialTime: TimeOfDay.now(),
-  //   );
-  //   if (chosenDate != null) {
-  //     selectedtTime = chosenDate;
-  //     timeController.text = selectedtTime.toString();
-  //     setState(() {});
-  //   }
-  // }
-
   Future<void> openDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -993,6 +1016,8 @@ class _AddWalletState extends State<AddWallet> {
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
+        context.read<WalletCubit>().openDateController.text =
+            selectedDate.toString();
       });
     }
   }
@@ -1008,53 +1033,9 @@ class _AddWalletState extends State<AddWallet> {
     if (picked != null && picked != closedDate) {
       setState(() {
         closedDate = picked;
+        context.read<WalletCubit>().closedDateController.text =
+            closedDate.toString();
       });
     }
-  }
-
-  // Future<void> chosenDate() async {
-  //   final DateTime picked = await showDatePicker(
-  //       context: context,
-  //       initialDate: selectedDate ?? DateTime.now(),
-  //       firstDate: DateTime.now(2000),
-  //       lastDate: DateTime.now().add(const Duration(days: 365)));
-
-  //   if (chosenDate != null) {
-  //     selectedDate = chosenDate;
-  //     dateController.text = selectedDate.toString();
-  //     setState(() {});
-  //   }
-  // }
-
-  // void dateRange() async {
-  //   DateTimeRange? dateRange = await showDateRangePicker(
-  //     context: context,
-  //     firstDate: context.read<WalletCubit>().startDate,
-  //     lastDate: context.read<WalletCubit>().endDate,
-  //   );
-
-  //   if (dateRange != null) {
-  //     setState(() {
-  //       selectRangeDate = dateRange;
-  //       rangeDateController.text =
-  //           "${dateRange.start.day}/${dateRange.start.month}/${dateRange.start.year} - ${dateRange.end.day}/${dateRange.end.month}/${dateRange.end.year}";
-  //     });
-  //   }
-  // }
-
-  @override
-  void dispose() {
-    walletNameController.dispose();
-    balanceController.dispose();
-    dateController.dispose();
-    timeController.dispose();
-    rangeDateController.dispose();
-    categoryController.dispose();
-    encomSourceController.dispose();
-    valueCategoryController.dispose();
-    openDateController.dispose();
-    openTimeController.dispose();
-    paymentMethodController.dispose();
-    super.dispose();
   }
 }

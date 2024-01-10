@@ -1,4 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:expenses/res.dart';
 import 'package:hive_flutter/adapters.dart';
 part 'wallet_model.g.dart';
 
@@ -9,61 +9,76 @@ class WalletModel extends HiveObject {
   @HiveField(1)
   double balance;
   @HiveField(2)
-  int date;
+  String openDate;
   @HiveField(3)
-  int time;
+  String closedDate;
   @HiveField(4)
-  String paymentMethod;
-  @HiveField(5)
-  String category;
-  @HiveField(6)
   String encomeSource;
-  @HiveField(7)
+  @HiveField(5)
   String valueCategory;
+  @HiveField(6)
+  bool? currancyChange;
+  @HiveField(7)
+  bool? walletRepate;
   @HiveField(8)
-  String? repeatWallet;
+  bool? notification;
   @HiveField(9)
-  String? walletPeriod;
+  bool? isClosed;
   @HiveField(10)
   bool? isHide;
   @HiveField(11)
-  bool? isClosed;
+  String category;
   @HiveField(12)
-  bool checkedValue;
+  bool? checkedValue;
   @HiveField(13)
-  String walletOpiningDate;
+  String? paymentMethod;
   @HiveField(14)
-  String walletOpiningTime;
-  @HiveField(15)
-  List<String> walletCategory = [
+  List<String>? walletCategory = [
     "حافز",
     "راتب",
     "إضافي",
     "مكافأة",
-    "هدايا",
+    "هدية",
     "حساب بنكي",
     "إيجار",
     "عائد مشروع",
     "صفقة",
-    "اخري"
+    "عمولة",
+    "بيع",
+    "مضاربة"
+  ];
+  @HiveField(15)
+  List<String>? walletCategoryImage = [
+    Res.salary,
+    Res.incentive,
+    Res.extra,
+    Res.reward,
+    Res.gift,
+    Res.bankAccount,
+    Res.projectIncome,
+    Res.deal,
+    Res.rent,
+    Res.commission,
+    Res.sale,
+    Res.speculation,
   ];
 
   WalletModel({
-    required this.walletOpiningTime,
     required this.name,
     required this.balance,
-    required this.date,
-    required this.time,
-    required this.paymentMethod,
-    required this.category,
+    required this.openDate,
+    required this.closedDate,
     required this.encomeSource,
     required this.valueCategory,
-    this.repeatWallet,
-    this.isClosed = false,
-    this.isHide = false,
-    this.checkedValue = false,
-    this.walletPeriod,
-    required this.walletOpiningDate,
-    required this.walletCategory,
+    this.currancyChange,
+    this.walletRepate,
+    this.notification,
+    required this.category,
+    this.isClosed,
+    this.isHide,
+    this.checkedValue,
+    this.paymentMethod,
+    this.walletCategory,
+    this.walletCategoryImage,
   });
 }

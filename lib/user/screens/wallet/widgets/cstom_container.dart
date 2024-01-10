@@ -12,12 +12,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomContainer extends StatefulWidget {
   final WalletModel model;
-  final Gradient? gradient;
+  // final Gradient? gradient;
 
   const CustomContainer({
     super.key,
     required this.model,
-    required this.gradient,
   });
 
   @override
@@ -31,12 +30,12 @@ class _CustomContainerState extends State<CustomContainer> {
     DateTime currentDate = DateTime.now();
 
     // bool endDatePassed =
-    currentDate.isAfter(context.read<WalletCubit>().endDate);
+    // currentDate.isAfter(context.read<WalletCubit>().endDate);
     return Container(
       padding: EdgeInsets.all(20.w),
       height: 180.h,
       decoration: BoxDecoration(
-        gradient: widget.gradient,
+        // gradient: widget.gradient,
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Column(
@@ -51,7 +50,7 @@ class _CustomContainerState extends State<CustomContainer> {
                   color: MyColors.white,
                   size: 14.sp),
               Visibility(
-                visible: !widget.model.isClosed!,
+                visible: widget.model.isClosed!,
                 child: IconButton(
                     onPressed: () => showModalBottomSheet(
                         isScrollControlled: true,

@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
+import 'package:expenses/general/widgets/MyText.dart';
+import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +16,33 @@ class WalletCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Image.asset(Res.back),
+          onPressed: () => AutoRouter.of(context).pop(),
+        ),
+        backgroundColor: MyColors.white,
+        title: Center(
+          child: MyText(
+            title: tr(context, 'wallet'),
+            color: MyColors.black,
+            size: 16.sp,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: MyColors.primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50.r),
+        ),
+        child: Icon(
+          Icons.add,
+          size: 20.sp,
+          color: MyColors.white,
+        ),
+      ),
       body: Column(
         children: [
           Expanded(
@@ -30,12 +60,20 @@ class WalletCategory extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return InkWell(
                         onTap: () {
+                          String selectedCategory =
+                              context.read<WalletCubit>().walletCategory[index];
                           context
                               .read<WalletCubit>()
                               .selectedCategoryIndex
                               .value = index;
-                          AutoRouter.of(context)
-                              .push(AddWalletRoute(selectItemIndex: index));
+                          // context
+                          //     .read<WalletCubit>()
+                          //     .selectedCategoryIndex
+                          //     .value = index;
+                          AutoRouter.of(context).push(AddWalletRoute(
+                            selectItemIndex: index,
+                            selectedCategory: selectedCategory,
+                          ));
                         },
                         child: Column(
                           children: [

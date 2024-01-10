@@ -272,6 +272,7 @@ class AppRouter extends _i38.RootStackRouter {
         child: _i23.AddWallet(
           key: args.key,
           selectItemIndex: args.selectItemIndex,
+          selectedCategory: args.selectedCategory,
         ),
         opaque: true,
       );
@@ -939,12 +940,14 @@ class AddWalletRoute extends _i38.PageRouteInfo<AddWalletRouteArgs> {
   AddWalletRoute({
     _i39.Key? key,
     required int selectItemIndex,
+    required String selectedCategory,
   }) : super(
           AddWalletRoute.name,
           path: '/add-wallet',
           args: AddWalletRouteArgs(
             key: key,
             selectItemIndex: selectItemIndex,
+            selectedCategory: selectedCategory,
           ),
         );
 
@@ -955,15 +958,18 @@ class AddWalletRouteArgs {
   const AddWalletRouteArgs({
     this.key,
     required this.selectItemIndex,
+    required this.selectedCategory,
   });
 
   final _i39.Key? key;
 
   final int selectItemIndex;
 
+  final String selectedCategory;
+
   @override
   String toString() {
-    return 'AddWalletRouteArgs{key: $key, selectItemIndex: $selectItemIndex}';
+    return 'AddWalletRouteArgs{key: $key, selectItemIndex: $selectItemIndex, selectedCategory: $selectedCategory}';
   }
 }
 

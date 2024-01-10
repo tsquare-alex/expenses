@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
-import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
@@ -444,44 +443,45 @@ class _EditWalletState extends State<EditWallet> {
                     ),
                   ],
                 ),
-                DefaultButton(
-                  fontSize: 12.sp,
-                  onTap: () {
-                    if (formKey.currentState!.validate()) {
-                      widget.model.walletOpiningDate = openDateController.text;
-                      widget.model.walletOpiningTime = openTimeController.text;
-                      widget.model.checkedValue =
-                          context.read<WalletCubit>().checkedValue;
+                // DefaultButton(
+                //   fontSize: 12.sp,
+                //   onTap: () {
+                //     if (formKey.currentState!.validate()) {
+                //       widget.model.walletOpiningDate = openDateController.text;
+                //       widget.model.walletOpiningTime = openTimeController.text;
+                //       widget.model.checkedValue =
+                //           context.read<WalletCubit>().checkedValue;
 
-                      widget.model.walletPeriod = rangeDateController.text;
-                      widget.model.walletOpiningDate = openDateController.text;
-                      widget.model.valueCategory =
-                          valueCategoryController.text == ""
-                              ? data.valueCategory.first
-                              : valueCategoryController.text;
-                      widget.model.encomeSource =
-                          encomSourceController.text == ""
-                              ? data.encomeSource.first
-                              : encomSourceController.text;
-                      widget.model.date = selectedDate.microsecondsSinceEpoch;
-                      widget.model.time = selectedtTime.minute;
-                      widget.model.category = categoryController.text == ""
-                          ? data.walletCategory.first
-                          : categoryController.text;
-                      widget.model.paymentMethod =
-                          paymentMethodController.text == ""
-                              ? data.paymentMethod.first
-                              : paymentMethodController.text;
-                      widget.model.balance = parsedNumber;
-                      widget.model.name = walletNameController.text;
-                      widget.model.save();
-                      AutoRouter.of(context).pop();
-                    }
-                  },
-                  borderColor: MyColors.primary,
-                  title: tr(context, "edit"),
-                  color: MyColors.primary,
-                ),
+                //       widget.model.walletPeriod = rangeDateController.text;
+                //       widget.model.walletOpiningDate = openDateController.text;
+                //       widget.model.valueCategory =
+                //           valueCategoryController.text == ""
+                //               ? data.valueCategory.first
+                //               : valueCategoryController.text;
+                //       widget.model.encomeSource =
+                //           encomSourceController.text == ""
+                //               ? data.encomeSource.first
+                //               : encomSourceController.text;
+                //       widget.model.openDate =
+                //           selectedDate.microsecondsSinceEpoch;
+                //       widget.model.time = selectedtTime.minute;
+                //       widget.model.category = categoryController.text == ""
+                //           ? data.walletCategory.first
+                //           : categoryController.text;
+                //       widget.model.paymentMethod =
+                //           paymentMethodController.text == ""
+                //               ? data.paymentMethod.first
+                //               : paymentMethodController.text;
+                //       widget.model.balance = parsedNumber;
+                //       widget.model.name = walletNameController.text;
+                //       widget.model.save();
+                //       AutoRouter.of(context).pop();
+                //     }
+                //   },
+                //   borderColor: MyColors.primary,
+                //   title: tr(context, "edit"),
+                //   color: MyColors.primary,
+                // ),
               ],
             ),
           ),

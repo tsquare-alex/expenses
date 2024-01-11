@@ -3,12 +3,18 @@ import 'package:expenses/user/models/transaction_model/transaction_model.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_state.dart';
 import 'package:expenses/user/screens/budget/data/model/budget_model.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 
 import '../../../../../general/constants/constants.dart';
 
 class BudgetCubit extends Cubit<BudgetState> {
+  bool checkedValue = false;
+
+  final TextEditingController openDateController = TextEditingController();
+  final TextEditingController closeDateController = TextEditingController();
+  final TextEditingController budgetBalace = TextEditingController();
   BudgetCubit() : super(AddBudgetInitial());
 
   DateTime startDate = DateTime.now();
@@ -70,4 +76,18 @@ class BudgetCubit extends Cubit<BudgetState> {
     var res = transactionValue / walletValue;
     emit(BudgetValu(value: res));
   }
+
+  List<String> dummyTransaction = [
+    "فاتورة كهرباء",
+    "فاتورة مياه",
+    "فاتورة نت",
+  ];
+  List<String> budgetRepate = [
+    "يومياً",
+    "اسبوعياً",
+    "شهرياً",
+    "ربع سنوياً",
+    "نصف سنوياً",
+    "سنوياً",
+  ];
 }

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/MyText.dart';
+import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class WalletDetails extends StatelessWidget {
                 },
                 child: Row(
                   children: [
-                    const Icon(Icons.money),
+                    Image.asset(Res.withdrawal),
                     SizedBox(width: 12.w),
                     MyText(
                         title: "سحب رصيد", color: MyColors.black, size: 12.sp),

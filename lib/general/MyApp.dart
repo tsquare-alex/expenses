@@ -30,6 +30,7 @@ class _MyAppState extends State<MyApp> {
       child: BlocBuilder<LangCubit, LangState>(
         builder: (context, state) {
           return ScreenUtilInit(
+              designSize: const Size(430, 932),
               minTextAdapt: true,
               splitScreenMode: true,
               builder: (BuildContext context, child) {
@@ -46,7 +47,6 @@ class _MyAppState extends State<MyApp> {
                     localizationsDelegates: const [
                       LocalizationHelper.localizationsDelegate,
                       CountryLocalizations.delegate,
-
                       GlobalMaterialLocalizations.delegate,
                       GlobalWidgetsLocalizations.delegate,
                       GlobalCupertinoLocalizations.delegate,

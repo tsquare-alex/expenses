@@ -28,7 +28,6 @@ class _WalletBodyState extends State<WalletBody> {
   Widget build(BuildContext context) {
     List<WalletModel> wallet;
     bool isHide = false;
-    WalletModel model;
 
     return BlocBuilder<WalletCubit, WalletState>(
       builder: (context, state) {
@@ -37,32 +36,29 @@ class _WalletBodyState extends State<WalletBody> {
         return Scaffold(
           body: wallet.isEmpty
               ? const WalletCategory()
-              : Padding(
-                  padding: EdgeInsets.all(12.w),
-                  child: ListView.builder(
-                      itemCount: wallet.length,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        // Gradient itemGradient = index % 2 == 0
-                        // ? const LinearGradient(
-                        //     colors: [Color(0xff24C6DC), Color(0xff514A9D)],
-                        //     begin: Alignment.centerLeft,
-                        //     end: Alignment.centerRight,
-                        //   )
-                        // : const LinearGradient(
-                        //     colors: [Color(0xffC33764), Color(0xff1D2671)],
-                        //     begin: Alignment.centerLeft,
-                        //     end: Alignment.centerRight,
-                        //   );
-                        return Padding(
-                          padding: EdgeInsets.symmetric(vertical: 4.h),
-                          child: CustomContainer(
-                            model: wallet[index],
-                            // gradient: itemGradient,
-                          ),
-                        );
-                      }),
-                ),
+              : ListView.builder(
+                  itemCount: wallet.length,
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    // Gradient itemGradient = index % 2 == 0
+                    //     ? const LinearGradient(
+                    //         colors: [Color(0xff24C6DC), Color(0xff514A9D)],
+                    //         begin: Alignment.centerLeft,
+                    //         end: Alignment.centerRight,
+                    //       )
+                    //     : const LinearGradient(
+                    //         colors: [Color(0xffC33764), Color(0xff1D2671)],
+                    //         begin: Alignment.centerLeft,
+                    //         end: Alignment.centerRight,
+                    //       );
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 20.r, horizontal: 16.r),
+                      child: CustomContainer(
+                        model: wallet[index],
+                      ),
+                    );
+                  }),
           floatingActionButton: Visibility(
             visible: wallet.isEmpty ? isHide = false : isHide = true,
             child: FloatingActionButton(

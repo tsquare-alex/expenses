@@ -93,4 +93,14 @@ class Res {
   static const String speculation = "assets/images/Speculation.png";
   static const String back = "assets/images/back.png";
   static const String calender = "assets/images/calendar.png";
+  static const String conatinerBackground =
+      "assets/images/contanier_background.png";
+  static const String lock = "assets/images/lock.png";
+  static const String setting = "assets/images/setting.png";
+  static const String visability = "assets/images/visability.png";
+  static const String more = "assets/images/more.png";
+  static const String withdrawal = "assets/images/wallet_withdrawal.png";
+  static const String addBalance = "assets/images/add_balance.png";
+  static const String balanceTransfare = "assets/images/balance_transfare.png";
+  static const String showTransaction = "assets/images/show_transactions.png";
 }

@@ -65,7 +65,7 @@ class _AddWalletState extends State<AddWallet> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.symmetric(horizontal: 16.r),
           child: Form(
             key: formKey,
             child: Column(
@@ -498,13 +498,17 @@ class _AddWalletState extends State<AddWallet> {
                         child: Container(),
                       ),
                     ),
-                    CupertinoSwitch(
-                      value: notificationSwitchvalu,
-                      onChanged: (value) {
-                        setState(() {
-                          notificationSwitchvalu = value;
-                        });
-                      },
+                    SizedBox(
+                      height: 22.h,
+                      width: 44.w,
+                      child: CupertinoSwitch(
+                        value: notificationSwitchvalu,
+                        onChanged: (value) {
+                          setState(() {
+                            notificationSwitchvalu = value;
+                          });
+                        },
+                      ),
                     ),
                   ],
                 ),

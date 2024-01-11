@@ -21,4 +21,5 @@ class MyColors {
   static Color white = const Color(0xFFFFFFFF);
   static Color notifyColor = Colors.black54;
   static Color semiTransparentColor = Colors.grey.withOpacity(.2);
+  static Color myColor = Color(0xFF000000).withOpacity(0.25);
 }

@@ -4,6 +4,7 @@ class AddTransaction extends StatefulWidget {
   const AddTransaction({Key? key, required this.model, this.transactionName,}) : super(key: key);
   final TransactionTypeModel? model;
   final String? transactionName;
+
   @override
   State<AddTransaction> createState() => _AddTransactionState();
 }
@@ -14,7 +15,7 @@ class _AddTransactionState extends State<AddTransaction> {
 
   @override
   void initState() {
-    data.getContents(widget.model!);
+    data.getContents(widget.model!,widget.transactionName!);
     data.selectedContent = null;
     print(data.selectedContent);
     super.initState();
@@ -25,6 +26,7 @@ class _AddTransactionState extends State<AddTransaction> {
 
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: MyColors.white,
         elevation: 0,
         backgroundColor: MyColors.white,
         leading: IconButton(
@@ -37,9 +39,9 @@ class _AddTransactionState extends State<AddTransaction> {
         ),
         centerTitle: true,
         title: MyText(
-          title: tr(context, widget.model?.name??""),
+          title: tr(context, widget.model!.name!).isNotEmpty?tr(context, widget.model!.name!):widget.model?.name??"",
           color: MyColors.black,
-          size: 16.sp,
+          size: 18.sp,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -52,7 +54,7 @@ class _AddTransactionState extends State<AddTransaction> {
               BuildTransactionType(addTransactionData: data, type: widget.transactionName??"", model: widget.model!,),
               BuildTransactionInputs(addTransactionData: data, type: widget.transactionName??"",),
               BuildTransactionDate(data: data,type: widget.transactionName??""),
-              if(widget.model?.name=="التسوق والشراء")BuildAddProductPhoto(data: data,),
+              if(widget.transactionName=="التسوق والشراء")BuildAddProductPhoto(data: data,),
               BuildIterateTransaction(addTransactionData: data,type: widget.transactionName??"",),
               BuildTransactionButton(data: data,type: widget.transactionName??"", transactionType: widget.model!,),
 

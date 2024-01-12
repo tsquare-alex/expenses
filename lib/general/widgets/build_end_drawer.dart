@@ -30,8 +30,8 @@ class BuildEndDrawer extends StatelessWidget {
                       CustomDrawerCard(
                         title: tr(context, "wallets"),
                         onTap: (){
-                          Navigator.of(context).pop();
-                          homeTabCubit.onUpdateData(7);
+                          AutoRouter.of(context).push(HomeRoute(index: 0,pageIndex: 7,),);
+
                         },
                         image: Res.wallet,
                         endDrawer: true,
@@ -39,8 +39,7 @@ class BuildEndDrawer extends StatelessWidget {
                       CustomDrawerCard(
                         title: tr(context, "transactions"),
                         onTap: (){
-                          Navigator.of(context).pop();
-                          homeTabCubit.onUpdateData(0);
+                          AutoRouter.of(context).push(HomeRoute(index: 0,pageIndex: 0,),);
                         },
                         image: Res.transaction,
                         endDrawer: true,
@@ -48,8 +47,7 @@ class BuildEndDrawer extends StatelessWidget {
                       CustomDrawerCard(
                         title: tr(context, "budget"),
                         onTap: (){
-                          Navigator.of(context).pop();
-                          homeTabCubit.onUpdateData(8);
+                          AutoRouter.of(context).push(HomeRoute(index: 0,pageIndex: 8,),);
                         },
                         image: Res.budget,
                         endDrawer: true,
@@ -57,8 +55,7 @@ class BuildEndDrawer extends StatelessWidget {
                       CustomDrawerCard(
                         title: tr(context, "reports"),
                         onTap: (){
-                          Navigator.of(context).pop();
-                          homeTabCubit.onUpdateData(2);
+                          AutoRouter.of(context).push(HomeRoute(index: 0,pageIndex: 2,),);
                         },
                         image: Res.report,
                         endDrawer: true,
@@ -66,8 +63,7 @@ class BuildEndDrawer extends StatelessWidget {
                       CustomDrawerCard(
                         title: tr(context, "addCart"),
                         onTap: (){
-                          Navigator.of(context).pop();
-                          homeTabCubit.onUpdateData(15);
+                          AutoRouter.of(context).push(HomeRoute(index: 0,pageIndex: 15,),);
                         },
                         image: Res.cart,
                         endDrawer: true,

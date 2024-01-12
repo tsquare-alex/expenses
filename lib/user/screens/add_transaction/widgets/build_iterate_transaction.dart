@@ -97,7 +97,7 @@ class BuildIterateTransaction extends StatelessWidget {
                             ),
                             MyText(title: "(${tr(context, "remember")})",
                               color: MyColors.black,
-                              size: 9.sp,
+                              size: 11.sp,
                               fontWeight: FontWeight.bold,),
                           ],
                         ),

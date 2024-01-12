@@ -60,7 +60,8 @@ import 'package:expenses/user/screens/repeated_transactions/repeated_transaction
     as _i20;
 import 'package:expenses/user/screens/reports/statistics/statistics_imports.dart'
     as _i23;
-import 'package:expenses/user/screens/shopping/shopping_imports.dart' as _i17;
+import 'package:expenses/user/screens/shopping_screen/shopping_screen_imports.dart'
+    as _i17;
 import 'package:expenses/user/screens/target/target_imports.dart' as _i18;
 import 'package:expenses/user/screens/tools_helper/tools_helper.dart' as _i28;
 import 'package:expenses/user/screens/transaction_details/transaction_details_imports.dart'
@@ -227,11 +228,11 @@ class AppRouter extends _i38.RootStackRouter {
         opaque: true,
       );
     },
-    ShoppingRoute.name: (routeData) {
-      final args = routeData.argsAs<ShoppingRouteArgs>();
+    ShoppingScreenRoute.name: (routeData) {
+      final args = routeData.argsAs<ShoppingScreenRouteArgs>();
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: _i17.Shopping(
+        child: _i17.ShoppingScreen(
           key: args.key,
           model: args.model,
         ),
@@ -487,8 +488,8 @@ class AppRouter extends _i38.RootStackRouter {
           path: '/change-currency',
         ),
         _i38.RouteConfig(
-          ShoppingRoute.name,
-          path: '/Shopping',
+          ShoppingScreenRoute.name,
+          path: '/shopping-screen',
         ),
         _i38.RouteConfig(
           TargetRoute.name,
@@ -883,25 +884,25 @@ class ChangeCurrencyRoute extends _i38.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i17.Shopping]
-class ShoppingRoute extends _i38.PageRouteInfo<ShoppingRouteArgs> {
-  ShoppingRoute({
+/// [_i17.ShoppingScreen]
+class ShoppingScreenRoute extends _i38.PageRouteInfo<ShoppingScreenRouteArgs> {
+  ShoppingScreenRoute({
     _i39.Key? key,
     required _i43.TransactionModel model,
   }) : super(
-          ShoppingRoute.name,
-          path: '/Shopping',
-          args: ShoppingRouteArgs(
+          ShoppingScreenRoute.name,
+          path: '/shopping-screen',
+          args: ShoppingScreenRouteArgs(
             key: key,
             model: model,
           ),
         );
 
-  static const String name = 'ShoppingRoute';
+  static const String name = 'ShoppingScreenRoute';
 }
 
-class ShoppingRouteArgs {
-  const ShoppingRouteArgs({
+class ShoppingScreenRouteArgs {
+  const ShoppingScreenRouteArgs({
     this.key,
     required this.model,
   });
@@ -912,7 +913,7 @@ class ShoppingRouteArgs {
 
   @override
   String toString() {
-    return 'ShoppingRouteArgs{key: $key, model: $model}';
+    return 'ShoppingScreenRouteArgs{key: $key, model: $model}';
   }
 }
 

@@ -20,7 +20,6 @@ import 'package:expenses/user/screens/home/widgets/HomeWidgetsImports.dart';
 import 'package:expenses/user/screens/repeated_transactions/repeated_transactions_imports.dart';
 import 'package:expenses/user/screens/reports/reports_imports.dart';
 import 'package:expenses/user/screens/settings/settings_imports.dart';
-import 'package:expenses/user/screens/shopping/shopping_imports.dart';
 import 'package:expenses/user/screens/target/target_imports.dart';
 import 'package:expenses/user/screens/tools_helper/tools_helper.dart';
 import 'package:expenses/user/screens/transactions/transactions_imports.dart';

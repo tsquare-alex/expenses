@@ -14,7 +14,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
 
   @override
   void initState() {
-    data.fetchData(widget.model);
+    data.fetchData(widget.model,context);
     data.iterateCubit.onUpdateData(widget.model.repeated!=null?true:false);
     data.notifyCubit.onUpdateData(widget.model.notify??false);
     data.selectedIterateTransaction= widget.model.repeated;
@@ -28,22 +28,22 @@ class _TransactionDetailsState extends State<TransactionDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => AutoRouter.of(context).pop(),
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: MyColors.white,
-            size: 20.sp,
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
+        title: Padding(
+          padding: EdgeInsets.only(left: 40.0.r),
+          child: MyText(
+            title: tr(context, "transactionDetails"),
+            color: MyColors.black,
+            size: 18.sp,
+            fontWeight: FontWeight.bold,
           ),
         ),
-        centerTitle: true,
-        title: MyText(
-          title: tr(context, "transactionDetails"),
-          color: MyColors.white,
-          size: 16.sp,
-          fontWeight: FontWeight.bold,
+        leading: InkWell(
+          onTap: () => AutoRouter.of(context).pop(),
+          child: Icon(Icons.arrow_back, color: MyColors.black,),
         ),
+        centerTitle: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(15.r),
@@ -51,7 +51,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
           child: Column(
             children: [
               BuildTransactionDetailsInputs(transactionDetailsData: data,model: widget.model,),
-              BuildTransactionDetailsButton(data: data, model: widget.model!),
+              BuildTransactionDetailsButton(data: data, model: widget.model),
             ],
           ),
         ),

@@ -19,61 +19,51 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
               MyText(
                 title: tr(context, "transaction"),
                 color: MyColors.black,
-                size: 12.sp,
+                size: 14.sp,
                 fontWeight: FontWeight.bold,
               ),
               SizedBox(
                 width: 67.w,
               ),
               Expanded(
-                child: GenericTextField(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                  controller: transactionDetailsData.transactionTypeController,
-                  fieldTypes: FieldTypes.readonly,
-                  type: TextInputType.text,
-                  action: TextInputAction.next,
-                  validate: (value) {
-                    return null;
-                  },
-                  label: model.transactionName == "الالتزامات"
-                      ? tr(context, "commitment")
-                      : model.transactionName == "التسوق والشراء"
-                          ? tr(context, "shoppingParty")
-                          : tr(context, "transaction"),
-                  margin: EdgeInsets.symmetric(vertical: 10.r),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 16.r),
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 1.w,color: MyColors.greyWhite),
+                    borderRadius: BorderRadius.circular(15.r),
+                  ),
+                  child: MyText(title: tr(context, model.transactionType!.name!).isNotEmpty?tr(context, model.transactionType?.name??""):model.transactionType?.name??"", color: MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,),
                 ),
               ),
             ],
           ),
           if (model.transactionName == "الالتزامات" ||
               model.transactionName == "التسوق والشراء")
-            Row(
-              children: [
-                MyText(
-                  title: tr(context, "transactionContent"),
-                  color: MyColors.black,
-                  size: 12.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-                SizedBox(
-                  width: 23.w,
-                ),
-                Expanded(
-                  child: GenericTextField(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                    controller:
-                        transactionDetailsData.transactionContentController,
-                    fieldTypes: FieldTypes.readonly,
-                    type: TextInputType.text,
-                    action: TextInputAction.next,
-                    validate: (value) {
-                      return null;
-                    },
-                    label: tr(context, "contain"),
-                    margin: EdgeInsets.symmetric(vertical: 10.r),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 15.0.r),
+              child: Row(
+                children: [
+                  MyText(
+                    title: tr(context, "transactionContent"),
+                    color: MyColors.black,
+                    size: 14.sp,
+                    fontWeight: FontWeight.bold,
                   ),
-                ),
-              ],
+                  SizedBox(
+                    width: 23.w,
+                  ),
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 16.r),
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1.w,color: MyColors.greyWhite),
+                        borderRadius: BorderRadius.circular(15.r),
+                      ),
+                      child: MyText(title: tr(context, model.transactionContent!.name!).isNotEmpty?tr(context, model.transactionContent?.name??""):model.transactionContent?.name??"", color: MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,),
+                    ),
+                  ),
+                ],
+              ),
             ),
           if (model.transactionName == "التسوق والشراء")
             Row(
@@ -81,7 +71,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                 MyText(
                   title: tr(context, "selectUnit"),
                   color: MyColors.black,
-                  size: 12.sp,
+                  size: 14.sp,
                   fontWeight: FontWeight.bold,
                 ),
                 SizedBox(
@@ -102,6 +92,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                       context,
                     ),
                     useName: true,
+                    hasLocalization: true,
                     buttonsColor: MyColors.primary,
                     searchHint: tr(context, "search"),
                   ),
@@ -186,7 +177,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
               MyText(
                 title: tr(context, "selectedBudget"),
                 color: MyColors.black,
-                size: 12.sp,
+                size: 14.sp,
                 fontWeight: FontWeight.bold,
               ),
               SizedBox(
@@ -218,7 +209,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                 MyText(
                   title: tr(context, "priorityRatio"),
                   color: MyColors.black,
-                  size: 12.sp,
+                  size: 14.sp,
                   fontWeight: FontWeight.bold,
                 ),
                 SizedBox(
@@ -242,6 +233,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                       context,
                     ),
                     useName: true,
+                    hasLocalization: true,
                     buttonsColor: MyColors.primary,
                     searchHint: tr(context, "search"),
                   ),
@@ -260,7 +252,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                   MyText(
                     title: tr(context, "transactionDate"),
                     color: MyColors.black,
-                    size: 9.sp,
+                    size: 11.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ],
@@ -295,7 +287,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                 width: 10.w,
               ),
               SizedBox(
-                width: 90.w,
+                width: 120.w,
                 child: GenericTextField(
                   onTab: () => transactionDetailsData.onSelectTime(
                     context,
@@ -492,7 +484,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                                     MyText(
                                       title: "(${tr(context, "remember")})",
                                       color: MyColors.black,
-                                      size: 9.sp,
+                                      size: 11.sp,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ],

@@ -20,11 +20,11 @@ class BuildTransactionInputs extends StatelessWidget {
                   backgroundColor: context.watch<AppThemeCubit>().isDarkMode
                       ? AppDarkColors.primary
                       : MyColors.primary,
-                  radius: 20.r,
+                  radius: 25.r,
                   child: Image.asset(
                     Res.wallet,
-                    width: 20.w,
-                    height: 20.w,
+                    width: 25.w,
+                    height: 25.w,
                     color: MyColors.white,
                   ),
                 ),
@@ -65,7 +65,7 @@ class BuildTransactionInputs extends StatelessWidget {
                       MyText(
                         title: tr(context, "targetValue"),
                         color: MyColors.black,
-                        size: 12.sp,
+                        size: 14.sp,
                         fontWeight: FontWeight.bold,
                         alien: TextAlign.center,
                       ),
@@ -164,7 +164,7 @@ class BuildTransactionInputs extends StatelessWidget {
                       MyText(
                         title: tr(context, "selectUnit"),
                         color: MyColors.black,
-                        size: 12.sp,
+                        size: 14.sp,
                         fontWeight: FontWeight.bold,
                       ),
                       SizedBox(
@@ -185,6 +185,7 @@ class BuildTransactionInputs extends StatelessWidget {
                           ),
                           hasLocalization: true,
                           useName: true,
+
                           buttonsColor: MyColors.primary,
                           searchHint:tr(context, "search"),
                         ),
@@ -200,7 +201,7 @@ class BuildTransactionInputs extends StatelessWidget {
                       MyText(
                         title: tr(context, "selectAmount"),
                         color: MyColors.black,
-                        size: 12.sp,
+                        size: 14.sp,
                         fontWeight: FontWeight.bold,
                         alien: TextAlign.center,
                       ),
@@ -237,7 +238,7 @@ class BuildTransactionInputs extends StatelessWidget {
                     MyText(
                       title: tr(context, "total"),
                       color: MyColors.black,
-                      size: 12.sp,
+                      size: 14.sp,
                       fontWeight: FontWeight.bold,
                       alien: TextAlign.center,
                     ),
@@ -271,7 +272,7 @@ class BuildTransactionInputs extends StatelessWidget {
                   MyText(
                     title: tr(context, "enterTransferValue"),
                     color: MyColors.black,
-                    size: 12.sp,
+                    size: 14.sp,
                     fontWeight: FontWeight.bold,
                     alien: TextAlign.center,
                   ),
@@ -308,7 +309,7 @@ class BuildTransactionInputs extends StatelessWidget {
                   MyText(
                     title: tr(context, "brand"),
                     color: MyColors.black,
-                    size: 12.sp,
+                    size: 14.sp,
                     fontWeight: FontWeight.bold,
                     alien: TextAlign.center,
                   ),
@@ -343,7 +344,7 @@ class BuildTransactionInputs extends StatelessWidget {
                   MyText(
                     title: tr(context, "registry"),
                     color: MyColors.black,
-                    size: 12.sp,
+                    size: 14.sp,
                     fontWeight: FontWeight.bold,
                   ),
                   SizedBox(
@@ -374,7 +375,7 @@ class BuildTransactionInputs extends StatelessWidget {
                 MyText(
                   title: tr(context, "selectedBudget"),
                   color: MyColors.black,
-                  size: 12.sp,
+                  size: 14.sp,
                   fontWeight: FontWeight.bold,
                 ),
                 SizedBox(
@@ -407,7 +408,7 @@ class BuildTransactionInputs extends StatelessWidget {
                   MyText(
                     title: tr(context, "transferTo"),
                     color: MyColors.black,
-                    size: 12.sp,
+                    size: 14.sp,
                     fontWeight: FontWeight.bold,
                   ),
                   SizedBox(
@@ -439,7 +440,7 @@ class BuildTransactionInputs extends StatelessWidget {
                   MyText(
                     title: tr(context, "priorityRatio"),
                     color: MyColors.black,
-                    size: 12.sp,
+                    size: 14.sp,
                     fontWeight: FontWeight.bold,
                   ),
                   SizedBox(
@@ -462,6 +463,7 @@ class BuildTransactionInputs extends StatelessWidget {
                         context,
                       ),
                       useName: true,
+                      hasLocalization: true,
                       buttonsColor: MyColors.primary,
                       searchHint:tr(context, "search"),
                     ),

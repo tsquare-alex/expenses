@@ -18,120 +18,112 @@ class BuildTransactionCard extends StatelessWidget {
         );
       },
       child: Container(
-        padding: EdgeInsets.all(15.r),
+        padding: EdgeInsets.symmetric(horizontal: 15.r, vertical: 20.r),
         margin: EdgeInsets.only(bottom: 10.h),
         decoration: BoxDecoration(
-          color: MyColors.primary.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(15.r),
-        ),
+            color: MyColors.white,
+            borderRadius: BorderRadius.circular(15.r),
+            border: Border.all(width: 1.w, color: MyColors.greyWhite)),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                MyText(
-                  title: model.transactionDate ?? "",
-                  color: MyColors.grey,
-                  size: 13.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-                IconButton(
-                    onPressed: onDelete,
-                    icon: Icon(
-                      Icons.delete,
-                      color: MyColors.primary,
-                    ))
-              ],
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
                   child: Row(
                     children: [
-                      CircleAvatar(
-                        radius: 20.r,
-                        backgroundColor: MyColors.primary.withOpacity(0.7),
-                        child: Image.asset(
-                          Res.transaction,
-                          width: 20.w,
-                          height: 20.h,
-                          color: MyColors.white,
-                        ),
+                      Image.asset(
+                        model.transactionType?.image ?? Res.transaction,
+                        width: 30.w,
+                        height: 30,
                       ),
                       SizedBox(
-                        width: 15.h,
+                        width: 5.w,
                       ),
                       Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            MyText(
-                              title:
-                                  "${model.transactionName == "الالتزامات" || model.transactionName == "التسوق والشراء" ? model.transactionType?.name : model.transactionName == "الاهداف المالية المستهدفة" ? model.targetType?.name : model.transactionName == "المعاملات النقدية" ? model.cashTransactionType?.name : ""}",
-                              color: MyColors.black,
-                              size: 14.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            if (model.transactionName == "الالتزامات" ||
-                                model.transactionName == "التسوق والشراء")
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    Res.contacts,
-                                    width: 25.w,
-                                    height: 25.h,
-                                    color: MyColors.primary,
-                                  ),
-                                  SizedBox(
-                                    width: 10.w,
-                                  ),
-                                  Expanded(
-                                    child: MyText(
-                                      title: model.database?.name ?? "",
-                                      color: MyColors.black,
-                                      size: 11.sp,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            // if (model.transactionName == "الالتزامات" ||
-                            //     model.transactionName == "التسوق والشراء")
-                            //   Row(
-                            //     children: [
-                            //       Image.asset(
-                            //         Res.contacts,
-                            //         width: 25.w,
-                            //         height: 25.h,
-                            //         color: MyColors.primary,
-                            //       ),
-                            //       SizedBox(
-                            //         width: 10.w,
-                            //       ),
-                            //     ],
-                            //   ),
-                          ],
+                        child: MyText(
+                          title: tr(context, model.transactionType?.name ?? "")
+                                  .isNotEmpty
+                              ? tr(context, model.transactionType?.name ?? "")
+                              : model.transactionType?.name ?? "",
+                          color: MyColors.black,
+                          size: 16.sp,
+                          fontWeight: FontWeight.bold,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
+                Row(
+                  children: [
+                    MyText(
+                      title: model.transactionDate ?? "",
+                      color: MyColors.grey,
+                      size: 14.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    InkWell(
+                      onTap: onDelete,
+                      child: CircleAvatar(
+                        radius: 20.r,
+                        backgroundColor: MyColors.greyWhite,
+                        child: Icon(
+                          Icons.delete,
+                          color: MyColors.primary,
+                        ),
+                      ),
+                    ),
+
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Divider(
+              thickness: 1.w,
+              color: MyColors.greyWhite,
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                model.transactionName=="الالتزامات"||model.transactionName=="التسوق والشراء"?Expanded(
+                  child: Row(
+                    children: [
+                      Image.asset(model.transactionContent?.image??"",width: 35.w,height: 35.h,),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      MyText(
+                        title: tr(context, model.transactionContent?.name ?? "")
+                            .isNotEmpty
+                            ? tr(context, model.transactionContent?.name ?? "")
+                            : model.transactionType?.name ?? "",
+                        color: MyColors.black,
+                        size: 16.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ],
+                  ),
+                ):Container(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Row(
                       children: [
-                        CircleAvatar(
-                          backgroundColor: MyColors.primary.withOpacity(0.6),
-                          radius: 15.r,
-                          child: Image.asset(
-                            Res.bag,
-                            width: 15.w,
-                            height: 15.h,
-                            color: MyColors.white,
-                          ),
+                        Image.asset(
+                          Res.wallet,
+                          width: 25.w,
+                          height: 25.h,
+                          color: MyColors.primary,
                         ),
                         SizedBox(
                           width: 10.w,
@@ -139,15 +131,18 @@ class BuildTransactionCard extends StatelessWidget {
                         MyText(
                           title: model.incomeSource?.paymentMethod ?? "",
                           color: MyColors.black,
-                          size: 13.sp,
+                          size: 14.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ],
                     ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
                     MyText(
-                      title: model.total ?? "",
+                      title: "${tr(context, "value")} : ${model.total}",
                       color: MyColors.black,
-                      size: 13.sp,
+                      size: 14.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ],

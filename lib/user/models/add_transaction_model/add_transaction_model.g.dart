@@ -35,8 +35,8 @@ class AddTransactionModelAdapter extends TypeAdapter<AddTransactionModel> {
       targetValue: fields[18] as String?,
       transactionContent: fields[2] as TransactionContentModel?,
       transactionDate: fields[9] as String?,
-      targetType: fields[19] as DropdownModel?,
-      cashTransactionType: fields[11] as DropdownModel?,
+      targetType: fields[19] as TransactionTypeModel?,
+      cashTransactionType: fields[11] as TransactionTypeModel?,
       budget: fields[20] as BudgetModel?,
     );
   }

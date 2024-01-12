@@ -398,5 +398,10 @@
   "saving" : "Saving",
   "finishing" : "Finishing",
   "buyingCar" : "Buying a car",
+
+  "necessary" : "Necessary",
+  "important" : "Important",
+  "normal" : "Normal",
+
   "tuitionFees" : "Tuition Fees"
 }

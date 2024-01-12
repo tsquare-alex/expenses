@@ -2,7 +2,8 @@ part of 'cash_transactions_imports.dart';
 
 class CashTransactions extends StatefulWidget {
   const CashTransactions({
-    Key? key, required this.model,
+    Key? key,
+    required this.model,
   }) : super(key: key);
   final TransactionModel model;
 
@@ -15,64 +16,91 @@ class _CashTransactionsState extends State<CashTransactions> {
 
   @override
   void initState() {
+    print(widget.model.content?.length);
+    data.initData(widget.model);
     data.fetchData();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GenericBloc<List<AddTransactionModel>>, GenericState<List<AddTransactionModel>>>(
+    return BlocBuilder<GenericBloc<List<AddTransactionModel>>,
+        GenericState<List<AddTransactionModel>>>(
       bloc: data.addTransactionCubit,
-      builder: (context, state) {
+      builder: (context, state1) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.amber,
-            title: Row(
-              children: [
-                Image.asset(
-                  Res.cashTransactions,
-                  width: 20.w,
-                  height: 20.h,
-                  color: MyColors.white,
-                ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                MyText(
-                  title: tr(context, "cashTransactions"),
-                  color: Colors.white,
-                  size: 14.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-              ],
+            backgroundColor: Colors.white,
+            surfaceTintColor: Colors.white,
+            title: Padding(
+              padding: EdgeInsets.only(left: 40.0.r),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    Res.cash,
+                    width: 30.w,
+                    height: 30.h,
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  MyText(
+                    title: tr(context, "cashTransactions"),
+                    color: MyColors.black,
+                    size: 18.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ],
+              ),
             ),
-            automaticallyImplyLeading: false,
+            leading: InkWell(
+              onTap: () => AutoRouter.of(context).pop(),
+              child: Icon(Icons.arrow_back, color: MyColors.black,),
+            ),
+            centerTitle: true,
           ),
-          // floatingActionButton: state.data.isNotEmpty?FloatingActionButton(
-          //   onPressed: () =>
-          //       AutoRouter.of(context).push(
-          //         AddTransactionRoute(
-          //           model: data.model,
-          //         ),
-          //       ),
-          //   backgroundColor: MyColors.primary,
-          //   child: Icon(
-          //     Icons.add,
-          //     color: MyColors.white,
-          //   ),
-          // ):null,
-          // body: state.data.isEmpty?AddTransaction(model: data.model):
-          // Padding(
-          //   padding: EdgeInsets.all(15.0.r),
-          //   child: ListView.builder(
-          //     physics: const BouncingScrollPhysics(),
-          //     shrinkWrap: true,
-          //     itemCount: state.data.length,
-          //     itemBuilder: (context, i) => BuildTransactionCard(
-          //       model: state.data[i], onDelete: () =>
-          //         data.deleteItem(state.data[i]),),
-          //   ),
-          // ),
+          floatingActionButton: BlocBuilder<GenericBloc<List<TransactionTypeModel>>, GenericState<List<TransactionTypeModel>>>(
+            bloc: data.transactionTypeCubit,
+            builder: (context, state) {
+              return FloatingActionButton(
+                backgroundColor: MyColors.primary,
+                onPressed: () {
+                  if (state1.data.isEmpty) {
+                    data.addTransactionModel(context);
+                  } else {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_)=>BuildCashTransactionsView(model: state.data, hasData:true, data: data,))
+                    );
+                  }
+                },
+                shape: const CircleBorder(),
+                child: Icon(Icons.add, color: MyColors.white,),
+              );
+            },
+          ),
+          body: state1.data.isEmpty ? BlocBuilder<
+              GenericBloc<List<TransactionTypeModel>>,
+              GenericState<List<TransactionTypeModel>>>(
+            bloc: data.transactionTypeCubit,
+            builder: (context, state) {
+              return Padding(
+                padding: EdgeInsets.all(15.r),
+                child: BuildCashTransactionsView(model: state.data, hasData: false, data: data,),
+              );
+            },
+          ) : Padding(
+            padding: EdgeInsets.all(15.0.r),
+            child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: state1.data.length,
+              itemBuilder: (context, i) =>
+                  BuildTransactionCard(
+                    model: state1.data[i], onDelete: () =>
+                      data.deleteItem(state1.data[i]),),
+            ),
+          ),
         );
       },
     );

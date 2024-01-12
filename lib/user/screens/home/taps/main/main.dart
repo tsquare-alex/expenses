@@ -26,6 +26,13 @@ class _MainState extends State<Main> {
     };
     return Scaffold(
       key: data.scaffold,
+      drawer: BuildDrawer(
+        shareCubit: data.shareCubit,
+        homeTabCubit: data.homeTabCubit,
+      ),
+      endDrawer: BuildEndDrawer(
+        homeTabCubit: data.homeTabCubit,
+      ),
       // floatingActionButtonLocation: ExpandableFab.location,
       // floatingActionButton: ExpandableFab(
       //   openButtonBuilder: RotateFloatingActionButtonBuilder(
@@ -68,41 +75,38 @@ class _MainState extends State<Main> {
         title: BlocBuilder<GenericBloc<int>, GenericState<int>>(
           bloc: data.homeTabCubit,
           builder: (context, state) {
-            return MyText(
-              title: tr(context,"main"),
-              color: MyColors.white,
-              size: 14.sp,
-              alien: TextAlign.center,
-              fontWeight: FontWeight.bold,
+            return Row(
+              children: [
+                Image.asset(
+                  Res.home,
+                  color: MyColors.white,
+                  width: 30.w,
+                  height: 30.h,
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                MyText(
+                  title: tr(context,"main"),
+                  color: MyColors.white,
+                  size: 18.sp,
+                  alien: TextAlign.center,
+                  fontWeight: FontWeight.bold,
+                ),
+              ],
             );
           },
         ),
-        leadingWidth: 71.w,
-        leading: Row(
-          children: [
-            SizedBox(
-              width: 10.w,
-            ),
-            InkWell(
-              onTap: () {
-                data.scaffold.currentState?.openDrawer();
-              },
-              child: Icon(
-                Icons.menu,
-                color: MyColors.white,
-                size: 30.w,
-              ),
-            ),
-            SizedBox(
-              width: 10.w,
-            ),
-            Image.asset(
-              Res.home,
-              color: MyColors.white,
-              width: 20.w,
-              height: 20.h,
-            ),
-          ],
+        leadingWidth: 40.w,
+        leading: InkWell(
+          onTap: () {
+            data.scaffold.currentState?.openDrawer();
+          },
+          child: Icon(
+            Icons.menu,
+            color: MyColors.white,
+            size: 30.w,
+          ),
         ),
         actions: [
           BlocBuilder<AppThemeCubit, AppThemeState>(

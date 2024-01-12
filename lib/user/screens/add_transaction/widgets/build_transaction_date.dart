@@ -22,7 +22,7 @@ class BuildTransactionDate extends StatelessWidget {
                 MyText(
                   title: tr(context, "transactionDate"),
                   color: MyColors.black,
-                  size: 9.sp,
+                  size: 11.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ],
@@ -57,7 +57,7 @@ class BuildTransactionDate extends StatelessWidget {
               width: 10.w,
             ),
             SizedBox(
-              width: 90.w,
+              width: 120.w,
               child: GenericTextField(
                 onTab: () => data.onSelectTime(
                   context,

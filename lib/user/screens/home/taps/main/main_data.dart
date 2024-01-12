@@ -2,6 +2,7 @@ part of 'main_imports.dart';
 
 class MainData{
   final GlobalKey<ScaffoldState> scaffold = GlobalKey();
+  GenericBloc<bool> shareCubit = GenericBloc(false);
 
   GenericBloc<int?> touchCubit = GenericBloc(-1);
 
@@ -13,16 +14,16 @@ class MainData{
       color: data.color,
       value: data.percent,
       title: tr(context, data.name!),
-      radius: 115.r,
+      radius: 160.r,
       badgeWidget: Padding(
-        padding: EdgeInsets.only(top: 64.0.r),
-        child: Image.asset(data.image!,width: 20.w,height: 20.h,color: MyColors.white,),
+        padding: EdgeInsets.only(top: 80.0.r),
+        child: Image.asset(data.image!,width: 30.w,height: 30.h,color: MyColors.white,),
       ),
       titlePositionPercentageOffset: 0.54,
       titleStyle: TextStyle(
         color: MyColors.white,
         fontWeight: FontWeight.bold,
-        fontSize: 13.sp,
+        fontSize: 14.sp,
       )
     );
 
@@ -74,7 +75,7 @@ class MainData{
     ),
     PieChartDataModel(
       name: "flTools",
-      percent: 45,
+      percent: 50,
       color: Colors.deepOrange,
       image: Res.tools,
     ),

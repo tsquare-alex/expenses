@@ -1,9 +1,7 @@
 part of 'commitments_imports.dart';
 
 class CommitmentsData{
-  GenericBloc<List<AddTransactionModel>> addTransactionCubit = GenericBloc([]);
 
-  List<AddTransactionModel> addTransactionList = [];
 
   List<TransactionTypeModel> transactionType = [];
 
@@ -48,6 +46,10 @@ class CommitmentsData{
       await box.close();
     }
   }
+
+  GenericBloc<List<AddTransactionModel>> addTransactionCubit = GenericBloc([]);
+
+  List<AddTransactionModel> addTransactionList = [];
 
   Future<void> fetchData() async {
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");

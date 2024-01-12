@@ -580,5 +580,9 @@
   "buyingCar" : "شراء سيارة",
   "tuitionFees" : "مصاريف دراسية",
 
+  "necessary" : "ضروري",
+  "important" : "هام",
+  "normal" : "عادي",
+
   "withdraw" : "سحب"
 }

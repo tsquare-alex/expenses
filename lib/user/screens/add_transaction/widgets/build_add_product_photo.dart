@@ -17,12 +17,12 @@ class BuildAddProductPhoto extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              MyText(title: tr(context, "addPhoto"), color: MyColors.black, size: 12.sp,fontWeight: FontWeight.bold,),
+              MyText(title: tr(context, "addPhoto"), color: MyColors.black, size: 14.sp,fontWeight: FontWeight.bold,),
               InkWell(
                 onTap: () => data.showSelectTypeDialog(context),
                 child: Container(
-                  width: 35,
-                  height: 35,
+                  width: 35.w,
+                  height: 35.h,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: MyColors.primary,
@@ -31,7 +31,7 @@ class BuildAddProductPhoto extends StatelessWidget {
                   child: Icon(
                     Icons.camera_alt,
                     color: MyColors.white,
-                    size: 20,
+                    size: 25.w,
                   ),
                 ),
               ),

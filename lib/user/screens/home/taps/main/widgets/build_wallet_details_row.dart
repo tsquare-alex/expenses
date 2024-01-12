@@ -12,14 +12,14 @@ class WalletDetailsRow extends StatelessWidget {
       children: [
         CircleAvatar(
           backgroundColor: Colors.red,
-          minRadius: 40.r,
+          minRadius: 50.r,
           child: Column(
             children: [
               Text(
                 tr(context, 'expense'),
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 12.sp,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -28,7 +28,7 @@ class WalletDetailsRow extends StatelessWidget {
                 ,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 12.sp,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -58,7 +58,7 @@ class WalletDetailsRow extends StatelessWidget {
                   hint: Text(
                     tr(context, 'chooseWallet'),
                     style: TextStyle(
-                      fontSize: 12.sp,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey,
                     ),
@@ -89,7 +89,7 @@ class WalletDetailsRow extends StatelessWidget {
                               child: Text(
                                 wallet.name,
                                 style: TextStyle(
-                                  fontSize: 12.sp,
+                                  fontSize: 14.sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey,
                                 ),
@@ -107,14 +107,14 @@ class WalletDetailsRow extends StatelessWidget {
         ),
         CircleAvatar(
           backgroundColor: Colors.green,
-          minRadius: 40.r,
+          minRadius: 50.r,
           child: Column(
             children: [
               Text(
                 tr(context, 'residual'),
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 12.sp,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -123,7 +123,7 @@ class WalletDetailsRow extends StatelessWidget {
                     context.read<ReportsCubit>().residualMoney.toString())),
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 12.sp,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),

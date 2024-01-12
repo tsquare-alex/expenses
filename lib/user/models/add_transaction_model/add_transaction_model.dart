@@ -35,7 +35,7 @@ class AddTransactionModel extends HiveObject{
   @HiveField(10)
   String? time;
   @HiveField(11)
-  DropdownModel? cashTransactionType;
+  TransactionTypeModel? cashTransactionType;
   @HiveField(12)
   String? endDate;
   @HiveField(13)
@@ -51,7 +51,7 @@ class AddTransactionModel extends HiveObject{
   @HiveField(18)
   String? targetValue;
   @HiveField(19)
-  DropdownModel? targetType;
+  TransactionTypeModel? targetType;
   @HiveField(20)
   BudgetModel? budget;
 

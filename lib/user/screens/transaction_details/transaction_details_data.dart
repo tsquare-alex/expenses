@@ -26,9 +26,11 @@ class TransactionDetailsData {
   TextEditingController startDateController = TextEditingController();
   TextEditingController endDateController = TextEditingController();
 
-  fetchData(AddTransactionModel model) {
-    transactionTypeController.text =
-        "${model.transactionName == "الالتزامات" || model.transactionName == "التسوق والشراء" ? model.transactionType?.name??"" : model.transactionName == "الاهداف المالية المستهدفة" ? model.targetType?.name : model.transactionName == "المعاملات النقدية" ? model.cashTransactionType?.name : ""}";
+  fetchData(AddTransactionModel model,BuildContext context) {
+    // var text = tr(context, model.transactionType!.name!).isNotEmpty?tr(context, model.transactionType?.name??""):model.transactionType?.name??"";
+
+    transactionTypeController.text = model.transactionType!.name??"";
+        // "${model.transactionName == "الالتزامات" || model.transactionName == "التسوق والشراء" ? model.transactionType?.name??"" : model.transactionName == "الاهداف المالية المستهدفة" ? model.targetType?.name : model.transactionName == "المعاملات النقدية" ? model.cashTransactionType?.name : ""}";
     transactionContentController.text = model.transactionContent?.name ?? "";
     totalController.text = model.total.toString();
     amountController.text =
@@ -49,27 +51,33 @@ class TransactionDetailsData {
   DropdownModel? selectedPriority;
   DropdownModel? selectedIterateTransaction;
 
-  List<DropdownModel> units = [
-    DropdownModel(id: 0, name: "كيلوغرام"),
-    DropdownModel(id: 1, name: "غرام"),
-    DropdownModel(id: 2, name: "طن"),
-    DropdownModel(id: 3, name: "متر"),
-    DropdownModel(id: 4, name: "كيلومتر"),
-    DropdownModel(id: 5, name: "سنتيمتر"),
-  ];
+
   List<DropdownModel> priorities = [
-    DropdownModel(id: 0, name: "ضروري"),
-    DropdownModel(id: 1, name: "هام"),
-    DropdownModel(id: 2, name: "عادي"),
+    DropdownModel(id: 0, name: "necessary"),
+    DropdownModel(id: 1, name: "important"),
+    DropdownModel(id: 2, name: "normal"),
+  ];
+
+  List<DropdownModel> units = [
+    DropdownModel(id: 0, name: "time1"),
+    DropdownModel(id: 1, name: "length"),
+    DropdownModel(id: 2, name: "weight"),
+    DropdownModel(id: 3, name: "mass"),
+    DropdownModel(id: 4, name: "speed"),
+    DropdownModel(id: 5, name: "power"),
+    DropdownModel(id: 6, name: "pressure"),
+    DropdownModel(id: 7, name: "energy"),
+    DropdownModel(id: 8, name: "electric"),
   ];
   List<DropdownModel> iterateTransaction = [
-    DropdownModel(id: 0, name: "يوميا"),
-    DropdownModel(id: 1, name: "أسبوعيا"),
-    DropdownModel(id: 2, name: "شهريا"),
-    DropdownModel(id: 3, name: "ربع سنويا"),
-    DropdownModel(id: 4, name: "نصف سنويا"),
-    DropdownModel(id: 5, name: "سنويا"),
+    DropdownModel(id: 0, name: "daily"),
+    DropdownModel(id: 1, name: "weekly"),
+    DropdownModel(id: 2, name: "monthly"),
+    DropdownModel(id: 3, name: "quarterly"),
+    DropdownModel(id: 4, name: "SemiAnnually"),
+    DropdownModel(id: 5, name: "annually"),
   ];
+
 
   Future<List<DropdownModel>> getIterateTransaction(
       BuildContext context) async {

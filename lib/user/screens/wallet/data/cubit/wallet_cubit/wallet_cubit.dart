@@ -363,4 +363,12 @@ class WalletCubit extends Cubit<WalletState> {
       emit(WalletCategoryImageListEmpty());
     }
   }
+
+  double calculateTotalBalance(List<WalletModel> wallets) {
+    double totalBalance = 0;
+    for (var wallet in wallets) {
+      totalBalance += wallet.balance;
+    }
+    return totalBalance;
+  }
 }

@@ -4,26 +4,34 @@ part 'budget_model.g.dart';
 @HiveType(typeId: 30)
 class BudgetModel extends HiveObject {
   @HiveField(0)
-  double value;
+  double budgetValue;
   @HiveField(1)
-  String selectTransaction;
+  String transactionName;
   @HiveField(2)
-  String selectWallet;
+  String waletName;
   @HiveField(3)
-  String budgetPeriod;
+  String startBudget;
   @HiveField(4)
   String? transactionRepeat;
   @HiveField(5)
   double? percentValue;
   @HiveField(6)
-  String name;
-
+  String endBudget;
+  @HiveField(7)
+  String addNote;
+  @HiveField(8)
+  bool? notification;
+  @HiveField(9)
+  bool? favoitate;
   BudgetModel(
-      {required this.selectTransaction,
-      required this.name,
-      required this.selectWallet,
-      required this.budgetPeriod,
+      {required this.budgetValue,
+      required this.transactionName,
+      required this.waletName,
+      required this.startBudget,
       this.transactionRepeat,
       this.percentValue,
-      required this.value});
+      required this.endBudget,
+      required this.addNote,
+      this.notification,
+      this.favoitate});
 }

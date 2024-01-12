@@ -28,7 +28,7 @@ class TransactionDetailsData {
 
   fetchData(AddTransactionModel model) {
     transactionTypeController.text =
-        "${model.transactionName == "الالتزامات" || model.transactionName == "التسوق والشراء" ? model.transactionType?.name??"" : model.transactionName == "الاهداف المالية المستهدفة" ? model.targetType?.name : model.transactionName == "المعاملات النقدية" ? model.cashTransactionType?.name : ""}";
+        "${model.transactionName == "الالتزامات" || model.transactionName == "التسوق والشراء" ? model.transactionType?.name ?? "" : model.transactionName == "الاهداف المالية المستهدفة" ? model.targetType?.name : model.transactionName == "المعاملات النقدية" ? model.cashTransactionType?.name : ""}";
     transactionContentController.text = model.transactionContent?.name ?? "";
     totalController.text = model.total.toString();
     amountController.text =
@@ -219,8 +219,7 @@ class TransactionDetailsData {
         AutoRouter.of(context).pop();
         AutoRouter.of(context).replace(HomeRoute(index: 0));
       }
-    }
-    else if (model.transactionName == "التسوق والشراء") {
+    } else if (model.transactionName == "التسوق والشراء") {
       AddTransactionModel editModel = AddTransactionModel(
         transactionName: "التسوق والشراء",
         transactionType: model.transactionType,
@@ -278,8 +277,7 @@ class TransactionDetailsData {
         AutoRouter.of(context).pop();
         AutoRouter.of(context).replace(HomeRoute(index: 0));
       }
-    }
-    else if (model.transactionName == "الاهداف المالية المستهدفة") {
+    } else if (model.transactionName == "الاهداف المالية المستهدفة") {
       AddTransactionModel editModel = AddTransactionModel(
         transactionName: "الاهداف المالية المستهدفة",
         targetType: model.targetType,
@@ -333,8 +331,7 @@ class TransactionDetailsData {
         AutoRouter.of(context).pop();
         AutoRouter.of(context).replace(HomeRoute(index: 0));
       }
-    }
-    else if (model.transactionName == "المعاملات النقدية") {
+    } else if (model.transactionName == "المعاملات النقدية") {
       AddTransactionModel editModel = AddTransactionModel(
         transactionName: "المعاملات النقدية",
         cashTransactionType: model.cashTransactionType,
@@ -390,12 +387,10 @@ class TransactionDetailsData {
     }
   }
 
-
   WalletModel? selectedWalletModel;
   BudgetModel? selectedBudget;
   String? walletName;
   String? budgetName;
-
 
   void setSelectWalletModel(WalletModel? model) {
     selectedWalletModel = model;
@@ -410,7 +405,7 @@ class TransactionDetailsData {
 
   void setSelectBudgetModel(BudgetModel? model) {
     selectedBudget = model;
-    budgetName = model?.name;
+    // budgetName = model?.budgetName;
   }
 
   Future<List<BudgetModel>> getBudgetData(BuildContext context) async {

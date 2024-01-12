@@ -17,34 +17,43 @@ class BudgetModelAdapter extends TypeAdapter<BudgetModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return BudgetModel(
-      selectTransaction: fields[1] as String,
-      name: fields[6] as String,
-      selectWallet: fields[2] as String,
-      budgetPeriod: fields[3] as String,
+      budgetValue: fields[0] as double,
+      transactionName: fields[1] as String,
+      waletName: fields[2] as String,
+      startBudget: fields[3] as String,
       transactionRepeat: fields[4] as String?,
       percentValue: fields[5] as double?,
-      value: fields[0] as double,
+      endBudget: fields[6] as String,
+      addNote: fields[7] as String,
+      notification: fields[8] as bool?,
+      favoitate: fields[9] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, BudgetModel obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(10)
       ..writeByte(0)
-      ..write(obj.value)
+      ..write(obj.budgetValue)
       ..writeByte(1)
-      ..write(obj.selectTransaction)
+      ..write(obj.transactionName)
       ..writeByte(2)
-      ..write(obj.selectWallet)
+      ..write(obj.waletName)
       ..writeByte(3)
-      ..write(obj.budgetPeriod)
+      ..write(obj.startBudget)
       ..writeByte(4)
       ..write(obj.transactionRepeat)
       ..writeByte(5)
       ..write(obj.percentValue)
       ..writeByte(6)
-      ..write(obj.name);
+      ..write(obj.endBudget)
+      ..writeByte(7)
+      ..write(obj.addNote)
+      ..writeByte(8)
+      ..write(obj.notification)
+      ..writeByte(9)
+      ..write(obj.favoitate);
   }
 
   @override

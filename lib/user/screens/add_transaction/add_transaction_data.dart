@@ -65,7 +65,7 @@ class AddTransactionData {
     var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
         context: context,
-        minDate: DateTime.now().subtract(Duration(days:30)),
+        minDate: DateTime.now().subtract(Duration(days: 30)),
         onConfirm: (date) {
           dateController.text = DateFormat("dd MMMM yyyy", "en").format(date!);
         },
@@ -626,7 +626,7 @@ class AddTransactionData {
         formKey.currentState!.validate() &&
         formKey2.currentState!.validate()) {
       if (type == "الالتزامات") {
-        if(typeCubit.state.data !=null){
+        if (typeCubit.state.data != null) {
           AddTransactionModel model = AddTransactionModel(
             transactionName: "الالتزامات",
             transactionType: typeCubit.state.data,
@@ -650,7 +650,7 @@ class AddTransactionData {
             var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
             var walletList = walletBox.values.toList();
             WalletModel? targetModel = walletList.firstWhere(
-                  (model) => model.name == selectedWalletModel?.name,
+              (model) => model.name == selectedWalletModel?.name,
             );
             print("object ${targetModel.name}");
             targetModel.balance = targetModel.balance - total;
@@ -669,13 +669,11 @@ class AddTransactionData {
                 msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
                 color: Colors.red);
           }
-        }else{
-          CustomToast.showSimpleToast(
-              msg: "اختر المعاملة",
-              color: Colors.red);
+        } else {
+          CustomToast.showSimpleToast(msg: "اختر المعاملة", color: Colors.red);
         }
       } else if (type == "التسوق والشراء") {
-        if(typeCubit.state.data != null){
+        if (typeCubit.state.data != null) {
           AddTransactionModel model = AddTransactionModel(
             transactionName: "التسوق والشراء",
             transactionType: typeCubit.state.data,
@@ -701,7 +699,7 @@ class AddTransactionData {
             var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
             var walletList = walletBox.values.toList();
             WalletModel? targetModel = walletList.firstWhere(
-                  (model) => model.name == selectedWalletModel?.name,
+              (model) => model.name == selectedWalletModel?.name,
             );
             print("object ${targetModel.name}");
             targetModel.balance = targetModel.balance - total;
@@ -720,13 +718,11 @@ class AddTransactionData {
                 msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
                 color: Colors.red);
           }
-        }else{
-          CustomToast.showSimpleToast(
-              msg: "اختر المعاملة",
-              color: Colors.red);
+        } else {
+          CustomToast.showSimpleToast(msg: "اختر المعاملة", color: Colors.red);
         }
       } else if (type == "الاهداف المالية المستهدفة") {
-        if(targetTypeCubit.state.data!=null){
+        if (targetTypeCubit.state.data != null) {
           AddTransactionModel model = AddTransactionModel(
             transactionName: "الاهداف المالية المستهدفة",
             targetType: targetTypeCubit.state.data,
@@ -748,7 +744,7 @@ class AddTransactionData {
             var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
             var walletList = walletBox.values.toList();
             WalletModel? targetModel = walletList.firstWhere(
-                  (model) => model.name == selectedWalletModel?.name,
+              (model) => model.name == selectedWalletModel?.name,
             );
             print("object ${targetModel.name}");
             targetModel.balance = targetModel.balance - total;
@@ -766,13 +762,11 @@ class AddTransactionData {
                 msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
                 color: Colors.red);
           }
-        }else{
-          CustomToast.showSimpleToast(
-              msg: "اختر المعاملة",
-              color: Colors.red);
+        } else {
+          CustomToast.showSimpleToast(msg: "اختر المعاملة", color: Colors.red);
         }
       } else if (type == "المعاملات النقدية") {
-        if(cashTypeCubit.state.data!=null){
+        if (cashTypeCubit.state.data != null) {
           AddTransactionModel model = AddTransactionModel(
             transactionName: "المعاملات النقدية",
             cashTransactionType: cashTypeCubit.state.data,
@@ -793,7 +787,7 @@ class AddTransactionData {
             var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
             var walletList = walletBox.values.toList();
             WalletModel? targetModel = walletList.firstWhere(
-                  (model) => model.name == selectedWalletModel?.name,
+              (model) => model.name == selectedWalletModel?.name,
             );
             print("object ${targetModel.name}");
             targetModel.balance = targetModel.balance - total;
@@ -811,10 +805,8 @@ class AddTransactionData {
                 msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
                 color: Colors.red);
           }
-        }else{
-          CustomToast.showSimpleToast(
-              msg: "اختر المعاملة",
-              color: Colors.red);
+        } else {
+          CustomToast.showSimpleToast(msg: "اختر المعاملة", color: Colors.red);
         }
       }
     } else {
@@ -838,7 +830,7 @@ class AddTransactionData {
 
   void setSelectBudgetModel(BudgetModel? model) {
     selectedBudget = model;
-    budgetName = model?.name;
+    // budgetName = model?."budgetName";
   }
 
   void setSelectDatabaseModel(DatabaseModel? model) {

@@ -15,6 +15,12 @@ class BudgetCubit extends Cubit<BudgetState> {
   final TextEditingController openDateController = TextEditingController();
   final TextEditingController closeDateController = TextEditingController();
   final TextEditingController budgetBalace = TextEditingController();
+  final TextEditingController budgetValueController = TextEditingController();
+  final TextEditingController transactionNameController =
+      TextEditingController();
+  final TextEditingController walletNameController = TextEditingController();
+  final TextEditingController noteController = TextEditingController();
+
   BudgetCubit() : super(AddBudgetInitial());
 
   DateTime startDate = DateTime.now();
@@ -30,16 +36,28 @@ class BudgetCubit extends Cubit<BudgetState> {
 
   late List<AddTransactionModel> transactioList;
   Future<void> fetchDataFromTransations(context) async {
+    // final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
+    // var transactionBox = Hive.box<AddTransactionModel>("addTransactionBox");
+    // List<AddTransactionModel> data = transactionBox.values.toList();
+    // transactioList = data;
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
-    var transactionBox = Hive.box<AddTransactionModel>("addTransactionBox");
-    List<AddTransactionModel> data = transactionBox.values.toList();
+
+    var list = box.values.map((dynamic value) {
+      if (value is AddTransactionModel) {
+        return value;
+      } else {
+        return AddTransactionModel(); // Replace with your default value or handle it accordingly
+      }
+    }).toList();
+    transactioList = list;
+
     box.close();
-    data.sort((a, b) => b.transactionDate!.compareTo(a.transactionDate!));
-    print(data);
+    // data.sort((a, b) => b.transactionDate!.compareTo(a.transactionDate!));
+    // print(data);
 
     // transactioList = data;
-    transactioList = data.where((model) => model.budget?.name == "m").toList();
-    print(transactioList);
+    // transactioList = data.where((model) => model.budget?.name == "m").toList();
+    // print(transactioList);
   }
 
   Future addData(BudgetModel model) async {

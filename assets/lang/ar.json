@@ -17,8 +17,10 @@
   "userName": "الاسم",
   "enterName": "ادخل الاسم",
   "enterPhone": "ادخل رقم الهاتف",
+  "phoneNumber": "رقم الهاتف",
   "name": " اسم المستخدم ",
   "password": " كلمة المرور",
+  "enterNote": "أضف ملاحظة",
   "msg": "رسالتك",
   "insertNewPss": "قم بادخال كلمة المرور الجديدة ",
   "confirmPassword": " تأكيد كلمة المرور",
@@ -304,9 +306,7 @@
   "category": "التصنيف",
   "categoryAddNewCategory": "إضافة تصنيف جديد",
   "databaseAddNames": "ألاسماء",
-  "databaseAddNamesAdjective": "الصفة",
-  "databaseAddNamesFirstName": "الأسم الاول",
-  "databaseAddNamesSecondName": "الأسم الثانى",
+  "databaseName": "الاسم",
   "databasePhoneNumbers": "أرقام الهاتف",
   "databaseTheNewNumber": "الرقم الجديد",
   "cancel": "إلغاء",
@@ -364,7 +364,7 @@
   "ringSize": "مقاس الخاتم",
   "shoesSize": "مقاس الحذاء",
   "calculator": "آلة حاسبة",
-  "calender": "التقويم",
+  "calender": "تاريخ",
   "qiblah": "القبلة",
   "toolsHelper": "الادوات المساعدة",
   "convertCMtoM": "تحويل من سنتيمتر إلى متر",
@@ -381,9 +381,11 @@
   "convertSquareMToSquareMill": "تحويل من متر مربع إلى مليمتر مربع",
   "convertSquareMToSquareInch": "تحويل من متر مربع إلى بوصة مربعة",
   "convertSquareMToSquareDeci": "تحويل من متر مربع إلى ديسيمتر مربع",
-  "categoryPlace": "المكان / الموقع",
-  "categoryPerson": "الشخص / الفرد",
-  "categoryItem": "السلعة / البند",
+  "categoryPlace": "مكان / موقع",
+  "categoryPerson": "شخص / جهة",
+  "categoryItem": "سلعة / منتج / بضائع",
+  "categoryService": "خدمة",
+  "categoryImage": "صورة",
   "lengthConvert": "تحويل الطول",
   "areaConvert": "تحويل المساحة",
   "durationFrom": "المدة من",
@@ -403,7 +405,7 @@
   "convertArea": "تحويل المساحة",
   "convertSpeed": "تحويل السرعة",
   "bmi": "مؤشر كتلة الجسم",
-  "tool": "ادوات",
+  "tool": "ادوات عامة",
   "authentication": "اشترك وإلا فلن تجد أي بيانات أبدًا",
   "health": "الصحة",
   "units": "الوحدات",
@@ -449,5 +451,33 @@
   "enterPattern": "أدخل نقش",
   "enterFingerPrint": "او أدخل بصمة الإصبع",
   "setupSecurity": "إعداد الأمان",
-  "securityMsg": "يرجى إعداد كلمة مرور أو القياسات الحيوية على جهازك."
+  "securityMsg": "يرجى إعداد كلمة مرور أو القياسات الحيوية على جهازك.",
+
+  "zoomIn": "تكبير",
+  "ruler": "مسطرة",
+  "waterScale": "ميزان مياة",
+  "timeManagement": "تنظيم الوقت",
+  "reminder": "تذكير",
+  "temporary": "الموقت",
+  "stopWatch": "ساعة ايقاف",
+  "currentDate": "التاريخ الحالي",
+  "normalScale": "مقياس عادي",
+  "horizontalScale": "مقياس أفقي",
+  "selectedDateTime": "حدد التاريخ والوقت",
+  "enterTitle": "ادخل العنوان",
+  "enterBody": "ادخل التفاصيل",
+  "setReminder": "تعيين تذكير",
+  "selectedDate": "Selected Date",
+  "reminderSet": "تم تعيين تذكير ل",
+  "addImage": "أضافة صورة"
+
+
+
+
+
+
+
+
+
+
 }

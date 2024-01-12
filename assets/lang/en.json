@@ -24,6 +24,8 @@
   "userName": "Name",
   "enterName": "Enter your name",
   "enterPhone": "Enter your phone",
+  "phoneNumber": "Phone Number",
+  "enterNote": "Enter Note",
   "phone": "Mobile Number ",
   "password": "Password ",
   "insertNewPss": "Enter the new password ",
@@ -123,9 +125,8 @@
   "category": "Category",
   "categoryAddNewCategory": "Add a new category",
   "databaseAddNames": "Names",
-  "databaseAddNamesAdjective": "Adjective",
-  "databaseAddNamesFirstName": "First Name",
-  "databaseAddNamesSecondName": "Second Name",
+  "databaseName": "Name",
+
   "databasePhoneNumbers": "Phone Numbers",
   "databaseTheNewNumber": "The New Number",
   "cancel": "Cancel",
@@ -201,6 +202,8 @@
   "categoryPlace": "Place / Location",
   "categoryPerson": "Person / individual",
   "categoryItem": "Commodity / Item",
+  "categoryService": "Service",
+  "categoryImage": "Image",
   "lengthConvert": "Length Convert",
   "areaConvert": "Area Convert",
   "settings": "Settings",
@@ -225,7 +228,7 @@
   "convertArea": "Convert Area",
   "convertSpeed": "Convert Speed",
   "bmi": "Bmi",
-  "tool": "Tools",
+  "tool": "General tools",
   "authentication": "Subscribe or you will never find any data",
   "health": "Health",
   "units": "Units",
@@ -271,5 +274,28 @@
   "enterPattern": "Enter Pattern",
   "enterFingerPrint": "Or Enter Fingerprint",
   "setupSecurity": "Set Up Security",
-  "securityMsg": "Please set up a password or biometrics on your device."
+  "securityMsg": "Please set up a password or biometrics on your device.",
+  "zoomIn": "Zoom In",
+  "ruler": "Ruler",
+  "waterScale": "Water Weighing Scale",
+  "timeManagement": "Time Management",
+  "reminder": "Reminder",
+  "temporary": "Temporary",
+  "stopWatch": "Stop Watch",
+  "currentDate": "Current Date",
+  "normalScale": "Normal Scale",
+  "horizontalScale": "Horizontal Scale",
+  "selectedDateTime": "Select Date and Time",
+  "enterTitle": "Enter Title",
+  "enterBody": "Enter Description",
+  "setReminder": "Set Reminder",
+  "selectedDate": "Selected Date",
+  "reminderSet": "Reminder set for",
+  "addImage": "Add Image"
+
+
+
+
+
+
 }

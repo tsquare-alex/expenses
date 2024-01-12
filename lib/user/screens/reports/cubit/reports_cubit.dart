@@ -274,9 +274,9 @@ class ReportsCubit extends Cubit<ReportsState> {
         .where((transaction) =>
             selectedTransactions.contains(transaction.transactionName))
         .toList();
-    statsSubTransactionsMap = {
-      for (var item in statsSubTransactions) item.database!.adjective: false
-    };
+    // statsSubTransactionsMap = {
+    //   for (var item in statsSubTransactions) item.database!.adjective: false
+    // };
     emit(const ReportsState.statsWalletsSelected());
     print(statsSubTransactionsMap);
   }
@@ -293,10 +293,10 @@ class ReportsCubit extends Cubit<ReportsState> {
         selectedSubTransactions.remove(key);
       }
     });
-    statsPriorities = transactions
-        .where((transaction) =>
-            selectedSubTransactions.contains(transaction.database!.adjective))
-        .toList();
+    // statsPriorities = transactions
+    //     .where((transaction) =>
+    //         // selectedSubTransactions.contains(transaction.database!.adjective))
+    //     .toList();
     statsPrioritiesMap = {
       for (var item in statsPriorities) item.priority: false
     };
@@ -316,11 +316,11 @@ class ReportsCubit extends Cubit<ReportsState> {
         selectedPriorities.remove(key);
       }
     });
-    filteredTransactions = transactions
-        .where((transaction) =>
-            selectedPriorities.contains(transaction.priority) &&
-            selectedSubTransactions.contains(transaction.database!.adjective))
-        .toList();
+    // filteredTransactions = transactions
+    //     .where((transaction) =>
+    //         selectedPriorities.contains(transaction.priority) &&
+    //         // selectedSubTransactions.contains(transaction.database!.adjective))
+    //     .toList();
 
     emit(const ReportsState.statsWalletsSelected());
     print(filteredTransactions);

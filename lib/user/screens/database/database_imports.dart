@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/generic_bloc/generic_cubit.dart';

@@ -57,31 +57,31 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
     super.initState();
 
     // Initialize controllers with data from AddDatabase screen
-    categoryController = TextEditingController(text: widget.databaseData.category);
-    adjectiveController = TextEditingController(text: widget.databaseData.adjective);
-    firstNameController = TextEditingController(text: widget.databaseData.firstName);
-    secondNameController = TextEditingController(text: widget.databaseData.secondName);
-    phoneController = TextEditingController(text: widget.databaseData.phoneNumber);
-    workPositionController = TextEditingController(text: widget.databaseData.workName);
-    departmentController = TextEditingController(text: widget.databaseData.department);
-    companyController = TextEditingController(text: widget.databaseData.company);
-    countryController = TextEditingController(text: widget.databaseData.country);
-    governorateController = TextEditingController(text: widget.databaseData.governorate);
-    cityController = TextEditingController(text: widget.databaseData.city);
-    streetController = TextEditingController(text: widget.databaseData.street);
-    buildingNumberController = TextEditingController(text: widget.databaseData.buildingNumber);
-    apartmentNumberController = TextEditingController(text: widget.databaseData.apartmentNumber);
-    postalController = TextEditingController(text: widget.databaseData.postalNumber);
-    emailController = TextEditingController(text: widget.databaseData.emailAddress);
-    dateLocationController = TextEditingController(text: widget.databaseData.eventTitle);
-    dateTimeController = TextEditingController(text: widget.databaseData.eventDate);
-    dateDetailsController = TextEditingController(text: widget.databaseData.eventDetails);
-    commentController = TextEditingController(text: widget.databaseData.notes);
-    socialWebController = TextEditingController(text: widget.databaseData.web);
-    facebookController = TextEditingController(text: widget.databaseData.facebook);
-    instagramController = TextEditingController(text: widget.databaseData.instagram);
-    youtubeController = TextEditingController(text: widget.databaseData.youtube);
-    messengerController = TextEditingController(text: widget.databaseData.messenger);
+    // categoryController = TextEditingController(text: widget.databaseData.category);
+    // adjectiveController = TextEditingController(text: widget.databaseData.adjective);
+    // firstNameController = TextEditingController(text: widget.databaseData.firstName);
+    // secondNameController = TextEditingController(text: widget.databaseData.secondName);
+    // phoneController = TextEditingController(text: widget.databaseData.phoneNumber);
+    // workPositionController = TextEditingController(text: widget.databaseData.workName);
+    // departmentController = TextEditingController(text: widget.databaseData.department);
+    // companyController = TextEditingController(text: widget.databaseData.company);
+    // countryController = TextEditingController(text: widget.databaseData.country);
+    // governorateController = TextEditingController(text: widget.databaseData.governorate);
+    // cityController = TextEditingController(text: widget.databaseData.city);
+    // streetController = TextEditingController(text: widget.databaseData.street);
+    // buildingNumberController = TextEditingController(text: widget.databaseData.buildingNumber);
+    // apartmentNumberController = TextEditingController(text: widget.databaseData.apartmentNumber);
+    // postalController = TextEditingController(text: widget.databaseData.postalNumber);
+    // emailController = TextEditingController(text: widget.databaseData.emailAddress);
+    // dateLocationController = TextEditingController(text: widget.databaseData.eventTitle);
+    // dateTimeController = TextEditingController(text: widget.databaseData.eventDate);
+    // dateDetailsController = TextEditingController(text: widget.databaseData.eventDetails);
+    // commentController = TextEditingController(text: widget.databaseData.notes);
+    // socialWebController = TextEditingController(text: widget.databaseData.web);
+    // facebookController = TextEditingController(text: widget.databaseData.facebook);
+    // instagramController = TextEditingController(text: widget.databaseData.instagram);
+    // youtubeController = TextEditingController(text: widget.databaseData.youtube);
+    // messengerController = TextEditingController(text: widget.databaseData.messenger);
     // theSocialController = TextEditingController(text: widget.databaseData.theSocialController);
   }
   AddDataBaseCubit dataBaseCubit = AddDataBaseCubit();
@@ -120,45 +120,45 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
                   return GestureDetector(
                     onTap: () async {
                       // await myCubit.getImage();
-                      await dataBaseCubit.getImage(context);
+                      // await dataBaseCubit.getImage(context);
                     },
-                    child: Column(
-                      children: [
-                        widget.databaseData.image.isNotEmpty
-                            ? CircleAvatar(
-                          radius: 50.0,
-                          backgroundImage: MemoryImage(widget.databaseData.image),
-                          // child: Image.memory(widget.databaseData.image),
-                        )
-                            : CircleAvatar(
-                          radius: 25.0,
-                          child: Image.asset(
-                            "assets/images/user.png",
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        MyText(
-                          title: "أضف صورة",
-                          color: MyColors.primary,
-                          size: 12.sp,
-                        ),
-                        if(state is AddDataBaseImageSuccess)
-                          Container(
-                              height: 100,
-                              width: 100,
-                              child: Image.memory(dataBaseCubit.imageBytes!)),
-                        // dataBaseCubit.imageBytes != null ? Container(
-                        //     height: 100,
-                        //     width: 100,
-                        //     child: Image.memory(dataBaseCubit.imageBytes!)) : Container(),
-                        // if (myCubit.state is MyExpansionAddImageSuccess) // Check if image is picked
-                        //   Container(
-                        //     width: 100, // Set the width according to your design
-                        //     height: 100, // Set the height according to your design
-                        //     child: Image.memory((myCubit.state as MyExpansionAddImageSuccess).pickedImage),
-                        //   ),
-                      ],
-                    ),
+                    // child: Column(
+                    //   children: [
+                    //     widget.databaseData.image.isNotEmpty
+                    //         ? CircleAvatar(
+                    //       radius: 50.0,
+                    //       backgroundImage: MemoryImage(widget.databaseData.image),
+                    //       // child: Image.memory(widget.databaseData.image),
+                    //     )
+                    //         : CircleAvatar(
+                    //       radius: 25.0,
+                    //       child: Image.asset(
+                    //         "assets/images/user.png",
+                    //         fit: BoxFit.cover,
+                    //       ),
+                    //     ),
+                    //     MyText(
+                    //       title: "أضف صورة",
+                    //       color: MyColors.primary,
+                    //       size: 12.sp,
+                    //     ),
+                    //     if(state is AddDataBaseImageSuccess)
+                    //       Container(
+                    //           height: 100,
+                    //           width: 100,
+                    //           child: Image.memory(dataBaseCubit.imageBytes!)),
+                    //     // dataBaseCubit.imageBytes != null ? Container(
+                    //     //     height: 100,
+                    //     //     width: 100,
+                    //     //     child: Image.memory(dataBaseCubit.imageBytes!)) : Container(),
+                    //     // if (myCubit.state is MyExpansionAddImageSuccess) // Check if image is picked
+                    //     //   Container(
+                    //     //     width: 100, // Set the width according to your design
+                    //     //     height: 100, // Set the height according to your design
+                    //     //     child: Image.memory((myCubit.state as MyExpansionAddImageSuccess).pickedImage),
+                    //     //   ),
+                    //   ],
+                    // ),
                   );
                 },
               ),
@@ -266,33 +266,33 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
   }
   void saveChanges(BuildContext context) async {
     // Update the data in the widget
-    setState(() {
-      widget.databaseData.category = categoryController.text;
-      widget.databaseData.adjective = adjectiveController.text;
-      widget.databaseData.firstName = firstNameController.text;
-      widget.databaseData.secondName = secondNameController.text;
-      widget.databaseData.phoneNumber = phoneController.text;
-      widget.databaseData.workName = workPositionController.text;
-      widget.databaseData.department = departmentController.text;
-      widget.databaseData.company = companyController.text;
-      widget.databaseData.country = countryController.text;
-      widget.databaseData.governorate = governorateController.text;
-      widget.databaseData.city = cityController.text;
-      widget.databaseData.street = streetController.text;
-      widget.databaseData.buildingNumber = buildingNumberController.text;
-      widget.databaseData.apartmentNumber = apartmentNumberController.text;
-      widget.databaseData.postalNumber = postalController.text;
-      widget.databaseData.emailAddress = emailController.text;
-      widget.databaseData.eventTitle = dateLocationController.text;
-      widget.databaseData.eventDate = dateTimeController.text;
-      widget.databaseData.eventDetails = dateDetailsController.text;
-      widget.databaseData.notes = commentController.text;
-      widget.databaseData.web = socialWebController.text;
-      widget.databaseData.facebook = facebookController.text;
-      widget.databaseData.instagram = instagramController.text;
-      widget.databaseData.youtube = youtubeController.text;
-      widget.databaseData.messenger = messengerController.text;
-    });
+    // setState(() {
+    //   widget.databaseData.category = categoryController.text;
+    //   widget.databaseData.adjective = adjectiveController.text;
+    //   widget.databaseData.firstName = firstNameController.text;
+    //   widget.databaseData.secondName = secondNameController.text;
+    //   widget.databaseData.phoneNumber = phoneController.text;
+    //   widget.databaseData.workName = workPositionController.text;
+    //   widget.databaseData.department = departmentController.text;
+    //   widget.databaseData.company = companyController.text;
+    //   widget.databaseData.country = countryController.text;
+    //   widget.databaseData.governorate = governorateController.text;
+    //   widget.databaseData.city = cityController.text;
+    //   widget.databaseData.street = streetController.text;
+    //   widget.databaseData.buildingNumber = buildingNumberController.text;
+    //   widget.databaseData.apartmentNumber = apartmentNumberController.text;
+    //   widget.databaseData.postalNumber = postalController.text;
+    //   widget.databaseData.emailAddress = emailController.text;
+    //   widget.databaseData.eventTitle = dateLocationController.text;
+    //   widget.databaseData.eventDate = dateTimeController.text;
+    //   widget.databaseData.eventDetails = dateDetailsController.text;
+    //   widget.databaseData.notes = commentController.text;
+    //   widget.databaseData.web = socialWebController.text;
+    //   widget.databaseData.facebook = facebookController.text;
+    //   widget.databaseData.instagram = instagramController.text;
+    //   widget.databaseData.youtube = youtubeController.text;
+    //   widget.databaseData.messenger = messengerController.text;
+    // });
 
     // Update image if it's changed
     if (dataBaseCubit.imageBytes != null) {
@@ -312,52 +312,7 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
     Navigator.pop(context);
   }
 
-  // Widget buildDateTimePicker(String fieldName, TextEditingController controller) {
-  //   return Card(
-  //     child: GestureDetector(
-  //       onTap: () async {
-  //         DateTime? pickedDate = await showDatePicker(
-  //           context: context,
-  //           initialDate: DateTime.now(),
-  //           firstDate: DateTime(2000),
-  //           lastDate: DateTime(2101),
-  //         );
-  //
-  //         if (pickedDate != null) {
-  //           TimeOfDay? pickedTime = await showTimePicker(
-  //             context: context,
-  //             initialTime: TimeOfDay.now(),
-  //           );
-  //
-  //           if (pickedTime != null) {
-  //             DateTime pickedDateTime = DateTime(
-  //               pickedDate.year,
-  //               pickedDate.month,
-  //               pickedDate.day,
-  //               pickedTime.hour,
-  //               pickedTime.minute,
-  //             );
-  //
-  //             setState(() {
-  //               controller.text = pickedDateTime.toString();
-  //             });
-  //           }
-  //         }
-  //       },
-  //       child: AbsorbPointer(
-  //         child: TextFormField(
-  //           validator: (value) => validateField(value),
-  //           readOnly: true,
-  //           decoration: InputDecoration(
-  //             labelText: tr(context, "$fieldName"),
-  //           ),
-  //           controller: controller,
-  //           onChanged: (value) {},
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
+
 
   Widget buildDateTimePicker(String fieldName, TextEditingController controller) {
     return Card(

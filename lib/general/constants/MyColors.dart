@@ -18,6 +18,7 @@ class MyColors{
   static Color greyWhite = Colors.grey.withOpacity(.2);
   static Color black=const Color(0xff031626);
   static Color blackOpacity=Colors.black54;
+  static Color black100=Colors.black;
   static Color white=const Color(0xFFFFFFFF);
   static Color notifyColor=Colors.black54;
 

@@ -1,110 +1,54 @@
 import 'dart:typed_data';
 
 import 'package:barcode_scan2/barcode_scan2.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:expenses/res.dart';
 import 'package:expenses/user/models/database_model/database_model.dart';
-import 'package:expenses/user/screens/database/cubit/add_database_cubit/add_data_base_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../../general/constants/MyColors.dart';
+import '../../../../general/constants/validation.dart';
+import '../../../../general/packages/input_fields/GenericTextField.dart';
+import '../../../../general/packages/localization/Localizations.dart';
 import '../../../../general/widgets/MyText.dart';
+import '../cubit/add_database_cubit/add_data_base_cubit.dart';
 import '../cubit/my_expansion_cubit/my_expansion_cubit.dart';
-import 'build_address_expansion.dart';
 import 'build_category_expansion.dart';
-import 'build_comment_expansion.dart';
-import 'build_date_expansion.dart';
-import 'build_email_expansion.dart';
-import 'build_location_expansion.dart';
-import 'build_names_expansion.dart';
-import 'build_phone_expansion.dart';
-import 'build_work_expansion.dart';
 
 class AddDatabase extends StatefulWidget {
-  // final Function onDataChanged;
-  //
-  // const AddDatabase({super.key, required this.onDataChanged});
   @override
   State<AddDatabase> createState() => _AddDatabaseState();
 }
 
 class _AddDatabaseState extends State<AddDatabase> {
-  MyExpansionCubit myCubit = MyExpansionCubit();
-
   AddDataBaseCubit dataBaseCubit = AddDataBaseCubit();
-
-  final CollectionReference _collectionReference =
-  FirebaseFirestore.instance.collection('your_collection_name');
-
-  String _documentNumber = '';
-  String _documentData = '';
   String _scanResult = 'QR Code Result';
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-
-  Future<void> addDataToFirestore() async {
-    try {
-      // Document ID from scanned QR code
-      String documentId = '12345678';
-
-      // Add data to Firestore
-      await _collectionReference.doc(documentId).set({
-        'name': 'John Doe',
-        'phone': '123-456-7890',
-        'email': 'john.doe@example.com',
-        // Add more fields as needed
-      });
-
-      print('Data added to Firestore with document ID: $documentId');
-    } catch (e) {
-      print('Error adding data to Firestore: $e');
-    }
-  }
-
-  Future<void> fetchDataFromFirestore(String documentNumber) async {
-    try {
-      DocumentSnapshot documentSnapshot =
-      await _collectionReference.doc(documentNumber).get();
-
-      if (documentSnapshot.exists) {
-        var data = documentSnapshot.data() as Map<String, dynamic>?;
-
-        if (data != null) {
-          String formattedData = '';
-
-          data.entries.forEach((entry) {
-            formattedData += '${entry.key}: ${entry.value}\n';
-          });
-
-          setState(() {
-            _documentData = formattedData;
-          });
-        }
-      } else {
-        print('No data found for document number $documentNumber');
-        setState(() {
-          _documentData = 'No data found';
-        });
-      }
-    } catch (e) {
-      print('Error fetching data from Firestore: $e');
-    }
-  }
 
   Future<void> _scanQRCode() async {
     try {
       var result = await BarcodeScanner.scan();
       setState(() {
-        _documentNumber = result.rawContent ?? 'Cancelled';
-        _scanResult = _documentNumber;
-        _documentData = '';
+        _scanResult = result.rawContent;
       });
 
       print("QRCode_Result:--");
       print(result.rawContent);
 
-      // Fetch data from Firebase based on the scanned QR code result
-      await fetchDataFromFirestore(_documentNumber);
+      // Now, you can parse this result and get the individual values.
+      List<String> qrCodeValues = result.rawContent.split(',');
+      scannedData = ScannedData(
+        category: qrCodeValues[0],
+        name: qrCodeValues[1],
+        phone: qrCodeValues[2],
+        address: qrCodeValues[3],
+        socialAddress: qrCodeValues[4],
+        note: qrCodeValues[5],
+      );
+
+      // Now, you can use these values where needed, such as replacing text form field values.
     } on PlatformException {
       setState(() {
         _scanResult = 'Failed to scan QR Code.';
@@ -130,195 +74,256 @@ class _AddDatabaseState extends State<AddDatabase> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              Column(
+              BuildCategoryExpansion(
+                categoryFormKey: dataBaseCubit.categoryFormKey,
+                categoryController: dataBaseCubit.categoryController,
+              ),
+              const SizedBox(height: 20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Scan Result:',
-                    style: TextStyle(fontSize: 20),
+                  MyText(
+                      title: tr(context, "databaseName"),
+                      color: MyColors.black,
+                      size: 16,
+                      fontWeight: FontWeight.w500,
+                      alien: TextAlign.center),
+                  const SizedBox(
+                    width: 12,
                   ),
-                  SizedBox(height: 10),
-                  Text(
-                    _scanResult,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    _documentData,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: _scanQRCode,
-                    child: Text('Scan QR Code'),
+                  Flexible(
+                    child: GenericTextField(
+                      contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16),
+                      controller: dataBaseCubit.nameController,
+                      fieldTypes: FieldTypes.normal,
+                      type: TextInputType.emailAddress,
+                      action: TextInputAction.next,
+                      validate: (value) => validateField(value),
+                      label: tr(context, "enterName"),
+                    ),
                   ),
                 ],
               ),
-
-              BlocBuilder<AddDataBaseCubit, AddDataBaseState>(
-                bloc: dataBaseCubit,
-                builder: (context, state) {
-                  return GestureDetector(
-                    onTap: () async {
-                      // await myCubit.getImage();
-                      await dataBaseCubit.getImage(context);
-                    },
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 25.0,
-                          child: Image.asset(
-                            "assets/images/user.png",
-                            fit: BoxFit.cover,
+              const SizedBox(height: 20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MyText(
+                      title: tr(context, "phoneNumber"),
+                      color: MyColors.black,
+                      size: 16,
+                      fontWeight: FontWeight.w500,
+                      alien: TextAlign.center),
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  Flexible(
+                    child: GenericTextField(
+                      contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16),
+                      controller: dataBaseCubit.phoneController,
+                      fieldTypes: FieldTypes.normal,
+                      type: TextInputType.phone,
+                      action: TextInputAction.next,
+                      validate: (value) => validateField(value),
+                      label: tr(context, "enterPhone"),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MyText(
+                      title: tr(context, "address"),
+                      color: MyColors.black,
+                      size: 16,
+                      fontWeight: FontWeight.w500,
+                      alien: TextAlign.center),
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  Flexible(
+                    child: GenericTextField(
+                      contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16),
+                      controller: dataBaseCubit.addressController,
+                      fieldTypes: FieldTypes.normal,
+                      type: TextInputType.name,
+                      action: TextInputAction.next,
+                      validate: (value) => validateField(value),
+                      label: tr(context, "address"),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MyText(
+                      title: tr(context, "databaseSocialAddress"),
+                      color: MyColors.black,
+                      size: 16,
+                      fontWeight: FontWeight.w500,
+                      alien: TextAlign.center),
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  Flexible(
+                    child: GenericTextField(
+                      contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16),
+                      controller: dataBaseCubit.socialAddressController,
+                      fieldTypes: FieldTypes.normal,
+                      type: TextInputType.name,
+                      action: TextInputAction.next,
+                      validate: (value) => validateField(value),
+                      label: tr(context, "databaseSocialAddress"),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MyText(
+                      title: tr(context, "enterNote"),
+                      color: MyColors.black,
+                      size: 16,
+                      fontWeight: FontWeight.w500,
+                      alien: TextAlign.center),
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  Flexible(
+                    child: GenericTextField(
+                      contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16),
+                      controller: dataBaseCubit.noteController,
+                      fieldTypes: FieldTypes.normal,
+                      type: TextInputType.name,
+                      action: TextInputAction.next,
+                      validate: (value) => validateField(value),
+                      label: tr(context, "addNotes"),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20.0),
+              Container(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: MyColors.grey.withOpacity(0.5),
+                            width: 1,
                           ),
                         ),
-                        MyText(
-                          title: "أضف صورة",
-                          color: MyColors.primary,
-                          size: 12.sp,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                MyText(
+                                  title: tr(context, "addImage"),
+                                  color: MyColors.black,
+                                  size: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ],
+                            ),
+                            Spacer(),
+                            GestureDetector(
+                              onTap: () async {
+                                await dataBaseCubit.getImageFromCamera();
+                              },
+                              child: Image.asset(Res.cameraIc),
+                            ),
+                            const SizedBox(width: 20,),
+                            Container(
+                              height: 30.0,
+                              color: Colors.grey,
+                              width: 1.0,
+                            ),
+                            const SizedBox(width: 20,),
+                            GestureDetector(
+                              onTap: () async {
+                                await dataBaseCubit.getImageFromGallery();
+                              },
+                              child: Image.asset(Res.galleryIc),
+                            ),
+                          ],
                         ),
-                        if (state is AddDataBaseImageSuccess)
-                          Container(
-                              height: 100,
-                              width: 100,
-                              child:
-                                  Image.memory(dataBaseCubit.imageBytes!)),
-                        // dataBaseCubit.imageBytes != null ? Container(
-                        //     height: 100,
-                        //     width: 100,
-                        //     child: Image.memory(dataBaseCubit.imageBytes!)) : Container(),
-                        // if (myCubit.state is MyExpansionAddImageSuccess) // Check if image is picked
-                        //   Container(
-                        //     width: 100, // Set the width according to your design
-                        //     height: 100, // Set the height according to your design
-                        //     child: Image.memory((myCubit.state as MyExpansionAddImageSuccess).pickedImage),
-                        //   ),
-                      ],
+                      ),
                     ),
-                  );
-                },
+                    const SizedBox(width: 12,),
+                    Container(
+                      height: 50,
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: MyColors.grey.withOpacity(0.5),
+                          width: 1,
+                        ),
+                      ),
+                      child: GestureDetector(
+                        onTap: () async {
+                          await _scanQRCode();
+                        },
+                        child: Image.asset(Res.bardCodeIc),
+                      ),
+                    )
+                  ],
+                ),
               ),
-
-              // MyExpansionTile(),
-              BuildCategoryExpansion(
-                categoryFormKey: myCubit.categoryFormKey,
-                categoryController: myCubit.categoryController,
-              ),
-              const SizedBox(height: 16.0),
-              BuildNamesExpansion(
-                namesFormKey: myCubit.namesFormKey,
-                designationController: myCubit.designationController,
-                firstNameController: myCubit.firstNameController,
-                lastNameController: myCubit.lastNameController,
-              ),
-              const SizedBox(height: 16.0),
-              BuildPhoneExpansion(
-                phoneFormKey: myCubit.phoneFormKey,
-                phoneController: myCubit.phoneController,
-              ),
-              const SizedBox(height: 16.0),
-              BuildWorkExpansion(
-                workPositionController: myCubit.workPositionController,
-                departmentController: myCubit.departmentController,
-                companyController: myCubit.companyController,
-                workPlaceFormKey: myCubit.workPlaceFormKey,
-              ),
-              const SizedBox(height: 16.0),
-              BuildLocationExpansion(
-                locationFormKey: myCubit.locationFormKey,
-                countryController: myCubit.countryController,
-                governorateController: myCubit.governorateController,
-                cityController: myCubit.cityController,
-                streetController: myCubit.streetController,
-                postalController: myCubit.postalController,
-                buildingNumberController: myCubit.buildingNumberController,
-                apartmentNumberController:
-                    myCubit.apartmentNumberController,
-                addressController: myCubit.addressController,
-                theNewAddressController: myCubit.theNewAddressController,
-              ),
-              const SizedBox(height: 16.0),
-              BuildEmailExpansion(
-                  emailFormKey: myCubit.emailFormKey,
-                  emailController: myCubit.emailController),
-              const SizedBox(height: 16.0),
-              BuildDateExpansion(
-                  dateFormKey: myCubit.dateFormKey,
-                  dateLocationController: myCubit.dateLocationController,
-                  dateTimeController: myCubit.dateTimeController,
-                  dateDetailsController: myCubit.dateDetailsController,
-                  dateController: myCubit.dateController),
-              const SizedBox(height: 16.0),
-              BuildCommentExpansion(
-                  commentController: myCubit.commentController,
-                  commentFormKey: myCubit.commentFormKey),
-              const SizedBox(height: 16.0),
-              BuildAddressExpansion(
-                  socialAddressFormKey: myCubit.socialAddressFormKey,
-                  socialWebController: myCubit.socialWebController,
-                  facebookController: myCubit.facebookController,
-                  instagramController: myCubit.instagramController,
-                  youtubeController: myCubit.youtubeController,
-                  messengerController: myCubit.messengerController,
-                  theSocialController: myCubit.theSocialController),
+              const SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: () async {
-                  myCubit.onPressedHandler();
-
                   var dataBase = DatabaseModel(
-                    category: myCubit.categoryController.text,
-                    adjective: myCubit.designationController.text,
-                    firstName: myCubit.firstNameController.text,
-                    secondName: myCubit.lastNameController.text,
-                    phoneNumber: myCubit.phoneController.text,
-                    workName: myCubit.workPositionController.text,
-                    department: myCubit.departmentController.text,
-                    company: myCubit.companyController.text,
-                    country: myCubit.countryController.text,
-                    governorate: myCubit.governorateController.text,
-                    city: myCubit.cityController.text,
-                    street: myCubit.streetController.text,
-                    buildingNumber: myCubit.buildingNumberController.text,
-                    apartmentNumber: myCubit.apartmentNumberController.text,
-                    postalNumber: myCubit.postalController.text,
-                    emailAddress: myCubit.emailController.text,
-                    eventTitle: myCubit.dateLocationController.text,
-                    eventDate: myCubit.dateTimeController.text,
-                    eventDetails: myCubit.dateDetailsController.text,
-                    notes: myCubit.commentController.text,
-                    web: myCubit.socialWebController.text,
-                    facebook: myCubit.facebookController.text,
-                    instagram: myCubit.instagramController.text,
-                    youtube: myCubit.youtubeController.text,
-                    messenger: myCubit.messengerController.text,
-                    image:
-                        dataBaseCubit.imageBytes ?? Uint8List.fromList([]),
-                    name: "${myCubit.firstNameController.text} ${myCubit.lastNameController.text}",
+                    category: dataBaseCubit.categoryController.text.isNotEmpty
+                        ? dataBaseCubit.categoryController.text
+                        : scannedData.category,
+                    name: dataBaseCubit.nameController.text.isNotEmpty
+                        ? dataBaseCubit.nameController.text
+                        : scannedData.name,
+                    phone: dataBaseCubit.phoneController.text.isNotEmpty
+                        ? dataBaseCubit.phoneController.text
+                        : scannedData.phone,
+                    address: dataBaseCubit.addressController.text.isNotEmpty
+                        ? dataBaseCubit.addressController.text
+                        : scannedData.address,
+                    socialAddress:
+                    dataBaseCubit.socialAddressController.text.isNotEmpty
+                        ? dataBaseCubit.socialAddressController.text
+                        : scannedData.socialAddress,
+                    note: dataBaseCubit.noteController.text.isNotEmpty
+                        ? dataBaseCubit.noteController.text
+                        : scannedData.note,
+                    image: dataBaseCubit.imageBytes ?? Uint8List.fromList([]),
                   );
-                  if (myCubit.state is MyExpansionError) {
-                  } else {
-                    await BlocProvider.of<AddDataBaseCubit>(context)
-                        .addDataBase(dataBase);
-                    // Emit a state indicating that data is added successfully
-                    // BlocProvider.of<DatabaseCubit>(context).emit(DatabaseAdded());
-                    // AutoRouter.of(context).pop();
 
-                    if (context.mounted) {
-                      Navigator.of(context).pop();
-                    }
+                  // Ensure QR code data is generated before adding to Hive
+                  dataBase.qrCodeData = dataBase.generateQRCodeData();
 
-                    // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home(index: 1)));
-                    // AutoRouter.of(context).replace(HomeRoute(index: 1));
+                  // Continue with adding data to Hive
+                  await BlocProvider.of<AddDataBaseCubit>(context)
+                      .addDataBase(dataBase);
+
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
                   }
                 },
-                child: MyText(
-                  title: "حفظ",
-                  color: MyColors.white,
-                  size: 16,
-                  fontWeight: FontWeight.bold,
-                  alien: TextAlign.center,
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: MyColors.primary,
-                ),
+                child: Text("Add"),
               ),
               const SizedBox(height: 16.0),
             ],

@@ -8,14 +8,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class BuildToolsWidget extends StatelessWidget {
   final VoidCallback onTap;
   final String title;
-  final IconData icon; // Add this line
+  // final IconData icon; // Add this line
+  final String image;
   final bool isFavorite;
   final VoidCallback onFavoriteTap;
 
   const BuildToolsWidget({
     required this.onTap,
     required this.title,
-    required this.icon, // Add this line
+    required this.image, // Add this line
     required this.isFavorite,
     required this.onFavoriteTap,
   });
@@ -28,13 +29,13 @@ class BuildToolsWidget extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: Icon(icon, color: MyColors.primary),
+            child: Image.asset(image),
           ),
           const SizedBox(width: 10),
           MyText(
             title: tr(context, title),
-            color: MyColors.primary,
-            size: 15.sp,
+            color: MyColors.black,
+            size: 16,
             fontWeight: FontWeight.bold,
           ),
           Spacer(),

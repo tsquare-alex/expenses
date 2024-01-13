@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../general/constants/constants.dart';
 import '../../../models/add_transaction_model/add_transaction_model.dart';
-import '../../wallet/data/model/wallet_model.dart';
+import '../../wallet/data/model/wallet/wallet_model.dart';
 
 part 'reports_cubit.freezed.dart';
 part 'reports_state.dart';

@@ -1,4 +1,5 @@
 import 'package:expenses/res.dart';
+import 'package:expenses/user/screens/wallet/data/model/wallet_category/category_model.dart';
 import 'package:hive_flutter/adapters.dart';
 part 'wallet_model.g.dart';
 
@@ -33,35 +34,7 @@ class WalletModel extends HiveObject {
   @HiveField(13)
   String? paymentMethod;
   @HiveField(14)
-  List<String>? walletCategory = [
-    "حافز",
-    "راتب",
-    "إضافي",
-    "مكافأة",
-    "هدية",
-    "حساب بنكي",
-    "إيجار",
-    "عائد مشروع",
-    "صفقة",
-    "عمولة",
-    "بيع",
-    "مضاربة"
-  ];
-  @HiveField(15)
-  List<String>? walletCategoryImage = [
-    Res.salary,
-    Res.incentive,
-    Res.extra,
-    Res.reward,
-    Res.gift,
-    Res.bankAccount,
-    Res.projectIncome,
-    Res.deal,
-    Res.rent,
-    Res.commission,
-    Res.sale,
-    Res.speculation,
-  ];
+  CategoryModel? model;
 
   WalletModel({
     required this.name,
@@ -78,7 +51,6 @@ class WalletModel extends HiveObject {
     this.isHide = false,
     this.checkedValue = false,
     this.paymentMethod,
-    this.walletCategory,
-    this.walletCategoryImage,
+    this.model,
   });
 }

@@ -31,15 +31,14 @@ class WalletModelAdapter extends TypeAdapter<WalletModel> {
       isHide: fields[10] as bool?,
       checkedValue: fields[12] as bool?,
       paymentMethod: fields[13] as String?,
-      walletCategory: (fields[14] as List?)?.cast<String>(),
-      walletCategoryImage: (fields[15] as List?)?.cast<String>(),
+      model: fields[14] as CategoryModel?,
     );
   }
 
   @override
   void write(BinaryWriter writer, WalletModel obj) {
     writer
-      ..writeByte(16)
+      ..writeByte(15)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -69,9 +68,7 @@ class WalletModelAdapter extends TypeAdapter<WalletModel> {
       ..writeByte(13)
       ..write(obj.paymentMethod)
       ..writeByte(14)
-      ..write(obj.walletCategory)
-      ..writeByte(15)
-      ..write(obj.walletCategoryImage);
+      ..write(obj.model);
   }
 
   @override

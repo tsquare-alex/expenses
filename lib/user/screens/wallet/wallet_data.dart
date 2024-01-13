@@ -1,5 +1,7 @@
 part of 'wallet_imports.dart';
 
+late final CategoryModel model;
+
 class WalletData {
   showButtomSheet(context, build, model) {
     showModalBottomSheet(
@@ -158,7 +160,110 @@ class WalletData {
     );
   }
 
-  addValueCategory(context, build, TextEditingController controller) {
+  // addValueCateggory(context, build, TextEditingController controller) {
+  //   showModalBottomSheet(
+  //     isScrollControlled: false,
+  //     elevation: 0,
+  //     context: context,
+  //     builder: (buildContext) {
+  //       return Padding(
+  //         padding: EdgeInsets.all(12.h),
+  //         child: Column(
+  //           mainAxisAlignment: MainAxisAlignment.start,
+  //           children: [
+  //             TextFormField(
+  //               controller: controller,
+  //               keyboardType: TextInputType.number,
+  //               textAlign: TextAlign.right,
+  //               cursorColor: MyColors.primary,
+  //               decoration: InputDecoration(
+  //                   hintText: " ادخل القيمة",
+  //                   hintStyle: TextStyle(fontSize: 18.sp, color: MyColors.grey),
+  //                   focusColor: MyColors.primary),
+  //             ),
+  //             SizedBox(height: 16.h),
+  //             DefaultButton(
+  //                 title: "اضافة",
+  //                 onTap: () {
+  //                   if (controller.text.isNotEmpty) {
+  //                     valueCategory.add(controller.text);
+  //                     Navigator.of(context).pop();
+  //                   }
+  //                 }),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
+  List<CategoryModel> categoryModel = [
+    CategoryModel(name: "راتب", imagePath: Res.salary),
+    CategoryModel(name: "حافز", imagePath: Res.incentive),
+    CategoryModel(name: "إضافي", imagePath: Res.extra),
+    CategoryModel(name: "مكافأة", imagePath: Res.reward),
+    CategoryModel(name: "هدية", imagePath: Res.gift),
+    CategoryModel(name: "حساب بنكي", imagePath: Res.bankAccount),
+    CategoryModel(name: "عائد مشروع", imagePath: Res.projectIncome),
+    CategoryModel(name: "صفقة", imagePath: Res.deal),
+    CategoryModel(name: "عمولة", imagePath: Res.commission),
+    CategoryModel(name: "بيع", imagePath: Res.sale),
+    CategoryModel(name: "مضاربة", imagePath: Res.speculation),
+  ];
+
+  //  addValueCategory(
+  //   context,
+  //   build,
+  //   TextEditingController controller,
+  // ) async {
+  //   showModalBottomSheet(
+  //     isScrollControlled: false,
+  //     elevation: 0,
+  //     context: context,
+  //     builder: (buildContext) {
+  //       return Padding(
+  //         padding: EdgeInsets.all(12.h),
+  //         child: Column(
+  //           mainAxisAlignment: MainAxisAlignment.start,
+  //           children: [
+  //             TextFormField(
+  //               controller: controller,
+  //               keyboardType: TextInputType.text,
+  //               textAlign: TextAlign.right,
+  //               cursorColor: MyColors.primary,
+  //               decoration: InputDecoration(
+  //                 hintText: " ادخل القيمة",
+  //                 hintStyle: TextStyle(fontSize: 18.sp, color: MyColors.grey),
+  //                 focusColor: MyColors.primary,
+  //               ),
+  //             ),
+  //             SizedBox(height: 15.h),
+  //             DefaultButton(
+  //               title: "اضافة",
+  //               onTap: () async {
+  //                 // emit(WalletInitial());
+  //                 if (controller.text.isNotEmpty) {
+  //                   final randomIndex = Random().nextInt(categoryModel.length);
+  //                   await Catego?.add(CategoryModel(
+  //                     name: controller.text,
+  //                     imagePath: categoryModel[randomIndex].imagePath,
+  //                   ));
+  //                   // emit(AddWalletSucess());
+  //                   Navigator.of(context).pop();
+  //                 }
+  //               },
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+  addValueCategory(
+    context,
+    build,
+    TextEditingController controller,
+  ) {
     showModalBottomSheet(
       isScrollControlled: false,
       elevation: 0,
@@ -171,7 +276,7 @@ class WalletData {
             children: [
               TextFormField(
                 controller: controller,
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.text,
                 textAlign: TextAlign.right,
                 cursorColor: MyColors.primary,
                 decoration: InputDecoration(
@@ -179,15 +284,25 @@ class WalletData {
                     hintStyle: TextStyle(fontSize: 18.sp, color: MyColors.grey),
                     focusColor: MyColors.primary),
               ),
-              SizedBox(height: 16.h),
+              SizedBox(height: 15.h),
               DefaultButton(
-                  title: "اضافة",
-                  onTap: () {
-                    if (controller.text.isNotEmpty) {
-                      valueCategory.add(controller.text);
-                      Navigator.of(context).pop();
-                    }
-                  }),
+                title: "اضافة",
+                onTap: () {
+                  // emit(WalletInitial());
+
+                  if (controller.text.isNotEmpty) {
+                    final randomIndex = Random().nextInt(categoryModel.length);
+
+                    categoryModel.add(CategoryModel(
+                      name: controller.text,
+                      imagePath: categoryModel[randomIndex].imagePath,
+                    ));
+
+                    // emit(AddWalletSucess());
+                    Navigator.of(context).pop();
+                  }
+                },
+              ),
             ],
           ),
         );

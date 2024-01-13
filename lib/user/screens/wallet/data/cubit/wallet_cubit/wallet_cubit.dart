@@ -5,7 +5,8 @@ import 'package:expenses/general/constants/constants.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
-import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
+import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
+import 'package:expenses/user/screens/wallet/data/model/wallet_category/category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +17,9 @@ class WalletCubit extends Cubit<WalletState> {
   DateTime endDate = DateTime.now().add(Duration(days: 30));
 
   WalletCubit() : super(WalletInitial());
+
+  Box<CategoryModel>? categoryBox;
+
   bool? isBalanceVisible = true;
   bool? isLocked = true;
   bool checkedValue = false;
@@ -26,6 +30,7 @@ class WalletCubit extends Cubit<WalletState> {
   final TextEditingController closedDateController = TextEditingController();
   final TextEditingController valueCategoryController = TextEditingController();
   final TextEditingController encomSourceController = TextEditingController();
+  final TextEditingController addCategoryController = TextEditingController();
 
   List<String> valueCategory = [
     "تحويل بنكي",
@@ -34,49 +39,6 @@ class WalletCubit extends Cubit<WalletState> {
     "حساب بنكي",
   ];
   List<String> walletSource = ["شخص", "جهة"];
-
-  List<Image> images = [
-    Image.asset(
-      "assets/images/currency.png",
-      height: 36.h,
-    ),
-    Image.asset(
-      "assets/images/currency.png",
-      height: 36.h,
-    ),
-    Image.asset(
-      "assets/images/currency.png",
-      height: 36.h,
-    ),
-    Image.asset(
-      "assets/images/currency.png",
-      height: 36.h,
-    ),
-    Image.asset(
-      "assets/images/cashTransactions.png",
-      height: 36.h,
-    ),
-    Image.asset(
-      "assets/images/dollar.png",
-      height: 36.h,
-    ),
-    Image.asset(
-      "assets/images/expense.png",
-      height: 36.h,
-    ),
-    Image.asset(
-      "assets/images/register.png",
-      height: 36.h,
-    ),
-    Image.asset(
-      "assets/images/repeatedTransactions.png",
-      height: 36.h,
-    ),
-    Image.asset(
-      "assets/images/repeatedTransactions.png",
-      height: 36.h,
-    ),
-  ];
 
   List<String> paymentMethod = ["تحويل بنكي", "حساب بنكي", "نقدي"];
   List<String> walletDuplicate = [
@@ -304,11 +266,160 @@ class WalletCubit extends Cubit<WalletState> {
     );
   }
 
-  addValueCategory(
+  //   Future addNote(WalletModel model) async {
+  //   emit(AddWalletLoading());
+  //   try {
+  //     var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+  //     await walletBox.add(model);
+  //     emit(AddWalletSucess());
+  //   } catch (e) {
+  //     emit(AddWalletfaliuer(message: e.toString()));
+  //   }
+  // }
+  double calculateTotalBalance(List<WalletModel> wallets) {
+    double totalBalance = 0;
+    for (var wallet in wallets) {
+      totalBalance += wallet.balance;
+    }
+    return totalBalance;
+  }
+
+  Future addNewCategory(CategoryModel model) async {
+    emit(AddWalletLoading());
+    try {
+      var categoryBox = Hive.box<CategoryModel>("walletCategoryModel");
+      await categoryBox.add(model);
+      emit(AddWalletCategory());
+    } catch (e) {
+      emit(AddWalletfaliuer(message: e.toString()));
+    }
+  }
+
+  List<CategoryModel> categoryModel = [
+    CategoryModel(name: "راتب", imagePath: Res.salary),
+    CategoryModel(name: "حافز", imagePath: Res.incentive),
+    CategoryModel(name: "إضافي", imagePath: Res.extra),
+    CategoryModel(name: "مكافأة", imagePath: Res.reward),
+    CategoryModel(name: "هدية", imagePath: Res.gift),
+    CategoryModel(name: "حساب بنكي", imagePath: Res.bankAccount),
+    CategoryModel(name: "عائد مشروع", imagePath: Res.projectIncome),
+    CategoryModel(name: "صفقة", imagePath: Res.deal),
+    CategoryModel(name: "عمولة", imagePath: Res.commission),
+    CategoryModel(name: "بيع", imagePath: Res.sale),
+    CategoryModel(name: "مضاربة", imagePath: Res.speculation),
+  ];
+
+  List<CategoryModel> categoryList = [];
+  iniData() async {
+    emit(WalletInitial());
+    var walletBox = await Hive.openBox<CategoryModel>("walletCategoryModel");
+
+    try {
+      var list = walletBox.values.toList();
+      for (var item in categoryModel) {
+        if (!list.any((element) => element.name == item.name)) {
+          await walletBox.add(item);
+        }
+      }
+      await getCategory(); // Call getCategory after adding items
+      emit(CategorySuccess(categoryList: categoryList));
+    } finally {
+      await walletBox.close(); // Close the box after use
+    }
+  }
+
+  Future<void> getCategory() async {
+    var categoryBox = await Hive.openBox<CategoryModel>("walletCategoryModel");
+
+    try {
+      categoryList.clear();
+      var list = categoryBox.values.map((dynamic value) {
+        if (value is CategoryModel) {
+          return value;
+        } else {
+          return CategoryModel();
+        }
+      }).toList();
+      categoryList.addAll(list);
+      emit(CategorySuccess(categoryList: categoryList));
+    } catch (e) {
+      print('Error fetching data from Hive: $e');
+    } finally {
+      await categoryBox.close();
+    }
+  }
+  // iniData() async {
+  //   emit(WalletInitial());
+  //   var walletBox = Hive.box<CategoryModel>("walletCategoryModel");
+
+  //   var list = walletBox.values.toList();
+  //   for (var item in categoryModel!) {
+  //     if (!list.any((element) => element.name == item.name)) {
+  //       walletBox.add(item);
+  //     }
+  //   }
+  //   getCategory();
+  //   emit(CategorySuccess(categoryList: categoryList));
+  // }
+  // iniData() async {
+  //   emit(WalletInitial());
+  //   var walletBox = await Hive.openBox<CategoryModel>("walletCategoryModel");
+  //   var list = walletBox.values.toList();
+  //   for (var item in categoryModel!) {
+  //     if (!list.any((element) => element.name == item.name)) {
+  //       walletBox.add(item);
+  //     }
+  //   }
+
+  //   getCategory();
+  //   walletBox.close(); // Close the box after use
+  //   emit(CategorySuccess(categoryList: categoryList));
+  // }
+
+  // Future<void> getCategory() async {
+  //   var categoryBox = Hive.box<CategoryModel>("walletCategoryModel");
+  //   try {
+  //     var list = categoryBox.values.map((dynamic value) {
+  //       if (value is CategoryModel) {
+  //         return value;
+  //       } else {
+  //         return CategoryModel();
+  //       }
+  //     }).toList();
+  //     categoryList.addAll(list);
+  //     emit(CategorySuccess(categoryList: categoryList));
+  //   } catch (e) {
+  //     print('Error fetching data from Hive: $e');
+  //   } finally {
+  //     await categoryBox.close();
+  //   }
+  // }
+  // Future<void> getCategory() async {
+  //   var categoryBox = await Hive.openBox<CategoryModel>("walletCategoryModel");
+
+  //   try {
+  //     categoryList.clear(); // Clear the list before adding items
+  //     var list = categoryBox.values.map((dynamic value) {
+  //       if (value is CategoryModel) {
+  //         return value;
+  //       } else {
+  //         return CategoryModel();
+  //       }
+  //     }).toList();
+  //     categoryList.addAll(list);
+  //     emit(CategorySuccess(categoryList: categoryList));
+  //   } catch (e) {
+  //     print('Error fetching data from Hive: $e');
+  //   } finally {
+  //     await categoryBox.close();
+  //   }
+  // }
+
+  Future<void> addValueCategory(
     context,
     build,
     TextEditingController controller,
-  ) {
+  ) async {
     showModalBottomSheet(
       isScrollControlled: false,
       elevation: 0,
@@ -325,50 +436,86 @@ class WalletCubit extends Cubit<WalletState> {
                 textAlign: TextAlign.right,
                 cursorColor: MyColors.primary,
                 decoration: InputDecoration(
-                    hintText: " ادخل القيمة",
-                    hintStyle: TextStyle(fontSize: 18.sp, color: MyColors.grey),
-                    focusColor: MyColors.primary),
+                  hintText: " ادخل القيمة",
+                  hintStyle: TextStyle(fontSize: 18.sp, color: MyColors.grey),
+                  focusColor: MyColors.primary,
+                ),
               ),
               SizedBox(height: 15.h),
               DefaultButton(
-                  title: "اضافة",
-                  onTap: () {
-                    emit(WalletInitial());
-
-                    if (controller.text.isNotEmpty) {
-                      valueCategory.add(controller.text);
-                      emit(AddWalletSucess());
-                      Navigator.of(context).pop();
-                    }
-                  }),
+                title: "اضافة",
+                onTap: () async {
+                  emit(WalletInitial());
+                  if (controller.text.isNotEmpty) {
+                    final box = await Hive.openBox<CategoryModel>(
+                        "walletCategoryModel");
+                    final randomIndex = Random().nextInt(categoryModel.length);
+                    await box.add(CategoryModel(
+                      name: controller.text,
+                      imagePath: categoryModel[randomIndex].imagePath,
+                    ));
+                    emit(AddWalletSucess());
+                    getCategory();
+                    Navigator.of(context).pop();
+                  }
+                },
+              ),
             ],
           ),
         );
       },
     );
   }
-
-  void displayCategoryList(WalletModel wallet) {
-    if (wallet.walletCategory != null) {
-      emit(WalletCategoryListLoaded(categoryList: wallet.walletCategory!));
-    } else {
-      emit(WalletCategoryListEmpty());
-    }
-  }
-
-  void displayCategoryImageList(WalletModel wallet) {
-    if (wallet.walletCategoryImage != null) {
-      emit(WalletCategoryImageListLoaded(wallet.walletCategoryImage!));
-    } else {
-      emit(WalletCategoryImageListEmpty());
-    }
-  }
-
-  double calculateTotalBalance(List<WalletModel> wallets) {
-    double totalBalance = 0;
-    for (var wallet in wallets) {
-      totalBalance += wallet.balance;
-    }
-    return totalBalance;
-  }
+  //   Future<void> addValueCategory(
+  //     context,
+  //     build,
+  //     TextEditingController controller,
+  //   ) async {
+  //     showModalBottomSheet(
+  //       isScrollControlled: false,
+  //       elevation: 0,
+  //       context: context,
+  //       builder: (buildContext) {
+  //         return Padding(
+  //           padding: EdgeInsets.all(12.h),
+  //           child: Column(
+  //             mainAxisAlignment: MainAxisAlignment.start,
+  //             children: [
+  //               TextFormField(
+  //                 controller: controller,
+  //                 keyboardType: TextInputType.text,
+  //                 textAlign: TextAlign.right,
+  //                 cursorColor: MyColors.primary,
+  //                 decoration: InputDecoration(
+  //                   hintText: " ادخل القيمة",
+  //                   hintStyle: TextStyle(fontSize: 18.sp, color: MyColors.grey),
+  //                   focusColor: MyColors.primary,
+  //                 ),
+  //               ),
+  //               SizedBox(height: 15.h),
+  //               DefaultButton(
+  //                 title: "اضافة",
+  //                 onTap: () async {
+  //                   emit(WalletInitial());
+  //                   if (controller.text.isNotEmpty) {
+  //                     final box = await Hive.openBox<CategoryModel>(
+  //                       "walletCategoryModel",
+  //                     );
+  //                     final randomIndex = Random().nextInt(categoryModel.length);
+  //                     await box.add(CategoryModel(
+  //                       name: controller.text,
+  //                       imagePath: categoryModel[randomIndex].imagePath,
+  //                     ));
+  //                     emit(AddWalletSucess());
+  //                     Navigator.of(context).pop();
+  //                   }
+  //                 },
+  //               ),
+  //             ],
+  //           ),
+  //         );
+  //       },
+  //     );
+  //   }
+  // }
 }

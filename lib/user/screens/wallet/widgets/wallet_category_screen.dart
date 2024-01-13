@@ -10,13 +10,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class WalletCategory extends StatelessWidget {
-  const WalletCategory({super.key});
+class WalletCategory extends StatefulWidget {
+  const WalletCategory({
+    super.key,
+  });
+
+  @override
+  State<WalletCategory> createState() => _WalletCategoryState();
+}
+
+class _WalletCategoryState extends State<WalletCategory> {
+  @override
+  void initState() {
+    context.read<WalletCubit>().iniData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         leading: IconButton(
           icon: Image.asset(Res.back),
           onPressed: () => AutoRouter.of(context).pop(),
@@ -32,7 +46,10 @@ class WalletCategory extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          context.read<WalletCubit>().addValueCategory(context, build,
+              context.read<WalletCubit>().addCategoryController);
+        },
         backgroundColor: MyColors.primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50.r),
@@ -50,79 +67,89 @@ class WalletCategory extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 12.w),
             child: BlocBuilder<WalletCubit, WalletState>(
               builder: (context, state) {
-                return GridView.builder(
-                  itemCount: 12,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 12.w,
-                    mainAxisSpacing: 12.h,
-                  ),
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                        onTap: () {
-                          String selectedCategory =
-                              context.read<WalletCubit>().walletCategory[index];
-                          context
-                              .read<WalletCubit>()
-                              .selectedCategoryIndex
-                              .value = index;
-                          // context
-                          //     .read<WalletCubit>()
-                          //     .selectedCategoryIndex
-                          //     .value = index;
-                          AutoRouter.of(context).push(AddWalletRoute(
-                            selectItemIndex: index,
-                            selectedCategory: selectedCategory,
-                          ));
-                        },
-                        child: Column(
-                          children: [
-                            Container(
-                              height: 70.h,
-                              width: 70.w,
-                              decoration: BoxDecoration(
-                                  color: MyColors.greyWhite,
-                                  borderRadius: BorderRadius.circular(85.r)),
-                              child: ClipRect(
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: context
-                                      .read<WalletCubit>()
-                                      .walletCategoryImage[index],
+                return BlocBuilder<WalletCubit, WalletState>(
+                  builder: (context, state) {
+                    return GridView.builder(
+                      itemCount:
+                          context.read<WalletCubit>().categoryList.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 12.w,
+                        mainAxisSpacing: 12.h,
+                      ),
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                            onTap: () {
+                              String selectedCategory = context
+                                  .read<WalletCubit>()
+                                  .categoryList[index]
+                                  .name!;
+                              context
+                                  .read<WalletCubit>()
+                                  .selectedCategoryIndex
+                                  .value = index;
+                              // context
+                              //     .read<WalletCubit>()
+                              //     .selectedCategoryIndex
+                              //     .value = index;
+                              AutoRouter.of(context).push(AddWalletRoute(
+                                selectItemIndex: index,
+                                selectedCategory: selectedCategory,
+                              ));
+                            },
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 85.h,
+                                  width: 85.w,
+                                  decoration: BoxDecoration(
+                                      color: MyColors.greyWhite,
+                                      borderRadius:
+                                          BorderRadius.circular(85.r)),
+                                  child: ClipRect(
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Image.asset(context
+                                          .read<WalletCubit>()
+                                          .categoryList[index]
+                                          .imagePath!),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            Text(context
-                                .read<WalletCubit>()
-                                .walletCategory[index]),
-                          ],
-                        )
-                        // ClipRRect(
-                        //   borderRadius: BorderRadius.circular(20),
-                        //   child: Container(
-                        //     decoration: BoxDecoration(color: MyColors.grey),
-                        //     child: Column(
-                        //       mainAxisAlignment: MainAxisAlignment.center,
-                        //       children: [
-                        //         Image.asset("assets/images/salary.png"),
-                        //         Center(
-                        //           child: MyText(
-                        //             title: context
-                        //                 .read<WalletCubit>()
-                        //                 .walletCategory[index],
-                        //             color: MyColors.white,
-                        //             size: 12.sp,
-                        //             fontWeight: FontWeight.bold,
-                        //           ),
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ),
-                        );
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Text(context
+                                    .read<WalletCubit>()
+                                    .categoryList[index]
+                                    .name!),
+                              ],
+                            )
+                            // ClipRRect(
+                            //   borderRadius: BorderRadius.circular(20),
+                            //   child: Container(
+                            //     decoration: BoxDecoration(color: MyColors.grey),
+                            //     child: Column(
+                            //       mainAxisAlignment: MainAxisAlignment.center,
+                            //       children: [
+                            //         Image.asset("assets/images/salary.png"),
+                            //         Center(
+                            //           child: MyText(
+                            //             title: context
+                            //                 .read<WalletCubit>()
+                            //                 .walletCategory[index],
+                            //             color: MyColors.white,
+                            //             size: 12.sp,
+                            //             fontWeight: FontWeight.bold,
+                            //           ),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
+                            );
+                      },
+                    );
                   },
                 );
               },

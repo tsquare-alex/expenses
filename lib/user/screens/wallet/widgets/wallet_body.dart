@@ -3,7 +3,7 @@ import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
-import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
+import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
 import 'package:expenses/user/screens/wallet/widgets/cstom_container.dart';
 import 'package:expenses/user/screens/wallet/widgets/wallet_category_screen.dart';
 import 'package:flutter/material.dart';
@@ -101,7 +101,7 @@ class _WalletBodyState extends State<WalletBody> {
             visible: wallet.isEmpty ? isHide = false : isHide = true,
             child: FloatingActionButton(
               onPressed: () {
-                AutoRouter.of(context).push(const WalletCategoryRoute());
+                AutoRouter.of(context).push(WalletCategoryRoute());
               },
               backgroundColor: MyColors.primary,
               child: Icon(

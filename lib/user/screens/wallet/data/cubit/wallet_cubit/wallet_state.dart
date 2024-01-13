@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
+import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
+import 'package:expenses/user/screens/wallet/data/model/wallet_category/category_model.dart';
 
 class WalletState extends Equatable {
   @override
@@ -40,15 +41,7 @@ class WalletCategoryListLoaded extends WalletState {
   WalletCategoryListLoaded({required this.categoryList});
 }
 
-class WalletCategoryListEmpty extends WalletState {}
-
-class WalletCategoryImageListLoaded extends WalletState {
-  final List<String> categoryImageList;
-
-  WalletCategoryImageListLoaded(this.categoryImageList);
-}
-
-class WalletCategoryImageListEmpty extends WalletState {}
+class AddWalletCategory extends WalletState {}
 
 class AddWalletfaliuer extends WalletState {
   final String message;
@@ -56,4 +49,9 @@ class AddWalletfaliuer extends WalletState {
   AddWalletfaliuer({required this.message});
   @override
   List<Object?> get props => [message];
+}
+
+class CategorySuccess extends WalletState {
+  final List<CategoryModel> categoryList;
+  CategorySuccess({required this.categoryList});
 }

@@ -352,7 +352,7 @@ import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
-import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
+import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
 import 'package:expenses/user/screens/wallet/wallet_imports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -590,7 +590,7 @@ class _CustomContainerState extends State<CustomContainer> {
                     visible: !widget.model.isHide!,
                     child: MyText(
                         alien: TextAlign.end,
-                        title: "${widget.model.balance.toStringAsFixed(2)}",
+                        title: widget.model.balance.toStringAsFixed(2),
                         color: MyColors.white,
                         size: 22.sp),
                   ),
@@ -684,7 +684,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                         IconButton(
                                           onPressed: () {},
                                           icon: const Icon(Icons.delete),
-                                          color: MyColors.black,
+                                          color: MyColors.primary,
                                         ),
                                         SizedBox(
                                           width: 10.w,
@@ -720,8 +720,8 @@ class _CustomContainerState extends State<CustomContainer> {
                                       children: [
                                         IconButton(
                                           onPressed: () {},
-                                          icon: const Icon(Icons.edit_sharp),
-                                          color: MyColors.black,
+                                          icon: Image.asset(Res.edit),
+                                          color: MyColors.primary,
                                         ),
                                         SizedBox(
                                           width: 10.w,

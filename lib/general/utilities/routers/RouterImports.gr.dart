@@ -66,7 +66,7 @@ import 'package:expenses/user/screens/transaction_type/transaction_type_imports.
     as _i35;
 import 'package:expenses/user/screens/transfer_wallet_transaction/transfer_wallet_transaction_imports.dart'
     as _i32;
-import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart'
+import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart'
     as _i43;
 import 'package:expenses/user/screens/wallet/wallet_imports.dart' as _i25;
 import 'package:expenses/user/screens/wallet/widgets/add_balance.dart' as _i28;

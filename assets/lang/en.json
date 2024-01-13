@@ -417,5 +417,9 @@
   "initialVal" : "Initial value",
   "requiredVal" : "Required value",
 
+  "EGP" : "EGP",
+
+  "aim" : "Target",
+
   "tuitionFees" : "Tuition Fees"
 }

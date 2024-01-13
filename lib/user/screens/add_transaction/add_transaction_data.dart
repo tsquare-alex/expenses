@@ -613,7 +613,8 @@ class AddTransactionData {
 
             box.add(model);
             addTransactionList = box.values.toList();
-            AutoRouter.of(context).pushAndPopUntil(HomeRoute(index: 0), predicate: (predicate)=>false);
+            AutoRouter.of(context).pop();
+            // AutoRouter.of(context).pushAndPopUntil(HomeRoute(index: 0), predicate: (predicate)=>false);
           } else if (total > selectedWalletModel!.balance) {
             print(selectedWalletModel!.balance);
             CustomToast.showSimpleToast(
@@ -693,9 +694,7 @@ class AddTransactionData {
             ratio: ratioCubit.state.data != false
                 ? selectedRatio
                 : null,
-            repeated: iterateCubit.state.data != false
-                ? selectedIterateTransaction
-                : null,
+            repeated: selectedIterateTransaction,
             initialValue: double.parse(initialValueController.text),
             requiredValue: double.parse(requiredValueController.text),
             notify: notifyCubit.state.data,

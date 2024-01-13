@@ -67,8 +67,8 @@ class _RepeatedTransactionsState extends State<RepeatedTransactions> {
                 physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: state.data.length,
-                itemBuilder: (context, i) => BuildTransactionCard(
-                  model: state.data[i],onDelete: ()=>data.deleteItem(state.data[i]),
+                itemBuilder: (context, i) => BuildRepeatedTransactionsCard(
+                  model: state.data[i],onDelete: ()=>data.deleteItem(state.data[i]), data: data,
                 ),
               ),
             );

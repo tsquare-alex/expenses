@@ -46,6 +46,7 @@ class Res {
   static const String dateTime = "assets/images/dateTime.png";
   static const String decimal = "assets/images/decimal.png";
   static const String delete = "assets/images/delete.png";
+  static const String description = "assets/images/description.png";
   static const String dish = "assets/images/dish.png";
   static const String doctor = "assets/images/doctor.png";
   static const String dollar = "assets/images/dollar.png";
@@ -128,7 +129,7 @@ class Res {
   static const String report = "assets/images/report.png";
   static const String reset = "assets/images/reset.png";
   static const String restaurant = "assets/images/restaurant.png";
-  static const String ringSize = "assets/images/ring_size.png";
+  static const String ring_size = "assets/images/ring_size.png";
   static const String salt = "assets/images/salt.png";
   static const String save = "assets/images/save.png";
   static const String saving = "assets/images/saving.png";
@@ -177,7 +178,7 @@ class Res {
   static const String water = "assets/images/water.png";
   static const String website = "assets/images/website.png";
   static const String withdraw = "assets/images/withdraw.png";
-  static const String womenShoes = "assets/images/women_shoes.png";
-  static const String womenSize = "assets/images/womensize.png";
+  static const String women_shoes = "assets/images/women_shoes.png";
+  static const String womensize = "assets/images/womensize.png";
   static const String workshop = "assets/images/workshop.png";
 }

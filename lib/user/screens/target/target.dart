@@ -58,25 +58,20 @@ class _TargetState extends State<Target> {
             ),
             centerTitle: true,
           ),
-          floatingActionButton: BlocBuilder<GenericBloc<List<TransactionTypeModel>>, GenericState<List<TransactionTypeModel>>>(
-            bloc: data.transactionTypeCubit,
-            builder: (context, state) {
-              return FloatingActionButton(
-                backgroundColor: MyColors.primary,
-                onPressed: () {
-                  if (state1.data.isEmpty) {
-                    data.addTransactionModel(context);
-                  } else {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => BuildTargetView(
-                          model: state.data, hasData: true, data: data,))
-                    );
-                  }
-                },
-                shape: const CircleBorder(),
-                child: Icon(Icons.add, color: MyColors.white,),
-              );
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: MyColors.primary,
+            onPressed: () {
+              if (state1.data.isEmpty) {
+                data.addTransactionModel(context);
+              } else {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => BuildTargetView(
+                      transactionModel: widget.model, hasData: true, data: data,))
+                );
+              }
             },
+            shape: const CircleBorder(),
+            child: Icon(Icons.add, color: MyColors.white,),
           ),
           body: state1.data.isEmpty ? BlocBuilder<
               GenericBloc<List<TransactionTypeModel>>,
@@ -85,7 +80,7 @@ class _TargetState extends State<Target> {
             builder: (context, state) {
               return Padding(
                 padding: EdgeInsets.all(15.r),
-                child: BuildTargetView(model: state.data, hasData: false,data: data,),
+                child: BuildTargetView(transactionModel: widget.model, hasData: false,data: data,),
               );
             },
           ) : Padding(
@@ -95,9 +90,9 @@ class _TargetState extends State<Target> {
               shrinkWrap: true,
               itemCount: state1.data.length,
               itemBuilder: (context, i) =>
-                  BuildTransactionCard(
+                  BuildTargetCard(
                     model: state1.data[i], onDelete: () =>
-                      data.deleteItem(state1.data[i],),
+                      data.deleteItem(state1.data[i],), data: data,
                   ),
             ),
           ),

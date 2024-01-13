@@ -12,6 +12,7 @@ import 'package:expenses/user/models/tab_model/tab_model.dart';
 import 'package:expenses/user/screens/auth_info_cubit/auth_info_cubit.dart';
 import 'package:expenses/user/screens/bag/bag_imports.dart';
 import 'package:expenses/user/screens/budget/budget_imports.dart';
+import 'package:expenses/user/screens/cart/cart_imports.dart';
 import 'package:expenses/user/screens/cash_transactions/cash_transactions_imports.dart';
 import 'package:expenses/user/screens/commitments/commitments_imports.dart';
 import 'package:expenses/user/screens/database/database_imports.dart';

@@ -9,7 +9,6 @@ class Commitments extends StatefulWidget {
 }
 
 class _CommitmentsState extends State<Commitments> {
-
   CommitmentsData data = CommitmentsData();
 
   @override
@@ -53,51 +52,55 @@ class _CommitmentsState extends State<Commitments> {
             ),
             leading: InkWell(
               onTap: () => AutoRouter.of(context).pop(),
-              child: Icon(Icons.arrow_back, color: MyColors.black,),
+              child: Icon(
+                Icons.arrow_back,
+                color: MyColors.black,
+              ),
             ),
             centerTitle: true,
           ),
-          floatingActionButton: BlocBuilder<GenericBloc<List<TransactionTypeModel>>, GenericState<List<TransactionTypeModel>>>(
-            bloc: data.transactionTypeCubit,
-            builder: (context, state) {
-              return FloatingActionButton(
-                backgroundColor: MyColors.primary,
-                onPressed: () {
-                  if (state1.data.isEmpty) {
-                    data.addTransactionModel(context);
-                  } else {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_)=>BuildCommitmentView(model: state.data, hasData:true, data: data,))
-                    );
-                  }
-                },
-                shape: const CircleBorder(),
-                child: Icon(Icons.add, color: MyColors.white,),
-              );
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: MyColors.primary,
+            onPressed: () {
+              if (state1.data.isEmpty) {
+                data.addTransactionModel(context);
+              } else {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => BuildCommitmentView(
+                          hasData: true,
+                          data: data,
+                          transactionModel: widget.model,
+                        )));
+              }
             },
-          ),
-          body: state1.data.isEmpty ? BlocBuilder<
-              GenericBloc<List<TransactionTypeModel>>,
-              GenericState<List<TransactionTypeModel>>>(
-            bloc: data.transactionTypeCubit,
-            builder: (context, state) {
-              return Padding(
-                padding: EdgeInsets.all(15.r),
-                child: BuildCommitmentView(model: state.data, hasData: false, data: data,),
-              );
-            },
-          ) : Padding(
-            padding: EdgeInsets.all(15.0.r),
-            child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: state1.data.length,
-              itemBuilder: (context, i) =>
-                  BuildTransactionCard(
-                    model: state1.data[i], onDelete: () =>
-                      data.deleteItem(state1.data[i]),),
+            shape: const CircleBorder(),
+            child: Icon(
+              Icons.add,
+              color: MyColors.white,
             ),
           ),
+          body: state1.data.isEmpty
+              ? Padding(
+                  padding: EdgeInsets.all(15.r),
+                  child: BuildCommitmentView(
+                    hasData: false,
+                    data: data,
+                    transactionModel: widget.model,
+                  ),
+                )
+              : Padding(
+                  padding: EdgeInsets.all(15.0.r),
+                  child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: state1.data.length,
+                    itemBuilder: (context, i) => BuildCommitmentCard(
+                      model: state1.data[i],
+                      onDelete: () => data.deleteItem(state1.data[i]),
+                      data: data,
+                    ),
+                  ),
+                ),
         );
       },
     );

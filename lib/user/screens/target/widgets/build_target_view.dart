@@ -1,15 +1,30 @@
 part of 'target_widgets_imports.dart';
 
-class BuildTargetView extends StatelessWidget {
-  const BuildTargetView({Key? key, required this.model, required this.hasData, required this.data}) : super(key: key);
-  final List<TransactionTypeModel> model;
+class BuildTargetView extends StatefulWidget {
+  const BuildTargetView({Key? key, required this.hasData, required this.data, required this.transactionModel}) : super(key: key);
   final bool hasData;
   final TargetData data;
+  final TransactionModel transactionModel;
+
+  @override
+  State<BuildTargetView> createState() => _BuildTargetViewState();
+}
+
+class _BuildTargetViewState extends State<BuildTargetView> {
+
+  @override
+  void initState() {
+    widget.data.initData(widget.transactionModel);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<GenericBloc<List<TransactionTypeModel>>, GenericState<List<TransactionTypeModel>>>(
+      bloc: widget.data.transactionTypeCubit,
+  builder: (context, state) {
     return Scaffold(
-      appBar:hasData==true?AppBar(
+      appBar:widget.hasData==true?AppBar(
             backgroundColor: Colors.white,
             surfaceTintColor: Colors.white,
             title: Padding(
@@ -40,16 +55,16 @@ class BuildTargetView extends StatelessWidget {
             ),
             centerTitle: true,
           ):null,
-      floatingActionButton: hasData==true?FloatingActionButton(
+      floatingActionButton: widget.hasData==true?FloatingActionButton(
         backgroundColor: MyColors.primary,
         onPressed: () {
-          data.addTransactionModel(context);
+          widget.data.addTransactionModel(context);
         },
         shape: const CircleBorder(),
         child: Icon(Icons.add, color: MyColors.white,),
       ):null,
       body: GridView.builder(
-        itemCount: model.length,
+        itemCount: state.data.length,
         shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
@@ -58,12 +73,14 @@ class BuildTargetView extends StatelessWidget {
             childAspectRatio: 0.5 / 0.65),
         itemBuilder: (context, i) => BuildTargetItem(
           onTap: (){
-            AutoRouter.of(context).push(AddTransactionRoute(model: model[i],transactionName: "الاهداف المالية المستهدفة"));
+            AutoRouter.of(context).push(AddTransactionRoute(model: state.data[i],transactionName: "الاهداف المالية المستهدفة"));
           },
-          image: model[i].image??Res.shopping,
-          name: model[i].name??"",
+          image: state.data[i].image??Res.shopping,
+          name: state.data[i].name??"",
         ),
       ),
     );
+  },
+);
   }
 }

@@ -15,15 +15,17 @@ class _TransactionDetailsState extends State<TransactionDetails> {
   @override
   void initState() {
     data.fetchData(widget.model,context);
-    data.notifyCubit.onUpdateData(widget.model.notify!);
+    data.notifyCubit.onUpdateData(widget.model.notify??false);
     data.ratioCubit.onUpdateData(widget.model.ratio!=null?true:false);
-    data.remainderCubit.onUpdateData(widget.model.putReminderInWallet!);
+    data.remainderCubit.onUpdateData(widget.model.putReminderInWallet??false);
     data.selectedIterateTransaction= widget.model.repeated;
+    print(widget.model.repeated?.name);
     data.selectedUnit= widget.model.unit;
     data.selectedWalletModel= widget.model.incomeSource;
     data.selectedBudget= widget.model.budget;
     data.selectedRatio= widget.model.ratio;
     data.selectedPriority= widget.model.priority;
+    data.descriptionController.text = widget.model.description??"";
     super.initState();
   }
 
@@ -46,6 +48,21 @@ class _TransactionDetailsState extends State<TransactionDetails> {
           onTap: () => AutoRouter.of(context).pop(),
           child: Icon(Icons.arrow_back, color: MyColors.black,),
         ),
+        actions: [
+        Padding(
+          padding: EdgeInsets.only(left:10.0.r),
+          child: InkWell(
+          onTap: ()=>data.deleteItem(widget.model, context),
+          child: CircleAvatar(
+            radius: 20.r,
+            backgroundColor: MyColors.greyWhite,
+            child: const Icon(
+              Icons.delete,
+              color: Colors.red,
+            ),
+          ),),
+        ),
+        ],
         centerTitle: true,
       ),
       body: Padding(

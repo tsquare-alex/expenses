@@ -144,11 +144,10 @@ class TransactionDetailsData {
     BuildContext context,
   ) {
     FocusScope.of(context).requestFocus(FocusNode());
-    var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.timePicker(
         context: context,
         onConfirm: (date) {
-          timeController.text = DateFormat("hh:mm aa", local).format(date!);
+          timeController.text = DateFormat("hh:mm aa", "en").format(date!);
         },
         title: '');
   }
@@ -157,12 +156,11 @@ class TransactionDetailsData {
     BuildContext context,
   ) {
     FocusScope.of(context).requestFocus(FocusNode());
-    var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
         context: context,
         onConfirm: (date) {
           transactionDateController.text =
-              DateFormat("dd MMMM yyyy", local).format(date!);
+              DateFormat("dd MMMM yyyy", "en").format(date!);
         },
         title: '');
   }
@@ -171,13 +169,12 @@ class TransactionDetailsData {
     BuildContext context,
   ) {
     FocusScope.of(context).requestFocus(FocusNode());
-    var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
         context: context,
         minDate: DateTime.now().subtract(Duration(days: 30)),
         onConfirm: (date) {
           startDateController.text =
-              DateFormat("dd MMMM yyyy", local).format(date!);
+              DateFormat("dd MMMM yyyy", "en").format(date!);
         },
         title: '');
   }
@@ -186,18 +183,17 @@ class TransactionDetailsData {
     BuildContext context,
   ) {
     FocusScope.of(context).requestFocus(FocusNode());
-    var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
         initial: startDateController.text.isNotEmpty
-            ? DateFormat("dd MMMM yyyy", local).parse(startDateController.text)
+            ? DateFormat("dd MMMM yyyy", "en").parse(startDateController.text)
             : DateTime.now(),
         minDate: startDateController.text.isNotEmpty
-            ? DateFormat("dd MMMM yyyy", local).parse(startDateController.text)
+            ? DateFormat("dd MMMM yyyy", "en").parse(startDateController.text)
             : DateTime.now(),
         context: context,
         onConfirm: (date) {
           endDateController.text =
-              DateFormat("dd MMMM yyyy", local).format(date!);
+              DateFormat("dd MMMM yyyy", "en").format(date!);
         },
         title: '');
   }
@@ -211,8 +207,7 @@ class TransactionDetailsData {
         transactionContent: model.transactionContent,
         incomeSource: selectedWalletModel,
         budget: selectedBudget,
-        //unit: selectedUnit,
-        //amount: amountController.text,
+        description: descriptionController.text,
         total: totalController.text,
         database: model.database,
         priority: selectedPriority ?? model.priority,
@@ -266,6 +261,7 @@ class TransactionDetailsData {
         transactionName: "التسوق والشراء",
         transactionType: model.transactionType,
         transactionContent: model.transactionContent,
+        description: descriptionController.text,
         database: model.database,
         incomeSource: selectedWalletModel,
         budget: selectedBudget,
@@ -323,9 +319,10 @@ class TransactionDetailsData {
     else if (model.transactionName == "الاهداف المالية المستهدفة") {
       AddTransactionModel editModel = AddTransactionModel(
         transactionName: "الاهداف المالية المستهدفة",
-        targetType: model.targetType,
+        transactionType: model.transactionType,
         total: totalController.text,
         incomeSource: selectedWalletModel,
+        description: descriptionController.text,
         budget: selectedBudget,
         targetValue: totalController.text,
         startDate: startDateController.text,
@@ -335,12 +332,13 @@ class TransactionDetailsData {
         initialValue: double.parse(initialValueController.text),
         requiredValue: double.parse(requiredValueController.text),
         priority: selectedPriority,
-        completedNotify: ratioCubit.state.data,
+        completedNotify: selectedRatio!=null?true:false,
+        ratio: ratioCubit.state.data != false
+            ? selectedRatio ?? null
+            : null,
         putReminderInWallet: remainderCubit.state.data,
         transactionDate: transactionDateController.text,
-        repeated: iterateCubit.state.data != false
-            ? selectedIterateTransaction ?? model.repeated
-            : null,
+        repeated: selectedIterateTransaction,
         notify: notifyCubit.state.data,
       );
       var total = double.parse(totalController.text);
@@ -387,6 +385,7 @@ class TransactionDetailsData {
         cashTransactionType: model.cashTransactionType,
         incomeSource: selectedWalletModel,
         budget: selectedBudget,
+        description: descriptionController.text,
         database: model.database,
         priority: selectedPriority ?? model.priority,
         total: totalController.text,
@@ -465,4 +464,29 @@ class TransactionDetailsData {
     List<BudgetModel> total = budgetData.values.toList();
     return total;
   }
+
+  Future<void> deleteItem(AddTransactionModel targetModel,BuildContext context) async {
+    final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
+    // Find the index of the target model in the list
+    var modelList =box.values.toList();
+    int index = modelList.indexWhere((model) => model.key == targetModel.key);
+    var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+    var walletList = walletBox.values.toList();
+    WalletModel? targetWallet = walletList.firstWhere(
+          (item) => item.name == targetModel.incomeSource?.name,
+    );
+    double total = double.parse(targetModel.total!);
+    targetWallet.balance = targetWallet.balance + total;
+    print("balance ${targetWallet.balance}");
+    await walletBox.put(targetWallet.key, targetWallet);
+    box.deleteAt(index);
+    AutoRouter.of(context).pop();
+    // AutoRouter.of(context).push(HomeRoute(index: 0));
+    if (index != -1) {
+      print('Index of the target model: $index');
+    } else {
+      print('Target model not found in the list.');
+    }
+  }
+
 }

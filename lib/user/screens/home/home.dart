@@ -52,7 +52,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       const RepeatedTransactions(),
       Container(),
       Container(),
-      const Bag(),
+      const Cart(),
     ];
     return WillPopScope(
         onWillPop: () async {

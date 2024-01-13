@@ -60,45 +60,35 @@ class _CashTransactionsState extends State<CashTransactions> {
             ),
             centerTitle: true,
           ),
-          floatingActionButton: BlocBuilder<GenericBloc<List<TransactionTypeModel>>, GenericState<List<TransactionTypeModel>>>(
-            bloc: data.transactionTypeCubit,
-            builder: (context, state) {
-              return FloatingActionButton(
-                backgroundColor: MyColors.primary,
-                onPressed: () {
-                  if (state1.data.isEmpty) {
-                    data.addTransactionModel(context);
-                  } else {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_)=>BuildCashTransactionsView(model: state.data, hasData:true, data: data,))
-                    );
-                  }
-                },
-                shape: const CircleBorder(),
-                child: Icon(Icons.add, color: MyColors.white,),
-              );
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: MyColors.primary,
+            onPressed: () {
+              if (state1.data.isEmpty) {
+                data.addTransactionModel(context);
+              } else {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_)=>BuildCashTransactionsView(hasData:true, data: data, transactionModel: widget.model,))
+                );
+              }
             },
+            shape: const CircleBorder(),
+            child: Icon(Icons.add, color: MyColors.white,),
           ),
-          body: state1.data.isEmpty ? BlocBuilder<
-              GenericBloc<List<TransactionTypeModel>>,
-              GenericState<List<TransactionTypeModel>>>(
-            bloc: data.transactionTypeCubit,
-            builder: (context, state) {
-              return Padding(
-                padding: EdgeInsets.all(15.r),
-                child: BuildCashTransactionsView(model: state.data, hasData: false, data: data,),
-              );
-            },
-          ) : Padding(
+          body: state1.data.isEmpty ? Padding(
+            padding: EdgeInsets.all(15.r),
+            child: BuildCashTransactionsView(hasData: false, data: data, transactionModel: widget.model,),
+          )
+              : Padding(
             padding: EdgeInsets.all(15.0.r),
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
               itemCount: state1.data.length,
               itemBuilder: (context, i) =>
-                  BuildTransactionCard(
+                  BuildCashTransactionsCard(
                     model: state1.data[i], onDelete: () =>
-                      data.deleteItem(state1.data[i]),),
+                      data.deleteItem(state1.data[i]),
+                  data: data,),
             ),
           ),
         );

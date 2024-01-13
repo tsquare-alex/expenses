@@ -15,7 +15,6 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
   @override
   void initState() {
     data.fetchData();
-    data.initData(widget.model);
     super.initState();
   }
 
@@ -67,7 +66,7 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                     data.addTransactionModel(context);
                   } else {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_)=>BuildShoppingScreenView(model: state.data, hasData:true, data: data,))
+                        MaterialPageRoute(builder: (_)=>BuildShoppingScreenView(transactionModel: widget.model, hasData:true, data: data,))
                     );
                   }
                 },
@@ -76,15 +75,9 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
               );
             },
           ),
-          body: state1.data.isEmpty?BlocBuilder<GenericBloc<List<TransactionTypeModel>>,
-              GenericState<List<TransactionTypeModel>>>(
-            bloc: data.transactionTypeCubit,
-            builder: (context, state) {
-              return Padding(
-                padding: EdgeInsets.all(15.r),
-                child: BuildShoppingScreenView(model: state.data, hasData: false, data: data,),
-              );
-            },
+          body: state1.data.isEmpty?Padding(
+            padding: EdgeInsets.all(15.r),
+            child: BuildShoppingScreenView(transactionModel: widget.model, hasData: false, data: data,),
           ):Padding(
             padding: EdgeInsets.all(15.0.r),
             child: ListView.builder(
@@ -92,9 +85,9 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
               shrinkWrap: true,
               itemCount: state1.data.length,
               itemBuilder: (context, i) =>
-                  BuildTransactionCard(
+                  BuildShoppingCard(
                     model: state1.data[i], onDelete: () =>
-                      data.deleteItem(state1.data[i]),),
+                      data.deleteItem(state1.data[i]), data: data,),
             ),
           ),
         );

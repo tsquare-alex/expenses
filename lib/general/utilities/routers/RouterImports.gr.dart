@@ -38,13 +38,13 @@ import 'package:expenses/user/models/transaction_type_model/transaction_type_mod
 import 'package:expenses/user/screens/add_transaction/add_transaction_imports.dart'
     as _i13;
 import 'package:expenses/user/screens/auth_info_cubit/auth_screen.dart' as _i36;
-import 'package:expenses/user/screens/bag/bag_imports.dart' as _i33;
 import 'package:expenses/user/screens/balance_transfer/wallet_balance_transfer_imports.dart'
     as _i32;
 import 'package:expenses/user/screens/bmi_calculator/bmi_calculator_imports.dart'
     as _i15;
 import 'package:expenses/user/screens/budget/widget/add_transaction.dart'
     as _i29;
+import 'package:expenses/user/screens/cart/cart_imports.dart' as _i33;
 import 'package:expenses/user/screens/cash_transactions/cash_transactions_imports.dart'
     as _i19;
 import 'package:expenses/user/screens/change_currency/change_currency_imports.dart'
@@ -380,10 +380,10 @@ class AppRouter extends _i38.RootStackRouter {
         opaque: true,
       );
     },
-    BagRoute.name: (routeData) {
+    CartRoute.name: (routeData) {
       return _i38.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i33.Bag(),
+        child: const _i33.Cart(),
         opaque: true,
       );
     },
@@ -552,8 +552,8 @@ class AppRouter extends _i38.RootStackRouter {
           path: '/wallet-balance-transfer',
         ),
         _i38.RouteConfig(
-          BagRoute.name,
-          path: '/Bag',
+          CartRoute.name,
+          path: '/Cart',
         ),
         _i38.RouteConfig(
           TransactionTypeRoute.name,
@@ -1301,15 +1301,15 @@ class WalletBalanceTransferRouteArgs {
 }
 
 /// generated route for
-/// [_i33.Bag]
-class BagRoute extends _i38.PageRouteInfo<void> {
-  const BagRoute()
+/// [_i33.Cart]
+class CartRoute extends _i38.PageRouteInfo<void> {
+  const CartRoute()
       : super(
-          BagRoute.name,
-          path: '/Bag',
+          CartRoute.name,
+          path: '/Cart',
         );
 
-  static const String name = 'BagRoute';
+  static const String name = 'CartRoute';
 }
 
 /// generated route for

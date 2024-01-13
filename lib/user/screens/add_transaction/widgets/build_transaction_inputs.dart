@@ -546,28 +546,30 @@ class BuildTransactionInputs extends StatelessWidget {
                     width: 15.w,
                   ),
                   Expanded(
-                    child: DropdownTextField<DropdownModel>(
-                      dropKey: addTransactionData
-                          .iterateTransactionDropKey,
-                      label: tr(context, "timing"),
-                      selectedItem: addTransactionData
-                          .selectedIterateTransaction,
-                      margin:
-                      const EdgeInsets.symmetric(vertical: 5),
-                      validate: (value) {
-                        if (value == null) {
-                          print("Please fill this field");
-                        }
-                      },
-                      onChange: addTransactionData
-                          .setSelectIterateTransaction,
-                      finData: (data) =>
-                          addTransactionData
-                              .getIterateTransaction(context),
-                      useName: true,
-                      hasLocalization: true,
-                      buttonsColor: MyColors.primary,
-                      searchHint: tr(context, "search"),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownTextField<DropdownModel>(
+                        dropKey: addTransactionData
+                            .iterateTransactionDropKey,
+                        label: tr(context, "timing"),
+                        selectedItem: addTransactionData
+                            .selectedIterateTransaction,
+                        margin:
+                        const EdgeInsets.symmetric(vertical: 5),
+                        validate: (value) {
+                          if (value == null) {
+                            print("Please fill this field");
+                          }
+                        },
+                        onChange: addTransactionData
+                            .setSelectIterateTransaction,
+                        finData: (data) =>
+                            addTransactionData
+                                .getIterateTransaction(context),
+                        useName: true,
+                        hasLocalization: true,
+                        buttonsColor: MyColors.primary,
+                        searchHint: tr(context, "search"),
+                      ),
                     ),
                   ),
                 ],

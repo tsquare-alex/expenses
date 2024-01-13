@@ -38,13 +38,19 @@ class AddTransactionModelAdapter extends TypeAdapter<AddTransactionModel> {
       targetType: fields[19] as TransactionTypeModel?,
       cashTransactionType: fields[11] as TransactionTypeModel?,
       budget: fields[20] as BudgetModel?,
+      initialValue: fields[22] as double?,
+      requiredValue: fields[21] as double?,
+      completedNotify: fields[23] as bool?,
+      putReminderInWallet: fields[24] as bool?,
+      ratio: fields[25] as DropdownModel?,
+      description: fields[26] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, AddTransactionModel obj) {
     writer
-      ..writeByte(21)
+      ..writeByte(27)
       ..writeByte(0)
       ..write(obj.transactionName)
       ..writeByte(1)
@@ -86,7 +92,19 @@ class AddTransactionModelAdapter extends TypeAdapter<AddTransactionModel> {
       ..writeByte(19)
       ..write(obj.targetType)
       ..writeByte(20)
-      ..write(obj.budget);
+      ..write(obj.budget)
+      ..writeByte(21)
+      ..write(obj.requiredValue)
+      ..writeByte(22)
+      ..write(obj.initialValue)
+      ..writeByte(23)
+      ..write(obj.completedNotify)
+      ..writeByte(24)
+      ..write(obj.putReminderInWallet)
+      ..writeByte(25)
+      ..write(obj.ratio)
+      ..writeByte(26)
+      ..write(obj.description);
   }
 
   @override

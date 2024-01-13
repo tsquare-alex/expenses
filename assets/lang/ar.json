@@ -584,5 +584,19 @@
   "important" : "هام",
   "normal" : "عادي",
 
+  "noRecord" : "لا يوجد بيانات",
+  "toAddNewRecord" : "اضغط علي زر + لإضافة معاملة جديدة.",
+
+  "addNote" : "اضافه ملاحظة",
+  "notes" : "ملاحظاتك",
+
+  "financeRate" : "توقيت التمويل",
+  "timing" : "التوقيت",
+  "putRemainderInWallet" : "وضع المتبقي في المحفظة",
+  "completedNotify" : "التنبيه عند الاكتمال",
+  "ratio" : "النسبة",
+  "initialVal" : "القيمة الابتدائية",
+  "requiredVal" : "القيمة المطلوبة",
+
   "withdraw" : "سحب"
 }

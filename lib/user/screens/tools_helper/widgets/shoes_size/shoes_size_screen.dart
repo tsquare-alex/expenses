@@ -21,7 +21,7 @@ class ShoesSizeScreen extends StatelessWidget {
           children: [
             Image.asset(Res.womenShoes),
             const SizedBox(height: 15,),
-            Image.asset(Res.menShoes),
+            Image.asset(Res.men_shoes),
           ],
         ),
       ),

@@ -5,6 +5,8 @@ class TransactionDetailsData {
 
   GenericBloc<bool> iterateCubit = GenericBloc(false);
   GenericBloc<bool> notifyCubit = GenericBloc(false);
+  GenericBloc<bool> ratioCubit = GenericBloc(false);
+  GenericBloc<bool> remainderCubit = GenericBloc(false);
 
   final GlobalKey<DropdownSearchState> commitmentDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> commitmentContentDropKey = GlobalKey();
@@ -13,11 +15,14 @@ class TransactionDetailsData {
   final GlobalKey<DropdownSearchState> iterateTransactionDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> walletDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> budgetDropKey = GlobalKey();
+  final GlobalKey<DropdownSearchState> ratioDropKey = GlobalKey();
 
   TextEditingController transactionTypeController = TextEditingController();
   TextEditingController transactionContentController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   TextEditingController totalController = TextEditingController();
+  TextEditingController initialValueController = TextEditingController();
+  TextEditingController requiredValueController = TextEditingController();
   TextEditingController walletController = TextEditingController();
   TextEditingController partyController = TextEditingController();
   TextEditingController transactionDateController = TextEditingController();
@@ -25,11 +30,12 @@ class TransactionDetailsData {
   TextEditingController brandNameController = TextEditingController();
   TextEditingController startDateController = TextEditingController();
   TextEditingController endDateController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
   fetchData(AddTransactionModel model,BuildContext context) {
     // var text = tr(context, model.transactionType!.name!).isNotEmpty?tr(context, model.transactionType?.name??""):model.transactionType?.name??"";
 
-    transactionTypeController.text = model.transactionType!.name??"";
+    transactionTypeController.text = model.transactionType?.name??"";
         // "${model.transactionName == "الالتزامات" || model.transactionName == "التسوق والشراء" ? model.transactionType?.name??"" : model.transactionName == "الاهداف المالية المستهدفة" ? model.targetType?.name : model.transactionName == "المعاملات النقدية" ? model.cashTransactionType?.name : ""}";
     transactionContentController.text = model.transactionContent?.name ?? "";
     totalController.text = model.total.toString();
@@ -42,20 +48,38 @@ class TransactionDetailsData {
     brandNameController.text = model.brandName ?? "";
     startDateController.text = model.startDate ?? "";
     endDateController.text = model.endDate ?? "";
+    initialValueController.text = "${model.initialValue??""}";
+    requiredValueController.text = "${model.requiredValue??""}";
+    descriptionController.text = model.description??"";
   }
 
   int? unitId;
   int? priorityId;
+  int? ratioId;
   int? iterateTransactionId;
   DropdownModel? selectedUnit;
   DropdownModel? selectedPriority;
   DropdownModel? selectedIterateTransaction;
+  DropdownModel? selectedRatio;
 
 
   List<DropdownModel> priorities = [
     DropdownModel(id: 0, name: "necessary"),
     DropdownModel(id: 1, name: "important"),
     DropdownModel(id: 2, name: "normal"),
+  ];
+
+  List<DropdownModel> ratio = [
+    DropdownModel(id: 0, name: "10 %"),
+    DropdownModel(id: 1, name: "20 %"),
+    DropdownModel(id: 2, name: "30 %"),
+    DropdownModel(id: 2, name: "40 %"),
+    DropdownModel(id: 2, name: "50 %"),
+    DropdownModel(id: 2, name: "60 %"),
+    DropdownModel(id: 2, name: "70 %"),
+    DropdownModel(id: 2, name: "80 %"),
+    DropdownModel(id: 2, name: "90 %"),
+    DropdownModel(id: 2, name: "100 %"),
   ];
 
   List<DropdownModel> units = [
@@ -97,9 +121,18 @@ class TransactionDetailsData {
     return priorities;
   }
 
+  Future<List<DropdownModel>> getRatio(BuildContext context) async {
+    return ratio;
+  }
+
   void setSelectPriority(DropdownModel? model) {
     selectedPriority = model;
     priorityId = model?.id;
+  }
+
+  void setSelectRatio(DropdownModel? model) {
+    selectedRatio = model;
+    ratioId = model?.id;
   }
 
   void setSelectUnit(DropdownModel? model) {
@@ -298,6 +331,12 @@ class TransactionDetailsData {
         startDate: startDateController.text,
         endDate: endDateController.text,
         time: timeController.text,
+        image: model.image,
+        initialValue: double.parse(initialValueController.text),
+        requiredValue: double.parse(requiredValueController.text),
+        priority: selectedPriority,
+        completedNotify: ratioCubit.state.data,
+        putReminderInWallet: remainderCubit.state.data,
         transactionDate: transactionDateController.text,
         repeated: iterateCubit.state.data != false
             ? selectedIterateTransaction ?? model.repeated

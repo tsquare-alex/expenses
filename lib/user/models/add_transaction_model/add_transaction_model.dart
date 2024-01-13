@@ -54,11 +54,19 @@ class AddTransactionModel extends HiveObject{
   TransactionTypeModel? targetType;
   @HiveField(20)
   BudgetModel? budget;
+  @HiveField(21)
+  double? requiredValue;
+  @HiveField(22)
+  double? initialValue;
+  @HiveField(23)
+  bool? completedNotify;
+  @HiveField(24)
+  bool? putReminderInWallet;
+  @HiveField(25)
+  DropdownModel? ratio;
+  @HiveField(26)
+  String? description;
 
-
-
-
-
-  AddTransactionModel({this.transactionName,this.transactionType,this.image,this.database,this.unit,this.total,this.amount,this.time,this.brandName,this.endDate,this.incomeSource,this.notify,this.priority,this.repeated,this.startDate,this.targetValue,this.transactionContent,this.transactionDate,this.targetType,this.cashTransactionType,this.budget});
+  AddTransactionModel({this.transactionName,this.transactionType,this.image,this.database,this.unit,this.total,this.amount,this.time,this.brandName,this.endDate,this.incomeSource,this.notify,this.priority,this.repeated,this.startDate,this.targetValue,this.transactionContent,this.transactionDate,this.targetType,this.cashTransactionType,this.budget,this.initialValue,this.requiredValue,this.completedNotify,this.putReminderInWallet,this.ratio,this.description});
 
 }

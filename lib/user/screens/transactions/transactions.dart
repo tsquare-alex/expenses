@@ -64,14 +64,9 @@ class _TransactionsState extends State<Transactions> {
             ),
             actions: [
               Container(
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: MyColors.white
-                ),
-                width: 35.w,
                 margin: EdgeInsets.only(left: 15.r),
                 child: IconButton(
-                  onPressed: () =>AutoRouter.of(context).push(HomeRoute(index: 0,pageIndex: 12)),
+                  onPressed: () =>AutoRouter.of(context).push(const RepeatedTransactionsRoute()),
                   icon: Image.asset(
                     Res.repeated,
                     width: 35.w,

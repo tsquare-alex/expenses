@@ -6,7 +6,9 @@ class AddTransactionData {
   final GlobalKey<FormState> formKey2 = GlobalKey();
   GenericBloc<bool> contentCubit = GenericBloc(false);
   GenericBloc<bool> iterateCubit = GenericBloc(false);
+  GenericBloc<bool> ratioCubit = GenericBloc(false);
   GenericBloc<bool> notifyCubit = GenericBloc(false);
+  GenericBloc<bool> remainderCubit = GenericBloc(false);
   final GenericBloc<Uint8List?> imageBloc = GenericBloc(null);
   final GenericBloc<TransactionTypeModel?> typeCubit = GenericBloc(null);
   final GenericBloc<List<TransactionContentModel>?> typeContentCubit =
@@ -24,6 +26,7 @@ class AddTransactionData {
   final GlobalKey<DropdownSearchState> priorityDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> shoppingPartyDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> iterateTransactionDropKey = GlobalKey();
+  final GlobalKey<DropdownSearchState> ratioDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> targetDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> cashTransactionDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> transferDropKey = GlobalKey();
@@ -44,7 +47,10 @@ class AddTransactionData {
   TextEditingController contentController = TextEditingController();
   TextEditingController newContentController = TextEditingController();
   TextEditingController targetController = TextEditingController();
+  TextEditingController initialValueController = TextEditingController();
+  TextEditingController requiredValueController = TextEditingController();
   TextEditingController transferController = TextEditingController();
+  TextEditingController addNoteController = TextEditingController();
   TextEditingController initValueController = TextEditingController();
 
   void onSelectTime(
@@ -375,6 +381,7 @@ class AddTransactionData {
   int? commitmentPartyId;
   int? shoppingPartyId;
   int? priorityId;
+  int? ratioId;
   int? targetId;
   int? cashTransactionId;
   int? transferId;
@@ -382,6 +389,7 @@ class AddTransactionData {
   DropdownModel? selectedCommitmentParty;
   DropdownModel? selectedShoppingParty;
   DropdownModel? selectedPriority;
+  DropdownModel? selectedRatio;
   DropdownModel? selectedIterateTransaction;
   DropdownModel? selectedTarget;
   DropdownModel? selectedCashTransaction;
@@ -391,6 +399,19 @@ class AddTransactionData {
     DropdownModel(id: 0, name: "necessary"),
     DropdownModel(id: 1, name: "important"),
     DropdownModel(id: 2, name: "normal"),
+  ];
+
+  List<DropdownModel> ratio = [
+    DropdownModel(id: 0, name: "10 %"),
+    DropdownModel(id: 1, name: "20 %"),
+    DropdownModel(id: 2, name: "30 %"),
+    DropdownModel(id: 2, name: "40 %"),
+    DropdownModel(id: 2, name: "50 %"),
+    DropdownModel(id: 2, name: "60 %"),
+    DropdownModel(id: 2, name: "70 %"),
+    DropdownModel(id: 2, name: "80 %"),
+    DropdownModel(id: 2, name: "90 %"),
+    DropdownModel(id: 2, name: "100 %"),
   ];
 
   List<DropdownModel> units = [
@@ -422,6 +443,10 @@ class AddTransactionData {
     return priorities;
   }
 
+  Future<List<DropdownModel>> getRatio(BuildContext context) async {
+    return ratio;
+  }
+
 
   Future<List<DropdownModel>> getIterateTransaction(
       BuildContext context) async {
@@ -450,6 +475,11 @@ class AddTransactionData {
   void setSelectPriority(DropdownModel? model) {
     selectedPriority = model;
     priorityId = model?.id;
+  }
+
+  void setSelectRatio(DropdownModel? model) {
+    selectedRatio = model;
+    ratioId = model?.id;
   }
 
   void setSelectCommitmentParty(DropdownModel? model) {
@@ -560,12 +590,13 @@ class AddTransactionData {
             database: selectedDatabaseModel,
             budget: selectedBudget,
             priority: selectedPriority,
+            image: imageBloc.state.data,
             time: timeController.text,
+            description: addNoteController.text,
             transactionDate: dateController.text,
             repeated: iterateCubit.state.data != false
                 ? selectedIterateTransaction
                 : null,
-            notify: notifyCubit.state.data,
           );
           var total = double.parse(totalController.text);
           if (total <= selectedWalletModel!.balance) {
@@ -606,6 +637,7 @@ class AddTransactionData {
             unit: selectedUnit,
             amount: amountController.text.isNotEmpty?amountController.text:"1",
             total: totalController.text,
+            description: addNoteController.text,
             brandName: brandController.text,
             priority: selectedPriority,
             time: timeController.text,
@@ -614,7 +646,6 @@ class AddTransactionData {
             repeated: iterateCubit.state.data != false
                 ? selectedIterateTransaction
                 : null,
-            notify: notifyCubit.state.data,
           );
           var total = double.parse(totalController.text);
           if (total <= selectedWalletModel!.balance) {
@@ -650,17 +681,25 @@ class AddTransactionData {
             transactionName: "الاهداف المالية المستهدفة",
             transactionType: transactionType,
             total: targetController.text,
+            description: addNoteController.text,
             incomeSource: selectedWalletModel,
             targetValue: targetController.text,
             startDate: startDateController.text,
             budget: selectedBudget,
             endDate: endDateController.text,
             time: timeController.text,
+            image: imageBloc.state.data,
             transactionDate: dateController.text,
+            ratio: ratioCubit.state.data != false
+                ? selectedRatio
+                : null,
             repeated: iterateCubit.state.data != false
                 ? selectedIterateTransaction
                 : null,
+            initialValue: double.parse(initialValueController.text),
+            requiredValue: double.parse(requiredValueController.text),
             notify: notifyCubit.state.data,
+            putReminderInWallet: remainderCubit.state.data,
           );
           var total = double.parse(targetController.text);
           if (total <= selectedWalletModel!.balance) {
@@ -697,14 +736,15 @@ class AddTransactionData {
             incomeSource: selectedWalletModel,
             database: selectedDatabaseModel,
             priority: selectedPriority,
+            description: addNoteController.text,
             total: transferController.text,
             time: timeController.text,
             transactionDate: dateController.text,
+            image: imageBloc.state.data,
             budget: selectedBudget,
             repeated: iterateCubit.state.data != false
                 ? selectedIterateTransaction
                 : null,
-            notify: notifyCubit.state.data,
           );
           var total = double.parse(transferController.text);
           if (total <= selectedWalletModel!.balance) {

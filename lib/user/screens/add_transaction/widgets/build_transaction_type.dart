@@ -27,11 +27,19 @@ class BuildTransactionType extends StatelessWidget {
                   Theme.of(context).copyWith(dividerColor: Colors.transparent),
               child: ExpansionTile(
                 childrenPadding: EdgeInsets.all(10.r),
-                title: MyText(
-                  title: tr(context, "transaction"),
-                  color: MyColors.black,
-                  size: 14.sp,
-                  fontWeight: FontWeight.bold,
+                title: Row(
+                  children: [
+                    Image.asset(Res.transactions,width: 30.w,height: 30.h,),
+                    SizedBox(
+                      width: 15.w,
+                    ),
+                    MyText(
+                      title: tr(context, "transaction"),
+                      color: MyColors.black,
+                      size: 14.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ],
                 ),
                 children: [
                   BlocBuilder<GenericBloc<List<TransactionContentModel>?>,

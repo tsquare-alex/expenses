@@ -9,7 +9,7 @@ class BuildTransactionDate extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5.r),
       decoration: BoxDecoration(
-        color: MyColors.backgroundColor,
+        color: MyColors.white,
         borderRadius: BorderRadius.circular(15.r),
       ),
       child: Form(
@@ -18,7 +18,10 @@ class BuildTransactionDate extends StatelessWidget {
           children: [
             Column(
               children: [
-                Icon(Icons.date_range,color: MyColors.primary,),
+                Image.asset(Res.dateTime,width: 30.w,height: 30.h,),
+                SizedBox(
+                  height: 5.h,
+                ),
                 MyText(
                   title: tr(context, "transactionDate"),
                   color: MyColors.black,

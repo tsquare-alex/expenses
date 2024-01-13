@@ -15,12 +15,15 @@ class _TransactionDetailsState extends State<TransactionDetails> {
   @override
   void initState() {
     data.fetchData(widget.model,context);
-    data.iterateCubit.onUpdateData(widget.model.repeated!=null?true:false);
-    data.notifyCubit.onUpdateData(widget.model.notify??false);
+    data.notifyCubit.onUpdateData(widget.model.notify!);
+    data.ratioCubit.onUpdateData(widget.model.ratio!=null?true:false);
+    data.remainderCubit.onUpdateData(widget.model.putReminderInWallet!);
     data.selectedIterateTransaction= widget.model.repeated;
     data.selectedUnit= widget.model.unit;
     data.selectedWalletModel= widget.model.incomeSource;
     data.selectedBudget= widget.model.budget;
+    data.selectedRatio= widget.model.ratio;
+    data.selectedPriority= widget.model.priority;
     super.initState();
   }
 
@@ -70,6 +73,8 @@ class _TransactionDetailsState extends State<TransactionDetails> {
     data.transactionDateController.dispose();
     data.timeController.dispose();
     data.brandNameController.dispose();
+    data.initialValueController.dispose();
+    data.requiredValueController.dispose();
 
     super.dispose();
   }

@@ -126,13 +126,13 @@ class _DropdownTextFieldState<DataType> extends State<DropdownTextField> {
           child: Center(
             child: MyText(
               title: widget.label != null ? widget.label??"" : widget.hint??"",
-              size: 16,
+              size: 16.sp,
               color: Colors.white,
             ),
           ),
         ),
         dropdownSearchDecoration: InputDecoration(
-          label: MyText(title: "${widget.label}", color: MyColors.txtColor, size: 13.sp),
+          label: MyText(title: "${widget.label}", color: MyColors.grey, size: 14.sp,fontWeight: FontWeight.bold,),
           hintText: widget.hint,
           fillColor: widget.fillColor,
           enabledBorder: OutlineInputBorder(

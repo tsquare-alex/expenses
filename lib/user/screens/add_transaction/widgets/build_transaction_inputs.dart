@@ -16,17 +16,10 @@ class BuildTransactionInputs extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  backgroundColor: context.watch<AppThemeCubit>().isDarkMode
-                      ? AppDarkColors.primary
-                      : MyColors.primary,
-                  radius: 25.r,
-                  child: Image.asset(
-                    Res.wallet,
-                    width: 25.w,
-                    height: 25.w,
-                    color: MyColors.white,
-                  ),
+                Image.asset(
+                  Res.walletImage,
+                  width: 35.w,
+                  height: 35.h,
                 ),
                 SizedBox(
                   width: 10.h,
@@ -48,7 +41,7 @@ class BuildTransactionInputs extends StatelessWidget {
                     ),
                     useName: true,
                     buttonsColor: MyColors.primary,
-                    searchHint:tr(context, "search"),
+                    searchHint: tr(context, "search"),
                   ),
                 )
               ],
@@ -77,6 +70,76 @@ class BuildTransactionInputs extends StatelessWidget {
                           contentPadding:
                               const EdgeInsets.symmetric(horizontal: 16),
                           controller: addTransactionData.targetController,
+                          fieldTypes: FieldTypes.normal,
+                          type: TextInputType.number,
+                          action: TextInputAction.next,
+                          validate: (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter the target';
+                            }
+                          },
+                          label: tr(context, "value"),
+                          margin: const EdgeInsets.only(top: 0),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 15.h,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      MyText(
+                        title: tr(context, "initialVal"),
+                        color: MyColors.black,
+                        size: 14.sp,
+                        fontWeight: FontWeight.bold,
+                        alien: TextAlign.center,
+                      ),
+                      SizedBox(
+                        width: 85.w,
+                      ),
+                      Expanded(
+                        child: GenericTextField(
+                          contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 16),
+                          controller: addTransactionData.initialValueController,
+                          fieldTypes: FieldTypes.normal,
+                          type: TextInputType.number,
+                          action: TextInputAction.next,
+                          validate: (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter the target';
+                            }
+                          },
+                          label: tr(context, "value"),
+                          margin: const EdgeInsets.only(top: 0),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 15.h,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      MyText(
+                        title: tr(context, "requiredVal"),
+                        color: MyColors.black,
+                        size: 14.sp,
+                        fontWeight: FontWeight.bold,
+                        alien: TextAlign.center,
+                      ),
+                      SizedBox(
+                        width: 85.w,
+                      ),
+                      Expanded(
+                        child: GenericTextField(
+                          contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 16),
+                          controller: addTransactionData.requiredValueController,
                           fieldTypes: FieldTypes.normal,
                           type: TextInputType.number,
                           action: TextInputAction.next,
@@ -185,9 +248,8 @@ class BuildTransactionInputs extends StatelessWidget {
                           ),
                           hasLocalization: true,
                           useName: true,
-
                           buttonsColor: MyColors.primary,
-                          searchHint:tr(context, "search"),
+                          searchHint: tr(context, "search"),
                         ),
                       )
                     ],
@@ -227,45 +289,46 @@ class BuildTransactionInputs extends StatelessWidget {
                   ),
                 ],
               ),
-            if (type=="الالتزامات"||type == "التسوق والشراء")Column(
-              children: [
-                SizedBox(
-                  height: 10.h,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    MyText(
-                      title: tr(context, "total"),
-                      color: MyColors.black,
-                      size: 14.sp,
-                      fontWeight: FontWeight.bold,
-                      alien: TextAlign.center,
-                    ),
-                    SizedBox(
-                      width: 34.w,
-                    ),
-                    Expanded(
-                      child: GenericTextField(
-                        contentPadding:
-                        const EdgeInsets.symmetric(horizontal: 16),
-                        controller: addTransactionData.totalController,
-                        fieldTypes: FieldTypes.normal,
-                        type: TextInputType.number,
-                        action: TextInputAction.next,
-                        validate: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter total price';
-                          }
-                        },
-                        label: tr(context, "total"),
-                        margin: const EdgeInsets.only(top: 0),
+            if (type == "الالتزامات" || type == "التسوق والشراء")
+              Column(
+                children: [
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      MyText(
+                        title: tr(context, "total"),
+                        color: MyColors.black,
+                        size: 14.sp,
+                        fontWeight: FontWeight.bold,
+                        alien: TextAlign.center,
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                      SizedBox(
+                        width: 34.w,
+                      ),
+                      Expanded(
+                        child: GenericTextField(
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 16),
+                          controller: addTransactionData.totalController,
+                          fieldTypes: FieldTypes.normal,
+                          type: TextInputType.number,
+                          action: TextInputAction.next,
+                          validate: (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter total price';
+                            }
+                          },
+                          label: tr(context, "total"),
+                          margin: const EdgeInsets.only(top: 0),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             if (type == "المعاملات النقدية")
               Row(
                 children: [
@@ -365,42 +428,11 @@ class BuildTransactionInputs extends StatelessWidget {
                       ),
                       useName: true,
                       buttonsColor: MyColors.primary,
-                      searchHint:tr(context, "search"),
+                      searchHint: tr(context, "search"),
                     ),
                   )
                 ],
               ),
-            Row(
-              children: [
-                MyText(
-                  title: tr(context, "selectedBudget"),
-                  color: MyColors.black,
-                  size: 14.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-                SizedBox(
-                  width: 10.h,
-                ),
-                Expanded(
-                  child: DropdownTextField<BudgetModel>(
-                    dropKey: addTransactionData.budgetDropKey,
-                    label: tr(context, "budgetName"),
-                    selectedItem: addTransactionData.selectedBudget,
-                    margin: const EdgeInsets.symmetric(vertical: 5),
-                    validate: (value) {
-                      return null;
-                    },
-                    onChange: addTransactionData.setSelectBudgetModel,
-                    finData: (data) => addTransactionData.getBudgetData(
-                      context,
-                    ),
-                    useName: true,
-                    buttonsColor: MyColors.primary,
-                    searchHint:tr(context, "search"),
-                  ),
-                )
-              ],
-            ),
             if (type == "المعاملات النقدية")
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -430,46 +462,118 @@ class BuildTransactionInputs extends StatelessWidget {
                     ),
                     useName: true,
                     buttonsColor: MyColors.primary,
-                    searchHint:tr(context, "search"),
+                    searchHint: tr(context, "search"),
                   )
                 ],
               ),
-            if (type != "الاهداف المالية المستهدفة")
-              Row(
+            Row(
+              children: [
+                MyText(
+                  title: tr(context, "priorityRatio"),
+                  color: MyColors.black,
+                  size: 14.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+                SizedBox(
+                  width: 10.h,
+                ),
+                Expanded(
+                  child: DropdownTextField<DropdownModel>(
+                    dropKey: addTransactionData.priorityDropKey,
+                    label: tr(context, "priority"),
+                    selectedItem: addTransactionData.selectedPriority,
+                    margin: const EdgeInsets.symmetric(vertical: 5),
+                    validate: (value) {
+                      if (value == null) {
+                        print("Please fill this field");
+                        return ("Please fill this field");
+                      }
+                    },
+                    onChange: addTransactionData.setSelectPriority,
+                    finData: (data) => addTransactionData.getPriority(
+                      context,
+                    ),
+                    useName: true,
+                    hasLocalization: true,
+                    buttonsColor: MyColors.primary,
+                    searchHint: tr(context, "search"),
+                  ),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                MyText(
+                  title: tr(context, "addNote"),
+                  color: MyColors.black,
+                  size: 14.sp,
+                  fontWeight: FontWeight.bold,
+                  alien: TextAlign.center,
+                ),
+                SizedBox(
+                  width: 34.w,
+                ),
+                Expanded(
+                  child: GenericTextField(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                    controller: addTransactionData.addNoteController,
+                    fieldTypes: FieldTypes.chat,
+                    type: TextInputType.text,
+                    action: TextInputAction.next,
+                    validate: (value) {
+                      if (value!.isEmpty) {
+                        return 'Enter the transfer value';
+                      }
+                    },
+                    hint: tr(context, "notes"),
+                    margin: EdgeInsets.symmetric(vertical: 10.r),
+                  ),
+                ),
+              ],
+            ),
+            if(type == "الاهداف المالية المستهدفة")Padding(
+              padding: EdgeInsets.only(top: 10.0.r),
+              child: Row(
                 children: [
                   MyText(
-                    title: tr(context, "priorityRatio"),
+                    title: tr(context, "financeRate"),
                     color: MyColors.black,
                     size: 14.sp,
                     fontWeight: FontWeight.bold,
+                    alien: TextAlign.center,
                   ),
                   SizedBox(
-                    width: 10.h,
+                    width: 15.w,
                   ),
                   Expanded(
                     child: DropdownTextField<DropdownModel>(
-                      dropKey: addTransactionData.priorityDropKey,
-                      label: tr(context, "priority"),
-                      selectedItem: addTransactionData.selectedPriority,
-                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      dropKey: addTransactionData
+                          .iterateTransactionDropKey,
+                      label: tr(context, "timing"),
+                      selectedItem: addTransactionData
+                          .selectedIterateTransaction,
+                      margin:
+                      const EdgeInsets.symmetric(vertical: 5),
                       validate: (value) {
                         if (value == null) {
                           print("Please fill this field");
-                          return ("Please fill this field");
                         }
                       },
-                      onChange: addTransactionData.setSelectPriority,
-                      finData: (data) => addTransactionData.getPriority(
-                        context,
-                      ),
+                      onChange: addTransactionData
+                          .setSelectIterateTransaction,
+                      finData: (data) =>
+                          addTransactionData
+                              .getIterateTransaction(context),
                       useName: true,
                       hasLocalization: true,
                       buttonsColor: MyColors.primary,
-                      searchHint:tr(context, "search"),
+                      searchHint: tr(context, "search"),
                     ),
-                  )
+                  ),
                 ],
               ),
+            ),
+
           ],
         ),
       ),

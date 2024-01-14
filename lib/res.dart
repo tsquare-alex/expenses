@@ -104,4 +104,7 @@ class Res {
   static const String balanceTransfare = "assets/images/balance_transfare.png";
   static const String showTransaction = "assets/images/show_transactions.png";
   static const String edit = "assets/images/edit.png";
+  static const String camera = "assets/images/camera.png";
+  static const String image = "assets/images/image.png";
+  static const String qrcode = "assets/images/qrcode.png";
 }

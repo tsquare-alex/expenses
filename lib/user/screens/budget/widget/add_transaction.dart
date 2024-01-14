@@ -24,11 +24,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
   bool favorite = false;
   bool notificationSwitchvalu = false;
 
-  TextEditingController rangeDateController = TextEditingController();
-
   var formKey = GlobalKey<FormState>();
   double parsedNumber = 0;
-  BudgetData data = BudgetData();
+  // BudgetData data = BudgetData();
   String? selectTransactionValue;
   String? selectWalletValue;
   DateTime? selectedDate;
@@ -36,8 +34,6 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
 
   @override
   Widget build(BuildContext context) {
-    ;
-
     return BlocProvider(
       create: (context) => BudgetCubit()..getBudgetData(context),
       child:
@@ -86,7 +82,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        border: Border.all(),
+                        border: Border.all(color: MyColors.greyWhite),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: ExpansionTile(
@@ -141,7 +137,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        border: Border.all(),
+                        border: Border.all(color: MyColors.greyWhite),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: ExpansionTile(
@@ -366,6 +362,61 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                             },
                             onChange: (value) {},
                           ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(12.r),
+                          height: 58.h,
+                          width: 328.w,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: MyColors.greyWhite,
+                              ),
+                              borderRadius: BorderRadius.circular(12.r)),
+                          child: Row(
+                            children: [
+                              Text(
+                                "إضافة صورة",
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: MyColors.black,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 120.w,
+                              ),
+                              Image.asset(Res.camera),
+                              SizedBox(
+                                width: 7.w,
+                              ),
+                              VerticalDivider(
+                                width: 45.h,
+                                color: MyColors.grey,
+                              ),
+                              Image.asset(Res.image),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          width: 12.w,
+                        ),
+                        Container(
+                          height: 57.h,
+                          width: 57.w,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: MyColors.greyWhite,
+                              ),
+                              borderRadius: BorderRadius.circular(12.r)),
+                          child: IconButton(
+                              onPressed: () {}, icon: Image.asset(Res.qrcode)),
                         ),
                       ],
                     ),

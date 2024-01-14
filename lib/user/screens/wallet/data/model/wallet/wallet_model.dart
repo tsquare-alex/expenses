@@ -35,6 +35,10 @@ class WalletModel extends HiveObject {
   String? paymentMethod;
   @HiveField(14)
   CategoryModel? model;
+  @HiveField(15)
+  bool? isFavorite;
+  @HiveField(16)
+  String? addNote;
 
   WalletModel({
     required this.name,
@@ -52,5 +56,7 @@ class WalletModel extends HiveObject {
     this.checkedValue = false,
     this.paymentMethod,
     this.model,
+    this.isFavorite = false,
+    this.addNote,
   });
 }

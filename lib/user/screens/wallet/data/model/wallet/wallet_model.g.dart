@@ -32,13 +32,15 @@ class WalletModelAdapter extends TypeAdapter<WalletModel> {
       checkedValue: fields[12] as bool?,
       paymentMethod: fields[13] as String?,
       model: fields[14] as CategoryModel?,
+      isFavorite: fields[15] as bool?,
+      addNote: fields[16] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, WalletModel obj) {
     writer
-      ..writeByte(15)
+      ..writeByte(17)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -68,7 +70,11 @@ class WalletModelAdapter extends TypeAdapter<WalletModel> {
       ..writeByte(13)
       ..write(obj.paymentMethod)
       ..writeByte(14)
-      ..write(obj.model);
+      ..write(obj.model)
+      ..writeByte(15)
+      ..write(obj.isFavorite)
+      ..writeByte(16)
+      ..write(obj.addNote);
   }
 
   @override

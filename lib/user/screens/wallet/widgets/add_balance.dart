@@ -34,6 +34,7 @@ class _AddBalanceState extends State<AddBalance> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         leading: IconButton(
           icon: Image.asset(Res.back),
           onPressed: () => AutoRouter.of(context).pop(),

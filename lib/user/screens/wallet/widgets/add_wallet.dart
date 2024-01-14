@@ -3,7 +3,6 @@ import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
-import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
@@ -49,6 +48,7 @@ class _AddWalletState extends State<AddWallet> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         leading: IconButton(
           icon: Image.asset(Res.back),
           onPressed: () => AutoRouter.of(context).pop(),
@@ -75,7 +75,7 @@ class _AddWalletState extends State<AddWallet> {
                     border: Border.all(
                       color: isFirstValidationError
                           ? Colors.red
-                          : Colors.grey.withOpacity(0.5),
+                          : MyColors.greyWhite,
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -141,16 +141,22 @@ class _AddWalletState extends State<AddWallet> {
                         fontWeight: FontWeight.w500,
                         title: "إضافة اخري",
                         onTap: () {
-                          if (selectedValue == null) {
-                            setState(() {
-                              isFirstValidationError = true;
-                            });
-                            CustomToast.showSimpleToast(msg: "اختر القيمة");
-                          } else {
-                            setState(() {
-                              isFirstValidationError = false;
-                            });
-                          }
+                          context.read<WalletCubit>().addEncomeSource(
+                              context,
+                              build,
+                              context
+                                  .read<WalletCubit>()
+                                  .encomSourceController);
+                          // if (selectedValue == null) {
+                          //   setState(() {
+                          //     isFirstValidationError = true;
+                          //   });
+                          //   CustomToast.showSimpleToast(msg: "اختر القيمة");
+                          // } else {
+                          //   setState(() {
+                          //     isFirstValidationError = false;
+                          //   });
+                          // }
                         },
                         height: 49.h,
                         width: 374.w,
@@ -167,6 +173,7 @@ class _AddWalletState extends State<AddWallet> {
                   fieldTypes: FieldTypes.normal,
                   type: TextInputType.text,
                   action: TextInputAction.next,
+                  focusBorderColor: MyColors.greyWhite,
                   validate: (text) {
                     if (text == null || text.isEmpty) {
                       return "رجاء إدخال اسم المحفظة ";
@@ -183,7 +190,7 @@ class _AddWalletState extends State<AddWallet> {
                     border: Border.all(
                       color: isSecondValidationError
                           ? Colors.red
-                          : Colors.grey.withOpacity(0.5),
+                          : MyColors.greyWhite,
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -249,16 +256,22 @@ class _AddWalletState extends State<AddWallet> {
                         fontWeight: FontWeight.w500,
                         title: "إضافة اخري",
                         onTap: () {
-                          if (selectedValue == null) {
-                            setState(() {
-                              isSecondValidationError = true;
-                            });
-                            CustomToast.showSimpleToast(msg: "اختر القيمة");
-                          } else {
-                            setState(() {
-                              isSecondValidationError = false;
-                            });
-                          }
+                          context.read<WalletCubit>().addValue(
+                              context,
+                              build,
+                              context
+                                  .read<WalletCubit>()
+                                  .valueCategoryController);
+                          // if (selectedValue == null) {
+                          //   setState(() {
+                          //     isSecondValidationError = true;
+                          //   });
+                          //   CustomToast.showSimpleToast(msg: "اختر القيمة");
+                          // } else {
+                          //   setState(() {
+                          //     isSecondValidationError = false;
+                          //   });
+                          // }
                         },
                         height: 49.h,
                         width: 374.w,
@@ -279,6 +292,7 @@ class _AddWalletState extends State<AddWallet> {
                         controller:
                             context.read<WalletCubit>().balanceController,
                         hint: "الرصيد",
+                        focusBorderColor: MyColors.greyWhite,
                         fieldTypes: FieldTypes.normal,
                         type: TextInputType.number,
                         action: TextInputAction.next,
@@ -319,9 +333,28 @@ class _AddWalletState extends State<AddWallet> {
                         })
                   ],
                 ),
-                SizedBox(
-                  height: 20.h,
-                ),
+                // SizedBox(
+                //   height: 20.h,
+                // ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     MyText(
+                //         title: "تحديد  المحفظة الافتراضية",
+                //         color: MyColors.black,
+                //         size: 14.sp),
+                //     Checkbox(
+                //         activeColor: MyColors.primary,
+                //         value: context.read<WalletCubit>().checkFavorite,
+                //         onChanged: (newValue) {
+                //           setState(() {
+                //             context.read<WalletCubit>().checkFavorite =
+                //                 newValue!;
+                //           });
+                //         })
+                //   ],
+                // ),
+                SizedBox(height: 20.h),
                 Column(
                   children: [
                     Row(
@@ -416,6 +449,97 @@ class _AddWalletState extends State<AddWallet> {
                               ),
                             )),
                       ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "إضافة ملاحظة",
+                      style: TextStyle(
+                        color: MyColors.black,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 12.w,
+                    ),
+                    SizedBox(
+                      width: 284.w,
+                      child: GenericTextField(
+                        controller: context.read<WalletCubit>().noteController,
+                        hint: "ملاحظاتك",
+                        maxLength: 9,
+                        fieldTypes: FieldTypes.normal,
+                        type: TextInputType.number,
+                        action: TextInputAction.next,
+                        validate: (text) {
+                          if (text == null || text.isEmpty) {
+                            return "رجاء ادخل ملاحظاتك";
+                          }
+                          return null;
+                        },
+                        onChange: (value) {},
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(12.r),
+                      height: 58.h,
+                      width: 328.w,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: MyColors.greyWhite,
+                          ),
+                          borderRadius: BorderRadius.circular(12.r)),
+                      child: Row(
+                        children: [
+                          Text(
+                            "إضافة صورة",
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                              color: MyColors.black,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 120.w,
+                          ),
+                          Image.asset(Res.camera),
+                          SizedBox(
+                            width: 7.w,
+                          ),
+                          VerticalDivider(
+                            width: 45.h,
+                            color: MyColors.grey,
+                          ),
+                          Image.asset(Res.image),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: 12.w,
+                    ),
+                    Container(
+                      height: 57.h,
+                      width: 57.w,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: MyColors.greyWhite,
+                          ),
+                          borderRadius: BorderRadius.circular(12.r)),
+                      child: IconButton(
+                          onPressed: () {}, icon: Image.asset(Res.qrcode)),
                     ),
                   ],
                 ),

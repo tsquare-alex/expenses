@@ -47,6 +47,7 @@ part of 'RouterImports.dart';
     AdaptiveRoute(page: TransactionType),
     AdaptiveRoute(page: WalletCategory),
     AdaptiveRoute(page: AuthenticationScreen),
+    AdaptiveRoute(page: EditBudget),
   ],
 )
 class $AppRouter {}

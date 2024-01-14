@@ -101,7 +101,7 @@ class _WalletBodyState extends State<WalletBody> {
             visible: wallet.isEmpty ? isHide = false : isHide = true,
             child: FloatingActionButton(
               onPressed: () {
-                AutoRouter.of(context).push(WalletCategoryRoute());
+                AutoRouter.of(context).push(const WalletCategoryRoute());
               },
               backgroundColor: MyColors.primary,
               child: Icon(

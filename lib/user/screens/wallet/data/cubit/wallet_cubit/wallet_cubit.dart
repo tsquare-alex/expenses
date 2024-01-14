@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/constants/constants.dart';
+import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
@@ -23,6 +24,7 @@ class WalletCubit extends Cubit<WalletState> {
   bool? isBalanceVisible = true;
   bool? isLocked = true;
   bool checkedValue = false;
+  bool checkFavorite = false;
   ValueNotifier<int> selectedCategoryIndex = ValueNotifier<int>(0);
   final TextEditingController walletNameController = TextEditingController();
   final TextEditingController balanceController = TextEditingController();
@@ -31,6 +33,7 @@ class WalletCubit extends Cubit<WalletState> {
   final TextEditingController valueCategoryController = TextEditingController();
   final TextEditingController encomSourceController = TextEditingController();
   final TextEditingController addCategoryController = TextEditingController();
+  final TextEditingController noteController = TextEditingController();
 
   List<String> valueCategory = [
     "تحويل بنكي",
@@ -427,95 +430,122 @@ class WalletCubit extends Cubit<WalletState> {
       builder: (buildContext) {
         return Padding(
           padding: EdgeInsets.all(12.h),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              TextFormField(
-                controller: controller,
-                keyboardType: TextInputType.text,
-                textAlign: TextAlign.right,
-                cursorColor: MyColors.primary,
-                decoration: InputDecoration(
-                  hintText: " ادخل القيمة",
-                  hintStyle: TextStyle(fontSize: 18.sp, color: MyColors.grey),
-                  focusColor: MyColors.primary,
+          child: SizedBox(
+            height: 200.h,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                GenericTextField(
+                    hint: "رجاء ادخل القيمة",
+                    controller: controller,
+                    fieldTypes: FieldTypes.normal,
+                    type: TextInputType.name,
+                    action: TextInputAction.next,
+                    validate: (text) {}),
+                SizedBox(height: 15.h),
+                DefaultButton(
+                  title: "اضافة",
+                  onTap: () async {
+                    emit(WalletInitial());
+                    if (controller.text.isNotEmpty) {
+                      final box = await Hive.openBox<CategoryModel>(
+                          "walletCategoryModel");
+                      final randomIndex =
+                          Random().nextInt(categoryModel.length);
+                      await box.add(CategoryModel(
+                        name: controller.text,
+                        imagePath: categoryModel[randomIndex].imagePath,
+                      ));
+                      emit(AddWalletSucess());
+                      getCategory();
+                      Navigator.of(context).pop();
+                    }
+                  },
                 ),
-              ),
-              SizedBox(height: 15.h),
-              DefaultButton(
-                title: "اضافة",
-                onTap: () async {
-                  emit(WalletInitial());
-                  if (controller.text.isNotEmpty) {
-                    final box = await Hive.openBox<CategoryModel>(
-                        "walletCategoryModel");
-                    final randomIndex = Random().nextInt(categoryModel.length);
-                    await box.add(CategoryModel(
-                      name: controller.text,
-                      imagePath: categoryModel[randomIndex].imagePath,
-                    ));
-                    emit(AddWalletSucess());
-                    getCategory();
-                    Navigator.of(context).pop();
-                  }
-                },
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
     );
   }
-  //   Future<void> addValueCategory(
-  //     context,
-  //     build,
-  //     TextEditingController controller,
-  //   ) async {
-  //     showModalBottomSheet(
-  //       isScrollControlled: false,
-  //       elevation: 0,
-  //       context: context,
-  //       builder: (buildContext) {
-  //         return Padding(
-  //           padding: EdgeInsets.all(12.h),
-  //           child: Column(
-  //             mainAxisAlignment: MainAxisAlignment.start,
-  //             children: [
-  //               TextFormField(
-  //                 controller: controller,
-  //                 keyboardType: TextInputType.text,
-  //                 textAlign: TextAlign.right,
-  //                 cursorColor: MyColors.primary,
-  //                 decoration: InputDecoration(
-  //                   hintText: " ادخل القيمة",
-  //                   hintStyle: TextStyle(fontSize: 18.sp, color: MyColors.grey),
-  //                   focusColor: MyColors.primary,
-  //                 ),
-  //               ),
-  //               SizedBox(height: 15.h),
-  //               DefaultButton(
-  //                 title: "اضافة",
-  //                 onTap: () async {
-  //                   emit(WalletInitial());
-  //                   if (controller.text.isNotEmpty) {
-  //                     final box = await Hive.openBox<CategoryModel>(
-  //                       "walletCategoryModel",
-  //                     );
-  //                     final randomIndex = Random().nextInt(categoryModel.length);
-  //                     await box.add(CategoryModel(
-  //                       name: controller.text,
-  //                       imagePath: categoryModel[randomIndex].imagePath,
-  //                     ));
-  //                     emit(AddWalletSucess());
-  //                     Navigator.of(context).pop();
-  //                   }
-  //                 },
-  //               ),
-  //             ],
-  //           ),
-  //         );
-  //       },
-  //     );
-  //   }
-  // }
+
+  addEncomeSource(context, build, TextEditingController controller) {
+    showModalBottomSheet(
+      isScrollControlled: false,
+      elevation: 0,
+      context: context,
+      builder: (buildContext) {
+        return Padding(
+          padding: EdgeInsets.all(12.h),
+          child: SizedBox(
+            height: 200.h,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                GenericTextField(
+                    hint: "رجاء ادخل القيمة",
+                    controller: controller,
+                    fieldTypes: FieldTypes.normal,
+                    type: TextInputType.name,
+                    action: TextInputAction.next,
+                    validate: (text) {}),
+                SizedBox(height: 16.h),
+                DefaultButton(
+                    title: "اضافة",
+                    onTap: () {
+                      emit(WalletInitial());
+                      if (controller.text.isNotEmpty) {
+                        encomeSource.add(controller.text);
+                        encomeSource.add(controller.text);
+                        emit(AddWalletSucess());
+                        Navigator.of(context).pop();
+                      }
+                    }),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  addValue(context, build, TextEditingController controller) {
+    showModalBottomSheet(
+      isScrollControlled: false,
+      elevation: 0,
+      context: context,
+      builder: (buildContext) {
+        return Padding(
+          padding: EdgeInsets.all(12.h),
+          child: SizedBox(
+            height: 200.h,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                GenericTextField(
+                    hint: "رجاء ادخل القيمة",
+                    controller: controller,
+                    fieldTypes: FieldTypes.normal,
+                    type: TextInputType.name,
+                    action: TextInputAction.next,
+                    validate: (text) {}),
+                SizedBox(height: 16.h),
+                DefaultButton(
+                    title: "اضافة",
+                    onTap: () {
+                      emit(WalletInitial());
+                      if (controller.text.isNotEmpty) {
+                        valueCategory.add(controller.text);
+                        emit(AddWalletSucess());
+                        Navigator.of(context).pop();
+                      }
+                    }),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }

@@ -9,7 +9,6 @@ class Commitments extends StatefulWidget {
 }
 
 class _CommitmentsState extends State<Commitments> {
-
   CommitmentsData data = CommitmentsData();
 
   @override
@@ -21,9 +20,10 @@ class _CommitmentsState extends State<Commitments> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GenericBloc<List<TransactionTypeModel>>, GenericState<List<TransactionTypeModel>>>(
-      bloc: data.transactionTypeCubit,
-      builder: (context, state) {
+    return BlocBuilder<GenericBloc<List<AddTransactionModel>>,
+        GenericState<List<AddTransactionModel>>>(
+      bloc: data.addTransactionCubit,
+      builder: (context, state1) {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
@@ -35,8 +35,8 @@ class _CommitmentsState extends State<Commitments> {
                 children: [
                   Image.asset(
                     Res.commitments,
-                    width: 24.w,
-                    height: 16.h,
+                    width: 30.w,
+                    height: 30.h,
                   ),
                   SizedBox(
                     width: 10.w,
@@ -44,7 +44,7 @@ class _CommitmentsState extends State<Commitments> {
                   MyText(
                     title: tr(context, "commitments"),
                     color: MyColors.black,
-                    size: 14.sp,
+                    size: 18.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ],
@@ -52,34 +52,55 @@ class _CommitmentsState extends State<Commitments> {
             ),
             leading: InkWell(
               onTap: () => AutoRouter.of(context).pop(),
-              child: Icon(Icons.arrow_back, color: MyColors.black,),
+              child: Icon(
+                Icons.arrow_back,
+                color: MyColors.black,
+              ),
             ),
             centerTitle: true,
           ),
-          floatingActionButton: state.data.isNotEmpty ? FloatingActionButton(
+          floatingActionButton: FloatingActionButton(
             backgroundColor: MyColors.primary,
             onPressed: () {
-              data.addTransactionModel(context);
+              if (state1.data.isEmpty) {
+                data.addTransactionModel(context);
+              } else {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => BuildCommitmentView(
+                          hasData: true,
+                          data: data,
+                          transactionModel: widget.model,
+                        )));
+              }
             },
             shape: const CircleBorder(),
-            child: Icon(Icons.add, color: MyColors.white,),
-          ) : null,
-          // body: state.data.isEmpty?AddTransaction(model: data.model):
-          // Padding(
-          //   padding: EdgeInsets.all(15.0.r),
-          //   child: ListView.builder(
-          //     physics: const BouncingScrollPhysics(),
-          //     shrinkWrap: true,
-          //     itemCount: state.data.length,
-          //     itemBuilder: (context, i) => BuildTransactionCard(
-          //       model: state.data[i], onDelete: () =>
-          //         data.deleteItem(state.data[i]),),
-          //   ),
-          // ),
-          body: Padding(
-            padding: EdgeInsets.all(15.r),
-            child: BuildCommitmentView(model: state.data,),
+            child: Icon(
+              Icons.add,
+              color: MyColors.white,
+            ),
           ),
+          body: state1.data.isEmpty
+              ? Padding(
+                  padding: EdgeInsets.all(15.r),
+                  child: BuildCommitmentView(
+                    hasData: false,
+                    data: data,
+                    transactionModel: widget.model,
+                  ),
+                )
+              : Padding(
+                  padding: EdgeInsets.all(15.0.r),
+                  child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: state1.data.length,
+                    itemBuilder: (context, i) => BuildCommitmentCard(
+                      model: state1.data[i],
+                      onDelete: () => data.deleteItem(state1.data[i]),
+                      data: data,
+                    ),
+                  ),
+                ),
         );
       },
     );

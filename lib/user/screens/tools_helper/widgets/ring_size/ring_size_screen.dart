@@ -16,7 +16,7 @@ class RingSizeScreen extends StatelessWidget {
         centerTitle: true,
         title: MyText(title: tr(context, "ringSize"), color: Colors.white, size: 15.sp,fontWeight: FontWeight.bold,),
       ),
-      body: Image.asset(Res.ringSize,fit: BoxFit.cover,),
+      body: Image.asset(Res.ring_size,fit: BoxFit.cover,),
     );
   }
 }

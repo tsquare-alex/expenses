@@ -40,6 +40,7 @@ class BuildAddCommitment extends StatelessWidget {
                data.addTransactionType(
                     TransactionTypeModel(
                         name: data.nameController.text,
+                        image: Res.commitments,
                         content: [
 
                         ]

@@ -24,7 +24,7 @@ class BuildTransactionTypeItem extends StatelessWidget {
 
           ),
           SizedBox(height: 15.h,),
-          MyText(title: name, color: MyColors.black, size: 14.sp,fontWeight: FontWeight.bold,alien: TextAlign.center,),
+          MyText(title: name, color: MyColors.black, size: 16.sp,fontWeight: FontWeight.bold,alien: TextAlign.center,),
 
         ],
       ),

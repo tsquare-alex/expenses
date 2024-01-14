@@ -25,8 +25,7 @@ class BuildDrawer extends StatelessWidget {
               CustomDrawerCard(
                 title: tr(context, "settings"),
                 onTap: () {
-                  Navigator.of(context).pop();
-                  homeTabCubit.onUpdateData(3);
+                  AutoRouter.of(context).push(HomeRoute(index: 0,pageIndex: 3,),);
                 },
                 image: Res.settings,
                 endDrawer: false,
@@ -34,8 +33,9 @@ class BuildDrawer extends StatelessWidget {
               CustomDrawerCard(
                 title: tr(context, "tools"),
                 onTap: () {
-                  Navigator.of(context).pop();
-                  homeTabCubit.onUpdateData(4);
+                  //Navigator.of(context).pop();
+                  AutoRouter.of(context).push(HomeRoute(index: 0,pageIndex: 4,),);
+                  //homeTabCubit.onUpdateData(4);
                 },
                 image: Res.tools,
                 endDrawer: false,
@@ -43,8 +43,7 @@ class BuildDrawer extends StatelessWidget {
               CustomDrawerCard(
                 title: tr(context, "database"),
                 onTap: () {
-                  Navigator.of(context).pop();
-                  homeTabCubit.onUpdateData(5);
+                  AutoRouter.of(context).push(HomeRoute(index: 0,pageIndex: 5,),);
                 },
                 image: Res.database,
                 endDrawer: false,
@@ -52,8 +51,7 @@ class BuildDrawer extends StatelessWidget {
               CustomDrawerCard(
                 title: tr(context, "help"),
                 onTap: () {
-                  Navigator.of(context).pop();
-                  homeTabCubit.onUpdateData(6);
+                  AutoRouter.of(context).push(HomeRoute(index: 0,pageIndex: 6,),);
                 },
                 image: Res.explain,
                 endDrawer: false,

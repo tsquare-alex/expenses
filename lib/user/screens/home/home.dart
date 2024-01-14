@@ -52,7 +52,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       const RepeatedTransactions(),
       Container(),
       Container(),
-      const Bag(),
+      const Cart(),
     ];
     return WillPopScope(
         onWillPop: () async {
@@ -71,13 +71,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           length: 15,
           initialIndex: widget.index,
           child: Scaffold(
-            drawer: BuildDrawer(
-              shareCubit: data.shareCubit,
-              homeTabCubit: data.homeTabCubit,
-            ),
-            endDrawer: BuildEndDrawer(
-              homeTabCubit: data.homeTabCubit,
-            ),
+
             body: BlocBuilder<GenericBloc<int>, GenericState<int>>(
               bloc: data.homeTabCubit,
               builder: (context, state) => screen[data.homeTabCubit.state.data],

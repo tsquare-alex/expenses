@@ -17,13 +17,13 @@ class ReportsBody extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 10.h),
+                SizedBox(height: 16.h),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.r),
+                  padding: EdgeInsets.symmetric(horizontal: 16.r),
                   child: Row(
                     children: [
                       Flexible(
-                        flex: 3,
+                        flex: 1,
                         child: FieldSection(
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
@@ -37,16 +37,16 @@ class ReportsBody extends StatelessWidget {
                                       .watch<ReportsCubit>()
                                       .selectedWallet,
                               hint: Text(
-                                tr(context, 'chooseWallet'),
+                                tr(context, 'chooseSource'),
                                 style: TextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
                                   color: Colors.grey,
                                 ),
                               ),
-                              icon: const Icon(
+                              icon: Icon(
                                 Icons.keyboard_arrow_down,
-                                color: Colors.grey,
+                                color: MyColors.primary,
                               ),
                               menuMaxHeight: 0.3.sh,
                               items: [
@@ -55,8 +55,8 @@ class ReportsBody extends StatelessWidget {
                                       child: Text(
                                         tr(context, 'allWallets'),
                                         style: TextStyle(
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w500,
                                           color: Colors.grey,
                                         ),
                                       ),
@@ -70,8 +70,8 @@ class ReportsBody extends StatelessWidget {
                                           child: Text(
                                             wallet.name,
                                             style: TextStyle(
-                                              fontSize: 12.sp,
-                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.w500,
                                               color: Colors.grey,
                                             ),
                                           ),
@@ -85,8 +85,9 @@ class ReportsBody extends StatelessWidget {
                           ),
                         ),
                       ),
+                      SizedBox(width: 13.r),
                       Flexible(
-                        flex: 4,
+                        flex: 1,
                         child: GestureDetector(
                           onTap: () async {
                             ReportsCubit.get(context).reportSelectedDate =
@@ -125,7 +126,6 @@ class ReportsBody extends StatelessWidget {
                             if (context.mounted) {
                               ReportsCubit.get(context).changeReportDateRange();
                             }
-                            print(ReportsCubit.get(context).reportSelectedDate);
                           },
                           child: FieldSection(
                             child: Row(
@@ -140,31 +140,90 @@ class ReportsBody extends StatelessWidget {
                                         ? tr(context, 'chooseDuration')
                                         : '${tr(context, 'from')} ${context.watch<ReportsCubit>().reportFormattedDateFrom} ${tr(context, 'to')} ${context.watch<ReportsCubit>().reportFormattedDateTo}',
                                     style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w500,
                                       color: Colors.grey,
                                     ),
                                   ),
                                 ),
-                                const Icon(
+                                Icon(
                                   Icons.keyboard_arrow_down,
-                                  color: Colors.grey,
+                                  color: MyColors.primary,
                                 ),
                               ],
                             ),
                           ),
                         ),
-                      ),
+                      )
                     ],
                   ),
                 ),
-                SizedBox(height: 20.h),
-                const CircularPercentage(),
-                SizedBox(height: 15.h),
-                const CircularDetailsRow(),
-                SizedBox(height: 20.h),
+                SizedBox(height: 16.h),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 18.r),
+                  padding: EdgeInsets.symmetric(horizontal: 16.r),
+                  child: FieldSection(
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        isExpanded: true,
+                        value:
+                            context.watch<ReportsCubit>().selectedWallet.isEmpty
+                                ? null
+                                : context.watch<ReportsCubit>().selectedWallet,
+                        hint: Text(
+                          tr(context, 'chooseTransactions'),
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        icon: Icon(
+                          Icons.keyboard_arrow_down,
+                          color: MyColors.primary,
+                        ),
+                        menuMaxHeight: 0.3.sh,
+                        items: [
+                              DropdownMenuItem(
+                                value: 'all',
+                                child: Text(
+                                  '',
+                                  // tr(context, 'allWallets'),
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              )
+                            ] +
+                            ReportsCubit.get(context)
+                                .wallets
+                                .map(
+                                  (wallet) => DropdownMenuItem(
+                                    value: wallet.name,
+                                    child: Text(
+                                      wallet.name,
+                                      style: TextStyle(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                        onChanged: (value) {
+                          ReportsCubit.get(context).changeWallet(value!);
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16.h),
+                const CircularPercentage(),
+                SizedBox(height: 32.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.r),
                   child: Row(
                     // mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -173,28 +232,26 @@ class ReportsBody extends StatelessWidget {
                         tr(context, 'transactionsHistory'),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 14.sp,
+                          fontSize: 16.sp,
                         ),
                       ),
-                      ElevatedButton(
+                      OutlinedButton(
                         onPressed: () =>
                             showReportOptionsModalSheet(context: context),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              context.watch<AppThemeCubit>().isDarkMode
-                                  ? AppDarkColors.primary
-                                  : MyColors.primary,
+                        style: OutlinedButton.styleFrom(
+                          fixedSize: const Size(149, 42),
                           elevation: 0,
-                          padding: EdgeInsets.symmetric(horizontal: 20.r),
+                          padding: EdgeInsets.symmetric(horizontal: 14.r),
+                          side: BorderSide(color: MyColors.primary),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.r),
+                            borderRadius: BorderRadius.circular(10.r),
                           ),
                         ),
                         child: Text(
                           tr(context, 'showDetails'),
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14.sp,
+                            color: MyColors.primary,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

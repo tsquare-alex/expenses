@@ -272,7 +272,12 @@
   "enterFingerPrint": "Or Enter Fingerprint",
   "setupSecurity": "Set Up Security",
   "securityMsg": "Please set up a password or biometrics on your device.",
-
+  "chooseTransaction": "Choose transaction",
+  "chooseTransactions": "Choose transactions",
+  "chooseSubTransaction": "Choose sub transaction",
+  "chooseSource": "Choose source",
+  "setPriority": "Set priority",
+  "show": "Show",
 
 
 

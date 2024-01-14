@@ -178,4 +178,15 @@ class Res {
   static const String womenShoes = "assets/images/womenShoes.png";
   static const String womenSize = "assets/images/womenSize.png";
   static const String workshop = "assets/images/workshop.png";
+  static const String auth = "assets/images/auth.png";
+  static const String countries = "assets/images/countries.png";
+  static const String currencies = "assets/images/currencies.png";
+  static const String darkMode = "assets/images/dark_mode.png";
+  static const String decimals= "assets/images/decimals.png";
+  static const String edit = "assets/images/edit.png";
+  static const String firstDayMonth = "assets/images/first_day_month.png";
+  static const String firstDayWeek = "assets/images/first_day_week.png";
+  static const String language = "assets/images/language.png";
+  static const String notifications = "assets/images/notifications.png";
+  static const String privacy = "assets/images/privacy.png";
 }

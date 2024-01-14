@@ -354,7 +354,7 @@
   "deleteData": "مسح البيانات",
   "resetSettings": "اعدادات إفتراضية",
   "egypt": "مصر",
-  "expense": "المصروفات",
+  "expense": "المصروف",
   "target": "الاهداف المالية المستهدفة",
   "cashTransactions": "المعاملات النقدية",
   "recurringTransactions": "المعاملات المتكررة",
@@ -451,7 +451,12 @@
   "enterFingerPrint": "او أدخل بصمة الإصبع",
   "setupSecurity": "إعداد الأمان",
   "securityMsg": "يرجى إعداد كلمة مرور أو القياسات الحيوية على جهازك.",
-
+  "chooseTransaction" : "إختيار المعاملة",
+  "chooseTransactions" : "إختيار المعاملات",
+  "chooseSubTransaction" : "إختيار المعاملة الفرعية",
+  "chooseSource" : "إختيار المصدر",
+  "setPriority" : "تحديد الأولوية",
+  "show" : "استعراض",
 
   "bills" : "فواتير",
   "electric" : "كهرباء",

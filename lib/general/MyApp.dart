@@ -32,6 +32,7 @@ class _MyAppState extends State<MyApp> {
           return ScreenUtilInit(
               minTextAdapt: true,
               splitScreenMode: true,
+              designSize: const Size(430, 932),
               builder: (BuildContext context, child) {
                 return MaterialApp.router(
                     debugShowCheckedModeBanner: false,
@@ -46,7 +47,6 @@ class _MyAppState extends State<MyApp> {
                     localizationsDelegates: const [
                       LocalizationHelper.localizationsDelegate,
                       CountryLocalizations.delegate,
-
                       GlobalMaterialLocalizations.delegate,
                       GlobalWidgetsLocalizations.delegate,
                       GlobalCupertinoLocalizations.delegate,

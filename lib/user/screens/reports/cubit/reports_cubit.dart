@@ -108,8 +108,8 @@ class ReportsCubit extends Cubit<ReportsState> {
       Localizations.localeOf(context).toString();
 
   Map<String, String> statsDetailsOptions = {
-    'table': 'استعراض في جدول',
-    'chart': 'استعراض في رسم بياني',
+    'table': 'استعرض في جدول',
+    'chart': 'استعرض في رسم بياني',
     'compare': 'المقارنة بين المعاملات',
   };
 

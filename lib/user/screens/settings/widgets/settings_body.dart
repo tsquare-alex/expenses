@@ -11,21 +11,116 @@ class SettingsBody extends StatelessWidget {
     final GoogleDriveClientRepository googleRepo =
         GoogleDriveClientRepository(GoogleDriveClient());
     return ListView(
-      padding: EdgeInsets.symmetric(vertical: 20.h),
+      padding: EdgeInsets.all(16.r),
       children: [
-        InkWell(
+        GestureDetector(
           onTap: () => data.languagePressed(context),
-          child: CustomTile(
+          child: SettingTile(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.r),
+              child: Row(
+                children: [
+                  Image.asset(
+                    Res.language,
+                    width: 24.w,
+                    height: 24.h,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
+                  ),
+                  SizedBox(width: 12.w),
+                  Text(
+                    tr(context, 'language'),
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const Spacer(),
+                  Icon(
+                    Icons.keyboard_arrow_down,
+                    color: MyColors.primary,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 20.h),
+        SettingTile(
+          doubleRow: true,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              TileRow(
-                icon: Res.lang,
-                title: tr(context, 'language'),
-                isTrailing: false,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.r),
+                child: Row(
+                  children: [
+                    Image.asset(
+                      Res.language,
+                      width: 24.w,
+                      height: 24.h,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? AppDarkColors.secondary
+                          : MyColors.primary,
+                    ),
+                    SizedBox(width: 12.w),
+                    Text(
+                      tr(context, 'language'),
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const Spacer(),
+                    Icon(
+                      Icons.keyboard_arrow_down,
+                      color: MyColors.primary,
+                    ),
+                  ],
+                ),
+              ),
+              Divider(
+                color: context.watch<AppThemeCubit>().isDarkMode
+                    ? AppDarkColors.accentColor
+                    : MyColors.black.withOpacity(0.05),
+                thickness: 2.5.r,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.r),
+                child: Row(
+                  children: [
+                    Image.asset(
+                      Res.language,
+                      width: 24.w,
+                      height: 24.h,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? AppDarkColors.secondary
+                          : MyColors.primary,
+                    ),
+                    SizedBox(width: 12.w),
+                    Text(
+                      tr(context, 'language'),
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const Spacer(),
+                    Icon(
+                      Icons.keyboard_arrow_down,
+                      color: MyColors.primary,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 20.h),
         CustomTile(
           children: [
             TileRow(
@@ -127,74 +222,87 @@ class SettingsBody extends StatelessWidget {
         SizedBox(height: 10.h),
         CustomTile(
           // height: 200,
-         children: [
-           Column(
-             children: [
-               // BlocBuilder<AuthenticationCubit, AuthenticationState>(
-               //   builder: (context, state) {
-               //     return SwitchListTile(
-               //       title: MyText(title: tr(context, "enableAuthentication"), color: MyColors.primary, size: 15.sp,fontWeight: FontWeight.bold,),
-               //       value: state.isAuthenticated,
-               //       onChanged: (value) async {
-               //         final authenticationCubit = context.read<AuthenticationCubit>();
-               //         if (value && authenticationCubit.isAuthenticationRequired()) {
-               //           // Show authentication dialog
-               //           bool authenticated = await authenticationCubit.showAuthenticationDialog(context);
-               //           // Only update the status if the authentication was successful
-               //           if (authenticated) {
-               //             authenticationCubit.emit(AuthenticationState(isAuthenticated: true));
-               //           }
-               //         } else {
-               //           // If authentication is not required or the user turns off the switch
-               //           if (!value) {
-               //             authenticationCubit.clearAuthenticationStatus();
-               //           }
-               //           authenticationCubit.emit(AuthenticationState(isAuthenticated: value));
-               //         }
-               //       },
-               //     );
-               //   },
-               // ),
-               BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                 builder: (context, state) {
-                   return SwitchListTile(
-                     title: MyText(title: tr(context, "enableAuthentication"), color: MyColors.primary, size: 15.sp, fontWeight: FontWeight.bold),
-                     value: state.isAuthenticated,
-                     onChanged: (value) async {
-                       final authenticationCubit = context.read<AuthenticationCubit>();
+          children: [
+            Column(
+              children: [
+                // BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                //   builder: (context, state) {
+                //     return SwitchListTile(
+                //       title: MyText(title: tr(context, "enableAuthentication"), color: MyColors.primary, size: 15.sp,fontWeight: FontWeight.bold,),
+                //       value: state.isAuthenticated,
+                //       onChanged: (value) async {
+                //         final authenticationCubit = context.read<AuthenticationCubit>();
+                //         if (value && authenticationCubit.isAuthenticationRequired()) {
+                //           // Show authentication dialog
+                //           bool authenticated = await authenticationCubit.showAuthenticationDialog(context);
+                //           // Only update the status if the authentication was successful
+                //           if (authenticated) {
+                //             authenticationCubit.emit(AuthenticationState(isAuthenticated: true));
+                //           }
+                //         } else {
+                //           // If authentication is not required or the user turns off the switch
+                //           if (!value) {
+                //             authenticationCubit.clearAuthenticationStatus();
+                //           }
+                //           authenticationCubit.emit(AuthenticationState(isAuthenticated: value));
+                //         }
+                //       },
+                //     );
+                //   },
+                // ),
+                BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                  builder: (context, state) {
+                    return SwitchListTile(
+                      title: MyText(
+                          title: tr(context, "enableAuthentication"),
+                          color: MyColors.primary,
+                          size: 15.sp,
+                          fontWeight: FontWeight.bold),
+                      value: state.isAuthenticated,
+                      onChanged: (value) async {
+                        final authenticationCubit =
+                            context.read<AuthenticationCubit>();
 
-                       // If the user is enabling authentication, save the status in Hive
-                       if (value) {
-                         // Show authentication dialog
-                         bool authenticated = await authenticationCubit.showAuthenticationDialog(context);
+                        // If the user is enabling authentication, save the status in Hive
+                        if (value) {
+                          // Show authentication dialog
+                          bool authenticated = await authenticationCubit
+                              .showAuthenticationDialog(context);
 
-                         // Only update the status if the authentication was successful
-                         if (authenticated) {
-                           await authenticationCubit.saveAuthenticationStatus(true);
-                           authenticationCubit.emit(AuthenticationState(isAuthenticated: true));
-                         }
-                       } else {
-                         // If the user is disabling authentication, clear the status in Hive
-                         authenticationCubit.clearAuthenticationStatus();
-                         authenticationCubit.emit(AuthenticationState(isAuthenticated: false));
-                       }
-                     },
+                          // Only update the status if the authentication was successful
+                          if (authenticated) {
+                            await authenticationCubit
+                                .saveAuthenticationStatus(true);
+                            authenticationCubit.emit(
+                                AuthenticationState(isAuthenticated: true));
+                          }
+                        } else {
+                          // If the user is disabling authentication, clear the status in Hive
+                          authenticationCubit.clearAuthenticationStatus();
+                          authenticationCubit.emit(
+                              AuthenticationState(isAuthenticated: false));
+                        }
+                      },
+                    );
+                  },
+                ),
 
-                   );
-                 },
-               ),
-
-               BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                 builder: (context, state) {
-                   return Visibility(
-                     visible: state.isAuthenticated,
-                     child:  MyText(title: tr(context, "authenticationIsEnabled"), color: MyColors.secondary, size: 15.sp,fontWeight: FontWeight.bold,),
-                   );
-                 },
-               ),
-             ],
-           ),
-         ],
+                BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                  builder: (context, state) {
+                    return Visibility(
+                      visible: state.isAuthenticated,
+                      child: MyText(
+                        title: tr(context, "authenticationIsEnabled"),
+                        color: MyColors.secondary,
+                        size: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ],
         ),
         SizedBox(height: 10.h),
         CustomTile(

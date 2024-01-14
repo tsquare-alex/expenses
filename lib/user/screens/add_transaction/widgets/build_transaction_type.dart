@@ -84,7 +84,7 @@ class BuildTransactionType extends StatelessWidget {
                                   groupValue: true,
                                   onChanged: (v) {
                                     addTransactionData.selectContent(
-                                        v!, model, index);
+                                        v!, model,state.data![index], index,type);
                                   }),
                             ],
                           );

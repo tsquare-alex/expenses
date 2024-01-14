@@ -52,7 +52,7 @@ class BuildTargetCard extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                   SizedBox(
-                    width: 5.w,
+                    height: 5.w,
                   ),
                   MyText(
                     title: "${model.endDate}",

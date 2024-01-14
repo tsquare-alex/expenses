@@ -138,7 +138,7 @@ class AddTransactionData {
       var transactionTypeList = box.values.cast<TransactionTypeModel>().toList();
       var targetModel = transactionTypeList.firstWhere((element) => element.key == model.key);
       typeContentCubit.onUpdateData(targetModel.content);
-      box.close();
+      //box.close();
     }else if(name == "التسوق والشراء"){
       box= await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
       var transactionTypeList = box.values.cast<TransactionTypeModel>().toList();
@@ -333,7 +333,7 @@ class AddTransactionData {
               topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r))),
       context: context,
       builder: (context) => SizedBox(
-          height: 300.h,
+          height: 500.h,
           child: BuildAddTransactionContent(
             data: this,
             type: type,
@@ -824,11 +824,15 @@ class AddTransactionData {
 
   TransactionContentModel? selectedContent;
 
-  selectContent(bool value, TransactionTypeModel model,int index) {
-    model.content?.map((e) => e.selected = false).toList();
-    model.content?[index].selected = !value;
-    selectedContent = model.content?[index];
-    typeContentCubit.onUpdateData(model.content);
+  selectContent(bool value, TransactionTypeModel model,TransactionContentModel contentModel,int index, String type) async{
+    final box = await Hive.openBox<TransactionTypeModel>("transactionBox");
+    int modelIndex =
+    box.values.toList().indexWhere((model) => model.key == model.key);
+    var transactionType = box.getAt(modelIndex);
+    transactionType?.content?.map((e) => e.selected = false).toList();
+    transactionType?.content?[index].selected = !value;
+    selectedContent = transactionType?.content?[index];
+    typeContentCubit.onUpdateData(transactionType?.content);
     print(selectedContent?.name);
   }
 }

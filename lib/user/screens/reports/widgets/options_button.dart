@@ -15,7 +15,7 @@ class OptionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40.h,
+      height: 57.h,
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
@@ -31,8 +31,9 @@ class OptionButton extends StatelessWidget {
         child: Text(
           label,
           style: TextStyle(
-            color: Colors.white,
-            fontSize: 14.sp,
+            color: MyColors.primary,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
@@ -44,17 +45,28 @@ Future<dynamic> showReportOptionsModalSheet({required BuildContext context}) {
   return showModalBottomSheet(
     context: context,
     isDismissible: true,
+    backgroundColor: MyColors.white,
     barrierColor: Colors.black.withOpacity(0.65),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(25.r),
-        topRight: Radius.circular(25.r),
+        topLeft: Radius.circular(20.r),
+        topRight: Radius.circular(20.r),
       ),
     ),
     builder: (_) {
       return Container(
-        padding: EdgeInsets.all(30.r),
-        height: 0.32.sh,
+        padding: EdgeInsets.symmetric(
+          vertical: 24.r,
+          horizontal: 16.r,
+        ),
+        height: 263.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.r),
+            topRight: Radius.circular(20.r),
+          ),
+          color: MyColors.white,
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -64,9 +76,10 @@ Future<dynamic> showReportOptionsModalSheet({required BuildContext context}) {
                 .map(
                   (entry) => OptionButton(
                     label: entry.value,
-                    color: context.watch<AppThemeCubit>().isDarkMode
-                        ? AppDarkColors.primary
-                        : MyColors.primary,
+                    color: Colors.grey.shade100,
+                    // color: context.watch<AppThemeCubit>().isDarkMode
+                    //     ? AppDarkColors.primary
+                    //     : MyColors.primary,
                     onPressed: () {
                       AutoRouter.of(context)
                           .push(StatisticsRoute(option: entry.key));

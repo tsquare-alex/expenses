@@ -12,53 +12,52 @@ class SaveAndShareButtons extends StatelessWidget {
           ? AppDarkColors.backgroundColor
           : MyColors.white,
       child: Padding(
-        padding: EdgeInsets.all(20.r),
+        padding: EdgeInsets.all(16.r),
         child: Row(
           children: [
-            Flexible(
-              child: ElevatedButton(
-                onPressed: () {
-                  CustomToast.showSimpleToast(msg: 'قيد التطوير حاليا');
-                },
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 45.h),
-                  backgroundColor: context.watch<AppThemeCubit>().isDarkMode
-                      ? AppDarkColors.primary
-                      : MyColors.primary,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.r),
-                  ),
-                ),
-                child: Text(
-                  tr(context, 'save'),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox.square(dimension: 10.r),
             ElevatedButton(
               onPressed: () {
                 CustomToast.showSimpleToast(msg: 'قيد التطوير حاليا');
               },
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(45.w, 45.h),
+                fixedSize: Size(318.w, 58.h),
                 backgroundColor: context.watch<AppThemeCubit>().isDarkMode
                     ? AppDarkColors.primary
                     : MyColors.primary,
                 elevation: 0,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.r),
+                  borderRadius: BorderRadius.circular(15.r),
+                ),
+              ),
+              child: Text(
+                tr(context, 'save'),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox.square(dimension: 16.r),
+            OutlinedButton(
+              onPressed: () {
+                CustomToast.showSimpleToast(msg: 'قيد التطوير حاليا');
+              },
+              style: OutlinedButton.styleFrom(
+                fixedSize: Size(64.w, 58.h),
+                // backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+                //     ? AppDarkColors.primary
+                //     : MyColors.primary,
+                elevation: 0,
+                side: BorderSide(color: MyColors.primary),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.r),
                 ),
               ),
               child: Icon(
                 Icons.share_outlined,
-                color: Colors.white,
-                size: 20.r,
+                color: MyColors.primary,
+                size: 24.r,
               ),
             ),
           ],

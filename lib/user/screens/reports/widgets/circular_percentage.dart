@@ -9,22 +9,22 @@ class CircularPercentage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircularPercentIndicator(
       animationDuration: 1000,
-      radius: 65.r,
-      lineWidth: 22.r,
+      radius: 130.r,
+      lineWidth: 30.r,
       startAngle: 0,
       animation: true,
       percent: context.watch<ReportsCubit>().circleChartPercentage,
       center: Text(
-        NumberFormat.percentPattern()
+        NumberFormat.percentPattern('en')
             .format(context.watch<ReportsCubit>().circleChartPercentage),
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 16.sp,
+          fontSize: 32.sp,
         ),
       ),
       circularStrokeCap: CircularStrokeCap.round,
-      progressColor: Colors.red,
-      backgroundColor: Colors.yellowAccent,
+      progressColor: MyColors.primary,
+      backgroundColor: Colors.grey.shade100,
     );
   }
 }

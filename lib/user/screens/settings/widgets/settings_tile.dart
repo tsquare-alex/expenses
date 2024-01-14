@@ -1,25 +1,22 @@
-part of 'reports_widgets_imports.dart';
+part of 'settings_widgets_imports.dart';
 
-class FieldSection extends StatelessWidget {
-  const FieldSection({
+class SettingTile extends StatelessWidget {
+  const SettingTile({
     Key? key,
     required this.child,
-    this.padding,
-    this.radius,
+    this.doubleRow = false,
   }) : super(key: key);
 
   final Widget child;
-  final double? padding;
-  final double? radius;
+  final bool? doubleRow;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: padding ?? 8.r),
-      height: 57.h,
+      height: doubleRow! ? 126.h : 57.h,
       width: 398.w,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius ?? 7.r),
+        borderRadius: BorderRadius.circular(10.r),
         color: MyColors.white,
         border: Border.all(
           color: context.watch<AppThemeCubit>().isDarkMode

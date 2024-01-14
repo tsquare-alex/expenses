@@ -11,22 +11,51 @@ class StatisticsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.r),
+      padding: EdgeInsets.symmetric(horizontal: 16.r),
       child: Column(
         children: [
+          SizedBox(height: 16.h),
+          ChoiceSection(
+            label: tr(context, 'chooseWallet'),
+            menuList: context.watch<ReportsCubit>().selectedWalletsMap,
+            onSelect: (key) => ReportsCubit.get(context).onWalletMapSelect(key),
+          ),
+          SizedBox(height: 20.h),
+          ChoiceSection(
+            label: tr(context, 'chooseTransaction'),
+            menuList: context.watch<ReportsCubit>().statsTransactionsMap,
+            onSelect: (key) =>
+                ReportsCubit.get(context).onTransactionsMapSelect(key),
+          ),
+          SizedBox(height: 20.h),
+          ChoiceSection(
+            label: tr(context, 'chooseSubTransaction'),
+            menuList: context.watch<ReportsCubit>().statsSubTransactionsMap,
+            onSelect: (key) =>
+                ReportsCubit.get(context).onSubTransactionsMapSelect(key),
+          ),
+          SizedBox(height: 20.h),
           Row(
             children: [
-              Flexible(
-                flex: 3,
-                child: ChoiceSection(
-                  label: tr(context, 'chooseWallet'),
-                  menuList: context.watch<ReportsCubit>().selectedWalletsMap,
-                  onSelect: (key) =>
-                      ReportsCubit.get(context).onWalletMapSelect(key),
-                ),
+              Column(
+                children: [
+                  FaIcon(
+                    FontAwesomeIcons.solidCalendarDays,
+                    size: 20,
+                    color: MyColors.primary,
+                  ),
+                  SizedBox(height: 8.h),
+                  Text(
+                    tr(context, 'chooseDuration'),
+                    style: TextStyle(
+                      fontSize: 8.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
               ),
+              SizedBox(width: 11.w),
               Flexible(
-                flex: 2,
                 child: GestureDetector(
                   onTap: () async {
                     ReportsCubit.get(context).statsSelectedDateFrom =
@@ -44,6 +73,7 @@ class StatisticsBody extends StatelessWidget {
                         return Theme(
                           data: Theme.of(context).copyWith(
                             colorScheme: ColorScheme.light(
+                              background: Colors.white,
                               primary: context.watch<AppThemeCubit>().isDarkMode
                                   ? AppDarkColors.primary
                                   : MyColors.primary,
@@ -70,40 +100,27 @@ class StatisticsBody extends StatelessWidget {
                                   .watch<ReportsCubit>()
                                   .statsFormattedDateFrom
                                   .isEmpty
-                              ? tr(context, 'durationFrom')
+                              ? tr(context, 'from')
                               : context
                                   .watch<ReportsCubit>()
                                   .statsFormattedDateFrom,
                           style: TextStyle(
                             fontSize: 12.sp,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w500,
                             color: Colors.grey,
                           ),
                         ),
-                        const Icon(
+                        Icon(
                           Icons.keyboard_arrow_down,
-                          color: Colors.grey,
+                          color: MyColors.primary,
                         ),
                       ],
                     ),
                   ),
                 ),
               ),
-            ],
-          ),
-          Row(
-            children: [
+              SizedBox(width: 12.sp),
               Flexible(
-                flex: 3,
-                child: ChoiceSection(
-                  label: 'اختيار المعاملة',
-                  menuList: context.watch<ReportsCubit>().statsTransactionsMap,
-                  onSelect: (key) =>
-                      ReportsCubit.get(context).onTransactionsMapSelect(key),
-                ),
-              ),
-              Flexible(
-                flex: 2,
                 child: GestureDetector(
                   onTap: () async {
                     ReportsCubit.get(context).statsSelectedDateTo =
@@ -147,19 +164,19 @@ class StatisticsBody extends StatelessWidget {
                                   .watch<ReportsCubit>()
                                   .statsFormattedDateTo
                                   .isEmpty
-                              ? tr(context, 'durationTo')
+                              ? tr(context, 'to')
                               : context
                                   .watch<ReportsCubit>()
                                   .statsFormattedDateTo,
                           style: TextStyle(
                             fontSize: 12.sp,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w500,
                             color: Colors.grey,
                           ),
                         ),
-                        const Icon(
+                        Icon(
                           Icons.keyboard_arrow_down,
-                          color: Colors.grey,
+                          color: MyColors.primary,
                         ),
                       ],
                     ),
@@ -168,62 +185,62 @@ class StatisticsBody extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(height: 20.h),
+          ChoiceSection(
+            label: tr(context, 'setPriority'),
+            menuList: context.watch<ReportsCubit>().statsPrioritiesMap,
+            onSelect: (key) =>
+                ReportsCubit.get(context).onPrioritiesMapSelect(key),
+          ),
+          SizedBox(height: 20.h),
           Row(
             children: [
-              Flexible(
-                flex: 3,
-                child: ChoiceSection(
-                  label: 'اختيار المعاملة الفرعية',
-                  menuList:
-                      context.watch<ReportsCubit>().statsSubTransactionsMap,
-                  onSelect: (key) =>
-                      ReportsCubit.get(context).onSubTransactionsMapSelect(key),
-                ),
-              ),
-              Flexible(
-                flex: 2,
-                child: ChoiceSection(
-                  label: 'تحديد الأولوية',
-                  menuList: context.watch<ReportsCubit>().statsPrioritiesMap,
-                  onSelect: (key) =>
-                      ReportsCubit.get(context).onPrioritiesMapSelect(key),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(
-              10.r,
-              10.r,
-              10.r,
-              0.r,
-            ),
-            child: SizedBox(
-              height: 40.h,
-              width: 0.25.sw,
-              child: ElevatedButton(
+              ElevatedButton(
                 onPressed: () {
                   ReportsCubit.get(context).showDetails();
                 },
                 style: ElevatedButton.styleFrom(
+                  fixedSize: Size(322.w, 58.h),
                   backgroundColor: context.watch<AppThemeCubit>().isDarkMode
                       ? AppDarkColors.primary
                       : MyColors.primary,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.r),
+                    borderRadius: BorderRadius.circular(10.r),
                   ),
                 ),
                 child: Text(
-                  'استعراض',
+                  tr(context, 'show'),
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 12.sp,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-            ),
+              SizedBox.square(dimension: 12.r),
+              OutlinedButton(
+                onPressed: () {
+                  CustomToast.showSimpleToast(msg: 'قيد التطوير حاليا');
+                },
+                style: OutlinedButton.styleFrom(
+                  fixedSize: Size(64.w, 58.h),
+                  // backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+                  //     ? AppDarkColors.primary
+                  //     : MyColors.primary,
+                  elevation: 0,
+                  side: BorderSide(color: MyColors.primary),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.r),
+                  ),
+                ),
+                child: Icon(
+                  Icons.share_outlined,
+                  color: MyColors.primary,
+                  size: 24.r,
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 20.h),
           Expanded(

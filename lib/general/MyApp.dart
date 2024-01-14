@@ -47,7 +47,6 @@ class _MyAppState extends State<MyApp> {
                     localizationsDelegates: const [
                       LocalizationHelper.localizationsDelegate,
                       CountryLocalizations.delegate,
-
                       GlobalMaterialLocalizations.delegate,
                       GlobalWidgetsLocalizations.delegate,
                       GlobalCupertinoLocalizations.delegate,

@@ -8,22 +8,22 @@ class CircularDetailsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 50.r),
+      padding: EdgeInsets.symmetric(horizontal: 46.r),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
               CircleAvatar(
-                backgroundColor: Colors.red,
-                minRadius: 10.r,
+                backgroundColor: MyColors.primary,
+                minRadius: 13.r,
               ),
-              SizedBox(width: 5.w),
+              SizedBox(width: 12.w),
               Text(
                 tr(context, 'expense'),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 14.sp,
+                  fontSize: 16.sp,
                 ),
               ),
             ],
@@ -31,15 +31,15 @@ class CircularDetailsRow extends StatelessWidget {
           Row(
             children: [
               CircleAvatar(
-                backgroundColor: Colors.yellowAccent,
-                minRadius: 10.r,
+                backgroundColor: Colors.grey.shade100,
+                minRadius: 13.r,
               ),
-              SizedBox(width: 5.w),
+              SizedBox(width: 12.w),
               Text(
                 tr(context, 'residual'),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 14.sp,
+                  fontSize: 16.sp,
                 ),
               ),
             ],

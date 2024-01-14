@@ -1,5 +1,6 @@
 
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
 import 'package:flutter/material.dart';
@@ -20,19 +21,19 @@ class BuildNoRecord extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 15.h,
+            height: 50.h,
           ),
           MyText(
-            title: "No Record",
+            title: tr(context, "noRecord"),
             color: MyColors.black,
             size: 16.sp,
             fontWeight: FontWeight.bold,
           ),
-          MyText(
-            title: "Tap the + button to add your first record.",
-            color: MyColors.grey,
-            size: 14.sp,
-          ),
+          // MyText(
+          //   title: tr(context, "toAddNewRecord"),
+          //   color: MyColors.grey,
+          //   size: 14.sp,
+          // ),
         ],
       ),
     );

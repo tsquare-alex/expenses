@@ -403,5 +403,28 @@
   "saving" : "Saving",
   "finishing" : "Finishing",
   "buyingCar" : "Buying a car",
+
+  "necessary" : "Necessary",
+  "important" : "Important",
+  "normal" : "Normal",
+
+  "noRecord" : "No Record",
+  "toAddNewRecord" : "Tap the + button to add your first record.",
+
+  "addNote" : "Add note",
+  "notes" : "Your notes",
+
+  "financeRate" : "Timing of financing",
+  "timing" : "Timing",
+  "putRemainderInWallet" : "Put the remainder in the wallet",
+  "completedNotify" : "Notify when completed",
+  "ratio" : "Ratio",
+  "initialVal" : "Initial value",
+  "requiredVal" : "Required value",
+
+  "EGP" : "EGP",
+
+  "aim" : "Target",
+
   "tuitionFees" : "Tuition Fees"
 }

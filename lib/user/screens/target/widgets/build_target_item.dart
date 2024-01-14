@@ -1,7 +1,9 @@
-part of 'shopping_widgets_imports.dart';
+part of 'target_widgets_imports.dart';
 
-class BuildShoppingItem extends StatelessWidget {
-  const BuildShoppingItem({Key? key, required this.image, required this.name, this.onTap}) : super(key: key);
+class BuildTargetItem extends StatelessWidget {
+  const BuildTargetItem(
+      {Key? key, required this.image, required this.name, this.onTap})
+      : super(key: key);
   final String image;
   final String name;
   final GestureTapCallback? onTap;
@@ -24,9 +26,16 @@ class BuildShoppingItem extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 15.h,),
-        MyText(title: tr(context, name), color: MyColors.black, size: 14.sp,fontWeight: FontWeight.bold,alien: TextAlign.center,),
-
+        SizedBox(
+          height: 15.h,
+        ),
+        MyText(
+          title: tr(context, name).isNotEmpty?tr(context, name):name,
+          color: MyColors.black,
+          size: 16.sp,
+          fontWeight: FontWeight.bold,
+          alien: TextAlign.center,
+        ),
       ],
     );
   }

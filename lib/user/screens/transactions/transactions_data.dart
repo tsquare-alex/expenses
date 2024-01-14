@@ -476,7 +476,7 @@ class TransactionsData{
       ],
     ),
     TransactionModel(
-      name: "الأهداف المالية",
+      name: "الاهداف المالية المستهدفة",
       image: Res.target,
       content: [
         TransactionTypeModel(

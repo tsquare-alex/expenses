@@ -17,6 +17,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
     data.fetchData(widget.model,context);
     data.notifyCubit.onUpdateData(widget.model.notify??false);
     data.ratioCubit.onUpdateData(widget.model.ratio!=null?true:false);
+    data.iterateCubit.onUpdateData(widget.model.repeated!=null?true:false);
     data.remainderCubit.onUpdateData(widget.model.putReminderInWallet??false);
     data.selectedIterateTransaction= widget.model.repeated;
     print(widget.model.repeated?.name);

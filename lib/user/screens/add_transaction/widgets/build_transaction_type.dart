@@ -5,11 +5,12 @@ class BuildTransactionType extends StatelessWidget {
     Key? key,
     required this.addTransactionData,
     required this.type,
-    required this.model,
+    required this.model, required this.boxName,
   }) : super(key: key);
   final AddTransactionData addTransactionData;
   final String type;
   final TransactionTypeModel model;
+  final String boxName;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class BuildTransactionType extends StatelessWidget {
                     bloc: addTransactionData.typeContentCubit,
                     builder: (context, state) {
                       return Column(
-                        children: List.generate(state.data!.length, (index) {
+                        children: List.generate(state.data?.length??0, (index) {
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -84,7 +85,7 @@ class BuildTransactionType extends StatelessWidget {
                                   groupValue: true,
                                   onChanged: (v) {
                                     addTransactionData.selectContent(
-                                        v!, model,state.data![index], index,type);
+                                        v!, model,state.data![index], index,type,boxName);
                                   }),
                             ],
                           );

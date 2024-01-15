@@ -70,12 +70,11 @@ class AddTransactionData {
     BuildContext context,
   ) {
     FocusScope.of(context).requestFocus(FocusNode());
-    var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
         context: context,
         minDate: DateTime.now().subtract(Duration(days:30)),
         onConfirm: (date) {
-          dateController.text = DateFormat("dd MMMM yyyy", "en").format(date!);
+          dateController.text = DateFormat("dd/MM/yyyy", "en").format(date!);
         },
         title: '');
   }
@@ -90,7 +89,7 @@ class AddTransactionData {
         minDate: DateTime.now().subtract(Duration(days: 30)),
         onConfirm: (date) {
           startDateController.text =
-              DateFormat("dd MMMM yyyy", "en").format(date!);
+              DateFormat("dd/MM/yyyy", "en").format(date!);
         },
         title: '');
   }
@@ -99,18 +98,17 @@ class AddTransactionData {
     BuildContext context,
   ) {
     FocusScope.of(context).requestFocus(FocusNode());
-    var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
         initial: startDateController.text.isNotEmpty
-            ? DateFormat("dd MMMM yyyy", "en").parse(startDateController.text)
+            ? DateFormat("dd/MM/yyyy", "en").parse(startDateController.text)
             : DateTime.now(),
         minDate: startDateController.text.isNotEmpty
-            ? DateFormat("dd MMMM yyyy", "en").parse(startDateController.text)
+            ? DateFormat("dd/MM/yyyy", "en").parse(startDateController.text)
             : DateTime.now(),
         context: context,
         onConfirm: (date) {
           endDateController.text =
-              DateFormat("dd MMMM yyyy", "en").format(date!);
+              DateFormat("dd/MM/yyyy", "en").format(date!);
         },
         title: '');
   }
@@ -145,6 +143,8 @@ class AddTransactionData {
       var targetModel = transactionTypeList.firstWhere((element) => element.key == model.key);
       typeContentCubit.onUpdateData(targetModel.content);
       box.close();
+    }else{
+      typeContentCubit.onUpdateData(null);
     }
   }
 
@@ -206,10 +206,8 @@ class AddTransactionData {
       getContents(editModel!,type);
       print('success');
     } else if (type == "التسوق والشراء") {
-      final box =
-          await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
-      int modelIndex =
-          box.values.toList().indexWhere((model) => model.key == typeModel.key);
+      final box = await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
+      int modelIndex = box.values.toList().indexWhere((model) => model.key == typeModel.key);
       var shoppingType = box.getAt(modelIndex);
       print(modelIndex);
       shoppingType?.content?.add(model);
@@ -660,11 +658,10 @@ class AddTransactionData {
             print("balance ${targetModel.balance}");
             await walletBox.put(selectedWalletModel?.key, targetModel);
             print(selectedWalletModel!.balance);
-
             box.add(model);
             addTransactionList = box.values.toList();
             addTransactionCubit.onUpdateData(addTransactionList);
-            AutoRouter.of(context).pushAndPopUntil(HomeRoute(index: 0), predicate: (predicate)=>false);
+            AutoRouter.of(context).pop();
           } else if (total > selectedWalletModel!.balance) {
             print(selectedWalletModel!.balance);
             CustomToast.showSimpleToast(
@@ -715,7 +712,7 @@ class AddTransactionData {
             box.add(model);
             addTransactionList = box.values.toList();
             addTransactionCubit.onUpdateData(addTransactionList);
-            AutoRouter.of(context).pushAndPopUntil(HomeRoute(index: 0), predicate: (predicate)=>false);
+            AutoRouter.of(context).pop();
           } else if (total > selectedWalletModel!.balance) {
             print(selectedWalletModel!.balance);
             CustomToast.showSimpleToast(
@@ -760,7 +757,7 @@ class AddTransactionData {
             box.add(model);
             addTransactionList = box.values.toList();
             addTransactionCubit.onUpdateData(addTransactionList);
-            AutoRouter.of(context).pushAndPopUntil(HomeRoute(index: 0), predicate: (predicate)=>false);
+            AutoRouter.of(context).pop();
           } else if (total > selectedWalletModel!.balance) {
             print(selectedWalletModel!.balance);
             CustomToast.showSimpleToast(
@@ -824,15 +821,18 @@ class AddTransactionData {
 
   TransactionContentModel? selectedContent;
 
-  selectContent(bool value, TransactionTypeModel model,TransactionContentModel contentModel,int index, String type) async{
-    final box = await Hive.openBox<TransactionTypeModel>("transactionBox");
+  selectContent(bool value, TransactionTypeModel typeModel,TransactionContentModel contentModel,int index, String type,String boxName) async{
+    final box = await Hive.openBox<TransactionTypeModel>(boxName);
+    print(type);
     int modelIndex =
-    box.values.toList().indexWhere((model) => model.key == model.key);
-    var transactionType = box.getAt(modelIndex);
-    transactionType?.content?.map((e) => e.selected = false).toList();
-    transactionType?.content?[index].selected = !value;
-    selectedContent = transactionType?.content?[index];
-    typeContentCubit.onUpdateData(transactionType?.content);
+    box.values.toList().indexWhere((model) => model.key == typeModel.key);
+
+    var neededTransactionType = box.getAt(modelIndex);
+    neededTransactionType?.content?.map((e) => e.selected = false).toList();
+    neededTransactionType?.content?[index].selected = !value;
+    selectedContent = neededTransactionType?.content?[index];
+    print("index :${neededTransactionType?.content?.length}");
+    typeContentCubit.onUpdateData(neededTransactionType?.content);
     print(selectedContent?.name);
   }
 }

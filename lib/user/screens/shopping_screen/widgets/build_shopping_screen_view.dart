@@ -88,9 +88,12 @@ class _BuildShoppingScreenViewState extends State<BuildShoppingScreenView> {
                 crossAxisSpacing: 10.w,
                 childAspectRatio: 0.5 / 0.65),
             itemBuilder: (context, i) => BuildCommitmentItem(
-              onTap: () {
-                AutoRouter.of(context).push(AddTransactionRoute(
-                    model: state.data[i], transactionName: "التسوق والشراء"));
+              onTap: () async {
+                await AutoRouter.of(context).push(AddTransactionRoute(
+                    model: state.data[i],
+                    transactionName: "التسوق والشراء",
+                    boxName: "transactionShoppingBox"));
+                widget.data.fetchData();
               },
               image: state.data[i].image ?? Res.shopping,
               name: state.data[i].name ?? "",

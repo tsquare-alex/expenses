@@ -426,5 +426,22 @@
 
   "aim" : "Target",
 
+  "readyModels" : "Ready models",
+  "previouslyUsed" : "Previously used",
+
+  "cartName" : "Name",
+  "addCartName" : "Enter the basket name",
+  "addCartAddress" : "Enter the cart address",
+  "dateCreated" : "Date created",
+  "implementationTime" : "Implementation time",
+  "addItem" : "Add items",
+  "shoppingItems" : "Shopping and purchasing items",
+  "chooseSubItem" : "Select the sub-item",
+  "number" : "Number",
+  "type" : "Type",
+  "estimatedValue" : "Estimated value",
+  "implementationAlert" : "Implementation alert",
+  "addNewCart" : "Add new cart",
+
   "tuitionFees" : "Tuition Fees"
 }

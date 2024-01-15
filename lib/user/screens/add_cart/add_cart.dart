@@ -1,15 +1,21 @@
-part of 'cart_imports.dart';
+part of 'add_cart_imports.dart';
 
-class Cart extends StatefulWidget {
-  const Cart({Key? key}) : super(key: key);
-
+class AddCart extends StatefulWidget {
+  const AddCart({Key? key, required this.model}) : super(key: key);
+  final CartModel model;
   @override
-  State<Cart> createState() => _CartState();
+  State<AddCart> createState() => _AddCartState();
 }
 
-class _CartState extends State<Cart> {
+class _AddCartState extends State<AddCart> {
 
-  CartData data = CartData();
+  AddCartData data = AddCartData();
+
+  @override
+  void initState() {
+    data.initData(widget.model);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +35,7 @@ class _CartState extends State<Cart> {
               width: 10.w,
             ),
             MyText(
-              title: tr(context, "cart"),
+              title: tr(context, "addNewCart"),
               color: MyColors.black,
               size: 18.sp,
               fontWeight: FontWeight.bold,
@@ -45,17 +51,16 @@ class _CartState extends State<Cart> {
         ),
         centerTitle: true,
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: MyColors.primary,
-        onPressed: (){
-          AutoRouter.of(context).push(AddCartRoute(model: data.cartModel));
-        },
-        shape: const CircleBorder(),
-        child: const Icon(Icons.add),
-      ),
       body: Padding(
         padding: EdgeInsets.all(15.r),
-        child: BuildCartView(data: data,),
+        child: ListView(
+          children: [
+            BuildAddCartInputs(data: data,),
+            BuildAddCartProductPhoto(data: data,),
+            BuildImplementationAlert(data: data,),
+            AddCartButton(data: data,),
+          ],
+        ),
       ),
     );
   }

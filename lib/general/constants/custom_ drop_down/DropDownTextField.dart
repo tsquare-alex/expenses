@@ -97,7 +97,7 @@ class _DropdownTextFieldState<DataType> extends State<DropdownTextField> {
           if(widget.hasLocalization == false){
             return widget.useName ? u.name : u;
           }else{
-            return tr(context, u.name);
+            return tr(context, u.name).isNotEmpty?tr(context, u.name):  u.name;
           }
         },
         showSelectedItem: widget.showSelectedItem,

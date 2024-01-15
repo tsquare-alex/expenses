@@ -27,13 +27,14 @@ class BudgetModelAdapter extends TypeAdapter<BudgetModel> {
       addNote: fields[7] as String,
       notification: fields[8] as bool?,
       favoitate: fields[9] as bool?,
+      transactionValue: fields[10] as double?,
     );
   }
 
   @override
   void write(BinaryWriter writer, BudgetModel obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.budgetValue)
       ..writeByte(1)
@@ -53,7 +54,9 @@ class BudgetModelAdapter extends TypeAdapter<BudgetModel> {
       ..writeByte(8)
       ..write(obj.notification)
       ..writeByte(9)
-      ..write(obj.favoitate);
+      ..write(obj.favoitate)
+      ..writeByte(10)
+      ..write(obj.transactionValue);
   }
 
   @override

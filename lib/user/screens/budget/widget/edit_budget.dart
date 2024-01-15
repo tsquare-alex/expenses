@@ -4,7 +4,6 @@ import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
-import 'package:expenses/user/screens/budget/budget_imports.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_cubit.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_state.dart';
 import 'package:expenses/user/screens/budget/data/model/budget_model.dart';
@@ -12,6 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 class EditBudget extends StatefulWidget {
   final BudgetModel model;
@@ -30,6 +30,8 @@ class _EditBudgetState extends State<EditBudget> {
   String? selectWalletValue;
   DateTime? selectedDate;
   DateTime? closedDate;
+  String? formattedDate;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -102,7 +104,6 @@ class _EditBudgetState extends State<EditBudget> {
                                         children: [
                                           Text(
                                             item,
-                                            textDirection: TextDirection.rtl,
                                           ),
                                           Radio<String>(
                                             value: item,
@@ -157,7 +158,6 @@ class _EditBudgetState extends State<EditBudget> {
                                         children: [
                                           Text(
                                             item,
-                                            textDirection: TextDirection.rtl,
                                           ),
                                           Radio<String>(
                                             value: item,
@@ -265,8 +265,7 @@ class _EditBudgetState extends State<EditBudget> {
                                         Center(
                                           child: Text(
                                             closedDate != null
-                                                ? "${closedDate?.toLocal()}"
-                                                    .split(' ')[0]
+                                                ? formattedDate!
                                                 : "الي",
                                             style: TextStyle(
                                               fontSize: 12.sp,
@@ -518,7 +517,6 @@ class _EditBudgetState extends State<EditBudget> {
                                   parsedNumber - transactionValue;
                               double percentageValue =
                                   deficiency / parsedNumber;
-                              print(percentageValue);
                               if (formKey.currentState!.validate()) {
                                 widget.model.addNote = context
                                     .read<BudgetCubit>()
@@ -541,35 +539,12 @@ class _EditBudgetState extends State<EditBudget> {
                                     .read<BudgetCubit>()
                                     .openDateController
                                     .text;
+                                widget.model.transactionValue =
+                                    transactionValue;
+                                widget.model.percentValue = percentageValue;
                                 widget.model.save();
                                 AutoRouter.of(context).pop();
                               }
-                              // var budgetData = BudgetModel(
-                              //     percentValue: percentageValue,
-                              //     budgetValue: parsedNumber,
-                              //     transactionName: context
-                              //         .read<BudgetCubit>()
-                              //         .transactionNameController
-                              //         .text,
-                              //     waletName: context
-                              //         .read<BudgetCubit>()
-                              //         .walletNameController
-                              //         .text,
-                              //     startBudget: context
-                              //         .read<BudgetCubit>()
-                              //         .openDateController
-                              //         .text,
-                              //     endBudget: context
-                              //         .read<BudgetCubit>()
-                              //         .closeDateController
-                              //         .text,
-                              //     addNote: context
-                              //         .read<BudgetCubit>()
-                              //         .noteController
-                              //         .text);
-
-                              // context.read<BudgetCubit>().addData(budgetData);
-                              AutoRouter.of(context).pop();
                             },
                             height: 57.h,
                             width: 170.w,
@@ -619,8 +594,9 @@ class _EditBudgetState extends State<EditBudget> {
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
+
         context.read<BudgetCubit>().openDateController.text =
-            selectedDate.toString();
+            DateFormat('dd-MM-yyyy').format(selectedDate!);
       });
     }
   }
@@ -636,8 +612,9 @@ class _EditBudgetState extends State<EditBudget> {
     if (picked != null && picked != closedDate) {
       setState(() {
         closedDate = picked;
+        formattedDate = DateFormat('dd-MM-yyyy').format(closedDate!);
         context.read<BudgetCubit>().closeDateController.text =
-            closedDate.toString();
+            formattedDate.toString();
       });
     }
   }

@@ -80,6 +80,10 @@ class _WalletCategoryState extends State<WalletCategory> {
                       itemBuilder: (context, index) {
                         return InkWell(
                             onTap: () {
+                              String iconPath = context
+                                  .read<WalletCubit>()
+                                  .categoryList[index]
+                                  .imagePath!;
                               String selectedCategory = context
                                   .read<WalletCubit>()
                                   .categoryList[index]
@@ -88,13 +92,10 @@ class _WalletCategoryState extends State<WalletCategory> {
                                   .read<WalletCubit>()
                                   .selectedCategoryIndex
                                   .value = index;
-                              // context
-                              //     .read<WalletCubit>()
-                              //     .selectedCategoryIndex
-                              //     .value = index;
                               AutoRouter.of(context).push(AddWalletRoute(
                                 selectItemIndex: index,
                                 selectedCategory: selectedCategory,
+                                iconPath: iconPath,
                               ));
                             },
                             child: Column(
@@ -124,30 +125,7 @@ class _WalletCategoryState extends State<WalletCategory> {
                                     .categoryList[index]
                                     .name!),
                               ],
-                            )
-                            // ClipRRect(
-                            //   borderRadius: BorderRadius.circular(20),
-                            //   child: Container(
-                            //     decoration: BoxDecoration(color: MyColors.grey),
-                            //     child: Column(
-                            //       mainAxisAlignment: MainAxisAlignment.center,
-                            //       children: [
-                            //         Image.asset("assets/images/salary.png"),
-                            //         Center(
-                            //           child: MyText(
-                            //             title: context
-                            //                 .read<WalletCubit>()
-                            //                 .walletCategory[index],
-                            //             color: MyColors.white,
-                            //             size: 12.sp,
-                            //             fontWeight: FontWeight.bold,
-                            //           ),
-                            //         ),
-                            //       ],
-                            //     ),
-                            //   ),
-                            // ),
-                            );
+                            ));
                       },
                     );
                   },

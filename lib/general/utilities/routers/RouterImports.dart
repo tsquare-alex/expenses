@@ -11,7 +11,6 @@ import 'package:expenses/general/screens/welcome_page/WelcomePageImports.dart';
 import 'package:expenses/user/screens/auth_info_cubit/auth_screen.dart';
 import 'package:expenses/user/screens/bag/bag_imports.dart';
 import 'package:expenses/user/screens/balance_transfer/wallet_balance_transfer_imports.dart';
-import 'package:expenses/user/screens/budget/widget/add_budget_item.dart';
 import 'package:expenses/user/screens/budget/widget/add_transaction.dart';
 import 'package:expenses/user/screens/budget/widget/edit_budget.dart';
 import 'package:expenses/user/screens/database/widgets/add_database.dart';

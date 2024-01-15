@@ -6,7 +6,6 @@ import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
-import 'package:expenses/user/screens/wallet/wallet_imports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,10 +25,8 @@ class CustomContainer extends StatefulWidget {
 class _CustomContainerState extends State<CustomContainer> {
   @override
   Widget build(BuildContext context) {
-    WalletData data = WalletData();
     DateTime currentDate = DateTime.now();
 
-    // bool endDatePassed =
     currentDate.isAfter(context.read<WalletCubit>().endDate);
     return Container(
       padding: EdgeInsets.all(12.r),
@@ -47,11 +44,21 @@ class _CustomContainerState extends State<CustomContainer> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                MyText(
-                  title: widget.model.category,
-                  color: MyColors.white,
-                  size: 14.sp,
-                  fontWeight: FontWeight.w600,
+                Row(
+                  children: [
+                    Image.asset(
+                      widget.model.iconPath!,
+                    ),
+                    SizedBox(
+                      width: 8.w,
+                    ),
+                    MyText(
+                      title: widget.model.category,
+                      color: MyColors.white,
+                      size: 14.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ],
                 ),
                 Visibility(
                   visible: !widget.model.isClosed!,
@@ -63,7 +70,6 @@ class _CustomContainerState extends State<CustomContainer> {
                         builder: (buildContext) {
                           return Container(
                             height: 300.h,
-                            // width: double.infinity,
                             padding: EdgeInsets.all(16.w),
                             decoration: BoxDecoration(color: MyColors.white),
                             child: Column(
@@ -222,10 +228,6 @@ class _CustomContainerState extends State<CustomContainer> {
                       width: 12.w,
                     ),
                   ),
-                  // Icon(
-                  //   Icons.arrow_drop_down_outlined,
-                  //   color: MyColors.white,
-                  // )),
                 )
               ],
             ),

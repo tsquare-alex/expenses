@@ -39,6 +39,8 @@ class WalletModel extends HiveObject {
   bool? isFavorite;
   @HiveField(16)
   String? addNote;
+  @HiveField(17)
+  String? iconPath;
 
   WalletModel({
     required this.name,
@@ -58,5 +60,6 @@ class WalletModel extends HiveObject {
     this.model,
     this.isFavorite = false,
     this.addNote,
+    this.iconPath,
   });
 }

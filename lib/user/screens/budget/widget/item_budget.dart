@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_cubit.dart';
@@ -34,12 +35,12 @@ class ItemBudget extends StatelessWidget {
                       width: 20.w,
                     ),
                     Text(
-                      "Budget Name",
-                      // model.transactionName,
+                      // "Budget Name",
+                      model.transactionName,
                       style: TextStyle(
                           color: MyColors.black,
                           fontSize: 16.sp,
-                          fontWeight: FontWeight.w500),
+                          fontWeight: FontWeight.w600),
                     )
                   ],
                 ),
@@ -56,103 +57,125 @@ class ItemBudget extends StatelessWidget {
                       lineHeight: 20.0,
                       animationDuration: 2000,
                       percent: model.percentValue!,
-                      progressColor: MyColors.primary,
+                      progressColor: model.percentValue! < 0.2
+                          ? Colors.red
+                          : MyColors.primary,
                     ),
-                    IconButton(onPressed: () {}, icon: Image.asset(Res.edit)),
+                    IconButton(
+                        onPressed: () async {
+                          await AutoRouter.of(context)
+                              .push(EditBudgetRoute(model: model));
+                          if (context.mounted) {
+                            context.read<BudgetCubit>().fetchData();
+                          }
+                        },
+                        icon: Image.asset(Res.edit)),
                   ],
                 ),
                 SizedBox(
                   height: 10.h,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MyText(
-                      title: "المصاريف",
-                      // title: model.transactionName,
-                      color: MyColors.black,
-                      size: 14.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    SizedBox(
-                      width: 12.w,
-                    ),
-                    MyText(
-                      title: "5000",
-                      color: MyColors.black,
-                      size: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    SizedBox(
-                      width: 60.w,
+                    Row(
+                      children: [
+                        MyText(
+                          title: model.transactionName,
+                          color: MyColors.black,
+                          size: 14.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        SizedBox(
+                          width: 12.w,
+                        ),
+                        Text(
+                          "${model.transactionValue}",
+                          style: TextStyle(
+                              fontSize: 16.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                     MyText(title: "من", color: MyColors.black, size: 14.sp),
-                    SizedBox(
-                      width: 60.w,
-                    ),
-                    MyText(
-                      title: "9000",
-                      color: MyColors.black,
-                      size: 16.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    SizedBox(
-                      width: 12.w,
-                    ),
-                    MyText(
-                      title: "الميزانية",
-                      color: MyColors.black,
-                      size: 14.sp,
-                      fontWeight: FontWeight.w400,
+                    Row(
+                      children: [
+                        Text(
+                          "${model.budgetValue}",
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 12.w,
+                        ),
+                        MyText(
+                          title: "الميزانية",
+                          color: MyColors.black,
+                          size: 14.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              model.delete();
+                              BlocProvider.of<BudgetCubit>(context).fetchData();
+                            },
+                            icon: Icon(
+                              Icons.delete,
+                              color: MyColors.primary,
+                            )),
+                      ],
                     )
-                    // IconButton(
-                    //     onPressed: () {
-                    //       model.delete();
-                    //       BlocProvider.of<BudgetCubit>(context).fetchData();
-                    //     },
-                    //     icon: Icon(
-                    //       Icons.delete,
-                    //       color: MyColors.primary,
-                    //     )),
-                  ],
-                ),
-                SizedBox(
-                  height: 24.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    MyText(
-                      title: "مقارنة بالفترة السابقة",
-                      color: MyColors.grey,
-                      size: 16.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
                   ],
                 ),
                 SizedBox(
                   height: 20.h,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      model.startBudget,
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                        color: MyColors.black,
-                      ),
+                    Row(
+                      children: [
+                        MyText(
+                          title: "تاريخ البداية",
+                          color: MyColors.black,
+                          size: 16.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        SizedBox(
+                          width: 8.w,
+                        ),
+                        Text(
+                          model.startBudget,
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w300,
+                            color: MyColors.grey,
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      width: 60.w,
+                    Row(
+                      children: [
+                        MyText(
+                          title: "تاريخ النهاية",
+                          color: MyColors.black,
+                          size: 16.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        SizedBox(
+                          width: 8.w,
+                        ),
+                        Text(
+                          model.endBudget,
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w300,
+                            color: MyColors.grey,
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      model.endBudget,
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                        color: MyColors.black,
-                      ),
-                    )
                   ],
                 ),
                 SizedBox(

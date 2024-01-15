@@ -23,6 +23,8 @@ class BudgetModel extends HiveObject {
   bool? notification;
   @HiveField(9)
   bool? favoitate;
+  @HiveField(10)
+  double? transactionValue;
   BudgetModel(
       {required this.budgetValue,
       required this.transactionName,
@@ -33,5 +35,6 @@ class BudgetModel extends HiveObject {
       required this.endBudget,
       required this.addNote,
       this.notification,
-      this.favoitate});
+      this.favoitate,
+      this.transactionValue});
 }

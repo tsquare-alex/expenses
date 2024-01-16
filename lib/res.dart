@@ -192,4 +192,6 @@ class Res {
   static const String language = "assets/images/language.png";
   static const String notifications = "assets/images/notifications.png";
   static const String privacy = "assets/images/privacy.png";
+  static const String reports = "assets/images/reports.png";
+  static const String reportsMenu = "assets/images/reports_menu.png";
 }

@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import '../../../../general/constants/constants.dart';
 import '../../../models/add_transaction_model/add_transaction_model.dart';
 import '../../wallet/data/model/wallet_model.dart';
+import '../models/reports_category.dart';
 
 part 'reports_cubit.freezed.dart';
 part 'reports_state.dart';
@@ -41,16 +42,33 @@ class ReportsCubit extends Cubit<ReportsState> {
       reportFormattedDateFrom = _formatDateTime(dateParts.first);
       reportFormattedDateTo = _formatDateTime(dateParts.last);
       reportFilteredTransactions = transactions
-          .where((transaction) => (DateFormat('dd MMMM yyyy', 'en')
-                  .parse(transaction.transactionDate!)
-                  .isAfter(reportSelectedDate!.start) &&
-              DateFormat('dd MMMM yyyy', 'en')
-                  .parse(transaction.transactionDate!)
-                  .isBefore(reportSelectedDate!.end)))
+          .where(
+            (transaction) => (DateFormat('dd MMMM yyyy', 'en')
+                    .parse(transaction.transactionDate!)
+                    .isAfter(
+                      reportSelectedDate!.start.subtract(
+                        const Duration(days: 1),
+                      ),
+                    ) &&
+                DateFormat('dd MMMM yyyy', 'en')
+                    .parse(transaction.transactionDate!)
+                    .isBefore(
+                      reportSelectedDate!.end.add(
+                        const Duration(days: 1),
+                      ),
+                    )),
+          )
           .toList();
       emit(const ReportsState.changeDate());
       return;
     }
+  }
+
+  void resetDates() {
+    reportInitialDate = DateTimeRange(start: dateTimeNow, end: dateTimeNow);
+    reportSelectedDate = null;
+    reportFormattedDateFrom = '';
+    reportFormattedDateTo = '';
   }
 
   String _formatDateTime(String dateTimeString) {
@@ -148,7 +166,7 @@ class ReportsCubit extends Cubit<ReportsState> {
   }
 
   late List<WalletModel> wallets;
-  Future<void> getWalletData(BuildContext context) async {
+  Future<void> getWalletData() async {
     var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
     List<WalletModel> data = walletBox.values.toList();
     wallets = data;
@@ -162,7 +180,7 @@ class ReportsCubit extends Cubit<ReportsState> {
   }
 
   late List<AddTransactionModel> transactions;
-  Future<void> getTransactionsData(BuildContext context) async {
+  Future<void> getTransactionsData() async {
     final box = await Hive.openBox<AddTransactionModel>('addTransactionBox');
     var transactionsBox = Hive.box<AddTransactionModel>('addTransactionBox');
     List<AddTransactionModel> data = transactionsBox.values.toList();
@@ -171,9 +189,9 @@ class ReportsCubit extends Cubit<ReportsState> {
     transactions = data;
   }
 
-  Future<void> getReportData(BuildContext context) async {
+  Future<void> getReportData() async {
     emit(const ReportsState.reportDataLoading());
-    await Future.wait([getWalletData(context), getTransactionsData(context)]);
+    await Future.wait([getWalletData(), getTransactionsData()]);
     if (wallets.isEmpty) {
       emit(const ReportsState.initial());
       return;
@@ -182,16 +200,16 @@ class ReportsCubit extends Cubit<ReportsState> {
     emit(const ReportsState.reportDataLoaded());
   }
 
-  Future<void> getMainReportData(BuildContext context) async {
+  Future<void> getMainReportData() async {
     emit(const ReportsState.reportDataLoading());
-    await Future.wait([getWalletData(context), getTransactionsData(context)]);
+    await Future.wait([getWalletData(), getTransactionsData()]);
     createMoneyPercentage(wallets, transactions);
     emit(const ReportsState.reportDataLoaded());
   }
 
   late String selectedWallet = '';
   late List<AddTransactionModel> reportFilteredTransactions = List.empty();
-  void changeWallet(String walletValue) async {
+  void changeWallet(String walletValue) {
     if (walletValue != selectedWallet) {
       emit(const ReportsState.initial());
       selectedWallet = walletValue;
@@ -200,20 +218,80 @@ class ReportsCubit extends Cubit<ReportsState> {
             .where((transaction) =>
                 transaction.incomeSource!.name == selectedWallet)
             .toList();
-        createMoneyPercentage(
-            [wallets.firstWhere((wallet) => wallet.name == selectedWallet)],
-            reportFilteredTransactions);
+        createCategories();
+      } else if (selectedWallet == 'all') {
+        reportFilteredTransactions = transactions;
+        createCategories();
       } else {
         reportFilteredTransactions = List.empty();
-        createMoneyPercentage(wallets, transactions);
+        createCategories();
       }
+      resetDates();
       emit(const ReportsState.changeWallet());
     }
   }
 
-  Future<void> getStatsData(BuildContext context) async {
+  List<ReportCategory> categoriesList = [];
+
+  void createCategories() {
+    for (var category in getTransactionsCategories()) {
+      addCategory(category);
+    }
+  }
+
+  Set<String> getTransactionsCategories() {
+    Set<String> transactionsCategories = {};
+    for (var transaction in reportFilteredTransactions) {
+      transactionsCategories.add(transaction.transactionType!.name!);
+    }
+    return transactionsCategories;
+  }
+
+  double getCategoryTotalMoney(String category) {
+    double totalMoney = 0;
+    final transactionsList = reportFilteredTransactions
+        .where((element) => element.transactionType!.name == category)
+        .toList();
+    for (var transaction in transactionsList) {
+      totalMoney += double.parse(transaction.total!);
+    }
+    return totalMoney;
+  }
+
+  void addCategory(String category) {
+    final transactionsList = reportFilteredTransactions
+        .where((element) => element.transactionType!.name == category)
+        .toList();
+    if (selectedWallet != 'all' && selectedWallet.isNotEmpty) {
+      final percentage =
+          getCategoryTotalMoney(category) / getUserSpentMoney(transactionsList);
+      categoriesList.clear();
+      categoriesList.add(
+        ReportCategory(
+          color: Colors.red,
+          title: category,
+          totalMoney: getCategoryTotalMoney(category),
+          percentage: percentage,
+        ),
+      );
+    } else {
+      final percentage =
+          getCategoryTotalMoney(category) / getUserSpentMoney(transactionsList);
+      categoriesList.clear();
+      categoriesList.add(
+        ReportCategory(
+          color: Colors.red,
+          title: category,
+          totalMoney: getCategoryTotalMoney(category),
+          percentage: percentage,
+        ),
+      );
+    }
+  }
+
+  Future<void> getStatsData() async {
     emit(const ReportsState.statsDataLoading());
-    await Future.wait([getWalletData(context), getTransactionsData(context)]);
+    await Future.wait([getWalletData(), getTransactionsData()]);
     convertMap();
     emit(const ReportsState.statsDataLoaded());
   }

@@ -177,7 +177,7 @@ class _MainState extends State<Main> {
       ),
 
       body: BlocProvider(
-        create: (context) => ReportsCubit()..getMainReportData(context),
+        create: (context) => ReportsCubit()..getMainReportData(),
         child: BlocBuilder<ReportsCubit, ReportsState>(
           buildWhen: (previous, current) {
             return (previous == const ReportsState.reportDataLoading() ||

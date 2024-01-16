@@ -44,7 +44,7 @@ class Statistics extends StatelessWidget {
         ),
       ),
       body: BlocProvider(
-        create: (context) => ReportsCubit()..getStatsData(context),
+        create: (context) => ReportsCubit()..getStatsData(),
         child: BlocBuilder<ReportsCubit, ReportsState>(
           buildWhen: (previous, current) {
             return (previous == const ReportsState.statsDataLoading() ||

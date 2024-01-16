@@ -20,6 +20,7 @@ class _SettingsState extends State<Settings> {
           ),
         ),
         backgroundColor: MyColors.white,
+        surfaceTintColor: Colors.transparent,
         centerTitle: true,
         title: Row(
           mainAxisSize: MainAxisSize.min,

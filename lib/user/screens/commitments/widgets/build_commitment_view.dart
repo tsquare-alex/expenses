@@ -74,7 +74,7 @@ class _BuildCommitmentViewState extends State<BuildCommitmentView> {
               childAspectRatio: 0.5 / 0.65),
           itemBuilder: (context, i) => BuildCommitmentItem(
             onTap: () async{
-              await AutoRouter.of(context).push(AddTransactionRoute(model: state.data[i],transactionName: "الالتزامات"));
+              await AutoRouter.of(context).push(AddTransactionRoute(model: state.data[i],transactionName: "الالتزامات",boxName: "transactionBox"));
               widget.data.addTransactionList.clear();
               widget.data.fetchData();
             },

@@ -42,8 +42,6 @@ class CommitmentsData{
       transactionTypeCubit.onUpdateData(transactionType);
     } catch (e) {
       print('Error fetching data from Hive: $e');
-    } finally {
-      await box.close();
     }
   }
 

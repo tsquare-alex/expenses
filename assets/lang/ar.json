@@ -608,5 +608,22 @@
 
   "aim" : "الهدف",
 
+  "readyModels" : "نماذج جاهزة",
+  "previouslyUsed" : "عرض المستخدم سابقا",
+
+  "cartName" : "الاسم",
+  "addCartName" : "أدخل اسم السلة",
+  "addCartAddress" : "أدخل عنوان السلة",
+  "dateCreated" : "تاريخ الانشاء",
+  "implementationTime" : "ميعاد التنفيذ",
+  "addItem" : "اضافة عناصر",
+  "shoppingItems" : "عناصر التسوق والشراء",
+  "chooseSubItem" : "اختيار العنصر الفرعي",
+  "number" : "العدد",
+  "type" : "النوع",
+  "estimatedValue" : "القيمه التقدرية",
+  "implementationAlert" : "تنبيه بالتفيذ",
+  "addNewCart" : "إضافة سلة جديدة",
+
   "withdraw" : "سحب"
 }

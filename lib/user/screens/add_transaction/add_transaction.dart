@@ -1,9 +1,10 @@
 part of 'add_transaction_imports.dart';
 
 class AddTransaction extends StatefulWidget {
-  const AddTransaction({Key? key, required this.model, this.transactionName,}) : super(key: key);
+  const AddTransaction({Key? key, required this.model, this.transactionName, this.boxName,}) : super(key: key);
   final TransactionTypeModel? model;
   final String? transactionName;
+  final String? boxName;
 
   @override
   State<AddTransaction> createState() => _AddTransactionState();
@@ -15,6 +16,7 @@ class _AddTransactionState extends State<AddTransaction> {
 
   @override
   void initState() {
+    data.selectedContent=null;
     data.getContents(widget.model!,widget.transactionName!);
     data.selectedContent = null;
     print(data.selectedContent);
@@ -51,7 +53,7 @@ class _AddTransactionState extends State<AddTransaction> {
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              BuildTransactionType(addTransactionData: data, type: widget.transactionName??"", model: widget.model!,),
+              BuildTransactionType(addTransactionData: data, type: widget.transactionName??"", model: widget.model!, boxName: widget.boxName??"",),
               BuildTransactionInputs(addTransactionData: data, type: widget.transactionName??"",),
               BuildAddProductPhoto(data: data,),
               BuildTransactionDate(data: data,type: widget.transactionName??""),

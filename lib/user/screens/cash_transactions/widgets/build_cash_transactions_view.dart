@@ -88,10 +88,14 @@ class _BuildCashTransactionsViewState extends State<BuildCashTransactionsView> {
                 crossAxisSpacing: 10.w,
                 childAspectRatio: 0.5 / 0.65),
             itemBuilder: (context, i) => BuildCashTransactionsItem(
-              onTap: () {
-                AutoRouter.of(context).push(AddTransactionRoute(
+              onTap: () async{
+                await AutoRouter.of(context).push(AddTransactionRoute(
                     model: state.data[i],
-                    transactionName: "المعاملات النقدية"));
+                    transactionName: "المعاملات النقدية",
+                  boxName: "cashTransactionBox",
+                ),
+                );
+                widget.data.fetchData();
               },
               image: state.data[i].image ?? Res.commitments,
               name: state.data[i].name ?? "",

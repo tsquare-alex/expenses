@@ -1,9 +1,9 @@
-part of 'target_widgets_imports.dart';
+part of 'add_cart_widgets_imports.dart';
 
-class BuildAddTarget extends StatelessWidget {
-  const BuildAddTarget({Key? key, required this.data}) : super(key: key);
-  final TargetData data ;
-
+class BuildAddCartContent extends StatelessWidget {
+  const BuildAddCartContent({Key? key, required this.data, required this.typeModel}) : super(key: key);
+  final AddCartData data;
+  final CartTypeModel typeModel;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -11,16 +11,12 @@ class BuildAddTarget extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            MyText(title: tr(context, "addTransaction"), color: MyColors.primary , size: 14.sp,fontWeight: FontWeight.bold,),
-            SizedBox(
-              height: 20.h,
-            ),
             Column(
               children: [
                 GenericTextField(
                   contentPadding:
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  controller: data.typeNameController,
+                  controller: data.contentController,
                   fieldTypes: FieldTypes.normal,
                   type: TextInputType.text,
                   action: TextInputAction.next,
@@ -29,26 +25,24 @@ class BuildAddTarget extends StatelessWidget {
                       return 'Enter the transaction type name';
                     }
                   },
-                  label: "نوع المعاملة",
+                  label: "محتوي جديد",
                   margin: const EdgeInsets.symmetric(vertical: 10),
                 ),
               ],
             ),
             DefaultButton(
-              onTap: () {
-                // var box = Hive.box(ApiNames.kTransactionTypes);
-                // box.put("name", "Mohamed");
-               data.addTransactionType(
-                    TransactionTypeModel(
-                        name: data.typeNameController.text,
-                        image: Res.target,
-                        content: [
+              onTap: () async {
 
-                        ]
-                    )
-                );
+                data.addTransactionContent(
+                      CartContentModel(
+                        name: data.contentController.text,
+                      ),
+                    context,typeModel
+                  );
                 AutoRouter.of(context).pop();
-                data.typeNameController.clear();
+                data.getCartTypeContent(context);
+                data.contentController.clear();
+
               },
               title: "إضافة",
               fontSize: 14.sp,

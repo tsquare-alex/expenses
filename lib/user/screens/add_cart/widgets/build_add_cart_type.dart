@@ -1,11 +1,13 @@
-part of 'target_widgets_imports.dart';
+part of 'add_cart_widgets_imports.dart';
 
-class BuildAddTarget extends StatelessWidget {
-  const BuildAddTarget({Key? key, required this.data}) : super(key: key);
-  final TargetData data ;
+class BuildAddCartType extends StatelessWidget {
+  const BuildAddCartType({Key? key, required this.data, })
+      : super(key: key);
+  final AddCartData data;
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: EdgeInsets.all(15.0.r),
       child: SingleChildScrollView(
@@ -20,7 +22,7 @@ class BuildAddTarget extends StatelessWidget {
                 GenericTextField(
                   contentPadding:
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  controller: data.typeNameController,
+                  controller: data.typeController,
                   fieldTypes: FieldTypes.normal,
                   type: TextInputType.text,
                   action: TextInputAction.next,
@@ -35,20 +37,17 @@ class BuildAddTarget extends StatelessWidget {
               ],
             ),
             DefaultButton(
-              onTap: () {
-                // var box = Hive.box(ApiNames.kTransactionTypes);
-                // box.put("name", "Mohamed");
-               data.addTransactionType(
-                    TransactionTypeModel(
-                        name: data.typeNameController.text,
-                        image: Res.target,
-                        content: [
+              onTap: () async{
+              data.addCartType(
+                  CartTypeModel(
+                      name: data.typeController.text,
+                      content: [
 
-                        ]
-                    )
+                      ]
+                  ),
                 );
-                AutoRouter.of(context).pop();
-                data.typeNameController.clear();
+                await AutoRouter.of(context).pop();
+                data.typeController.clear();
               },
               title: "إضافة",
               fontSize: 14.sp,
@@ -58,5 +57,7 @@ class BuildAddTarget extends StatelessWidget {
         ),
       ),
     );
+
+
   }
 }

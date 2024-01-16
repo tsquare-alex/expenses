@@ -1,7 +1,11 @@
 part of 'target_widgets_imports.dart';
 
 class BuildTargetCard extends StatelessWidget {
-  const BuildTargetCard({Key? key, required this.model, required this.onDelete, required this.data})
+  const BuildTargetCard(
+      {Key? key,
+      required this.model,
+      required this.onDelete,
+      required this.data})
       : super(key: key);
   final AddTransactionModel model;
   final GestureTapCallback onDelete;
@@ -24,7 +28,7 @@ class BuildTargetCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
+              Row(
                 children: [
                   MyText(
                     title: tr(context, "startDate"),
@@ -33,7 +37,7 @@ class BuildTargetCard extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                   SizedBox(
-                    height: 5.w,
+                    width: 5.w,
                   ),
                   MyText(
                     title: "${model.startDate}",
@@ -43,7 +47,7 @@ class BuildTargetCard extends StatelessWidget {
                   ),
                 ],
               ),
-              Column(
+              Row(
                 children: [
                   MyText(
                     title: tr(context, "endDate"),
@@ -52,7 +56,7 @@ class BuildTargetCard extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                   SizedBox(
-                    height: 5.w,
+                    width: 5.w,
                   ),
                   MyText(
                     title: "${model.endDate}",
@@ -62,34 +66,8 @@ class BuildTargetCard extends StatelessWidget {
                   ),
                 ],
               ),
-              // Row(
-              //   children: [
-              //     MyText(
-              //       title: model.transactionDate ?? "",
-              //       color: MyColors.grey,
-              //       size: 14.sp,
-              //       fontWeight: FontWeight.bold,
-              //     ),
-              //     SizedBox(
-              //       width: 10.w,
-              //     ),
-              //     InkWell(
-              //       onTap: onDelete,
-              //       child: CircleAvatar(
-              //         radius: 20.r,
-              //         backgroundColor: MyColors.greyWhite,
-              //         child: Icon(
-              //           Icons.delete,
-              //           color: MyColors.primary,
-              //         ),
-              //       ),
-              //     ),
-              //
-              //   ],
-              // ),
             ],
           ),
-
           Divider(
             thickness: 1.w,
             color: MyColors.greyWhite,
@@ -221,30 +199,6 @@ class BuildTargetCard extends StatelessWidget {
           SizedBox(
             height: 10.h,
           ),
-          if(model.description !="")Container(
-            alignment: Alignment.topRight,
-            child: Row(
-              children: [
-                Image.asset(
-                  Res.description,
-                  width: 20.w,
-                  height: 20.h,
-                ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                MyText(
-                  title: model.description ?? "",
-                  size: 12.sp,
-                  fontWeight: FontWeight.w900,
-                  color: MyColors.grey,
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
           Divider(
             thickness: 1.w,
             color: MyColors.greyWhite,
@@ -255,7 +209,7 @@ class BuildTargetCard extends StatelessWidget {
           InkWell(
             splashColor: Colors.transparent,
             hoverColor: Colors.transparent,
-            onTap: () async{
+            onTap: () async {
               await AutoRouter.of(context).push(
                 TransactionDetailsRoute(
                   model: model,

@@ -8,6 +8,7 @@ class Res {
   static const String apple = "assets/images/apple.svg";
   static const String ar = "assets/lang/ar.json";
   static const String arrow = "assets/images/arrow.svg";
+  static const String auth = "assets/images/auth.png";
   static const String bag = "assets/images/bag.png";
   static const String bakedGoods = "assets/images/bakedGoods.png";
   static const String balance = "assets/images/balance.png";
@@ -37,14 +38,18 @@ class Res {
   static const String commitments = "assets/images/commitments.png";
   static const String compass = "assets/images/compass.svg";
   static const String contacts = "assets/images/contacts.png";
+  static const String countries = "assets/images/countries.png";
   static const String country = "assets/images/country.png";
   static const String courseAssign = "assets/images/courseAssign.png";
+  static const String currencies = "assets/images/currencies.png";
   static const String currency = "assets/images/currency.png";
   static const String currencyExchange = "assets/images/currencyExchange.png";
   static const String dairy = "assets/images/dairy.png";
+  static const String dark_mode = "assets/images/dark_mode.png";
   static const String database = "assets/images/database.png";
   static const String dateTime = "assets/images/dateTime.png";
   static const String decimal = "assets/images/decimal.png";
+  static const String decimals = "assets/images/decimals.png";
   static const String delete = "assets/images/delete.png";
   static const String description = "assets/images/description.png";
   static const String dish = "assets/images/dish.png";
@@ -52,6 +57,7 @@ class Res {
   static const String dollar = "assets/images/dollar.png";
   static const String download = "assets/images/download.png";
   static const String driver = "assets/images/driver.png";
+  static const String edit = "assets/images/edit.png";
   static const String education = "assets/images/education.png";
   static const String electric = "assets/images/electric.png";
   static const String electricalDevices = "assets/images/electricalDevices.png";
@@ -65,6 +71,8 @@ class Res {
   static const String factory = "assets/images/factory.png";
   static const String family = "assets/images/family.png";
   static const String finishing = "assets/images/finishing.png";
+  static const String first_day_month = "assets/images/first_day_month.png";
+  static const String first_day_week = "assets/images/first_day_week.png";
   static const String fish = "assets/images/fish.png";
   static const String forgetPassword = "assets/images/forgetPassword.png";
   static const String fruits = "assets/images/fruits.png";
@@ -93,6 +101,7 @@ class Res {
   static const String kitchenUtensils = "assets/images/kitchenUtensils.png";
   static const String labs = "assets/images/labs.png";
   static const String lang = "assets/images/lang.png";
+  static const String language = "assets/images/language.png";
   static const String launcher_icon = "assets/images/launcher_icon.png";
   static const String legumes = "assets/images/legumes.png";
   static const String libraryTools = "assets/images/libraryTools.png";
@@ -109,6 +118,7 @@ class Res {
   static const String monitor = "assets/images/monitor.png";
   static const String moon = "assets/images/moon.png";
   static const String needle = "assets/images/needle.svg";
+  static const String notifications = "assets/images/notifications.png";
   static const String numbers = "assets/images/numbers.png";
   static const String oil = "assets/images/oil.png";
   static const String onboardingOne = "assets/images/onboardingOne.jpeg";
@@ -120,6 +130,9 @@ class Res {
   static const String personalCare = "assets/images/personalCare.png";
   static const String places = "assets/images/places.png";
   static const String plus = "assets/images/plus.png";
+  static const String previouslyUsed = "assets/images/previouslyUsed.png";
+  static const String privacy = "assets/images/privacy.png";
+  static const String readyModels = "assets/images/readyModels.png";
   static const String register = "assets/images/register.png";
   static const String reminders = "assets/images/reminders.png";
   static const String rent = "assets/images/rent.png";
@@ -181,15 +194,4 @@ class Res {
   static const String women_shoes = "assets/images/women_shoes.png";
   static const String womensize = "assets/images/womensize.png";
   static const String workshop = "assets/images/workshop.png";
-  static const String auth = "assets/images/auth.png";
-  static const String countries = "assets/images/countries.png";
-  static const String currencies = "assets/images/currencies.png";
-  static const String darkMode = "assets/images/dark_mode.png";
-  static const String decimals= "assets/images/decimals.png";
-  static const String edit = "assets/images/edit.png";
-  static const String firstDayMonth = "assets/images/first_day_month.png";
-  static const String firstDayWeek = "assets/images/first_day_week.png";
-  static const String language = "assets/images/language.png";
-  static const String notifications = "assets/images/notifications.png";
-  static const String privacy = "assets/images/privacy.png";
 }

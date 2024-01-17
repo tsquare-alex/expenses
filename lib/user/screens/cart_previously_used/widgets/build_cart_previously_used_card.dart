@@ -10,7 +10,7 @@ class BuildCartPreviouslyUsedCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15.r, vertical: 20.r),
-      margin: EdgeInsets.only(bottom: 10.h),
+      margin: EdgeInsets.only(bottom: 20.h),
       decoration: BoxDecoration(
           color: MyColors.white,
           borderRadius: BorderRadius.circular(15.r),
@@ -28,6 +28,7 @@ class BuildCartPreviouslyUsedCard extends StatelessWidget {
                     children: [
                       Checkbox(
                           value: model.isCompleted,
+                          activeColor: MyColors.primary,
                           onChanged: (val) {
                             data.checkCubit.onUpdateData(!model.isCompleted!);
                             // model.isCompleted=state.data;

@@ -19,61 +19,69 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
               MyText(
                 title: tr(context, "transaction"),
                 color: MyColors.black,
-                size: 12.sp,
+                size: 14.sp,
                 fontWeight: FontWeight.bold,
               ),
               SizedBox(
                 width: 67.w,
               ),
               Expanded(
-                child: GenericTextField(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                  controller: transactionDetailsData.transactionTypeController,
-                  fieldTypes: FieldTypes.readonly,
-                  type: TextInputType.text,
-                  action: TextInputAction.next,
-                  validate: (value) {
-                    return null;
-                  },
-                  label: model.transactionName == "الالتزامات"
-                      ? tr(context, "commitment")
-                      : model.transactionName == "التسوق والشراء"
-                          ? tr(context, "shoppingParty")
-                          : tr(context, "transaction"),
-                  margin: EdgeInsets.symmetric(vertical: 10.r),
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.r, vertical: 16.r),
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 1.w, color: MyColors.greyWhite),
+                    borderRadius: BorderRadius.circular(15.r),
+                  ),
+                  child: MyText(
+                    title: tr(context, model.transactionType!.name!).isNotEmpty
+                        ? tr(context, model.transactionType?.name ?? "")
+                        : model.transactionType?.name ?? "",
+                    color: MyColors.black,
+                    size: 13.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
           ),
           if (model.transactionName == "الالتزامات" ||
               model.transactionName == "التسوق والشراء")
-            Row(
-              children: [
-                MyText(
-                  title: tr(context, "transactionContent"),
-                  color: MyColors.black,
-                  size: 12.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-                SizedBox(
-                  width: 23.w,
-                ),
-                Expanded(
-                  child: GenericTextField(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                    controller:
-                        transactionDetailsData.transactionContentController,
-                    fieldTypes: FieldTypes.readonly,
-                    type: TextInputType.text,
-                    action: TextInputAction.next,
-                    validate: (value) {
-                      return null;
-                    },
-                    label: tr(context, "contain"),
-                    margin: EdgeInsets.symmetric(vertical: 10.r),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 15.0.r),
+              child: Row(
+                children: [
+                  MyText(
+                    title: tr(context, "transactionContent"),
+                    color: MyColors.black,
+                    size: 14.sp,
+                    fontWeight: FontWeight.bold,
                   ),
-                ),
-              ],
+                  SizedBox(
+                    width: 23.w,
+                  ),
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 16.r, vertical: 16.r),
+                      decoration: BoxDecoration(
+                        border:
+                            Border.all(width: 1.w, color: MyColors.greyWhite),
+                        borderRadius: BorderRadius.circular(15.r),
+                      ),
+                      child: MyText(
+                        title: tr(context, model.transactionContent!.name!)
+                                .isNotEmpty
+                            ? tr(context, model.transactionContent?.name ?? "")
+                            : model.transactionContent?.name ?? "",
+                        color: MyColors.black,
+                        size: 13.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           if (model.transactionName == "التسوق والشراء")
             Row(
@@ -81,7 +89,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                 MyText(
                   title: tr(context, "selectUnit"),
                   color: MyColors.black,
-                  size: 12.sp,
+                  size: 14.sp,
                   fontWeight: FontWeight.bold,
                 ),
                 SizedBox(
@@ -102,6 +110,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                       context,
                     ),
                     useName: true,
+                    hasLocalization: true,
                     buttonsColor: MyColors.primary,
                     searchHint: tr(context, "search"),
                   ),
@@ -133,6 +142,35 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
             label: tr(context, "total"),
             margin: EdgeInsets.symmetric(vertical: 10.r),
           ),
+          if (model.transactionName == "الاهداف المالية المستهدفة")
+            Column(
+              children: [
+                GenericTextField(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                  controller: transactionDetailsData.initialValueController,
+                  fieldTypes: FieldTypes.normal,
+                  type: TextInputType.number,
+                  action: TextInputAction.next,
+                  validate: (value) {
+                    return null;
+                  },
+                  label: tr(context, "initialVal"),
+                  margin: EdgeInsets.symmetric(vertical: 10.r),
+                ),
+                GenericTextField(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                  controller: transactionDetailsData.requiredValueController,
+                  fieldTypes: FieldTypes.normal,
+                  type: TextInputType.number,
+                  action: TextInputAction.next,
+                  validate: (value) {
+                    return null;
+                  },
+                  label: tr(context, "requiredVal"),
+                  margin: EdgeInsets.symmetric(vertical: 10.r),
+                ),
+              ],
+            ),
           GenericTextField(
             contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: transactionDetailsData.walletController,
@@ -158,6 +196,18 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
               label: tr(context, "registry"),
               margin: EdgeInsets.symmetric(vertical: 10.r),
             ),
+          GenericTextField(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+            controller: transactionDetailsData.descriptionController,
+            fieldTypes: FieldTypes.normal,
+            type: TextInputType.text,
+            action: TextInputAction.next,
+            validate: (value) {
+              return null;
+            },
+            label: tr(context, "notes"),
+            margin: EdgeInsets.symmetric(vertical: 10.r),
+          ),
           if (model.transactionName == "التسوق والشراء")
             GenericTextField(
               contentPadding: const EdgeInsets.symmetric(horizontal: 16),
@@ -181,44 +231,13 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
             ),
-          Row(
-            children: [
-              MyText(
-                title: tr(context, "selectedBudget"),
-                color: MyColors.black,
-                size: 12.sp,
-                fontWeight: FontWeight.bold,
-              ),
-              SizedBox(
-                width: 10.h,
-              ),
-              Expanded(
-                child: DropdownTextField<BudgetModel>(
-                  dropKey: transactionDetailsData.budgetDropKey,
-                  label: tr(context, "budgetName"),
-                  selectedItem: transactionDetailsData.selectedBudget,
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  validate: (value) {
-                    return null;
-                  },
-                  onChange: transactionDetailsData.setSelectBudgetModel,
-                  finData: (data) => transactionDetailsData.getBudgetData(
-                    context,
-                  ),
-                  useName: true,
-                  buttonsColor: MyColors.primary,
-                  searchHint: tr(context, "search"),
-                ),
-              )
-            ],
-          ),
           if (model.transactionName != "الاهداف المالية المستهدفة")
             Row(
               children: [
                 MyText(
                   title: tr(context, "priorityRatio"),
                   color: MyColors.black,
-                  size: 12.sp,
+                  size: 14.sp,
                   fontWeight: FontWeight.bold,
                 ),
                 SizedBox(
@@ -242,6 +261,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                       context,
                     ),
                     useName: true,
+                    hasLocalization: true,
                     buttonsColor: MyColors.primary,
                     searchHint: tr(context, "search"),
                   ),
@@ -260,7 +280,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                   MyText(
                     title: tr(context, "transactionDate"),
                     color: MyColors.black,
-                    size: 9.sp,
+                    size: 11.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ],
@@ -295,7 +315,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                 width: 10.w,
               ),
               SizedBox(
-                width: 90.w,
+                width: 120.w,
                 child: GenericTextField(
                   onTab: () => transactionDetailsData.onSelectTime(
                     context,
@@ -385,141 +405,346 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                 ),
               ],
             ),
-          BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
-            bloc: transactionDetailsData.iterateCubit,
-            builder: (context, state) {
-              if (state.data == false) {
-                transactionDetailsData.notifyCubit.onUpdateData(false);
-                print(transactionDetailsData.notifyCubit.state.data);
-              } else {
-                transactionDetailsData.notifyCubit.onUpdateData(model.notify!);
-                print(transactionDetailsData.notifyCubit.state.data);
-              }
-              return Column(
+          if (model.transactionName == "الاهداف المالية المستهدفة")
+            BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+              bloc: transactionDetailsData.iterateCubit,
+              builder: (context, state) => Row(
                 children: [
-                  Container(
-                    padding: EdgeInsets.all(10.r),
-                    margin: EdgeInsets.symmetric(vertical: 10.r),
-                    decoration: BoxDecoration(
-                      color: MyColors.backgroundColor,
-                      borderRadius: BorderRadius.circular(15.r),
+                  MyText(
+                    title: tr(context, "repeatTransaction"),
+                    color: MyColors.black,
+                    size: 14.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Expanded(
+                    child: DropdownTextField<DropdownModel>(
+                      dropKey: transactionDetailsData.iterateTransactionDropKey,
+                      label: tr(context, "repeatDuration"),
+                      selectedItem:
+                          transactionDetailsData.selectedIterateTransaction,
+                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      validate: (value) {
+                        if (value == null) {
+                          print("Please fill this field");
+                        }
+                      },
+                      onChange:
+                          transactionDetailsData.setSelectIterateTransaction,
+                      finData: (data) =>
+                          transactionDetailsData.getIterateTransaction(context),
+                      useName: true,
+                      hasLocalization: true,
+                      buttonsColor: MyColors.primary,
+                      searchHint: tr(context, "search"),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: MyText(
-                                  title: tr(context, "repeatTransaction"),
+                  ),
+                ],
+              ),
+            ),
+          if (model.transactionName != "الاهداف المالية المستهدفة")
+            BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+              bloc: transactionDetailsData.iterateCubit,
+              builder: (context, state) {
+                if (state.data == false) {
+                  transactionDetailsData.notifyCubit.onUpdateData(false);
+                  print(transactionDetailsData.notifyCubit.state.data);
+                } else {
+                  transactionDetailsData.notifyCubit
+                      .onUpdateData(model.notify ?? false);
+                  print(transactionDetailsData.notifyCubit.state.data);
+                }
+                return Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(10.r),
+                      margin: EdgeInsets.symmetric(vertical: 10.r),
+                      decoration: BoxDecoration(
+                        color: MyColors.backgroundColor,
+                        borderRadius: BorderRadius.circular(15.r),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: MyText(
+                                    title: tr(context, "repeatTransaction"),
+                                    color: MyColors.black,
+                                    size: 14.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                if (state.data == true)
+                                  Expanded(
+                                    child: DropdownTextField<DropdownModel>(
+                                      dropKey: transactionDetailsData
+                                          .iterateTransactionDropKey,
+                                      label: tr(context, "repeatDuration"),
+                                      selectedItem: transactionDetailsData
+                                              .selectedIterateTransaction ??
+                                          model.repeated,
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      validate: (value) {
+                                        if (value == null) {
+                                          print("Please fill this field");
+                                        }
+                                      },
+                                      onChange: transactionDetailsData
+                                          .setSelectIterateTransaction,
+                                      finData: (data) => transactionDetailsData
+                                          .getIterateTransaction(context),
+                                      useName: true,
+                                      buttonsColor: MyColors.primary,
+                                      searchHint: tr(context, "search"),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 8.w,
+                          ),
+                          CupertinoSwitch(
+                            trackColor: MyColors.blackOpacity,
+                            value: state.data,
+                            onChanged: (value) {
+                              transactionDetailsData.iterateCubit
+                                  .onUpdateData(value);
+                            },
+                          )
+                        ],
+                      ),
+                    ),
+                    if (state.data == true)
+                      BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+                        bloc: transactionDetailsData.notifyCubit,
+                        builder: (context, state1) {
+                          return Container(
+                            padding: EdgeInsets.all(10.r),
+                            margin: EdgeInsets.symmetric(vertical: 10.r),
+                            decoration: BoxDecoration(
+                              color: MyColors.backgroundColor,
+                              borderRadius: BorderRadius.circular(15.r),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      MyText(
+                                        title: tr(context, "notify"),
+                                        color: MyColors.black,
+                                        size: 14.sp,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      SizedBox(
+                                        width: 10.w,
+                                      ),
+                                      MyText(
+                                        title: "(${tr(context, "remember")})",
+                                        color: MyColors.black,
+                                        size: 11.sp,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                CupertinoSwitch(
+                                  trackColor: MyColors.blackOpacity,
+                                  value: state1.data,
+                                  onChanged: (value) {
+                                    transactionDetailsData.notifyCubit
+                                        .onUpdateData(value);
+                                    print(state1.data);
+                                    print("state1.data");
+                                  },
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                  ],
+                );
+              },
+            ),
+          if (model.transactionName == "الاهداف المالية المستهدفة")
+            Column(
+              children: [
+                BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+                  bloc: transactionDetailsData.notifyCubit,
+                  builder: (context, state1) {
+                    return Container(
+                      padding: EdgeInsets.all(10.r),
+                      margin: EdgeInsets.symmetric(vertical: 10.r),
+                      decoration: BoxDecoration(
+                        color: MyColors.backgroundColor,
+                        borderRadius: BorderRadius.circular(15.r),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Row(
+                              children: [
+                                MyText(
+                                  title: tr(context, "notify"),
                                   color: MyColors.black,
                                   size: 14.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              if (state.data == true)
-                                Expanded(
-                                  child: DropdownTextField<DropdownModel>(
-                                    dropKey: transactionDetailsData
-                                        .iterateTransactionDropKey,
-                                    label: tr(context, "repeatDuration"),
-                                    selectedItem: transactionDetailsData
-                                            .selectedIterateTransaction ??
-                                        model.repeated,
-                                    margin:
-                                        const EdgeInsets.symmetric(vertical: 5),
-                                    validate: (value) {
-                                      if (value == null) {
-                                        print("Please fill this field");
-                                      }
-                                    },
-                                    onChange: transactionDetailsData
-                                        .setSelectIterateTransaction,
-                                    finData: (data) => transactionDetailsData
-                                        .getIterateTransaction(context),
-                                    useName: true,
-                                    buttonsColor: MyColors.primary,
-                                    searchHint: tr(context, "search"),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                MyText(
+                                  title: "(${tr(context, "remember")})",
+                                  color: MyColors.black,
+                                  size: 11.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          CupertinoSwitch(
+                            trackColor: MyColors.blackOpacity,
+                            value: state1.data,
+                            onChanged: (value) {
+                              transactionDetailsData.notifyCubit
+                                  .onUpdateData(value);
+                            },
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+                  bloc: transactionDetailsData.remainderCubit,
+                  builder: (context, state1) {
+                    return Container(
+                      padding: EdgeInsets.all(10.r),
+                      margin: EdgeInsets.symmetric(vertical: 10.r),
+                      decoration: BoxDecoration(
+                        color: MyColors.backgroundColor,
+                        borderRadius: BorderRadius.circular(15.r),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Row(
+                              children: [
+                                MyText(
+                                  title: tr(context, "putRemainderInWallet"),
+                                  color: MyColors.black,
+                                  size: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          CupertinoSwitch(
+                            trackColor: MyColors.blackOpacity,
+                            value: state1.data,
+                            onChanged: (value) {
+                              transactionDetailsData.remainderCubit
+                                  .onUpdateData(value);
+                            },
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+                  bloc: transactionDetailsData.ratioCubit,
+                  builder: (context, state) {
+                    return Container(
+                      padding: EdgeInsets.all(10.r),
+                      margin: EdgeInsets.symmetric(vertical: 10.r),
+                      decoration: BoxDecoration(
+                        color: MyColors.backgroundColor,
+                        borderRadius: BorderRadius.circular(15.r),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Row(
+                              children: [
+                                MyText(
+                                  title: tr(context, "completedNotify"),
+                                  color: MyColors.black,
+                                  size: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                if (state.data == true)
+                                  Expanded(
+                                    child: DropdownTextField<DropdownModel>(
+                                      dropKey:
+                                          transactionDetailsData.ratioDropKey,
+                                      label: tr(context, "ratio"),
+                                      selectedItem:
+                                          transactionDetailsData.selectedRatio,
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      validate: (value) {
+                                        if (value == null) {
+                                          print("Please fill this field");
+                                        }
+                                      },
+                                      onChange:
+                                          transactionDetailsData.setSelectRatio,
+                                      finData: (data) => transactionDetailsData
+                                          .getRatio(context),
+                                      useName: true,
+                                      buttonsColor: MyColors.primary,
+                                      searchHint: tr(context, "search"),
+                                    ),
                                   ),
-                                ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 8.w,
-                        ),
-                        CupertinoSwitch(
-                          trackColor: MyColors.blackOpacity,
-                          value: state.data,
-                          onChanged: (value) {
-                            transactionDetailsData.iterateCubit
-                                .onUpdateData(value);
-                          },
-                        )
-                      ],
-                    ),
-                  ),
-                  if (state.data == true)
-                    BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
-                      bloc: transactionDetailsData.notifyCubit,
-                      builder: (context, state1) {
-                        return Container(
-                          padding: EdgeInsets.all(10.r),
-                          margin: EdgeInsets.symmetric(vertical: 10.r),
-                          decoration: BoxDecoration(
-                            color: MyColors.backgroundColor,
-                            borderRadius: BorderRadius.circular(15.r),
+                          SizedBox(
+                            width: 8.w,
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    MyText(
-                                      title: tr(context, "notify"),
-                                      color: MyColors.black,
-                                      size: 14.sp,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    SizedBox(
-                                      width: 10.w,
-                                    ),
-                                    MyText(
-                                      title: "(${tr(context, "remember")})",
-                                      color: MyColors.black,
-                                      size: 9.sp,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              CupertinoSwitch(
-                                trackColor: MyColors.blackOpacity,
-                                value: state1.data,
-                                onChanged: (value) {
-                                  transactionDetailsData.notifyCubit
-                                      .onUpdateData(value);
-                                  print(state1.data);
-                                  print("state1.data");
-                                },
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                ],
-              );
-            },
-          )
+                          CupertinoSwitch(
+                            trackColor: MyColors.blackOpacity,
+                            value: state.data,
+                            onChanged: (value) {
+                              transactionDetailsData.ratioCubit
+                                  .onUpdateData(value);
+                            },
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
         ],
       ),
     );

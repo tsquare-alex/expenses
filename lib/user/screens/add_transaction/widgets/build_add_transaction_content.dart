@@ -36,7 +36,7 @@ class BuildAddTransactionContent extends StatelessWidget {
               ],
             ),
             DefaultButton(
-              onTap: () {
+              onTap: () async {
 
                 if(type == "الالتزامات"||type == "التسوق والشراء"){
                   data.addTransactionContent(
@@ -47,8 +47,9 @@ class BuildAddTransactionContent extends StatelessWidget {
                     typeModel
                   );
                 }
-                AutoRouter.of(context).pop();
+                await AutoRouter.of(context).pop();
                 data.newContentController.clear();
+                data.getContents(typeModel, type);
               },
               title: "إضافة",
               fontSize: 14.sp,

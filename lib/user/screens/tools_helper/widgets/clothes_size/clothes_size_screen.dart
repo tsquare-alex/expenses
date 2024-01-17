@@ -20,9 +20,9 @@ class ClothesSizeScreen extends StatelessWidget {
         child: Column(
           children: [
             MyText(title: tr(context, "clothesSizeMen"), color: MyColors.primary, size: 18.sp),
-            Image.asset(Res.menSize),
+            Image.asset(Res.mensize),
             MyText(title:  tr(context, "clothesSizeWomen"), color: MyColors.primary, size: 18.sp),
-            Image.asset(Res.womenSize),
+            Image.asset(Res.womensize),
             Image.asset(Res.pantSize),
           ],
         ),

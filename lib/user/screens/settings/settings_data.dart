@@ -1,11 +1,7 @@
 part of 'settings_imports.dart';
 
 class SettingsData {
-  String selectedLanguage = 'عربي';
-
-  List<String> languages = ['عربي', 'انجليزي'];
-
-  List<String> monthDays =
+ List<String> monthDays =
       List.generate(31, (index) => (1 + index++).toString());
 
   List<String> weekDays = [
@@ -41,17 +37,6 @@ class SettingsData {
         return AlertDialog(
           content: const BuildLanguageBottomSheet(),
           backgroundColor: MyColors.white,
-          actions: [
-            TextButton(
-              child: MyText(
-                title: "Cancel",
-                color: MyColors.primary,
-                size: 14.sp,
-                fontWeight: FontWeight.bold,
-              ),
-              onPressed: () => AutoRouter.of(context).pop(),
-            )
-          ],
         );
       },
     );

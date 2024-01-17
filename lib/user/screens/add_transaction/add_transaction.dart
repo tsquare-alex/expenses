@@ -1,8 +1,11 @@
 part of 'add_transaction_imports.dart';
 
 class AddTransaction extends StatefulWidget {
-  const AddTransaction({Key? key, required this.model,}) : super(key: key);
-  final TransactionModel? model;
+  const AddTransaction({Key? key, required this.model, this.transactionName, this.boxName,}) : super(key: key);
+  final TransactionTypeModel? model;
+  final String? transactionName;
+  final String? boxName;
+
   @override
   State<AddTransaction> createState() => _AddTransactionState();
 }
@@ -13,7 +16,10 @@ class _AddTransactionState extends State<AddTransaction> {
 
   @override
   void initState() {
-    data.initialTransaction(widget.model!);
+    data.selectedContent=null;
+    data.getContents(widget.model!,widget.transactionName!);
+    data.selectedContent = null;
+    print(data.selectedContent);
     super.initState();
   }
 
@@ -22,20 +28,22 @@ class _AddTransactionState extends State<AddTransaction> {
 
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: MyColors.white,
         elevation: 0,
+        backgroundColor: MyColors.white,
         leading: IconButton(
           onPressed: () => AutoRouter.of(context).pop(),
           icon: Icon(
-            Icons.arrow_back_ios,
-            color: MyColors.white,
+            Icons.arrow_back,
+            color: MyColors.black,
             size: 20.sp,
           ),
         ),
         centerTitle: true,
         title: MyText(
-          title: tr(context, "addTransaction"),
-          color: MyColors.white,
-          size: 16.sp,
+          title: tr(context, widget.model!.name!).isNotEmpty?tr(context, widget.model!.name!):widget.model?.name??"",
+          color: MyColors.black,
+          size: 18.sp,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -45,12 +53,12 @@ class _AddTransactionState extends State<AddTransaction> {
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              BuildTransactionType(addTransactionData: data, type: widget.model?.name??"",),
-              BuildTransactionInputs(addTransactionData: data, type: widget.model?.name??"",),
-              BuildTransactionDate(data: data,type: widget.model?.name??""),
-              if(widget.model?.name=="التسوق والشراء")BuildAddProductPhoto(data: data,),
-              BuildIterateTransaction(addTransactionData: data,type: widget.model?.name??"",),
-              BuildTransactionButton(data: data,type: widget.model?.name??"",),
+              BuildTransactionType(addTransactionData: data, type: widget.transactionName??"", model: widget.model!, boxName: widget.boxName??"",),
+              BuildTransactionInputs(addTransactionData: data, type: widget.transactionName??"",),
+              BuildAddProductPhoto(data: data,),
+              BuildTransactionDate(data: data,type: widget.transactionName??""),
+              BuildIterateTransaction(addTransactionData: data,type: widget.transactionName??"",),
+              BuildTransactionButton(data: data,type: widget.transactionName??"", transactionType: widget.model!,),
 
             ],
           ),

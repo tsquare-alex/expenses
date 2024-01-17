@@ -8,7 +8,7 @@ import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/models/add_transaction_model/add_transaction_model.dart';
 import 'package:expenses/user/screens/balance_transfer/wallet_balance_transfer_imports.dart';
-import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
+import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

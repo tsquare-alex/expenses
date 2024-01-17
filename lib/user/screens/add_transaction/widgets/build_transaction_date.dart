@@ -9,7 +9,7 @@ class BuildTransactionDate extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5.r),
       decoration: BoxDecoration(
-        color: MyColors.backgroundColor,
+        color: MyColors.white,
         borderRadius: BorderRadius.circular(15.r),
       ),
       child: Form(
@@ -18,11 +18,14 @@ class BuildTransactionDate extends StatelessWidget {
           children: [
             Column(
               children: [
-                Icon(Icons.date_range,color: MyColors.primary,),
+                Image.asset(Res.dateTime,width: 30.w,height: 30.h,),
+                SizedBox(
+                  height: 5.h,
+                ),
                 MyText(
-                  title: "ميعاد المعاملة",
+                  title: tr(context, "transactionDate"),
                   color: MyColors.black,
-                  size: 9.sp,
+                  size: 11.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ],
@@ -41,7 +44,7 @@ class BuildTransactionDate extends StatelessWidget {
                 fieldTypes: FieldTypes.clickable,
                 type: TextInputType.text,
                 action: TextInputAction.next,
-                label: "التاريخ",
+                label: tr(context, "date"),
                 validate: (value) {
                   if(value!.isEmpty){
                     return 'Enter transaction date';
@@ -57,7 +60,7 @@ class BuildTransactionDate extends StatelessWidget {
               width: 10.w,
             ),
             SizedBox(
-              width: 90.w,
+              width: 120.w,
               child: GenericTextField(
                 onTab: () => data.onSelectTime(
                   context,
@@ -68,7 +71,7 @@ class BuildTransactionDate extends StatelessWidget {
                 fieldTypes: FieldTypes.clickable,
                 type: TextInputType.text,
                 action: TextInputAction.next,
-                label: "الوقت",
+                label: tr(context, "time"),
                 validate: (value) {
                   if(value!.isEmpty){
                     return 'Enter the time';

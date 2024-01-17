@@ -12,29 +12,38 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: MyColors.amber,
+        leading: GestureDetector(
+          onTap: () => AutoRouter.of(context).pop(),
+          child: Icon(
+            Icons.arrow_back,
+            color: MyColors.black,
+          ),
+        ),
+        backgroundColor: MyColors.white,
+        surfaceTintColor: Colors.transparent,
+        centerTitle: true,
         title: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
               Res.settings,
-              width: 20.w,
-              height: 20.h,
-              color: MyColors.white,
+              width: 24.w,
+              height: 24.h,
+              color: MyColors.primary,
             ),
             SizedBox(
-              width: 10.w,
+              width: 8.w,
             ),
             MyText(
               title: tr(context, 'settings'),
-              color: Colors.white,
-              size: 14.sp,
+              color: Colors.black,
+              size: 20.sp,
               fontWeight: FontWeight.bold,
             ),
           ],
         ),
-        automaticallyImplyLeading: false,
       ),
-      body: SettingsBody(),
+      body: const SettingsBody(),
     );
   }
 }

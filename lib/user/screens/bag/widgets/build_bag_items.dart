@@ -37,7 +37,7 @@ class BuildBagItems extends StatelessWidget {
               ),
               IconButton(
                   onPressed: () => data.deleteAllDataInBox(),
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.delete,
                     color: Colors.red,
                   ))

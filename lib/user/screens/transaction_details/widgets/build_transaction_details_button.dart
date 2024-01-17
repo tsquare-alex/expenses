@@ -12,7 +12,7 @@ class BuildTransactionDetailsButton extends StatelessWidget {
         onTap: ()=>data.editTransaction(context, model),
         title: tr(context, "save"),
         fontWeight: FontWeight.bold,
-        fontSize: 14.sp,
+        fontSize: 16.sp,
       ),
     );
   }

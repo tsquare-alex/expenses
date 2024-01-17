@@ -19,9 +19,9 @@ class ShoesSizeScreen extends StatelessWidget {
       body: SingleChildScrollView( 
         child: Column(
           children: [
-            Image.asset(Res.womenShoes),
+            Image.asset(Res.women_shoes),
             const SizedBox(height: 15,),
-            Image.asset(Res.menShoes),
+            Image.asset(Res.men_shoes),
           ],
         ),
       ),

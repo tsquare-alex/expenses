@@ -96,6 +96,7 @@ dependencies:
   audioplayers:
   circular_countdown_timer:
   timer_count_down: ^2.2.2
+  dropdown_textfield: ^1.0.8
 
 dev_dependencies:
   flutter_test:

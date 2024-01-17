@@ -29,6 +29,7 @@ class DropdownTextField<DataType> extends StatefulWidget {
   final Color? hintColor;
   final Color? buttonsColor;
   final BorderRadius? radius;
+  final bool? hasLocalization;
 
   DropdownTextField(
       {this.label,
@@ -53,7 +54,9 @@ class DropdownTextField<DataType> extends StatefulWidget {
       this.enableColor,
       this.selectedItem,
       this.radius,
-      this.showSelectedItem = false});
+      this.showSelectedItem = false,
+      this.hasLocalization = false,
+      });
 
   @override
   _DropdownTextFieldState<DataType> createState() =>
@@ -90,7 +93,13 @@ class _DropdownTextFieldState<DataType> extends State<DropdownTextField> {
               size: 28, color: widget.buttonsColor ?? Colors.black),
         ),
         selectedItem: widget.selectedItem,
-        itemAsString: (dynamic u) => widget.useName ? u.name : u,
+        itemAsString: (dynamic u) {
+          if(widget.hasLocalization == false){
+            return widget.useName ? u.name : u;
+          }else{
+            return tr(context, u.name).isNotEmpty?tr(context, u.name):  u.name;
+          }
+        },
         showSelectedItem: widget.showSelectedItem,
         style: TextStyle(
           fontSize: widget.textSize ?? 14.sp,
@@ -117,13 +126,13 @@ class _DropdownTextFieldState<DataType> extends State<DropdownTextField> {
           child: Center(
             child: MyText(
               title: widget.label != null ? widget.label??"" : widget.hint??"",
-              size: 16,
+              size: 16.sp,
               color: Colors.white,
             ),
           ),
         ),
         dropdownSearchDecoration: InputDecoration(
-          label: MyText(title: "${widget.label}", color: MyColors.txtColor, size: 13.sp),
+          label: MyText(title: "${widget.label}", color: MyColors.grey, size: 14.sp,fontWeight: FontWeight.bold,),
           hintText: widget.hint,
           fillColor: widget.fillColor,
           enabledBorder: OutlineInputBorder(

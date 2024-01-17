@@ -20,14 +20,14 @@ class StatisticsDropdown extends StatelessWidget {
         hint: Text(
           label,
           style: TextStyle(
-            fontSize: 12.sp,
-            fontWeight: FontWeight.bold,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w500,
             color: Colors.grey,
           ),
         ),
-        icon: const Icon(
+        icon: Icon(
           Icons.keyboard_arrow_down,
-          color: Colors.grey,
+          color: MyColors.primary,
         ),
         menuMaxHeight: 0.3.sh,
         items: menuList.entries
@@ -41,8 +41,8 @@ class StatisticsDropdown extends StatelessWidget {
                   title: Text(
                     entry.key,
                     style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
                       color: Colors.grey,
                     ),
                   ),

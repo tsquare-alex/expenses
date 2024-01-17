@@ -14,33 +14,59 @@ class _ReportsState extends State<Reports> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: MyColors.primary,
-        title: Row(
-          children: [
-            Image.asset(
-              Res.chart,
-              width: 20.w,
-              height: 20.h,
-              color: MyColors.white,
+    return BlocProvider(
+      create: (context) => ReportsCubit()..getReportData(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: MyColors.white,
+          centerTitle: true,
+          title: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                Res.reports,
+                width: 24.w,
+                height: 24.h,
+                color: MyColors.primary,
+              ),
+              SizedBox(
+                width: 8.w,
+              ),
+              MyText(
+                title: tr(context, 'reports'),
+                color: Colors.black,
+                size: 20.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ],
+          ),
+          leading: GestureDetector(
+            onTap: () => AutoRouter.of(context).pop(),
+            child: Icon(
+              Icons.arrow_back,
+              color: MyColors.black,
             ),
-            SizedBox(
-              width: 10.w,
-            ),
-            MyText(
-              title: tr(context, 'reports'),
-              color: Colors.white,
-              size: 14.sp,
-              fontWeight: FontWeight.bold,
+          ),
+          actions: [
+            BlocBuilder<ReportsCubit, ReportsState>(
+              builder: (context, state) {
+                return GestureDetector(
+                  onTap: () => showReportOptionsModalSheet(context: context),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.r),
+                    child: Image.asset(
+                      Res.reportsMenu,
+                      width: 24.w,
+                      height: 24.h,
+                      color: MyColors.primary,
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),
-        automaticallyImplyLeading: false,
-      ),
-      body: BlocProvider(
-        create: (context) => ReportsCubit()..getReportData(context),
-        child: BlocBuilder<ReportsCubit, ReportsState>(
+        body: BlocBuilder<ReportsCubit, ReportsState>(
           buildWhen: (previous, current) {
             return (previous == const ReportsState.reportDataLoading() ||
                 current == const ReportsState.reportDataLoading());

@@ -8,11 +8,10 @@ class Budget extends StatefulWidget {
 }
 
 class _BudgetState extends State<Budget> {
-  
   BudgetData budgetData = BudgetData();
 
   RefreshController refreshController =
-  RefreshController(initialRefresh: false);
+      RefreshController(initialRefresh: false);
 
   void onRefresh() async {
     // Simulate a delay or perform any background tasks
@@ -21,7 +20,7 @@ class _BudgetState extends State<Budget> {
     // After the task is complete, end the refreshing process
     refreshController.refreshCompleted();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return SmartRefresher(
@@ -33,27 +32,19 @@ class _BudgetState extends State<Budget> {
           builder: (context, state) {
             return Scaffold(
               appBar: AppBar(
-                backgroundColor: Colors.red,
-                title: Row(
-                  children: [
-                    Image.asset(
-                      Res.budget,
-                      width: 20.w,
-                      height: 20.h,
-                      color: MyColors.white,
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    MyText(
-                      title: tr(context, 'budget'),
-                      color: Colors.white,
-                      size: 14.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ],
+                leading: IconButton(
+                  icon: Image.asset(Res.back),
+                  onPressed: () => AutoRouter.of(context).pop(),
                 ),
-                automaticallyImplyLeading: false,
+                backgroundColor: MyColors.white,
+                title: Center(
+                  child: MyText(
+                    title: tr(context, "budget"),
+                    color: MyColors.black,
+                    size: 16.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               body: Column(children: [
                 Expanded(
@@ -69,7 +60,7 @@ class _BudgetState extends State<Budget> {
                                 itemCount: data.length,
                                 itemBuilder: (context, index) {
                                   return ItemBudget(
-                                    model: data[index], data: budgetData,
+                                    model: data[index],
                                   );
                                 },
                               ),

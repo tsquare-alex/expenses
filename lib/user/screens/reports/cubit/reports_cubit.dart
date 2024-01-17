@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -8,7 +9,6 @@ import 'package:intl/intl.dart';
 
 import '../../../../general/constants/constants.dart';
 import '../../../models/add_transaction_model/add_transaction_model.dart';
-import '../../wallet/data/model/wallet_model.dart';
 import '../models/reports_category.dart';
 
 part 'reports_cubit.freezed.dart';

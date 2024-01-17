@@ -138,10 +138,11 @@ class Res {
   static const String readyModels = "assets/images/readyModels.png";
   static const String register = "assets/images/register.png";
   static const String reminders = "assets/images/reminders.png";
+  static const String repeatedTransactions =
+      "assets/images/repeatedTransactions.png";
   static const String rent = "assets/images/rent.png";
   static const String repair = "assets/images/repair.png";
   static const String repeated = "assets/images/repeated.png";
-  static const String repeatedTransactions = "assets/images/repeatedTransactions.png";
   static const String report = "assets/images/report.png";
   static const String reports = "assets/images/reports.png";
   static const String reportsMenu = "assets/images/reports_menu.png";
@@ -192,6 +193,32 @@ class Res {
   static const String vinegar = "assets/images/vinegar.png";
   static const String visit = "assets/images/visit.png";
   static const String wallet = "assets/images/wallet.png";
+  static const String womenShoes = "assets/images/women_shoes.png";
+  static const String womenSize = "assets/images/womensize.png";
+  static const String salary = "assets/images/salary.png";
+  static const String incentive = "assets/images/incentive.png";
+  static const String extra = "assets/images/extra.png";
+  static const String reward = "assets/images/reward.png";
+  static const String bankAccount = "assets/images/bank_account.png";
+  static const String projectIncome = "assets/images/project_income.png";
+  static const String deal = "assets/images/deal.png";
+  static const String commission = "assets/images/commission.png";
+  static const String sale = "assets/images/sale.png";
+  static const String speculation = "assets/images/Speculation.png";
+  static const String back = "assets/images/back.png";
+  static const String calender = "assets/images/calendar.png";
+  static const String conatinerBackground =
+      "assets/images/contanier_background.png";
+  static const String lock = "assets/images/lock.png";
+  static const String setting = "assets/images/setting.png";
+  static const String visability = "assets/images/visability.png";
+  static const String more = "assets/images/more.png";
+  static const String withdrawal = "assets/images/wallet_withdrawal.png";
+  static const String addBalance = "assets/images/add_balance.png";
+  static const String balanceTransfare = "assets/images/balance_transfare.png";
+  static const String showTransaction = "assets/images/show_transactions.png";
+  static const String image = "assets/images/image.png";
+  static const String qrcode = "assets/images/qrcode.png";
   static const String walletImage = "assets/images/walletImage.png";
   static const String water = "assets/images/water.png";
   static const String website = "assets/images/website.png";

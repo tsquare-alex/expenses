@@ -252,7 +252,7 @@
   "totalAmount": "Total Amount",
   "discount": "Discount Calculator",
   "discountAmount": "Discount Amount",
-  "commercial": "Commercial",
+  "commercial": "Financial and commercial tools",
   "addWallet": "Add new wallet",
   "addBalance": "Add balance",
   "withdrawbalance": "Withdraw balance",
@@ -291,7 +291,14 @@
   "setReminder": "Set Reminder",
   "selectedDate": "Selected Date",
   "reminderSet": "Reminder set for",
-  "addImage": "Add Image"
+  "addImage": "Add Image",
+  "note": "Notes",
+  "calculateUnitPrice": "Calculate Unit Price",
+  "totalPrice": "Total Price",
+  "unitPrice": "Unit Price",
+  "stop": "Stop",
+  "reset": "Reset"
+
 
 
 

@@ -69,7 +69,7 @@ class _DropdownTextFieldState<DataType> extends State<DropdownTextField> {
         key: widget.dropKey,
         mode: Mode.BOTTOM_SHEET,
         isFilteredOnline: false,
-        maxHeight: 350,
+        maxHeight: 600,
         label: widget.label,
         items: widget.data,
         onFind: widget.finData,

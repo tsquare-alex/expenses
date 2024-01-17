@@ -18,7 +18,7 @@ class FavoriteModelAdapter extends TypeAdapter<FavoriteModel> {
     };
     return FavoriteModel(
       toolName: fields[0] as String,
-      iconCode: fields[1] as int,
+      imagePath: fields[1] as String,
     );
   }
 
@@ -29,7 +29,7 @@ class FavoriteModelAdapter extends TypeAdapter<FavoriteModel> {
       ..writeByte(0)
       ..write(obj.toolName)
       ..writeByte(1)
-      ..write(obj.iconCode);
+      ..write(obj.imagePath);
   }
 
   @override

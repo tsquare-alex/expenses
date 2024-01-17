@@ -330,7 +330,6 @@
   "databaseEventTitle": "عنوان المناسبة",
   "databaseEventDate": "تاريخ المناسبة",
   "databaseEventDetails": "تفاصيل المناسبة",
-  "databaseEventDate": "التاريخ",
   "databaseComment": "ملاحظات",
   "databaseSocialAddress": "عناوين الكترونية",
   "databaseSocialAddressWeb": "الموقع الالكترونى",
@@ -430,7 +429,7 @@
   "totalAmount": "المبلغ الإجمالي",
   "discount": "حساب الخصم",
   "discountAmount": "المبلغ بعد الخصوم",
-  "commercial": "تجارى",
+  "commercial": "ادوات مالية وتجارية",
   "addBalance": "إضافة رصيد",
   "withdrawbalance": "سحب رصيد",
   "chooseWallet": "إختيار المحفظة",
@@ -469,15 +468,13 @@
   "setReminder": "تعيين تذكير",
   "selectedDate": "Selected Date",
   "reminderSet": "تم تعيين تذكير ل",
-  "addImage": "أضافة صورة"
-
-
-
-
-
-
-
-
+  "addImage": "أضافة صورة",
+  "note": "ملاحظات",
+  "calculateUnitPrice": "حساب سعر الوحدة",
+  "totalPrice": "السعر الاجمالى",
+  "unitPrice": "سعر الوحدة",
+  "stop": "قف",
+  "reset": "إعادة ضبط"
 
 
 }

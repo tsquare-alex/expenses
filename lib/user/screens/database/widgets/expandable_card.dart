@@ -32,12 +32,12 @@ class ExpandableCard extends StatefulWidget {
 class _ExpandableCardState extends State<ExpandableCard> {
   bool isExpanded = false;
 
-
   @override
   Widget build(BuildContext context) {
     print("QR Code Data: ${widget.databaseData.generateQRCodeData()}");
     print("Image Data: ${widget.databaseData.image}");
     print("Other Details: ${widget.databaseData.name}, ${widget.databaseData.category}, ...");
+
 
 
     return InkWell(
@@ -60,16 +60,21 @@ class _ExpandableCardState extends State<ExpandableCard> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 height: 100,
+                width: 100,
+                // alignment: Alignment.bottomRight,
                 child: QrImageView(
                   data: widget.databaseData.generateQRCodeData() ?? '',
                   version: QrVersions.auto,
                   size: 200.0,
+                  errorCorrectionLevel: QrErrorCorrectLevel.L,
                 ),
               ),
+
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

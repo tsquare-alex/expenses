@@ -137,13 +137,42 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     );
                   },
                 ),
+                // PopupMenuButton<FavoriteModel>(
+                //   color: Colors.black,
+                //   onSelected: _onFavoriteItemSelected,
+                //   itemBuilder: (BuildContext context) {
+                //     if (getFavoriteModels(context).isEmpty) {
+                //       CustomToast.showSimpleToast(
+                //           msg: 'يرجى إضافة ادوات مساعدة');
+                //     }
+                //     return [
+                //       for (FavoriteModel model in getFavoriteModels(context))
+                //         PopupMenuItem<FavoriteModel>(
+                //           value: model,
+                //           child: Row(
+                //             children: <Widget>[
+                //               Icon(
+                //                   IconData(model.imagePath,
+                //                       fontFamily: 'MaterialIcons'),
+                //                   color: MyColors
+                //                       .primary), // Add an icon or any widget to represent the favorite item
+                //               SizedBox(width: 8.0),
+                //               MyText(
+                //                   title: tr(context, model.toolName),
+                //                   color: Colors.white,
+                //                   size: 15.sp)
+                //             ],
+                //           ),
+                //         ),
+                //     ];
+                //   },
+                // ),
                 PopupMenuButton<FavoriteModel>(
                   color: Colors.black,
                   onSelected: _onFavoriteItemSelected,
                   itemBuilder: (BuildContext context) {
                     if (getFavoriteModels(context).isEmpty) {
-                      CustomToast.showSimpleToast(
-                          msg: 'يرجى إضافة ادوات مساعدة');
+                      CustomToast.showSimpleToast(msg: 'يرجى إضافة ادوات مساعدة');
                     }
                     return [
                       for (FavoriteModel model in getFavoriteModels(context))
@@ -151,16 +180,18 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           value: model,
                           child: Row(
                             children: <Widget>[
-                              Icon(
-                                  IconData(model.iconCode,
-                                      fontFamily: 'MaterialIcons'),
-                                  color: MyColors
-                                      .primary), // Add an icon or any widget to represent the favorite item
+                              Image.asset(
+                                model.imagePath,
+                                width: 24.0,
+                                height: 24.0,
+                                color: MyColors.primary,
+                              ),
                               SizedBox(width: 8.0),
                               MyText(
-                                  title: tr(context, model.toolName),
-                                  color: Colors.white,
-                                  size: 15.sp)
+                                title: tr(context, model.toolName),
+                                color: Colors.white,
+                                size: 15.sp,
+                              ),
                             ],
                           ),
                         ),
@@ -218,7 +249,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   void _navigateToToolScreen(BuildContext context, FavoriteModel tool) {
-    switch (tool.toolName) {
+    switch (tool.toolName)
+    {
       case "percentage":
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => PercentageCalculatorScreen()));
@@ -237,7 +269,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         break;
       case "scanner":
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => ScannerQrCode()));
+            .push(
+            MaterialPageRoute(builder: (context) => const ScannerQrCode()));
         break;
       case "calender":
         Navigator.of(context)
@@ -298,6 +331,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       case "convertVolume":
         Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => VolumeConverterScreen()));
+        break;
+      case "reminder":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => ReminderScreen()));
+        break;
+      case "ruler":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => RulerScreen()));
         break;
     }
   }

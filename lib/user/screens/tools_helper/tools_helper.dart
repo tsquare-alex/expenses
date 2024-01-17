@@ -9,6 +9,7 @@ import 'package:expenses/user/screens/tools_helper/widgets/data_converter/data_c
 import 'package:expenses/user/screens/tools_helper/widgets/discount/discount_screen.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/length_converter/length_converter.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/mass_converter/mass_converter.dart';
+import 'package:expenses/user/screens/tools_helper/widgets/note/note_screen.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/percentage/percentage_screen.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/qiblah/compass.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/reminder/reminder.dart';
@@ -16,7 +17,10 @@ import 'package:expenses/user/screens/tools_helper/widgets/ruler/ruler_screen.da
 import 'package:expenses/user/screens/tools_helper/widgets/scanner_qr_code/scanner_qr_code.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/services_tax/service_tax_screen.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/speed_converter/speed_converter.dart';
+import 'package:expenses/user/screens/tools_helper/widgets/stop_watch/stop_watch_screen.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/temperature_converter/temperature_converter.dart';
+import 'package:expenses/user/screens/tools_helper/widgets/temporary/temporary_screen.dart';
+import 'package:expenses/user/screens/tools_helper/widgets/unit_price/unit_price.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/volume_converter/volume_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -88,7 +92,7 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "calculator",
-                              icon: Icons.calculate_outlined),
+                              imagePath: Res.toolCalculatorIc),
                     ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "scanner"),
@@ -100,7 +104,7 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "scanner",
-                              icon: Icons.qr_code),
+                              imagePath: Res.bardCodeIc),
                     ),
                     BuildToolsWidget(
                       onTap: () {},
@@ -108,6 +112,17 @@ class ToolsHelper extends StatelessWidget {
                       image: Res.zoomInIc,
                       isFavorite:false,
                       onFavoriteTap: () {},
+                    ),
+                    BuildToolsWidget(
+                      onTap: () => _navigateToToolScreen(context, "note"),
+                      title: "note",
+                      image: Res.noteIc,
+                      isFavorite:  context.watch<FavoriteCubit>().isFavorite("note"),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "note",
+                              imagePath: Res.noteIc),
                     ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "ruler"),
@@ -119,7 +134,7 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "ruler",
-                              icon: FontAwesomeIcons.ruler),
+                              imagePath:Res.rulerIc),
                     ),
                     BuildToolsWidget(
                       onTap: () {},
@@ -138,7 +153,7 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "qiblah",
-                              icon: FontAwesomeIcons.kaaba),
+                              imagePath: Res.qiblahIc),
                     ),
 
 
@@ -148,7 +163,7 @@ class ToolsHelper extends StatelessWidget {
                     // BuildToolsWidget(
                     //   onTap: () => _navigateToToolScreen(context, "shoesSize"),
                     //   title: "shoesSize",
-                    //   icon: FontAwesomeIcons.shoePrints,
+                    //   imagePath: FontAwesomeIcons.shoePrints,
                     //   isFavorite: context
                     //       .watch<FavoriteCubit>()
                     //       .isFavorite("shoesSize"),
@@ -156,7 +171,7 @@ class ToolsHelper extends StatelessWidget {
                     //       _toggleFavoriteStatus(
                     //           context: context,
                     //           toolName: "shoesSize",
-                    //           icon: FontAwesomeIcons.shoePrints),
+                    //           imagePath: FontAwesomeIcons.shoePrints),
                     // ),
 
                   ]),
@@ -175,21 +190,32 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "reminder",
-                              icon: Icons.calendar_month),
+                              imagePath: Res.reminderIc),
                     ),
                     BuildToolsWidget(
-                      onTap: () {},
+                      onTap: () =>
+                          _navigateToToolScreen(context, "temporary"),
                       title: "temporary",
                       image: Res.temporaryIc,
-                      isFavorite:false,
-                      onFavoriteTap: () {},
+                      isFavorite:
+                      context.watch<FavoriteCubit>().isFavorite("temporary"),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "temporary",
+                              imagePath: Res.temporaryIc),
                     ),
                     BuildToolsWidget(
-                      onTap: () {},
+                      onTap: () =>
+                          _navigateToToolScreen(context, "stopWatch"),
                       title: "stopWatch",
                       image: Res.stopwatchIc,
-                      isFavorite:false,
-                      onFavoriteTap: () {},
+                      isFavorite : context.watch<FavoriteCubit>().isFavorite("stopWatch"),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "stopWatch",
+                              imagePath: Res.temporaryIc),
                     ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "calender"),
@@ -201,13 +227,9 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "calender",
-                              icon: Icons.calendar_month),
+                              imagePath: Res.calendarIc),
                     ),
                   ]),
-
-
-
-
               ExpandableTile(
 
                   title: "commercial",
@@ -224,7 +246,7 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "percentage",
-                              icon: Icons.percent),
+                              imagePath: Res.percentageIc),
                     ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "tax"),
@@ -236,7 +258,7 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "tax",
-                              icon: Icons.money_off),
+                              imagePath: Res.taxIc),
                     ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "discount"),
@@ -248,7 +270,21 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "discount",
-                              icon: Icons.attach_money),
+                              imagePath: Res.discountIc),
+                    ),
+                    BuildToolsWidget(
+                      onTap: () =>
+                          _navigateToToolScreen(context, "calculateUnitPrice"),
+                      title: "calculateUnitPrice",
+                      image: Res.unitPriceIc,
+                      isFavorite: context
+                          .watch<FavoriteCubit>()
+                          .isFavorite("calculateUnitPrice"),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "calculateUnitPrice",
+                              imagePath:  Res.unitPriceIc),
                     ),
                     BuildToolsWidget(
                       onTap: () =>
@@ -262,7 +298,7 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "convertCurrency",
-                              icon: Icons.currency_exchange),
+                              imagePath:  Res.transferIc),
                     ),
                   ]),
 
@@ -280,7 +316,7 @@ class ToolsHelper extends StatelessWidget {
                         _toggleFavoriteStatus(
                             context: context,
                             toolName: "bmi",
-                            icon: Icons.health_and_safety_outlined),
+                            imagePath: Res.bmiIc),
                   ),
                   BuildToolsWidget(
                     onTap: () => _navigateToToolScreen(context, "bmr"),
@@ -292,7 +328,7 @@ class ToolsHelper extends StatelessWidget {
                         _toggleFavoriteStatus(
                             context: context,
                             toolName: "bmr",
-                            icon: Icons.health_and_safety),
+                            imagePath: Res.bmrIc),
                   ),
                   BuildToolsWidget(
                     onTap: () => _navigateToToolScreen(context, "ringSize"),
@@ -304,7 +340,7 @@ class ToolsHelper extends StatelessWidget {
                         _toggleFavoriteStatus(
                             context: context,
                             toolName: "ringSize",
-                            icon: FontAwesomeIcons.ring),
+                            imagePath: Res.ringIc),
                   ),
                   BuildToolsWidget(
                     onTap: () =>
@@ -318,7 +354,7 @@ class ToolsHelper extends StatelessWidget {
                         _toggleFavoriteStatus(
                             context: context,
                             toolName: "clothesSize",
-                            icon: FontAwesomeIcons.shirt),
+                            imagePath:Res.clothessizeIc),
                   ),
                 ],
               ),
@@ -338,7 +374,7 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "convertLength",
-                              icon: Icons.height),
+                              imagePath: Res.unitIc),
                     ),
                     BuildToolsWidget(
                       onTap: () =>
@@ -352,7 +388,7 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "convertMass",
-                              icon: Icons.radar_outlined),
+                              imagePath: Res.sizeIc),
                     ),
                     BuildToolsWidget(
                       onTap: () =>
@@ -366,7 +402,7 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "convertTemperature",
-                              icon: Icons.light_mode_outlined),
+                              imagePath: Res.temperatureIc),
                     ),
                     BuildToolsWidget(
                       onTap: () =>
@@ -380,7 +416,7 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "convertArea",
-                              icon: Icons.area_chart_outlined),
+                              imagePath: Res.areaIc),
                     ),
                     BuildToolsWidget(
                       onTap: () =>
@@ -394,7 +430,7 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "convertSpeed",
-                              icon: Icons.shutter_speed),
+                              imagePath: Res.speedIc),
                     ),
                     // BuildToolsWidget(
                     //   onTap: () =>
@@ -408,7 +444,7 @@ class ToolsHelper extends StatelessWidget {
                     //       _toggleFavoriteStatus(
                     //           context: context,
                     //           toolName: "convertData",
-                    //           icon: Icons.data_exploration),
+                    //           imagePath: Icons.data_exploration),
                     // ),
                     BuildToolsWidget(
                       onTap: () =>
@@ -422,7 +458,7 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "convertVolume",
-                              icon: Icons.data_exploration),
+                              imagePath: Res.weightIc),
                     ),
                   ]),
 
@@ -434,7 +470,8 @@ class ToolsHelper extends StatelessWidget {
   }
 
   void _navigateToToolScreen(BuildContext context, String toolName) {
-    switch (toolName) {
+    switch (toolName)
+    {
       case "percentage":
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => PercentageCalculatorScreen()));
@@ -524,26 +561,59 @@ class ToolsHelper extends StatelessWidget {
         Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => RulerScreen()));
         break;
+      case "note":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => NoteView()));
+        break;
+        case "calculateUnitPrice":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => UnitPriceScreen()));
+        break;
+      case "temporary":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => TemporaryScreen()));
+        break;
+        case "stopWatch":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => StopwatchScreen()));
+        break;
     }
   }
-
-  void _toggleFavoriteStatus({required BuildContext context,
+  void _toggleFavoriteStatus({
+    required BuildContext context,
     required String toolName,
-    required IconData icon}) {
-    // var favoriteCubit = context.read<FavoriteCubit>();
+    required String imagePath,
+  }) {
     var favoriteCubit = context.read<FavoriteCubit>();
+
     if (favoriteCubit.isFavorite(toolName)) {
-      favoriteCubit.toggleFavoriteStatus(toolName, icon.codePoint);
+      favoriteCubit.toggleFavoriteStatus(toolName, imagePath);
     } else {
-      if (favoriteCubit
-          .getFavoriteModels()
-          .length >= 4) {
+      if (favoriteCubit.getFavoriteModels().length >= 4) {
         _showMaxFavoritesDialog(context);
       } else {
-        favoriteCubit.toggleFavoriteStatus(toolName, icon.codePoint);
+        favoriteCubit.toggleFavoriteStatus(toolName, imagePath);
       }
     }
   }
+
+  // void _toggleFavoriteStatus({required BuildContext context,
+  //   required String toolName,
+  //   required String imagePath}) {
+  //   // var favoriteCubit = context.read<FavoriteCubit>();
+  //   var favoriteCubit = context.read<FavoriteCubit>();
+  //   if (favoriteCubit.isFavorite(toolName)) {
+  //     favoriteCubit.toggleFavoriteStatus(toolName, icon.codePoint);
+  //   } else {
+  //     if (favoriteCubit
+  //         .getFavoriteModels()
+  //         .length >= 4) {
+  //       _showMaxFavoritesDialog(context);
+  //     } else {
+  //       favoriteCubit.toggleFavoriteStatus(toolName, icon.codePoint);
+  //     }
+  //   }
+  // }
 
   void _showMaxFavoritesDialog(BuildContext context) {
     showDialog(
@@ -633,50 +703,4 @@ class ExpandableTile extends StatelessWidget {
   }
 }
 
-// class ExpandableTile extends StatelessWidget {
-//   final String title;
-//   final List<Widget> children;
-//   final IconData Icons;
-//   final Gradient gradient;
-//
-//   ExpandableTile(
-//       {required this.title, required this.children, required this.Icons, required this.gradient});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       elevation: 0,
-//       child: Container(
-//         decoration: BoxDecoration(
-//           gradient: gradient,
-//           borderRadius: BorderRadius.circular(8.0),
-//         ),
-//         child: Padding(
-//           padding: const EdgeInsets.symmetric(horizontal: 0.0),
-//           child: ExpansionTile(
-//             shape: const RoundedRectangleBorder(
-//                 side: BorderSide(color: Colors.transparent)),
-//             title: Row(
-//               children: [
-//                 Icon(
-//                   Icons,
-//                   color: Colors.blue, // Customize the color as needed
-//                 ),
-//                 const SizedBox(
-//                   width: 15,
-//                 ),
-//                 MyText(
-//                   title: tr(context, title),
-//                   color: Colors.blue, // Customize the color as needed
-//                   size: 20.sp,
-//                   fontWeight: FontWeight.bold,
-//                 ),
-//               ],
-//             ),
-//             children: children,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+

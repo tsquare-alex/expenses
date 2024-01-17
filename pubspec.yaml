@@ -92,6 +92,10 @@ dependencies:
   time_picker_widget:
   rulers: ^1.0.7
   qr_flutter: ^4.0.0
+  uuid:
+  audioplayers:
+  circular_countdown_timer:
+  timer_count_down: ^2.2.2
 
 dev_dependencies:
   flutter_test:
@@ -128,6 +132,8 @@ flutter:
   assets:
     - assets/images/
     - assets/lang/
+    - assets/sounds/
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

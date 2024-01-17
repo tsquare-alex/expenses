@@ -90,12 +90,6 @@ class _DatabaseState extends State<Database> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-
-                    ElevatedButton(
-                      onPressed: _scanQRCode,
-                      child: Text("Scan QR Code"),
-                    ),
-                    Text("Scanned Content: $scannedContent"),
                     BlocBuilder<DatabaseCubit, DatabaseState>(
                       builder: (context, state) {
                         List<DatabaseModel> dataBase =
@@ -106,7 +100,7 @@ class _DatabaseState extends State<Database> {
                         // // print("${dataBase.length}");
                         // print("========================================");
                         return Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.all(25.0),
                           child: ListView.builder(
                             shrinkWrap: true,
                             itemCount: dataBase.length,

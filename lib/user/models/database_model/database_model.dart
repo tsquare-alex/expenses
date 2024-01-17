@@ -22,7 +22,11 @@ class DatabaseModel extends HiveObject {
   @HiveField(7)
   String? qrCodeData;
   @HiveField(8)
-  Uint8List? qrCodeImage;
+  String? emailAddress;
+  @HiveField(9)
+  String? date;
+  @HiveField(10)
+  String? job;
 
   DatabaseModel({
     required this.category,
@@ -32,14 +36,20 @@ class DatabaseModel extends HiveObject {
     required this.socialAddress,
     required this.note,
     required this.image,
+    required this.emailAddress,
+    required this.date,
+    required this.job,
   }) {
-    // Initialize QR code data when constructing the object
     qrCodeData = generateQRCodeData();
   }
 
   String generateQRCodeData() {
-    print('$category,$name,$phone,$address,$socialAddress,$note');
-    return '$category,$name,$phone,$address,$socialAddress,$note';
+
+    print("===============================================================================");
+    print('$category,$name,$phone,$address,$socialAddress,$note,$emailAddress,$date,$job');
+    print("===============================================================================");
+
+    return '$category,$name,$phone,$address,$socialAddress,$note,$emailAddress,$date,$job';
   }
 
 
@@ -51,6 +61,9 @@ class ScannedData {
   final String address;
   final String socialAddress;
   final String note;
+  final String emailAddress;
+  final String date;
+  final String job;
 
   ScannedData({
     required this.category,
@@ -59,6 +72,9 @@ class ScannedData {
     required this.address,
     required this.socialAddress,
     required this.note,
+    required this.emailAddress,
+    required this.date,
+    required this.job,
   });
 }
 
@@ -69,4 +85,7 @@ ScannedData scannedData = ScannedData(
   address: '',
   socialAddress: '',
   note: '',
+  emailAddress: "",
+  date: "",
+  job: "",
 );

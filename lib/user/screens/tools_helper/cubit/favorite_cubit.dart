@@ -12,7 +12,7 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   FavoriteCubit() : super(FavoriteInitialState());
   List<FavoriteModel> _favoriteModels = [];
 
-  void toggleFavoriteStatus(String toolName, int iconCode) async {
+  void toggleFavoriteStatus(String toolName, String imagePath) async {
     try {
       await Hive.openBox<FavoriteModel>(favoriteTools);
       var favoriteBox = Hive.box<FavoriteModel>(favoriteTools);
@@ -21,7 +21,7 @@ class FavoriteCubit extends Cubit<FavoriteState> {
         favoriteBox.delete(toolName);
       } else {
         if (favoriteBox.length < 4) {
-          favoriteBox.put(toolName, FavoriteModel(toolName: toolName, iconCode: iconCode));
+          favoriteBox.put(toolName, FavoriteModel(toolName: toolName, imagePath: imagePath));
         } else {
           emit(FavoriteExceededLimitState());
           return;

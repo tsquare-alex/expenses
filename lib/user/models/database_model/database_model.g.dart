@@ -24,15 +24,16 @@ class DatabaseModelAdapter extends TypeAdapter<DatabaseModel> {
       socialAddress: fields[4] as String?,
       note: fields[5] as String?,
       image: fields[6] as Uint8List?,
-    )
-      ..qrCodeData = fields[7] as String?
-      ..qrCodeImage = fields[8] as Uint8List?;
+      emailAddress: fields[8] as String?,
+      date: fields[9] as String?,
+      job: fields[10] as String?,
+    )..qrCodeData = fields[7] as String?;
   }
 
   @override
   void write(BinaryWriter writer, DatabaseModel obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.category)
       ..writeByte(1)
@@ -50,7 +51,11 @@ class DatabaseModelAdapter extends TypeAdapter<DatabaseModel> {
       ..writeByte(7)
       ..write(obj.qrCodeData)
       ..writeByte(8)
-      ..write(obj.qrCodeImage);
+      ..write(obj.emailAddress)
+      ..writeByte(9)
+      ..write(obj.date)
+      ..writeByte(10)
+      ..write(obj.job);
   }
 
   @override

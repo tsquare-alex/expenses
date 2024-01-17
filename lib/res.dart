@@ -111,4 +111,5 @@ class Res {
   static const String stopwatchIc= "assets/images/stopwatch_ic.png";
   static const String cameraIc= "assets/images/camera_ic.png";
   static const String galleryIc= "assets/images/gallery_ic.png";
+  static const String unitPriceIc= "assets/images/unitprice_ic.png";
 }

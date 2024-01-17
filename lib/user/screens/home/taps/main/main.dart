@@ -129,8 +129,7 @@ class _MainState extends State<Main> {
             onSelected: _onFavoriteItemSelected,
             itemBuilder: (BuildContext context) {
               if (getFavoriteModels(context).isEmpty) {
-                CustomToast.showSimpleToast(
-                    msg: 'يرجى إضافة ادوات مساعدة');
+                CustomToast.showSimpleToast(msg: 'يرجى إضافة ادوات مساعدة');
               }
               return [
                 for (FavoriteModel model in getFavoriteModels(context))
@@ -138,16 +137,18 @@ class _MainState extends State<Main> {
                     value: model,
                     child: Row(
                       children: <Widget>[
-                        Icon(
-                            IconData(model.iconCode,
-                                fontFamily: 'MaterialIcons'),
-                            color: MyColors
-                                .primary), // Add an icon or any widget to represent the favorite item
+                        Image.asset(
+                          model.imagePath,
+                          width: 24.0,
+                          height: 24.0,
+                          color: MyColors.primary,
+                        ),
                         SizedBox(width: 8.0),
                         MyText(
-                            title: tr(context, model.toolName),
-                            color: Colors.white,
-                            size: 15.sp)
+                          title: tr(context, model.toolName),
+                          color: Colors.white,
+                          size: 15.sp,
+                        ),
                       ],
                     ),
                   ),

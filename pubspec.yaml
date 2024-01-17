@@ -87,6 +87,15 @@ dependencies:
   currency_picker:
   animations:
   pull_to_refresh:
+  flutter_local_notifications: ^9.5.3+1
+  timezone:
+  time_picker_widget:
+  rulers: ^1.0.7
+  qr_flutter: ^4.0.0
+  uuid:
+  audioplayers:
+  circular_countdown_timer:
+  timer_count_down: ^2.2.2
   dropdown_textfield: ^1.0.8
 
 dev_dependencies:
@@ -124,7 +133,8 @@ flutter:
   assets:
     - assets/images/
     - assets/lang/
-  
+    - assets/sounds/
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

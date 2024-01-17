@@ -16,10 +16,13 @@ class MyColors {
   static Color amber = const Color(0xffF7A31E);
   static const Color shadow = Color(0xFFe8e7fa);
   static Color greyWhite = Colors.grey.withOpacity(.2);
-  static Color black = const Color(0xff031626);
-  static Color blackOpacity = Colors.black54;
-  static Color white = const Color(0xFFFFFFFF);
-  static Color notifyColor = Colors.black54;
+  static Color black=const Color(0xff031626);
+  static Color blackOpacity=Colors.black54;
+  static Color black100=Colors.black;
+  static Color white=const Color(0xFFFFFFFF);
+  static Color notifyColor=Colors.black54;
+
+
   static Color semiTransparentColor = Colors.grey.withOpacity(.2);
   static Color myColor = Color(0xFF000000).withOpacity(0.25);
 }

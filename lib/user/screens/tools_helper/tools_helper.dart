@@ -9,12 +9,18 @@ import 'package:expenses/user/screens/tools_helper/widgets/data_converter/data_c
 import 'package:expenses/user/screens/tools_helper/widgets/discount/discount_screen.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/length_converter/length_converter.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/mass_converter/mass_converter.dart';
+import 'package:expenses/user/screens/tools_helper/widgets/note/note_screen.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/percentage/percentage_screen.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/qiblah/compass.dart';
+import 'package:expenses/user/screens/tools_helper/widgets/reminder/reminder.dart';
+import 'package:expenses/user/screens/tools_helper/widgets/ruler/ruler_screen.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/scanner_qr_code/scanner_qr_code.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/services_tax/service_tax_screen.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/speed_converter/speed_converter.dart';
+import 'package:expenses/user/screens/tools_helper/widgets/stop_watch/stop_watch_screen.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/temperature_converter/temperature_converter.dart';
+import 'package:expenses/user/screens/tools_helper/widgets/temporary/temporary_screen.dart';
+import 'package:expenses/user/screens/tools_helper/widgets/unit_price/unit_price.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/volume_converter/volume_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,22 +47,24 @@ class ToolsHelper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepOrange,
+        centerTitle: true,
+        backgroundColor: Colors.white,
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              Res.tools,
+              Res.tool_ic,
               width: 20.w,
               height: 20.h,
-              color: MyColors.white,
+              // color: MyColors.white,
             ),
             SizedBox(
               width: 10.w,
             ),
             MyText(
               title: tr(context, 'tools'),
-              color: Colors.white,
-              size: 14.sp,
+              color: MyColors.black100,
+              size: 20.sp,
               fontWeight: FontWeight.bold,
             ),
           ],
@@ -70,309 +78,390 @@ class ToolsHelper extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               ExpandableTile(
-                gradient:  LinearGradient(colors: [
-                  Colors.pink.withOpacity(0.2),
-                  // Colors.blue,
-                  Colors.orange.withOpacity(0.2)
-                ],
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                ),
-                  title: "commercial",
-                  Icons: FontAwesomeIcons.moneyBillWave,
+                  image: Res.tool_1,
+                  title: "tool",
                   children: [
                     BuildToolsWidget(
-                      onTap: () => _navigateToToolScreen(context, "percentage"),
-                      title: "percentage",
-                      icon: Icons.percent,
+                      onTap: () => _navigateToToolScreen(context, "calculator"),
+                      title: "calculator",
+                      image:Res.toolCalculatorIc,
                       isFavorite: context
                           .watch<FavoriteCubit>()
-                          .isFavorite("percentage"),
-                      onFavoriteTap: () => _toggleFavoriteStatus(
-                          context: context,
-                          toolName: "percentage",
-                          icon: Icons.percent),
+                          .isFavorite("calculator"),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "calculator",
+                              imagePath: Res.toolCalculatorIc),
                     ),
-                    BuildToolsWidget(
-                      onTap: () => _navigateToToolScreen(context, "tax"),
-                      title: "tax",
-                      icon: Icons.money_off,
-                      isFavorite:
-                          context.watch<FavoriteCubit>().isFavorite("tax"),
-                      onFavoriteTap: () => _toggleFavoriteStatus(
-                          context: context,
-                          toolName: "tax",
-                          icon: Icons.money_off),
-                    ),
-                    BuildToolsWidget(
-                      onTap: () => _navigateToToolScreen(context, "discount"),
-                      title: "discount",
-                      icon: Icons.attach_money,
-                      isFavorite:
-                          context.watch<FavoriteCubit>().isFavorite("discount"),
-                      onFavoriteTap: () => _toggleFavoriteStatus(
-                          context: context,
-                          toolName: "discount",
-                          icon: Icons.attach_money),
-                    ),
-                  ]),
-              ExpandableTile(
-                  gradient:  LinearGradient(colors: [
-                    Colors.blue.withOpacity(0.2),
-                    // Colors.blue,
-                    Colors.orange.withOpacity(0.2)
-                  ],
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                  ),
-                  title: "tool",
-                  Icons: FontAwesomeIcons.toolbox,
-                  children: [
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "scanner"),
                       title: "scanner",
-                      icon: Icons.qr_code,
+                      image: Res.bardCodeIc,
                       isFavorite:
-                          context.watch<FavoriteCubit>().isFavorite("scanner"),
-                      onFavoriteTap: () => _toggleFavoriteStatus(
-                          context: context,
-                          toolName: "scanner",
-                          icon: Icons.qr_code),
+                      context.watch<FavoriteCubit>().isFavorite("scanner"),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "scanner",
+                              imagePath: Res.bardCodeIc),
+                    ),
+                    BuildToolsWidget(
+                      onTap: () {},
+                      title: "zoomIn",
+                      image: Res.zoomInIc,
+                      isFavorite:false,
+                      onFavoriteTap: () {},
+                    ),
+                    BuildToolsWidget(
+                      onTap: () => _navigateToToolScreen(context, "note"),
+                      title: "note",
+                      image: Res.noteIc,
+                      isFavorite:  context.watch<FavoriteCubit>().isFavorite("note"),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "note",
+                              imagePath: Res.noteIc),
+                    ),
+                    BuildToolsWidget(
+                      onTap: () => _navigateToToolScreen(context, "ruler"),
+                      title: "ruler",
+                      image: Res.rulerIc,
+                      isFavorite:
+                      context.watch<FavoriteCubit>().isFavorite("ruler"),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "ruler",
+                              imagePath:Res.rulerIc),
+                    ),
+                    BuildToolsWidget(
+                      onTap: () {},
+                      title: "waterScale",
+                      image: Res.waterScaleIc,
+                      isFavorite:false,
+                      onFavoriteTap: () {},
                     ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "qiblah"),
                       title: "qiblah",
-                      icon: FontAwesomeIcons.kaaba,
+                      image: Res.qiblahIc,
                       isFavorite:
-                          context.watch<FavoriteCubit>().isFavorite("qiblah"),
-                      onFavoriteTap: () => _toggleFavoriteStatus(
-                          context: context,
-                          toolName: "qiblah",
-                          icon: FontAwesomeIcons.kaaba),
+                      context.watch<FavoriteCubit>().isFavorite("qiblah"),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "qiblah",
+                              imagePath: Res.qiblahIc),
+                    ),
+
+
+
+
+
+                    // BuildToolsWidget(
+                    //   onTap: () => _navigateToToolScreen(context, "shoesSize"),
+                    //   title: "shoesSize",
+                    //   imagePath: FontAwesomeIcons.shoePrints,
+                    //   isFavorite: context
+                    //       .watch<FavoriteCubit>()
+                    //       .isFavorite("shoesSize"),
+                    //   onFavoriteTap: () =>
+                    //       _toggleFavoriteStatus(
+                    //           context: context,
+                    //           toolName: "shoesSize",
+                    //           imagePath: FontAwesomeIcons.shoePrints),
+                    // ),
+
+                  ]),
+              ExpandableTile(
+                  image: Res.timeIc,
+                  title: "timeManagement",
+                  children: [
+                    BuildToolsWidget(
+                      onTap: () =>
+                          _navigateToToolScreen(context, "reminder"),
+                      title: "reminder",
+                      image: Res.reminderIc,
+                      isFavorite:
+                      context.watch<FavoriteCubit>().isFavorite("reminder"),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "reminder",
+                              imagePath: Res.reminderIc),
+                    ),
+                    BuildToolsWidget(
+                      onTap: () =>
+                          _navigateToToolScreen(context, "temporary"),
+                      title: "temporary",
+                      image: Res.temporaryIc,
+                      isFavorite:
+                      context.watch<FavoriteCubit>().isFavorite("temporary"),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "temporary",
+                              imagePath: Res.temporaryIc),
+                    ),
+                    BuildToolsWidget(
+                      onTap: () =>
+                          _navigateToToolScreen(context, "stopWatch"),
+                      title: "stopWatch",
+                      image: Res.stopwatchIc,
+                      isFavorite : context.watch<FavoriteCubit>().isFavorite("stopWatch"),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "stopWatch",
+                              imagePath: Res.temporaryIc),
                     ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "calender"),
                       title: "calender",
-                      icon: Icons.calendar_month,
+                      image: Res.calendarIc,
                       isFavorite:
-                          context.watch<FavoriteCubit>().isFavorite("calender"),
-                      onFavoriteTap: () => _toggleFavoriteStatus(
-                          context: context,
-                          toolName: "calender",
-                          icon: Icons.calendar_month),
-                    ),
-                    BuildToolsWidget(
-                      onTap: () => _navigateToToolScreen(context, "calculator"),
-                      title: "calculator",
-                      icon: Icons.calculate_outlined,
-                      isFavorite: context
-                          .watch<FavoriteCubit>()
-                          .isFavorite("calculator"),
-                      onFavoriteTap: () => _toggleFavoriteStatus(
-                          context: context,
-                          toolName: "calculator",
-                          icon: Icons.calculate_outlined),
-                    ),
-                    BuildToolsWidget(
-                      onTap: () => _navigateToToolScreen(context, "shoesSize"),
-                      title: "shoesSize",
-                      icon: FontAwesomeIcons.shoePrints,
-                      isFavorite: context
-                          .watch<FavoriteCubit>()
-                          .isFavorite("shoesSize"),
-                      onFavoriteTap: () => _toggleFavoriteStatus(
-                          context: context,
-                          toolName: "shoesSize",
-                          icon: FontAwesomeIcons.shoePrints),
-                    ),
-                    BuildToolsWidget(
-                      onTap: () => _navigateToToolScreen(context, "ringSize"),
-                      title: "ringSize",
-                      icon: FontAwesomeIcons.ring,
-                      isFavorite:
-                          context.watch<FavoriteCubit>().isFavorite("ringSize"),
-                      onFavoriteTap: () => _toggleFavoriteStatus(
-                          context: context,
-                          toolName: "ringSize",
-                          icon: FontAwesomeIcons.ring),
-                    ),
-                    BuildToolsWidget(
-                      onTap: () =>
-                          _navigateToToolScreen(context, "clothesSize"),
-                      title: "clothesSize",
-                      icon: FontAwesomeIcons.shirt,
-                      isFavorite: context
-                          .watch<FavoriteCubit>()
-                          .isFavorite("clothesSize"),
-                      onFavoriteTap: () => _toggleFavoriteStatus(
-                          context: context,
-                          toolName: "clothesSize",
-                          icon: FontAwesomeIcons.shirt),
+                      context.watch<FavoriteCubit>().isFavorite("calender"),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "calender",
+                              imagePath: Res.calendarIc),
                     ),
                   ]),
               ExpandableTile(
-                gradient:  LinearGradient(colors: [
-                  Colors.pink.withOpacity(0.5),
-                  Colors.cyan.withOpacity(0.2),
-                ],
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                ),
-                Icons: Icons.health_and_safety_outlined,
+
+                  title: "commercial",
+                  image: Res.moneyIc,
+                  children: [
+                    BuildToolsWidget(
+                      onTap: () => _navigateToToolScreen(context, "percentage"),
+                      title: "percentage",
+                      image: Res.percentageIc,
+                      isFavorite: context
+                          .watch<FavoriteCubit>()
+                          .isFavorite("percentage"),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "percentage",
+                              imagePath: Res.percentageIc),
+                    ),
+                    BuildToolsWidget(
+                      onTap: () => _navigateToToolScreen(context, "tax"),
+                      title: "tax",
+                      image: Res.taxIc,
+                      isFavorite:
+                      context.watch<FavoriteCubit>().isFavorite("tax"),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "tax",
+                              imagePath: Res.taxIc),
+                    ),
+                    BuildToolsWidget(
+                      onTap: () => _navigateToToolScreen(context, "discount"),
+                      title: "discount",
+                      image:Res.discountIc,
+                      isFavorite:
+                      context.watch<FavoriteCubit>().isFavorite("discount"),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "discount",
+                              imagePath: Res.discountIc),
+                    ),
+                    BuildToolsWidget(
+                      onTap: () =>
+                          _navigateToToolScreen(context, "calculateUnitPrice"),
+                      title: "calculateUnitPrice",
+                      image: Res.unitPriceIc,
+                      isFavorite: context
+                          .watch<FavoriteCubit>()
+                          .isFavorite("calculateUnitPrice"),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "calculateUnitPrice",
+                              imagePath:  Res.unitPriceIc),
+                    ),
+                    BuildToolsWidget(
+                      onTap: () =>
+                          _navigateToToolScreen(context, "convertCurrency"),
+                      title: "convertCurrency",
+                      image: Res.transferIc,
+                      isFavorite: context
+                          .watch<FavoriteCubit>()
+                          .isFavorite("convertCurrency"),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "convertCurrency",
+                              imagePath:  Res.transferIc),
+                    ),
+                  ]),
+
+              ExpandableTile(
+                image: Res.lifeToolIc,
                 title: "health",
                 children: [
                   BuildToolsWidget(
                     onTap: () => _navigateToToolScreen(context, "bmi"),
                     title: "bmi",
-                    icon: FontAwesomeIcons.weightHanging,
+                    image: Res.bmiIc,
                     isFavorite:
-                        context.watch<FavoriteCubit>().isFavorite("bmi"),
-                    onFavoriteTap: () => _toggleFavoriteStatus(
-                        context: context,
-                        toolName: "bmi",
-                        icon: Icons.health_and_safety_outlined),
+                    context.watch<FavoriteCubit>().isFavorite("bmi"),
+                    onFavoriteTap: () =>
+                        _toggleFavoriteStatus(
+                            context: context,
+                            toolName: "bmi",
+                            imagePath: Res.bmiIc),
                   ),
                   BuildToolsWidget(
                     onTap: () => _navigateToToolScreen(context, "bmr"),
                     title: "bmr",
-                    icon: Icons.health_and_safety,
+                    image: Res.bmrIc,
                     isFavorite:
-                        context.watch<FavoriteCubit>().isFavorite("bmr"),
-                    onFavoriteTap: () => _toggleFavoriteStatus(
-                        context: context,
-                        toolName: "bmr",
-                        icon: Icons.health_and_safety),
+                    context.watch<FavoriteCubit>().isFavorite("bmr"),
+                    onFavoriteTap: () =>
+                        _toggleFavoriteStatus(
+                            context: context,
+                            toolName: "bmr",
+                            imagePath: Res.bmrIc),
+                  ),
+                  BuildToolsWidget(
+                    onTap: () => _navigateToToolScreen(context, "ringSize"),
+                    title: "ringSize",
+                    image: Res.ringIc,
+                    isFavorite:
+                    context.watch<FavoriteCubit>().isFavorite("ringSize"),
+                    onFavoriteTap: () =>
+                        _toggleFavoriteStatus(
+                            context: context,
+                            toolName: "ringSize",
+                            imagePath: Res.ringIc),
+                  ),
+                  BuildToolsWidget(
+                    onTap: () =>
+                        _navigateToToolScreen(context, "clothesSize"),
+                    title: "clothesSize",
+                    image: Res.clothessizeIc,
+                    isFavorite: context
+                        .watch<FavoriteCubit>()
+                        .isFavorite("clothesSize"),
+                    onFavoriteTap: () =>
+                        _toggleFavoriteStatus(
+                            context: context,
+                            toolName: "clothesSize",
+                            imagePath:Res.clothessizeIc),
                   ),
                 ],
               ),
               ExpandableTile(
-                  gradient:  LinearGradient(colors: [
-                    Colors.indigo.withOpacity(0.5),
-                    Colors.black.withOpacity(0.2),
-                  ],
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                  ),
-                  title: "currency",
-                  Icons: FontAwesomeIcons.moneyCheck,
-                  children: [
-                    BuildToolsWidget(
-                      onTap: () =>
-                          _navigateToToolScreen(context, "convertCurrency"),
-                      title: "convertCurrency",
-                      icon: Icons.currency_exchange,
-                      isFavorite: context
-                          .watch<FavoriteCubit>()
-                          .isFavorite("convertCurrency"),
-                      onFavoriteTap: () => _toggleFavoriteStatus(
-                          context: context,
-                          toolName: "convertCurrency",
-                          icon: Icons.currency_exchange),
-                    ),
-                  ]),
-              ExpandableTile(
-                  gradient:  LinearGradient(colors: [
-                    Colors.indigo.withOpacity(0.5),
-                    Colors.purpleAccent.withOpacity(0.5),
-                  ],
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                  ),
                   title: "units",
-                  Icons: FontAwesomeIcons.unity,
+                  image: Res.unitIc,
                   children: [
                     BuildToolsWidget(
                       onTap: () =>
                           _navigateToToolScreen(context, "convertLength"),
                       title: "convertLength",
-                      icon: Icons.height,
+                      image: Res.lengthIc,
                       isFavorite: context
                           .watch<FavoriteCubit>()
                           .isFavorite("convertLength"),
-                      onFavoriteTap: () => _toggleFavoriteStatus(
-                          context: context,
-                          toolName: "convertLength",
-                          icon: Icons.height),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "convertLength",
+                              imagePath: Res.unitIc),
                     ),
                     BuildToolsWidget(
                       onTap: () =>
                           _navigateToToolScreen(context, "convertMass"),
                       title: "convertMass",
-                      icon: Icons.radar_outlined,
+                      image: Res.sizeIc,
                       isFavorite: context
                           .watch<FavoriteCubit>()
                           .isFavorite("convertMass"),
-                      onFavoriteTap: () => _toggleFavoriteStatus(
-                          context: context,
-                          toolName: "convertMass",
-                          icon: Icons.radar_outlined),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "convertMass",
+                              imagePath: Res.sizeIc),
                     ),
                     BuildToolsWidget(
                       onTap: () =>
                           _navigateToToolScreen(context, "convertTemperature"),
                       title: "convertTemperature",
-                      icon: Icons.light_mode_outlined,
+                      image: Res.temperatureIc,
                       isFavorite: context
                           .watch<FavoriteCubit>()
                           .isFavorite("convertTemperature"),
-                      onFavoriteTap: () => _toggleFavoriteStatus(
-                          context: context,
-                          toolName: "convertTemperature",
-                          icon: Icons.light_mode_outlined),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "convertTemperature",
+                              imagePath: Res.temperatureIc),
                     ),
                     BuildToolsWidget(
                       onTap: () =>
                           _navigateToToolScreen(context, "convertArea"),
                       title: "convertArea",
-                      icon: Icons.area_chart_outlined,
+                      image: Res.areaIc,
                       isFavorite: context
                           .watch<FavoriteCubit>()
                           .isFavorite("convertArea"),
-                      onFavoriteTap: () => _toggleFavoriteStatus(
-                          context: context,
-                          toolName: "convertArea",
-                          icon: Icons.area_chart_outlined),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "convertArea",
+                              imagePath: Res.areaIc),
                     ),
                     BuildToolsWidget(
                       onTap: () =>
                           _navigateToToolScreen(context, "convertSpeed"),
                       title: "convertSpeed",
-                      icon: Icons.shutter_speed,
+                      image: Res.speedIc,
                       isFavorite: context
                           .watch<FavoriteCubit>()
                           .isFavorite("convertSpeed"),
-                      onFavoriteTap: () => _toggleFavoriteStatus(
-                          context: context,
-                          toolName: "convertSpeed",
-                          icon: Icons.shutter_speed),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "convertSpeed",
+                              imagePath: Res.speedIc),
                     ),
-                    BuildToolsWidget(
-                      onTap: () =>
-                          _navigateToToolScreen(context, "convertData"),
-                      title: "convertData",
-                      icon: Icons.data_exploration,
-                      isFavorite: context
-                          .watch<FavoriteCubit>()
-                          .isFavorite("convertData"),
-                      onFavoriteTap: () => _toggleFavoriteStatus(
-                          context: context,
-                          toolName: "convertData",
-                          icon: Icons.data_exploration),
-                    ),
+                    // BuildToolsWidget(
+                    //   onTap: () =>
+                    //       _navigateToToolScreen(context, "convertData"),
+                    //   title: "convertData",
+                    //   image: Res.areaIc,
+                    //   isFavorite: context
+                    //       .watch<FavoriteCubit>()
+                    //       .isFavorite("convertData"),
+                    //   onFavoriteTap: () =>
+                    //       _toggleFavoriteStatus(
+                    //           context: context,
+                    //           toolName: "convertData",
+                    //           imagePath: Icons.data_exploration),
+                    // ),
                     BuildToolsWidget(
                       onTap: () =>
                           _navigateToToolScreen(context, "convertVolume"),
                       title: "convertVolume",
-                      icon: Icons.tapas_outlined,
+                      image: Res.weightIc,
                       isFavorite: context
                           .watch<FavoriteCubit>()
                           .isFavorite("convertVolume"),
-                      onFavoriteTap: () => _toggleFavoriteStatus(
-                          context: context,
-                          toolName: "convertVolume",
-                          icon: Icons.data_exploration),
+                      onFavoriteTap: () =>
+                          _toggleFavoriteStatus(
+                              context: context,
+                              toolName: "convertVolume",
+                              imagePath: Res.weightIc),
                     ),
                   ]),
+
             ],
           ),
         ),
@@ -381,7 +470,8 @@ class ToolsHelper extends StatelessWidget {
   }
 
   void _navigateToToolScreen(BuildContext context, String toolName) {
-    switch (toolName) {
+    switch (toolName)
+    {
       case "percentage":
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => PercentageCalculatorScreen()));
@@ -400,7 +490,8 @@ class ToolsHelper extends StatelessWidget {
         break;
       case "scanner":
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const ScannerQrCode()));
+            .push(
+            MaterialPageRoute(builder: (context) => const ScannerQrCode()));
         break;
       case "calender":
         Navigator.of(context)
@@ -458,43 +549,91 @@ class ToolsHelper extends StatelessWidget {
         Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => DataConverterScreen()));
         break;
-        case "convertVolume":
+      case "convertVolume":
         Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => VolumeConverterScreen()));
         break;
+      case "reminder":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => ReminderScreen()));
+        break;
+      case "ruler":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => RulerScreen()));
+        break;
+      case "note":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => NoteView()));
+        break;
+        case "calculateUnitPrice":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => UnitPriceScreen()));
+        break;
+      case "temporary":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => TemporaryScreen()));
+        break;
+        case "stopWatch":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => StopwatchScreen()));
+        break;
     }
   }
-
-  void _toggleFavoriteStatus(
-      {required BuildContext context,
-      required String toolName,
-      required IconData icon}) {
-    // var favoriteCubit = context.read<FavoriteCubit>();
+  void _toggleFavoriteStatus({
+    required BuildContext context,
+    required String toolName,
+    required String imagePath,
+  }) {
     var favoriteCubit = context.read<FavoriteCubit>();
+
     if (favoriteCubit.isFavorite(toolName)) {
-      favoriteCubit.toggleFavoriteStatus(toolName, icon.codePoint);
+      favoriteCubit.toggleFavoriteStatus(toolName, imagePath);
     } else {
       if (favoriteCubit.getFavoriteModels().length >= 4) {
         _showMaxFavoritesDialog(context);
       } else {
-        favoriteCubit.toggleFavoriteStatus(toolName, icon.codePoint);
+        favoriteCubit.toggleFavoriteStatus(toolName, imagePath);
       }
     }
   }
+
+  // void _toggleFavoriteStatus({required BuildContext context,
+  //   required String toolName,
+  //   required String imagePath}) {
+  //   // var favoriteCubit = context.read<FavoriteCubit>();
+  //   var favoriteCubit = context.read<FavoriteCubit>();
+  //   if (favoriteCubit.isFavorite(toolName)) {
+  //     favoriteCubit.toggleFavoriteStatus(toolName, icon.codePoint);
+  //   } else {
+  //     if (favoriteCubit
+  //         .getFavoriteModels()
+  //         .length >= 4) {
+  //       _showMaxFavoritesDialog(context);
+  //     } else {
+  //       favoriteCubit.toggleFavoriteStatus(toolName, icon.codePoint);
+  //     }
+  //   }
+  // }
 
   void _showMaxFavoritesDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: MyText(title: tr(context, "maxFavoriteReached"), color: Colors.red, size: 15,fontWeight: FontWeight.bold,),
-          content: MyText(title: tr(context, "maxFavoriteNumber"), color: MyColors.primary, size: 15),
+          title: MyText(title: tr(context, "maxFavoriteReached"),
+            color: Colors.red,
+            size: 15,
+            fontWeight: FontWeight.bold,),
+          content: MyText(title: tr(context, "maxFavoriteNumber"),
+              color: MyColors.primary,
+              size: 15),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child:MyText(title: tr(context, "ok"), color: MyColors.primary, size: 20),
+              child: MyText(
+                  title: tr(context, "ok"), color: MyColors.primary, size: 20),
             ),
           ],
         );
@@ -502,14 +641,14 @@ class ToolsHelper extends StatelessWidget {
     );
   }
 }
+
 class ExpandableTile extends StatelessWidget {
   final String title;
   final List<Widget> children;
-  final IconData Icons;
-  final Gradient gradient;
+  final String image;
 
   ExpandableTile(
-      {required this.title, required this.children, required this.Icons, required this.gradient});
+      {required this.title, required this.children, required this.image,});
 
   @override
   Widget build(BuildContext context) {
@@ -517,16 +656,10 @@ class ExpandableTile extends StatelessWidget {
       elevation: 0,
       child: Container(
         decoration: BoxDecoration(
-          gradient: gradient,
           borderRadius: BorderRadius.circular(8.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              spreadRadius: 1,
-              blurRadius: 5,
-              offset: Offset(0, 3),
-            ),
-          ],
+          border: Border.all(
+            color: MyColors.greyWhite,
+          )
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 0.0),
@@ -535,73 +668,39 @@ class ExpandableTile extends StatelessWidget {
                 side: BorderSide(color: Colors.transparent)),
             title: Row(
               children: [
-                Icon(
-                  Icons,
-                  color: Colors.white, // Customize the color as needed
-                ),
+                Image.asset(image),
                 const SizedBox(
                   width: 15,
                 ),
                 MyText(
                   title: tr(context, title),
-                  color: Colors.white, // Customize the color as needed
-                  size: 20.sp,
+                  color: MyColors.black,
+                  size: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ],
             ),
-            children: children,
+            children: _buildChildrenWithDividers(context),
+
           ),
         ),
       ),
     );
   }
+  List<Widget> _buildChildrenWithDividers(BuildContext context) {
+    List<Widget> widgetList = [];
+    for (int i = 0; i < children.length; i++) {
+      widgetList.add(children[i]);
+      if (i < children.length - 1) {
+
+        widgetList.add(Divider(
+          height: 1,
+          color: MyColors.greyWhite,
+        ));
+      }
+    }
+    return widgetList;
+  }
 }
 
-// class ExpandableTile extends StatelessWidget {
-//   final String title;
-//   final List<Widget> children;
-//   final IconData Icons;
-//   final Gradient gradient;
-//
-//   ExpandableTile(
-//       {required this.title, required this.children, required this.Icons, required this.gradient});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       elevation: 0,
-//       child: Container(
-//         decoration: BoxDecoration(
-//           gradient: gradient,
-//           borderRadius: BorderRadius.circular(8.0),
-//         ),
-//         child: Padding(
-//           padding: const EdgeInsets.symmetric(horizontal: 0.0),
-//           child: ExpansionTile(
-//             shape: const RoundedRectangleBorder(
-//                 side: BorderSide(color: Colors.transparent)),
-//             title: Row(
-//               children: [
-//                 Icon(
-//                   Icons,
-//                   color: Colors.blue, // Customize the color as needed
-//                 ),
-//                 const SizedBox(
-//                   width: 15,
-//                 ),
-//                 MyText(
-//                   title: tr(context, title),
-//                   color: Colors.blue, // Customize the color as needed
-//                   size: 20.sp,
-//                   fontWeight: FontWeight.bold,
-//                 ),
-//               ],
-//             ),
-//             children: children,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+

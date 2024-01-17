@@ -6,10 +6,12 @@ class CartData{
     CartContentModel(
       name: "readyModels",
       image: Res.readyModels,
+      pageRouteInfo: const CartReadyModelsRoute(),
     ),
     CartContentModel(
       name: "previouslyUsed",
       image: Res.previouslyUsed,
+      pageRouteInfo: const CartPreviouslyUsedRoute(),
     ),
   ];
 

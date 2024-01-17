@@ -12,6 +12,7 @@ import 'package:expenses/user/models/cart_model/cart_type_model.dart';
 import 'package:expenses/user/models/database_model/database_model.dart';
 import 'package:expenses/user/models/favorite_model/favorite_model.dart';
 import 'package:expenses/user/models/dropdown_model/dropdown_model.dart';
+import 'package:expenses/user/models/radio_model/radio_model.dart';
 import 'package:expenses/user/models/transaction_type_model/transaction_content_model.dart';
 import 'package:expenses/user/models/transaction_type_model/transaction_type_model.dart';
 import 'package:expenses/user/screens/budget/data/model/budget_model.dart';
@@ -46,6 +47,7 @@ Future<void> main() async {
   Hive.registerAdapter(AddCartModelAdapter());
   Hive.registerAdapter(CartContentModelAdapter());
   Hive.registerAdapter(CartTypeModelAdapter());
+  Hive.registerAdapter(RadioModelAdapter());
   //Hive.registerAdapter(CurrencyModelAdapter());
   Hive.registerAdapter(CurrencyModelAdapter());
   Hive.registerAdapter(BudgetModelAdapter());

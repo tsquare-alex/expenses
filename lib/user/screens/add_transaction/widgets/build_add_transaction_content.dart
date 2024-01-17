@@ -42,6 +42,7 @@ class BuildAddTransactionContent extends StatelessWidget {
                   data.addTransactionContent(
                     TransactionContentModel(
                       name: data.newContentController.text,
+                      image: Res.transaction,
                     ),
                     type,
                     typeModel

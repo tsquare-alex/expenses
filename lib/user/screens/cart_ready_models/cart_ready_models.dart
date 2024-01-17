@@ -1,23 +1,22 @@
-part of 'add_cart_imports.dart';
+part of 'cart_ready_models_imports.dart';
 
-class AddCart extends StatefulWidget {
-  const AddCart({Key? key, required this.model}) : super(key: key);
-  final CartModel model;
+class CartReadyModels extends StatefulWidget {
+  const CartReadyModels({Key? key}) : super(key: key);
+
   @override
-  State<AddCart> createState() => _AddCartState();
+  State<CartReadyModels> createState() => _CartReadyModelsState();
 }
 
-class _AddCartState extends State<AddCart> {
+class _CartReadyModelsState extends State<CartReadyModels> {
 
-  AddCartData data = AddCartData();
+  CartReadyModelsData data = CartReadyModelsData();
 
   @override
   void initState() {
-    data.initData(widget.model);
-    data.radioCart.onUpdateData(data.cartTypes);
+    data.fetchData(context);
     super.initState();
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,10 +24,9 @@ class _AddCartState extends State<AddCart> {
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              Res.bag,
+              Res.readyModels,
               width: 30.w,
               height: 30.h,
             ),
@@ -36,7 +34,7 @@ class _AddCartState extends State<AddCart> {
               width: 10.w,
             ),
             MyText(
-              title: tr(context, "addNewCart"),
+              title: tr(context, "readyModels"),
               color: MyColors.black,
               size: 18.sp,
               fontWeight: FontWeight.bold,
@@ -50,17 +48,15 @@ class _AddCartState extends State<AddCart> {
             color: MyColors.black,
           ),
         ),
-        centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.all(15.r),
-        child: ListView(
-          children: [
-            BuildAddCartInputs(data: data,),
-            BuildAddCartProductPhoto(data: data,),
-            BuildImplementationAlert(data: data,),
-            AddCartButton(data: data,),
-          ],
+        padding: EdgeInsets.all(15.0.r),
+        child: BlocBuilder<GenericBloc<List<AddCartModel>>,GenericState<List<AddCartModel>>>(
+          bloc: data.addCartCubit,
+          builder: (context,state)=>ListView.builder(
+            itemCount: state.data.length,
+            itemBuilder: (context,i)=>BuildCartReadyModelsCard(model: state.data[i], onDelete: (){}, data: data, index: i,),
+          ),
         ),
       ),
     );

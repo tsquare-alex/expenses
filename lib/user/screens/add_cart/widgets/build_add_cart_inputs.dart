@@ -262,7 +262,7 @@ class BuildAddCartInputs extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 16),
                     controller: data.descriptionController,
                     fieldTypes: FieldTypes.normal,
-                    type: TextInputType.number,
+                    type: TextInputType.text,
                     action: TextInputAction.next,
                     validate: (value) {
                       if (value!.isEmpty) {

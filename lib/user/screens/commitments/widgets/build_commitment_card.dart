@@ -79,7 +79,7 @@ class BuildCommitmentCard extends StatelessWidget {
                       title: tr(context, model.transactionContent?.name ?? "")
                           .isNotEmpty
                           ? tr(context, model.transactionContent?.name ?? "")
-                          : model.transactionType?.name ?? "",
+                          : model.transactionContent?.name ?? "",
                       color: MyColors.black,
                       size: 16.sp,
                       fontWeight: FontWeight.bold,

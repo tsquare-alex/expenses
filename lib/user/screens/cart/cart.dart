@@ -18,7 +18,6 @@ class _CartState extends State<Cart> {
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               Res.bag,
@@ -43,7 +42,6 @@ class _CartState extends State<Cart> {
             color: MyColors.black,
           ),
         ),
-        centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: MyColors.primary,

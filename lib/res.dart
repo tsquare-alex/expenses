@@ -150,6 +150,7 @@ class Res {
   static const String schoolTools = "assets/images/schoolTools.png";
   static const String searchRecords = "assets/images/searchRecords.png";
   static const String secure = "assets/images/secure.png";
+  static const String security = "assets/images/security.png";
   static const String services = "assets/images/services.png";
   static const String settings = "assets/images/settings.png";
   static const String share = "assets/images/share.png";

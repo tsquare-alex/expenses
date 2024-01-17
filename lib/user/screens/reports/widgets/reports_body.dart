@@ -40,12 +40,17 @@ class ReportsBody extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.w500,
-                                  color: Colors.grey,
+                                  color:
+                                      context.watch<AppThemeCubit>().isDarkMode
+                                          ? Colors.white
+                                          : Colors.grey,
                                 ),
                               ),
                               icon: Icon(
                                 Icons.keyboard_arrow_down,
-                                color: MyColors.primary,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? AppDarkColors.secondary
+                                    : MyColors.primary,
                               ),
                               menuMaxHeight: 0.3.sh,
                               items: [
@@ -146,13 +151,20 @@ class ReportsBody extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w500,
-                                      color: Colors.grey,
+                                      color: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? Colors.white
+                                          : Colors.grey,
                                     ),
                                   ),
                                 ),
                                 Icon(
                                   Icons.keyboard_arrow_down,
-                                  color: MyColors.primary,
+                                  color:
+                                      context.watch<AppThemeCubit>().isDarkMode
+                                          ? AppDarkColors.secondary
+                                          : MyColors.primary,
                                 ),
                               ],
                             ),
@@ -178,12 +190,16 @@ class ReportsBody extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
-                            color: Colors.grey,
+                            color: context.watch<AppThemeCubit>().isDarkMode
+                                ? Colors.white
+                                : Colors.grey,
                           ),
                         ),
                         icon: Icon(
                           Icons.keyboard_arrow_down,
-                          color: MyColors.primary,
+                          color: context.watch<AppThemeCubit>().isDarkMode
+                              ? AppDarkColors.secondary
+                              : MyColors.primary,
                         ),
                         menuMaxHeight: 0.3.sh,
                         items: ReportsCubit.get(context)
@@ -210,31 +226,57 @@ class ReportsBody extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 16.h),
-                // const CircularPercentage(),
-                SizedBox(
-                  width: 300,
-                  height: 300,
-                  child: PieChart(
-                    PieChartData(
-                      borderData: FlBorderData(show: false),
-                      centerSpaceRadius: 60.r,
-                      sectionsSpace: 5.w,
-                      sections: context
-                          .watch<ReportsCubit>()
-                          .categoriesList
-                          .map(
-                            (category) => PieChartSectionData(
-                              title: tr(context, category.title),
-                              color: category.color,
-                              showTitle: true,
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 48.h),
+                SizedBox(height: 32.h),
+                const CircularPercentage(),
+                SizedBox(height: 32.h),
+                const CircularDetailsRow(),
+                // SizedBox(height: 16.h),
+                // Padding(
+                //   padding: EdgeInsets.symmetric(horizontal: 32.r),
+                //   child: AspectRatio(
+                //     aspectRatio: 1,
+                //     child: Stack(
+                //       children: [
+                //         Align(
+                //           alignment: Alignment.center,
+                //           child: Text(
+                //             '${tr(context, 'total')}\n${context.watch<ReportsCubit>().allSpentMoney.toStringAsFixed(0)}',
+                //             style: TextStyle(
+                //               fontWeight: FontWeight.bold,
+                //               fontSize: 20.sp,
+                //             ),
+                //             textAlign: TextAlign.center,
+                //           ),
+                //         ),
+                //         PieChart(
+                //           PieChartData(
+                //             sectionsSpace: 3.r,
+                //             centerSpaceRadius: double.infinity,
+                //             sections: context
+                //                 .watch<ReportsCubit>()
+                //                 .categoriesList
+                //                 .map(
+                //                   (category) => PieChartSectionData(
+                //                     title: NumberFormat.percentPattern('en')
+                //                         .format(category.percentage),
+                //                     value: category.percentage,
+                //                     showTitle: true,
+                //                     radius: 100.r,
+                //                     titlePositionPercentageOffset: 0.5,
+                //                     titleStyle: TextStyle(
+                //                       fontWeight: FontWeight.bold,
+                //                       fontSize: 20.sp,
+                //                     ),
+                //                   ),
+                //                 )
+                //                 .toList(),
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                SizedBox(height: 40.h),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.r),
                   child: Table(
@@ -269,6 +311,13 @@ class ReportsBody extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          SizedBox(height: 10.h),
+                          SizedBox(height: 10.h),
+                          SizedBox(height: 10.h),
                         ],
                       ),
                       ...context

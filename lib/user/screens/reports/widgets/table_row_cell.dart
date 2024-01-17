@@ -20,7 +20,7 @@ class ReportsRowCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: padding ?? 20.r),
+      padding: EdgeInsets.symmetric(vertical: padding ?? 10.r),
       child: isCategory
           ? Row(
               children: [

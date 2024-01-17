@@ -18,7 +18,10 @@ class _ReportsState extends State<Reports> {
       create: (context) => ReportsCubit()..getReportData(),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: MyColors.white,
+          backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+              ? AppDarkColors.backgroundColor
+              : Colors.white,
+          surfaceTintColor: Colors.transparent,
           centerTitle: true,
           title: Row(
             mainAxisSize: MainAxisSize.min,
@@ -27,16 +30,22 @@ class _ReportsState extends State<Reports> {
                 Res.reports,
                 width: 24.w,
                 height: 24.h,
-                color: MyColors.primary,
+                color: context.watch<AppThemeCubit>().isDarkMode
+                    ? AppDarkColors.secondary
+                    : MyColors.primary,
               ),
               SizedBox(
                 width: 8.w,
               ),
-              MyText(
-                title: tr(context, 'reports'),
-                color: Colors.black,
-                size: 20.sp,
-                fontWeight: FontWeight.bold,
+              Text(
+                tr(context, 'reports'),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.sp,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
+                ),
               ),
             ],
           ),
@@ -44,7 +53,9 @@ class _ReportsState extends State<Reports> {
             onTap: () => AutoRouter.of(context).pop(),
             child: Icon(
               Icons.arrow_back,
-              color: MyColors.black,
+              color: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  : MyColors.black,
             ),
           ),
           actions: [
@@ -58,7 +69,9 @@ class _ReportsState extends State<Reports> {
                       Res.reportsMenu,
                       width: 24.w,
                       height: 24.h,
-                      color: MyColors.primary,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? AppDarkColors.secondary
+                          : MyColors.primary,
                     ),
                   ),
                 );

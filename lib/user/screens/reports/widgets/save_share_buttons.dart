@@ -47,18 +47,21 @@ class SaveAndShareButtons extends StatelessWidget {
               },
               style: OutlinedButton.styleFrom(
                 fixedSize: Size(64.w, 58.h),
-                // backgroundColor: context.watch<AppThemeCubit>().isDarkMode
-                //     ? AppDarkColors.primary
-                //     : MyColors.primary,
                 elevation: 0,
-                side: BorderSide(color: MyColors.primary),
+                side: BorderSide(
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.primary
+                      : MyColors.primary,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.r),
                 ),
               ),
               child: Icon(
                 Icons.share_outlined,
-                color: MyColors.primary,
+                color: context.watch<AppThemeCubit>().isDarkMode
+                    ? AppDarkColors.primary
+                    : MyColors.primary,
                 size: 24.r,
               ),
             ),

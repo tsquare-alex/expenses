@@ -197,6 +197,7 @@ class ReportsCubit extends Cubit<ReportsState> {
       return;
     }
     createMoneyPercentage(wallets, transactions);
+    createCategories();
     emit(const ReportsState.reportDataLoaded());
   }
 
@@ -219,11 +220,16 @@ class ReportsCubit extends Cubit<ReportsState> {
                 transaction.incomeSource!.name == selectedWallet)
             .toList();
         createCategories();
+        createMoneyPercentage(
+            [wallets.firstWhere((wallet) => wallet.name == selectedWallet)],
+            reportFilteredTransactions);
       } else if (selectedWallet == 'all') {
         reportFilteredTransactions = transactions;
         createCategories();
+        createMoneyPercentage(wallets, transactions);
       } else {
         reportFilteredTransactions = List.empty();
+        createMoneyPercentage(wallets, transactions);
         createCategories();
       }
       resetDates();
@@ -234,6 +240,7 @@ class ReportsCubit extends Cubit<ReportsState> {
   List<ReportCategory> categoriesList = [];
 
   void createCategories() {
+    categoriesList.clear();
     for (var category in getTransactionsCategories()) {
       addCategory(category);
     }
@@ -241,7 +248,9 @@ class ReportsCubit extends Cubit<ReportsState> {
 
   Set<String> getTransactionsCategories() {
     Set<String> transactionsCategories = {};
-    for (var transaction in reportFilteredTransactions) {
+    for (var transaction in reportFilteredTransactions.isEmpty
+        ? transactions
+        : reportFilteredTransactions) {
       transactionsCategories.add(transaction.transactionType!.name!);
     }
     return transactionsCategories;
@@ -249,38 +258,41 @@ class ReportsCubit extends Cubit<ReportsState> {
 
   double getCategoryTotalMoney(String category) {
     double totalMoney = 0;
-    final transactionsList = reportFilteredTransactions
-        .where((element) => element.transactionType!.name == category)
-        .toList();
+    final transactionsList = reportFilteredTransactions.isEmpty
+        ? transactions
+            .where((element) => element.transactionType!.name == category)
+            .toList()
+        : reportFilteredTransactions
+            .where((element) => element.transactionType!.name == category)
+            .toList();
     for (var transaction in transactionsList) {
       totalMoney += double.parse(transaction.total!);
     }
     return totalMoney;
   }
 
+  double allSpentMoney = 0;
   void addCategory(String category) {
-    final transactionsList = reportFilteredTransactions
-        .where((element) => element.transactionType!.name == category)
-        .toList();
+    // final transactionsList = reportFilteredTransactions
+    //     .where((element) => element.transactionType!.name == category)
+    //     .toList();
     if (selectedWallet != 'all' && selectedWallet.isNotEmpty) {
-      final percentage =
-          getCategoryTotalMoney(category) / getUserSpentMoney(transactionsList);
-      categoriesList.clear();
+      final percentage = getCategoryTotalMoney(category) /
+          getUserSpentMoney(reportFilteredTransactions);
       categoriesList.add(
         ReportCategory(
-          color: Colors.red,
           title: category,
           totalMoney: getCategoryTotalMoney(category),
           percentage: percentage,
         ),
       );
     } else {
-      final percentage =
-          getCategoryTotalMoney(category) / getUserSpentMoney(transactionsList);
-      categoriesList.clear();
+      final percentage = getCategoryTotalMoney(category) /
+          (allSpentMoney = getUserSpentMoney(reportFilteredTransactions.isEmpty
+              ? transactions
+              : reportFilteredTransactions));
       categoriesList.add(
         ReportCategory(
-          color: Colors.red,
           title: category,
           totalMoney: getCategoryTotalMoney(category),
           percentage: percentage,
@@ -288,6 +300,33 @@ class ReportsCubit extends Cubit<ReportsState> {
       );
     }
   }
+
+  List<Color> randomColors = [
+    Colors.deepOrangeAccent,
+    Colors.green,
+    Colors.blue,
+    Colors.yellow,
+    Colors.orange,
+    Colors.purple,
+    Colors.pink,
+    Colors.teal,
+    Colors.indigo,
+    Colors.brown,
+    Colors.grey,
+    Colors.cyan,
+    Colors.amber,
+    Colors.deepPurple,
+    Colors.lime,
+    Colors.lightBlue,
+    Colors.deepOrange,
+    Colors.lightGreen,
+    Colors.blueGrey,
+    Colors.indigoAccent,
+    Colors.lightGreenAccent,
+    Colors.red,
+    Colors.purpleAccent,
+    Colors.tealAccent,
+  ];
 
   Future<void> getStatsData() async {
     emit(const ReportsState.statsDataLoading());

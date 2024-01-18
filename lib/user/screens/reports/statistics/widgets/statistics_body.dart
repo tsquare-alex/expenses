@@ -192,7 +192,7 @@ class StatisticsBody extends StatelessWidget {
             onSelect: (key) =>
                 ReportsCubit.get(context).onPrioritiesMapSelect(key),
           ),
-          SizedBox(height: 20.h),
+          SizedBox(height: 32.h),
           Row(
             children: [
               ElevatedButton(
@@ -242,43 +242,41 @@ class StatisticsBody extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 20.h),
-          Expanded(
-            child: BlocBuilder<ReportsCubit, ReportsState>(
-              buildWhen: (previous, current) => current is ShowReportDetails,
-              builder: (context, state) {
-                if (state is ShowReportDetails) {
-                  return switch (option) {
-                    'table' => ReportTable(
-                        data: ReportsCubit.get(context).filteredTransactions),
-                    'chart' => Center(
-                        child: Text(
-                          'قيد التطوير حاليا',
-                          style: TextStyle(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey,
-                          ),
+          SizedBox(height: 32.h),
+          BlocBuilder<ReportsCubit, ReportsState>(
+            buildWhen: (previous, current) => current is ShowReportDetails,
+            builder: (context, state) {
+              if (state is ShowReportDetails) {
+                return switch (option) {
+                  'table' => ReportTable(
+                      data: ReportsCubit.get(context).filteredTransactions),
+                  'chart' => Center(
+                      child: Text(
+                        'قيد التطوير حاليا',
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
                         ),
                       ),
-                    'compare' => Center(
-                        child: Text(
-                          'قيد التطوير حاليا',
-                          style: TextStyle(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey,
-                          ),
+                    ),
+                  'compare' => Center(
+                      child: Text(
+                        'قيد التطوير حاليا',
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
                         ),
                       ),
-                    String _ => ReportTable(
-                        data: ReportsCubit.get(context).filteredTransactions),
-                  };
-                } else {
-                  return const SizedBox();
-                }
-              },
-            ),
+                    ),
+                  String _ => ReportTable(
+                      data: ReportsCubit.get(context).filteredTransactions),
+                };
+              } else {
+                return const SizedBox();
+              }
+            },
           ),
         ],
       ),

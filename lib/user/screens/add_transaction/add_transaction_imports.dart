@@ -25,14 +25,13 @@ import 'package:expenses/user/models/transaction_type_model/transaction_type_mod
 import 'package:expenses/user/screens/add_transaction/widgets/add_transaction_widgets_imports.dart';
 import 'package:expenses/user/screens/budget/data/model/budget_model.dart';
 import 'package:expenses/user/screens/commitments/commitments_imports.dart';
-import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
+import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
-
 
 part 'add_transaction.dart';
 part 'add_transaction_data.dart';

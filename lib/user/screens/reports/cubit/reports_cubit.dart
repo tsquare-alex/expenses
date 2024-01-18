@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -8,7 +9,6 @@ import 'package:intl/intl.dart';
 
 import '../../../../general/constants/constants.dart';
 import '../../../models/add_transaction_model/add_transaction_model.dart';
-import '../../wallet/data/model/wallet_model.dart';
 import '../models/reports_category.dart';
 
 part 'reports_cubit.freezed.dart';
@@ -391,9 +391,9 @@ class ReportsCubit extends Cubit<ReportsState> {
         .where((transaction) =>
             selectedTransactions.contains(transaction.transactionName))
         .toList();
-    statsSubTransactionsMap = {
-      for (var item in statsSubTransactions) item.database!.adjective: false
-    };
+    // statsSubTransactionsMap = {
+    //   for (var item in statsSubTransactions) item.database!.adjective: false
+    // };
     emit(const ReportsState.statsWalletsSelected());
     print(statsSubTransactionsMap);
   }
@@ -410,10 +410,10 @@ class ReportsCubit extends Cubit<ReportsState> {
         selectedSubTransactions.remove(key);
       }
     });
-    statsPriorities = transactions
-        .where((transaction) =>
-            selectedSubTransactions.contains(transaction.database!.adjective))
-        .toList();
+    // statsPriorities = transactions
+    //     .where((transaction) =>
+    //         // selectedSubTransactions.contains(transaction.database!.adjective))
+    //     .toList();
     statsPrioritiesMap = {
       for (var item in statsPriorities) item.priority: false
     };
@@ -433,11 +433,11 @@ class ReportsCubit extends Cubit<ReportsState> {
         selectedPriorities.remove(key);
       }
     });
-    filteredTransactions = transactions
-        .where((transaction) =>
-            selectedPriorities.contains(transaction.priority) &&
-            selectedSubTransactions.contains(transaction.database!.adjective))
-        .toList();
+    // filteredTransactions = transactions
+    //     .where((transaction) =>
+    //         selectedPriorities.contains(transaction.priority) &&
+    //         // selectedSubTransactions.contains(transaction.database!.adjective))
+    //     .toList();
 
     emit(const ReportsState.statsWalletsSelected());
     print(filteredTransactions);

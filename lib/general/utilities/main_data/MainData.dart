@@ -151,5 +151,8 @@ class MainData {
     BlocProvider<DiscountCubit>(
       create: (context) => DiscountCubit(),
     ),
+    BlocProvider<NotesCubit>(
+      create: (context) => NotesCubit(),
+    ),
       ];
 }

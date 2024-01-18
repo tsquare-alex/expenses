@@ -3,7 +3,7 @@ import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
-import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
+import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
 import 'package:expenses/user/screens/wallet/widgets/cstom_container.dart';
 import 'package:expenses/user/screens/wallet/widgets/wallet_category_screen.dart';
 import 'package:flutter/material.dart';
@@ -32,35 +32,70 @@ class _WalletBodyState extends State<WalletBody> {
     return BlocBuilder<WalletCubit, WalletState>(
       builder: (context, state) {
         wallet = BlocProvider.of<WalletCubit>(context).walletList;
-        wallet.sort((a, b) => b.checkedValue ? 1 : -1);
+        wallet.sort((a, b) => b.checkedValue! ? 1 : -1);
+        double totalBalance =
+            context.read<WalletCubit>().calculateTotalBalance(wallet);
         return Scaffold(
           body: wallet.isEmpty
               ? const WalletCategory()
-              : Padding(
-                  padding: EdgeInsets.all(12.w),
-                  child: ListView.builder(
-                      itemCount: wallet.length,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        Gradient itemGradient = index % 2 == 0
-                            ? const LinearGradient(
-                                colors: [Color(0xff24C6DC), Color(0xff514A9D)],
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                              )
-                            : const LinearGradient(
-                                colors: [Color(0xffC33764), Color(0xff1D2671)],
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                              );
-                        return Padding(
-                          padding: EdgeInsets.symmetric(vertical: 4.h),
-                          child: CustomContainer(
-                            model: wallet[index],
-                            gradient: itemGradient,
+              : Column(
+                  children: [
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.r),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "إجمالي الرصيد",
+                                style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: MyColors.black),
+                              ),
+                            ],
                           ),
-                        );
-                      }),
+                          Text(
+                            "$totalBalance",
+                            style: TextStyle(
+                              fontSize: 32.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                          itemCount: wallet.length,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            // Gradient itemGradient = index % 2 == 0
+                            //     ? const LinearGradient(
+                            //         colors: [Color(0xff24C6DC), Color(0xff514A9D)],
+                            //         begin: Alignment.centerLeft,
+                            //         end: Alignment.centerRight,
+                            //       )
+                            //     : const LinearGradient(
+                            //         colors: [Color(0xffC33764), Color(0xff1D2671)],
+                            //         begin: Alignment.centerLeft,
+                            //         end: Alignment.centerRight,
+                            //       );
+                            return Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 12.r, horizontal: 16.r),
+                              child: CustomContainer(
+                                model: wallet[index],
+                              ),
+                            );
+                          }),
+                    ),
+                  ],
                 ),
           floatingActionButton: Visibility(
             visible: wallet.isEmpty ? isHide = false : isHide = true,

@@ -12,7 +12,7 @@ import 'package:expenses/user/models/transaction_type_model/transaction_type_mod
 import 'package:expenses/user/screens/add_transaction/add_transaction_imports.dart';
 import 'package:expenses/user/screens/add_transaction/widgets/add_transaction_widgets_imports.dart';
 import 'package:expenses/user/screens/commitments/widgets/commitments_widgets_imports.dart';
-import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
+import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
 import 'package:expenses/user/widgets/widgets_imports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

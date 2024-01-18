@@ -17,6 +17,7 @@ import 'package:expenses/user/screens/cart_details/cart_details_imports.dart';
 import 'package:expenses/user/screens/cart_previously_used/cart_previously_used_imports.dart';
 import 'package:expenses/user/screens/cart_ready_models/cart_ready_models_imports.dart';
 import 'package:expenses/user/screens/commitments/commitments_imports.dart';
+import 'package:expenses/user/screens/budget/widget/edit_budget.dart';
 import 'package:expenses/user/screens/database/widgets/add_database.dart';
 import 'package:expenses/user/screens/add_transaction/add_transaction_imports.dart';
 import 'package:expenses/user/screens/bmi_calculator/bmi_calculator_imports.dart';

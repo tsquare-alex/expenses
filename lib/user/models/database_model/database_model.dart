@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:hive_flutter/adapters.dart';
 
 part 'database_model.g.dart';
@@ -7,87 +6,86 @@ part 'database_model.g.dart';
 @HiveType(typeId: 9)
 class DatabaseModel extends HiveObject {
   @HiveField(0)
-   String category;
+  String? category;
   @HiveField(1)
-   String adjective;
+  String? name;
   @HiveField(2)
-    String firstName;
+  String? phone;
   @HiveField(3)
-   String secondName;
+  String? address;
   @HiveField(4)
-    String phoneNumber;
+  String? socialAddress;
   @HiveField(5)
-   String workName;
+  String? note;
   @HiveField(6)
-   String department;
+  Uint8List? image;
   @HiveField(7)
-    String company;
+  String? qrCodeData;
   @HiveField(8)
-   String country;
+  String? emailAddress;
   @HiveField(9)
-   String governorate;
+  String? date;
   @HiveField(10)
-    String city;
-  @HiveField(11)
-   String street;
-  @HiveField(12)
-   String buildingNumber;
-  @HiveField(13)
-   String apartmentNumber;
-  @HiveField(14)
-   String postalNumber;
-  @HiveField(15)
-   String emailAddress;
-  @HiveField(16)
-   String eventTitle;
-  @HiveField(17)
-   String eventDate;
-  @HiveField(18)
-   String eventDetails;
-  @HiveField(19)
-   String notes;
-  @HiveField(20)
-   String web;
-  @HiveField(21)
-   String facebook;
-  @HiveField(22)
-   String instagram;
-  @HiveField(23)
-   String youtube;
-  @HiveField(24)
-   String messenger;
-  @HiveField(25)
-   Uint8List image;
-  @HiveField(26)
-  String name;
+  String? job;
 
-  DatabaseModel(
-      {required this.category,
-      required this.adjective,
-      required this.firstName,
-      required this.secondName,
-      required this.phoneNumber,
-      required this.workName,
-      required this.department,
-      required this.company,
-      required this.country,
-      required this.governorate,
-      required this.city,
-      required this.street,
-      required this.buildingNumber,
-      required this.apartmentNumber,
-      required this.postalNumber,
-      required this.emailAddress,
-      required this.eventTitle,
-      required this.eventDate,
-      required this.eventDetails,
-      required this.notes,
-      required this.web,
-      required this.facebook,
-      required this.instagram,
-      required this.youtube,
-      required this.messenger,
-        required this.image,
-        required  this.name
-      });
+  DatabaseModel({
+    required this.category,
+    required this.name,
+    required this.phone,
+    required this.address,
+    required this.socialAddress,
+    required this.note,
+    required this.image,
+    required this.emailAddress,
+    required this.date,
+    required this.job,
+  }) {
+    qrCodeData = generateQRCodeData();
+  }
+
+  String generateQRCodeData() {
+
+    print("===============================================================================");
+    print('$category,$name,$phone,$address,$socialAddress,$note,$emailAddress,$date,$job');
+    print("===============================================================================");
+
+    return '$category,$name,$phone,$address,$socialAddress,$note,$emailAddress,$date,$job';
+  }
+
+
 }
+class ScannedData {
+  final String category;
+  final String name;
+  final String phone;
+  final String address;
+  final String socialAddress;
+  final String note;
+  final String emailAddress;
+  final String date;
+  final String job;
+
+  ScannedData({
+    required this.category,
+    required this.name,
+    required this.phone,
+    required this.address,
+    required this.socialAddress,
+    required this.note,
+    required this.emailAddress,
+    required this.date,
+    required this.job,
+  });
+}
+
+ScannedData scannedData = ScannedData(
+  category: '',
+  name: '',
+  phone: '',
+  address: '',
+  socialAddress: '',
+  note: '',
+  emailAddress: "",
+  date: "",
+  job: "",
+);

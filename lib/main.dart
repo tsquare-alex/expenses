@@ -13,13 +13,16 @@ import 'package:expenses/user/models/database_model/database_model.dart';
 import 'package:expenses/user/models/favorite_model/favorite_model.dart';
 import 'package:expenses/user/models/dropdown_model/dropdown_model.dart';
 import 'package:expenses/user/models/radio_model/radio_model.dart';
+import 'package:expenses/user/models/note_model/note_model.dart';
 import 'package:expenses/user/models/transaction_type_model/transaction_content_model.dart';
 import 'package:expenses/user/models/transaction_type_model/transaction_type_model.dart';
 import 'package:expenses/user/screens/budget/data/model/budget_model.dart';
+import 'package:expenses/user/screens/wallet/data/model/wallet_category/category_model.dart';
 import 'package:flutter/material.dart';
-import 'package:expenses/user/screens/wallet/data/model/wallet_model.dart';
+import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'firebase_options.dart';
@@ -39,6 +42,7 @@ Future<void> main() async {
   Hive.registerAdapter(TransactionContentModelAdapter());
   Hive.registerAdapter(AddTransactionModelAdapter());
   Hive.registerAdapter(DropdownModelAdapter());
+  Hive.registerAdapter(CategoryModelAdapter());
   Hive.registerAdapter(WalletModelAdapter());
   Hive.registerAdapter(DatabaseModelAdapter());
   Hive.registerAdapter(FavoriteModelAdapter());
@@ -52,15 +56,20 @@ Future<void> main() async {
   Hive.registerAdapter(CurrencyModelAdapter());
   Hive.registerAdapter(BudgetModelAdapter());
   Hive.registerAdapter(BagModelAdapter());
+
+  Hive.registerAdapter(NoteModelAdapter());
   await Hive.openBox<FavoriteModel>(favoriteTools);
   await Hive.openBox<AuthenticationInfo>("authentication_box");
   await Hive.openBox<BudgetModel>("budgetBox");
   await Hive.openBox<BagModel>("bagBox");
   await Hive.openBox<CurrencyModel>('currencyBox');
   await Hive.openBox<CountryModel>('countryBox');
+  await Hive.openBox<CategoryModel>("walletCategoryModel");
   await Hive.openBox<WalletModel>(walletDatabaseBox);
   await Hive.openBox<DatabaseModel>(database);
   await Hive.openBox<CountryModel>("countryBox");
+  await Hive.openBox<NoteModel>(noteKey);
+
   runApp(BlocProvider(
     create: (BuildContext context) => LangCubit(),
     child: Phoenix(child: const MyApp()),

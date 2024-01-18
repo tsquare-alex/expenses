@@ -41,6 +41,7 @@ class AddCartModelAdapter extends TypeAdapter<AddCartModel> {
   void write(BinaryWriter writer, AddCartModel obj) {
     writer
       ..writeByte(17)
+      ..writeByte(15)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -75,6 +76,7 @@ class AddCartModelAdapter extends TypeAdapter<AddCartModel> {
       ..write(obj.cartType)
       ..writeByte(16)
       ..write(obj.isCompleted);
+      ..write(obj.contentModel);
   }
 
   @override

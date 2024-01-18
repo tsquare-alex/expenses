@@ -6,6 +6,7 @@ abstract class AddDataBaseState {}
 class AddDataBaseInitial extends AddDataBaseState {}
 class AddDataBaseLoading extends AddDataBaseState {}
 class AddDataBaseSuccess extends AddDataBaseState {}
+class AddDataBaseScannedData extends AddDataBaseState {}
 class AddDataBaseFailure extends AddDataBaseState {
   final String errorMessage;
 

@@ -10,7 +10,6 @@ class ReportsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Intl.defaultLocale = ReportsCubit.get(context).getCurrentLocale(context);
     return Column(
       children: [
         Expanded(
@@ -90,6 +89,11 @@ class ReportsBody extends StatelessWidget {
                         flex: 1,
                         child: GestureDetector(
                           onTap: () async {
+                            if (ReportsCubit.get(context)
+                                .selectedWallet
+                                .isEmpty) {
+                              return;
+                            }
                             ReportsCubit.get(context).reportSelectedDate =
                                 await showDateRangePicker(
                               context: context,
@@ -165,10 +169,10 @@ class ReportsBody extends StatelessWidget {
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
                         isExpanded: true,
-                        value:
-                            context.watch<ReportsCubit>().selectedWallet.isEmpty
-                                ? null
-                                : context.watch<ReportsCubit>().selectedWallet,
+                        // value:
+                        //     context.watch<ReportsCubit>().selectedWallet.isEmpty
+                        //         ? null
+                        //         : context.watch<ReportsCubit>().selectedWallet,
                         hint: Text(
                           tr(context, 'chooseTransactions'),
                           style: TextStyle(
@@ -182,36 +186,23 @@ class ReportsBody extends StatelessWidget {
                           color: MyColors.primary,
                         ),
                         menuMaxHeight: 0.3.sh,
-                        items: [
-                              DropdownMenuItem(
-                                value: 'all',
+                        items: ReportsCubit.get(context)
+                            .reportFilteredTransactions
+                            .map(
+                              (transaction) => DropdownMenuItem(
+                                value: transaction.transactionType!.name,
                                 child: Text(
-                                  '',
-                                  // tr(context, 'allWallets'),
+                                  tr(context,
+                                      transaction.transactionContent!.name!),
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.grey,
                                   ),
                                 ),
-                              )
-                            ] +
-                            ReportsCubit.get(context)
-                                .wallets
-                                .map(
-                                  (wallet) => DropdownMenuItem(
-                                    value: wallet.name,
-                                    child: Text(
-                                      wallet.name,
-                                      style: TextStyle(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ),
-                                )
-                                .toList(),
+                              ),
+                            )
+                            .toList(),
                         onChanged: (value) {
                           ReportsCubit.get(context).changeWallet(value!);
                         },
@@ -220,63 +211,110 @@ class ReportsBody extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 16.h),
-                const CircularPercentage(),
-                SizedBox(height: 32.h),
+                // const CircularPercentage(),
+                SizedBox(
+                  width: 300,
+                  height: 300,
+                  child: PieChart(
+                    PieChartData(
+                      borderData: FlBorderData(show: false),
+                      centerSpaceRadius: 60.r,
+                      sectionsSpace: 5.w,
+                      sections: context
+                          .watch<ReportsCubit>()
+                          .categoriesList
+                          .map(
+                            (category) => PieChartSectionData(
+                              title: tr(context, category.title),
+                              color: category.color,
+                              showTitle: true,
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 48.h),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.r),
-                  child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Table(
+                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                    columnWidths: {
+                      0: FractionColumnWidth(0.55),
+                      1: FractionColumnWidth(0.3),
+                      2: FractionColumnWidth(0.15),
+                    },
                     children: [
-                      Text(
-                        tr(context, 'transactionsHistory'),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16.sp,
-                        ),
+                      TableRow(
+                        children: [
+                          Text(
+                            'الفئة',
+                            style: TextStyle(
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            'مبلغ',
+                            style: TextStyle(
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            '%',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                      OutlinedButton(
-                        onPressed: () =>
-                            showReportOptionsModalSheet(context: context),
-                        style: OutlinedButton.styleFrom(
-                          fixedSize: const Size(149, 42),
-                          elevation: 0,
-                          padding: EdgeInsets.symmetric(horizontal: 14.r),
-                          side: BorderSide(color: MyColors.primary),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.r),
-                          ),
-                        ),
-                        child: Text(
-                          tr(context, 'showDetails'),
-                          style: TextStyle(
-                            color: MyColors.primary,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      )
+                      ...context
+                          .watch<ReportsCubit>()
+                          .categoriesList
+                          .map(
+                            (category) => TableRow(
+                              children: [
+                                ReportsRowCell(
+                                  title: tr(context, category.title),
+                                  isCategory: true,
+                                  categoryColor: category.color,
+                                ),
+                                ReportsRowCell(
+                                  title: category.totalMoney.toStringAsFixed(0),
+                                ),
+                                ReportsRowCell(
+                                  title: NumberFormat.percentPattern('en')
+                                      .format(category.percentage),
+                                  isCenter: true,
+                                ),
+                              ],
+                            ),
+                          )
+                          .toList(),
                     ],
                   ),
                 ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: ReportsCubit.get(context)
-                          .reportFilteredTransactions
-                          .isEmpty
-                      ? ReportsCubit.get(context).transactions.length
-                      : ReportsCubit.get(context)
-                          .reportFilteredTransactions
-                          .length,
-                  itemBuilder: (context, index) => TransactionTile(
-                    transaction: ReportsCubit.get(context)
-                            .reportFilteredTransactions
-                            .isEmpty
-                        ? ReportsCubit.get(context).transactions[index]
-                        : ReportsCubit.get(context)
-                            .reportFilteredTransactions[index],
-                  ),
-                ),
+                // ListView.builder(
+                //   shrinkWrap: true,
+                //   itemCount: ReportsCubit.get(context)
+                //           .reportFilteredTransactions
+                //           .isEmpty
+                //       ? ReportsCubit.get(context).transactions.length
+                //       : ReportsCubit.get(context)
+                //           .reportFilteredTransactions
+                //           .length,
+                //   itemBuilder: (context, index) => TransactionTile(
+                //     transaction: ReportsCubit.get(context)
+                //             .reportFilteredTransactions
+                //             .isEmpty
+                //         ? ReportsCubit.get(context).transactions[index]
+                //         : ReportsCubit.get(context)
+                //             .reportFilteredTransactions[index],
+                //   ),
+                // ),
               ],
             ),
           ),

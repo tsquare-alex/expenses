@@ -30,9 +30,9 @@ class _MyAppState extends State<MyApp> {
       child: BlocBuilder<LangCubit, LangState>(
         builder: (context, state) {
           return ScreenUtilInit(
+              designSize: const Size(430, 932),
               minTextAdapt: true,
               splitScreenMode: true,
-              designSize: const Size(430,932),
               builder: (BuildContext context, child) {
                 return MaterialApp.router(
                     debugShowCheckedModeBanner: false,

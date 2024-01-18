@@ -9,6 +9,8 @@ import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/reports/cubit/reports_cubit.dart';
 import 'package:expenses/user/screens/reports/reports_imports.dart';
+import 'package:expenses/user/screens/reports/widgets/table_row_cell.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

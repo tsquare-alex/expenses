@@ -1,6 +1,26 @@
 part of 'database_imports.dart';
 
-class Database extends StatelessWidget {
+class Database extends StatefulWidget {
+
+  @override
+  State<Database> createState() => _DatabaseState();
+}
+
+class _DatabaseState extends State<Database> {
+
+  String scannedContent = ""; // Variable to store the scanned content
+
+  Future<void> _scanQRCode() async {
+    try {
+      var result = await BarcodeScanner.scan();
+      setState(() {
+        scannedContent = result.rawContent;
+      });
+    } on Exception catch (e) {
+      print("Error scanning QR Code: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -64,6 +84,7 @@ class Database extends StatelessWidget {
             ),
             // backgroundColor: MyColors.headerColor.withOpacity(0.2),
             body: SingleChildScrollView(
+
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -71,117 +92,26 @@ class Database extends StatelessWidget {
                   children: [
                     BlocBuilder<DatabaseCubit, DatabaseState>(
                       builder: (context, state) {
-                        if (state is DatabaseScannedResult) {
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Scan Result:',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                state.scanResult,
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(height: 20),
-                              IconButton(
-                                onPressed: () {
-                                  BlocProvider.of<DatabaseCubit>(context)
-                                      .scanQRCode();
-                                },
-                                icon: Icon(FontAwesomeIcons.qrcode),
-                              ),
-                            ],
-                          );
-                        } else if (state is DatabaseDataFirestoreLoaded) {
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Scan Result:',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                state.documentData,
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(height: 10),
-                              // Text(
-                              //   'Document Number: ${state.documentNumber}',
-                              //   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                              // ),
-                              // SizedBox(height: 10),
-                              // Text(
-                              //   'Document Data: ${state.documentData}',
-                              //   style: TextStyle(fontSize: 18),
-                              // ),
-                              // SizedBox(height: 20),
-                              IconButton(
-                                onPressed: () {
-                                  BlocProvider.of<DatabaseCubit>(context)
-                                      .scanQRCode();
-                                },
-                                icon: Icon(FontAwesomeIcons.qrcode),
-                              ),
-                            ],
-                          );
-                        } else if (state is DatabaseError) {
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text('Result: No Data Found'),
-                              IconButton(
-                                onPressed: () {
-                                  BlocProvider.of<DatabaseCubit>(context)
-                                      .scanQRCode();
-                                },
-                                icon: Icon(FontAwesomeIcons.qrcode),
-                              ),
-                            ],
-                          );
-                        } else {
-                          return Center(
-                            child: Column(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.only(top: 20.r),
-                                  child: Image.asset(
-                                    Res.searchRecords,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 15.h,
-                                ),
-                                MyText(
-                                  title: "No Record",
-                                  color: MyColors.black,
-                                  size: 16.sp,
-                                  fontWeight: FontWeight.bold,
-                                )
-                              ],
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                    BlocBuilder<DatabaseCubit, DatabaseState>(
-                      builder: (context, state) {
                         List<DatabaseModel> dataBase =
                             BlocProvider.of<DatabaseCubit>(context).dataBase!;
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: dataBase.length,
-                          itemBuilder: (context, index) {
-                            return ExpandableCard(
-                                databaseData: dataBase[index]);
-                          },
+                        // print("========================================");
+                        // // print("${dataBase[0].name}");
+                        // // print("${dataBase[1].name}");
+                        // // print("${dataBase.length}");
+                        // print("========================================");
+                        return Padding(
+                          padding: const EdgeInsets.all(25.0),
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: dataBase.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: ExpandableCard(
+                                    databaseData: dataBase[index]),
+                              );
+                            },
+                          ),
                         );
                       },
                     ),

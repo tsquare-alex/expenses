@@ -72,7 +72,7 @@ class AddTransactionData {
     FocusScope.of(context).requestFocus(FocusNode());
     AdaptivePicker.datePicker(
         context: context,
-        minDate: DateTime.now().subtract(Duration(days:30)),
+        minDate: DateTime.now().subtract(Duration(days: 30)),
         onConfirm: (date) {
           dateController.text = DateFormat("dd/MM/yyyy", "en").format(date!);
         },
@@ -601,7 +601,7 @@ class AddTransactionData {
             var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
             var walletList = walletBox.values.toList();
             WalletModel? targetModel = walletList.firstWhere(
-                  (model) => model.name == selectedWalletModel?.name,
+              (model) => model.name == selectedWalletModel?.name,
             );
             print("object ${targetModel.name}");
             targetModel.balance = targetModel.balance - total;
@@ -619,10 +619,8 @@ class AddTransactionData {
                 msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
                 color: Colors.red);
           }
-        }else{
-          CustomToast.showSimpleToast(
-              msg: "اختر المعاملة",
-              color: Colors.red);
+        } else {
+          CustomToast.showSimpleToast(msg: "اختر المعاملة", color: Colors.red);
         }
       } else if (type == "التسوق والشراء") {
         if(transactionType != null){
@@ -651,7 +649,7 @@ class AddTransactionData {
             var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
             var walletList = walletBox.values.toList();
             WalletModel? targetModel = walletList.firstWhere(
-                  (model) => model.name == selectedWalletModel?.name,
+              (model) => model.name == selectedWalletModel?.name,
             );
             print("object ${targetModel.name}");
             targetModel.balance = targetModel.balance - total;
@@ -668,10 +666,8 @@ class AddTransactionData {
                 msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
                 color: Colors.red);
           }
-        }else{
-          CustomToast.showSimpleToast(
-              msg: "اختر المعاملة",
-              color: Colors.red);
+        } else {
+          CustomToast.showSimpleToast(msg: "اختر المعاملة", color: Colors.red);
         }
       } else if (type == "الاهداف المالية المستهدفة") {
         if(transactionType!=null){
@@ -702,7 +698,7 @@ class AddTransactionData {
             var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
             var walletList = walletBox.values.toList();
             WalletModel? targetModel = walletList.firstWhere(
-                  (model) => model.name == selectedWalletModel?.name,
+              (model) => model.name == selectedWalletModel?.name,
             );
             print("object ${targetModel.name}");
             targetModel.balance = targetModel.balance - total;
@@ -719,10 +715,8 @@ class AddTransactionData {
                 msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
                 color: Colors.red);
           }
-        }else{
-          CustomToast.showSimpleToast(
-              msg: "اختر المعاملة",
-              color: Colors.red);
+        } else {
+          CustomToast.showSimpleToast(msg: "اختر المعاملة", color: Colors.red);
         }
       } else if (type == "المعاملات النقدية") {
         if(transactionType !=null){
@@ -747,7 +741,7 @@ class AddTransactionData {
             var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
             var walletList = walletBox.values.toList();
             WalletModel? targetModel = walletList.firstWhere(
-                  (model) => model.name == selectedWalletModel?.name,
+              (model) => model.name == selectedWalletModel?.name,
             );
             print("object ${targetModel.name}");
             targetModel.balance = targetModel.balance - total;
@@ -764,10 +758,8 @@ class AddTransactionData {
                 msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
                 color: Colors.red);
           }
-        }else{
-          CustomToast.showSimpleToast(
-              msg: "اختر المعاملة",
-              color: Colors.red);
+        } else {
+          CustomToast.showSimpleToast(msg: "اختر المعاملة", color: Colors.red);
         }
       }
     } else {
@@ -791,7 +783,7 @@ class AddTransactionData {
 
   void setSelectBudgetModel(BudgetModel? model) {
     selectedBudget = model;
-    budgetName = model?.name;
+    // budgetName = model?."budgetName";
   }
 
   void setSelectDatabaseModel(DatabaseModel? model) {

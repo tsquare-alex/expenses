@@ -253,8 +253,7 @@ class TransactionDetailsData {
         box.put(model.key, editModel);
         AutoRouter.of(context).pop();
       }
-    }
-    else if (model.transactionName == "التسوق والشراء") {
+    } else if (model.transactionName == "التسوق والشراء") {
       AddTransactionModel editModel = AddTransactionModel(
         transactionName: "التسوق والشراء",
         transactionType: model.transactionType,
@@ -311,8 +310,7 @@ class TransactionDetailsData {
         box.put(model.key, editModel);
         AutoRouter.of(context).pop();
       }
-    }
-    else if (model.transactionName == "الاهداف المالية المستهدفة") {
+    } else if (model.transactionName == "الاهداف المالية المستهدفة") {
       AddTransactionModel editModel = AddTransactionModel(
         transactionName: "الاهداف المالية المستهدفة",
         transactionType: model.transactionType,
@@ -372,8 +370,7 @@ class TransactionDetailsData {
         box.put(model.key, editModel);
         AutoRouter.of(context).pop();
       }
-    }
-    else if (model.transactionName == "المعاملات النقدية") {
+    } else if (model.transactionName == "المعاملات النقدية") {
       AddTransactionModel editModel = AddTransactionModel(
         transactionName: "المعاملات النقدية",
         cashTransactionType: model.cashTransactionType,
@@ -427,12 +424,10 @@ class TransactionDetailsData {
     }
   }
 
-
   WalletModel? selectedWalletModel;
   BudgetModel? selectedBudget;
   String? walletName;
   String? budgetName;
-
 
   void setSelectWalletModel(WalletModel? model) {
     selectedWalletModel = model;
@@ -447,7 +442,7 @@ class TransactionDetailsData {
 
   void setSelectBudgetModel(BudgetModel? model) {
     selectedBudget = model;
-    budgetName = model?.name;
+    // budgetName = model?.budgetName;
   }
 
   Future<List<BudgetModel>> getBudgetData(BuildContext context) async {

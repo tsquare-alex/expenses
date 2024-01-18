@@ -36,6 +36,7 @@ class BuildAddCartContent extends StatelessWidget {
                 data.addTransactionContent(
                       CartContentModel(
                         name: data.contentController.text,
+                        image: Res.shopping,
                       ),
                     context,typeModel
                   );

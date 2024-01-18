@@ -31,16 +31,23 @@ class CustomDrawerCard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(8.r),
+        padding: EdgeInsets.all(15.r),
         margin: const EdgeInsets.symmetric(vertical: 10),
+        // decoration: BoxDecoration(
+        //   color: color != null?color:context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.primary:MyColors.primary
+        // ),
         decoration: BoxDecoration(
-          color: color != null?color:context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.primary:MyColors.primary
-        ),
+            color: color != null?color:context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.primary:MyColors.white,
+            borderRadius: BorderRadius.circular(10.r),
+            boxShadow: const [
+              BoxShadow(
+                  color: MyColors.shadow, spreadRadius: 0, blurRadius: 12)
+            ]),
         child: Row(
           children: [
             if(image!=null)Image.asset(
                 '$image',
-              color: imageColor??MyColors.white,
+              // color: imageColor??MyColors.white,
               width: 25.w,
                 height: 25.h,
             ),
@@ -52,7 +59,7 @@ class CustomDrawerCard extends StatelessWidget {
                 title: "$title",
                 fontWeight: FontWeight.bold,
                 size: 14,
-                color: textColor??MyColors.white,
+                color: textColor??MyColors.black,
               ),
             )
           ],

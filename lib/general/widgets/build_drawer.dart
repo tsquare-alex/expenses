@@ -7,7 +7,7 @@ class BuildDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-        backgroundColor: context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.backgroundColor:MyColors.white,
+        surfaceTintColor: context.watch<AppThemeCubit>().isDarkMode?AppDarkColors.backgroundColor:MyColors.white,
         width: 220.w,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -22,6 +22,12 @@ class BuildDrawer extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 10),
                 child: const HeaderLogo(),
               ),
+                  CustomDrawerCard(
+                    title: tr(context, "fullVersion"),
+                    onTap: () {
+                    },
+                    endDrawer: false,
+                  ),
               CustomDrawerCard(
                 title: tr(context, "settings"),
                 onTap: () {

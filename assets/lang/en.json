@@ -305,7 +305,6 @@
 
 
 
-  "securityMsg": "Please set up a password or biometrics on your device.",
   "chooseTransaction": "Choose transaction",
   "chooseTransactions": "Choose transactions",
   "chooseSubTransaction": "Choose sub transaction",
@@ -480,5 +479,10 @@
   "tuitionFees" : "Tuition Fees",
   "securityMsg": "Please set up a password or biometrics on your device.",
   "editWallet": "Edit wallet",
-  "edit": "Edit"
+  "edit": "Edit",
+  "buyingSucceeded" : "Buying succeeded",
+
+  "fullVersion" : "Full version",
+
+  "tuitionFees" : "Tuition Fees"
 }

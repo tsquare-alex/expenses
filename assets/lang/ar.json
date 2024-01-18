@@ -626,11 +626,14 @@
   "implementationAlert" : "تنبيه بالتفيذ",
   "addNewCart" : "إضافة سلة جديدة",
 
+  "buyingSucceeded" : "تم الشراء",
+
+  "fullVersion" : "الإصدار الكامل",
+
+
   "withdraw" : "سحب",
-  "securityMsg": "يرجى إعداد كلمة مرور أو القياسات الحيوية على جهازك.",
   "editWallet": "تعديل المحفظة",
   "edit": "تعديل",
-  "securityMsg": "يرجى إعداد كلمة مرور أو القياسات الحيوية على جهازك.",
 
   "zoomIn": "تكبير",
   "ruler": "مسطرة",

@@ -32,6 +32,7 @@ class ReportsRowCell extends StatelessWidget {
                 Text(
                   title,
                   textAlign: isCenter ? TextAlign.center : null,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,

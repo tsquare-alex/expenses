@@ -226,62 +226,66 @@ class ReportsBody extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 32.h),
-                const CircularPercentage(),
-                SizedBox(height: 32.h),
-                const CircularDetailsRow(),
-                // SizedBox(height: 16.h),
-                // Padding(
-                //   padding: EdgeInsets.symmetric(horizontal: 32.r),
-                //   child: AspectRatio(
-                //     aspectRatio: 1,
-                //     child: Stack(
-                //       children: [
-                //         Align(
-                //           alignment: Alignment.center,
-                //           child: Text(
-                //             '${tr(context, 'total')}\n${context.watch<ReportsCubit>().allSpentMoney.toStringAsFixed(0)}',
-                //             style: TextStyle(
-                //               fontWeight: FontWeight.bold,
-                //               fontSize: 20.sp,
-                //             ),
-                //             textAlign: TextAlign.center,
-                //           ),
-                //         ),
-                //         PieChart(
-                //           PieChartData(
-                //             sectionsSpace: 3.r,
-                //             centerSpaceRadius: double.infinity,
-                //             sections: context
-                //                 .watch<ReportsCubit>()
-                //                 .categoriesList
-                //                 .map(
-                //                   (category) => PieChartSectionData(
-                //                     title: NumberFormat.percentPattern('en')
-                //                         .format(category.percentage),
-                //                     value: category.percentage,
-                //                     showTitle: true,
-                //                     radius: 100.r,
-                //                     titlePositionPercentageOffset: 0.5,
-                //                     titleStyle: TextStyle(
-                //                       fontWeight: FontWeight.bold,
-                //                       fontSize: 20.sp,
-                //                     ),
-                //                   ),
-                //                 )
-                //                 .toList(),
-                //           ),
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
+                SizedBox(height: 16.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 32.r),
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            '${tr(context, 'total')}\n${context.watch<ReportsCubit>().allSpentMoney.toStringAsFixed(0)}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.sp,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        PieChart(
+                          PieChartData(
+                            sectionsSpace: 3.r,
+                            centerSpaceRadius: double.infinity,
+                            sections: context
+                                .watch<ReportsCubit>()
+                                .categoriesList
+                                .asMap()
+                                .entries
+                                .map(
+                                  (entry) => PieChartSectionData(
+                                    title: entry.value.percentage < 0.05
+                                        ? null
+                                        : '${NumberFormat.percentPattern('en').format(entry.value.percentage)}\n${tr(context, entry.value.title).split(' ').join('\n')}',
+                                    value: entry.value.percentage,
+                                    showTitle: entry.value.percentage < 0.05
+                                        ? false
+                                        : true,
+                                    radius: 110.r,
+                                    color: context
+                                        .read<ReportsCubit>()
+                                        .randomColors[entry.key],
+                                    titlePositionPercentageOffset: 0.55,
+                                    titleStyle: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18.sp,
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 SizedBox(height: 40.h),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.r),
                   child: Table(
                     defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                    columnWidths: {
+                    columnWidths: const {
                       0: FractionColumnWidth(0.55),
                       1: FractionColumnWidth(0.3),
                       2: FractionColumnWidth(0.15),
@@ -323,20 +327,25 @@ class ReportsBody extends StatelessWidget {
                       ...context
                           .watch<ReportsCubit>()
                           .categoriesList
+                          .asMap()
+                          .entries
                           .map(
-                            (category) => TableRow(
+                            (entry) => TableRow(
                               children: [
                                 ReportsRowCell(
-                                  title: tr(context, category.title),
+                                  title: tr(context, entry.value.title),
                                   isCategory: true,
-                                  categoryColor: category.color,
+                                  categoryColor: context
+                                      .read<ReportsCubit>()
+                                      .randomColors[entry.key],
                                 ),
                                 ReportsRowCell(
-                                  title: category.totalMoney.toStringAsFixed(0),
+                                  title:
+                                      entry.value.totalMoney.toStringAsFixed(0),
                                 ),
                                 ReportsRowCell(
                                   title: NumberFormat.percentPattern('en')
-                                      .format(category.percentage),
+                                      .format(entry.value.percentage),
                                   isCenter: true,
                                 ),
                               ],
@@ -346,24 +355,6 @@ class ReportsBody extends StatelessWidget {
                     ],
                   ),
                 ),
-                // ListView.builder(
-                //   shrinkWrap: true,
-                //   itemCount: ReportsCubit.get(context)
-                //           .reportFilteredTransactions
-                //           .isEmpty
-                //       ? ReportsCubit.get(context).transactions.length
-                //       : ReportsCubit.get(context)
-                //           .reportFilteredTransactions
-                //           .length,
-                //   itemBuilder: (context, index) => TransactionTile(
-                //     transaction: ReportsCubit.get(context)
-                //             .reportFilteredTransactions
-                //             .isEmpty
-                //         ? ReportsCubit.get(context).transactions[index]
-                //         : ReportsCubit.get(context)
-                //             .reportFilteredTransactions[index],
-                //   ),
-                // ),
               ],
             ),
           ),

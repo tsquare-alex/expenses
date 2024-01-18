@@ -281,7 +281,6 @@ class ReportsCubit extends Cubit<ReportsState> {
           getUserSpentMoney(reportFilteredTransactions);
       categoriesList.add(
         ReportCategory(
-          color: Colors.black,
           title: category,
           totalMoney: getCategoryTotalMoney(category),
           percentage: percentage,
@@ -294,7 +293,6 @@ class ReportsCubit extends Cubit<ReportsState> {
               : reportFilteredTransactions));
       categoriesList.add(
         ReportCategory(
-          color: Colors.black,
           title: category,
           totalMoney: getCategoryTotalMoney(category),
           percentage: percentage,
@@ -304,7 +302,7 @@ class ReportsCubit extends Cubit<ReportsState> {
   }
 
   List<Color> randomColors = [
-    Colors.red,
+    Colors.deepOrangeAccent,
     Colors.green,
     Colors.blue,
     Colors.yellow,
@@ -325,7 +323,7 @@ class ReportsCubit extends Cubit<ReportsState> {
     Colors.blueGrey,
     Colors.indigoAccent,
     Colors.lightGreenAccent,
-    Colors.deepOrangeAccent,
+    Colors.red,
     Colors.purpleAccent,
     Colors.tealAccent,
   ];

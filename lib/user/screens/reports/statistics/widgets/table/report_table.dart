@@ -25,11 +25,11 @@ class ReportTable extends StatelessWidget {
           children: [
             const TableRow(
               children: [
-                StatsRowCell(title: 'المحفظة', padding: 10),
-                StatsRowCell(title: 'المعاملة', padding: 10),
-                StatsRowCell(title: 'المعاملة الفرعية', padding: 10),
-                StatsRowCell(title: 'الأولوية', padding: 10),
-                StatsRowCell(title: 'المبلغ', padding: 10),
+                StatsRowCell(title: 'المحفظة', padding: 15),
+                StatsRowCell(title: 'المعاملة', padding: 15),
+                StatsRowCell(title: 'المعاملة الفرعية', padding: 15),
+                StatsRowCell(title: 'الأولوية', padding: 15),
+                StatsRowCell(title: 'القيمة', padding: 15),
               ],
             ),
             ...data
@@ -70,8 +70,8 @@ class StatsRowCell extends StatelessWidget {
         title,
         textAlign: TextAlign.center,
         style: TextStyle(
-          fontSize: 14.sp,
-          fontWeight: FontWeight.bold,
+          fontSize: 10.sp,
+          fontWeight: FontWeight.w300,
         ),
       ),
     );

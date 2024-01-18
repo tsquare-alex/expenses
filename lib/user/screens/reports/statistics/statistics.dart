@@ -11,35 +11,44 @@ class Statistics extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: MyColors.white,
-        title: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 64.r),
-          child: Row(
-            children: [
-              Image.asset(
-                Res.chart,
-                width: 24.w,
-                height: 24.h,
-                color: MyColors.primary,
-              ),
-              SizedBox(
-                width: 8.w,
-              ),
-              MyText(
-                title: tr(context, 'reportDetails'),
-                color: Colors.black,
-                size: 20.sp,
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : Colors.white,
+        surfaceTintColor: Colors.transparent,
+        centerTitle: true,
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              Res.reports,
+              width: 24.w,
+              height: 24.h,
+              color: context.watch<AppThemeCubit>().isDarkMode
+                  ? AppDarkColors.secondary
+                  : MyColors.primary,
+            ),
+            SizedBox(
+              width: 8.w,
+            ),
+            Text(
+              tr(context, 'reportDetails'),
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
+                fontSize: 20.sp,
+                color: context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : MyColors.black,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-        leadingWidth: 48.w,
         leading: GestureDetector(
           onTap: () => AutoRouter.of(context).pop(),
           child: Icon(
             Icons.arrow_back,
-            color: MyColors.black,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
           ),
         ),
       ),

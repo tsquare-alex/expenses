@@ -15,7 +15,7 @@ import 'package:hive/hive.dart';
 
 class WalletCubit extends Cubit<WalletState> {
   DateTime startDate = DateTime.now();
-  DateTime endDate = DateTime.now().add(Duration(days: 30));
+  DateTime endDate = DateTime.now().add(const Duration(days: 30));
 
   WalletCubit() : super(WalletInitial());
 
@@ -102,6 +102,15 @@ class WalletCubit extends Cubit<WalletState> {
     var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
     walletList = walletBox.values.toList();
     emit(WalletSuccess(wallet: walletList));
+    valueCategoryController.clear();
+    addCategoryController.clear();
+    balanceController.clear();
+    closedDateController.clear();
+    encomSourceController.clear();
+    noteController.clear();
+    noteController.clear();
+    openDateController.clear();
+    walletNameController.clear();
   }
 
   Future addNote(WalletModel model) async {

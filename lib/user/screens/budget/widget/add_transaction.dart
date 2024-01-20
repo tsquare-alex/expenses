@@ -87,6 +87,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: ExpansionTile(
+                        shape: const RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.transparent),
+                        ),
                         title: const Text("إختيار المعاملات"),
                         children: [
                           ...transactionName.asMap().entries.map(
@@ -141,6 +144,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: ExpansionTile(
+                        shape: const RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.transparent),
+                        ),
                         title: const Text("إختيار المحفظة"),
                         children: [
                           ...walletsName.asMap().entries.map(

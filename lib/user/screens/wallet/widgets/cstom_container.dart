@@ -104,7 +104,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                           title: "سحب رصيد",
                                           color: MyColors.black,
                                           size: 16.sp,
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ],
                                     ),
@@ -142,7 +142,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                           title: "اضافة رصيد",
                                           color: MyColors.black,
                                           size: 16.sp,
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ],
                                     ),
@@ -177,7 +177,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                           title: "تحويل رصيد بين المحفظة",
                                           color: MyColors.black,
                                           size: 16.sp,
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ],
                                     ),
@@ -211,7 +211,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                                 title: "عرض المعاملات",
                                                 color: MyColors.black,
                                                 size: 16.sp,
-                                                fontWeight: FontWeight.w500),
+                                                fontWeight: FontWeight.w600),
                                           ],
                                         ),
                                       ),
@@ -273,11 +273,6 @@ class _CustomContainerState extends State<CustomContainer> {
                     ),
                   ),
                 ),
-                //    Icon(
-                //     Icons.lock_open_outlined,
-                //     color: MyColors.white,
-                //   ),
-                // )),
                 IconButton(
                   onPressed: () {
                     context
@@ -291,20 +286,11 @@ class _CustomContainerState extends State<CustomContainer> {
                         height: 24.h,
                         width: 24.w,
                       ),
-                      //  Icon(
-                      //   Icons.visibility_off_outlined,
-                      //   color: MyColors.white,
-                      // ),
                       child: Image.asset(
                         Res.visability,
                         height: 24.h,
                         width: 24.w,
-                      )
-                      // Icon(
-                      //   Icons.visibility_outlined,
-                      //   color: MyColors.white,
-                      // ),
-                      ),
+                      )),
                 ),
                 IconButton(
                   onPressed: () {
@@ -342,7 +328,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                           title: " حذف المحفظة",
                                           color: MyColors.black,
                                           size: 16.sp,
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ],
                                     ),
@@ -379,7 +365,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                           title: "تعديل المحفظة",
                                           color: MyColors.black,
                                           size: 16.sp,
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w600,
                                         )
                                       ],
                                     ),

@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
-import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
@@ -30,6 +29,8 @@ class _EditWalletState extends State<EditWallet> {
   bool repeatSwitchValue = false;
   double parsedNumber = 0;
   String? selectedValue;
+  String? secValue;
+
   bool isFirstValidationError = false;
   bool isSecondValidationError = false;
   bool notificationSwitchvalu = false;
@@ -70,7 +71,16 @@ class _EditWalletState extends State<EditWallet> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: ExpansionTile(
-                    title: const Text("المصادر"),
+                    shape: const RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.transparent),
+                    ),
+                    title: Text(
+                      "المصادر",
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                     children: [
                       ...context
                           .read<WalletCubit>()
@@ -128,7 +138,7 @@ class _EditWalletState extends State<EditWallet> {
                       ),
                       DefaultButton(
                         fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         title: "إضافة اخري",
                         onTap: () {
                           context.read<WalletCubit>().addEncomeSource(
@@ -137,16 +147,6 @@ class _EditWalletState extends State<EditWallet> {
                               context
                                   .read<WalletCubit>()
                                   .encomSourceController);
-                          // if (selectedValue == null) {
-                          //   setState(() {
-                          //     isFirstValidationError = true;
-                          //   });
-                          //   CustomToast.showSimpleToast(msg: "اختر القيمة");
-                          // } else {
-                          //   setState(() {
-                          //     isFirstValidationError = false;
-                          //   });
-                          // }
                         },
                         height: 49.h,
                         width: 374.w,
@@ -176,15 +176,18 @@ class _EditWalletState extends State<EditWallet> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: MyColors.greyWhite
-                        // color: isSecondValidationError
-                        //     ? Colors.red
-                        //     : Colors.grey.withOpacity(0.5),
-                        ),
+                    border: Border.all(color: MyColors.greyWhite),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: ExpansionTile(
-                    title: const Text("تحديد نوع القيمة"),
+                    shape: const RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.transparent),
+                    ),
+                    title: Text(
+                      "تحديد نوع القيمة",
+                      style: TextStyle(
+                          fontSize: 16.sp, fontWeight: FontWeight.w500),
+                    ),
                     children: [
                       ...context
                           .read<WalletCubit>()
@@ -210,10 +213,10 @@ class _EditWalletState extends State<EditWallet> {
                                     ),
                                     Radio<String>(
                                       value: item,
-                                      groupValue: selectedValue,
+                                      groupValue: secValue,
                                       onChanged: (value) {
                                         setState(() {
-                                          selectedValue = value;
+                                          secValue = value;
                                           context
                                               .read<WalletCubit>()
                                               .valueCategoryController
@@ -242,7 +245,7 @@ class _EditWalletState extends State<EditWallet> {
                       ),
                       DefaultButton(
                         fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         title: "إضافة اخري",
                         onTap: () {
                           context.read<WalletCubit>().addValue(
@@ -251,16 +254,6 @@ class _EditWalletState extends State<EditWallet> {
                               context
                                   .read<WalletCubit>()
                                   .valueCategoryController);
-                          // if (selectedValue == null) {
-                          //   setState(() {
-                          //     isSecondValidationError = true;
-                          //   });
-                          //   CustomToast.showSimpleToast(msg: "اختر القيمة");
-                          // } else {
-                          //   setState(() {
-                          //     isSecondValidationError = false;
-                          //   });
-                          // }
                         },
                         height: 49.h,
                         width: 374.w,
@@ -274,7 +267,6 @@ class _EditWalletState extends State<EditWallet> {
                 Row(
                   children: [
                     SizedBox(
-                      height: 58.h,
                       width: 319.w,
                       child: GenericTextField(
                         enableBorderColor: MyColors.semiTransparentColor,
@@ -307,9 +299,11 @@ class _EditWalletState extends State<EditWallet> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MyText(
-                        title: "تحويل العمله اوتوماتك",
-                        color: MyColors.black,
-                        size: 12.sp),
+                      title: "تحويل العمله اوتوماتك",
+                      color: MyColors.black,
+                      size: 16.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
                     Checkbox(
                         activeColor: MyColors.primary,
                         value: context.read<WalletCubit>().checkedValue,
@@ -321,27 +315,6 @@ class _EditWalletState extends State<EditWallet> {
                         })
                   ],
                 ),
-                // SizedBox(
-                //   height: 20.h,
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     MyText(
-                //         title: "تحديد  المحفظة الافتراضية",
-                //         color: MyColors.black,
-                //         size: 14.sp),
-                //     Checkbox(
-                //         activeColor: MyColors.primary,
-                //         value: context.read<WalletCubit>().checkFavorite,
-                //         onChanged: (newValue) {
-                //           setState(() {
-                //             context.read<WalletCubit>().checkFavorite =
-                //                 newValue!;
-                //           });
-                //         })
-                //   ],
-                // ),
                 SizedBox(
                   height: 20.h,
                 ),
@@ -350,11 +323,14 @@ class _EditWalletState extends State<EditWallet> {
                     Row(
                       children: [
                         MyText(
-                            title: "مدة المصدر",
-                            color: MyColors.black,
-                            size: 16.sp)
+                          title: "مدة المصدر",
+                          color: MyColors.black,
+                          size: 16.sp,
+                          fontWeight: FontWeight.w500,
+                        )
                       ],
                     ),
+                    SizedBox(height: 12.h),
                     Row(
                       children: [
                         Container(
@@ -465,7 +441,7 @@ class _EditWalletState extends State<EditWallet> {
                         hint: "ملاحظاتك",
                         maxLength: 9,
                         fieldTypes: FieldTypes.normal,
-                        type: TextInputType.number,
+                        type: TextInputType.text,
                         action: TextInputAction.next,
                         validate: (text) {
                           if (text == null || text.isEmpty) {
@@ -486,7 +462,7 @@ class _EditWalletState extends State<EditWallet> {
                       child: MyText(
                           title: "تكرار المحفظة",
                           color: MyColors.black,
-                          size: 16.sp),
+                          size: 18.sp),
                     ),
                     Visibility(
                       visible: repeatSwitchValue,
@@ -548,7 +524,7 @@ class _EditWalletState extends State<EditWallet> {
                       child: MyText(
                           title: "تنبيه عند انتهاء 20%",
                           color: MyColors.black,
-                          size: 14.sp),
+                          size: 18.sp),
                     ),
                     Visibility(
                       visible: notificationSwitchvalu,
@@ -609,7 +585,6 @@ class _EditWalletState extends State<EditWallet> {
         ),
       ),
     );
-    ;
   }
 
   Future<void> openDate(BuildContext context) async {

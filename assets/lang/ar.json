@@ -623,7 +623,7 @@
   "number" : "العدد",
   "type" : "النوع",
   "estimatedValue" : "القيمه التقدرية",
-  "implementationAlert" : "تنبيه بالتفيذ",
+  "implementationAlert" : "تنبيه بالتنفيذ",
   "addNewCart" : "إضافة سلة جديدة",
 
   "buyingSucceeded" : "تم الشراء",
@@ -657,7 +657,9 @@
   "totalPrice": "السعر الاجمالى",
   "unitPrice": "سعر الوحدة",
   "stop": "قف",
-  "reset": "إعادة ضبط"
+  "reset": "إعادة ضبط",
+
+  "operationNotAllowed": "عملية غير ممكنه لان رصيد المعاملة أكبر من قيمة المحفظة."
 
 
 }

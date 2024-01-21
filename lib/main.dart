@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:expenses/general/MyApp.dart';
 import 'package:expenses/general/blocks/lang_cubit/lang_cubit.dart';
+import 'package:expenses/general/constants/local_notification/local_notification.dart';
 import 'package:expenses/general/models/bag_model/bag_model.dart';
 import 'package:expenses/general/models/country_model/country_model.dart';
 import 'package:expenses/general/models/currency_model/currency_model.dart';
@@ -22,22 +25,30 @@ import 'package:flutter/material.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
+import 'package:workmanager/workmanager.dart';
 import 'firebase_options.dart';
 import 'general/constants/constants.dart';
+
+@pragma(
+    'vm:entry-point') // Mandatory if the App is obfuscated or using Flutter 3.1+
+void callbackDispatcher(List<AddTransactionModel> list) {
+  Workmanager().executeTask((task, inputData) {
+    print("Native called background task: "); //simpleTask will be emitted here.
+    return Future.value(true);
+  });
+}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+  await LocalNotifications.init();
   Bloc.observer = SimpleBlocObserver();
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // myBox = await openHiveBox(ApiNames.kTransactionTypes);
-  // await Hive.initFlutter();
   Hive.registerAdapter(TransactionTypeModelAdapter());
   Hive.registerAdapter(TransactionContentModelAdapter());
   Hive.registerAdapter(AddTransactionModelAdapter());
@@ -52,7 +63,6 @@ Future<void> main() async {
   Hive.registerAdapter(CartContentModelAdapter());
   Hive.registerAdapter(CartTypeModelAdapter());
   Hive.registerAdapter(RadioModelAdapter());
-  //Hive.registerAdapter(CurrencyModelAdapter());
   Hive.registerAdapter(CurrencyModelAdapter());
   Hive.registerAdapter(BudgetModelAdapter());
   Hive.registerAdapter(BagModelAdapter());
@@ -69,6 +79,57 @@ Future<void> main() async {
   await Hive.openBox<DatabaseModel>(database);
   await Hive.openBox<CountryModel>("countryBox");
   await Hive.openBox<NoteModel>(noteKey);
+
+  Workmanager().initialize(
+      callbackDispatcher, // The top level function, aka callbackDispatcher
+      isInDebugMode:
+          true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
+      );
+  Workmanager().registerPeriodicTask(
+      "task-identifier",
+      "simpleTask",
+    frequency: Duration(seconds: 5),
+    initialDelay: Duration(seconds: 5),
+  );
+
+  // Workmanager().initialize(() {
+  //   Workmanager().executeTask((task, inputData) async{
+  //     print("Background task is running!");
+  //     var box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
+  //     var list = box.values.toList();
+  //     for(AddTransactionModel item in list){
+  //       if(item.repeated != null){
+  //         if(item.repeated?.name == "daily"){
+  //           DateTime now = DateTime.now();
+  //           var date = DateFormat("dd MMMM yyyy", "en").parse(item.transactionDate!);
+  //           var time = DateFormat("hh:mm aa", "en").parse(item.time!);
+  //           DateTime scheduledTime = DateTime(
+  //             date.year,
+  //             date.month,
+  //             date.day,
+  //             time.hour,
+  //             time.minute,
+  //           );
+  //           if (now.isAfter(scheduledTime)) {
+  //             scheduledTime = scheduledTime.add(Duration(days: 1));
+  //           }
+  //           Duration durationUntilNextRun = scheduledTime.difference(now);
+  //           Timer.periodic(Duration(days: 1), (timer) {
+  //             LocalNotifications.showScheduleNotification(
+  //               notificationId: item.hashCode, // Unique ID based on item's hash code
+  //               title: "Your Notification Title",
+  //               body: "Your Notification Body",
+  //               // "Your Notification Payload",
+  //               scheduledDate: DateTime.parse(item.time!),
+  //             );
+  //           }
+  //           );
+  //         }
+  //       }
+  //     }
+  //     return Future.value(true);
+  //   });
+  // });
 
   runApp(BlocProvider(
     create: (BuildContext context) => LangCubit(),

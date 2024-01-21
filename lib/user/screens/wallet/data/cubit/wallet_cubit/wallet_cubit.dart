@@ -76,13 +76,13 @@ class WalletCubit extends Cubit<WalletState> {
     Image.asset(Res.extra),
     Image.asset(Res.reward),
     Image.asset(Res.gift),
-    Image.asset(Res.bankAccount),
-    Image.asset(Res.projectIncome),
+    Image.asset(Res.bank_account),
+    Image.asset(Res.project_income),
     Image.asset(Res.deal),
     Image.asset(Res.rent),
     Image.asset(Res.commission),
     Image.asset(Res.sale),
-    Image.asset(Res.speculation),
+    Image.asset(Res.Speculation),
   ];
 
   List<String> encomeSource = ["شخص", "جهة"];
@@ -304,12 +304,12 @@ class WalletCubit extends Cubit<WalletState> {
     CategoryModel(name: "إضافي", imagePath: Res.extra),
     CategoryModel(name: "مكافأة", imagePath: Res.reward),
     CategoryModel(name: "هدية", imagePath: Res.gift),
-    CategoryModel(name: "حساب بنكي", imagePath: Res.bankAccount),
-    CategoryModel(name: "عائد مشروع", imagePath: Res.projectIncome),
+    CategoryModel(name: "حساب بنكي", imagePath: Res.bank_account),
+    CategoryModel(name: "عائد مشروع", imagePath: Res.project_income),
     CategoryModel(name: "صفقة", imagePath: Res.deal),
     CategoryModel(name: "عمولة", imagePath: Res.commission),
     CategoryModel(name: "بيع", imagePath: Res.sale),
-    CategoryModel(name: "مضاربة", imagePath: Res.speculation),
+    CategoryModel(name: "مضاربة", imagePath: Res.Speculation),
   ];
 
   List<CategoryModel> categoryList = [];

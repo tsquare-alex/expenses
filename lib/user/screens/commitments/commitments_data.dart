@@ -25,7 +25,6 @@ class CommitmentsData{
     transactionType = box.values.cast<TransactionTypeModel>().toList();
     print(transactionType[0].content?[0].name);
     transactionTypeCubit.onUpdateData(transactionType);
-    await box.close();
   }
 
   Future<void> getCommitments() async {

@@ -342,7 +342,7 @@ class _AddDatabaseState extends State<AddDatabase> {
                               onTap: () async {
                                 await dataBaseCubit.getImageFromCamera();
                               },
-                              child: Image.asset(Res.cameraIc),
+                              child: Image.asset(Res.camera_ic),
                             ),
                             const SizedBox(width: 20,),
                             Container(
@@ -355,7 +355,7 @@ class _AddDatabaseState extends State<AddDatabase> {
                               onTap: () async {
                                 await dataBaseCubit.getImageFromGallery();
                               },
-                              child: Image.asset(Res.galleryIc),
+                              child: Image.asset(Res.gallery_ic),
                             ),
                           ],
                         ),
@@ -376,7 +376,7 @@ class _AddDatabaseState extends State<AddDatabase> {
                         onTap: () async {
                           await _scanQRCode();
                         },
-                        child: Image.asset(Res.bardCodeIc),
+                        child: Image.asset(Res.barcode_ic),
                       ),
                     )
                   ],

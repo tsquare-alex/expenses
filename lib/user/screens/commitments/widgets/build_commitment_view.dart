@@ -71,7 +71,7 @@ class _BuildCommitmentViewState extends State<BuildCommitmentView> {
               crossAxisCount: 3,
               mainAxisSpacing: 10.h,
               crossAxisSpacing: 10.w,
-              childAspectRatio: 0.5 / 0.65),
+              childAspectRatio: 0.5.h / 0.65.w),
           itemBuilder: (context, i) => BuildCommitmentItem(
             onTap: () async{
               await AutoRouter.of(context).push(AddTransactionRoute(model: state.data[i],transactionName: "الالتزامات",boxName: "transactionBox"));

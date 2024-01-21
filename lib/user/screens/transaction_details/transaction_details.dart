@@ -14,6 +14,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
 
   @override
   void initState() {
+    print("notify${widget.model.notify}");
     data.fetchData(widget.model,context);
     data.notifyCubit.onUpdateData(widget.model.notify??false);
     data.ratioCubit.onUpdateData(widget.model.ratio!=null?true:false);
@@ -36,14 +37,11 @@ class _TransactionDetailsState extends State<TransactionDetails> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
-        title: Padding(
-          padding: EdgeInsets.only(left: 40.0.r),
-          child: MyText(
-            title: tr(context, "transactionDetails"),
-            color: MyColors.black,
-            size: 18.sp,
-            fontWeight: FontWeight.bold,
-          ),
+        title: MyText(
+          title: tr(context, "transactionDetails"),
+          color: MyColors.black,
+          size: 18.sp,
+          fontWeight: FontWeight.bold,
         ),
         leading: InkWell(
           onTap: () => AutoRouter.of(context).pop(),
@@ -64,7 +62,6 @@ class _TransactionDetailsState extends State<TransactionDetails> {
           ),),
         ),
         ],
-        centerTitle: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(15.r),

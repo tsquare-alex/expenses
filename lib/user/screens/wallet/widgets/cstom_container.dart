@@ -34,7 +34,7 @@ class _CustomContainerState extends State<CustomContainer> {
       width: 414.w,
       decoration: BoxDecoration(
         image:
-            const DecorationImage(image: AssetImage(Res.conatinerBackground)),
+            const DecorationImage(image: AssetImage(Res.contanier_background)),
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Padding(
@@ -95,7 +95,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                     child: Row(
                                       children: [
                                         Image.asset(
-                                          Res.withdrawal,
+                                          Res.withdraw,
                                           height: 24.h,
                                           width: 24.w,
                                         ),
@@ -133,7 +133,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                     child: Row(
                                       children: [
                                         Image.asset(
-                                          Res.addBalance,
+                                          Res.add_balance,
                                           height: 24.h,
                                           width: 28.w,
                                         ),
@@ -168,7 +168,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                     child: Row(
                                       children: [
                                         Image.asset(
-                                          Res.balanceTransfare,
+                                          Res.balance_transfare,
                                           height: 33.h,
                                           width: 24.w,
                                         ),
@@ -202,7 +202,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                         child: Row(
                                           children: [
                                             Image.asset(
-                                              Res.showTransaction,
+                                              Res.show_transactions,
                                               height: 26.h,
                                               width: 28.w,
                                             ),

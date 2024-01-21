@@ -578,7 +578,7 @@ class AddTransactionData {
 
         formKey2.currentState!.validate()) {
       if (type == "الالتزامات") {
-        if(transactionType != null){
+        if(transactionType != null && selectedContent!=null){
           AddTransactionModel model = AddTransactionModel(
             transactionName: "الالتزامات",
             transactionType: transactionType,
@@ -592,6 +592,7 @@ class AddTransactionData {
             time: timeController.text,
             description: addNoteController.text,
             transactionDate: dateController.text,
+            notify: notifyCubit.state.data,
             repeated: iterateCubit.state.data != false
                 ? selectedIterateTransaction
                 : null,
@@ -622,7 +623,7 @@ class AddTransactionData {
         } else {
           CustomToast.showSimpleToast(msg: "اختر المعاملة", color: Colors.red);
         }
-      } else if (type == "التسوق والشراء") {
+      } else if (type == "التسوق والشراء"&& selectedContent!=null) {
         if(transactionType != null){
           AddTransactionModel model = AddTransactionModel(
             transactionName: "التسوق والشراء",
@@ -640,6 +641,7 @@ class AddTransactionData {
             time: timeController.text,
             transactionDate: dateController.text,
             image: imageBloc.state.data,
+            notify: notifyCubit.state.data,
             repeated: iterateCubit.state.data != false
                 ? selectedIterateTransaction
                 : null,
@@ -732,6 +734,7 @@ class AddTransactionData {
             transactionDate: dateController.text,
             image: imageBloc.state.data,
             budget: selectedBudget,
+            notify: notifyCubit.state.data,
             repeated: iterateCubit.state.data != false
                 ? selectedIterateTransaction
                 : null,

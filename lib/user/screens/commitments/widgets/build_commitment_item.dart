@@ -35,6 +35,8 @@ class BuildCommitmentItem extends StatelessWidget {
           size: 16.sp,
           fontWeight: FontWeight.bold,
           alien: TextAlign.center,
+          max: 2,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );

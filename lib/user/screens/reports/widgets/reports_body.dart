@@ -208,8 +208,14 @@ class ReportsBody extends StatelessWidget {
                               (transaction) => DropdownMenuItem(
                                 value: transaction.transactionType!.name,
                                 child: Text(
-                                  tr(context,
-                                      transaction.transactionContent!.name!),
+                                  tr(
+                                              context,
+                                              transaction
+                                                  .transactionContent!.name!)
+                                          .isNotEmpty
+                                      ? tr(context,
+                                          transaction.transactionContent!.name!)
+                                      : transaction.transactionContent!.name!,
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,
@@ -226,135 +232,154 @@ class ReportsBody extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 16.h),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 32.r),
-                  child: AspectRatio(
-                    aspectRatio: 1,
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            '${tr(context, 'total')}\n${context.watch<ReportsCubit>().allSpentMoney.toStringAsFixed(0)}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20.sp,
+                if (context
+                    .watch<ReportsCubit>()
+                    .categoriesList
+                    .isNotEmpty) ...[
+                  SizedBox(height: 16.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 32.r),
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '${tr(context, 'total')}\n${context.watch<ReportsCubit>().allSpentMoney.toStringAsFixed(0)}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.sp,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                            textAlign: TextAlign.center,
                           ),
+                          PieChart(
+                            PieChartData(
+                              startDegreeOffset: -90,
+                              sectionsSpace: 3.r,
+                              centerSpaceRadius: double.infinity,
+                              sections: context
+                                  .watch<ReportsCubit>()
+                                  .categoriesList
+                                  .asMap()
+                                  .entries
+                                  .map(
+                                    (entry) => PieChartSectionData(
+                                      value: entry.value.percentage,
+                                      badgeWidget: entry.value.percentage < 0.05
+                                          ? null
+                                          : Text(
+                                              '${NumberFormat.percentPattern('en').format(entry.value.percentage)}\n${(tr(context, entry.value.title).isNotEmpty ? tr(context, entry.value.title) : entry.value.title).split(' ').join('\n')}',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18.sp,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              maxLines:
+                                                  entry.value.percentage <= 0.1
+                                                      ? 1
+                                                      : entry.value
+                                                                  .percentage <=
+                                                              0.15
+                                                          ? 2
+                                                          : 3,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                      showTitle: false,
+                                      radius: 110.r,
+                                      color: context
+                                          .read<ReportsCubit>()
+                                          .randomColors[entry.key],
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 40.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.r),
+                    child: Table(
+                      defaultVerticalAlignment:
+                          TableCellVerticalAlignment.middle,
+                      columnWidths: const {
+                        0: FractionColumnWidth(0.55),
+                        1: FractionColumnWidth(0.3),
+                        2: FractionColumnWidth(0.15),
+                      },
+                      children: [
+                        TableRow(
+                          children: [
+                            Text(
+                              'الفئة',
+                              style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'مبلغ',
+                              style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              '%',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
-                        PieChart(
-                          PieChartData(
-                            sectionsSpace: 3.r,
-                            centerSpaceRadius: double.infinity,
-                            sections: context
-                                .watch<ReportsCubit>()
-                                .categoriesList
-                                .asMap()
-                                .entries
-                                .map(
-                                  (entry) => PieChartSectionData(
-                                    title: entry.value.percentage < 0.05
-                                        ? null
-                                        : '${NumberFormat.percentPattern('en').format(entry.value.percentage)}\n${tr(context, entry.value.title).split(' ').join('\n')}',
-                                    value: entry.value.percentage,
-                                    showTitle: entry.value.percentage < 0.05
-                                        ? false
-                                        : true,
-                                    radius: 110.r,
-                                    color: context
+                        TableRow(
+                          children: [
+                            SizedBox(height: 10.h),
+                            SizedBox(height: 10.h),
+                            SizedBox(height: 10.h),
+                          ],
+                        ),
+                        ...context
+                            .watch<ReportsCubit>()
+                            .categoriesList
+                            .asMap()
+                            .entries
+                            .map(
+                              (entry) => TableRow(
+                                children: [
+                                  ReportsRowCell(
+                                    title: tr(context, entry.value.title)
+                                            .isNotEmpty
+                                        ? tr(context, entry.value.title)
+                                        : entry.value.title,
+                                    isCategory: true,
+                                    categoryColor: context
                                         .read<ReportsCubit>()
                                         .randomColors[entry.key],
-                                    titlePositionPercentageOffset: 0.55,
-                                    titleStyle: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18.sp,
-                                    ),
                                   ),
-                                )
-                                .toList(),
-                          ),
-                        ),
+                                  ReportsRowCell(
+                                    title: entry.value.totalMoney
+                                        .toStringAsFixed(0),
+                                  ),
+                                  ReportsRowCell(
+                                    title: NumberFormat.percentPattern('en')
+                                        .format(entry.value.percentage),
+                                    isCenter: true,
+                                  ),
+                                ],
+                              ),
+                            )
+                            .toList(),
                       ],
                     ),
                   ),
-                ),
-                SizedBox(height: 40.h),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.r),
-                  child: Table(
-                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                    columnWidths: const {
-                      0: FractionColumnWidth(0.55),
-                      1: FractionColumnWidth(0.3),
-                      2: FractionColumnWidth(0.15),
-                    },
-                    children: [
-                      TableRow(
-                        children: [
-                          Text(
-                            'الفئة',
-                            style: TextStyle(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'مبلغ',
-                            style: TextStyle(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            '%',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          SizedBox(height: 10.h),
-                          SizedBox(height: 10.h),
-                          SizedBox(height: 10.h),
-                        ],
-                      ),
-                      ...context
-                          .watch<ReportsCubit>()
-                          .categoriesList
-                          .asMap()
-                          .entries
-                          .map(
-                            (entry) => TableRow(
-                              children: [
-                                ReportsRowCell(
-                                  title: tr(context, entry.value.title),
-                                  isCategory: true,
-                                  categoryColor: context
-                                      .read<ReportsCubit>()
-                                      .randomColors[entry.key],
-                                ),
-                                ReportsRowCell(
-                                  title:
-                                      entry.value.totalMoney.toStringAsFixed(0),
-                                ),
-                                ReportsRowCell(
-                                  title: NumberFormat.percentPattern('en')
-                                      .format(entry.value.percentage),
-                                  isCenter: true,
-                                ),
-                              ],
-                            ),
-                          )
-                          .toList(),
-                    ],
-                  ),
-                ),
+                ],
               ],
             ),
           ),

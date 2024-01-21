@@ -3,80 +3,42 @@ part of '../statistics_imports.dart';
 class StatisticsDropdown extends StatelessWidget {
   const StatisticsDropdown({
     Key? key,
-    required this.label,
-    required this.menuList,
     required this.onSelect,
+    required this.label,
+    required this.choice,
+    required this.menuList,
   }) : super(key: key);
 
-  final Function(String key) onSelect;
+  final Function(String value) onSelect;
   final String label;
-  final Map menuList;
+  final String choice;
+  final List<DropdownMenuItem<String>> menuList;
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonHideUnderline(
-      child: DropdownButton(
-        isExpanded: true,
-        hint: Text(
-          label,
-          style: TextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w500,
-            color: Colors.grey,
+    return FieldSection(
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton(
+          value: choice.isEmpty ? null : choice,
+          isExpanded: true,
+          hint: Text(
+            label,
+            style: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w500,
+              color: Colors.grey,
+            ),
           ),
+          icon: Icon(
+            Icons.keyboard_arrow_down,
+            color: MyColors.primary,
+          ),
+          menuMaxHeight: 0.3.sh,
+          items: menuList,
+          onChanged: (value) {
+            onSelect(value!);
+          },
         ),
-        icon: Icon(
-          Icons.keyboard_arrow_down,
-          color: MyColors.primary,
-        ),
-        menuMaxHeight: 0.3.sh,
-        items: menuList.entries
-            .map(
-              (entry) => DropdownMenuItem(
-                enabled: false,
-                child: ListTile(
-                  onTap: () {
-                    onSelect(entry.key);
-                  },
-                  title: Text(
-                    entry.key,
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  trailing: SelectionCheckbox(isChecked: entry.value),
-                ),
-                // child: CheckboxListTile(
-                //   activeColor: context.watch<AppThemeCubit>().isDarkMode
-                //       ? AppDarkColors.primary
-                //       : MyColors.primary,
-                //   value: entry.value,
-                //   contentPadding: EdgeInsets.zero,
-                //   title: Text(
-                //     entry.key,
-                //     style: TextStyle(
-                //       fontSize: 12.sp,
-                //       fontWeight: FontWeight.bold,
-                //       color: Colors.grey,
-                //     ),
-                //   ),
-                //   onChanged: (value) {
-                //     setState(() {
-                //       menuList[entry.key] = value;
-                //       // ReportsCubit.get(context)
-                //       //     .onWalletMapSelect(value!, entry.key);
-                //     });
-                //     print(value);
-                //     print(ReportsCubit.get(context).walletsMap);
-                //     // onSelect(value!, entry.key);
-                //   },
-                // ),
-              ),
-            )
-            .toList(),
-        onChanged: (value) {},
       ),
     );
   }

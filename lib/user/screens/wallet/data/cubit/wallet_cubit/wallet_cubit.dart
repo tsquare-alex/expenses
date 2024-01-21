@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/constants/constants.dart';
+import 'package:expenses/general/models/currency_model/currency_model.dart';
 import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/res.dart';
@@ -278,16 +279,6 @@ class WalletCubit extends Cubit<WalletState> {
     );
   }
 
-  //   Future addNote(WalletModel model) async {
-  //   emit(AddWalletLoading());
-  //   try {
-  //     var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
-  //     await walletBox.add(model);
-  //     emit(AddWalletSucess());
-  //   } catch (e) {
-  //     emit(AddWalletfaliuer(message: e.toString()));
-  //   }
-  // }
   double calculateTotalBalance(List<WalletModel> wallets) {
     double totalBalance = 0;
     for (var wallet in wallets) {
@@ -360,72 +351,6 @@ class WalletCubit extends Cubit<WalletState> {
       await categoryBox.close();
     }
   }
-  // iniData() async {
-  //   emit(WalletInitial());
-  //   var walletBox = Hive.box<CategoryModel>("walletCategoryModel");
-
-  //   var list = walletBox.values.toList();
-  //   for (var item in categoryModel!) {
-  //     if (!list.any((element) => element.name == item.name)) {
-  //       walletBox.add(item);
-  //     }
-  //   }
-  //   getCategory();
-  //   emit(CategorySuccess(categoryList: categoryList));
-  // }
-  // iniData() async {
-  //   emit(WalletInitial());
-  //   var walletBox = await Hive.openBox<CategoryModel>("walletCategoryModel");
-  //   var list = walletBox.values.toList();
-  //   for (var item in categoryModel!) {
-  //     if (!list.any((element) => element.name == item.name)) {
-  //       walletBox.add(item);
-  //     }
-  //   }
-
-  //   getCategory();
-  //   walletBox.close(); // Close the box after use
-  //   emit(CategorySuccess(categoryList: categoryList));
-  // }
-
-  // Future<void> getCategory() async {
-  //   var categoryBox = Hive.box<CategoryModel>("walletCategoryModel");
-  //   try {
-  //     var list = categoryBox.values.map((dynamic value) {
-  //       if (value is CategoryModel) {
-  //         return value;
-  //       } else {
-  //         return CategoryModel();
-  //       }
-  //     }).toList();
-  //     categoryList.addAll(list);
-  //     emit(CategorySuccess(categoryList: categoryList));
-  //   } catch (e) {
-  //     print('Error fetching data from Hive: $e');
-  //   } finally {
-  //     await categoryBox.close();
-  //   }
-  // }
-  // Future<void> getCategory() async {
-  //   var categoryBox = await Hive.openBox<CategoryModel>("walletCategoryModel");
-
-  //   try {
-  //     categoryList.clear(); // Clear the list before adding items
-  //     var list = categoryBox.values.map((dynamic value) {
-  //       if (value is CategoryModel) {
-  //         return value;
-  //       } else {
-  //         return CategoryModel();
-  //       }
-  //     }).toList();
-  //     categoryList.addAll(list);
-  //     emit(CategorySuccess(categoryList: categoryList));
-  //   } catch (e) {
-  //     print('Error fetching data from Hive: $e');
-  //   } finally {
-  //     await categoryBox.close();
-  //   }
-  // }
 
   Future<void> addValueCategory(
     context,
@@ -557,4 +482,26 @@ class WalletCubit extends Cubit<WalletState> {
       },
     );
   }
+
+  Future<void> getCurrency() async {
+    emit(CurrencyLoading());
+    await Hive.openBox<CurrencyModel>("currencyBox");
+    final box = Hive.box<CurrencyModel>("currencyBox");
+    final currency = List<CurrencyModel>.from(box.values);
+    emit(CurrencyLoaded(currencyData: currency));
+  }
+
+  //  Future<void> budgetValue(
+  //     AddTransactionModel transactionModel, WalletModel walletModel) async {
+  //   double walletValue = walletModel.balance;
+  //   double transactionValue = double.parse(transactionModel.total ?? '0');
+  //   var res = transactionValue / walletValue;
+  //   emit(BudgetValu(value: res));
+  // }
+// List
+//   Future<void> currencyName(CurrencyModel model) async {
+//     String mainCurrency = model.mainCurrency;
+//     String subCurrency = model.subCurrency;
+//     emit()
+//   }
 }

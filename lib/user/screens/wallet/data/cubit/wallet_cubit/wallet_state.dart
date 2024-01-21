@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:expenses/general/models/currency_model/currency_model.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet_category/category_model.dart';
 
@@ -42,6 +43,14 @@ class WalletCategoryListLoaded extends WalletState {
 }
 
 class AddWalletCategory extends WalletState {}
+
+class CurrencyLoading extends WalletState {}
+
+class CurrencyLoaded extends WalletState {
+  final List<CurrencyModel> currencyData;
+
+  CurrencyLoaded({required this.currencyData});
+}
 
 class AddWalletfaliuer extends WalletState {
   final String message;

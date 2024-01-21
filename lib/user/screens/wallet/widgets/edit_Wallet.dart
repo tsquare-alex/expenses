@@ -105,6 +105,7 @@ class _EditWalletState extends State<EditWallet> {
                                       textDirection: TextDirection.rtl,
                                     ),
                                     Radio<String>(
+                                      activeColor: MyColors.primary,
                                       value: item,
                                       groupValue: selectedValue,
                                       onChanged: (value) {
@@ -212,6 +213,7 @@ class _EditWalletState extends State<EditWallet> {
                                       textDirection: TextDirection.rtl,
                                     ),
                                     Radio<String>(
+                                      activeColor: MyColors.primary,
                                       value: item,
                                       groupValue: secValue,
                                       onChanged: (value) {

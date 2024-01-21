@@ -234,7 +234,6 @@ class TransactionDetailsData {
         print(selectedWalletModel!.balance);
         box.put(model.key, editModel);
         AutoRouter.of(context).pop();
-        AutoRouter.of(context).replace(HomeRoute(index: 0));
       } else if (total > lastTotal) {
         var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
         var walletList = walletBox.values.toList();
@@ -291,7 +290,6 @@ class TransactionDetailsData {
         print(model.incomeSource!.balance);
         box.put(model.key, editModel);
         AutoRouter.of(context).pop();
-        AutoRouter.of(context).replace(HomeRoute(index: 0));
       } else if (total > lastTotal) {
         var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
         var walletList = walletBox.values.toList();
@@ -351,7 +349,6 @@ class TransactionDetailsData {
         print(model.incomeSource!.balance);
         box.put(model.key, editModel);
         AutoRouter.of(context).pop();
-        AutoRouter.of(context).replace(HomeRoute(index: 0));
       } else if (total > lastTotal) {
         var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
         var walletList = walletBox.values.toList();

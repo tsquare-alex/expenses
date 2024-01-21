@@ -191,7 +191,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                       children: [
                         Column(
                           children: [
-                            Image.asset(Res.calender),
+                            Image.asset(Res.calendar),
                             SizedBox(
                               height: 5.h,
                             ),

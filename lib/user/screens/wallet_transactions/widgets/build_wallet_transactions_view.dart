@@ -1,9 +1,10 @@
 part of 'wallet_transactions_widgets_imports.dart';
 
 class BuildWalletTransactionsView extends StatelessWidget {
-  const BuildWalletTransactionsView({Key? key, required this.data})
+  const BuildWalletTransactionsView({Key? key, required this.data, required this.walletModel})
       : super(key: key);
   final WalletTransactionsData data;
+  final WalletModel walletModel;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GenericBloc<List<AddTransactionModel>>,
@@ -18,7 +19,7 @@ class BuildWalletTransactionsView extends StatelessWidget {
               // onArrowTap: () => AutoRouter.of(context).push(
               //   TransferWalletTransactionRoute(model: state.data[i]),
               // ),
-              onArrowTap: ()=>data.showSelectTypeDialog(context,state.data[i]),
+              onArrowTap: ()=>data.showSelectTypeDialog(context,state.data[i]), data: data, walletModel: walletModel,
             ),
           );
         }else{

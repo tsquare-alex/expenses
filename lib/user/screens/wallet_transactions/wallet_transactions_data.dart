@@ -14,11 +14,14 @@ class WalletTransactionsData{
       title: Column(
         children: [
           InkWell(
-            onTap: ()=>AutoRouter.of(context).push(TransactionDetailsRoute(model: model)),
+            onTap: () {
+              Navigator.of(context).pop();
+              AutoRouter.of(context).push(TransactionDetailsRoute(model: model));
+            },
             child: Container(
               padding: EdgeInsets.all(10.r),
               margin: EdgeInsets.symmetric(vertical:10.r),
-              color: MyColors.primary.withOpacity(0.3),
+              color: MyColors.greyWhite,
               width: double.infinity,
               child: Center(
                 child: MyText(title: "تعديل المعاملة", color: MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,alien: TextAlign.center,),
@@ -26,11 +29,14 @@ class WalletTransactionsData{
             ),
           ),
           InkWell(
-            onTap: ()=>deleteItem(context, model),
+            onTap: (){
+              Navigator.of(context).pop();
+              deleteItem(context, model);
+              },
             child: Container(
               padding: EdgeInsets.all(10.r),
               margin: EdgeInsets.symmetric(vertical:10.r),
-              color: MyColors.primary.withOpacity(0.3),
+              color: MyColors.greyWhite,
               width: double.infinity,
               child: Center(
                 child: MyText(title: "حذف المعاملة", color: MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,alien: TextAlign.center,),
@@ -38,13 +44,15 @@ class WalletTransactionsData{
             ),
           ),
           InkWell(
-            onTap: ()=>AutoRouter.of(context).push(
+            onTap: (){
+              Navigator.of(context).pop();
+              AutoRouter.of(context).push(
               TransferWalletTransactionRoute(model: model),
-            ),
+            );},
             child: Container(
               padding: EdgeInsets.all(10.r),
               margin: EdgeInsets.symmetric(vertical:10.r),
-              color: MyColors.primary.withOpacity(0.3),
+              color: MyColors.greyWhite,
               width: double.infinity,
               child: Center(
                 child: MyText(title: "تحويل المعاملة الي محفظة اخري", color: MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,alien: TextAlign.center,),

@@ -274,7 +274,6 @@
   "enterPattern": "Enter Pattern",
   "enterFingerPrint": "Or Enter Fingerprint",
   "setupSecurity": "Set Up Security",
-  "securityMsg": "Please set up a password or biometrics on your device.",
   "zoomIn": "Zoom In",
   "ruler": "Ruler",
   "waterScale": "Water Weighing Scale",
@@ -484,5 +483,6 @@
 
   "fullVersion" : "Full version",
 
-  "tuitionFees" : "Tuition Fees"
+
+  "operationNotAllowed" : "The operation is not possible because the transaction balance is greater than the wallet value."
 }

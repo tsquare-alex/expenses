@@ -163,7 +163,7 @@ class _AddBalanceState extends State<AddBalance> {
                                           padding: EdgeInsets.all(12.r),
                                           child: Row(
                                             children: [
-                                              Image.asset(Res.calender),
+                                              Image.asset(Res.calendar),
                                               SizedBox(
                                                 width: 15.w,
                                               ),
@@ -205,7 +205,7 @@ class _AddBalanceState extends State<AddBalance> {
                                           padding: EdgeInsets.all(12.r),
                                           child: Row(
                                             children: [
-                                              Image.asset(Res.calender),
+                                              Image.asset(Res.calendar),
                                               SizedBox(
                                                 width: 15.w,
                                               ),

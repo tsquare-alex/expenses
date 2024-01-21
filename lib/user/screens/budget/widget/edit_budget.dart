@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
+import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
@@ -57,10 +58,10 @@ class _EditBudgetState extends State<EditBudget> {
               .transactioList
               .map((transaction) => transaction.transactionType?.name ?? "")
               .toList();
-          print(transactionName);
 
           return Scaffold(
             appBar: AppBar(
+              surfaceTintColor: Colors.transparent,
               leading: IconButton(
                 icon: Image.asset(Res.back),
                 onPressed: () => AutoRouter.of(context).pop(),
@@ -351,7 +352,7 @@ class _EditBudgetState extends State<EditBudget> {
                               hint: "ملاحظاتك",
                               maxLength: 9,
                               fieldTypes: FieldTypes.normal,
-                              type: TextInputType.number,
+                              type: TextInputType.text,
                               action: TextInputAction.next,
                               validate: (text) {
                                 if (text == null || text.isEmpty) {
@@ -515,6 +516,11 @@ class _EditBudgetState extends State<EditBudget> {
                                           previousValue + current));
                               double deficiency =
                                   parsedNumber - transactionValue;
+                              if (deficiency < 0) {
+                                return CustomToast.showSimpleToast(
+                                    msg:
+                                        "رصيد الميزانية اقل من رصيد المعاملات");
+                              }
                               double percentageValue =
                                   deficiency / parsedNumber;
                               if (formKey.currentState!.validate()) {

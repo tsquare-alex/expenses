@@ -595,7 +595,7 @@ class _AddWalletState extends State<AddWallet> {
                                       ),
                                     ),
                                     SizedBox(
-                                      width: 120.w,
+                                      width: 100.w,
                                     ),
                                     Image.asset(Res.camera),
                                     SizedBox(

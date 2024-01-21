@@ -52,7 +52,7 @@ class ItemBudget extends StatelessWidget {
                     LinearPercentIndicator(
                       isRTL: true,
                       alignment: MainAxisAlignment.end,
-                      width: 355.w,
+                      width: 350.w,
                       animation: true,
                       lineHeight: 20.0,
                       animationDuration: 2000,

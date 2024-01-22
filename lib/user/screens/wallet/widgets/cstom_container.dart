@@ -237,11 +237,25 @@ class _CustomContainerState extends State<CustomContainer> {
                 children: [
                   Visibility(
                     visible: !widget.model.isHide!,
-                    child: MyText(
-                        alien: TextAlign.end,
-                        title: widget.model.balance.toStringAsFixed(2),
-                        color: MyColors.white,
-                        size: 22.sp),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        MyText(
+                            alien: TextAlign.end,
+                            title: widget.model.balance.toStringAsFixed(2),
+                            color: MyColors.white,
+                            size: 22.sp),
+                            SizedBox(width: 5.w,),
+                        Text(
+                          widget.model.currency,
+                          style: TextStyle(
+                              color: MyColors.white,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
                   ),
                   MyText(
                     title: "الرصيد المتاح",

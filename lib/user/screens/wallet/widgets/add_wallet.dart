@@ -43,6 +43,7 @@ class _AddWalletState extends State<AddWallet> {
 
   _AddWalletState();
   double parsedNumber = 0;
+  double totalBalance = 0;
   String? selectedValue;
   String? secValue;
   String? selectMainCurrency;
@@ -354,11 +355,6 @@ class _AddWalletState extends State<AddWallet> {
                                   .read<WalletCubit>()
                                   .balanceController
                                   .text);
-                              if (selectMainCurrency == mainCurrency) {
-                                parsedNumber *= 1;
-                              } else {
-                                parsedNumber = parsedNumber * currencyValue;
-                              }
                             },
                           ),
                           SizedBox(width: 12.w),
@@ -435,8 +431,16 @@ class _AddWalletState extends State<AddWallet> {
                                       context.read<WalletCubit>().checkedValue,
                                   onChanged: (newValue) {
                                     setState(() {
-                                      context.read<WalletCubit>().checkedValue =
-                                          newValue!;
+                                      // context.read<WalletCubit>().checkedValue =
+                                      //     newValue!;
+                                      //     if (newValue) {
+                                      //   // Set selectMainCurrency to mainCurrency when checkbox is checked
+                                      //   selectMainCurrency = mainCurrency;
+                                      //   context
+                                      //       .read<WalletCubit>()
+                                      //       .currencyController
+                                      //       .text = mainCurrency ?? "";
+                                      // }
                                     });
                                   })
                             ],
@@ -753,7 +757,6 @@ class _AddWalletState extends State<AddWallet> {
                             onTap: () {
                               if (formKey.currentState!.validate()) {
                                 var walletData = WalletModel(
-                                  
                                     name: context
                                         .read<WalletCubit>()
                                         .walletNameController
@@ -781,6 +784,10 @@ class _AddWalletState extends State<AddWallet> {
                                         .read<WalletCubit>()
                                         .currencyController
                                         .text,
+                                    totalBalance:
+                                        selectMainCurrency == mainCurrency
+                                            ? parsedNumber
+                                            : (parsedNumber * currencyValue),
                                     iconPath: widget.iconPath);
                                 context.read<WalletCubit>().addNote(walletData);
                                 if (context.mounted) {

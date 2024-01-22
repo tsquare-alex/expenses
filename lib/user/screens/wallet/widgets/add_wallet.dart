@@ -65,16 +65,28 @@ class _AddWalletState extends State<AddWallet> {
               );
             }
             if (state is CurrencyWallet) {
-              List<String> mainCurrency = context
+              // List<String> mainCurrency = context
+              //     .read<WalletCubit>()
+              //     .currencyData
+              //     .map((mainData) => mainData.mainCurrency)
+              //     .toList();
+              String mainCurrency = context
                   .read<WalletCubit>()
                   .currencyData
-                  .map((mainData) => mainData.mainCurrency)
-                  .toList();
-              List<String> subCurrency = context
+                  .map((currencyData) => currencyData.mainCurrency)
+                  .first
+                  .toString();
+              String subCurrency = context
                   .read<WalletCubit>()
                   .currencyData
-                  .map((subCurrency) => subCurrency.subCurrency)
-                  .toList();
+                  .map((currencyData) => currencyData.subCurrency)
+                  .first
+                  .toString();
+              // List<String> subCurrency = context
+              //     .read<WalletCubit>()
+              //     .currencyData
+              //     .map((subCurrency) => subCurrency.subCurrency)
+              //     .toList();
               double currencyValue = double.parse(
                 context
                     .read<WalletCubit>()
@@ -110,9 +122,7 @@ class _AddWalletState extends State<AddWallet> {
                           Container(
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: isFirstValidationError
-                                    ? Colors.red
-                                    : MyColors.greyWhite,
+                                color: MyColors.greyWhite,
                               ),
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -230,9 +240,7 @@ class _AddWalletState extends State<AddWallet> {
                           Container(
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: isSecondValidationError
-                                    ? Colors.red
-                                    : MyColors.greyWhite,
+                                color: MyColors.greyWhite,
                               ),
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -326,32 +334,32 @@ class _AddWalletState extends State<AddWallet> {
                           SizedBox(
                             height: 20.h,
                           ),
-                          SizedBox(
-                            // width: 398.w,
-                            child: GenericTextField(
-                              enableBorderColor: MyColors.semiTransparentColor,
-                              controller:
-                                  context.read<WalletCubit>().balanceController,
-                              hint: "الرصيد",
-                              focusBorderColor: MyColors.greyWhite,
-                              fieldTypes: FieldTypes.normal,
-                              type: TextInputType.number,
-                              action: TextInputAction.next,
-                              validate: (text) {
-                                if (text == null || text.isEmpty) {
-                                  return "رجاء إدخال قيمة المصدر ";
-                                }
-                                return null;
-                              },
-                              onChange: (value) {
-                                parsedNumber = double.parse(
-                                  context
-                                      .read<WalletCubit>()
-                                      .balanceController
-                                      .text,
-                                );
-                              },
-                            ),
+                          GenericTextField(
+                            enableBorderColor: MyColors.semiTransparentColor,
+                            controller:
+                                context.read<WalletCubit>().balanceController,
+                            hint: "الرصيد",
+                            focusBorderColor: MyColors.greyWhite,
+                            fieldTypes: FieldTypes.normal,
+                            type: TextInputType.number,
+                            action: TextInputAction.next,
+                            validate: (text) {
+                              if (text == null || text.isEmpty) {
+                                return "رجاء إدخال قيمة المصدر ";
+                              }
+                              return null;
+                            },
+                            onChange: (value) {
+                              parsedNumber = double.parse(context
+                                  .read<WalletCubit>()
+                                  .balanceController
+                                  .text);
+                              if (selectMainCurrency == mainCurrency) {
+                                parsedNumber *= 1;
+                              } else {
+                                parsedNumber = parsedNumber * currencyValue;
+                              }
+                            },
                           ),
                           SizedBox(width: 12.w),
                           SizedBox(
@@ -359,8 +367,14 @@ class _AddWalletState extends State<AddWallet> {
                           ),
                           Row(
                             children: [
-                              SizedBox(
-                                width: 389.w,
+                              Container(
+                                width: 398.w,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: MyColors.greyWhite,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
                                 child: ExpansionTile(
                                   shape: const RoundedRectangleBorder(
                                     side: BorderSide(color: Colors.transparent),
@@ -739,6 +753,7 @@ class _AddWalletState extends State<AddWallet> {
                             onTap: () {
                               if (formKey.currentState!.validate()) {
                                 var walletData = WalletModel(
+                                  
                                     name: context
                                         .read<WalletCubit>()
                                         .walletNameController

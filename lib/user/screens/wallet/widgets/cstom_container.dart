@@ -258,7 +258,15 @@ class _CustomContainerState extends State<CustomContainer> {
                 IconButton(
                   onPressed: () {
                     context.read<WalletCubit>().toggleWalletLock(widget.model);
-                    CustomToast.showSimpleToast(msg: "the wallet is closed");
+                    if (widget.model.isClosed!) {
+                      // ignore: void_checks
+                      return CustomToast.showSimpleToast(
+                          msg: "المحفظة مغلة حاليا");
+                    } else {
+                      // ignore: void_checks
+                      return CustomToast.showSimpleToast(
+                          msg: "المحفظة متاحة حاليا");
+                    }
                   },
                   icon: Visibility(
                     visible: !widget.model.isClosed!,
@@ -308,6 +316,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                     widget.model.delete();
                                     BlocProvider.of<WalletCubit>(context)
                                         .fetchAllData();
+                                    AutoRouter.of(context).pop();
                                   },
                                   child: Container(
                                     padding: EdgeInsets.all(8.w),

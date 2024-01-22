@@ -499,40 +499,40 @@ class WalletCubit extends Cubit<WalletState> {
   }
 
   Widget buildCurrencyList({
-    required List<String> currencyList,
+    required String currencyList,
     required String selectedCurrency,
     required void Function(String?) onCurrencySelected,
   }) {
+    // Assuming that the currencies are separated by a delimiter, such as ","
+    List<String> currencies = currencyList.split(',');
+
     return Column(
       children: [
-        ...currencyList.asMap().entries.map(
-          (entry) {
-            final String item = entry.value;
-            return Column(
-              children: [
-                ListTile(
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16.0.r),
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(item),
-                      Radio<String>(
-                        value: item,
-                        groupValue: selectedCurrency,
-                        onChanged: onCurrencySelected,
-                      ),
-                    ],
-                  ),
+        for (String item in currencies)
+          Column(
+            children: [
+              ListTile(
+                contentPadding: EdgeInsets.symmetric(horizontal: 16.0.r),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(item),
+                    Radio<String>(
+                      activeColor: MyColors.primary,
+                      value: item,
+                      groupValue: selectedCurrency,
+                      onChanged: onCurrencySelected,
+                    ),
+                  ],
                 ),
-                Divider(
-                  height: 1,
-                  thickness: 2,
-                  color: MyColors.semiTransparentColor,
-                ),
-              ],
-            );
-          },
-        ),
+              ),
+              Divider(
+                height: 1,
+                thickness: 2,
+                color: MyColors.semiTransparentColor,
+              ),
+            ],
+          ),
       ],
     );
   }

@@ -555,7 +555,6 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                         .noteController
                                         .text,
                                     transactionValue: transactionValue);
-
                                 context.read<BudgetCubit>().addData(budgetData);
                                 AutoRouter.of(context).pop();
                               }

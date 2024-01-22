@@ -311,6 +311,7 @@ class WalletCubit extends Cubit<WalletState> {
     CategoryModel(name: "عمولة", imagePath: Res.commission),
     CategoryModel(name: "بيع", imagePath: Res.sale),
     CategoryModel(name: "مضاربة", imagePath: Res.Speculation),
+    CategoryModel(name: "إيجار", imagePath: Res.rent)
   ];
 
   List<CategoryModel> categoryList = [];

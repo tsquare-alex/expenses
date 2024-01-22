@@ -25,6 +25,12 @@ class CustomContainer extends StatefulWidget {
 
 class _CustomContainerState extends State<CustomContainer> {
   @override
+  void initState() {
+    context.read<WalletCubit>().fetchCurrencyData(context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     DateTime currentDate = DateTime.now();
 
@@ -41,6 +47,7 @@ class _CustomContainerState extends State<CustomContainer> {
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 12.r),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -247,14 +254,21 @@ class _CustomContainerState extends State<CustomContainer> {
                       children: [
                         MyText(
                             alien: TextAlign.end,
-                            title: widget.model.balance.toStringAsFixed(2),
+                            title: widget.model.checkedValue == false
+                                ? widget.model.balance.toStringAsFixed(2)
+                                : widget.model.totalBalance.toString(),
                             color: MyColors.white,
                             size: 22.sp),
                         SizedBox(
                           width: 5.w,
                         ),
                         Text(
-                          widget.model.currency,
+                          widget.model.checkedValue == false
+                              ? widget.model.currency
+                              : context
+                                  .read<WalletCubit>()
+                                  .currencyData[0]
+                                  .mainCurrency,
                           style: TextStyle(
                               color: MyColors.white,
                               fontSize: 16.sp,

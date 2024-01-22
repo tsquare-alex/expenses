@@ -772,6 +772,9 @@ class _AddWalletState extends State<AddWallet> {
                                         .read<WalletCubit>()
                                         .currencyController
                                         .text,
+                                    checkedValue: context
+                                        .read<WalletCubit>()
+                                        .checkedValue,
                                     totalBalance:
                                         selectMainCurrency == mainCurrency
                                             ? parsedNumber

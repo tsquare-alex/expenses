@@ -23,6 +23,8 @@ class TargetData{
     getTargets();
     transactionType = box.values.cast<TransactionTypeModel>().toList();
     transactionTypeCubit.onUpdateData(transactionType);
+    await box.close();
+
   }
 
   List<TransactionTypeModel> transactionType = [];

@@ -39,7 +39,6 @@ class _AddTransactionState extends State<AddTransaction> {
             size: 20.sp,
           ),
         ),
-        centerTitle: true,
         title: MyText(
           title: tr(context, widget.model!.name!).isNotEmpty?tr(context, widget.model!.name!):widget.model?.name??"",
           color: MyColors.black,

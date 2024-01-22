@@ -5,7 +5,8 @@ class BuildTransactionType extends StatelessWidget {
     Key? key,
     required this.addTransactionData,
     required this.type,
-    required this.model, required this.boxName,
+    required this.model,
+    required this.boxName,
   }) : super(key: key);
   final AddTransactionData addTransactionData;
   final String type;
@@ -30,7 +31,11 @@ class BuildTransactionType extends StatelessWidget {
                 childrenPadding: EdgeInsets.all(10.r),
                 title: Row(
                   children: [
-                    Image.asset(Res.transactions,width: 30.w,height: 30.h,),
+                    Image.asset(
+                      Res.transactions,
+                      width: 30.w,
+                      height: 30.h,
+                    ),
                     SizedBox(
                       width: 15.w,
                     ),
@@ -48,24 +53,25 @@ class BuildTransactionType extends StatelessWidget {
                     bloc: addTransactionData.typeContentCubit,
                     builder: (context, state) {
                       return Column(
-                        children: List.generate(state.data?.length??0, (index) {
+                        children:
+                            List.generate(state.data?.length ?? 0, (index) {
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Image.asset(
-                                        state.data?[index].image ??
-                                            Res.commitments,
-                                        width: 30.w,
-                                        height: 30.h,
-                                      ),
-                                      SizedBox(
-                                        width: 15.w,
-                                      ),
-                                      MyText(
+                              Flexible(
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      state.data?[index].image ??
+                                          Res.commitments,
+                                      width: 30.w,
+                                      height: 30.h,
+                                    ),
+                                    SizedBox(
+                                      width: 15.w,
+                                    ),
+                                    Flexible(
+                                      child: MyText(
                                         title: tr(context,
                                                     state.data![index].name!)
                                                 .isNotEmpty
@@ -76,16 +82,21 @@ class BuildTransactionType extends StatelessWidget {
                                         size: 13.sp,
                                         fontWeight: FontWeight.bold,
                                       ),
-                                    ],
-                                  ),
-                                ],
+                                    ),
+                                  ],
+                                ),
                               ),
                               Radio(
                                   value: state.data?[index].selected ?? false,
                                   groupValue: true,
                                   onChanged: (v) {
                                     addTransactionData.selectContent(
-                                        v!, model,state.data![index], index,type,boxName);
+                                        v!,
+                                        model,
+                                        state.data![index],
+                                        index,
+                                        type,
+                                        boxName);
                                   }),
                             ],
                           );
@@ -151,7 +162,9 @@ class BuildTransactionType extends StatelessWidget {
                       width: 15.w,
                     ),
                     MyText(
-                      title: tr(context, model.name!).isNotEmpty?tr(context, model.name!):model.name ?? "",
+                      title: tr(context, model.name!).isNotEmpty
+                          ? tr(context, model.name!)
+                          : model.name ?? "",
                       color: MyColors.black,
                       size: 13.sp,
                       fontWeight: FontWeight.bold,

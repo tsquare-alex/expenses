@@ -38,7 +38,7 @@ class WalletDetails extends StatelessWidget {
                 },
                 child: Row(
                   children: [
-                    Image.asset(Res.withdrawal),
+                    Image.asset(Res.withdraw),
                     SizedBox(width: 12.w),
                     MyText(
                         title: "سحب رصيد", color: MyColors.black, size: 12.sp),

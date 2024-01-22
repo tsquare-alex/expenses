@@ -11,8 +11,8 @@ class BuildDrawer extends StatelessWidget {
     return Drawer(
         surfaceTintColor: context.watch<AppThemeCubit>().isDarkMode
             ? AppDarkColors.backgroundColor
-            : MyColors.white,
-        width: 220.w,
+            : MyColors.grey,
+        width: 240.w,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(0), bottomLeft: Radius.circular(0)),
@@ -22,10 +22,20 @@ class BuildDrawer extends StatelessWidget {
           child: SingleChildScrollView(
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Container(
-                margin: const EdgeInsets.only(top: 10),
-                child: const HeaderLogo(),
-              ),
+                  Container(
+                    margin: EdgeInsets.only(top: 50.r),
+                    child: CircleAvatar(
+                      backgroundColor: MyColors.greyWhite,
+                      radius: 80.r,
+                      child: Image(
+                        height: MediaQuery.of(context).size.height * 0.18,
+                        width:MediaQuery.of(context).size.width * 0.55,
+                        image: AssetImage(Res.logo,),
+                        fit: BoxFit.contain,
+
+                      ),
+                    ),
+                  ),
               CustomDrawerCard(
                 title: tr(context, "fullVersion"),
                 onTap: () {},
@@ -44,34 +54,19 @@ class BuildDrawer extends StatelessWidget {
                 image: Res.settings,
                 endDrawer: false,
               ),
-              CustomDrawerCard(
-                title: tr(context, "tools"),
-                onTap: () {
-                  //Navigator.of(context).pop();
-                  AutoRouter.of(context).push(
-                    HomeRoute(
-                      index: 0,
-                      pageIndex: 4,
-                    ),
-                  );
-                  //homeTabCubit.onUpdateData(4);
-                },
-                image: Res.tools,
-                endDrawer: false,
-              ),
-              CustomDrawerCard(
-                title: tr(context, "database"),
-                onTap: () {
-                  AutoRouter.of(context).push(
-                    HomeRoute(
-                      index: 0,
-                      pageIndex: 5,
-                    ),
-                  );
-                },
-                image: Res.database,
-                endDrawer: false,
-              ),
+                  CustomDrawerCard(
+                    title: tr(context, "help"),
+                    onTap: () {
+                      AutoRouter.of(context).push(
+                        HomeRoute(
+                          index: 0,
+                          pageIndex: 6,
+                        ),
+                      );
+                    },
+                    image: Res.explain,
+                    endDrawer: false,
+                  ),
               CustomDrawerCard(
                 title: tr(context, "help"),
                 onTap: () {

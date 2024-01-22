@@ -28,27 +28,23 @@ class _CommitmentsState extends State<Commitments> {
           appBar: AppBar(
             backgroundColor: Colors.white,
             surfaceTintColor: Colors.white,
-            title: Padding(
-              padding: EdgeInsets.only(left: 40.0.r),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    Res.commitments,
-                    width: 30.w,
-                    height: 30.h,
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  MyText(
-                    title: tr(context, "commitments"),
-                    color: MyColors.black,
-                    size: 18.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ],
-              ),
+            title: Row(
+              children: [
+                Image.asset(
+                  Res.commitments,
+                  width: 30.w,
+                  height: 30.h,
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                MyText(
+                  title: tr(context, "commitments"),
+                  color: MyColors.black,
+                  size: 18.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ],
             ),
             leading: InkWell(
               onTap: () => AutoRouter.of(context).pop(),
@@ -57,7 +53,6 @@ class _CommitmentsState extends State<Commitments> {
                 color: MyColors.black,
               ),
             ),
-            centerTitle: true,
           ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: MyColors.primary,

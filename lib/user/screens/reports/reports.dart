@@ -66,7 +66,7 @@ class _ReportsState extends State<Reports> {
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.r),
                     child: Image.asset(
-                      Res.reportsMenu,
+                      Res.reports_menu,
                       width: 24.w,
                       height: 24.h,
                       color: context.watch<AppThemeCubit>().isDarkMode

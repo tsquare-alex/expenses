@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
+import 'package:expenses/general/widgets/MyText.dart';
+import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
@@ -33,9 +36,26 @@ class _WalletBodyState extends State<WalletBody> {
       builder: (context, state) {
         wallet = BlocProvider.of<WalletCubit>(context).walletList;
         wallet.sort((a, b) => b.checkedValue! ? 1 : -1);
-        double totalBalance =
-            context.read<WalletCubit>().calculateTotalBalance(wallet);
+        double totalBalance = context.read<WalletCubit>().calculateTotalBalance(
+              wallet,
+            );
         return Scaffold(
+          appBar: AppBar(
+            surfaceTintColor: Colors.transparent,
+            leading: IconButton(
+              icon: Image.asset(Res.back),
+              onPressed: () => AutoRouter.of(context).pop(),
+            ),
+            backgroundColor: MyColors.white,
+            title: Center(
+              child: MyText(
+                color: MyColors.black,
+                size: 20.sp,
+                fontWeight: FontWeight.bold,
+                title: tr(context, "wallet"),
+              ),
+            ),
+          ),
           body: wallet.isEmpty
               ? const WalletCategory()
               : Column(
@@ -55,17 +75,32 @@ class _WalletBodyState extends State<WalletBody> {
                                 "إجمالي الرصيد",
                                 style: TextStyle(
                                     fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w600,
                                     color: MyColors.black),
                               ),
                             ],
                           ),
-                          Text(
-                            "$totalBalance",
-                            style: TextStyle(
-                              fontSize: 32.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                "$totalBalance",
+                                style: TextStyle(
+                                  fontSize: 32.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              Text(
+                                "EGP",
+                                style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -75,17 +110,6 @@ class _WalletBodyState extends State<WalletBody> {
                           itemCount: wallet.length,
                           physics: const BouncingScrollPhysics(),
                           itemBuilder: (context, index) {
-                            // Gradient itemGradient = index % 2 == 0
-                            //     ? const LinearGradient(
-                            //         colors: [Color(0xff24C6DC), Color(0xff514A9D)],
-                            //         begin: Alignment.centerLeft,
-                            //         end: Alignment.centerRight,
-                            //       )
-                            //     : const LinearGradient(
-                            //         colors: [Color(0xffC33764), Color(0xff1D2671)],
-                            //         begin: Alignment.centerLeft,
-                            //         end: Alignment.centerRight,
-                            //       );
                             return Padding(
                               padding: EdgeInsets.symmetric(
                                   vertical: 12.r, horizontal: 16.r),
@@ -100,6 +124,8 @@ class _WalletBodyState extends State<WalletBody> {
           floatingActionButton: Visibility(
             visible: wallet.isEmpty ? isHide = false : isHide = true,
             child: FloatingActionButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50.r)),
               onPressed: () {
                 AutoRouter.of(context).push(const WalletCategoryRoute());
               },

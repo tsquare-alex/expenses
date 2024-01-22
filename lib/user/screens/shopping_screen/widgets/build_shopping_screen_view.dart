@@ -86,7 +86,7 @@ class _BuildShoppingScreenViewState extends State<BuildShoppingScreenView> {
                 crossAxisCount: 3,
                 mainAxisSpacing: 10.h,
                 crossAxisSpacing: 10.w,
-                childAspectRatio: 0.5 / 0.65),
+                childAspectRatio: 0.5.h / 0.7.w),
             itemBuilder: (context, i) => BuildCommitmentItem(
               onTap: () async {
                 await AutoRouter.of(context).push(AddTransactionRoute(

@@ -43,35 +43,6 @@ class SelectCurrencyData{
   DropdownModel? selectedCurrency;
   DropdownModel? selectedSubCurrency;
 
-  List<DropdownModel> currencies=[
-    DropdownModel(
-        id:0,name:"الجنيه المصري"
-    ),
-    DropdownModel(
-        id:1,name:"الريال السعودي"
-    ),
-    DropdownModel(
-        id:2,name:"الريال السعودي"
-    ),
-  ];
-  List<DropdownModel> subCurrencies=[
-    DropdownModel(
-        id:0,name:"الجنيه المصري"
-    ),
-    DropdownModel(
-        id:1,name:"الريال السعودي"
-    ),
-    DropdownModel(
-        id:2,name:"الريال السعودي"
-    ),
-  ];
-
-  Future<List<DropdownModel>> getCurrencies(BuildContext context) async {
-    return currencies;
-  }
-  Future<List<DropdownModel>> getSubCurrencies(BuildContext context) async {
-    return subCurrencies;
-  }
 
   void setSelectCurrency(DropdownModel? model) {
     selectedCurrency = model;
@@ -89,17 +60,17 @@ class SelectCurrencyData{
     if (formKey.currentState!.validate()) {
 
       double value = double.parse(valueController.text);
-      CurrencyModel model = CurrencyModel(mainCurrency: currencyCubit.state.data.name??"",
-        subCurrency: subCurrencyCubit.state.data.name??"",
+      CurrencyModel model = CurrencyModel(mainCurrency: currencyCubit.state.data.code??"",
+        subCurrency: subCurrencyCubit.state.data.code??"",
         value: value,);
       if (currencyList.isEmpty) {
         currencyBox.add(model);
       } else {
         var myBox = currencyBox.getAt(0);
         myBox?.mainCurrency =
-            currencyCubit.state.data.name;
+            currencyCubit.state.data.code;
         myBox?.subCurrency =
-            subCurrencyCubit.state.data.name;
+            subCurrencyCubit.state.data.code;
         myBox?.value = valueController.text.isNotEmpty
             ? double.parse(valueController.text)
             : myBox.value;

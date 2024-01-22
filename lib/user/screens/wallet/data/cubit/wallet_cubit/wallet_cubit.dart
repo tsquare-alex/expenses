@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/constants/constants.dart';
+import 'package:expenses/general/models/currency_model/currency_model.dart';
 import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/res.dart';
@@ -15,7 +16,7 @@ import 'package:hive/hive.dart';
 
 class WalletCubit extends Cubit<WalletState> {
   DateTime startDate = DateTime.now();
-  DateTime endDate = DateTime.now().add(Duration(days: 30));
+  DateTime endDate = DateTime.now().add(const Duration(days: 30));
 
   WalletCubit() : super(WalletInitial());
 
@@ -34,6 +35,7 @@ class WalletCubit extends Cubit<WalletState> {
   final TextEditingController encomSourceController = TextEditingController();
   final TextEditingController addCategoryController = TextEditingController();
   final TextEditingController noteController = TextEditingController();
+  final TextEditingController currencyController = TextEditingController();
 
   List<String> valueCategory = [
     "تحويل بنكي",
@@ -76,13 +78,13 @@ class WalletCubit extends Cubit<WalletState> {
     Image.asset(Res.extra),
     Image.asset(Res.reward),
     Image.asset(Res.gift),
-    Image.asset(Res.bankAccount),
-    Image.asset(Res.projectIncome),
+    Image.asset(Res.bank_account),
+    Image.asset(Res.project_income),
     Image.asset(Res.deal),
     Image.asset(Res.rent),
     Image.asset(Res.commission),
     Image.asset(Res.sale),
-    Image.asset(Res.speculation),
+    Image.asset(Res.Speculation),
   ];
 
   List<String> encomeSource = ["شخص", "جهة"];
@@ -102,6 +104,15 @@ class WalletCubit extends Cubit<WalletState> {
     var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
     walletList = walletBox.values.toList();
     emit(WalletSuccess(wallet: walletList));
+    valueCategoryController.clear();
+    addCategoryController.clear();
+    balanceController.clear();
+    closedDateController.clear();
+    encomSourceController.clear();
+    noteController.clear();
+    noteController.clear();
+    openDateController.clear();
+    walletNameController.clear();
   }
 
   Future addNote(WalletModel model) async {
@@ -269,16 +280,6 @@ class WalletCubit extends Cubit<WalletState> {
     );
   }
 
-  //   Future addNote(WalletModel model) async {
-  //   emit(AddWalletLoading());
-  //   try {
-  //     var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
-  //     await walletBox.add(model);
-  //     emit(AddWalletSucess());
-  //   } catch (e) {
-  //     emit(AddWalletfaliuer(message: e.toString()));
-  //   }
-  // }
   double calculateTotalBalance(List<WalletModel> wallets) {
     double totalBalance = 0;
     for (var wallet in wallets) {
@@ -304,12 +305,12 @@ class WalletCubit extends Cubit<WalletState> {
     CategoryModel(name: "إضافي", imagePath: Res.extra),
     CategoryModel(name: "مكافأة", imagePath: Res.reward),
     CategoryModel(name: "هدية", imagePath: Res.gift),
-    CategoryModel(name: "حساب بنكي", imagePath: Res.bankAccount),
-    CategoryModel(name: "عائد مشروع", imagePath: Res.projectIncome),
+    CategoryModel(name: "حساب بنكي", imagePath: Res.bank_account),
+    CategoryModel(name: "عائد مشروع", imagePath: Res.project_income),
     CategoryModel(name: "صفقة", imagePath: Res.deal),
     CategoryModel(name: "عمولة", imagePath: Res.commission),
     CategoryModel(name: "بيع", imagePath: Res.sale),
-    CategoryModel(name: "مضاربة", imagePath: Res.speculation),
+    CategoryModel(name: "مضاربة", imagePath: Res.Speculation),
   ];
 
   List<CategoryModel> categoryList = [];
@@ -351,72 +352,6 @@ class WalletCubit extends Cubit<WalletState> {
       await categoryBox.close();
     }
   }
-  // iniData() async {
-  //   emit(WalletInitial());
-  //   var walletBox = Hive.box<CategoryModel>("walletCategoryModel");
-
-  //   var list = walletBox.values.toList();
-  //   for (var item in categoryModel!) {
-  //     if (!list.any((element) => element.name == item.name)) {
-  //       walletBox.add(item);
-  //     }
-  //   }
-  //   getCategory();
-  //   emit(CategorySuccess(categoryList: categoryList));
-  // }
-  // iniData() async {
-  //   emit(WalletInitial());
-  //   var walletBox = await Hive.openBox<CategoryModel>("walletCategoryModel");
-  //   var list = walletBox.values.toList();
-  //   for (var item in categoryModel!) {
-  //     if (!list.any((element) => element.name == item.name)) {
-  //       walletBox.add(item);
-  //     }
-  //   }
-
-  //   getCategory();
-  //   walletBox.close(); // Close the box after use
-  //   emit(CategorySuccess(categoryList: categoryList));
-  // }
-
-  // Future<void> getCategory() async {
-  //   var categoryBox = Hive.box<CategoryModel>("walletCategoryModel");
-  //   try {
-  //     var list = categoryBox.values.map((dynamic value) {
-  //       if (value is CategoryModel) {
-  //         return value;
-  //       } else {
-  //         return CategoryModel();
-  //       }
-  //     }).toList();
-  //     categoryList.addAll(list);
-  //     emit(CategorySuccess(categoryList: categoryList));
-  //   } catch (e) {
-  //     print('Error fetching data from Hive: $e');
-  //   } finally {
-  //     await categoryBox.close();
-  //   }
-  // }
-  // Future<void> getCategory() async {
-  //   var categoryBox = await Hive.openBox<CategoryModel>("walletCategoryModel");
-
-  //   try {
-  //     categoryList.clear(); // Clear the list before adding items
-  //     var list = categoryBox.values.map((dynamic value) {
-  //       if (value is CategoryModel) {
-  //         return value;
-  //       } else {
-  //         return CategoryModel();
-  //       }
-  //     }).toList();
-  //     categoryList.addAll(list);
-  //     emit(CategorySuccess(categoryList: categoryList));
-  //   } catch (e) {
-  //     print('Error fetching data from Hive: $e');
-  //   } finally {
-  //     await categoryBox.close();
-  //   }
-  // }
 
   Future<void> addValueCategory(
     context,
@@ -546,6 +481,59 @@ class WalletCubit extends Cubit<WalletState> {
           ),
         );
       },
+    );
+  }
+
+  late List<CurrencyModel> currencyData;
+
+  Future<void> fetchCurrencyData(contex) async {
+    var box = Hive.box<CurrencyModel>("currencyBox");
+    List<CurrencyModel> data = box.values.toList();
+    currencyData = data;
+  }
+
+  Future<void> getCurrencyData(context) async {
+    emit(CurrencyLoading());
+    await Future.wait([fetchCurrencyData(context)]);
+    emit(CurrencyWallet());
+  }
+
+  Widget buildCurrencyList({
+    required String currencyList,
+    required String selectedCurrency,
+    required void Function(String?) onCurrencySelected,
+  }) {
+    // Assuming that the currencies are separated by a delimiter, such as ","
+    List<String> currencies = currencyList.split(',');
+
+    return Column(
+      children: [
+        for (String item in currencies)
+          Column(
+            children: [
+              ListTile(
+                contentPadding: EdgeInsets.symmetric(horizontal: 16.0.r),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(item),
+                    Radio<String>(
+                      activeColor: MyColors.primary,
+                      value: item,
+                      groupValue: selectedCurrency,
+                      onChanged: onCurrencySelected,
+                    ),
+                  ],
+                ),
+              ),
+              Divider(
+                height: 1,
+                thickness: 2,
+                color: MyColors.semiTransparentColor,
+              ),
+            ],
+          ),
+      ],
     );
   }
 }

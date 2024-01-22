@@ -29,13 +29,15 @@ class ReportsRowCell extends StatelessWidget {
                   radius: 8.r,
                 ),
                 SizedBox(width: 12.r),
-                Text(
-                  title,
-                  textAlign: isCenter ? TextAlign.center : null,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
+                Flexible(
+                  child: Text(
+                    title,
+                    textAlign: isCenter ? TextAlign.center : null,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ],

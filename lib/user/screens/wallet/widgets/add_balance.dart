@@ -65,7 +65,7 @@ class _AddBalanceState extends State<AddBalance> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MyText(
-                            title: "المبلغ المطلوب إضافته",
+                            title: tr(context, "theAmountToBeAdded"),
                             color: MyColors.black,
                             size: 16.sp,
                             fontWeight: FontWeight.w500),
@@ -73,14 +73,14 @@ class _AddBalanceState extends State<AddBalance> {
                           height: 10.h,
                         ),
                         GenericTextField(
-                          hint: "المبلغ",
+                          hint: tr(context, "amount"),
                           controller: controller,
                           fieldTypes: FieldTypes.normal,
                           type: TextInputType.number,
                           action: TextInputAction.next,
                           validate: (text) {
                             if (text == null || text.isEmpty) {
-                              return "رجاء ادخال القيمة ";
+                              return tr(context, "pleaseEnterValue");
                             }
                             return null;
                           },
@@ -97,7 +97,7 @@ class _AddBalanceState extends State<AddBalance> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             MyText(
-                              title: "المبلغ الحالي",
+                              title: tr(context, "currentAmount"),
                               color: MyColors.black,
                               size: 16.sp,
                               fontWeight: FontWeight.w500,
@@ -117,7 +117,7 @@ class _AddBalanceState extends State<AddBalance> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             MyText(
-                                title: "المبلغ المتبقي",
+                                title: tr(context, "remainingAmount"),
                                 color: MyColors.black,
                                 size: 16.sp),
                             MyText(
@@ -134,7 +134,7 @@ class _AddBalanceState extends State<AddBalance> {
                             Row(
                               children: [
                                 MyText(
-                                  title: "مدة المصدر",
+                                  title: tr(context, "sourceDuration"),
                                   color: MyColors.black,
                                   size: 16.sp,
                                   fontWeight: FontWeight.w500,
@@ -148,7 +148,7 @@ class _AddBalanceState extends State<AddBalance> {
                               children: [
                                 Container(
                                     height: 44.h,
-                                    width: 160.w,
+                                    width: 170.w,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8.r),
                                       border: Border.all(
@@ -171,7 +171,8 @@ class _AddBalanceState extends State<AddBalance> {
                                                 selectedDate != null
                                                     ? "${selectedDate?.toLocal()}"
                                                         .split(' ')[0]
-                                                    : "تاريخ فتح المحفظة",
+                                                    : tr(context,
+                                                        "walletOpeningDate"),
                                                 style: TextStyle(
                                                   fontSize: 12.sp,
                                                   color: selectedDate != null
@@ -190,7 +191,7 @@ class _AddBalanceState extends State<AddBalance> {
                                 ),
                                 Container(
                                     height: 44.h,
-                                    width: 160.w,
+                                    width: 170.w,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8.r),
                                       border: Border.all(
@@ -213,7 +214,8 @@ class _AddBalanceState extends State<AddBalance> {
                                                 closedDate != null
                                                     ? "${closedDate?.toLocal()}"
                                                         .split(' ')[0]
-                                                    : "تاريخ غلق المحفظة",
+                                                    : tr(context,
+                                                        "walletClosingDate"),
                                                 style: TextStyle(
                                                   fontSize: 12.sp,
                                                   color: closedDate != null
@@ -239,7 +241,7 @@ class _AddBalanceState extends State<AddBalance> {
                           children: [
                             Expanded(
                               child: MyText(
-                                  title: "التكرار",
+                                  title: tr(context, "repetition"),
                                   color: MyColors.black,
                                   size: 14.sp),
                             ),
@@ -288,7 +290,7 @@ class _AddBalanceState extends State<AddBalance> {
                     }
                   },
                   borderColor: MyColors.primary,
-                  title: "إضافة رصيد",
+                  title: tr(context, "addBalance"),
                   color: MyColors.primary,
                 ),
                 DefaultButton(
@@ -296,7 +298,7 @@ class _AddBalanceState extends State<AddBalance> {
                   width: 192.w,
                   textColor: MyColors.primary,
                   fontSize: 12.sp,
-                  title: "إالغاء",
+                  title: tr(context, "cancel"),
                   onTap: () {
                     AutoRouter.of(context).pop();
                   },

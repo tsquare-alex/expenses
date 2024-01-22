@@ -67,7 +67,7 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           MyText(
-                            title: "المبلغ المطلوب سحبه",
+                            title: tr(context, "amountWithdraw"),
                             color: MyColors.black,
                             size: 16.sp,
                             fontWeight: FontWeight.w500,
@@ -76,14 +76,14 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                             height: 10.h,
                           ),
                           GenericTextField(
-                            hint: "المبلغ",
+                            hint: tr(context, "amount"),
                             controller: controller,
                             fieldTypes: FieldTypes.normal,
                             type: TextInputType.number,
                             action: TextInputAction.next,
                             validate: (text) {
                               if (text == null || text.isEmpty) {
-                                return "رجاء ادخال  القيمة";
+                                return tr(context, "pleaseEnterValue");
                               }
                               return null;
                             },
@@ -100,7 +100,7 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               MyText(
-                                title: "المبلغ الحالي",
+                                title: tr(context, "currentAmount"),
                                 color: MyColors.black,
                                 size: 16.sp,
                                 fontWeight: FontWeight.w500,
@@ -118,7 +118,7 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               MyText(
-                                title: "المبلغ المتبقي",
+                                title: tr(context, "remainingAmount"),
                                 color: MyColors.black,
                                 size: 16.sp,
                                 fontWeight: FontWeight.w500,
@@ -138,7 +138,7 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                               Row(
                                 children: [
                                   MyText(
-                                    title: "مدة المصدر",
+                                    title: tr(context, "sourceDuration"),
                                     color: MyColors.black,
                                     size: 16.sp,
                                     fontWeight: FontWeight.w500,
@@ -152,7 +152,7 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                                 children: [
                                   Container(
                                       height: 44.h,
-                                      width: 160.w,
+                                      width: 170.w,
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(8.r),
@@ -177,7 +177,8 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                                                   selectedDate != null
                                                       ? "${selectedDate?.toLocal()}"
                                                           .split(' ')[0]
-                                                      : "تاريخ فتح المحفظة",
+                                                      : tr(context,
+                                                          "walletOpeningDate"),
                                                   style: TextStyle(
                                                     fontSize: 12.sp,
                                                     color: selectedDate != null
@@ -196,7 +197,7 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                                   ),
                                   Container(
                                       height: 44.h,
-                                      width: 160.w,
+                                      width: 170.w,
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(8.r),
@@ -221,7 +222,8 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                                                   closedDate != null
                                                       ? "${closedDate?.toLocal()}"
                                                           .split(' ')[0]
-                                                      : "تاريخ غلق المحفظة",
+                                                      : tr(context,
+                                                          "walletClosingDate"),
                                                   style: TextStyle(
                                                     fontSize: 12.sp,
                                                     color: closedDate != null
@@ -247,7 +249,7 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                             children: [
                               Expanded(
                                 child: MyText(
-                                    title: "التكرار",
+                                    title: tr(context, "repetition"),
                                     color: MyColors.black,
                                     size: 14.sp),
                               ),
@@ -295,7 +297,7 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                         }
                       },
                       borderColor: MyColors.primary,
-                      title: "سحب رصيد",
+                      title: tr(context, "withdrawBalance"),
                       color: MyColors.primary,
                     ),
                     DefaultButton(
@@ -303,7 +305,7 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                       width: 192.w,
                       textColor: MyColors.primary,
                       fontSize: 12.sp,
-                      title: "إالغاء",
+                      title: tr(context, "cancel"),
                       onTap: () {
                         AutoRouter.of(context).pop();
                       },
@@ -312,18 +314,6 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                     ),
                   ],
                 ),
-                // DefaultButton(
-                //   fontSize: 12.sp,
-                //   onTap: () {
-                //     double result = widget.model.balance - enterAmount;
-                //     widget.model.balance = result;
-                //     widget.model.save();
-                //     AutoRouter.of(context).pop();
-                //   },
-                //   borderColor: MyColors.primary,
-                //   title: tr(context, "withdrawbalance"),
-                //   color: MyColors.primary,
-                // ),
               ],
             ),
           ),

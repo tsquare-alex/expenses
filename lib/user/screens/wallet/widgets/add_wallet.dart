@@ -66,11 +66,6 @@ class _AddWalletState extends State<AddWallet> {
               );
             }
             if (state is CurrencyWallet) {
-              // List<String> mainCurrency = context
-              //     .read<WalletCubit>()
-              //     .currencyData
-              //     .map((mainData) => mainData.mainCurrency)
-              //     .toList();
               String mainCurrency = context
                   .read<WalletCubit>()
                   .currencyData
@@ -83,11 +78,7 @@ class _AddWalletState extends State<AddWallet> {
                   .map((currencyData) => currencyData.subCurrency)
                   .first
                   .toString();
-              // List<String> subCurrency = context
-              //     .read<WalletCubit>()
-              //     .currencyData
-              //     .map((subCurrency) => subCurrency.subCurrency)
-              //     .toList();
+
               double currencyValue = double.parse(
                 context
                     .read<WalletCubit>()
@@ -132,7 +123,7 @@ class _AddWalletState extends State<AddWallet> {
                                 side: BorderSide(color: Colors.transparent),
                               ),
                               title: Text(
-                                "المصادر",
+                                tr(context, "sources"),
                                 style: TextStyle(
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.w500,
@@ -200,7 +191,7 @@ class _AddWalletState extends State<AddWallet> {
                                 DefaultButton(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w600,
-                                  title: "إضافة اخري",
+                                  title: tr(context, "addOther"),
                                   onTap: () {
                                     context.read<WalletCubit>().addEncomeSource(
                                         context,
@@ -222,14 +213,14 @@ class _AddWalletState extends State<AddWallet> {
                             controller: context
                                 .read<WalletCubit>()
                                 .walletNameController,
-                            hint: "إسم المحفظة",
+                            hint: tr(context, "walletName"),
                             fieldTypes: FieldTypes.normal,
                             type: TextInputType.text,
                             action: TextInputAction.next,
                             focusBorderColor: MyColors.greyWhite,
                             validate: (text) {
                               if (text == null || text.isEmpty) {
-                                return "رجاء إدخال اسم المحفظة ";
+                                return tr(context, "pleaseEnterWalletName");
                               }
                               return null;
                             },
@@ -250,7 +241,7 @@ class _AddWalletState extends State<AddWallet> {
                                 side: BorderSide(color: Colors.transparent),
                               ),
                               title: Text(
-                                "تحديد نوع القيمة",
+                                tr(context, "selectValueType"),
                                 style: TextStyle(
                                     fontSize: 16.h,
                                     fontWeight: FontWeight.w500),
@@ -317,7 +308,7 @@ class _AddWalletState extends State<AddWallet> {
                                 DefaultButton(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w600,
-                                  title: "إضافة اخري",
+                                  title: tr(context, "addOther"),
                                   onTap: () {
                                     context.read<WalletCubit>().addValue(
                                         context,
@@ -339,14 +330,14 @@ class _AddWalletState extends State<AddWallet> {
                             enableBorderColor: MyColors.semiTransparentColor,
                             controller:
                                 context.read<WalletCubit>().balanceController,
-                            hint: "الرصيد",
+                            hint: tr(context, "balance"),
                             focusBorderColor: MyColors.greyWhite,
                             fieldTypes: FieldTypes.normal,
                             type: TextInputType.number,
                             action: TextInputAction.next,
                             validate: (text) {
                               if (text == null || text.isEmpty) {
-                                return "رجاء إدخال قيمة المصدر ";
+                                return tr(context, "pleaseEnterValueSource");
                               }
                               return null;
                             },
@@ -375,7 +366,7 @@ class _AddWalletState extends State<AddWallet> {
                                   shape: const RoundedRectangleBorder(
                                     side: BorderSide(color: Colors.transparent),
                                   ),
-                                  title: const Text("إختيارالعملة"),
+                                  title: Text(tr(context, "selectCurrency")),
                                   children: [
                                     context
                                         .read<WalletCubit>()
@@ -420,7 +411,8 @@ class _AddWalletState extends State<AddWallet> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               MyText(
-                                title: "تحويل العمله اوتوماتك",
+                                title:
+                                    tr(context, "automaticallyConvertCurrency"),
                                 color: MyColors.black,
                                 size: 16.sp,
                                 fontWeight: FontWeight.w500,
@@ -431,16 +423,8 @@ class _AddWalletState extends State<AddWallet> {
                                       context.read<WalletCubit>().checkedValue,
                                   onChanged: (newValue) {
                                     setState(() {
-                                      // context.read<WalletCubit>().checkedValue =
-                                      //     newValue!;
-                                      //     if (newValue) {
-                                      //   // Set selectMainCurrency to mainCurrency when checkbox is checked
-                                      //   selectMainCurrency = mainCurrency;
-                                      //   context
-                                      //       .read<WalletCubit>()
-                                      //       .currencyController
-                                      //       .text = mainCurrency ?? "";
-                                      // }
+                                      context.read<WalletCubit>().checkedValue =
+                                          newValue!;
                                     });
                                   })
                             ],
@@ -451,7 +435,7 @@ class _AddWalletState extends State<AddWallet> {
                               Row(
                                 children: [
                                   MyText(
-                                    title: "مدة المصدر",
+                                    title: tr(context, "sourceDuration"),
                                     color: MyColors.black,
                                     size: 16.sp,
                                     fontWeight: FontWeight.w500,
@@ -463,7 +447,7 @@ class _AddWalletState extends State<AddWallet> {
                                 children: [
                                   Container(
                                       height: 44.h,
-                                      width: 160.w,
+                                      width: 170.w,
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(8.r),
@@ -488,7 +472,8 @@ class _AddWalletState extends State<AddWallet> {
                                                   selectedDate != null
                                                       ? "${selectedDate?.toLocal()}"
                                                           .split(' ')[0]
-                                                      : "تاريخ فتح المحفظة",
+                                                      : tr(context,
+                                                          "walletOpeningDate"),
                                                   style: TextStyle(
                                                     fontSize: 12.sp,
                                                     color: selectedDate != null
@@ -507,7 +492,7 @@ class _AddWalletState extends State<AddWallet> {
                                   ),
                                   Container(
                                       height: 44.h,
-                                      width: 160.w,
+                                      width: 170.w,
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(8.r),
@@ -532,7 +517,8 @@ class _AddWalletState extends State<AddWallet> {
                                                   closedDate != null
                                                       ? "${closedDate?.toLocal()}"
                                                           .split(' ')[0]
-                                                      : "تاريخ غلق المحفظة",
+                                                      : tr(context,
+                                                          "walletClosingDate"),
                                                   style: TextStyle(
                                                     fontSize: 12.sp,
                                                     color: closedDate != null
@@ -556,7 +542,7 @@ class _AddWalletState extends State<AddWallet> {
                           Row(
                             children: [
                               Text(
-                                "إضافة ملاحظة",
+                                tr(context, "addNote"),
                                 style: TextStyle(
                                   color: MyColors.black,
                                   fontSize: 16.sp,
@@ -572,14 +558,14 @@ class _AddWalletState extends State<AddWallet> {
                                   controller: context
                                       .read<WalletCubit>()
                                       .noteController,
-                                  hint: "ملاحظاتك",
+                                  hint: tr(context, "yourNotes"),
                                   maxLength: 9,
                                   fieldTypes: FieldTypes.normal,
                                   type: TextInputType.text,
                                   action: TextInputAction.next,
                                   validate: (text) {
                                     if (text == null || text.isEmpty) {
-                                      return "رجاء ادخل ملاحظاتك";
+                                      return tr(context, "PleaseInputYourNote");
                                     }
                                     return null;
                                   },
@@ -605,7 +591,7 @@ class _AddWalletState extends State<AddWallet> {
                                 child: Row(
                                   children: [
                                     Text(
-                                      "إضافة صورة",
+                                      tr(context, "addImage"),
                                       style: TextStyle(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.w500,
@@ -650,7 +636,7 @@ class _AddWalletState extends State<AddWallet> {
                             children: [
                               Expanded(
                                 child: MyText(
-                                  title: "تكرار المحفظة",
+                                  title: tr(context, "walletRepetition"),
                                   color: MyColors.black,
                                   size: 18.sp,
                                   fontWeight: FontWeight.w500,
@@ -689,7 +675,8 @@ class _AddWalletState extends State<AddWallet> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 MyText(
-                                  title: "عدد مرات تكرار المحفظة",
+                                  title: tr(context,
+                                      "numberOfTimesToRepeatTheWallet"),
                                   color: MyColors.black,
                                   size: 14.sp,
                                   fontWeight: FontWeight.w600,
@@ -717,7 +704,8 @@ class _AddWalletState extends State<AddWallet> {
                             children: [
                               Expanded(
                                 child: MyText(
-                                  title: "تنبيه عند انتهاء 20%",
+                                  title:
+                                      tr(context, "notificationWhenReaching"),
                                   color: MyColors.black,
                                   size: 16.sp,
                                   fontWeight: FontWeight.w500,

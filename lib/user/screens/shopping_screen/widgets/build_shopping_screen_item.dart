@@ -33,6 +33,8 @@ class BuildShoppingScreenItem extends StatelessWidget {
           size: 14.sp,
           fontWeight: FontWeight.bold,
           alien: TextAlign.center,
+          max: 2,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );

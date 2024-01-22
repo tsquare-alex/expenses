@@ -84,7 +84,7 @@ class ToolsHelper extends StatelessWidget {
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "calculator"),
                       title: "calculator",
-                      image:Res.toolCalculatorIc,
+                      image:Res.tool_ic,
                       isFavorite: context
                           .watch<FavoriteCubit>()
                           .isFavorite("calculator"),
@@ -92,68 +92,68 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "calculator",
-                              imagePath: Res.toolCalculatorIc),
+                              imagePath: Res.tool_ic),
                     ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "scanner"),
                       title: "scanner",
-                      image: Res.bardCodeIc,
+                      image: Res.barcode_ic,
                       isFavorite:
                       context.watch<FavoriteCubit>().isFavorite("scanner"),
                       onFavoriteTap: () =>
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "scanner",
-                              imagePath: Res.bardCodeIc),
+                              imagePath: Res.barcode_ic),
                     ),
                     BuildToolsWidget(
                       onTap: () {},
                       title: "zoomIn",
-                      image: Res.zoomInIc,
+                      image: Res.zoom_ic,
                       isFavorite:false,
                       onFavoriteTap: () {},
                     ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "note"),
                       title: "note",
-                      image: Res.noteIc,
+                      image: Res.note_ic,
                       isFavorite:  context.watch<FavoriteCubit>().isFavorite("note"),
                       onFavoriteTap: () =>
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "note",
-                              imagePath: Res.noteIc),
+                              imagePath: Res.note_ic),
                     ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "ruler"),
                       title: "ruler",
-                      image: Res.rulerIc,
+                      image: Res.ruler_ic,
                       isFavorite:
                       context.watch<FavoriteCubit>().isFavorite("ruler"),
                       onFavoriteTap: () =>
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "ruler",
-                              imagePath:Res.rulerIc),
+                              imagePath:Res.ruler_ic),
                     ),
                     BuildToolsWidget(
                       onTap: () {},
                       title: "waterScale",
-                      image: Res.waterScaleIc,
+                      image: Res.waterScale_ic,
                       isFavorite:false,
                       onFavoriteTap: () {},
                     ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "qiblah"),
                       title: "qiblah",
-                      image: Res.qiblahIc,
+                      image: Res.qiblah_ic,
                       isFavorite:
                       context.watch<FavoriteCubit>().isFavorite("qiblah"),
                       onFavoriteTap: () =>
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "qiblah",
-                              imagePath: Res.qiblahIc),
+                              imagePath: Res.qiblah_ic),
                     ),
 
 
@@ -176,69 +176,69 @@ class ToolsHelper extends StatelessWidget {
 
                   ]),
               ExpandableTile(
-                  image: Res.timeIc,
+                  image: Res.time_ic,
                   title: "timeManagement",
                   children: [
                     BuildToolsWidget(
                       onTap: () =>
                           _navigateToToolScreen(context, "reminder"),
                       title: "reminder",
-                      image: Res.reminderIc,
+                      image: Res.reminder_ic,
                       isFavorite:
                       context.watch<FavoriteCubit>().isFavorite("reminder"),
                       onFavoriteTap: () =>
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "reminder",
-                              imagePath: Res.reminderIc),
+                              imagePath: Res.reminder_ic),
                     ),
                     BuildToolsWidget(
                       onTap: () =>
                           _navigateToToolScreen(context, "temporary"),
                       title: "temporary",
-                      image: Res.temporaryIc,
+                      image: Res.temporary_ic,
                       isFavorite:
                       context.watch<FavoriteCubit>().isFavorite("temporary"),
                       onFavoriteTap: () =>
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "temporary",
-                              imagePath: Res.temporaryIc),
+                              imagePath: Res.temporary_ic),
                     ),
                     BuildToolsWidget(
                       onTap: () =>
                           _navigateToToolScreen(context, "stopWatch"),
                       title: "stopWatch",
-                      image: Res.stopwatchIc,
+                      image: Res.stopwatch_ic,
                       isFavorite : context.watch<FavoriteCubit>().isFavorite("stopWatch"),
                       onFavoriteTap: () =>
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "stopWatch",
-                              imagePath: Res.temporaryIc),
+                              imagePath: Res.temporary_ic),
                     ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "calender"),
                       title: "calender",
-                      image: Res.calendarIc,
+                      image: Res.calendar_ic,
                       isFavorite:
                       context.watch<FavoriteCubit>().isFavorite("calender"),
                       onFavoriteTap: () =>
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "calender",
-                              imagePath: Res.calendarIc),
+                              imagePath: Res.calendar_ic),
                     ),
                   ]),
               ExpandableTile(
 
                   title: "commercial",
-                  image: Res.moneyIc,
+                  image: Res.money_ic,
                   children: [
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "percentage"),
                       title: "percentage",
-                      image: Res.percentageIc,
+                      image: Res.percentage_ic,
                       isFavorite: context
                           .watch<FavoriteCubit>()
                           .isFavorite("percentage"),
@@ -246,37 +246,37 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "percentage",
-                              imagePath: Res.percentageIc),
+                              imagePath: Res.percentage_ic),
                     ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "tax"),
                       title: "tax",
-                      image: Res.taxIc,
+                      image: Res.tax_ic,
                       isFavorite:
                       context.watch<FavoriteCubit>().isFavorite("tax"),
                       onFavoriteTap: () =>
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "tax",
-                              imagePath: Res.taxIc),
+                              imagePath: Res.tax_ic),
                     ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "discount"),
                       title: "discount",
-                      image:Res.discountIc,
+                      image:Res.discount_ic,
                       isFavorite:
                       context.watch<FavoriteCubit>().isFavorite("discount"),
                       onFavoriteTap: () =>
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "discount",
-                              imagePath: Res.discountIc),
+                              imagePath: Res.discount_ic),
                     ),
                     BuildToolsWidget(
                       onTap: () =>
                           _navigateToToolScreen(context, "calculateUnitPrice"),
                       title: "calculateUnitPrice",
-                      image: Res.unitPriceIc,
+                      image: Res.unitprice_ic,
                       isFavorite: context
                           .watch<FavoriteCubit>()
                           .isFavorite("calculateUnitPrice"),
@@ -284,13 +284,13 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "calculateUnitPrice",
-                              imagePath:  Res.unitPriceIc),
+                              imagePath:  Res.unitprice_ic),
                     ),
                     BuildToolsWidget(
                       onTap: () =>
                           _navigateToToolScreen(context, "convertCurrency"),
                       title: "convertCurrency",
-                      image: Res.transferIc,
+                      image: Res.transfer_ic,
                       isFavorite: context
                           .watch<FavoriteCubit>()
                           .isFavorite("convertCurrency"),
@@ -298,55 +298,55 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "convertCurrency",
-                              imagePath:  Res.transferIc),
+                              imagePath:  Res.transfer_ic),
                     ),
                   ]),
 
               ExpandableTile(
-                image: Res.lifeToolIc,
+                image: Res.lifetool_ic,
                 title: "health",
                 children: [
                   BuildToolsWidget(
                     onTap: () => _navigateToToolScreen(context, "bmi"),
                     title: "bmi",
-                    image: Res.bmiIc,
+                    image: Res.bmi_ic,
                     isFavorite:
                     context.watch<FavoriteCubit>().isFavorite("bmi"),
                     onFavoriteTap: () =>
                         _toggleFavoriteStatus(
                             context: context,
                             toolName: "bmi",
-                            imagePath: Res.bmiIc),
+                            imagePath: Res.bmi_ic),
                   ),
                   BuildToolsWidget(
                     onTap: () => _navigateToToolScreen(context, "bmr"),
                     title: "bmr",
-                    image: Res.bmrIc,
+                    image: Res.bmr_ic,
                     isFavorite:
                     context.watch<FavoriteCubit>().isFavorite("bmr"),
                     onFavoriteTap: () =>
                         _toggleFavoriteStatus(
                             context: context,
                             toolName: "bmr",
-                            imagePath: Res.bmrIc),
+                            imagePath: Res.bmr_ic),
                   ),
                   BuildToolsWidget(
                     onTap: () => _navigateToToolScreen(context, "ringSize"),
                     title: "ringSize",
-                    image: Res.ringIc,
+                    image: Res.ring_ic,
                     isFavorite:
                     context.watch<FavoriteCubit>().isFavorite("ringSize"),
                     onFavoriteTap: () =>
                         _toggleFavoriteStatus(
                             context: context,
                             toolName: "ringSize",
-                            imagePath: Res.ringIc),
+                            imagePath: Res.ring_ic),
                   ),
                   BuildToolsWidget(
                     onTap: () =>
                         _navigateToToolScreen(context, "clothesSize"),
                     title: "clothesSize",
-                    image: Res.clothessizeIc,
+                    image: Res.clothessize_ic,
                     isFavorite: context
                         .watch<FavoriteCubit>()
                         .isFavorite("clothesSize"),
@@ -354,19 +354,19 @@ class ToolsHelper extends StatelessWidget {
                         _toggleFavoriteStatus(
                             context: context,
                             toolName: "clothesSize",
-                            imagePath:Res.clothessizeIc),
+                            imagePath:Res.clothessize_ic),
                   ),
                 ],
               ),
               ExpandableTile(
                   title: "units",
-                  image: Res.unitIc,
+                  image: Res.unit_ic,
                   children: [
                     BuildToolsWidget(
                       onTap: () =>
                           _navigateToToolScreen(context, "convertLength"),
                       title: "convertLength",
-                      image: Res.lengthIc,
+                      image: Res.length_ic,
                       isFavorite: context
                           .watch<FavoriteCubit>()
                           .isFavorite("convertLength"),
@@ -374,13 +374,13 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "convertLength",
-                              imagePath: Res.unitIc),
+                              imagePath: Res.unit_ic),
                     ),
                     BuildToolsWidget(
                       onTap: () =>
                           _navigateToToolScreen(context, "convertMass"),
                       title: "convertMass",
-                      image: Res.sizeIc,
+                      image: Res.size_ic,
                       isFavorite: context
                           .watch<FavoriteCubit>()
                           .isFavorite("convertMass"),
@@ -388,13 +388,13 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "convertMass",
-                              imagePath: Res.sizeIc),
+                              imagePath: Res.size_ic),
                     ),
                     BuildToolsWidget(
                       onTap: () =>
                           _navigateToToolScreen(context, "convertTemperature"),
                       title: "convertTemperature",
-                      image: Res.temperatureIc,
+                      image: Res.temperature_ic,
                       isFavorite: context
                           .watch<FavoriteCubit>()
                           .isFavorite("convertTemperature"),
@@ -402,13 +402,13 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "convertTemperature",
-                              imagePath: Res.temperatureIc),
+                              imagePath: Res.temperature_ic),
                     ),
                     BuildToolsWidget(
                       onTap: () =>
                           _navigateToToolScreen(context, "convertArea"),
                       title: "convertArea",
-                      image: Res.areaIc,
+                      image: Res.area_ic,
                       isFavorite: context
                           .watch<FavoriteCubit>()
                           .isFavorite("convertArea"),
@@ -416,13 +416,13 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "convertArea",
-                              imagePath: Res.areaIc),
+                              imagePath: Res.area_ic),
                     ),
                     BuildToolsWidget(
                       onTap: () =>
                           _navigateToToolScreen(context, "convertSpeed"),
                       title: "convertSpeed",
-                      image: Res.speedIc,
+                      image: Res.speed_ic,
                       isFavorite: context
                           .watch<FavoriteCubit>()
                           .isFavorite("convertSpeed"),
@@ -430,7 +430,7 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "convertSpeed",
-                              imagePath: Res.speedIc),
+                              imagePath: Res.speed_ic),
                     ),
                     // BuildToolsWidget(
                     //   onTap: () =>
@@ -450,7 +450,7 @@ class ToolsHelper extends StatelessWidget {
                       onTap: () =>
                           _navigateToToolScreen(context, "convertVolume"),
                       title: "convertVolume",
-                      image: Res.weightIc,
+                      image: Res.weight_ic,
                       isFavorite: context
                           .watch<FavoriteCubit>()
                           .isFavorite("convertVolume"),
@@ -458,7 +458,7 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "convertVolume",
-                              imagePath: Res.weightIc),
+                              imagePath: Res.weight_ic),
                     ),
                   ]),
 

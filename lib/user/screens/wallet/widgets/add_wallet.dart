@@ -476,7 +476,7 @@ class _AddWalletState extends State<AddWallet> {
                                             padding: EdgeInsets.all(12.r),
                                             child: Row(
                                               children: [
-                                                Image.asset(Res.calender),
+                                                Image.asset(Res.calendar),
                                                 SizedBox(
                                                   width: 15.w,
                                                 ),
@@ -520,7 +520,7 @@ class _AddWalletState extends State<AddWallet> {
                                             padding: EdgeInsets.all(12.r),
                                             child: Row(
                                               children: [
-                                                Image.asset(Res.calender),
+                                                Image.asset(Res.calendar),
                                                 SizedBox(
                                                   width: 15.w,
                                                 ),

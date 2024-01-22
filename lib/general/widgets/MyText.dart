@@ -12,6 +12,7 @@ class MyText extends StatelessWidget {
   final TextOverflow? overflow;
   final FontWeight? fontWeight;
   final double? textScaleFactor;
+  final int? max;
 
   const MyText({
     Key? key,
@@ -24,6 +25,7 @@ class MyText extends StatelessWidget {
     this.overflow,
     this.fontWeight,
     this.textScaleFactor,
+    this.max,
   }) : super(key: key);
 
   @override
@@ -32,8 +34,8 @@ class MyText extends StatelessWidget {
       title,
       textAlign: alien ?? TextAlign.start,
       textScaleFactor: textScaleFactor ?? 1.2,
+      maxLines: max,
       style: TextStyle(
-
           color: color ?? Colors.black,
           fontSize: size ?? 16,
           decoration: decoration ?? TextDecoration.none,

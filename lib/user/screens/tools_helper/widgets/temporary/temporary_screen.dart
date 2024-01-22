@@ -147,10 +147,10 @@ class Noti {
       FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
     var androidInitialize =
     new AndroidInitializationSettings('mipmap/ic_launcher');
-    var iOSInitialize = new IOSInitializationSettings();
-    var initializationsSettings = new InitializationSettings(
-        android: androidInitialize, iOS: iOSInitialize);
-    await flutterLocalNotificationsPlugin.initialize(initializationsSettings);
+    // var iOSInitialize = new IOSInitializationSettings();
+    // var initializationsSettings = new InitializationSettings(
+    //     android: androidInitialize, iOS: iOSInitialize);
+    // await flutterLocalNotificationsPlugin.initialize(initializationsSettings);
   }
 
   static Future scheduleNotification({
@@ -171,16 +171,16 @@ class Noti {
 
     var not = NotificationDetails(
       android: androidPlatformChannelSpecifics,
-      iOS: IOSNotificationDetails(),
+      // iOS: IOSNotificationDetails(),
     );
-    await fln.schedule(
-      id,
-      title,
-      body,
-      scheduledDate,
-      not,
-      androidAllowWhileIdle: true,
-    );
+    // await fln.schedule(
+    //   id,
+    //   title,
+    //   body,
+    //   scheduledDate,
+    //   not,
+    //   androidAllowWhileIdle: true,
+    // );
   }
 }
 

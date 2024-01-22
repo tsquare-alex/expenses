@@ -124,29 +124,7 @@ class BuildCashTransactionsCard extends StatelessWidget {
           SizedBox(
             height: 10.h,
           ),
-          if(model.description !="")Container(
-            alignment: Alignment.topRight,
-            child: Row(
-              children: [
-                Image.asset(
-                  Res.description,
-                  width: 20.w,
-                  height: 20.h,
-                ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                MyText(
-                  title: model.description ?? "",
-                  size: 12.sp,
-                  fontWeight: FontWeight.w900,
-                  color: MyColors.grey,
-                ),
-              ],
-            ),),
-          SizedBox(
-            height: 10.h,
-          ),
+
           Divider(thickness: 1.w,color: MyColors.greyWhite,),
           SizedBox(
             height: 10.h,

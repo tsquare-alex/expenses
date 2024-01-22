@@ -3,6 +3,7 @@ import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:googleapis/analytics/v3.dart';
 import 'CustomDropDown.dart';
 
 class DropdownTextField<DataType> extends StatefulWidget {
@@ -72,7 +73,7 @@ class _DropdownTextFieldState<DataType> extends State<DropdownTextField> {
         key: widget.dropKey,
         mode: Mode.BOTTOM_SHEET,
         isFilteredOnline: false,
-        maxHeight: 600,
+        maxHeight: 0.45.sh,
         label: widget.label,
         items: widget.data,
         onFind: widget.finData,

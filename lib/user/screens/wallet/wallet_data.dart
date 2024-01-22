@@ -203,12 +203,12 @@ class WalletData {
     CategoryModel(name: "إضافي", imagePath: Res.extra),
     CategoryModel(name: "مكافأة", imagePath: Res.reward),
     CategoryModel(name: "هدية", imagePath: Res.gift),
-    CategoryModel(name: "حساب بنكي", imagePath: Res.bankAccount),
-    CategoryModel(name: "عائد مشروع", imagePath: Res.projectIncome),
+    CategoryModel(name: "حساب بنكي", imagePath: Res.bank_account),
+    CategoryModel(name: "عائد مشروع", imagePath: Res.project_income),
     CategoryModel(name: "صفقة", imagePath: Res.deal),
     CategoryModel(name: "عمولة", imagePath: Res.commission),
     CategoryModel(name: "بيع", imagePath: Res.sale),
-    CategoryModel(name: "مضاربة", imagePath: Res.speculation),
+    CategoryModel(name: "مضاربة", imagePath: Res.Speculation),
   ];
 
   //  addValueCategory(

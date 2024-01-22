@@ -37,13 +37,17 @@ class TransferWalletTransactionData{
             (item) => item.name == selectedWalletModel?.name,
       );
       double total = double.parse(model.total!);
-      currentWallet.balance=currentWallet.balance+total;
-      targetWallet.balance=targetWallet.balance-total;
-      walletBox.put(currentWallet.key, currentWallet);
-      walletBox.put(targetWallet.key, targetWallet);
-      box.put(targetModel.key, targetModel);
+      if(total>targetWallet.balance){
+        CustomToast.showSimpleToast(msg: tr(context, "operationNotAllowed"),color: Colors.red,);
+      }else{
+        currentWallet.balance = currentWallet.balance + total;
+        targetWallet.balance = targetWallet.balance - total;
+        walletBox.put(currentWallet.key, currentWallet);
+        walletBox.put(targetWallet.key, targetWallet);
+        box.put(targetModel.key, targetModel);
+        Navigator.of(context).pop();
+        AutoRouter.of(context).replace(HomeRoute(index: 1,pageIndex: 7));
+      }
     }
-    AutoRouter.of(context).pop();
-    AutoRouter.of(context).replace(HomeRoute(index: 1,pageIndex: 7));
   }
 }

@@ -95,45 +95,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           ),
                           title: const Text("إختيار المعاملات"),
                           children: [
-                            ...transactionName.asMap().entries.map(
-                              (entry) {
-                                final String item = entry.value;
-                                return Column(
-                                  children: [
-                                    ListTile(
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 16.0.r),
-                                      title: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            item,
-                                          ),
-                                          Radio<String>(
-                                            value: item,
-                                            groupValue: selectTransactionValue,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectTransactionValue = value;
-                                                context
-                                                    .read<BudgetCubit>()
-                                                    .transactionNameController
-                                                    .text = value.toString();
-                                              });
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Divider(
-                                      height: 1,
-                                      thickness: 2,
-                                      color: MyColors.semiTransparentColor,
-                                    ),
-                                  ],
-                                );
-                              },
+                            Image.asset(Res.calendar),
+                            SizedBox(
+                              height: 5.h,
                             ),
                           ],
                         ),
@@ -200,7 +164,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         children: [
                           Column(
                             children: [
-                              Image.asset(Res.calender),
+                              Image.asset(Res.calendar),
                               SizedBox(
                                 height: 5.h,
                               ),

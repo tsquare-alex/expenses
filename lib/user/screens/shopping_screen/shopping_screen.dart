@@ -28,33 +28,28 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
           appBar: AppBar(
             backgroundColor: Colors.white,
             surfaceTintColor: Colors.white,
-            title: Padding(
-              padding: EdgeInsets.only(left: 40.0.r),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    Res.shopping,
-                    width: 30.w,
-                    height: 30.h,
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  MyText(
-                    title: tr(context, "shopping"),
-                    color: MyColors.black,
-                    size: 18.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ],
-              ),
+            title: Row(
+              children: [
+                Image.asset(
+                  Res.shopping,
+                  width: 30.w,
+                  height: 30.h,
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                MyText(
+                  title: tr(context, "shopping"),
+                  color: MyColors.black,
+                  size: 18.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ],
             ),
             leading: InkWell(
               onTap: () => AutoRouter.of(context).pop(),
               child: Icon(Icons.arrow_back, color: MyColors.black,),
             ),
-            centerTitle: true,
           ),
           floatingActionButton: BlocBuilder<GenericBloc<List<TransactionTypeModel>>, GenericState<List<TransactionTypeModel>>>(
             bloc: data.transactionTypeCubit,

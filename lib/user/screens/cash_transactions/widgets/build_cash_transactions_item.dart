@@ -2,11 +2,12 @@ part of 'cash_transactions_widgets_imports.dart';
 
 class BuildCashTransactionsItem extends StatelessWidget {
   const BuildCashTransactionsItem(
-      {Key? key, required this.image, required this.name, this.onTap})
+      {Key? key, required this.image, required this.name, this.onTap, this.isPro})
       : super(key: key);
   final String image;
   final String name;
   final GestureTapCallback? onTap;
+  final bool? isPro;
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +17,29 @@ class BuildCashTransactionsItem extends StatelessWidget {
           splashColor: Colors.transparent,
           hoverColor: Colors.transparent,
           onTap: onTap,
-          child: CircleAvatar(
-            radius: 45.r,
-            backgroundColor: MyColors.greyWhite,
-            child: Image.asset(
-              image,
-              width: 35.w,
-              height: 35.h,
-            ),
+          child: Stack(
+            alignment: AlignmentDirectional.topEnd,
+            clipBehavior: Clip.none,
+            children: [
+              CircleAvatar(
+                radius: 45.r,
+                backgroundColor: MyColors.greyWhite,
+                child: Image.asset(
+                  image,
+                  width: 35.w,
+                  height: 35.h,
+                ),
+              ),
+              if(isPro==false)Positioned(
+                bottom: 55.h,
+                right: 30.w,
+                child: Image.asset(
+                  Res.pro,
+                  width: 50.w,
+                  height: 50.h,
+                ),
+              ),
+            ],
           ),
         ),
         SizedBox(

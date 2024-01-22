@@ -260,4 +260,5 @@ class Res {
   static const String womensize = "assets/images/womensize.png";
   static const String workshop = "assets/images/workshop.png";
   static const String zoom_ic = "assets/images/zoom_ic.png";
+  static const String pro = "assets/images/pro.png";
 }

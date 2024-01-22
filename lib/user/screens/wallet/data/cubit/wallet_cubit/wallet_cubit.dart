@@ -35,6 +35,7 @@ class WalletCubit extends Cubit<WalletState> {
   final TextEditingController encomSourceController = TextEditingController();
   final TextEditingController addCategoryController = TextEditingController();
   final TextEditingController noteController = TextEditingController();
+  final TextEditingController currencyController = TextEditingController();
 
   List<String> valueCategory = [
     "تحويل بنكي",
@@ -483,25 +484,56 @@ class WalletCubit extends Cubit<WalletState> {
     );
   }
 
-  Future<void> getCurrency() async {
-    emit(CurrencyLoading());
-    await Hive.openBox<CurrencyModel>("currencyBox");
-    final box = Hive.box<CurrencyModel>("currencyBox");
-    final currency = List<CurrencyModel>.from(box.values);
-    emit(CurrencyLoaded(currencyData: currency));
+  late List<CurrencyModel> currencyData;
+
+  Future<void> fetchCurrencyData(contex) async {
+    var box = Hive.box<CurrencyModel>("currencyBox");
+    List<CurrencyModel> data = box.values.toList();
+    currencyData = data;
   }
 
-  //  Future<void> budgetValue(
-  //     AddTransactionModel transactionModel, WalletModel walletModel) async {
-  //   double walletValue = walletModel.balance;
-  //   double transactionValue = double.parse(transactionModel.total ?? '0');
-  //   var res = transactionValue / walletValue;
-  //   emit(BudgetValu(value: res));
-  // }
-// List
-//   Future<void> currencyName(CurrencyModel model) async {
-//     String mainCurrency = model.mainCurrency;
-//     String subCurrency = model.subCurrency;
-//     emit()
-//   }
+  Future<void> getCurrencyData(context) async {
+    emit(CurrencyLoading());
+    await Future.wait([fetchCurrencyData(context)]);
+    emit(CurrencyWallet());
+  }
+
+  Widget buildCurrencyList({
+    required List<String> currencyList,
+    required String selectedCurrency,
+    required void Function(String?) onCurrencySelected,
+  }) {
+    return Column(
+      children: [
+        ...currencyList.asMap().entries.map(
+          (entry) {
+            final String item = entry.value;
+            return Column(
+              children: [
+                ListTile(
+                  contentPadding: EdgeInsets.symmetric(horizontal: 16.0.r),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(item),
+                      Radio<String>(
+                        value: item,
+                        groupValue: selectedCurrency,
+                        onChanged: onCurrencySelected,
+                      ),
+                    ],
+                  ),
+                ),
+                Divider(
+                  height: 1,
+                  thickness: 2,
+                  color: MyColors.semiTransparentColor,
+                ),
+              ],
+            );
+          },
+        ),
+      ],
+    );
+  }
 }

@@ -7,6 +7,7 @@ import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
+import 'package:expenses/user/screens/wallet/wallet_imports.dart';
 import 'package:expenses/user/screens/wallet/widgets/cstom_container.dart';
 import 'package:expenses/user/screens/wallet/widgets/wallet_category_screen.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class _WalletBodyState extends State<WalletBody> {
         wallet = BlocProvider.of<WalletCubit>(context).walletList;
         wallet.sort((a, b) => b.checkedValue! ? 1 : -1);
         double totalBalance =
-            context.read<WalletCubit>().calculateTotalBalance(wallet);
+            context.read<WalletCubit>().calculateTotalBalance(wallet,);
         return Scaffold(
           appBar: AppBar(
             surfaceTintColor: Colors.transparent,

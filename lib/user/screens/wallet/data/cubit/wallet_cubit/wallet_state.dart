@@ -32,6 +32,8 @@ class AddWalletLoading extends WalletState {}
 
 class AddWalletSucess extends WalletState {}
 
+class CurrencyWallet extends WalletState {}
+
 class WalletVisibilityState extends WalletState {}
 
 class WalletLock extends WalletState {}

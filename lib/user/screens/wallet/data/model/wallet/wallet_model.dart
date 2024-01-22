@@ -1,4 +1,3 @@
-import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet_category/category_model.dart';
 import 'package:hive_flutter/adapters.dart';
 part 'wallet_model.g.dart';
@@ -41,6 +40,10 @@ class WalletModel extends HiveObject {
   String? addNote;
   @HiveField(17)
   String? iconPath;
+  @HiveField(18)
+  String currency;
+  @HiveField(19)
+  double currencyValue;
 
   WalletModel({
     required this.name,
@@ -61,5 +64,7 @@ class WalletModel extends HiveObject {
     this.isFavorite = false,
     this.addNote,
     this.iconPath,
+    required this.currency,
+    required this.currencyValue,
   });
 }

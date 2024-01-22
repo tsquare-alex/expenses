@@ -58,7 +58,6 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
               .transactioList
               .map((transaction) => transaction.transactionType?.name ?? "")
               .toList();
-          print(transactionName);
 
           return Scaffold(
             appBar: AppBar(
@@ -517,11 +516,8 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                     0.0,
                                     ((previousValue, current) =>
                                         previousValue + current));
-                            print(transactionValue);
                             double deficiency = parsedNumber - transactionValue;
-                            print(deficiency);
                             double percentageValue = deficiency / parsedNumber;
-                            print(percentageValue);
                             var budgetData = BudgetModel(
                                 percentValue: percentageValue,
                                 budgetValue: parsedNumber,

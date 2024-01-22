@@ -86,7 +86,7 @@ class BuildTransactionType extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              state.data?[index].name=="electric"?Radio(
+                              state.data?[index].name=="electric"||state.data?[index].name=="telephone"?Radio(
                                   value: state.data?[index].selected ?? false,
                                   groupValue: true,
                                   onChanged: (v) {
@@ -97,7 +97,7 @@ class BuildTransactionType extends StatelessWidget {
                                         index,
                                         type,
                                         boxName);
-                                  }):Image.asset(Res.pro,width: 50.w,height: 40.h,),
+                                  }):Image.asset(Res.pro,width: 50.w,height: 60.h,),
                             ],
                           );
                         }),

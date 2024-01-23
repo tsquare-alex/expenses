@@ -17,9 +17,14 @@ class _AddTransactionState extends State<AddTransaction> {
   @override
   void initState() {
     data.selectedContent=null;
+    data.selectedContent?.selected=false;
     data.getContents(widget.model!,widget.transactionName!);
+    data.typeContentCubit.state
+        .data?.map((e) => e.selected = false).toList();
+
     data.selectedContent = null;
-    print(data.selectedContent);
+    print(data.selectedContent?.selected);
+    print(data.selectedContent?.name);
     super.initState();
   }
 
@@ -39,11 +44,19 @@ class _AddTransactionState extends State<AddTransaction> {
             size: 20.sp,
           ),
         ),
-        title: MyText(
-          title: tr(context, widget.model!.name!).isNotEmpty?tr(context, widget.model!.name!):widget.model?.name??"",
-          color: MyColors.black,
-          size: 18.sp,
-          fontWeight: FontWeight.bold,
+        title: Row(
+          children: [
+            Image.asset(widget.model?.image??"",width: 25.w,height: 25.h,),
+            SizedBox(
+              width: 15.w,
+            ),
+            MyText(
+              title: tr(context, widget.model!.name!).isNotEmpty?tr(context, widget.model!.name!):widget.model?.name??"",
+              color: MyColors.black,
+              size: 18.sp,
+              fontWeight: FontWeight.bold,
+            ),
+          ],
         ),
       ),
       body: Padding(

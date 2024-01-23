@@ -158,7 +158,7 @@ class TargetData{
               topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r))),
       context: context,
       builder: (context) => SizedBox(
-          height: 400.h,
+          height: 550.h,
           child: BuildAddTarget(
             data: this,
           )),

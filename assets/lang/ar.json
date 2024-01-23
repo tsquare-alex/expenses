@@ -233,7 +233,7 @@
   "tools": "الأدوات المساعدة",
   "help": "المساعدة والشرح",
   "wallets": "المصادر المالية",
-  "budget": "الميزانية والخطط المالية",
+  "budget": "الميزانية",
   "share": "المشاركة",
   "rate": "تقييم",
   "addCart": "السلة",
@@ -662,5 +662,16 @@
   "PleaseInputYourNote": "رجاء ادخل ملاحظاتك",
   "walletRepetition": "تكرار المحفظة",
   "numberOfTimesToRepeatTheWallet": "عدد مرات تكرار المحفظة",
-  "notificationWhenReaching": "تنبيه عند انتهاء 20%"
+  "notificationWhenReaching": "تنبيه عند انتهاء 20%",
+  "addBudget": "إنشاء ميزانية",
+  "selectTransaction": "إختيار المعاملة",
+  "selectTheWallet": "إختيار المحفظة",
+  "selectDuration": "إختيار المدة",
+  "determiningValue": "تحديد القيمة",
+  "pleaseEntervalue": "رجاء ادخل القيمة",
+  "transactionRepetition": "تكرار المعاملة",
+  "favorite": "المفضلة",
+  "balnceTransactionLessThan": "رصيد الميزانية اقل من رصيد المعاملات",
+  "startingDate": "تاريخ البداية",
+  "editBudget": "تعديل الميزانية"
 }

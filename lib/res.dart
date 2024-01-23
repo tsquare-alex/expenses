@@ -263,4 +263,5 @@ class Res {
   static const String workshop = "assets/images/workshop.png";
   static const String zoom_ic = "assets/images/zoom_ic.png";
   static const String pro = "assets/images/pro.png";
+  static const String budgetIcon = "assets/images/budget_icon.png";
 }

@@ -1,7 +1,8 @@
 part of 'wallet_balance_transfer_imports.dart';
 
 class WalletBalanceTransfer extends StatefulWidget {
-  const WalletBalanceTransfer({Key? key, required this.model}) : super(key: key);
+  const WalletBalanceTransfer({Key? key, required this.model})
+      : super(key: key);
   final WalletModel model;
 
   @override
@@ -9,7 +10,6 @@ class WalletBalanceTransfer extends StatefulWidget {
 }
 
 class _WalletBalanceTransferState extends State<WalletBalanceTransfer> {
-
   WalletBalanceTransferData data = WalletBalanceTransferData();
 
   @override
@@ -22,19 +22,17 @@ class _WalletBalanceTransferState extends State<WalletBalanceTransfer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: MyColors.white,
+        surfaceTintColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
+          icon: Image.asset(Res.back),
           onPressed: () => AutoRouter.of(context).pop(),
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: MyColors.white,
-            size: 20.sp,
-          ),
         ),
         centerTitle: true,
         title: MyText(
-          title: tr(context, "balanceTransfer"),
-          color: MyColors.white,
+          title: tr(context, "transferBalanceBetweenWallets"),
+          color: MyColors.black,
           size: 16.sp,
           fontWeight: FontWeight.bold,
         ),
@@ -44,8 +42,13 @@ class _WalletBalanceTransferState extends State<WalletBalanceTransfer> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              BuildWalletBalanceTransferInputs(transferData: data,),
-              BuildWalletBalanceTransferButton(data: data, model: widget.model,),
+              BuildWalletBalanceTransferInputs(
+                transferData: data,
+              ),
+              BuildWalletBalanceTransferButton(
+                data: data,
+                model: widget.model,
+              ),
             ],
           ),
         ),

@@ -113,7 +113,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                           title: tr(context, "withdrawBalance"),
                                           color: MyColors.black,
                                           size: 16.sp,
-                                          fontWeight: FontWeight.w600,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ],
                                     ),
@@ -135,7 +135,8 @@ class _CustomContainerState extends State<CustomContainer> {
                                   child: Container(
                                     height: 60.h,
                                     width: double.infinity,
-                                    padding: EdgeInsets.all(16.w),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16.w),
                                     decoration: const BoxDecoration(
                                       color: Color(0xffF7F7F6),
                                     ),
@@ -151,7 +152,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                           title: tr(context, "addBalance"),
                                           color: MyColors.black,
                                           size: 16.sp,
-                                          fontWeight: FontWeight.w600,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ],
                                     ),
@@ -162,11 +163,11 @@ class _CustomContainerState extends State<CustomContainer> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    CustomToast.showSimpleToast(msg: "msg");
-                                    // AutoRouter.of(context).push(
-                                    //   WalletBalanceTransferRoute(
-                                    //       model: widget.model),
-                                    // );
+                                    // CustomToast.showSimpleToast(msg: "msg");
+                                    AutoRouter.of(context).push(
+                                      WalletBalanceTransferRoute(
+                                          model: widget.model),
+                                    );
                                   },
                                   child: Container(
                                     height: 60.h,
@@ -188,7 +189,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                                 "transferBalanceBetweenWallets"),
                                             color: MyColors.black,
                                             size: 16.sp,
-                                            fontWeight: FontWeight.w600),
+                                            fontWeight: FontWeight.w500),
                                         const Spacer(),
                                         Image.asset(Res.pro,
                                             height: 50.h, width: 50.w)
@@ -227,7 +228,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                                     context, "viewTransaction"),
                                                 color: MyColors.black,
                                                 size: 16.sp,
-                                                fontWeight: FontWeight.w600),
+                                                fontWeight: FontWeight.w500),
                                             const Spacer(),
                                             Image.asset(Res.pro,
                                                 height: 50.h, width: 50.h)

@@ -95,6 +95,7 @@ class _AddWalletState extends State<AddWallet> {
                     onPressed: () => AutoRouter.of(context).pop(),
                   ),
                   backgroundColor: MyColors.white,
+                  centerTitle: true,
                   title: Center(
                     child: MyText(
                       title: widget.selectedCategory,

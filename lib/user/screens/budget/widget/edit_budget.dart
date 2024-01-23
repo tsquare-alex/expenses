@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
@@ -69,7 +70,7 @@ class _EditBudgetState extends State<EditBudget> {
               backgroundColor: MyColors.white,
               title: Center(
                 child: MyText(
-                  title: "إضفة ميزانية",
+                  title: tr(context, "editBudget"),
                   color: MyColors.black,
                   size: 16.sp,
                   fontWeight: FontWeight.bold,
@@ -89,7 +90,7 @@ class _EditBudgetState extends State<EditBudget> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
-                          title: const Text("إختيار المعاملات"),
+                          title: Text(tr(context, "selectTransaction")),
                           children: [
                             ...transactionName.asMap().entries.map(
                               (entry) {
@@ -143,7 +144,7 @@ class _EditBudgetState extends State<EditBudget> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
-                          title: const Text("إختيار المحفظة"),
+                          title: Text(tr(context, "selectWallet")),
                           children: [
                             ...walletsName.asMap().entries.map(
                               (entry) {
@@ -198,7 +199,7 @@ class _EditBudgetState extends State<EditBudget> {
                                 height: 5.h,
                               ),
                               Text(
-                                "إختيار المدة",
+                                tr(context, "selectDuration"),
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w400,
@@ -215,7 +216,7 @@ class _EditBudgetState extends State<EditBudget> {
                             },
                             child: Container(
                                 height: 44.h,
-                                width: 140.w,
+                                width: 130.w,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8.r),
                                   border: Border.all(
@@ -229,7 +230,7 @@ class _EditBudgetState extends State<EditBudget> {
                                         Text(
                                           selectedDate != null
                                               ? "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}"
-                                              : "من",
+                                              : tr(context, "from"),
                                           style: TextStyle(
                                             fontSize: 12.sp,
                                             color: selectedDate != null
@@ -252,7 +253,7 @@ class _EditBudgetState extends State<EditBudget> {
                             },
                             child: Container(
                                 height: 44.h,
-                                width: 140.w,
+                                width: 130.w,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8.r),
                                   border: Border.all(
@@ -267,7 +268,7 @@ class _EditBudgetState extends State<EditBudget> {
                                           child: Text(
                                             closedDate != null
                                                 ? formattedDate!
-                                                : "الي",
+                                                : tr(context, "to"),
                                             style: TextStyle(
                                               fontSize: 12.sp,
                                               color: closedDate != null
@@ -290,13 +291,13 @@ class _EditBudgetState extends State<EditBudget> {
                       GenericTextField(
                         controller:
                             context.read<BudgetCubit>().budgetValueController,
-                        hint: "تحديد القيمة",
+                        hint: tr(context, "determiningValue"),
                         fieldTypes: FieldTypes.normal,
                         type: TextInputType.number,
                         action: TextInputAction.next,
                         validate: (text) {
                           if (text == null || text.isEmpty) {
-                            return "رجاء ادخل القمية";
+                            return tr(context, "pleaseEntervalue");
                           }
                           return null;
                         },
@@ -314,7 +315,7 @@ class _EditBudgetState extends State<EditBudget> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MyText(
-                              title: "تكرار المعاملة",
+                              title: tr(context, "transactionRepetition"),
                               color: MyColors.black,
                               size: 16.sp),
                           Checkbox(
@@ -334,7 +335,7 @@ class _EditBudgetState extends State<EditBudget> {
                       Row(
                         children: [
                           Text(
-                            "إضافة ملاحظة",
+                            tr(context, "addNote"),
                             style: TextStyle(
                               color: MyColors.black,
                               fontSize: 16.sp,
@@ -349,14 +350,14 @@ class _EditBudgetState extends State<EditBudget> {
                             child: GenericTextField(
                               controller:
                                   context.read<BudgetCubit>().noteController,
-                              hint: "ملاحظاتك",
+                              hint: tr(context, "youNotes"),
                               maxLength: 9,
                               fieldTypes: FieldTypes.normal,
                               type: TextInputType.text,
                               action: TextInputAction.next,
                               validate: (text) {
                                 if (text == null || text.isEmpty) {
-                                  return "رجاء ادخل ملاحظاتك";
+                                  return tr(context, "PleaseInputYourNote");
                                 }
                                 return null;
                               },
@@ -382,7 +383,7 @@ class _EditBudgetState extends State<EditBudget> {
                             child: Row(
                               children: [
                                 Text(
-                                  "إضافة صورة",
+                                  tr(context, "addImage"),
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,
@@ -435,7 +436,7 @@ class _EditBudgetState extends State<EditBudget> {
                           children: [
                             Expanded(
                               child: MyText(
-                                title: "تنبيه عند انتهاء 20%",
+                                title: tr(context, "balnceTransactionLessThan"),
                                 color: MyColors.black,
                                 size: 16.sp,
                                 fontWeight: FontWeight.w500,
@@ -473,7 +474,7 @@ class _EditBudgetState extends State<EditBudget> {
                           children: [
                             Expanded(
                               child: MyText(
-                                title: "المفضلة",
+                                title: tr(context, "favorite"),
                                 color: MyColors.black,
                                 size: 16.sp,
                                 fontWeight: FontWeight.w500,
@@ -518,8 +519,8 @@ class _EditBudgetState extends State<EditBudget> {
                                   parsedNumber - transactionValue;
                               if (deficiency < 0) {
                                 return CustomToast.showSimpleToast(
-                                    msg:
-                                        "رصيد الميزانية اقل من رصيد المعاملات");
+                                    msg: tr(
+                                        context, "balnceTransactionLessThan"));
                               }
                               double percentageValue =
                                   deficiency / parsedNumber;
@@ -554,7 +555,7 @@ class _EditBudgetState extends State<EditBudget> {
                             },
                             height: 57.h,
                             width: 170.w,
-                            title: "تطبيق",
+                            title: "add",
                             color: MyColors.primary,
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -569,7 +570,7 @@ class _EditBudgetState extends State<EditBudget> {
                             height: 57.h,
                             width: 170.w,
                             borderColor: MyColors.primary,
-                            title: "الغاء",
+                            title: "cancle",
                             textColor: MyColors.primary,
                             color: MyColors.white,
                             fontWeight: FontWeight.bold,

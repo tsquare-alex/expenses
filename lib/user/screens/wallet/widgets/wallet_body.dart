@@ -40,22 +40,24 @@ class _WalletBodyState extends State<WalletBody> {
               wallet,
             );
         return Scaffold(
-          appBar: AppBar(
-            surfaceTintColor: Colors.transparent,
-            leading: IconButton(
-              icon: Image.asset(Res.back),
-              onPressed: () => AutoRouter.of(context).pop(),
-            ),
-            backgroundColor: MyColors.white,
-            title: Center(
-              child: MyText(
-                color: MyColors.black,
-                size: 20.sp,
-                fontWeight: FontWeight.bold,
-                title: tr(context, "wallet"),
-              ),
-            ),
-          ),
+          appBar: wallet.isEmpty
+              ? null
+              : AppBar(
+                  surfaceTintColor: Colors.transparent,
+                  leading: IconButton(
+                    icon: Image.asset(Res.back),
+                    onPressed: () => AutoRouter.of(context).pop(),
+                  ),
+                  backgroundColor: MyColors.white,
+                  title: Center(
+                    child: MyText(
+                      color: MyColors.black,
+                      size: 20.sp,
+                      fontWeight: FontWeight.bold,
+                      title: tr(context, "wallet"),
+                    ),
+                  ),
+                ),
           body: wallet.isEmpty
               ? const WalletCategory()
               : Column(
@@ -72,7 +74,7 @@ class _WalletBodyState extends State<WalletBody> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "إجمالي الرصيد",
+                                tr(context, "totalBalance"),
                                 style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w600,

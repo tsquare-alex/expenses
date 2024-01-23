@@ -14,6 +14,7 @@ class _AddCartState extends State<AddCart> {
   @override
   void initState() {
     data.initData(widget.model);
+    data.radioCart.onUpdateData(data.cartTypes);
     super.initState();
   }
 

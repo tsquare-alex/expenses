@@ -22,22 +22,21 @@ class _TransferWalletTransactionState extends State<TransferWalletTransaction> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => AutoRouter.of(context).pop(),
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: MyColors.white,
-            size: 20.sp,
+        backgroundColor: MyColors.white,
+        title: MyText(
+          title: tr(context, "transactionTransfer"),
+          color: MyColors.black,
+          size: 18.sp,
+          fontWeight: FontWeight.bold,
+        ),
+        leading: InkWell(
+          onTap: () => AutoRouter.of(context).pop(),
+          child: Icon(
+            Icons.arrow_back,
+            color: MyColors.black,
           ),
         ),
         centerTitle: true,
-        title: MyText(
-          title: tr(context, "transactionTransfer"),
-          color: MyColors.white,
-          size: 16.sp,
-          fontWeight: FontWeight.bold,
-        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(15.r),

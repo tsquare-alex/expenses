@@ -623,14 +623,17 @@
   "number" : "العدد",
   "type" : "النوع",
   "estimatedValue" : "القيمه التقدرية",
-  "implementationAlert" : "تنبيه بالتفيذ",
+  "implementationAlert" : "تنبيه بالتنفيذ",
   "addNewCart" : "إضافة سلة جديدة",
 
+  "buyingSucceeded" : "تم الشراء",
+
+  "fullVersion" : "الإصدار الكامل",
+
+
   "withdraw" : "سحب",
-  "securityMsg": "يرجى إعداد كلمة مرور أو القياسات الحيوية على جهازك.",
   "editWallet": "تعديل المحفظة",
   "edit": "تعديل",
-  "securityMsg": "يرجى إعداد كلمة مرور أو القياسات الحيوية على جهازك.",
 
   "zoomIn": "تكبير",
   "ruler": "مسطرة",
@@ -655,6 +658,7 @@
   "unitPrice": "سعر الوحدة",
   "stop": "قف",
   "reset": "إعادة ضبط",
+  "operationNotAllowed": "عملية غير ممكنه لان رصيد المعاملة أكبر من قيمة المحفظة.",
   "startTimer": "بدء المؤقت",
   "stopTimer": "ايقاف المؤقت",
   "selectTime": "حدد الوقت"

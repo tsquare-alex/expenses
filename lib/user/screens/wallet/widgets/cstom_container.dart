@@ -34,7 +34,7 @@ class _CustomContainerState extends State<CustomContainer> {
       width: 414.w,
       decoration: BoxDecoration(
         image:
-            const DecorationImage(image: AssetImage(Res.conatinerBackground)),
+            const DecorationImage(image: AssetImage(Res.contanier_background)),
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Padding(
@@ -95,7 +95,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                     child: Row(
                                       children: [
                                         Image.asset(
-                                          Res.withdrawal,
+                                          Res.withdraw,
                                           height: 24.h,
                                           width: 24.w,
                                         ),
@@ -104,7 +104,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                           title: "سحب رصيد",
                                           color: MyColors.black,
                                           size: 16.sp,
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ],
                                     ),
@@ -133,7 +133,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                     child: Row(
                                       children: [
                                         Image.asset(
-                                          Res.addBalance,
+                                          Res.add_balance,
                                           height: 24.h,
                                           width: 28.w,
                                         ),
@@ -142,7 +142,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                           title: "اضافة رصيد",
                                           color: MyColors.black,
                                           size: 16.sp,
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ],
                                     ),
@@ -168,7 +168,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                     child: Row(
                                       children: [
                                         Image.asset(
-                                          Res.balanceTransfare,
+                                          Res.balance_transfare,
                                           height: 33.h,
                                           width: 24.w,
                                         ),
@@ -177,7 +177,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                           title: "تحويل رصيد بين المحفظة",
                                           color: MyColors.black,
                                           size: 16.sp,
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ],
                                     ),
@@ -202,7 +202,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                         child: Row(
                                           children: [
                                             Image.asset(
-                                              Res.showTransaction,
+                                              Res.show_transactions,
                                               height: 26.h,
                                               width: 28.w,
                                             ),
@@ -211,7 +211,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                                 title: "عرض المعاملات",
                                                 color: MyColors.black,
                                                 size: 16.sp,
-                                                fontWeight: FontWeight.w500),
+                                                fontWeight: FontWeight.w600),
                                           ],
                                         ),
                                       ),
@@ -258,7 +258,15 @@ class _CustomContainerState extends State<CustomContainer> {
                 IconButton(
                   onPressed: () {
                     context.read<WalletCubit>().toggleWalletLock(widget.model);
-                    CustomToast.showSimpleToast(msg: "the wallet is closed");
+                    if (widget.model.isClosed!) {
+                      // ignore: void_checks
+                      return CustomToast.showSimpleToast(
+                          msg: "المحفظة مغلة حاليا");
+                    } else {
+                      // ignore: void_checks
+                      return CustomToast.showSimpleToast(
+                          msg: "المحفظة متاحة حاليا");
+                    }
                   },
                   icon: Visibility(
                     visible: !widget.model.isClosed!,
@@ -273,11 +281,6 @@ class _CustomContainerState extends State<CustomContainer> {
                     ),
                   ),
                 ),
-                //    Icon(
-                //     Icons.lock_open_outlined,
-                //     color: MyColors.white,
-                //   ),
-                // )),
                 IconButton(
                   onPressed: () {
                     context
@@ -291,20 +294,11 @@ class _CustomContainerState extends State<CustomContainer> {
                         height: 24.h,
                         width: 24.w,
                       ),
-                      //  Icon(
-                      //   Icons.visibility_off_outlined,
-                      //   color: MyColors.white,
-                      // ),
                       child: Image.asset(
                         Res.visability,
                         height: 24.h,
                         width: 24.w,
-                      )
-                      // Icon(
-                      //   Icons.visibility_outlined,
-                      //   color: MyColors.white,
-                      // ),
-                      ),
+                      )),
                 ),
                 IconButton(
                   onPressed: () {
@@ -322,6 +316,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                     widget.model.delete();
                                     BlocProvider.of<WalletCubit>(context)
                                         .fetchAllData();
+                                    AutoRouter.of(context).pop();
                                   },
                                   child: Container(
                                     padding: EdgeInsets.all(8.w),
@@ -342,7 +337,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                           title: " حذف المحفظة",
                                           color: MyColors.black,
                                           size: 16.sp,
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ],
                                     ),
@@ -379,7 +374,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                           title: "تعديل المحفظة",
                                           color: MyColors.black,
                                           size: 16.sp,
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w600,
                                         )
                                       ],
                                     ),

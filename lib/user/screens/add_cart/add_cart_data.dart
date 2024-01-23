@@ -220,33 +220,55 @@ class AddCartData {
   }
 
   addCart(BuildContext context) async{
-    final box = await Hive.openBox<AddCartModel>("addCartBox");
     if(formKey.currentState!.validate() &&formKey1.currentState!.validate() &&formKey2.currentState!.validate()){
       if(selectedCart !=null && selectedCartContent !=null){
-        AddCartModel model = AddCartModel(
-          name: nameController.text,
-          image: imageBloc.state.data,
-          description: descriptionController.text,
-          type: typeController.text,
-          time: timeController.text,
-          date: dateController.text,
-          amount: double.parse(amountController.text),
-          address: addressController.text,
-          brand: brandController.text,
-          contentModel: selectedCartContent,
-          dateCreated: dateController.text,
-          estimatedValue: double.parse(estimatedValueController.text),
-          number: double.parse(numberController.text),
-          total: double.parse(totalController.text),
-          typeModel: selectedCart,
-        );
-        box.add(model);
-        AutoRouter.of(context).pop();
-        print(box.values.length);
+        showCustomDialog(context);
       }else{
         CustomToast.showSimpleToast(msg: "msg");
       }
     }
+  }
+
+
+  RadioModel? selectedCartType;
+
+  GenericBloc<List<RadioModel>> radioCart = GenericBloc([]);
+
+  List<RadioModel> cartTypes = [
+    RadioModel(
+      id: 0,
+      title: "readyModels",
+      image: Res.readyModels,
+      active: false,
+    ),
+    RadioModel(
+      id: 1,
+      title: "previouslyUsed",
+      image: Res.previouslyUsed,
+      active: false,
+    ),
+  ];
+
+  selectMethod(bool value, int index) {
+    cartTypes.map((e) => e.active = false).toList();
+    cartTypes[index].active = !value;
+    radioCart.onUpdateData(cartTypes);
+    selectedCartType = radioCart.state.data[index];
+    print(selectedCartType?.title);
+    print(selectedCartType?.id);
+  }
+
+  void showCustomDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          surfaceTintColor: Colors.white,
+          content: BuildChooseCartType(data: this,),
+
+        );
+      },
+    );
   }
 
 }

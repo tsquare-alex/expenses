@@ -63,7 +63,7 @@ class _BuildCommitmentViewState extends State<BuildCommitmentView> {
         child: Icon(Icons.add, color: MyColors.white,),
       ):null,
       body: Padding(
-        padding: EdgeInsets.only(top: 8.0.r),
+        padding: EdgeInsets.only(top: 15.0.r),
         child: GridView.builder(
           itemCount: state.data.length,
           shrinkWrap: true,
@@ -71,15 +71,22 @@ class _BuildCommitmentViewState extends State<BuildCommitmentView> {
               crossAxisCount: 3,
               mainAxisSpacing: 10.h,
               crossAxisSpacing: 10.w,
-              childAspectRatio: 0.5 / 0.65),
+              childAspectRatio: 0.5.h / 0.65.w),
           itemBuilder: (context, i) => BuildCommitmentItem(
             onTap: () async{
-              await AutoRouter.of(context).push(AddTransactionRoute(model: state.data[i],transactionName: "الالتزامات",boxName: "transactionBox"));
-              widget.data.addTransactionList.clear();
-              widget.data.fetchData();
+              if(state.data[i].name=="bills"||state.data[i].name=="family"){
+                await AutoRouter.of(context).push(AddTransactionRoute(model: state.data[i],transactionName: "الالتزامات",boxName: "transactionBox"));
+                widget.data.addTransactionList.clear();
+                widget.data.fetchData();
+              }else{
+                CustomToast.showSimpleToast(msg: "msg");
+              }
+
+
             },
             image: state.data[i].image??Res.commitments,
             name: state.data[i].name??"",
+            isPro: state.data[i].name!="bills"&&state.data[i].name!="family"?false:true,
           ),
         ),
       ),

@@ -15,7 +15,9 @@ class CircularDetailsRow extends StatelessWidget {
           Row(
             children: [
               CircleAvatar(
-                backgroundColor: MyColors.primary,
+                backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+                    ? AppDarkColors.secondary
+                    : MyColors.primary,
                 minRadius: 13.r,
               ),
               SizedBox(width: 12.w),
@@ -31,7 +33,9 @@ class CircularDetailsRow extends StatelessWidget {
           Row(
             children: [
               CircleAvatar(
-                backgroundColor: Colors.grey.shade100,
+                backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+                    ? AppDarkColors.accentColor1
+                    : Colors.grey.shade100,
                 minRadius: 13.r,
               ),
               SizedBox(width: 12.w),

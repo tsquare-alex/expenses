@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,14 +45,14 @@ class ReportsCubit extends Cubit<ReportsState> {
       reportFormattedDateTo = _formatDateTime(dateParts.last);
       reportFilteredTransactions = transactions
           .where(
-            (transaction) => (DateFormat('dd MMMM yyyy', 'en')
+            (transaction) => (DateFormat('dd/MM/yyyy', 'en')
                     .parse(transaction.transactionDate!)
                     .isAfter(
                       reportSelectedDate!.start.subtract(
                         const Duration(days: 1),
                       ),
                     ) &&
-                DateFormat('dd MMMM yyyy', 'en')
+                DateFormat('dd/MM/yyyy', 'en')
                     .parse(transaction.transactionDate!)
                     .isBefore(
                       reportSelectedDate!.end.add(
@@ -59,6 +61,7 @@ class ReportsCubit extends Cubit<ReportsState> {
                     )),
           )
           .toList();
+      createCategories();
       emit(const ReportsState.changeDate());
       return;
     }
@@ -77,41 +80,6 @@ class ReportsCubit extends Cubit<ReportsState> {
     return DateFormat('dd-MM-yyyy').format(parsedDate);
   }
 
-  void changeStatsDateFrom() {
-    emit(const ReportsState.initial());
-    if (statsSelectedDateFrom != null) {
-      statsFormattedDateFrom =
-          DateFormat('EEE, dd-MM-yyyy').format(statsSelectedDateFrom!);
-
-      if (statsSelectedDateTo!.isBefore(statsSelectedDateFrom!) ||
-          statsFormattedDateTo.isEmpty) {
-        statsSelectedDateTo = statsSelectedDateFrom;
-        if (statsFormattedDateTo.isNotEmpty) {
-          statsFormattedDateTo =
-              DateFormat('EEE, dd-MM-yyyy').format(statsSelectedDateTo!);
-        }
-      }
-      emit(const ReportsState.changeDate());
-      return;
-    }
-    statsSelectedDateFrom ??= statsFormattedDateFrom.isEmpty
-        ? dateTimeNow
-        : DateFormat('EEE, dd-MM-yyyy').parse(statsFormattedDateFrom);
-  }
-
-  void changeStatsDateTo() {
-    emit(const ReportsState.initial());
-    if (statsSelectedDateTo != null) {
-      statsFormattedDateTo =
-          DateFormat('EEE, dd-MM-yyyy').format(statsSelectedDateTo!);
-      emit(const ReportsState.changeDate());
-      return;
-    }
-    statsSelectedDateTo ??= statsFormattedDateTo.isEmpty
-        ? statsSelectedDateFrom
-        : DateFormat('EEE, dd-MM-yyyy').parse(statsFormattedDateTo);
-  }
-
   final List<double> weeklySpending = [
     Random().nextDouble() * 100,
     Random().nextDouble() * 100,
@@ -124,18 +92,6 @@ class ReportsCubit extends Cubit<ReportsState> {
 
   String getCurrentLocale(BuildContext context) =>
       Localizations.localeOf(context).toString();
-
-  Map<String, String> statsDetailsOptions = {
-    'table': 'استعرض في جدول',
-    'chart': 'استعرض في رسم بياني',
-    'compare': 'المقارنة بين المعاملات',
-  };
-
-  void showDetails() {
-    emit(const ReportsState.initial());
-
-    emit(const ReportsState.showReportDetails());
-  }
 
   late double totalMoney;
   late double spentMoney;
@@ -176,7 +132,6 @@ class ReportsCubit extends Cubit<ReportsState> {
       List<WalletModel> wallets, List<AddTransactionModel> transactions) {
     getUserTotalMoney(wallets, transactions);
     circleChartPercentage = spentMoney / totalMoney;
-    // moneyPercentage = '${(circleChartPercentage * 100).round()}';
   }
 
   late List<AddTransactionModel> transactions;
@@ -197,6 +152,7 @@ class ReportsCubit extends Cubit<ReportsState> {
       return;
     }
     createMoneyPercentage(wallets, transactions);
+    createCategories();
     emit(const ReportsState.reportDataLoaded());
   }
 
@@ -219,11 +175,16 @@ class ReportsCubit extends Cubit<ReportsState> {
                 transaction.incomeSource!.name == selectedWallet)
             .toList();
         createCategories();
+        createMoneyPercentage(
+            [wallets.firstWhere((wallet) => wallet.name == selectedWallet)],
+            reportFilteredTransactions);
       } else if (selectedWallet == 'all') {
         reportFilteredTransactions = transactions;
         createCategories();
+        createMoneyPercentage(wallets, transactions);
       } else {
         reportFilteredTransactions = List.empty();
+        createMoneyPercentage(wallets, transactions);
         createCategories();
       }
       resetDates();
@@ -234,6 +195,7 @@ class ReportsCubit extends Cubit<ReportsState> {
   List<ReportCategory> categoriesList = [];
 
   void createCategories() {
+    categoriesList.clear();
     for (var category in getTransactionsCategories()) {
       addCategory(category);
     }
@@ -241,7 +203,8 @@ class ReportsCubit extends Cubit<ReportsState> {
 
   Set<String> getTransactionsCategories() {
     Set<String> transactionsCategories = {};
-    for (var transaction in reportFilteredTransactions) {
+    for (var transaction
+        in selectedWallet.isEmpty ? transactions : reportFilteredTransactions) {
       transactionsCategories.add(transaction.transactionType!.name!);
     }
     return transactionsCategories;
@@ -249,38 +212,42 @@ class ReportsCubit extends Cubit<ReportsState> {
 
   double getCategoryTotalMoney(String category) {
     double totalMoney = 0;
-    final transactionsList = reportFilteredTransactions
-        .where((element) => element.transactionType!.name == category)
-        .toList();
+    final transactionsList = reportFilteredTransactions.isEmpty
+        ? transactions
+            .where((element) => element.transactionType!.name == category)
+            .toList()
+        : reportFilteredTransactions
+            .where((element) => element.transactionType!.name == category)
+            .toList();
     for (var transaction in transactionsList) {
       totalMoney += double.parse(transaction.total!);
     }
     return totalMoney;
   }
 
+  double allSpentMoney = 0;
   void addCategory(String category) {
-    final transactionsList = reportFilteredTransactions
-        .where((element) => element.transactionType!.name == category)
-        .toList();
-    if (selectedWallet != 'all' && selectedWallet.isNotEmpty) {
-      final percentage =
-          getCategoryTotalMoney(category) / getUserSpentMoney(transactionsList);
-      categoriesList.clear();
+    if ((selectedWallet != 'all' && selectedWallet.isNotEmpty) ||
+        (selectedWallet != 'all' &&
+            selectedWallet.isNotEmpty &&
+            reportSelectedDate != null &&
+            reportSelectedDate != reportInitialDate)) {
+      final percentage = getCategoryTotalMoney(category) /
+          (allSpentMoney = getUserSpentMoney(reportFilteredTransactions));
       categoriesList.add(
         ReportCategory(
-          color: Colors.red,
           title: category,
           totalMoney: getCategoryTotalMoney(category),
           percentage: percentage,
         ),
       );
     } else {
-      final percentage =
-          getCategoryTotalMoney(category) / getUserSpentMoney(transactionsList);
-      categoriesList.clear();
+      final percentage = getCategoryTotalMoney(category) /
+          (allSpentMoney = getUserSpentMoney(reportFilteredTransactions.isEmpty
+              ? transactions
+              : reportFilteredTransactions));
       categoriesList.add(
         ReportCategory(
-          color: Colors.red,
           title: category,
           totalMoney: getCategoryTotalMoney(category),
           percentage: percentage,
@@ -289,118 +256,236 @@ class ReportsCubit extends Cubit<ReportsState> {
     }
   }
 
+  List<Color> randomColors = [
+    Colors.deepOrangeAccent,
+    Colors.yellow,
+    Colors.green,
+    Colors.orange,
+    Colors.blue,
+    Colors.purple,
+    Colors.teal,
+    Colors.pink,
+    Colors.indigo,
+    Colors.brown,
+    Colors.grey,
+    Colors.cyan,
+    Colors.amber,
+    Colors.deepPurple,
+    Colors.lime,
+    Colors.lightBlue,
+    Colors.deepOrange,
+    Colors.lightGreen,
+    Colors.blueGrey,
+    Colors.lightGreenAccent,
+    Colors.indigoAccent,
+    Colors.red,
+    Colors.tealAccent,
+    Colors.purpleAccent,
+  ];
+
   Future<void> getStatsData() async {
     emit(const ReportsState.statsDataLoading());
     await Future.wait([getWalletData(), getTransactionsData()]);
-    convertMap();
     emit(const ReportsState.statsDataLoaded());
   }
 
-  void convertMap() {
-    selectedWalletsMap = {for (var item in wallets) item.name: false};
-  }
+  List<AddTransactionModel> statsTransactionsList = [];
+  List<String> statsTransactions = [];
 
-  Map selectedWalletsMap = {};
-  List selectedWallets = [];
-  List<AddTransactionModel> statsTransactions = [];
-  Map statsTransactionsMap = {};
-  List selectedTransactions = [];
-  List<AddTransactionModel> statsSubTransactions = [];
-  Map statsSubTransactionsMap = {};
-  List selectedSubTransactions = [];
-  List<AddTransactionModel> statsPriorities = [];
-  Map statsPrioritiesMap = {};
-  List selectedPriorities = [];
+  List<AddTransactionModel> statsSubTransactionsList = [];
+  List<String> statsSubTransactions = [];
+
+  List<AddTransactionModel> beforeDatesFilteredTransactions = [];
+
+  List<AddTransactionModel> statsPrioritiesList = [];
+  List<String> statsPriorities = [];
+
   List<AddTransactionModel> filteredTransactions = [];
 
-  void onWalletMapSelect(String key) {
-    emit(const ReportsState.initial());
-    selectedWalletsMap[key]
-        ? selectedWalletsMap[key] = false
-        : selectedWalletsMap[key] = true;
-    selectedWalletsMap.forEach((key, value) {
-      if (value && !selectedWallets.contains(key)) {
-        selectedWallets.add(key);
-      } else if (!value && selectedWallets.contains(key)) {
-        selectedWallets.remove(key);
-      }
-    });
-    statsTransactions = transactions
-        .where((transaction) =>
-            selectedWallets.contains(transaction.incomeSource!.name))
-        .toList();
-    statsTransactionsMap = {
-      for (var item in statsTransactions) item.transactionName: false
-    };
-    emit(const ReportsState.statsWalletsSelected());
-    print(statsTransactionsMap);
+  String statsSelectedWallet = '';
+  void onWalletSelect(String selectedWallet) {
+    if (selectedWallet != statsSelectedWallet) {
+      emit(const ReportsState.initial());
+      statsSelectedWallet = selectedWallet;
+      statsSelectedTransaction = '';
+      statsTransactions.clear();
+      statsTransactionsList.clear();
+      statsSelectedSubTransaction = '';
+      statsSubTransactions.clear();
+      statsSubTransactionsList.clear();
+      statsSelectedPriorities = '';
+      statsPriorities.clear();
+      statsPrioritiesList.clear();
+      beforeDatesFilteredTransactions.clear();
+      clearStatsDates();
+      filteredTransactions.clear();
+      statsTransactionsList = transactions
+          .where(
+              (transaction) => transaction.incomeSource!.name == selectedWallet)
+          .toList();
+      statsTransactions = statsTransactionsList
+          .map((transaction) => transaction.transactionType!.name!)
+          .toSet()
+          .toList();
+      emit(const ReportsState.statsWalletsSelected());
+    }
   }
 
-  void onTransactionsMapSelect(String key) {
-    emit(const ReportsState.initial());
-    statsTransactionsMap[key]
-        ? statsTransactionsMap[key] = false
-        : statsTransactionsMap[key] = true;
-    statsTransactionsMap.forEach((key, value) {
-      if (value && !selectedTransactions.contains(key)) {
-        selectedTransactions.add(key);
-      } else if (!value && selectedTransactions.contains(key)) {
-        selectedTransactions.remove(key);
-      }
-    });
-    statsSubTransactions = transactions
-        .where((transaction) =>
-            selectedTransactions.contains(transaction.transactionName))
-        .toList();
-    // statsSubTransactionsMap = {
-    //   for (var item in statsSubTransactions) item.database!.adjective: false
-    // };
-    emit(const ReportsState.statsWalletsSelected());
-    print(statsSubTransactionsMap);
+  String statsSelectedTransaction = '';
+  void onTransactionsSelect(String selectedTransaction) {
+    if (selectedTransaction != statsSelectedTransaction) {
+      emit(const ReportsState.initial());
+      statsSelectedTransaction = selectedTransaction;
+      statsSelectedSubTransaction = '';
+      statsSubTransactions.clear();
+      statsSubTransactionsList.clear();
+      statsSelectedPriorities = '';
+      statsPriorities.clear();
+      statsPrioritiesList.clear();
+      beforeDatesFilteredTransactions.clear();
+      clearStatsDates();
+      filteredTransactions.clear();
+      statsSubTransactionsList = statsTransactionsList
+          .where((transaction) =>
+              transaction.transactionType!.name == selectedTransaction)
+          .toList();
+      statsSubTransactions = statsSubTransactionsList
+          .map((transaction) => transaction.transactionContent!.name!)
+          .toSet()
+          .toList();
+      emit(const ReportsState.statsWalletsSelected());
+    }
   }
 
-  void onSubTransactionsMapSelect(String key) {
-    emit(const ReportsState.initial());
-    statsSubTransactionsMap[key]
-        ? statsSubTransactionsMap[key] = false
-        : statsSubTransactionsMap[key] = true;
-    statsSubTransactionsMap.forEach((key, value) {
-      if (value && !selectedSubTransactions.contains(key)) {
-        selectedSubTransactions.add(key);
-      } else if (!value && selectedSubTransactions.contains(key)) {
-        selectedSubTransactions.remove(key);
-      }
-    });
-    // statsPriorities = transactions
-    //     .where((transaction) =>
-    //         // selectedSubTransactions.contains(transaction.database!.adjective))
-    //     .toList();
-    statsPrioritiesMap = {
-      for (var item in statsPriorities) item.priority: false
-    };
-    emit(const ReportsState.statsWalletsSelected());
-    print(statsPrioritiesMap);
+  String statsSelectedSubTransaction = '';
+  void onSubTransactionsSelect(String selectedSubTransaction) {
+    if (selectedSubTransaction != statsSelectedSubTransaction) {
+      emit(const ReportsState.initial());
+      statsSelectedSubTransaction = selectedSubTransaction;
+      beforeDatesFilteredTransactions.clear();
+      clearStatsDates();
+      statsSelectedPriorities = '';
+      statsPriorities.clear();
+      statsPrioritiesList.clear();
+      filteredTransactions.clear();
+      beforeDatesFilteredTransactions = statsSubTransactionsList
+          .where((transaction) =>
+              transaction.transactionContent!.name! == selectedSubTransaction)
+          .toList();
+      emit(const ReportsState.statsWalletsSelected());
+    }
   }
 
-  void onPrioritiesMapSelect(String key) {
-    emit(const ReportsState.initial());
-    statsPrioritiesMap[key]
-        ? statsPrioritiesMap[key] = false
-        : statsPrioritiesMap[key] = true;
-    statsPrioritiesMap.forEach((key, value) {
-      if (value && !selectedPriorities.contains(key)) {
-        selectedPriorities.add(key);
-      } else if (!value && selectedPriorities.contains(key)) {
-        selectedPriorities.remove(key);
-      }
-    });
-    // filteredTransactions = transactions
-    //     .where((transaction) =>
-    //         selectedPriorities.contains(transaction.priority) &&
-    //         // selectedSubTransactions.contains(transaction.database!.adjective))
-    //     .toList();
+  void changeStatsDateFrom() {
+    if (statsSelectedDateFrom != null) {
+      emit(const ReportsState.initial());
+      statsSelectedPriorities = '';
+      statsPriorities.clear();
+      statsPrioritiesList.clear();
+      filteredTransactions.clear();
+      statsFormattedDateFrom =
+          DateFormat('dd/MM/yyyy').format(statsSelectedDateFrom!);
 
-    emit(const ReportsState.statsWalletsSelected());
-    print(filteredTransactions);
+      if (statsSelectedDateTo!.isBefore(statsSelectedDateFrom!) ||
+          statsFormattedDateTo.isEmpty) {
+        statsSelectedDateTo = statsSelectedDateFrom;
+        if (statsFormattedDateTo.isNotEmpty) {
+          statsFormattedDateTo =
+              DateFormat('dd/MM/yyyy').format(statsSelectedDateTo!);
+        }
+      }
+      changeStatsDateTo();
+      emit(const ReportsState.changeDate());
+      return;
+    }
+    statsSelectedDateFrom ??= statsFormattedDateFrom.isEmpty
+        ? dateTimeNow
+        : DateFormat('dd/MM/yyyy').parse(statsFormattedDateFrom);
+  }
+
+  void changeStatsDateTo() {
+    if (statsSelectedDateTo != null) {
+      emit(const ReportsState.initial());
+      statsSelectedPriorities = '';
+      statsPriorities.clear();
+      statsPrioritiesList.clear();
+      filteredTransactions.clear();
+      statsFormattedDateTo =
+          DateFormat('dd/MM/yyyy').format(statsSelectedDateTo!);
+      statsPrioritiesList = beforeDatesFilteredTransactions
+          .where(
+            (transaction) => (DateFormat('dd/MM/yyyy')
+                    .parse(transaction.transactionDate!)
+                    .isAfter(
+                      statsSelectedDateFrom!.subtract(
+                        const Duration(days: 1),
+                      ),
+                    ) &&
+                DateFormat('dd/MM/yyyy')
+                    .parse(transaction.transactionDate!)
+                    .isBefore(
+                      statsSelectedDateTo!.add(
+                        const Duration(days: 1),
+                      ),
+                    )),
+          )
+          .toList();
+      statsPriorities = statsPrioritiesList
+          .map((transaction) => transaction.priority!.name!)
+          .toSet()
+          .toList();
+      emit(const ReportsState.changeDate());
+      return;
+    }
+    statsSelectedDateTo ??= statsFormattedDateTo.isEmpty
+        ? statsSelectedDateFrom
+        : DateFormat('dd/MM/yyyy').parse(statsFormattedDateTo);
+  }
+
+  String statsSelectedPriorities = '';
+  void onPrioritiesSelect(String selectedPriority) {
+    if (selectedPriority != statsSelectedPriorities) {
+      emit(const ReportsState.initial());
+      statsSelectedPriorities = selectedPriority;
+      filteredTransactions = statsPrioritiesList
+          .where(
+              (transaction) => transaction.priority!.name! == selectedPriority)
+          .toList();
+      emit(const ReportsState.statsWalletsSelected());
+    }
+  }
+
+  void clearStatsDates() {
+    statsSelectedDateFrom = dateTimeNow;
+    statsSelectedDateTo = statsSelectedDateFrom;
+    statsFormattedDateFrom = '';
+    statsFormattedDateTo = '';
+  }
+
+  Map<String, String> statsDetailsOptions = {
+    'table': 'استعرض في جدول',
+    'chart': 'استعرض في رسم بياني',
+    'compare': 'المقارنة بين المعاملات',
+  };
+
+  void showDetails() {
+    if ((filteredTransactions.isEmpty && statsFormattedDateFrom.isEmpty) ||
+        (filteredTransactions.isEmpty &&
+            statsSelectedPriorities.isEmpty &&
+            statsPrioritiesList.isNotEmpty)) {
+      CustomToast.showSimpleToast(
+        msg: 'برجاء استكمال ادخال البيانات',
+        color: MyColors.primary,
+      );
+      return;
+    }
+    if (statsPrioritiesList.isEmpty) {
+      CustomToast.showSimpleToast(
+        msg: 'لا يوجد بيانات',
+        color: MyColors.primary,
+      );
+      return;
+    }
+    emit(const ReportsState.showReportDetails());
   }
 }

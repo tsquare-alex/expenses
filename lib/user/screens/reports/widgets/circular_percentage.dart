@@ -23,8 +23,12 @@ class CircularPercentage extends StatelessWidget {
         ),
       ),
       circularStrokeCap: CircularStrokeCap.round,
-      progressColor: MyColors.primary,
-      backgroundColor: Colors.grey.shade100,
+      progressColor: context.watch<AppThemeCubit>().isDarkMode
+          ? AppDarkColors.secondary
+          : MyColors.primary,
+      backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+          ? AppDarkColors.accentColor1
+          : Colors.grey.shade100,
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:hive/hive.dart';
 
 part 'cart_content_model.g.dart';
@@ -9,6 +10,9 @@ class CartContentModel extends HiveObject{
   @HiveField(1)
   String? image;
 
-  CartContentModel({this.name,this.image,});
+
+  PageRouteInfo? pageRouteInfo;
+
+  CartContentModel({this.name,this.image,this.pageRouteInfo,});
 
 }

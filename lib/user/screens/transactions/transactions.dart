@@ -25,25 +25,25 @@ class _TransactionsState extends State<Transactions> {
     List<TransactionModel> model = [
       TransactionModel(
         id: 13,
-        page: CommitmentsRoute(model:data.transactions[0]),
+        page: CommitmentsRoute(model: data.transactions[0]),
         name: "commitments",
         image: Res.commitments,
       ),
       TransactionModel(
         id: 14,
-        page: ShoppingScreenRoute(model:data.transactions[1]),
+        page: ShoppingScreenRoute(model: data.transactions[1]),
         name: "shopping",
         image: Res.shopping,
       ),
       TransactionModel(
         id: 10,
-        page: TargetRoute(model:data.transactions[2]),
+        page: TargetRoute(model: data.transactions[2]),
         name: "target",
         image: Res.target,
       ),
       TransactionModel(
         id: 11,
-        page: CashTransactionsRoute(model:data.transactions[3]),
+        page: CashTransactionsRoute(model: data.transactions[3]),
         name: "cashTransactions",
         image: Res.cash,
       ),
@@ -66,7 +66,8 @@ class _TransactionsState extends State<Transactions> {
               Container(
                 margin: EdgeInsets.only(left: 15.r),
                 child: IconButton(
-                  onPressed: () =>AutoRouter.of(context).push(const RepeatedTransactionsRoute()),
+                  onPressed: () => AutoRouter.of(context)
+                      .push(const RepeatedTransactionsRoute()),
                   icon: Image.asset(
                     Res.repeated,
                     width: 35.w,
@@ -77,17 +78,20 @@ class _TransactionsState extends State<Transactions> {
               ),
             ],
             leading: InkWell(
-              onTap: ()=>AutoRouter.of(context).pop(),
-              child: Icon(Icons.arrow_back,color: MyColors.black,),
+              onTap: () => AutoRouter.of(context).pop(),
+              child: Icon(
+                Icons.arrow_back,
+                color: MyColors.black,
+              ),
             ),
             centerTitle: true,
           ),
           body: Padding(
             padding: EdgeInsets.all(15.r),
             child: BuildTransactionTypesView(
-                    model: model,
-                    homeTabCubit: widget.homeTabCubit,
-                  )
+              model: model,
+              homeTabCubit: widget.homeTabCubit,
+            ),
           ),
         );
       },

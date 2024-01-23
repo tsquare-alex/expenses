@@ -40,12 +40,17 @@ class ReportsBody extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.w500,
-                                  color: Colors.grey,
+                                  color:
+                                      context.watch<AppThemeCubit>().isDarkMode
+                                          ? Colors.white
+                                          : Colors.grey,
                                 ),
                               ),
                               icon: Icon(
                                 Icons.keyboard_arrow_down,
-                                color: MyColors.primary,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? AppDarkColors.secondary
+                                    : MyColors.primary,
                               ),
                               menuMaxHeight: 0.3.sh,
                               items: [
@@ -146,13 +151,20 @@ class ReportsBody extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w500,
-                                      color: Colors.grey,
+                                      color: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? Colors.white
+                                          : Colors.grey,
                                     ),
                                   ),
                                 ),
                                 Icon(
                                   Icons.keyboard_arrow_down,
-                                  color: MyColors.primary,
+                                  color:
+                                      context.watch<AppThemeCubit>().isDarkMode
+                                          ? AppDarkColors.secondary
+                                          : MyColors.primary,
                                 ),
                               ],
                             ),
@@ -178,12 +190,16 @@ class ReportsBody extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
-                            color: Colors.grey,
+                            color: context.watch<AppThemeCubit>().isDarkMode
+                                ? Colors.white
+                                : Colors.grey,
                           ),
                         ),
                         icon: Icon(
                           Icons.keyboard_arrow_down,
-                          color: MyColors.primary,
+                          color: context.watch<AppThemeCubit>().isDarkMode
+                              ? AppDarkColors.secondary
+                              : MyColors.primary,
                         ),
                         menuMaxHeight: 0.3.sh,
                         items: ReportsCubit.get(context)
@@ -192,8 +208,14 @@ class ReportsBody extends StatelessWidget {
                               (transaction) => DropdownMenuItem(
                                 value: transaction.transactionType!.name,
                                 child: Text(
-                                  tr(context,
-                                      transaction.transactionContent!.name!),
+                                  tr(
+                                              context,
+                                              transaction
+                                                  .transactionContent!.name!)
+                                          .isNotEmpty
+                                      ? tr(context,
+                                          transaction.transactionContent!.name!)
+                                      : transaction.transactionContent!.name!,
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,
@@ -210,111 +232,154 @@ class ReportsBody extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 16.h),
-                // const CircularPercentage(),
-                SizedBox(
-                  width: 300,
-                  height: 300,
-                  child: PieChart(
-                    PieChartData(
-                      borderData: FlBorderData(show: false),
-                      centerSpaceRadius: 60.r,
-                      sectionsSpace: 5.w,
-                      sections: context
-                          .watch<ReportsCubit>()
-                          .categoriesList
-                          .map(
-                            (category) => PieChartSectionData(
-                              title: tr(context, category.title),
-                              color: category.color,
-                              showTitle: true,
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 48.h),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.r),
-                  child: Table(
-                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                    columnWidths: {
-                      0: FractionColumnWidth(0.55),
-                      1: FractionColumnWidth(0.3),
-                      2: FractionColumnWidth(0.15),
-                    },
-                    children: [
-                      TableRow(
+                if (context
+                    .watch<ReportsCubit>()
+                    .categoriesList
+                    .isNotEmpty) ...[
+                  SizedBox(height: 16.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 32.r),
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: Stack(
                         children: [
-                          Text(
-                            'الفئة',
-                            style: TextStyle(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.bold,
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '${tr(context, 'total')}\n${context.watch<ReportsCubit>().allSpentMoney.toStringAsFixed(0)}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.sp,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
-                          Text(
-                            'مبلغ',
-                            style: TextStyle(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            '%',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.bold,
+                          PieChart(
+                            PieChartData(
+                              startDegreeOffset: -90,
+                              sectionsSpace: 3.r,
+                              centerSpaceRadius: double.infinity,
+                              sections: context
+                                  .watch<ReportsCubit>()
+                                  .categoriesList
+                                  .asMap()
+                                  .entries
+                                  .map(
+                                    (entry) => PieChartSectionData(
+                                      value: entry.value.percentage,
+                                      badgeWidget: entry.value.percentage < 0.05
+                                          ? null
+                                          : Text(
+                                              '${NumberFormat.percentPattern('en').format(entry.value.percentage)}\n${(tr(context, entry.value.title).isNotEmpty ? tr(context, entry.value.title) : entry.value.title).split(' ').join('\n')}',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18.sp,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              maxLines:
+                                                  entry.value.percentage <= 0.1
+                                                      ? 1
+                                                      : entry.value
+                                                                  .percentage <=
+                                                              0.15
+                                                          ? 2
+                                                          : 3,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                      showTitle: false,
+                                      radius: 110.r,
+                                      color: context
+                                          .read<ReportsCubit>()
+                                          .randomColors[entry.key],
+                                    ),
+                                  )
+                                  .toList(),
                             ),
                           ),
                         ],
                       ),
-                      ...context
-                          .watch<ReportsCubit>()
-                          .categoriesList
-                          .map(
-                            (category) => TableRow(
-                              children: [
-                                ReportsRowCell(
-                                  title: tr(context, category.title),
-                                  isCategory: true,
-                                  categoryColor: category.color,
-                                ),
-                                ReportsRowCell(
-                                  title: category.totalMoney.toStringAsFixed(0),
-                                ),
-                                ReportsRowCell(
-                                  title: NumberFormat.percentPattern('en')
-                                      .format(category.percentage),
-                                  isCenter: true,
-                                ),
-                              ],
-                            ),
-                          )
-                          .toList(),
-                    ],
+                    ),
                   ),
-                ),
-                // ListView.builder(
-                //   shrinkWrap: true,
-                //   itemCount: ReportsCubit.get(context)
-                //           .reportFilteredTransactions
-                //           .isEmpty
-                //       ? ReportsCubit.get(context).transactions.length
-                //       : ReportsCubit.get(context)
-                //           .reportFilteredTransactions
-                //           .length,
-                //   itemBuilder: (context, index) => TransactionTile(
-                //     transaction: ReportsCubit.get(context)
-                //             .reportFilteredTransactions
-                //             .isEmpty
-                //         ? ReportsCubit.get(context).transactions[index]
-                //         : ReportsCubit.get(context)
-                //             .reportFilteredTransactions[index],
-                //   ),
-                // ),
+                  SizedBox(height: 40.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.r),
+                    child: Table(
+                      defaultVerticalAlignment:
+                          TableCellVerticalAlignment.middle,
+                      columnWidths: const {
+                        0: FractionColumnWidth(0.55),
+                        1: FractionColumnWidth(0.3),
+                        2: FractionColumnWidth(0.15),
+                      },
+                      children: [
+                        TableRow(
+                          children: [
+                            Text(
+                              'الفئة',
+                              style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'مبلغ',
+                              style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              '%',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            SizedBox(height: 10.h),
+                            SizedBox(height: 10.h),
+                            SizedBox(height: 10.h),
+                          ],
+                        ),
+                        ...context
+                            .watch<ReportsCubit>()
+                            .categoriesList
+                            .asMap()
+                            .entries
+                            .map(
+                              (entry) => TableRow(
+                                children: [
+                                  ReportsRowCell(
+                                    title: tr(context, entry.value.title)
+                                            .isNotEmpty
+                                        ? tr(context, entry.value.title)
+                                        : entry.value.title,
+                                    isCategory: true,
+                                    categoryColor: context
+                                        .read<ReportsCubit>()
+                                        .randomColors[entry.key],
+                                  ),
+                                  ReportsRowCell(
+                                    title: entry.value.totalMoney
+                                        .toStringAsFixed(0),
+                                  ),
+                                  ReportsRowCell(
+                                    title: NumberFormat.percentPattern('en')
+                                        .format(entry.value.percentage),
+                                    isCenter: true,
+                                  ),
+                                ],
+                              ),
+                            )
+                            .toList(),
+                      ],
+                    ),
+                  ),
+                ],
               ],
             ),
           ),

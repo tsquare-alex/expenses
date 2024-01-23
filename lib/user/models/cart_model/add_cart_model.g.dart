@@ -32,13 +32,15 @@ class AddCartModelAdapter extends TypeAdapter<AddCartModel> {
       estimatedValue: fields[9] as double?,
       typeModel: fields[13] as CartTypeModel?,
       contentModel: fields[14] as CartContentModel?,
+      cartType: fields[15] as RadioModel?,
+      isCompleted: fields[16] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, AddCartModel obj) {
     writer
-      ..writeByte(15)
+      ..writeByte(17)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -68,7 +70,11 @@ class AddCartModelAdapter extends TypeAdapter<AddCartModel> {
       ..writeByte(13)
       ..write(obj.typeModel)
       ..writeByte(14)
-      ..write(obj.contentModel);
+      ..write(obj.contentModel)
+      ..writeByte(15)
+      ..write(obj.cartType)
+      ..writeByte(16)
+      ..write(obj.isCompleted);
   }
 
   @override

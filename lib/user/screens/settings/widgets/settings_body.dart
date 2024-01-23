@@ -58,7 +58,7 @@ class SettingsBody extends StatelessWidget {
                 child: Row(
                   children: [
                     Image.asset(
-                      Res.firstDayMonth,
+                      Res.first_day_month,
                       width: 24.w,
                       height: 24.h,
                       color: context.watch<AppThemeCubit>().isDarkMode
@@ -93,7 +93,7 @@ class SettingsBody extends StatelessWidget {
                 child: Row(
                   children: [
                     Image.asset(
-                      Res.firstDayWeek,
+                      Res.first_day_week,
                       width: 24.w,
                       height: 24.h,
                       color: context.watch<AppThemeCubit>().isDarkMode
@@ -413,7 +413,7 @@ class SettingsBody extends StatelessWidget {
             child: Row(
               children: [
                 Image.asset(
-                  Res.darkMode,
+                  Res.dark_mode,
                   width: 24.w,
                   height: 24.h,
                   color: context.watch<AppThemeCubit>().isDarkMode

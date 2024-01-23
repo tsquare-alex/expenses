@@ -106,7 +106,7 @@ class _WalletCategoryState extends State<WalletCategory> {
                                   decoration: BoxDecoration(
                                       color: MyColors.greyWhite,
                                       borderRadius:
-                                          BorderRadius.circular(85.r)),
+                                          BorderRadius.circular(100.r)),
                                   child: ClipRect(
                                     child: Align(
                                       alignment: Alignment.center,

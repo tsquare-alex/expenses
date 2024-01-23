@@ -22,7 +22,6 @@ import '../../../models/add_transaction_model/add_transaction_model.dart';
 
 part 'field_section.dart';
 part 'date_field.dart';
-part 'duration_picker_field.dart';
 part 'options_button.dart';
 part 'circular_details_row.dart';
 part 'circular_percentage.dart';

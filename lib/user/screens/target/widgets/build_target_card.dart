@@ -140,7 +140,6 @@ class BuildTargetCard extends StatelessWidget {
               percent: percentage / 100,
               progressColor: Colors.green,
               animateFromLastPercent: true,
-              restartAnimation: true,
               animation: true,
               animationDuration: 1000,
             ),

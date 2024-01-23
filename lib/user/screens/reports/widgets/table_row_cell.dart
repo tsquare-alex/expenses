@@ -20,7 +20,7 @@ class ReportsRowCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: padding ?? 20.r),
+      padding: EdgeInsets.symmetric(vertical: padding ?? 10.r),
       child: isCategory
           ? Row(
               children: [
@@ -29,12 +29,15 @@ class ReportsRowCell extends StatelessWidget {
                   radius: 8.r,
                 ),
                 SizedBox(width: 12.r),
-                Text(
-                  title,
-                  textAlign: isCenter ? TextAlign.center : null,
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
+                Flexible(
+                  child: Text(
+                    title,
+                    textAlign: isCenter ? TextAlign.center : null,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ],

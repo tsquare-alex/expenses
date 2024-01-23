@@ -2,12 +2,13 @@ import 'dart:typed_data';
 
 import 'package:expenses/user/models/cart_model/cart_content_model.dart';
 import 'package:expenses/user/models/cart_model/cart_type_model.dart';
+import 'package:expenses/user/models/radio_model/radio_model.dart';
 import 'package:hive/hive.dart';
 
 part 'add_cart_model.g.dart';
 
-@HiveType(typeId:167)
-class AddCartModel {
+@HiveType(typeId: 167)
+class AddCartModel extends HiveObject{
   @HiveField(0)
   String? name;
   @HiveField(1)
@@ -38,8 +39,28 @@ class AddCartModel {
   CartTypeModel? typeModel;
   @HiveField(14)
   CartContentModel? contentModel;
+  @HiveField(15)
+  RadioModel? cartType;
+  @HiveField(16)
+  bool? isCompleted;
 
-
-  AddCartModel({this.name, this.address,this.type,this.image,this.description,this.total,this.time,this.amount,this.number,this.brand,this.date,this.dateCreated,this.estimatedValue,this.typeModel,this.contentModel});
+  AddCartModel({
+    this.name,
+    this.address,
+    this.type,
+    this.image,
+    this.description,
+    this.total,
+    this.time,
+    this.amount,
+    this.number,
+    this.brand,
+    this.date,
+    this.dateCreated,
+    this.estimatedValue,
+    this.typeModel,
+    this.contentModel,
+    this.cartType,
+    this.isCompleted=false,
+  });
 }
-

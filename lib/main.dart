@@ -26,9 +26,11 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'firebase_options.dart';
 import 'general/constants/constants.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  tz.initializeTimeZones();
   await Hive.initFlutter();
   Bloc.observer = SimpleBlocObserver();
 

@@ -646,7 +646,7 @@
   "enterTitle": "ادخل العنوان",
   "enterBody": "ادخل التفاصيل",
   "setReminder": "تعيين تذكير",
-  "selectedDate": "Selected Date",
+  "selectedDate": "الوقت المحدد",
   "reminderSet": "تم تعيين تذكير ل",
   "addImage": "أضافة صورة",
   "note": "ملاحظات",
@@ -654,7 +654,13 @@
   "totalPrice": "السعر الاجمالى",
   "unitPrice": "سعر الوحدة",
   "stop": "قف",
-  "reset": "إعادة ضبط"
+  "reset": "إعادة ضبط",
+  "startTimer": "بدء المؤقت",
+  "stopTimer": "ايقاف المؤقت",
+  "selectTime": "حدد الوقت"
+
+
+
 
 
 }

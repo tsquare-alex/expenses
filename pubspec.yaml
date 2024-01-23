@@ -87,8 +87,7 @@ dependencies:
   currency_picker:
   animations:
   pull_to_refresh:
-  flutter_local_notifications: ^9.5.3+1
-  timezone:
+  timezone: ^0.9.2
   time_picker_widget:
   rulers: ^1.0.7
   qr_flutter: ^4.0.0
@@ -97,6 +96,9 @@ dependencies:
   circular_countdown_timer:
   timer_count_down: ^2.2.2
   dropdown_textfield: ^1.0.8
+  flutter_local_notifications: ^15.1.1
+  rxdart: ^0.27.7
+  workmanager: ^0.5.2
 
 dev_dependencies:
   flutter_test:

@@ -480,5 +480,8 @@
   "tuitionFees" : "Tuition Fees",
   "securityMsg": "Please set up a password or biometrics on your device.",
   "editWallet": "Edit wallet",
-  "edit": "Edit"
+  "edit": "Edit",
+  "startTimer": "Start Timer",
+  "stopTimer": "Stop Timer",
+  "selectTime": "Select Time"
 }

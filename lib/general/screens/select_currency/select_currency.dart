@@ -12,6 +12,12 @@ class _SelectCurrencyState extends State<SelectCurrency> {
   SelectCurrencyData data = SelectCurrencyData();
 
   @override
+  void initState() {
+    data.getCurrency();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return  Scaffold(
       backgroundColor: MyColors.backgroundColor,

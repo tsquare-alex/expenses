@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/screens/currency_rate/currency_rate_imports.dart';
 import 'package:expenses/general/screens/forget_password/ForgetPasswordImports.dart';
 import 'package:expenses/general/screens/login/LoginImports.dart';
+import 'package:expenses/general/screens/main_currency/main_currency_imports.dart';
 import 'package:expenses/general/screens/register/RegisterImports.dart';
 import 'package:expenses/general/screens/select_country/select_country_imports.dart';
 import 'package:expenses/general/screens/select_currency/select_currency_imports.dart';

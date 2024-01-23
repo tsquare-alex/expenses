@@ -293,6 +293,16 @@
   "unitPrice": "Unit Price",
   "stop": "Stop",
   "reset": "Reset",
+<<<<<<< HEAD
+=======
+  "selectMainCurrency": "Select Main Currency",
+  "selectSubCurrency": "Select Sub Currency",
+
+
+
+
+
+>>>>>>> development
   "chooseTransaction": "Choose transaction",
   "chooseTransactions": "Choose transactions",
   "chooseSubTransaction": "Choose sub transaction",

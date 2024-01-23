@@ -299,8 +299,10 @@
   "transactionDetails": "تفاصيل المعاملة",
   "addPhoto": "إضافة صورة للمنتج",
   "currency": "العملة الرئيسية",
+  "selectMainCurrency": "حدد العملة الرئيسية",
   "currencyTransfer": "تحويل العملة",
   "subCurrency": "العملة الفرعية",
+  "selectSubCurrency": "حدد العملة الفرعية",
   "selectedBudget": "حدد الميزانية",
   "budgetName": "الميزانية",
 

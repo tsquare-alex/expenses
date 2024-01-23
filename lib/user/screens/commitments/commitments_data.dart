@@ -10,6 +10,42 @@ class CommitmentsData{
 
   TextEditingController nameController = TextEditingController();
 
+  // Future<void> initData(TransactionModel model) async {
+  //   final box = await Hive.openBox<TransactionTypeModel>("transactionBox");
+  //   var boxItems = box.values.cast<TransactionTypeModel>().toList();
+  //   var content = model.content;
+  //   for (var item in content!) {
+  //     // Check if the name of the item in list1 is not equal to any name in list2
+  //     if (!boxItems.any((element) => element.name == item.name)) {
+  //       // Add the item to list2
+  //       box.add(item);
+  //     }
+  //   }
+  //   getCommitments();
+  //   transactionType = box.values.cast<TransactionTypeModel>().toList();
+  //   print(transactionType[0].content?[0].name);
+  //   transactionTypeCubit.onUpdateData(transactionType);
+  // }
+  //
+  // Future<void> getCommitments() async {
+  //   final box = await Hive.openBox<TransactionTypeModel>("transactionBox");
+  //   try {
+  //     var list = box.values.map((dynamic value) {
+  //       if (value is TransactionTypeModel) {
+  //         return value;
+  //       } else {
+  //         return TransactionTypeModel(); // Replace with your default value or handle it accordingly
+  //       }
+  //     }).toList();
+  //     transactionType.addAll(list);
+  //     transactionTypeCubit.onUpdateData(transactionType);
+  //   } catch (e) {
+  //     print('Error fetching data from Hive: $e');
+  //   }finally{
+  //     box.close();
+  //   }
+  // }
+
   Future<void> initData(TransactionModel model) async {
     final box = await Hive.openBox<TransactionTypeModel>("transactionBox");
     var boxItems = box.values.cast<TransactionTypeModel>().toList();
@@ -25,6 +61,7 @@ class CommitmentsData{
     transactionType = box.values.cast<TransactionTypeModel>().toList();
     print(transactionType[0].content?[0].name);
     transactionTypeCubit.onUpdateData(transactionType);
+    await box.close();
   }
 
   Future<void> getCommitments() async {

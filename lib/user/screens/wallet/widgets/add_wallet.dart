@@ -107,7 +107,7 @@ class _AddWalletState extends State<AddWallet> {
                 ),
                 body: SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.r),
+                    padding: EdgeInsets.symmetric(horizontal: 12.r),
                     child: Form(
                       key: formKey,
                       child: Column(

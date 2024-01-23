@@ -275,9 +275,10 @@ class _CustomContainerState extends State<CustomContainer> {
                           widget.model.checkedValue == false
                               ? widget.model.currency
                               : context
-                                  .read<WalletCubit>()
-                                  .currencyData[0]
-                                  .mainCurrency,
+                                      .read<WalletCubit>()
+                                      .currencyData[0]
+                                      .mainCurrency ??
+                                  "",
                           style: TextStyle(
                               color: MyColors.white,
                               fontSize: 16.sp,

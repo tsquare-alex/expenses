@@ -162,10 +162,11 @@ class _CustomContainerState extends State<CustomContainer> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    AutoRouter.of(context).push(
-                                      WalletBalanceTransferRoute(
-                                          model: widget.model),
-                                    );
+                                    CustomToast.showSimpleToast(msg: "msg");
+                                    // AutoRouter.of(context).push(
+                                    //   WalletBalanceTransferRoute(
+                                    //       model: widget.model),
+                                    // );
                                   },
                                   child: Container(
                                     height: 60.h,
@@ -183,12 +184,14 @@ class _CustomContainerState extends State<CustomContainer> {
                                         ),
                                         SizedBox(width: 12.w),
                                         MyText(
-                                          title: tr(context,
-                                              "transferBalanceBetweenWallets"),
-                                          color: MyColors.black,
-                                          size: 16.sp,
-                                          fontWeight: FontWeight.w600,
-                                        ),
+                                            title: tr(context,
+                                                "transferBalanceBetweenWallets"),
+                                            color: MyColors.black,
+                                            size: 16.sp,
+                                            fontWeight: FontWeight.w600),
+                                        const Spacer(),
+                                        Image.asset(Res.pro,
+                                            height: 50.h, width: 50.w)
                                       ],
                                     ),
                                   ),
@@ -199,9 +202,11 @@ class _CustomContainerState extends State<CustomContainer> {
                                 Column(
                                   children: [
                                     InkWell(
-                                      onTap: () => AutoRouter.of(context).push(
-                                          WalletTransactionsRoute(
-                                              model: widget.model)),
+                                      onTap: () => CustomToast.showSimpleToast(
+                                          msg: "msg"),
+                                      //  AutoRouter.of(context).push(
+                                      //     WalletTransactionsRoute(
+                                      //         model: widget.model)),
                                       child: Container(
                                         height: 60.h,
                                         width: double.infinity,
@@ -223,6 +228,9 @@ class _CustomContainerState extends State<CustomContainer> {
                                                 color: MyColors.black,
                                                 size: 16.sp,
                                                 fontWeight: FontWeight.w600),
+                                            const Spacer(),
+                                            Image.asset(Res.pro,
+                                                height: 50.h, width: 50.h)
                                           ],
                                         ),
                                       ),

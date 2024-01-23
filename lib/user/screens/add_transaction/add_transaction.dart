@@ -44,7 +44,9 @@ class _AddTransactionState extends State<AddTransaction> {
             size: 20.sp,
           ),
         ),
+        centerTitle: true,
         title: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(widget.model?.image??"",width: 25.w,height: 25.h,),
             SizedBox(

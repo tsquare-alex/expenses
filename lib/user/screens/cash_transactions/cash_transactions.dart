@@ -32,7 +32,9 @@ class _CashTransactionsState extends State<CashTransactions> {
           appBar: AppBar(
             backgroundColor: Colors.white,
             surfaceTintColor: Colors.white,
+            centerTitle: true,
             title: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Image.asset(
                   Res.cash,

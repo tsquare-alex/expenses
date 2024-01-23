@@ -28,7 +28,9 @@ class _CommitmentsState extends State<Commitments> {
           appBar: AppBar(
             backgroundColor: Colors.white,
             surfaceTintColor: Colors.white,
+            centerTitle: true,
             title: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Image.asset(
                   Res.commitments,

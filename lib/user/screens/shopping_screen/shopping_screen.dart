@@ -28,7 +28,9 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
           appBar: AppBar(
             backgroundColor: Colors.white,
             surfaceTintColor: Colors.white,
+            centerTitle: true,
             title: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Image.asset(
                   Res.shopping,

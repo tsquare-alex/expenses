@@ -30,7 +30,9 @@ class _TargetState extends State<Target> {
           appBar: AppBar(
             backgroundColor: Colors.white,
             surfaceTintColor: Colors.white,
+            centerTitle: true,
             title: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Image.asset(
                   Res.cash,

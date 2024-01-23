@@ -57,7 +57,6 @@ class AddTransactionData {
     BuildContext context,
   ) {
     FocusScope.of(context).requestFocus(FocusNode());
-    var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.timePicker(
         context: context,
         onConfirm: (date) {
@@ -83,7 +82,6 @@ class AddTransactionData {
     BuildContext context,
   ) {
     FocusScope.of(context).requestFocus(FocusNode());
-    var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
         context: context,
         minDate: DateTime.now().subtract(Duration(days: 30)),

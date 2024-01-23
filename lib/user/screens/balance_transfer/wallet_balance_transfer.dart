@@ -38,7 +38,7 @@ class _WalletBalanceTransferState extends State<WalletBalanceTransfer> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.r),
+        padding: EdgeInsets.all(15.r),
         child: SingleChildScrollView(
           child: Column(
             children: [

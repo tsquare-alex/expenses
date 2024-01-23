@@ -104,7 +104,7 @@ class WalletData {
                 cursorColor: MyColors.primary,
                 decoration: InputDecoration(
                     hintText: " ادخل القيمة",
-                    hintStyle: TextStyle(fontSize: 18.sp, color: MyColors.grey),
+                    hintStyle: TextStyle(fontSize: 16.sp, color: MyColors.grey),
                     focusColor: MyColors.primary),
               ),
               SizedBox(height: 16.h),

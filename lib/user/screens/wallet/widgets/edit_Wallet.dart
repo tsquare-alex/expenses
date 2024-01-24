@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
@@ -52,17 +53,7 @@ class _EditWalletState extends State<EditWallet> {
           );
         }
         if (state is CurrencyWallet) {
-          // List<String> mainCurrency = context
-          //     .read<WalletCubit>()
-          //     .currencyData
-          //     .map((mainData) => mainData.mainCurrency)
-          //     .toList();
-          // List<String> subCurrency = context
-          //     .read<WalletCubit>()
-          //     .currencyData
-          //     .map((subCurrency) => subCurrency.subCurrency)
-          //     .toList();
-                String mainCurrency = context
+          String mainCurrency = context
               .read<WalletCubit>()
               .currencyData
               .map((currencyData) => currencyData.mainCurrency)
@@ -93,7 +84,7 @@ class _EditWalletState extends State<EditWallet> {
               backgroundColor: MyColors.white,
               title: Center(
                 child: MyText(
-                  title: "تعديل المحفظة",
+                  title: tr(context, "editWallet"),
                   color: MyColors.black,
                   size: 16.sp,
                   fontWeight: FontWeight.bold,
@@ -121,7 +112,7 @@ class _EditWalletState extends State<EditWallet> {
                             side: BorderSide(color: Colors.transparent),
                           ),
                           title: Text(
-                            "المصادر",
+                            tr(context, "sources"),
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
@@ -186,7 +177,7 @@ class _EditWalletState extends State<EditWallet> {
                             DefaultButton(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w600,
-                              title: "إضافة اخري",
+                              title: tr(context, "addOther"),
                               onTap: () {
                                 context.read<WalletCubit>().addEncomeSource(
                                     context,
@@ -207,13 +198,13 @@ class _EditWalletState extends State<EditWallet> {
                       GenericTextField(
                         controller:
                             context.read<WalletCubit>().walletNameController,
-                        hint: "إسم المحفظة",
+                        hint: tr(context, "walletName"),
                         fieldTypes: FieldTypes.normal,
                         type: TextInputType.text,
                         action: TextInputAction.next,
                         validate: (text) {
                           if (text == null || text.isEmpty) {
-                            return "رجاء إدخال اسم المحفظة ";
+                            return tr(context, "pleaseEnterWalletName");
                           }
                           return null;
                         },
@@ -232,7 +223,7 @@ class _EditWalletState extends State<EditWallet> {
                             side: BorderSide(color: Colors.transparent),
                           ),
                           title: Text(
-                            "تحديد نوع القيمة",
+                            tr(context, "selectValueType"),
                             style: TextStyle(
                                 fontSize: 16.sp, fontWeight: FontWeight.w500),
                           ),
@@ -295,7 +286,7 @@ class _EditWalletState extends State<EditWallet> {
                             DefaultButton(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w600,
-                              title: "إضافة اخري",
+                              title: tr(context, "addOther"),
                               onTap: () {
                                 context.read<WalletCubit>().addValue(
                                     context,
@@ -321,13 +312,13 @@ class _EditWalletState extends State<EditWallet> {
                               enableBorderColor: MyColors.semiTransparentColor,
                               controller:
                                   context.read<WalletCubit>().balanceController,
-                              hint: "الرصيد",
+                              hint: tr(context, "amount"),
                               fieldTypes: FieldTypes.normal,
                               type: TextInputType.number,
                               action: TextInputAction.next,
                               validate: (text) {
                                 if (text == null || text.isEmpty) {
-                                  return "رجاء إدخال قيمة المصدر ";
+                                  return tr(context, "pleaseEnterValueSource");
                                 }
                                 return null;
                               },
@@ -358,7 +349,7 @@ class _EditWalletState extends State<EditWallet> {
                               shape: const RoundedRectangleBorder(
                                 side: BorderSide(color: Colors.transparent),
                               ),
-                              title: const Text("إختيارالعملة"),
+                              title: Text(tr(context, "selectCurrency")),
                               children: [
                                 context.read<WalletCubit>().buildCurrencyList(
                                       currencyList: mainCurrency,
@@ -396,7 +387,7 @@ class _EditWalletState extends State<EditWallet> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MyText(
-                            title: "تحويل العمله اوتوماتك",
+                            title: tr(context, "automaticallyConvertCurrency"),
                             color: MyColors.black,
                             size: 16.sp,
                             fontWeight: FontWeight.w500,
@@ -420,7 +411,7 @@ class _EditWalletState extends State<EditWallet> {
                           Row(
                             children: [
                               MyText(
-                                title: "مدة المصدر",
+                                title: tr(context, "sourceDuration"),
                                 color: MyColors.black,
                                 size: 16.sp,
                                 fontWeight: FontWeight.w500,
@@ -432,7 +423,7 @@ class _EditWalletState extends State<EditWallet> {
                             children: [
                               Container(
                                   height: 44.h,
-                                  width: 160.w,
+                                  width: 170.w,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8.r),
                                     border: Border.all(
@@ -455,7 +446,8 @@ class _EditWalletState extends State<EditWallet> {
                                               selectedDate != null
                                                   ? "${selectedDate?.toLocal()}"
                                                       .split(' ')[0]
-                                                  : "تاريخ فتح المحفظة",
+                                                  : tr(context,
+                                                      "walletOpeningDate"),
                                               style: TextStyle(
                                                 fontSize: 12.sp,
                                                 color: selectedDate != null
@@ -474,7 +466,7 @@ class _EditWalletState extends State<EditWallet> {
                               ),
                               Container(
                                   height: 44.h,
-                                  width: 160.w,
+                                  width: 170.w,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8.r),
                                     border: Border.all(
@@ -497,7 +489,8 @@ class _EditWalletState extends State<EditWallet> {
                                               closedDate != null
                                                   ? "${closedDate?.toLocal()}"
                                                       .split(' ')[0]
-                                                  : "تاريخ غلق المحفظة",
+                                                  : tr(context,
+                                                      "walletClosingDate"),
                                               style: TextStyle(
                                                 fontSize: 12.sp,
                                                 color: closedDate != null
@@ -521,7 +514,7 @@ class _EditWalletState extends State<EditWallet> {
                       Row(
                         children: [
                           Text(
-                            "إضافة ملاحظة",
+                            tr(context, "addNote"),
                             style: TextStyle(
                               color: MyColors.black,
                               fontSize: 16.sp,
@@ -536,14 +529,14 @@ class _EditWalletState extends State<EditWallet> {
                             child: GenericTextField(
                               controller:
                                   context.read<WalletCubit>().noteController,
-                              hint: "ملاحظاتك",
+                              hint: tr(context, "yourNotes"),
                               maxLength: 9,
                               fieldTypes: FieldTypes.normal,
                               type: TextInputType.text,
                               action: TextInputAction.next,
                               validate: (text) {
                                 if (text == null || text.isEmpty) {
-                                  return "رجاء ادخل ملاحظاتك";
+                                  return tr(context, "PleaseInputYourNote");
                                 }
                                 return null;
                               },
@@ -558,7 +551,7 @@ class _EditWalletState extends State<EditWallet> {
                         children: [
                           Expanded(
                             child: MyText(
-                                title: "تكرار المحفظة",
+                                title: tr(context, "walletRepetition"),
                                 color: MyColors.black,
                                 size: 18.sp),
                           ),
@@ -595,7 +588,8 @@ class _EditWalletState extends State<EditWallet> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             MyText(
-                                title: "عدد مرات تكرار المحفظة",
+                                title: tr(
+                                    context, "numberOfTimesToRepeatTheWallet"),
                                 color: MyColors.black,
                                 size: 14.sp),
                             SizedBox(
@@ -621,7 +615,7 @@ class _EditWalletState extends State<EditWallet> {
                         children: [
                           Expanded(
                             child: MyText(
-                                title: "تنبيه عند انتهاء 20%",
+                                title: tr(context, "notificationWhenReaching"),
                                 color: MyColors.black,
                                 size: 18.sp),
                           ),
@@ -654,7 +648,7 @@ class _EditWalletState extends State<EditWallet> {
                         fontWeight: FontWeight.w700,
                         height: 55.h,
                         width: 398.w,
-                        title: "حفظ التعديلات",
+                        title: tr(context, "saveChanges"),
                         color: MyColors.primary,
                         onTap: () {
                           if (formKey.currentState!.validate()) {

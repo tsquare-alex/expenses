@@ -77,7 +77,7 @@ class _BalanceTransferState extends State<BalanceTransfer> {
                           suffixIcon: Image.asset(
                             "assets/images/calculator.png",
                           ),
-                          hintText: "المبلغ",
+                          hintText: tr(context, "amount"),
                           hintStyle:
                               TextStyle(fontSize: 18.sp, color: MyColors.grey),
                           focusColor: MyColors.primary),

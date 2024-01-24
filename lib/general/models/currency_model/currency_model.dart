@@ -6,17 +6,26 @@ part 'currency_model.g.dart';
 
 class CurrencyModel {
   @HiveField(0)
-  String mainCurrency;
+  String? mainCurrency;
 
   @HiveField(1)
-  String subCurrency;
+  String? subCurrency;
 
   @HiveField(2)
-  double value;
+  String? mainCurrencyName;
 
-  CurrencyModel({required this.mainCurrency,
-    required this.subCurrency,
-    required this.value,});
+  @HiveField(3)
+  String? subCurrencyName;
+
+  @HiveField(4)
+  double? value;
+
+  CurrencyModel({ this.mainCurrency,
+    this.subCurrency,
+    this.value,
+    this.mainCurrencyName,
+    this.subCurrencyName
+  });
 
 
 }

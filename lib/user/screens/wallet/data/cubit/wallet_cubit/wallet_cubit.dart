@@ -283,7 +283,7 @@ class WalletCubit extends Cubit<WalletState> {
   double calculateTotalBalance(List<WalletModel> wallets) {
     double totalBalance = 0;
     for (var wallet in wallets) {
-      totalBalance += wallet.balance;
+      totalBalance += wallet.totalBalance ?? 0;
     }
     return totalBalance;
   }
@@ -311,6 +311,7 @@ class WalletCubit extends Cubit<WalletState> {
     CategoryModel(name: "عمولة", imagePath: Res.commission),
     CategoryModel(name: "بيع", imagePath: Res.sale),
     CategoryModel(name: "مضاربة", imagePath: Res.Speculation),
+    CategoryModel(name: "إيجار", imagePath: Res.rent)
   ];
 
   List<CategoryModel> categoryList = [];

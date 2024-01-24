@@ -226,7 +226,6 @@
   "chooseImg": "اختر صورة",
   "pickImg": "التقط صورة",
   "invitationCode": "كود الدعوة",
-
   "main": "القائمة الرئيسية",
   "transactions": "المعاملات والمصروفات",
   "reports": "التقارير والاحصائيات",
@@ -234,7 +233,7 @@
   "tools": "الأدوات المساعدة",
   "help": "المساعدة والشرح",
   "wallets": "المصادر المالية",
-  "budget": "الميزانية والخطط المالية",
+  "budget": "الميزانية",
   "share": "المشاركة",
   "rate": "تقييم",
   "addCart": "السلة",
@@ -247,7 +246,6 @@
   "body1": "خطط لتمويلك في أي وقت وفي أي مكان.",
   "body2": "أرسل الأموال للجميع بخطوة واحدة وقم بتنظيم محفظتك بشكل أسهل.",
   "body3": "تنظيم نفقاتك وتأمين حسابك.",
-
   "flTransactions": "المعاملات و\nالمصروفات",
   "flReports": "التقارير و\nالاحصائيات",
   "flDatabase": "السجل \nوقواعد البيانات",
@@ -256,7 +254,6 @@
   "flWallets": "المصادر\n المالية",
   "flBudget": "الميزانية و\nالخطط المالية",
   "flSettings": "الضبط\nوالاعدادات",
-
   "transaction": "المعاملة",
   "commitment": "الالتزام",
   "shoppingParty": "جهة التسوق والشراء",
@@ -299,11 +296,12 @@
   "transactionDetails": "تفاصيل المعاملة",
   "addPhoto": "إضافة صورة للمنتج",
   "currency": "العملة الرئيسية",
+  "selectMainCurrency": "حدد العملة الرئيسية",
   "currencyTransfer": "تحويل العملة",
   "subCurrency": "العملة الفرعية",
+  "selectSubCurrency": "حدد العملة الفرعية",
   "selectedBudget": "حدد الميزانية",
   "budgetName": "الميزانية",
-
   "category": "التصنيف",
   "categoryAddNewCategory": "إضافة تصنيف جديد",
   "databaseAddNames": "ألاسماء",
@@ -634,7 +632,6 @@
   "withdraw" : "سحب",
   "editWallet": "تعديل المحفظة",
   "edit": "تعديل",
-
   "zoomIn": "تكبير",
   "ruler": "مسطرة",
   "waterScale": "ميزان مياة",
@@ -649,7 +646,7 @@
   "enterTitle": "ادخل العنوان",
   "enterBody": "ادخل التفاصيل",
   "setReminder": "تعيين تذكير",
-  "selectedDate": "Selected Date",
+  "selectedDate": "الوقت المحدد",
   "reminderSet": "تم تعيين تذكير ل",
   "addImage": "أضافة صورة",
   "note": "ملاحظات",

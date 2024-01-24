@@ -83,6 +83,8 @@ class ShoppingScreenData{
     transactionType = box.values.cast<TransactionTypeModel>().toList();
     print(transactionType[0].content?[0].name);
     transactionTypeCubit.onUpdateData(transactionType);
+    await box.close();
+
   }
 
   Future<void> getShopping() async {
@@ -123,7 +125,7 @@ class ShoppingScreenData{
               topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r))),
       context: context,
       builder: (context) => SizedBox(
-          height: 400.h,
+          height: 550.h,
           child: BuildAddNewShopping(
             data: this,
           )),

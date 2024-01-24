@@ -9,21 +9,28 @@ class SelectCurrencyData{
   TextEditingController subCurrencyController = TextEditingController();
   TextEditingController valueController = TextEditingController();
 
+  getCurrency(){
+    Box<CurrencyModel> currencyBox = Hive.box<CurrencyModel>('currencyBox');
+    var list = currencyBox.values.toList();
+    print(list.length);
+    mainCurrencyController.text = list[0].mainCurrencyName??"";
+  }
+
   
-  GenericBloc<Currency> currencyCubit = GenericBloc(
-    Currency(
-      code: 'EGP',
-      name: 'Egyptian Pound',
-      symbol: '£',  // You might need to replace this with the correct symbol
-      flag: '🇪🇬',
-      number: 818,  // The ISO 4217 code for EGP is 818
-      decimalDigits: 2,
-      namePlural: 'Egyptian Pounds',
-      symbolOnLeft: true,
-      decimalSeparator: '.',
-      thousandsSeparator: ',',
-      spaceBetweenAmountAndSymbol: false,
-    ));
+  // GenericBloc<Currency> currencyCubit = GenericBloc(
+  //   Currency(
+  //     code: 'EGP',
+  //     name: 'Egyptian Pound',
+  //     symbol: '£',  // You might need to replace this with the correct symbol
+  //     flag: '🇪🇬',
+  //     number: 818,  // The ISO 4217 code for EGP is 818
+  //     decimalDigits: 2,
+  //     namePlural: 'Egyptian Pounds',
+  //     symbolOnLeft: true,
+  //     decimalSeparator: '.',
+  //     thousandsSeparator: ',',
+  //     spaceBetweenAmountAndSymbol: false,
+  //   ));
   GenericBloc<Currency> subCurrencyCubit = GenericBloc( Currency(
     code: 'SAR',
     name: 'Saudi Arabia Riyal',
@@ -60,15 +67,15 @@ class SelectCurrencyData{
     if (formKey.currentState!.validate()) {
 
       double value = double.parse(valueController.text);
-      CurrencyModel model = CurrencyModel(mainCurrency: currencyCubit.state.data.code??"",
+      CurrencyModel model = CurrencyModel(
         subCurrency: subCurrencyCubit.state.data.code??"",
         value: value,);
       if (currencyList.isEmpty) {
         currencyBox.add(model);
       } else {
         var myBox = currencyBox.getAt(0);
-        myBox?.mainCurrency =
-            currencyCubit.state.data.code;
+        myBox?.subCurrencyName =
+            subCurrencyCubit.state.data.name;
         myBox?.subCurrency =
             subCurrencyCubit.state.data.code;
         myBox?.value = valueController.text.isNotEmpty

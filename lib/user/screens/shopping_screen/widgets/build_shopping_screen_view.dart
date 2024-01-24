@@ -87,16 +87,21 @@ class _BuildShoppingScreenViewState extends State<BuildShoppingScreenView> {
                 mainAxisSpacing: 10.h,
                 crossAxisSpacing: 10.w,
                 childAspectRatio: 0.5.h / 0.7.w),
-            itemBuilder: (context, i) => BuildCommitmentItem(
+            itemBuilder: (context, i) => BuildShoppingScreenItem(
               onTap: () async {
-                await AutoRouter.of(context).push(AddTransactionRoute(
-                    model: state.data[i],
-                    transactionName: "التسوق والشراء",
-                    boxName: "transactionShoppingBox"));
-                widget.data.fetchData();
+                if(state.data[i].name == "supermarket"){
+                  await AutoRouter.of(context).push(AddTransactionRoute(
+                      model: state.data[i],
+                      transactionName: "التسوق والشراء",
+                      boxName: "transactionShoppingBox"));
+                  widget.data.fetchData();
+                }else{
+                  CustomToast.showSimpleToast(msg: "msg");
+                }
               },
               image: state.data[i].image ?? Res.shopping,
               name: state.data[i].name ?? "",
+              isPro: state.data[i].name =="supermarket"?true:false,
             ),
           ),
         );

@@ -86,18 +86,34 @@ class BuildTransactionType extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              Radio(
-                                  value: state.data?[index].selected ?? false,
-                                  groupValue: true,
-                                  onChanged: (v) {
-                                    addTransactionData.selectContent(
-                                        v!,
-                                        model,
-                                        state.data![index],
-                                        index,
-                                        type,
-                                        boxName);
-                                  }),
+                              state.data?[index].name == "electric" ||
+                                      state.data?[index].name == "telephone"||
+                                  state.data?[index].name == "dairy"
+                              ||state.data?[index].name == "cheese"
+                              ||state.data?[index].name == "bakedGoods"
+                              ||state.data?[index].name == "vegetable"
+                              ||state.data?[index].name == "fruits"
+                              ||state.data?[index].name == "oil"
+                              ||state.data?[index].name == "salt"
+                              ||state.data?[index].name == "rent"
+                              ? Radio(
+                                      value: addTransactionData.selectedContent==null?false:
+                                          state.data?[index].selected ?? false,
+                                      groupValue: true,
+                                      onChanged: (v) {
+                                        addTransactionData.selectContent(
+                                            v!,
+                                            model,
+                                            state.data![index],
+                                            index,
+                                            type,
+                                            boxName);
+                                      })
+                                  : Image.asset(
+                                      Res.pro,
+                                      width: 50.w,
+                                      height: 60.h,
+                                    ),
                             ],
                           );
                         }),

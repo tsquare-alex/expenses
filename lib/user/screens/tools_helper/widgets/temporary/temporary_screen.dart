@@ -1,12 +1,13 @@
-// final  audioPlayer = AudioPlayer();
-//
-// Future<void> playSound() async {
-//   String soundPath = "sounds/notification.mp3";
-//   await audioPlayer.play(AssetSource(soundPath));
-// }
+import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/widgets/DefaultButton.dart';
+import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 FlutterLocalNotificationsPlugin();
@@ -21,6 +22,7 @@ class _TemporaryScreenState extends State<TemporaryScreen> {
   bool _isRunning = false;
   late CountDownController _controller;
   late int _totalSeconds;
+  int _lastNotificationId = 0; // Track the last used notificationId
 
   @override
   void initState() {
@@ -28,7 +30,7 @@ class _TemporaryScreenState extends State<TemporaryScreen> {
     _selectedTime = TimeOfDay.now();
     _controller = CountDownController();
     _totalSeconds = 0;
-    Noti.initialize(flutterLocalNotificationsPlugin);
+    LocalNotifications.init();
   }
 
   void _startTimer() {
@@ -46,29 +48,56 @@ class _TemporaryScreenState extends State<TemporaryScreen> {
     );
 
     if (endTime.isBefore(now)) {
-      // If the selected time is before the current time, set it for the next day
       endTime = endTime.add(Duration(days: 1));
     }
 
     _totalSeconds = endTime.difference(now).inSeconds;
 
-    _controller.restart(duration: _totalSeconds);
+    // Cancel any existing scheduled notifications
+    if (_lastNotificationId > 0) {
+      LocalNotifications.cancelNotification(_lastNotificationId);
+    }
+
+    // Get the current device language
+    final String deviceLanguage = Localizations.localeOf(context).languageCode;
+
+    // Customize notification based on the device language
+    String notificationTitle = tr(context, "totalPrice");
+    String notificationBody = 'Your timer has ended.';
+
+    if (deviceLanguage == 'es') {
+      // Spanish
+      notificationTitle = 'Título en español';
+      notificationBody = 'Tu temporizador ha terminado.';
+    } else if (deviceLanguage == 'fr') {
+      // French
+      notificationTitle = 'Titre en français';
+      notificationBody = 'Votre minuteur est terminé.';
+    }
+    // Add more language cases as needed
 
     // Schedule local notification when the timer ends
-    Future.delayed(Duration(seconds: _totalSeconds), () {
-      Noti.scheduleNotification(
-        id: 0,
-        title: 'Timer Ended',
-        body: 'Your timer has ended.',
-        scheduledDate: DateTime.now(),
-        fln: flutterLocalNotificationsPlugin,
-      );
+    _lastNotificationId++;
+    LocalNotifications.showScheduleNotification(
+      context: context,
+      notificationId: _lastNotificationId,
+      title: notificationTitle,
+      body: notificationBody,
+      scheduledDate: DateTime.now().add(Duration(seconds: _totalSeconds)),
+    );
 
+    // Check if the controller is not null before calling restart
+    if (_controller != null) {
+      _controller.restart(duration: _totalSeconds);
+    }
+
+    Future.delayed(Duration(seconds: _totalSeconds), () {
       setState(() {
         _isRunning = false;
       });
     });
   }
+
 
   void _stopTimer() {
     setState(() {
@@ -94,20 +123,24 @@ class _TemporaryScreenState extends State<TemporaryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Temporary Screen'),
+        centerTitle: true,
+        title: MyText(title: tr(context, "temporary"), color: Colors.white, size: 20,fontWeight: FontWeight.bold,),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () => _selectDateTime(context),
-              child: Text('Select Time'),
-            ),
+            //selectTime
+            DefaultButton(
+              onTap: () => _selectDateTime(context),
+              title: '${tr(context, "selectTime")}',fontSize: 20,fontWeight: FontWeight.bold,),
+
             SizedBox(height: 20),
-            Text(
-              'Selected Time: ${_selectedTime.format(context)}',
-              style: TextStyle(fontSize: 18),
+            MyText(
+             title: '${tr(context, "selectedDate")}: ${_selectedTime.format(context)}',
+              color: MyColors.black,
+              size: 20,
+              fontWeight: FontWeight.bold,
             ),
             SizedBox(height: 20),
             _isRunning
@@ -131,10 +164,10 @@ class _TemporaryScreenState extends State<TemporaryScreen> {
               ringColor: Colors.blue,
             )
                 : SizedBox(),
-            ElevatedButton(
-              onPressed: _isRunning ? _stopTimer : () => _startTimer(),
-              child: Text(_isRunning ? 'Stop Timer' : 'Start Timer'),
-            ),
+            DefaultButton(
+              onTap:  _isRunning ? _stopTimer : () => _startTimer(),
+                title: _isRunning ?" ${tr(context, "stopTimer")}" : '${tr(context, "startTimer")}',fontSize: 20,fontWeight: FontWeight.bold,),
+
           ],
         ),
       ),
@@ -142,197 +175,92 @@ class _TemporaryScreenState extends State<TemporaryScreen> {
   }
 }
 
-class Noti {
-  static Future initialize(
-      FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
-    var androidInitialize =
-    new AndroidInitializationSettings('mipmap/ic_launcher');
-    // var iOSInitialize = new IOSInitializationSettings();
-    // var initializationsSettings = new InitializationSettings(
-    //     android: androidInitialize, iOS: iOSInitialize);
-    // await flutterLocalNotificationsPlugin.initialize(initializationsSettings);
+class LocalNotifications {
+  static final FlutterLocalNotificationsPlugin
+  _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  static final onClickNotification = BehaviorSubject<String>();
+
+  static void onNotificationTap(
+      NotificationResponse notificationResponse) {
+    onClickNotification.add(notificationResponse.payload!);
   }
 
-  static Future scheduleNotification({
-    required int id,
+  static Future init() async {
+    const AndroidInitializationSettings initializationSettingsAndroid =
+    AndroidInitializationSettings('@mipmap/ic_launcher');
+    final DarwinInitializationSettings initializationSettingsDarwin =
+    DarwinInitializationSettings(
+      onDidReceiveLocalNotification: (id, title, body, payload) => null,
+    );
+    final LinuxInitializationSettings initializationSettingsLinux =
+    LinuxInitializationSettings(defaultActionName: 'Open notification');
+    final InitializationSettings initializationSettings =
+    InitializationSettings(
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsDarwin,
+      linux: initializationSettingsLinux,
+    );
+    _flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onDidReceiveNotificationResponse: onNotificationTap,
+        onDidReceiveBackgroundNotificationResponse: onNotificationTap);
+  }
+
+  static Future showScheduleNotification({
+    required int notificationId,
     required String title,
     required String body,
     required DateTime scheduledDate,
-    required FlutterLocalNotificationsPlugin fln,
+    required BuildContext context,
   }) async {
-    AndroidNotificationDetails androidPlatformChannelSpecifics =
-    AndroidNotificationDetails(
-      'you_can_name_it_whatever1',
-      'channel_name',
-      playSound: false, // Set playSound to false
-      importance: Importance.max,
-      priority: Priority.high,
-    );
+    tz.initializeTimeZones();
+    final tz.TZDateTime notificationTime =
+    tz.TZDateTime.from(scheduledDate, tz.local);
 
-    var not = NotificationDetails(
-      android: androidPlatformChannelSpecifics,
-      // iOS: IOSNotificationDetails(),
+    if (notificationTime.isBefore(tz.TZDateTime.now(tz.local))) {
+      throw ArgumentError("Scheduled date must be in the future.");
+    }
+
+    // Get the current device language
+    final String deviceLanguage = Localizations.localeOf(context).languageCode;
+
+    // Customize notification based on the device language
+    String localizedTitle = title;
+    String localizedBody = body;
+
+    if (deviceLanguage == 'ar') {
+      // Spanish
+      localizedTitle = 'تم الانتهاء من الوقت';
+      localizedBody = 'انتهى الوقت';
+    } else if (deviceLanguage == 'en') {
+      // French
+      localizedTitle = 'Timer Ended';
+      localizedBody = 'Your Time has been end';
+    }
+    // Add more language cases as needed
+
+    await _flutterLocalNotificationsPlugin.zonedSchedule(
+      notificationId,
+      localizedTitle,
+      localizedBody,
+      notificationTime,
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'channel 3',
+          'your channel name',
+          channelDescription: 'your channel description',
+          importance: Importance.max,
+          priority: Priority.high,
+          ticker: 'ticker',
+        ),
+      ),
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      uiLocalNotificationDateInterpretation:
+      UILocalNotificationDateInterpretation.absoluteTime,
     );
-    // await fln.schedule(
-    //   id,
-    //   title,
-    //   body,
-    //   scheduledDate,
-    //   not,
-    //   androidAllowWhileIdle: true,
-    // );
+  }
+
+
+  static Future<void> cancelNotification(int notificationId) async {
+    await _flutterLocalNotificationsPlugin.cancel(notificationId);
   }
 }
-
-//
-// import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
-// import 'package:audioplayers/audioplayers.dart';
-// import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-// import 'package:flutter/material.dart';
-//
-// class TemporaryScreen extends StatefulWidget {
-//   @override
-//   _TemporaryScreenState createState() => _TemporaryScreenState();
-// }
-//
-// class _TemporaryScreenState extends State<TemporaryScreen> {
-//   final AudioPlayer audioPlayer = AudioPlayer();
-//   late TimeOfDay _selectedTime;
-//   bool _isRunning = false;
-//   late CountDownController _controller;
-//   late int _totalSeconds;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     _selectedTime = TimeOfDay.now();
-//     _controller = CountDownController();
-//     _totalSeconds = 0;
-//   }
-//
-//   Future<void> playSound() async {
-//     String soundPath = "sounds/notification.mp3";
-//     await audioPlayer.play(AssetSource(soundPath));
-//   }
-//   void _startTimer() async {
-//     setState(() {
-//       _isRunning = true;
-//     });
-//
-//     DateTime now = DateTime.now();
-//     DateTime endTime = DateTime(
-//       now.year,
-//       now.month,
-//       now.day,
-//       _selectedTime.hour,
-//       _selectedTime.minute,
-//     );
-//
-//     if (endTime.isBefore(now)) {
-//       // If the selected time is before the current time, set it for the next day
-//       endTime = endTime.add(Duration(days: 1));
-//     }
-//
-//     _totalSeconds = endTime.difference(now).inSeconds;
-//
-//     _controller.restart(duration: _totalSeconds);
-//
-//     // Set up the alarm to trigger the timer
-//     await AndroidAlarmManager.oneShot(
-//       Duration(seconds: _totalSeconds),
-//       0, // ID for the alarm
-//       _onTimerEnd,
-//       exact: true,
-//       wakeup: true, // Set wakeup to true
-//     );
-//   }
-//
-//   void _onTimerEnd() {
-//     if (mounted) {
-//       playSound();
-//       setState(() {
-//         _isRunning = false;
-//       });
-//     }
-//   }
-//
-//   void _stopTimer() {
-//     AndroidAlarmManager.cancel(0); // Cancel the scheduled alarm
-//     setState(() {
-//       _isRunning = false;
-//     });
-//   }
-//
-//   Future<void> _selectDateTime(BuildContext context) async {
-//     final DateTime? picked = await showDatePicker(
-//       context: context,
-//       initialDate: DateTime.now(),
-//       firstDate: DateTime.now(),
-//       lastDate: DateTime.now().add(Duration(days: 365)),
-//     );
-//
-//     if (picked != null) {
-//       final TimeOfDay? time = await showTimePicker(
-//         context: context,
-//         initialTime: TimeOfDay.now(),
-//       );
-//
-//       if (time != null) {
-//         setState(() {
-//           _selectedTime = TimeOfDay(hour: time.hour, minute: time.minute);
-//         });
-//       }
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Temporary Screen'),
-//       ),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             ElevatedButton(
-//               onPressed: () => _selectDateTime(context),
-//               child: Text('Select Date and Time'),
-//             ),
-//             SizedBox(height: 20),
-//             Text(
-//               'Selected Time: ${_selectedTime.format(context)}',
-//               style: TextStyle(fontSize: 18),
-//             ),
-//             SizedBox(height: 20),
-//             _isRunning
-//                 ? CircularCountDownTimer(
-//               duration: _totalSeconds,
-//               controller: _controller,
-//               width: MediaQuery.of(context).size.width / 2,
-//               height: MediaQuery.of(context).size.width / 2,
-//               fillColor: Colors.white,
-//               strokeWidth: 10.0,
-//               strokeCap: StrokeCap.round,
-//               textStyle: TextStyle(
-//                 fontSize: 22.0,
-//                 color: Colors.black,
-//                 fontWeight: FontWeight.bold,
-//               ),
-//               isReverse: true,
-//               onComplete: () {
-//                 _onTimerEnd();
-//               },
-//               ringColor: Colors.blue,
-//             )
-//                 : SizedBox(),
-//             ElevatedButton(
-//               onPressed: _isRunning ? _stopTimer : () => _startTimer(),
-//               child: Text(_isRunning ? 'Stop Timer' : 'Start Timer'),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

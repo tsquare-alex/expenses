@@ -7,130 +7,209 @@ class WalletDetailsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        CircleAvatar(
-          backgroundColor: Colors.red,
-          minRadius: 50.r,
-          child: Column(
+    return Container(
+      height: 208.h,
+      padding: EdgeInsets.fromLTRB(6.w, 16.h, 6.w, 8.h),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: context.watch<AppThemeCubit>().isDarkMode
+              ? AppDarkColors.accentColor
+              : MyColors.greyWhite,
+          width: 1.r,
+        ),
+        color: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.accentColor1
+            : Colors.white,
+        borderRadius: BorderRadius.circular(15.r),
+        boxShadow: [
+          BoxShadow(
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? AppDarkColors.accentColor
+                : MyColors.greyWhite,
+            blurRadius: 0.5,
+            spreadRadius: 0.5,
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                tr(context, 'expense'),
+                tr(context, 'mainExpenses'),
                 style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14.sp,
+                  color: Colors.black,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              SizedBox(
+                height: 100.r,
+                width: 100.r,
+                child: LiquidCircularProgressIndicator(
+                  value: context.watch<ReportsCubit>().spentMoneyPercentage,
+                  valueColor: const AlwaysStoppedAnimation(Colors.red),
+                  borderColor: Colors.grey.shade400,
+                  borderWidth: 0.5,
+                  center: Text(
+                    NumberFormat.percentPattern('en').format(
+                        context.watch<ReportsCubit>().spentMoneyPercentage),
+                    style: TextStyle(
+                      color:
+                          context.watch<ReportsCubit>().spentMoneyPercentage <
+                                  0.6
+                              ? Colors.black
+                              : Colors.white,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
               Text(
-                NumberFormat('##0.0').format(double.parse(context.read<ReportsCubit>().spentMoney.toString()))
-                ,
+                tr(context, 'totalExpenses'),
                 style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14.sp,
+                  color: Colors.black,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                context.read<ReportsCubit>().spentMoney.toStringAsFixed(0),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ],
           ),
-        ),
-        SizedBox(
-          width: 0.35.sw,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.r),
-              border: Border.all(
-                color: context.watch<AppThemeCubit>().isDarkMode
-                    ? AppDarkColors.accentColor
-                    : MyColors.greyWhite,
-                width: 2.r,
+          Expanded(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.r),
+                border: Border.all(
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.accentColor
+                      : MyColors.greyWhite,
+                  width: 2.r,
+                ),
               ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.w),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-                  isExpanded: true,
-                  value: context.watch<ReportsCubit>().selectedWallet.isEmpty
-                      ? null
-                      : context.watch<ReportsCubit>().selectedWallet,
-                  hint: Text(
-                    tr(context, 'chooseWallet'),
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.bold,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.w),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton(
+                    isExpanded: true,
+                    value: context.watch<ReportsCubit>().selectedWallet.isEmpty
+                        ? null
+                        : context.watch<ReportsCubit>().selectedWallet,
+                    hint: Text(
+                      tr(context, 'wallet'),
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    icon: const Icon(
+                      Icons.keyboard_arrow_down,
                       color: Colors.grey,
                     ),
-                  ),
-                  icon: const Icon(
-                    Icons.keyboard_arrow_down,
-                    color: Colors.grey,
-                  ),
-                  menuMaxHeight: 0.3.sh,
-                  items: [
-                        DropdownMenuItem(
-                          value: 'all',
-                          child: Text(
-                            tr(context, 'allWallets'),
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        )
-                      ] +
-                      ReportsCubit.get(context)
-                          .wallets
-                          .map(
-                            (wallet) => DropdownMenuItem(
-                              value: wallet.name,
-                              child: Text(
-                                wallet.name,
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey,
-                                ),
+                    menuMaxHeight: 0.3.sh,
+                    items: [
+                          DropdownMenuItem(
+                            value: 'all',
+                            child: Text(
+                              tr(context, 'allWallets'),
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
                               ),
                             ),
                           )
-                          .toList(),
-                  onChanged: (value) {
-                    ReportsCubit.get(context).changeWallet(value!);
-                  },
+                        ] +
+                        ReportsCubit.get(context)
+                            .wallets
+                            .map(
+                              (wallet) => DropdownMenuItem(
+                                value: wallet.name,
+                                child: Text(
+                                  wallet.name,
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ),
+                            )
+                            .toList(),
+                    onChanged: (value) {
+                      ReportsCubit.get(context).changeMainWallet(value!);
+                    },
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        CircleAvatar(
-          backgroundColor: Colors.green,
-          minRadius: 50.r,
-          child: Column(
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 tr(context, 'residual'),
                 style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14.sp,
+                  color: Colors.black,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              SizedBox(
+                height: 100.r,
+                width: 100.r,
+                child: LiquidCircularProgressIndicator(
+                  value: context.watch<ReportsCubit>().residualMoneyPercentage,
+                  valueColor: const AlwaysStoppedAnimation(Color(0xFF5DE062)),
+                  borderColor: Colors.grey.shade400,
+                  borderWidth: 0.5,
+                  center: Text(
+                    NumberFormat.percentPattern('en').format(
+                        context.watch<ReportsCubit>().residualMoneyPercentage),
+                    style: TextStyle(
+                      color: context
+                                  .watch<ReportsCubit>()
+                                  .residualMoneyPercentage <
+                              0.6
+                          ? Colors.black
+                          : Colors.white,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
               Text(
-                NumberFormat('##0.0').format(double.parse(
-                    context.read<ReportsCubit>().residualMoney.toString())),
+                tr(context, 'totalResidual'),
                 style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14.sp,
+                  color: Colors.black,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                context.read<ReportsCubit>().residualMoney.toStringAsFixed(0),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ],
           ),
-        )
-      ],
+        ],
+      ),
     );
   }
 }

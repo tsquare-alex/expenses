@@ -19,6 +19,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
+import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 
 part 'build_pie_chart.dart';
 part 'build_wallet_details_row.dart';

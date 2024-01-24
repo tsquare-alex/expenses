@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
 import 'package:flutter/material.dart';
@@ -27,12 +28,10 @@ class ReportsCubit extends Cubit<ReportsState> {
   late DateTimeRange reportInitialDate =
       DateTimeRange(start: dateTimeNow, end: dateTimeNow);
   late DateTimeRange? reportSelectedDate;
-  // late DateTime? reportSelectedDateFrom;
-  // late DateTime? reportSelectedDateTo;
-  late DateTime? statsSelectedDateFrom = dateTimeNow;
-  late DateTime? statsSelectedDateTo = statsSelectedDateFrom!;
   String reportFormattedDateFrom = '';
   String reportFormattedDateTo = '';
+  late DateTime? statsSelectedDateFrom = dateTimeNow;
+  late DateTime? statsSelectedDateTo = statsSelectedDateFrom!;
   String statsFormattedDateFrom = '';
   String statsFormattedDateTo = '';
 
@@ -95,7 +94,9 @@ class ReportsCubit extends Cubit<ReportsState> {
 
   late double totalMoney;
   late double spentMoney;
+  late double spentMoneyPercentage;
   late double residualMoney;
+  late double residualMoneyPercentage;
   late double circleChartPercentage;
   late String moneyPercentage;
 
@@ -128,10 +129,39 @@ class ReportsCubit extends Cubit<ReportsState> {
     wallets = data;
   }
 
-  void createMoneyPercentage(
-      List<WalletModel> wallets, List<AddTransactionModel> transactions) {
-    getUserTotalMoney(wallets, transactions);
-    circleChartPercentage = spentMoney / totalMoney;
+  void createSpentMoneyPercentage() {
+    spentMoneyPercentage =
+        (spentMoney / totalMoney).isNaN ? 0 : (spentMoney / totalMoney);
+  }
+
+  void createResidualMoneyPercentage() {
+    residualMoneyPercentage =
+        (residualMoney / totalMoney).isNaN ? 0 : (residualMoney / totalMoney);
+  }
+
+  void changeMainWallet(String walletValue) {
+    if (walletValue != selectedWallet) {
+      emit(const ReportsState.initial());
+      selectedWallet = walletValue;
+      if (selectedWallet != 'all' && selectedWallet.isNotEmpty) {
+        reportFilteredTransactions = transactions
+            .where((transaction) =>
+                transaction.incomeSource!.name == selectedWallet)
+            .toList();
+        getUserTotalMoney(
+            [wallets.firstWhere((wallet) => wallet.name == selectedWallet)],
+            reportFilteredTransactions);
+      } else if (selectedWallet == 'all') {
+        reportFilteredTransactions = transactions;
+        getUserTotalMoney(wallets, reportFilteredTransactions);
+      } else {
+        reportFilteredTransactions = List.empty();
+        getUserTotalMoney(wallets, transactions);
+      }
+      createSpentMoneyPercentage();
+      createResidualMoneyPercentage();
+      emit(const ReportsState.changeWallet());
+    }
   }
 
   late List<AddTransactionModel> transactions;
@@ -151,7 +181,7 @@ class ReportsCubit extends Cubit<ReportsState> {
       emit(const ReportsState.initial());
       return;
     }
-    createMoneyPercentage(wallets, transactions);
+    getUserTotalMoney(wallets, transactions);
     createCategories();
     emit(const ReportsState.reportDataLoaded());
   }
@@ -159,7 +189,9 @@ class ReportsCubit extends Cubit<ReportsState> {
   Future<void> getMainReportData() async {
     emit(const ReportsState.reportDataLoading());
     await Future.wait([getWalletData(), getTransactionsData()]);
-    createMoneyPercentage(wallets, transactions);
+    getUserTotalMoney(wallets, transactions);
+    createSpentMoneyPercentage();
+    createResidualMoneyPercentage();
     emit(const ReportsState.reportDataLoaded());
   }
 
@@ -175,16 +207,14 @@ class ReportsCubit extends Cubit<ReportsState> {
                 transaction.incomeSource!.name == selectedWallet)
             .toList();
         createCategories();
-        createMoneyPercentage(
-            [wallets.firstWhere((wallet) => wallet.name == selectedWallet)],
-            reportFilteredTransactions);
+        getUserTotalMoney(wallets, transactions);
       } else if (selectedWallet == 'all') {
         reportFilteredTransactions = transactions;
+        getUserTotalMoney(wallets, transactions);
         createCategories();
-        createMoneyPercentage(wallets, transactions);
       } else {
         reportFilteredTransactions = List.empty();
-        createMoneyPercentage(wallets, transactions);
+        getUserTotalMoney(wallets, transactions);
         createCategories();
       }
       resetDates();
@@ -462,26 +492,222 @@ class ReportsCubit extends Cubit<ReportsState> {
     statsFormattedDateTo = '';
   }
 
-  Map<String, String> statsDetailsOptions = {
-    'table': 'استعرض في جدول',
-    'chart': 'استعرض في رسم بياني',
-    'compare': 'المقارنة بين المعاملات',
-  };
+  Map<String, String> statsDetailsOptions(BuildContext context) {
+    return {
+      'table': tr(context, 'showTable'),
+      'chart': tr(context, 'showChart'),
+      'compare': tr(context, 'compareTransactions'),
+    };
+  }
 
-  void showDetails() {
-    if ((filteredTransactions.isEmpty && statsFormattedDateFrom.isEmpty) ||
-        (filteredTransactions.isEmpty &&
+  void showDetails(BuildContext context) {
+    if ((wallets.isNotEmpty &&
+            transactions.isNotEmpty &&
+            filteredTransactions.isEmpty &&
+            statsFormattedDateFrom.isEmpty) ||
+        (wallets.isNotEmpty &&
+            transactions.isNotEmpty &&
+            filteredTransactions.isEmpty &&
             statsSelectedPriorities.isEmpty &&
             statsPrioritiesList.isNotEmpty)) {
       CustomToast.showSimpleToast(
-        msg: 'برجاء استكمال ادخال البيانات',
+        msg: tr(context, 'continueInsertingData'),
         color: MyColors.primary,
       );
       return;
     }
-    if (statsPrioritiesList.isEmpty) {
+    if (statsPrioritiesList.isEmpty ||
+        wallets.isEmpty ||
+        transactions.isEmpty) {
       CustomToast.showSimpleToast(
-        msg: 'لا يوجد بيانات',
+        msg: tr(context, 'noEnoughData'),
+        color: MyColors.primary,
+      );
+      return;
+    }
+    emit(const ReportsState.showReportDetails());
+  }
+
+  late DateTimeRange compare1InitialDate =
+      DateTimeRange(start: dateTimeNow, end: dateTimeNow);
+  late DateTimeRange? compare1SelectedDate;
+  String compare1FormattedDateFrom = '';
+  String compare1FormattedDateTo = '';
+  late DateTimeRange compare2InitialDate =
+      DateTimeRange(start: dateTimeNow, end: dateTimeNow);
+  late DateTimeRange? compare2SelectedDate;
+  String compare2FormattedDateFrom = '';
+  String compare2FormattedDateTo = '';
+
+  void changeCompare1DateRange() {
+    if (compare1SelectedDate != null &&
+        compare1SelectedDate != compare1InitialDate) {
+      emit(const ReportsState.initial());
+      compare1InitialDate = compare1SelectedDate!;
+      List<String> dateParts = compare1SelectedDate.toString().split(' - ');
+      compare1FormattedDateFrom = _formatDateTime(dateParts.first);
+      compare1FormattedDateTo = _formatDateTime(dateParts.last);
+      createCompare1Transactions();
+      emit(const ReportsState.changeDate());
+    }
+  }
+
+  void changeCompare2DateRange() {
+    if (compare2SelectedDate != null &&
+        compare2SelectedDate != compare2InitialDate) {
+      emit(const ReportsState.initial());
+      compare2InitialDate = compare2SelectedDate!;
+      List<String> dateParts = compare2SelectedDate.toString().split(' - ');
+      compare2FormattedDateFrom = _formatDateTime(dateParts.first);
+      compare2FormattedDateTo = _formatDateTime(dateParts.last);
+      createCompare2Transactions();
+      emit(const ReportsState.changeDate());
+    }
+  }
+
+  void createCompare1Transactions() {
+    if (selectedCompare1Wallet.isEmpty || compare1FormattedDateFrom.isEmpty) {
+      return;
+    }
+    selectedCompare1Transaction = '';
+    compare1Transactions.clear();
+    compare1TransactionsList = transactions
+        .where(
+          (transaction) => (DateFormat('dd/MM/yyyy', 'en')
+                  .parse(transaction.transactionDate!)
+                  .isAfter(
+                    compare1SelectedDate!.start.subtract(
+                      const Duration(days: 1),
+                    ),
+                  ) &&
+              DateFormat('dd/MM/yyyy', 'en')
+                  .parse(transaction.transactionDate!)
+                  .isBefore(
+                    compare1SelectedDate!.end.add(
+                      const Duration(days: 1),
+                    ),
+                  ) &&
+              transaction.incomeSource!.name == selectedCompare1Wallet),
+        )
+        .toList();
+    compare1Transactions = compare1TransactionsList
+        .map((transaction) => transaction.transactionType!.name!)
+        .toSet()
+        .toList();
+  }
+
+  void createCompare2Transactions() {
+    if (selectedCompare2Wallet.isEmpty || compare2FormattedDateFrom.isEmpty) {
+      return;
+    }
+    selectedCompare2Transaction = '';
+    compare2Transactions.clear();
+    compare2TransactionsList = transactions
+        .where(
+          (transaction) => (DateFormat('dd/MM/yyyy', 'en')
+                  .parse(transaction.transactionDate!)
+                  .isAfter(
+                    compare2SelectedDate!.start.subtract(
+                      const Duration(days: 1),
+                    ),
+                  ) &&
+              DateFormat('dd/MM/yyyy', 'en')
+                  .parse(transaction.transactionDate!)
+                  .isBefore(
+                    compare2SelectedDate!.end.add(
+                      const Duration(days: 1),
+                    ),
+                  ) &&
+              transaction.incomeSource!.name == selectedCompare2Wallet),
+        )
+        .toList();
+    compare2Transactions = compare2TransactionsList
+        .map((transaction) => transaction.transactionType!.name!)
+        .toSet()
+        .toList();
+  }
+
+  List<AddTransactionModel> compare1TransactionsList = [];
+  List<String> compare1Transactions = [];
+  late String selectedCompare1Wallet = '';
+  void onCompareWallet1Select(String wallet1Value) {
+    if (wallet1Value != selectedCompare1Wallet) {
+      emit(const ReportsState.initial());
+      selectedCompare1Wallet = wallet1Value;
+      createCompare1Transactions();
+      emit(const ReportsState.changeWallet());
+    }
+  }
+
+  List<AddTransactionModel> compare2TransactionsList = [];
+  List<String> compare2Transactions = [];
+  late String selectedCompare2Wallet = '';
+  void onCompareWallet2Select(String wallet2Value) {
+    if (wallet2Value != selectedCompare2Wallet) {
+      emit(const ReportsState.initial());
+      selectedCompare2Wallet = wallet2Value;
+      createCompare2Transactions();
+      emit(const ReportsState.changeWallet());
+    }
+  }
+
+  String selectedCompare1Transaction = '';
+  late List<AddTransactionModel> compare1FilteredTransactions = List.empty();
+  void onCompareTransactions1Select(String selectedTransaction1) {
+    if (selectedTransaction1 != selectedCompare1Transaction) {
+      emit(const ReportsState.initial());
+      selectedCompare1Transaction = selectedTransaction1;
+      compare1FilteredTransactions = compare1TransactionsList
+          .where((transaction) =>
+              transaction.transactionType!.name == selectedTransaction1)
+          .toList();
+      emit(const ReportsState.statsWalletsSelected());
+    }
+  }
+
+  String selectedCompare2Transaction = '';
+  late List<AddTransactionModel> compare2FilteredTransactions = List.empty();
+  void onCompareTransactions2Select(String selectedTransaction2) {
+    if (selectedTransaction2 != selectedCompare2Transaction) {
+      emit(const ReportsState.initial());
+      selectedCompare2Transaction = selectedTransaction2;
+      compare2FilteredTransactions = compare2TransactionsList
+          .where((transaction) =>
+              transaction.transactionType!.name == selectedTransaction2)
+          .toList();
+      emit(const ReportsState.statsWalletsSelected());
+    }
+  }
+
+  void showComparison(BuildContext context) {
+    if ((compare1FormattedDateFrom.isEmpty ||
+            compare2FormattedDateFrom.isEmpty) ||
+        (wallets.isNotEmpty &&
+            (selectedCompare1Wallet.isEmpty ||
+                selectedCompare2Wallet.isEmpty)) ||
+        (selectedCompare1Transaction.isEmpty &&
+            compare1TransactionsList.isNotEmpty) ||
+        (selectedCompare2Transaction.isEmpty &&
+            compare2TransactionsList.isNotEmpty)) {
+      CustomToast.showSimpleToast(
+        msg: tr(context, 'continueInsertingData'),
+        color: MyColors.primary,
+      );
+      return;
+    }
+    if (compare1FilteredTransactions.isEmpty ||
+        compare2FilteredTransactions.isEmpty ||
+        wallets.isEmpty ||
+        transactions.isEmpty) {
+      CustomToast.showSimpleToast(
+        msg: tr(context, 'noEnoughData'),
+        color: MyColors.primary,
+      );
+      return;
+    }
+    if (selectedCompare1Wallet == selectedCompare2Wallet) {
+      CustomToast.showSimpleToast(
+        msg: tr(context, 'chooseDifferentWallets'),
         color: MyColors.primary,
       );
       return;

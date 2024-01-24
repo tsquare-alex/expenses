@@ -71,7 +71,7 @@ Future<dynamic> showReportOptionsModalSheet({required BuildContext context}) {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ...ReportsCubit.get(context)
-                .statsDetailsOptions
+                .statsDetailsOptions(context)
                 .entries
                 .map(
                   (entry) => OptionButton(

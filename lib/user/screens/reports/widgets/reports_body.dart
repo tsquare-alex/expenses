@@ -207,20 +207,38 @@ class ReportsBody extends StatelessWidget {
                             .map(
                               (transaction) => DropdownMenuItem(
                                 value: transaction.transactionType!.name,
-                                child: Text(
-                                  tr(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      tr(
+                                                  context,
+                                                  transaction
+                                                      .transactionContent!
+                                                      .name!)
+                                              .isNotEmpty
+                                          ? tr(
                                               context,
                                               transaction
                                                   .transactionContent!.name!)
-                                          .isNotEmpty
-                                      ? tr(context,
-                                          transaction.transactionContent!.name!)
-                                      : transaction.transactionContent!.name!,
-                                  style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey,
-                                  ),
+                                          : transaction
+                                              .transactionContent!.name!,
+                                      style: TextStyle(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    Text(
+                                      transaction.total!,
+                                      style: TextStyle(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             )
@@ -232,6 +250,21 @@ class ReportsBody extends StatelessWidget {
                     ),
                   ),
                 ),
+                if (context.read<ReportsCubit>().transactions.isEmpty)
+                  SizedBox(
+                    height: 0.5.sh,
+                    child: Center(
+                      child: Text(
+                        tr(context, 'noRecord'),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.sp,
+                          color: Colors.grey,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
                 if (context
                     .watch<ReportsCubit>()
                     .categoriesList
@@ -246,7 +279,7 @@ class ReportsBody extends StatelessWidget {
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              '${tr(context, 'total')}\n${context.watch<ReportsCubit>().allSpentMoney.toStringAsFixed(0)}',
+                              '${tr(context, 'reportTotal')}\n${context.watch<ReportsCubit>().allSpentMoney.toStringAsFixed(0)}',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.sp,
@@ -315,14 +348,14 @@ class ReportsBody extends StatelessWidget {
                         TableRow(
                           children: [
                             Text(
-                              'الفئة',
+                              tr(context, 'reportCategory'),
                               style: TextStyle(
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              'مبلغ',
+                              tr(context, 'reportCash'),
                               style: TextStyle(
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.bold,

@@ -15,7 +15,7 @@ class BuildLanguageBottomSheet extends StatelessWidget {
               child: Container(
                 alignment: Alignment.center,
                 child: MyText(
-                  title: 'تغيير اللغة',
+                  title: tr(context, 'changeLanguage'),
                   color: MyColors.primary,
                   fontWeight: FontWeight.bold,
                   size: 18.sp,

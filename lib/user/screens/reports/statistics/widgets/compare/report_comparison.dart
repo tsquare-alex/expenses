@@ -1,63 +1,52 @@
 part of '../../statistics_imports.dart';
 
 class ReportComparison extends StatelessWidget {
-  const ReportComparison({super.key});
+  const ReportComparison({
+    Key? key,
+    required this.data1,
+    required this.data2,
+  }) : super(key: key);
+
+  final List<AddTransactionModel> data1;
+  final List<AddTransactionModel> data2;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15.r),
-        child: Table(
-          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-          border: TableBorder.all(
-            borderRadius: BorderRadius.circular(12.r),
-            color: context.watch<AppThemeCubit>().isDarkMode
-                ? AppDarkColors.accentColor
-                : MyColors.greyWhite,
-            width: 2.r,
-          ),
+    return Expanded(
+      child: DefaultTabController(
+        length: 2,
+        child: Column(
           children: [
-            TableRow(
-              children: [
-                ...List.generate(
-                  4,
-                  (index) => Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 15.r),
-                      child: Text(
-                        'Data ${index + 1}',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+            TabBar(
+              overlayColor: const MaterialStatePropertyAll(Colors.transparent),
+              indicatorColor: MyColors.primary,
+              indicatorSize: TabBarIndicatorSize.tab,
+              labelColor: Colors.black87,
+              unselectedLabelColor: Colors.grey.shade400,
+              tabs: [
+                Tab(
+                  child: Text(
+                    'جدول',
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Tab(
+                  child: Text(
+                    'رسم بياني',
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ],
             ),
-            ...List.generate(
-              2,
-              (index) => TableRow(
-                children: [
-                  ...List.generate(
-                    4,
-                    (index) => Center(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20.r),
-                        child: Text(
-                          'Data ${index + 1}',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            TabsBody(
+              data1: data1,
+              data2: data2,
             ),
           ],
         ),

@@ -309,7 +309,7 @@
   "chooseSubTransaction": "Choose sub transaction",
   "chooseSource": "Choose source",
   "setPriority": "Set priority",
-  "show": "Show",
+  "showResults": "Show Results",
   "allTransactions": "All transactions",
 
 
@@ -483,6 +483,36 @@
 
   "fullVersion" : "Full version",
 
+  "reportCategory": "Category",
+  "reportTotal": "Total",
+  "reportCash": "Cash",
+  "table": "Table",
+  "chart": "Chart",
+  "firstChosen": "First Chosen",
+  "secondChosen": "Second Chosen",
+  "statsTransactions": "Transactions",
+  "tableWallet" : "Wallet",
+  "tableTransaction" : "Transaction",
+  "tableSubTransaction" : "Sub transaction",
+  "tableDuration" : "Duration",
+  "tablePriority" : "Priority",
+  "tableAmount" : "Amount",
+  "tableValue" : "Value",
+  "tableContact" : "Contact",
+  "noEnoughData": "No enough data to show results",
+  "continueInsertingData": "Please, continue inserting data",
+  "chooseDifferentWallets": "Please, make sure to choose different wallets",
+  "totalExpenses" : "Total expense value",
+  "totalResidual" : "Total residual value",
+  "mainExpenses": "Expenses",
+  "saturday": "Saturday",
+  "sunday": "Sunday",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "changeLanguage":"Change language",
 
   "operationNotAllowed" : "The operation is not possible because the transaction balance is greater than the wallet value."
 }

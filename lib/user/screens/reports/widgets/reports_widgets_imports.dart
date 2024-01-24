@@ -18,7 +18,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-import '../../../models/add_transaction_model/add_transaction_model.dart';
 
 part 'field_section.dart';
 part 'date_field.dart';
@@ -26,6 +25,5 @@ part 'options_button.dart';
 part 'circular_details_row.dart';
 part 'circular_percentage.dart';
 part 'reports_body.dart';
-part 'transaction_tile.dart';
 part 'save_share_buttons.dart';
 part 'no_record.dart';

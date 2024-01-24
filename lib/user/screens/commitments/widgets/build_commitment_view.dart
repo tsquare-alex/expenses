@@ -14,7 +14,9 @@ class _BuildCommitmentViewState extends State<BuildCommitmentView> {
   @override
 
   void initState() {
-    widget.data.initData(widget.transactionModel);
+    if(widget.hasData == true){
+      widget.data.initData(widget.transactionModel);
+    }
     super.initState();
   }
   Widget build(BuildContext context) {

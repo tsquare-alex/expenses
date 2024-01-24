@@ -19,7 +19,9 @@ class BuildCashTransactionsView extends StatefulWidget {
 class _BuildCashTransactionsViewState extends State<BuildCashTransactionsView> {
   @override
   void initState() {
-    widget.data.initData(widget.transactionModel);
+    if(widget.hasData == true){
+      widget.data.initData(widget.transactionModel);
+    }
     super.initState();
   }
 

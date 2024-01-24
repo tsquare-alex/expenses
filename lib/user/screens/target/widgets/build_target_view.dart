@@ -18,7 +18,9 @@ class BuildTargetView extends StatefulWidget {
 class _BuildTargetViewState extends State<BuildTargetView> {
   @override
   void initState() {
-    widget.data.initData(widget.transactionModel);
+    if(widget.hasData == true){
+      widget.data.initData(widget.transactionModel);
+    }
     super.initState();
   }
 

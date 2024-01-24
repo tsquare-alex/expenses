@@ -58,7 +58,7 @@ class _CommitmentsState extends State<Commitments> {
           ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: MyColors.primary,
-            onPressed: () async{
+            onPressed: () async {
               if (state1.data.isEmpty) {
                 data.addTransactionModel(context);
               } else {
@@ -68,14 +68,20 @@ class _CommitmentsState extends State<Commitments> {
                           data: data,
                           transactionModel: widget.model,
                         )));
-                var box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
+                var box = await Hive.openBox<AddTransactionModel>(
+                    "addTransactionBox");
                 var list = box.values.toList();
-                for(AddTransactionModel item in list){
+                for (AddTransactionModel item in list) {
                   AddTransactionModel newModel = AddTransactionModel(
                     image: item.image,
                     total: item.total,
                     amount: item.amount,
-                    time: DateFormat("hh:mm aa", "en").format(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, TimeOfDay.now().hour, TimeOfDay.now().minute)),
+                    time: DateFormat("hh:mm aa", "en").format(DateTime(
+                        DateTime.now().year,
+                        DateTime.now().month,
+                        DateTime.now().day,
+                        TimeOfDay.now().hour,
+                        TimeOfDay.now().minute)),
                     description: item.description,
                     putReminderInWallet: item.putReminderInWallet,
                     notify: null,
@@ -84,12 +90,14 @@ class _CommitmentsState extends State<Commitments> {
                     transactionName: item.transactionName,
                     priority: item.priority,
                     endDate: item.endDate,
-                    startDate: DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
+                    startDate:
+                        DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
                     targetValue: item.targetValue,
                     transactionType: item.transactionType,
                     brandName: item.brandName,
                     repeated: null,
-                    transactionDate: DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
+                    transactionDate:
+                        DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
                     unit: item.unit,
                     incomeSource: item.incomeSource,
                     transactionContent: item.transactionContent,
@@ -100,23 +108,22 @@ class _CommitmentsState extends State<Commitments> {
                     ratio: item.ratio,
                     targetType: item.targetType,
                   );
-                  if(item.repeated != null){
-                    if(item.repeated?.name == "daily"){
+                  if (item.repeated != null) {
+                    if (item.repeated?.name == "daily") {
                       double total = double.parse(item.total!);
-                      if (total <= item.incomeSource!.balance) {
+                      if (total <= item.incomeSource!.totalBalance!) {
                         var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
                         var walletList = walletBox.values.toList();
                         WalletModel? targetModel = walletList.firstWhere(
                               (model) => model.name == item.incomeSource?.name,
                         );
                         print("object ${targetModel.name}");
-                        targetModel.balance = targetModel.balance - total;
-                        print("balance ${targetModel.balance}");
-                        await walletBox.put(item.incomeSource?.key, targetModel);
-                        print(item.incomeSource!.balance);
+                        targetModel.totalBalance = targetModel.totalBalance! - total;
+                        print("balance ${targetModel.totalBalance!}");
+                        await walletBox.put(targetModel.key, targetModel);
+                        print(item.incomeSource!.totalBalance!);
                         box.add(newModel);
-                        print("object");
-                      }else{
+                      } else {
                         CustomToast.showSimpleToast(msg: "msg");
                       }
                     }

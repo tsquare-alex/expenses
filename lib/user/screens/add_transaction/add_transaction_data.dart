@@ -596,24 +596,24 @@ class AddTransactionData {
                 : null,
           );
           var total = double.parse(totalController.text);
-          if (total <= selectedWalletModel!.balance) {
+          if (total <= selectedWalletModel!.totalBalance!) {
             var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
             var walletList = walletBox.values.toList();
             WalletModel? targetModel = walletList.firstWhere(
               (model) => model.name == selectedWalletModel?.name,
             );
             print("object ${targetModel.name}");
-            targetModel.balance = targetModel.balance - total;
-            print("balance ${targetModel.balance}");
+            targetModel.totalBalance = targetModel.totalBalance! - total;
+            print("balance ${targetModel.totalBalance!}");
             await walletBox.put(selectedWalletModel?.key, targetModel);
-            print(selectedWalletModel!.balance);
+            print(selectedWalletModel!.totalBalance!);
 
             box.add(model);
             addTransactionList = box.values.toList();
             AutoRouter.of(context).pop();
             // AutoRouter.of(context).pushAndPopUntil(HomeRoute(index: 0), predicate: (predicate)=>false);
-          } else if (total > selectedWalletModel!.balance) {
-            print(selectedWalletModel!.balance);
+          } else if (total > selectedWalletModel!.totalBalance!) {
+            print(selectedWalletModel!.totalBalance!);
             CustomToast.showSimpleToast(
                 msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
                 color: Colors.red);
@@ -645,23 +645,23 @@ class AddTransactionData {
                 : null,
           );
           var total = double.parse(totalController.text);
-          if (total <= selectedWalletModel!.balance) {
+          if (total <= selectedWalletModel!.totalBalance!) {
             var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
             var walletList = walletBox.values.toList();
             WalletModel? targetModel = walletList.firstWhere(
               (model) => model.name == selectedWalletModel?.name,
             );
             print("object ${targetModel.name}");
-            targetModel.balance = targetModel.balance - total;
-            print("balance ${targetModel.balance}");
+            targetModel.totalBalance = targetModel.totalBalance! - total;
+            print("balance ${targetModel.totalBalance!}");
             await walletBox.put(selectedWalletModel?.key, targetModel);
-            print(selectedWalletModel!.balance);
+            print(selectedWalletModel!.totalBalance!);
             box.add(model);
             addTransactionList = box.values.toList();
             addTransactionCubit.onUpdateData(addTransactionList);
             AutoRouter.of(context).pop();
-          } else if (total > selectedWalletModel!.balance) {
-            print(selectedWalletModel!.balance);
+          } else if (total > selectedWalletModel!.totalBalance!) {
+            print(selectedWalletModel!.totalBalance!);
             CustomToast.showSimpleToast(
                 msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
                 color: Colors.red);
@@ -694,23 +694,23 @@ class AddTransactionData {
             putReminderInWallet: remainderCubit.state.data,
           );
           var total = double.parse(targetController.text);
-          if (total <= selectedWalletModel!.balance) {
+          if (total <= selectedWalletModel!.totalBalance!) {
             var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
             var walletList = walletBox.values.toList();
             WalletModel? targetModel = walletList.firstWhere(
               (model) => model.name == selectedWalletModel?.name,
             );
             print("object ${targetModel.name}");
-            targetModel.balance = targetModel.balance - total;
-            print("balance ${targetModel.balance}");
+            targetModel.totalBalance = targetModel.totalBalance! - total;
+            print("balance ${targetModel.totalBalance!}");
             await walletBox.put(selectedWalletModel?.key, targetModel);
-            print(selectedWalletModel!.balance);
+            print(selectedWalletModel!.totalBalance!);
             box.add(model);
             addTransactionList = box.values.toList();
             addTransactionCubit.onUpdateData(addTransactionList);
             AutoRouter.of(context).pop();
-          } else if (total > selectedWalletModel!.balance) {
-            print(selectedWalletModel!.balance);
+          } else if (total > selectedWalletModel!.totalBalance!) {
+            print(selectedWalletModel!.totalBalance!);
             CustomToast.showSimpleToast(
                 msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
                 color: Colors.red);
@@ -738,23 +738,23 @@ class AddTransactionData {
                 : null,
           );
           var total = double.parse(transferController.text);
-          if (total <= selectedWalletModel!.balance) {
+          if (total <= selectedWalletModel!.totalBalance!) {
             var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
             var walletList = walletBox.values.toList();
             WalletModel? targetModel = walletList.firstWhere(
-              (model) => model.name == selectedWalletModel?.name,
+              (model) => model.key == selectedWalletModel?.key,
             );
             print("object ${targetModel.name}");
-            targetModel.balance = targetModel.balance - total;
-            print("balance ${targetModel.balance}");
+            targetModel.totalBalance = targetModel.totalBalance! - total;
+            print("balance ${targetModel.totalBalance!}");
             await walletBox.put(selectedWalletModel?.key, targetModel);
-            print(selectedWalletModel!.balance);
+            print(selectedWalletModel!.totalBalance!);
             box.add(model);
             addTransactionList = box.values.toList();
             addTransactionCubit.onUpdateData(addTransactionList);
             AutoRouter.of(context).pop();
-          } else if (total > selectedWalletModel!.balance) {
-            print(selectedWalletModel!.balance);
+          } else if (total > selectedWalletModel!.totalBalance!) {
+            print(selectedWalletModel!.totalBalance!);
             CustomToast.showSimpleToast(
                 msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
                 color: Colors.red);

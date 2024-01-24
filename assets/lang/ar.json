@@ -623,7 +623,7 @@
   "enterTitle": "ادخل العنوان",
   "enterBody": "ادخل التفاصيل",
   "setReminder": "تعيين تذكير",
-  "selectedDate": "Selected Date",
+  "selectedDate": "الوقت المحدد",
   "reminderSet": "تم تعيين تذكير ل",
   "addImage": "أضافة صورة",
   "note": "ملاحظات",
@@ -633,6 +633,16 @@
   "stop": "قف",
   "reset": "إعادة ضبط",
   "operationNotAllowed": "عملية غير ممكنه لان رصيد المعاملة أكبر من قيمة المحفظة.",
+
+  "startTimer": "بدء المؤقت",
+  "stopTimer": "ايقاف المؤقت",
+  "selectTime": "حدد الوقت",
+
+
+
+
+
+  
   "totalBalance": "إجمالي الرصيد",
   "withdrawBalance": "سحب رصيد",
   "transferBalanceBetweenWallets": "تحويل رصيد بين المحافظ",
@@ -677,3 +687,4 @@
   "startingDate": "تاريخ البداية",
   "editBudget": "تعديل الميزانية"
 }
+

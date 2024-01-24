@@ -14,6 +14,20 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    Workmanager().registerPeriodicTask(
+      "1",
+      "Open The App",
+      frequency: Duration(minutes: 15),
+      // frequency: Duration(hours: 12),
+
+      inputData: {
+        "Name":"The Name",
+        "Email":"email@gmail.com"
+      },
+    ).then((value) {
+      print("On Then");
+      // sendNotificationNow();
+    });
     data.initBottomNavigation(this, widget.index);
     if (widget.pageIndex != null) {
       data.homeTabCubit.onUpdateData(widget.pageIndex!);

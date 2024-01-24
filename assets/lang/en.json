@@ -294,8 +294,11 @@
   "stop": "Stop",
   "reset": "Reset",
 
+
+
   "selectMainCurrency": "Select Main Currency",
   "selectSubCurrency": "Select Sub Currency",
+
 
 
 
@@ -458,6 +461,19 @@
   "securityMsg": "Please set up a password or biometrics on your device.",
   "editWallet": "Edit wallet",
   "edit": "Edit",
+
+  "buyingSucceeded" : "Buying succeeded",
+
+  "fullVersion" : "Full version",
+
+
+  "operationNotAllowed" : "The operation is not possible because the transaction balance is greater than the wallet value.",
+  "edit": "Edit",
+  "startTimer": "Start Timer",
+  "stopTimer": "Stop Timer",
+  "selectTime": "Select Time",
+
+
   "buyingSucceeded": "Buying succeeded",
   "fullVersion": "Full version",
   "operationNotAllowed": "The operation is not possible because the transaction balance is greater than the wallet value.",
@@ -505,3 +521,4 @@
   "selectTheWallet": "Select the Wallet",
   "editBudget": "Edit Budget"
 }
+

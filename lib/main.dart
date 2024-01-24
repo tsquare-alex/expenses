@@ -31,6 +31,7 @@ import 'package:intl/intl.dart';
 import 'package:workmanager/workmanager.dart';
 import 'firebase_options.dart';
 import 'general/constants/constants.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 
 @pragma(
@@ -93,6 +94,7 @@ void callbackDispatcher(List<AddTransactionModel> list) {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  tz.initializeTimeZones();
   await Hive.initFlutter();
   await LocalNotifications.init();
   Bloc.observer = SimpleBlocObserver();

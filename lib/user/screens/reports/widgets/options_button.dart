@@ -31,7 +31,9 @@ class OptionButton extends StatelessWidget {
         child: Text(
           label,
           style: TextStyle(
-            color: MyColors.primary,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? AppDarkColors.secondary
+                : MyColors.primary,
             fontSize: 16.sp,
             fontWeight: FontWeight.bold,
           ),
@@ -45,7 +47,9 @@ Future<dynamic> showReportOptionsModalSheet({required BuildContext context}) {
   return showModalBottomSheet(
     context: context,
     isDismissible: true,
-    backgroundColor: MyColors.white,
+    backgroundColor: context.read<AppThemeCubit>().isDarkMode
+        ? AppDarkColors.backgroundColor
+        : Colors.white,
     barrierColor: Colors.black.withOpacity(0.65),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
@@ -65,7 +69,9 @@ Future<dynamic> showReportOptionsModalSheet({required BuildContext context}) {
             topLeft: Radius.circular(20.r),
             topRight: Radius.circular(20.r),
           ),
-          color: MyColors.white,
+          color: context.read<AppThemeCubit>().isDarkMode
+              ? AppDarkColors.backgroundColor
+              : Colors.white,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,7 +82,9 @@ Future<dynamic> showReportOptionsModalSheet({required BuildContext context}) {
                 .map(
                   (entry) => OptionButton(
                     label: entry.value,
-                    color: Colors.grey.shade100,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.accentColor
+                        : Colors.grey.shade200,
                     // color: context.watch<AppThemeCubit>().isDarkMode
                     //     ? AppDarkColors.primary
                     //     : MyColors.primary,

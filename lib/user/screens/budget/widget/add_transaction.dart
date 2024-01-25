@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
@@ -68,13 +69,18 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                 onPressed: () => AutoRouter.of(context).pop(),
               ),
               backgroundColor: MyColors.white,
-              title: Center(
-                child: MyText(
-                  title: "إضفة ميزانية",
-                  color: MyColors.black,
-                  size: 16.sp,
-                  fontWeight: FontWeight.bold,
-                ),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(Res.budgetIcon, height: 28.h, width: 32.w),
+                  SizedBox(width: 8.w),
+                  MyText(
+                    title: tr(context, "addBudget"),
+                    color: MyColors.black,
+                    size: 16.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ],
               ),
             ),
             body: SingleChildScrollView(
@@ -93,11 +99,48 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           shape: const RoundedRectangleBorder(
                             side: BorderSide(color: Colors.transparent),
                           ),
-                          title: const Text("إختيار المعاملات"),
+                          title: Text(tr(context, "selectTransaction")),
                           children: [
-                            Image.asset(Res.calendar),
-                            SizedBox(
-                              height: 5.h,
+                            ...transactionName.asMap().entries.map(
+                              (entry) {
+                                final String item = entry.value;
+                                return Column(
+                                  children: [
+                                    ListTile(
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 16.0.r),
+                                      title: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            item,
+                                          ),
+                                          Radio<String>(
+                                            activeColor: MyColors.primary,
+                                            value: item,
+                                            groupValue: selectTransactionValue,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                selectTransactionValue = value;
+                                                context
+                                                    .read<BudgetCubit>()
+                                                    .walletNameController
+                                                    .text = value.toString();
+                                              });
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Divider(
+                                      height: 1,
+                                      thickness: 2,
+                                      color: MyColors.semiTransparentColor,
+                                    ),
+                                  ],
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -114,7 +157,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           shape: const RoundedRectangleBorder(
                             side: BorderSide(color: Colors.transparent),
                           ),
-                          title: const Text("إختيار المحفظة"),
+                          title: Text(tr(context, "selectTheWallet")),
                           children: [
                             ...walletsName.asMap().entries.map(
                               (entry) {
@@ -132,6 +175,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                             item,
                                           ),
                                           Radio<String>(
+                                            activeColor: MyColors.primary,
                                             value: item,
                                             groupValue: selectWalletValue,
                                             onChanged: (value) {
@@ -169,7 +213,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                 height: 5.h,
                               ),
                               Text(
-                                "إختيار المدة",
+                                tr(context, "selectDuration"),
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w400,
@@ -186,7 +230,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                             },
                             child: Container(
                                 height: 44.h,
-                                width: 140.w,
+                                width: 130.w,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8.r),
                                   border: Border.all(
@@ -200,7 +244,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                         Text(
                                           selectedDate != null
                                               ? "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}"
-                                              : "من",
+                                              : tr(context, "from"),
                                           style: TextStyle(
                                             fontSize: 12.sp,
                                             color: selectedDate != null
@@ -223,7 +267,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                             },
                             child: Container(
                                 height: 44.h,
-                                width: 140.w,
+                                width: 130.w,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8.r),
                                   border: Border.all(
@@ -238,7 +282,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                           child: Text(
                                             closedDate != null
                                                 ? formattedDate!.split(' ')[0]
-                                                : "الي",
+                                                : tr(context, "to"),
                                             style: TextStyle(
                                               fontSize: 12.sp,
                                               color: closedDate != null
@@ -261,13 +305,13 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                       GenericTextField(
                         controller:
                             context.read<BudgetCubit>().budgetValueController,
-                        hint: "تحديد القيمة",
+                        hint: tr(context, "selectValueType"),
                         fieldTypes: FieldTypes.normal,
                         type: TextInputType.number,
                         action: TextInputAction.next,
                         validate: (text) {
                           if (text == null || text.isEmpty) {
-                            return "رجاء ادخل القمية";
+                            return tr(context, "pleaseEntervalue");
                           }
                           return null;
                         },
@@ -285,7 +329,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MyText(
-                              title: "تكرار المعاملة",
+                              title: tr(context, "transactionRepetition"),
                               color: MyColors.black,
                               size: 16.sp),
                           Checkbox(
@@ -305,7 +349,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                       Row(
                         children: [
                           Text(
-                            "إضافة ملاحظة",
+                            tr(context, "addNote"),
                             style: TextStyle(
                               color: MyColors.black,
                               fontSize: 16.sp,
@@ -320,14 +364,14 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                             child: GenericTextField(
                               controller:
                                   context.read<BudgetCubit>().noteController,
-                              hint: "ملاحظاتك",
+                              hint: tr(context, "yourNotes"),
                               maxLength: 9,
                               fieldTypes: FieldTypes.normal,
-                              type: TextInputType.number,
+                              type: TextInputType.text,
                               action: TextInputAction.next,
                               validate: (text) {
                                 if (text == null || text.isEmpty) {
-                                  return "رجاء ادخل ملاحظاتك";
+                                  return tr(context, "PleaseInputYourNote");
                                 }
                                 return null;
                               },
@@ -353,7 +397,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                             child: Row(
                               children: [
                                 Text(
-                                  "إضافة صورة",
+                                  tr(context, "addImage"),
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,
@@ -406,7 +450,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           children: [
                             Expanded(
                               child: MyText(
-                                title: "تنبيه عند انتهاء 20%",
+                                title: tr(context, "notificationWhenReaching"),
                                 color: MyColors.black,
                                 size: 16.sp,
                                 fontWeight: FontWeight.w500,
@@ -444,7 +488,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           children: [
                             Expanded(
                               child: MyText(
-                                title: "المفضلة",
+                                title: tr(context, "favorite"),
                                 color: MyColors.black,
                                 size: 16.sp,
                                 fontWeight: FontWeight.w500,
@@ -525,7 +569,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                             },
                             height: 57.h,
                             width: 170.w,
-                            title: "تطبيق",
+                            title: tr(context, "add"),
                             color: MyColors.primary,
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -540,7 +584,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                             height: 57.h,
                             width: 170.w,
                             borderColor: MyColors.primary,
-                            title: "الغاء",
+                            title: tr(context, "cancel"),
                             textColor: MyColors.primary,
                             color: MyColors.white,
                             fontWeight: FontWeight.bold,

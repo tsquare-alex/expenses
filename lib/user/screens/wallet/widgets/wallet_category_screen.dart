@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
+import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
@@ -80,42 +81,80 @@ class _WalletCategoryState extends State<WalletCategory> {
                       itemBuilder: (context, index) {
                         return InkWell(
                             onTap: () {
-                              String iconPath = context
-                                  .read<WalletCubit>()
-                                  .categoryList[index]
-                                  .imagePath!;
-                              String selectedCategory = context
-                                  .read<WalletCubit>()
-                                  .categoryList[index]
-                                  .name!;
-                              context
-                                  .read<WalletCubit>()
-                                  .selectedCategoryIndex
-                                  .value = index;
-                              AutoRouter.of(context).push(AddWalletRoute(
-                                selectItemIndex: index,
-                                selectedCategory: selectedCategory,
-                                iconPath: iconPath,
-                              ));
+                              if (context
+                                          .read<WalletCubit>()
+                                          .categoryList[index]
+                                          .name !=
+                                      "راتب" &&
+                                  context
+                                          .read<WalletCubit>()
+                                          .categoryList[index]
+                                          .name !=
+                                      "حساب بنكي") {
+                                CustomToast.showSimpleToast(msg: "msg");
+                              } else {
+                                String iconPath = context
+                                    .read<WalletCubit>()
+                                    .categoryList[index]
+                                    .imagePath!;
+                                String selectedCategory = context
+                                    .read<WalletCubit>()
+                                    .categoryList[index]
+                                    .name!;
+                                context
+                                    .read<WalletCubit>()
+                                    .selectedCategoryIndex
+                                    .value = index;
+                                AutoRouter.of(context).push(AddWalletRoute(
+                                  selectItemIndex: index,
+                                  selectedCategory: selectedCategory,
+                                  iconPath: iconPath,
+                                ));
+                              }
                             },
                             child: Column(
                               children: [
-                                Container(
-                                  height: 85.h,
-                                  width: 85.w,
-                                  decoration: BoxDecoration(
-                                      color: MyColors.greyWhite,
-                                      borderRadius:
-                                          BorderRadius.circular(100.r)),
-                                  child: ClipRect(
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Image.asset(context
-                                          .read<WalletCubit>()
-                                          .categoryList[index]
-                                          .imagePath!),
+                                Stack(
+                                  alignment: AlignmentDirectional.topEnd,
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    Container(
+                                      height: 85.h,
+                                      width: 85.w,
+                                      decoration: BoxDecoration(
+                                          color: MyColors.greyWhite,
+                                          borderRadius:
+                                              BorderRadius.circular(100.r)),
+                                      child: ClipRect(
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Image.asset(context
+                                              .read<WalletCubit>()
+                                              .categoryList[index]
+                                              .imagePath!),
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                    if (context
+                                                .read<WalletCubit>()
+                                                .categoryList[index]
+                                                .name !=
+                                            "راتب" &&
+                                        context
+                                                .read<WalletCubit>()
+                                                .categoryList[index]
+                                                .name !=
+                                            "حساب بنكي")
+                                      Positioned(
+                                        bottom: 55.h,
+                                        right: 30.w,
+                                        child: Image.asset(
+                                          Res.pro,
+                                          height: 50.h,
+                                          width: 50.w,
+                                        ),
+                                      ),
+                                  ],
                                 ),
                                 SizedBox(
                                   height: 10.h,

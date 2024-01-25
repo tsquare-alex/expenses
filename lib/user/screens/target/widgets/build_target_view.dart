@@ -88,14 +88,19 @@ class _BuildTargetViewState extends State<BuildTargetView> {
                 childAspectRatio: 0.5.w / 0.65.h),
             itemBuilder: (context, i) => BuildTargetItem(
               onTap: () async {
-                await AutoRouter.of(context).push(AddTransactionRoute(
-                    model: state.data[i],
-                    transactionName: "الاهداف المالية المستهدفة",
-                    boxName: "targetBox"));
-                widget.data.fetchData();
+                if(state.data[i].name=="saving"){
+                  await AutoRouter.of(context).push(AddTransactionRoute(
+                      model: state.data[i],
+                      transactionName: "الاهداف المالية المستهدفة",
+                      boxName: "targetBox"));
+                  widget.data.fetchData();
+                }else{
+                  CustomToast.showSimpleToast(msg: "msg");
+                }
               },
               image: state.data[i].image ?? Res.shopping,
               name: state.data[i].name ?? "",
+              isPro: state.data[i].name=="saving"?true:false,
             ),
           ),
         );

@@ -53,6 +53,7 @@ part of 'RouterImports.dart';
     AdaptiveRoute(page: CartReadyModels),
     AdaptiveRoute(page: CartPreviouslyUsed),
     AdaptiveRoute(page: CartDetails),
+    AdaptiveRoute(page: MainCurrency),
   ],
 )
 class $AppRouter {}

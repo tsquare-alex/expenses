@@ -1,12 +1,12 @@
-
-import 'package:expenses/general/constants/MyColors.dart';
-import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 FlutterLocalNotificationsPlugin();
@@ -26,7 +26,7 @@ class _ReminderScreenState extends State<ReminderScreen> {
   @override
   void initState() {
     super.initState();
-    Noti.initialize(flutterLocalNotificationsPlugin);
+    LocalNotifications.init();
     selectedDateTime = DateTime.now();
   }
 
@@ -34,16 +34,15 @@ class _ReminderScreenState extends State<ReminderScreen> {
     if (_formKey.currentState?.validate() ?? false) {
       final scheduledDate = selectedDateTime;
 
-      await Noti.scheduleNotification(
-        id: 0,
+      await LocalNotifications.showScheduleNotification(
+        notificationId: 0,
         title: titleController.text,
         body: bodyController.text,
         scheduledDate: scheduledDate,
-        fln: flutterLocalNotificationsPlugin,
       );
 
       Fluttertoast.showToast(
-        msg: "${tr(context, "reminderSet")}  : ${_formatDate(selectedDateTime)}",
+        msg: "Reminder set: ${_formatDate(selectedDateTime)}",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
@@ -96,9 +95,8 @@ class _ReminderScreenState extends State<ReminderScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: MyText(title: tr(context, "setReminder"), color: MyColors.white, size: 16.sp,fontWeight: FontWeight.bold,),
+        title: MyText(title: tr(context, "setReminder"), color: Colors.white, size: 20,fontWeight: FontWeight.bold,),
       ),
-
       body: Padding(
         padding: EdgeInsets.all(16),
         child: Form(
@@ -106,42 +104,34 @@ class _ReminderScreenState extends State<ReminderScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ElevatedButton(
-                onPressed: () => _selectDateTime(context),
-                child: MyText(title: tr(context, "selectedDateTime"), color: Colors.black, size: 20,fontWeight: FontWeight.bold,),
-              ),
-              GenericTextField(
-                  fieldTypes: FieldTypes.normal,
-                  type: TextInputType.name,
-                  action: TextInputAction.next,
-                  validate: (value) {
-                    if (value == null || value.isEmpty) {
-                      return tr(context, "fillField");
-                    }
-                    return null;
-                  },
+              DefaultButton(title: tr(context, "selectedDateTime"),onTap: ()=> _selectDateTime(context),fontSize: 20,fontWeight: FontWeight.bold,),
+              // ElevatedButton(
+              //   onPressed: () => _selectDateTime(context),
+              //   child: MyText(title: tr(context, "selectedDateTime"), color: Colors.white, size: 18,fontWeight: FontWeight.bold,)),
+              TextFormField(
                 controller: titleController,
-                hint: tr(context, "enterTitle"),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return tr(context, "enterTitle");
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(labelText: tr(context, "enterTitle")),
               ),
-              GenericTextField(
-                  fieldTypes: FieldTypes.normal,
-                  type: TextInputType.name,
-                  action: TextInputAction.next,
-                  validate: (value) {
-                    if (value == null || value.isEmpty) {
-                      return tr(context, "fillField");
-                    }
-                    return null;
-                  },
+              TextFormField(
                 controller: bodyController,
-                hint: tr(context, "enterBody"),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return tr(context, "enterBody");
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(labelText: tr(context, "enterBody")),
               ),
-              ElevatedButton(
-                onPressed: () => _scheduleNotification(),
-                child: MyText(title: tr(context, "setReminder"), color: Colors.black, size: 20,fontWeight: FontWeight.bold,),
-              ),
+              DefaultButton(title: tr(context, "setReminder"),onTap: ()=> _scheduleNotification(),fontSize: 20,fontWeight: FontWeight.bold,),
+
               Text(
-                "التاريخ المحدد: ${_formatDate(selectedDateTime)}",
+                "${tr(context, "selectedDate")} ${_formatDate(selectedDateTime)}",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ],
@@ -151,45 +141,76 @@ class _ReminderScreenState extends State<ReminderScreen> {
     );
   }
 }
+class LocalNotifications {
+  static final FlutterLocalNotificationsPlugin
+  _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  static final onClickNotification = BehaviorSubject<String>();
 
-class Noti {
-  static Future initialize(
-      FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
-    var androidInitialize =
-    new AndroidInitializationSettings('mipmap/ic_launcher');
-    // var iOSInitialize = new IOSInitializationSettings();
-    // var initializationsSettings = new InitializationSettings(
-    //     android: androidInitialize, iOS: iOSInitialize);
-    // await flutterLocalNotificationsPlugin.initialize(initializationsSettings);
+  static void onNotificationTap(NotificationResponse notificationResponse) {
+    onClickNotification.add(notificationResponse.payload!);
   }
 
-  static Future scheduleNotification({
-    required int id,
+  static Future init() async {
+    const AndroidInitializationSettings initializationSettingsAndroid =
+    AndroidInitializationSettings('@mipmap/ic_launcher');
+    final DarwinInitializationSettings initializationSettingsDarwin =
+    DarwinInitializationSettings(
+      onDidReceiveLocalNotification: (id, title, body, payload) => null,
+    );
+    final LinuxInitializationSettings initializationSettingsLinux =
+    LinuxInitializationSettings(defaultActionName: 'Open notification');
+    final InitializationSettings initializationSettings =
+    InitializationSettings(
+        android: initializationSettingsAndroid,
+        iOS: initializationSettingsDarwin,
+        linux: initializationSettingsLinux);
+    _flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onDidReceiveNotificationResponse: onNotificationTap,
+        onDidReceiveBackgroundNotificationResponse: onNotificationTap);
+  }
+
+
+  static Future showScheduleNotification({
+    required int notificationId, // Unique notification ID
     required String title,
     required String body,
+    // required String payload,
     required DateTime scheduledDate,
-    required FlutterLocalNotificationsPlugin fln,
   }) async {
-    AndroidNotificationDetails androidPlatformChannelSpecifics =
-    AndroidNotificationDetails(
-      'you_can_name_it_whatever1',
-      'channel_name',
-      playSound: true,
-      importance: Importance.max,
-      priority: Priority.high,
-    );
+    tz.initializeTimeZones();
+    final tz.TZDateTime notificationTime =
+    tz.TZDateTime.from(scheduledDate, tz.local);
 
-    var not = NotificationDetails(
-      android: androidPlatformChannelSpecifics,
-      // iOS: IOSNotificationDetails(),
+    if (notificationTime.isBefore(tz.TZDateTime.now(tz.local))) {
+      throw ArgumentError("Scheduled date must be in the future.");
+    }
+
+    await _flutterLocalNotificationsPlugin.zonedSchedule(
+      notificationId, // Use the unique notification ID
+      title,
+      body,
+      notificationTime,
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'channel 3',
+          'your channel name',
+          channelDescription: 'your channel description',
+          importance: Importance.max,
+          priority: Priority.high,
+          ticker: 'ticker',
+        ),
+      ),
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      uiLocalNotificationDateInterpretation:
+      UILocalNotificationDateInterpretation.absoluteTime,
+      // payload: payload,
     );
-    // await fln.schedule(
-    //   id,
-    //   title,
-    //   body,
-    //   scheduledDate,
-    //   not,
-    //   androidAllowWhileIdle: true,
-    // );
   }
+
+
+
+
+
+
 }
+

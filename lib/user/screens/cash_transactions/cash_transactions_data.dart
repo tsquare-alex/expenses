@@ -25,6 +25,7 @@ class CashTransactionsData{
     getCashTransactions();
     transactionType = box.values.cast<TransactionTypeModel>().toList();
     transactionTypeCubit.onUpdateData(transactionType);
+    await box.close();
   }
 
   List<TransactionTypeModel> transactionType = [];
@@ -127,7 +128,7 @@ class CashTransactionsData{
               topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r))),
       context: context,
       builder: (context) => SizedBox(
-          height: 400.h,
+          height: 550.h,
           child: BuildAddCashTransaction(
             data: this,
           )),

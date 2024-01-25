@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
@@ -90,19 +91,22 @@ class _AddWalletState extends State<AddWallet> {
               return Scaffold(
                 appBar: AppBar(
                   surfaceTintColor: Colors.transparent,
-                  leading: IconButton(
-                    icon: Image.asset(Res.back),
-                    onPressed: () => AutoRouter.of(context).pop(),
+                  leading: GestureDetector(
+                    onTap: () => AutoRouter.of(context).pop(),
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : MyColors.black,
+                    ),
                   ),
                   backgroundColor: MyColors.white,
                   centerTitle: true,
-                  title: Center(
-                    child: MyText(
-                      title: widget.selectedCategory,
-                      color: MyColors.black,
-                      size: 16.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  title: MyText(
+                    title: widget.selectedCategory,
+                    color: MyColors.black,
+                    size: 16.sp,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 body: SingleChildScrollView(
@@ -149,14 +153,10 @@ class _AddWalletState extends State<AddWallet> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                item,
-                                                textDirection:
-                                                    TextDirection.rtl,
-                                              ),
+                                              Text(tr(context, item)),
                                               Radio<String>(
                                                 activeColor: MyColors.primary,
-                                                value: item,
+                                                value: tr(context, item),
                                                 groupValue: selectedValue,
                                                 onChanged: (value) {
                                                   setState(() {

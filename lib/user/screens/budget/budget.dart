@@ -14,10 +14,8 @@ class _BudgetState extends State<Budget> {
       RefreshController(initialRefresh: false);
 
   void onRefresh() async {
-    // Simulate a delay or perform any background tasks
     await Future.delayed(const Duration(seconds: 2));
 
-    // After the task is complete, end the refreshing process
     refreshController.refreshCompleted();
   }
 
@@ -32,15 +30,19 @@ class _BudgetState extends State<Budget> {
           builder: (context, state) {
             return Scaffold(
               appBar: AppBar(
-                leading: IconButton(
-                  icon: Image.asset(Res.back),
-                  onPressed: () => AutoRouter.of(context).pop(),
+                leading: GestureDetector(
+                  onTap: () => AutoRouter.of(context).pop(),
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? MyColors.white
+                        : MyColors.black,
+                  ),
                 ),
                 backgroundColor: MyColors.white,
                 centerTitle: true,
                 title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Image.asset(Res.budgetIcon, height: 28.h, width: 32.w),
                     MyText(

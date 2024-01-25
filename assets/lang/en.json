@@ -293,16 +293,6 @@
   "unitPrice": "Unit Price",
   "stop": "Stop",
   "reset": "Reset",
-<<<<<<< HEAD
-=======
-  "selectMainCurrency": "Select Main Currency",
-  "selectSubCurrency": "Select Sub Currency",
-
-
-
-
-
->>>>>>> development
   "chooseTransaction": "Choose transaction",
   "chooseTransactions": "Choose transactions",
   "chooseSubTransaction": "Choose sub transaction",
@@ -505,5 +495,32 @@
   "favorite": "Favorite",
   "balnceTransactionLessThan": "Budget Balance is less than Transaction Balance",
   "selectTheWallet": "Select the Wallet",
-  "editBudget": "Edit Budget"
+  "editBudget": "Edit Budget",
+  "person": "Person",
+  "entity": "entity",
+  "incentive": "Incentive",
+  "extra": "Extra",
+  "reward": "reward",
+  "gift": "Gift",
+  "bankAccount": "Bank Account",
+  "projectYield": "Project Yield",
+  "deal": "Deal",
+  "commission": "Commission",
+  "sale": "Sale",
+  "speculation": "Speculation",
+  "subscriptionTitle": "Full version subscription",
+  "subscriptionBenefits": "Subscription benefits",
+  "subscriptionBenefitsdesc": "Obtain the full premium version of the application and its many and varied additional tools and capabilities, which amount to more than (80) add-ons and tools.",
+  "subscriptionPlan": "Subscription Plan",
+  "subscriptionOffer": "Special and exclusive offer this period",
+  "subscription30": "30-day subscription",
+  "subscription365": "365-day subscription",
+  "subscription547": "547-day subscription",
+  "subscription30Cost": "The cost of the subscription per day is 60 piasters",
+  "subscription365Cost": "The cost of the subscription per day is 50 piasters",
+  "subscription547Cost": "The cost of the subscription per day is 35 piasters",
+  "18pound": "18 Pound",
+  "182pound": "182.5 pound",
+  "191pound": "191 pound",
+  "SubscribeNow": "Subscribe Now"
 }

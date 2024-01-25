@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
@@ -35,7 +36,7 @@ class _WalletBodyState extends State<WalletBody> {
     return BlocBuilder<WalletCubit, WalletState>(
       builder: (context, state) {
         wallet = BlocProvider.of<WalletCubit>(context).walletList;
-        wallet.sort((a, b) => b.checkedValue! ? 1 : -1);
+        // wallet.sort((a, b) => b.checkedValue! ? 1 : -1);
         double totalBalance = context.read<WalletCubit>().calculateTotalBalance(
               wallet,
             );
@@ -44,18 +45,22 @@ class _WalletBodyState extends State<WalletBody> {
               ? null
               : AppBar(
                   surfaceTintColor: Colors.transparent,
-                  leading: IconButton(
-                    icon: Image.asset(Res.back),
-                    onPressed: () => AutoRouter.of(context).pop(),
+                  leading: GestureDetector(
+                    onTap: () => AutoRouter.of(context).pop(),
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : MyColors.black,
+                    ),
                   ),
                   backgroundColor: MyColors.white,
-                  title: Center(
-                    child: MyText(
-                      color: MyColors.black,
-                      size: 20.sp,
-                      fontWeight: FontWeight.bold,
-                      title: tr(context, "wallet"),
-                    ),
+                  centerTitle: true,
+                  title: MyText(
+                    color: MyColors.black,
+                    size: 20.sp,
+                    fontWeight: FontWeight.bold,
+                    title: tr(context, "wallet"),
                   ),
                 ),
           body: wallet.isEmpty

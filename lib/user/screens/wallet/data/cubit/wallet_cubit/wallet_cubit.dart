@@ -4,6 +4,7 @@ import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/constants/constants.dart';
 import 'package:expenses/general/models/currency_model/currency_model.dart';
 import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
@@ -87,7 +88,8 @@ class WalletCubit extends Cubit<WalletState> {
     Image.asset(Res.Speculation),
   ];
 
-  List<String> encomeSource = ["شخص", "جهة"];
+  List<String> encomeSource = ["entity", "person"];
+
   List<String> curancyType = ["ر.س", "ج.م"];
   List<String> repeatWallet = [
     "يومياً",
@@ -300,22 +302,22 @@ class WalletCubit extends Cubit<WalletState> {
   }
 
   List<CategoryModel> categoryModel = [
-    CategoryModel(name: "راتب", imagePath: Res.salary),
-    CategoryModel(name: "حافز", imagePath: Res.incentive),
-    CategoryModel(name: "إضافي", imagePath: Res.extra),
-    CategoryModel(name: "مكافأة", imagePath: Res.reward),
-    CategoryModel(name: "هدية", imagePath: Res.gift),
-    CategoryModel(name: "حساب بنكي", imagePath: Res.bank_account),
-    CategoryModel(name: "عائد مشروع", imagePath: Res.project_income),
-    CategoryModel(name: "صفقة", imagePath: Res.deal),
-    CategoryModel(name: "عمولة", imagePath: Res.commission),
-    CategoryModel(name: "بيع", imagePath: Res.sale),
-    CategoryModel(name: "مضاربة", imagePath: Res.Speculation),
-    CategoryModel(name: "إيجار", imagePath: Res.rent)
+    CategoryModel(name: "salary", imagePath: Res.salary),
+    CategoryModel(name: "incentive", imagePath: Res.incentive),
+    CategoryModel(name: "extra", imagePath: Res.extra),
+    CategoryModel(name: "reward", imagePath: Res.reward),
+    CategoryModel(name: "gift", imagePath: Res.gift),
+    CategoryModel(name: "bankAccount", imagePath: Res.bank_account),
+    CategoryModel(name: "projectYield", imagePath: Res.project_income),
+    CategoryModel(name: "deal", imagePath: Res.deal),
+    CategoryModel(name: "commission", imagePath: Res.commission),
+    CategoryModel(name: "sale", imagePath: Res.sale),
+    CategoryModel(name: "speculation", imagePath: Res.Speculation),
+    CategoryModel(name: "rent", imagePath: Res.rent)
   ];
 
   List<CategoryModel> categoryList = [];
-  iniData() async {
+  iniData(BuildContext context) async {
     emit(WalletInitial());
     var walletBox = await Hive.openBox<CategoryModel>("walletCategoryModel");
 
@@ -326,10 +328,10 @@ class WalletCubit extends Cubit<WalletState> {
           await walletBox.add(item);
         }
       }
-      await getCategory(); // Call getCategory after adding items
+      await getCategory();
       emit(CategorySuccess(categoryList: categoryList));
     } finally {
-      await walletBox.close(); // Close the box after use
+      await walletBox.close();
     }
   }
 
@@ -372,7 +374,7 @@ class WalletCubit extends Cubit<WalletState> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 GenericTextField(
-                    hint: "رجاء ادخل القيمة",
+                    hint: tr(context, "pleaseEnterValue"),
                     controller: controller,
                     fieldTypes: FieldTypes.normal,
                     type: TextInputType.name,
@@ -380,7 +382,7 @@ class WalletCubit extends Cubit<WalletState> {
                     validate: (text) {}),
                 SizedBox(height: 15.h),
                 DefaultButton(
-                  title: "اضافة",
+                  title: tr(context, "add"),
                   onTap: () async {
                     emit(WalletInitial());
                     if (controller.text.isNotEmpty) {
@@ -420,7 +422,7 @@ class WalletCubit extends Cubit<WalletState> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 GenericTextField(
-                    hint: "رجاء ادخل القيمة",
+                    hint: tr(context, "pleaseEnterValue"),
                     controller: controller,
                     fieldTypes: FieldTypes.normal,
                     type: TextInputType.name,
@@ -428,11 +430,10 @@ class WalletCubit extends Cubit<WalletState> {
                     validate: (text) {}),
                 SizedBox(height: 16.h),
                 DefaultButton(
-                    title: "اضافة",
+                    title: tr(context, "add"),
                     onTap: () {
                       emit(WalletInitial());
                       if (controller.text.isNotEmpty) {
-                        encomeSource.add(controller.text);
                         encomeSource.add(controller.text);
                         emit(AddWalletSucess());
                         Navigator.of(context).pop();
@@ -460,7 +461,7 @@ class WalletCubit extends Cubit<WalletState> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 GenericTextField(
-                    hint: "رجاء ادخل القيمة",
+                    hint: tr(context, "pleaseEnterValue"),
                     controller: controller,
                     fieldTypes: FieldTypes.normal,
                     type: TextInputType.name,
@@ -468,7 +469,7 @@ class WalletCubit extends Cubit<WalletState> {
                     validate: (text) {}),
                 SizedBox(height: 16.h),
                 DefaultButton(
-                    title: "اضافة",
+                    title: tr(context, "add"),
                     onTap: () {
                       emit(WalletInitial());
                       if (controller.text.isNotEmpty) {
@@ -504,7 +505,6 @@ class WalletCubit extends Cubit<WalletState> {
     required String selectedCurrency,
     required void Function(String?) onCurrencySelected,
   }) {
-    // Assuming that the currencies are separated by a delimiter, such as ","
     List<String> currencies = currencyList.split(',');
 
     return Column(

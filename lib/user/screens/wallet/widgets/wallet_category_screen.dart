@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
+import 'package:expenses/user/screens/subscriptions/subscriptions.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,7 @@ class WalletCategory extends StatefulWidget {
 class _WalletCategoryState extends State<WalletCategory> {
   @override
   void initState() {
-    context.read<WalletCubit>().iniData();
+    context.read<WalletCubit>().iniData(context);
     super.initState();
   }
 
@@ -32,9 +34,14 @@ class _WalletCategoryState extends State<WalletCategory> {
     return Scaffold(
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
-        leading: IconButton(
-          icon: Image.asset(Res.back),
-          onPressed: () => AutoRouter.of(context).pop(),
+        leading: GestureDetector(
+          onTap: () => AutoRouter.of(context).pop(),
+          child: Icon(
+            Icons.arrow_back,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+          ),
         ),
         backgroundColor: MyColors.white,
         title: Center(
@@ -85,13 +92,14 @@ class _WalletCategoryState extends State<WalletCategory> {
                                           .read<WalletCubit>()
                                           .categoryList[index]
                                           .name !=
-                                      "راتب" &&
+                                      "salary" &&
                                   context
                                           .read<WalletCubit>()
                                           .categoryList[index]
                                           .name !=
-                                      "حساب بنكي") {
-                                CustomToast.showSimpleToast(msg: "msg");
+                                      "bankAccount") {
+                                AutoRouter.of(context)
+                                    .push(const SubscriptionsRoute());
                               } else {
                                 String iconPath = context
                                     .read<WalletCubit>()
@@ -139,12 +147,12 @@ class _WalletCategoryState extends State<WalletCategory> {
                                                 .read<WalletCubit>()
                                                 .categoryList[index]
                                                 .name !=
-                                            "راتب" &&
+                                            "salary" &&
                                         context
                                                 .read<WalletCubit>()
                                                 .categoryList[index]
                                                 .name !=
-                                            "حساب بنكي")
+                                            "bankAccount")
                                       Positioned(
                                         bottom: 55.h,
                                         right: 30.w,
@@ -159,10 +167,23 @@ class _WalletCategoryState extends State<WalletCategory> {
                                 SizedBox(
                                   height: 10.h,
                                 ),
-                                Text(context
-                                    .read<WalletCubit>()
-                                    .categoryList[index]
-                                    .name!),
+                                Text(tr(
+                                            context,
+                                            context
+                                                .read<WalletCubit>()
+                                                .categoryList[index]
+                                                .name!)
+                                        .isNotEmpty
+                                    ? tr(
+                                        context,
+                                        context
+                                            .read<WalletCubit>()
+                                            .categoryList[index]
+                                            .name!)
+                                    : context
+                                        .read<WalletCubit>()
+                                        .categoryList[index]
+                                        .name!)
                               ],
                             ));
                       },

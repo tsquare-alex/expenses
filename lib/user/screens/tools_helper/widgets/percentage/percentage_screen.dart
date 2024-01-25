@@ -1,5 +1,6 @@
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,17 +70,20 @@ class _PercentageCalculatorScreenState extends State<PercentageCalculatorScreen>
                     ),
                   ),
                   const SizedBox(height: 50,),
-                  ElevatedButton(
-                    onPressed: () {
+                  DefaultButton(
+                    fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      title:'${tr(context, "calculate")}',
+                    onTap: (){
                       context.read<PercentageCubit>().calculatePercentage(
                         number: double.tryParse(numberController.text) ?? 0.0,
                         percentage: double.tryParse(percentageController.text) ?? 0.0,
                       );
                     },
-                    child: MyText(title: tr(context, "calculate"), color: MyColors.primary, size: 25.sp,fontWeight: FontWeight.bold,),
                   ),
                   if (result > 0.0)
                     // const SizedBox(height: 50,),
+
                   Center(
                     child: MyText(title: '${tr(context, "result")}: ${result.toStringAsFixed(2)}',color: MyColors.primary,size: 18.sp),
                   ),

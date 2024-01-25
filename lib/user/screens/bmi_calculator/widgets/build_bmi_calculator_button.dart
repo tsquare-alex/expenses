@@ -10,9 +10,9 @@ class BuildBMICalculatorButton extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 20.r),
       child: DefaultButton(
         onTap: ()=>data.calculateBMI(),
-        title: "Calculate BMI",
+        title: tr(context, "calculate"),
         fontWeight: FontWeight.bold,
-        fontSize: 14.sp,
+        fontSize: 20.sp,
       ),
     );
   }

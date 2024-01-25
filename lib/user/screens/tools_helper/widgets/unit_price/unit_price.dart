@@ -4,6 +4,8 @@ import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../general/widgets/DefaultButton.dart';
+
 class UnitPriceScreen extends StatefulWidget {
   @override
   _UnitPriceScreenState createState() => _UnitPriceScreenState();
@@ -19,6 +21,7 @@ class _UnitPriceScreenState extends State<UnitPriceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: MyText(title: tr(context, "unitPrice"), color: MyColors.white, size: 20,fontWeight: FontWeight.bold,),
       ),
       body: Padding(
@@ -42,13 +45,15 @@ class _UnitPriceScreenState extends State<UnitPriceScreen> {
               ),
             ),
             SizedBox(height: 32.h),
-            ElevatedButton(
-              onPressed: () {
+            DefaultButton(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              title:'${tr(context, "calculate")}',
+              onTap: (){
                 calculateUnitPrice();
               },
-              child: MyText(title: tr(context, "unitPrice"), color: MyColors.primary, size: 20,fontWeight: FontWeight.bold,),
             ),
-            SizedBox(height: 32.h),
+
             Text(
               '${tr(context, "unitPrice")}: $unitPrice جنيه',
               style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),

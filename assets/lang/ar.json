@@ -661,10 +661,13 @@
   "operationNotAllowed": "عملية غير ممكنه لان رصيد المعاملة أكبر من قيمة المحفظة.",
   "startTimer": "بدء المؤقت",
   "stopTimer": "ايقاف المؤقت",
-  "selectTime": "حدد الوقت"
-
-
-
+  "selectTime": "حدد الوقت",
+  "editNote": "تعديل الملاحظات",
+  "enterWeight": "أدخل وزنك (كجم)",
+  "enterHeight": "أدخل طولك (سم)",
+  "male": "ذكر",
+  "feMale": "أنثى",
+  "age": "السن"
 
 
 }

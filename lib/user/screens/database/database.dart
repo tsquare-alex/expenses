@@ -8,18 +8,18 @@ class Database extends StatefulWidget {
 
 class _DatabaseState extends State<Database> {
 
-  String scannedContent = ""; // Variable to store the scanned content
-
-  Future<void> _scanQRCode() async {
-    try {
-      var result = await BarcodeScanner.scan();
-      setState(() {
-        scannedContent = result.rawContent;
-      });
-    } on Exception catch (e) {
-      print("Error scanning QR Code: $e");
-    }
-  }
+  // String scannedContent = ""; // Variable to store the scanned content
+  //
+  // Future<void> _scanQRCode() async {
+  //   try {
+  //     var result = await BarcodeScanner.scan();
+  //     setState(() {
+  //       scannedContent = result.rawContent;
+  //     });
+  //   } on Exception catch (e) {
+  //     print("Error scanning QR Code: $e");
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,9 @@ class _DatabaseState extends State<Database> {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.deepPurple,
+              backgroundColor: MyColors.primary,
               title: Row(
+
                 children: [
                   Image.asset(
                     Res.database,

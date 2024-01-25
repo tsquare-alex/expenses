@@ -1,3 +1,4 @@
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/user/models/note_model/note_model.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/note/notes_cubit/notes_cubit.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
       child: Column(
         children: [
           const SizedBox(height: 50,),
-          CustomAppBar(title: "Edit Note",),
+          CustomAppBar(title: tr(context, "editNote"),),
           const SizedBox(height: 50,),
           CustomTextField(
               onChanged: (value) {

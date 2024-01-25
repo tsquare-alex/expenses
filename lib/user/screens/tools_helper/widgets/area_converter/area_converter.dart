@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../general/constants/MyColors.dart';
+import '../../../../../general/widgets/DefaultButton.dart';
 
 class AreaConverterScreen extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class _AreaConverterScreenState extends State<AreaConverterScreen> {
       double? convertedValue = convertArea(inputValue, fromUnit, toUnit);
       if (convertedValue != null) {
         setState(() {
-          result = '$convertedValue $toUnit';
+          result = '${tr(context, "result")} $convertedValue $toUnit';
         });
       } else {
         setState(() {
@@ -140,12 +141,14 @@ class _AreaConverterScreenState extends State<AreaConverterScreen> {
               },
             ),
             SizedBox(height: 32.0),
-            ElevatedButton(
-              onPressed: _performConversion,
-              child: MyText(title: tr(context, "calculate"), color: MyColors.primary, size: 25.sp,fontWeight: FontWeight.bold,),
+            DefaultButton(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              title: '${tr(context, "calculate")}',
+              onTap: _performConversion,
             ),
             SizedBox(height: 16.0),
-            MyText(title:"${tr(context, "result")}: $result", color: MyColors.primary, size: 25.sp,fontWeight: FontWeight.bold,),
+            MyText(title: result, color: MyColors.black, size: 20.sp,alien: TextAlign.center,)
           ],
         ),
       ),

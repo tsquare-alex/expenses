@@ -37,13 +37,19 @@ class _BudgetState extends State<Budget> {
                   onPressed: () => AutoRouter.of(context).pop(),
                 ),
                 backgroundColor: MyColors.white,
-                title: Center(
-                  child: MyText(
-                    title: tr(context, "budget"),
-                    color: MyColors.black,
-                    size: 16.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
+                centerTitle: true,
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(Res.budgetIcon, height: 28.h, width: 32.w),
+                    MyText(
+                      title: tr(context, "budget"),
+                      color: MyColors.black,
+                      size: 16.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ],
                 ),
               ),
               body: Column(children: [

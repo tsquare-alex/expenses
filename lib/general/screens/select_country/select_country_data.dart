@@ -61,7 +61,7 @@ class SelectCountryData {
         print(country[0].name);
       }
       print(country.length);
-      AutoRouter.of(context).push(const SelectCurrencyRoute());
+      AutoRouter.of(context).push(const MainCurrencyRoute());
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/MyText.dart';
@@ -24,6 +25,12 @@ class CustomContainer extends StatefulWidget {
 
 class _CustomContainerState extends State<CustomContainer> {
   @override
+  void initState() {
+    context.read<WalletCubit>().fetchCurrencyData(context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     DateTime currentDate = DateTime.now();
 
@@ -40,6 +47,7 @@ class _CustomContainerState extends State<CustomContainer> {
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 12.r),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,7 +96,8 @@ class _CustomContainerState extends State<CustomContainer> {
                                   child: Container(
                                     height: 60.h,
                                     width: double.infinity,
-                                    padding: EdgeInsets.all(16.w),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16.w),
                                     decoration: const BoxDecoration(
                                       color: Color(0xffF7F7F6),
                                     ),
@@ -101,10 +110,10 @@ class _CustomContainerState extends State<CustomContainer> {
                                         ),
                                         SizedBox(width: 12.w),
                                         MyText(
-                                          title: "سحب رصيد",
+                                          title: tr(context, "withdrawBalance"),
                                           color: MyColors.black,
                                           size: 16.sp,
-                                          fontWeight: FontWeight.w600,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ],
                                     ),
@@ -126,7 +135,8 @@ class _CustomContainerState extends State<CustomContainer> {
                                   child: Container(
                                     height: 60.h,
                                     width: double.infinity,
-                                    padding: EdgeInsets.all(16.w),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16.w),
                                     decoration: const BoxDecoration(
                                       color: Color(0xffF7F7F6),
                                     ),
@@ -139,10 +149,10 @@ class _CustomContainerState extends State<CustomContainer> {
                                         ),
                                         SizedBox(width: 12.w),
                                         MyText(
-                                          title: "اضافة رصيد",
+                                          title: tr(context, "addBalance"),
                                           color: MyColors.black,
                                           size: 16.sp,
-                                          fontWeight: FontWeight.w600,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ],
                                     ),
@@ -153,6 +163,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                 ),
                                 InkWell(
                                   onTap: () {
+                                    // CustomToast.showSimpleToast(msg: "msg");
                                     AutoRouter.of(context).push(
                                       WalletBalanceTransferRoute(
                                           model: widget.model),
@@ -174,11 +185,14 @@ class _CustomContainerState extends State<CustomContainer> {
                                         ),
                                         SizedBox(width: 12.w),
                                         MyText(
-                                          title: "تحويل رصيد بين المحفظة",
-                                          color: MyColors.black,
-                                          size: 16.sp,
-                                          fontWeight: FontWeight.w600,
-                                        ),
+                                            title: tr(context,
+                                                "transferBalanceBetweenWallets"),
+                                            color: MyColors.black,
+                                            size: 16.sp,
+                                            fontWeight: FontWeight.w500),
+                                        const Spacer(),
+                                        Image.asset(Res.pro,
+                                            height: 50.h, width: 50.w)
                                       ],
                                     ),
                                   ),
@@ -189,9 +203,11 @@ class _CustomContainerState extends State<CustomContainer> {
                                 Column(
                                   children: [
                                     InkWell(
-                                      onTap: () => AutoRouter.of(context).push(
-                                          WalletTransactionsRoute(
-                                              model: widget.model)),
+                                      onTap: () => CustomToast.showSimpleToast(
+                                          msg: "msg"),
+                                      //  AutoRouter.of(context).push(
+                                      //     WalletTransactionsRoute(
+                                      //         model: widget.model)),
                                       child: Container(
                                         height: 60.h,
                                         width: double.infinity,
@@ -208,10 +224,14 @@ class _CustomContainerState extends State<CustomContainer> {
                                             ),
                                             SizedBox(width: 12.w),
                                             MyText(
-                                                title: "عرض المعاملات",
+                                                title: tr(
+                                                    context, "viewTransaction"),
                                                 color: MyColors.black,
                                                 size: 16.sp,
-                                                fontWeight: FontWeight.w600),
+                                                fontWeight: FontWeight.w500),
+                                            const Spacer(),
+                                            Image.asset(Res.pro,
+                                                height: 50.h, width: 50.h)
                                           ],
                                         ),
                                       ),
@@ -237,14 +257,38 @@ class _CustomContainerState extends State<CustomContainer> {
                 children: [
                   Visibility(
                     visible: !widget.model.isHide!,
-                    child: MyText(
-                        alien: TextAlign.end,
-                        title: widget.model.balance.toStringAsFixed(2),
-                        color: MyColors.white,
-                        size: 22.sp),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        MyText(
+                            alien: TextAlign.end,
+                            title: widget.model.checkedValue == false
+                                ? widget.model.balance.toStringAsFixed(2)
+                                : widget.model.totalBalance.toString(),
+                            color: MyColors.white,
+                            size: 22.sp),
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        Text(
+                          widget.model.checkedValue == false
+                              ? widget.model.currency
+                              : context
+                                      .read<WalletCubit>()
+                                      .currencyData[0]
+                                      .mainCurrency ??
+                                  "",
+                          style: TextStyle(
+                              color: MyColors.white,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
                   ),
                   MyText(
-                    title: "الرصيد المتاح",
+                    title: tr(context, "availableBalance"),
                     color: MyColors.white,
                     size: 10.sp,
                     fontWeight: FontWeight.w400,
@@ -261,11 +305,11 @@ class _CustomContainerState extends State<CustomContainer> {
                     if (widget.model.isClosed!) {
                       // ignore: void_checks
                       return CustomToast.showSimpleToast(
-                          msg: "المحفظة مغلة حاليا");
+                          msg: tr(context, "closedWallet"));
                     } else {
                       // ignore: void_checks
                       return CustomToast.showSimpleToast(
-                          msg: "المحفظة متاحة حاليا");
+                          msg: tr(context, "availableWallet"));
                     }
                   },
                   icon: Visibility(
@@ -334,7 +378,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                           width: 10.w,
                                         ),
                                         MyText(
-                                          title: " حذف المحفظة",
+                                          title: tr(context, "deletWallet"),
                                           color: MyColors.black,
                                           size: 16.sp,
                                           fontWeight: FontWeight.w600,
@@ -371,7 +415,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                           width: 10.w,
                                         ),
                                         MyText(
-                                          title: "تعديل المحفظة",
+                                          title: tr(context, "editWallet"),
                                           color: MyColors.black,
                                           size: 16.sp,
                                           fontWeight: FontWeight.w600,

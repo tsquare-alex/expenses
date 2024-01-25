@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
@@ -96,7 +97,10 @@ class ItemBudget extends StatelessWidget {
                         ),
                       ],
                     ),
-                    MyText(title: "من", color: MyColors.black, size: 14.sp),
+                    MyText(
+                        title: tr(context, "from"),
+                        color: MyColors.black,
+                        size: 14.sp),
                     Row(
                       children: [
                         Text(
@@ -110,7 +114,7 @@ class ItemBudget extends StatelessWidget {
                           width: 12.w,
                         ),
                         MyText(
-                          title: "الميزانية",
+                          title: tr(context, "transaction"),
                           color: MyColors.black,
                           size: 14.sp,
                           fontWeight: FontWeight.w400,
@@ -137,7 +141,7 @@ class ItemBudget extends StatelessWidget {
                     Row(
                       children: [
                         MyText(
-                          title: "تاريخ البداية",
+                          title: tr(context, "startDate"),
                           color: MyColors.black,
                           size: 16.sp,
                           fontWeight: FontWeight.w600,
@@ -158,7 +162,7 @@ class ItemBudget extends StatelessWidget {
                     Row(
                       children: [
                         MyText(
-                          title: "تاريخ النهاية",
+                          title: tr(context, "endDate"),
                           color: MyColors.black,
                           size: 16.sp,
                           fontWeight: FontWeight.w600,

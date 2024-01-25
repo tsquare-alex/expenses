@@ -1,5 +1,6 @@
 import 'package:expenses/user/screens/wallet/data/model/wallet_category/category_model.dart';
 import 'package:hive_flutter/adapters.dart';
+
 part 'wallet_model.g.dart';
 
 @HiveType(typeId: 13)
@@ -44,27 +45,29 @@ class WalletModel extends HiveObject {
   String currency;
   @HiveField(19)
   double currencyValue;
+  @HiveField(20)
+  double? totalBalance;
 
-  WalletModel({
-    required this.name,
-    required this.balance,
-    required this.openDate,
-    required this.closedDate,
-    required this.encomeSource,
-    required this.valueCategory,
-    this.currancyChange,
-    this.walletRepate,
-    this.notification,
-    required this.category,
-    this.isClosed = false,
-    this.isHide = false,
-    this.checkedValue = false,
-    this.paymentMethod,
-    this.model,
-    this.isFavorite = false,
-    this.addNote,
-    this.iconPath,
-    required this.currency,
-    required this.currencyValue,
-  });
+  WalletModel(
+      {required this.name,
+      required this.balance,
+      required this.openDate,
+      required this.closedDate,
+      required this.encomeSource,
+      required this.valueCategory,
+      this.currancyChange,
+      this.walletRepate,
+      this.notification,
+      required this.category,
+      this.isClosed = false,
+      this.isHide = false,
+      this.checkedValue = false,
+      this.paymentMethod,
+      this.model,
+      this.isFavorite = false,
+      this.addNote,
+      this.iconPath,
+      required this.currency,
+      required this.currencyValue,
+      this.totalBalance});
 }

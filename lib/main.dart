@@ -35,62 +35,62 @@ import 'general/constants/constants.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 
-// @pragma(
-//     'vm:entry-point') // Mandatory if the App is obfuscated or using Flutter 3.1+
-// void callbackDispatcher(List<AddTransactionModel> list) {
-//   Workmanager().executeTask((task, inputData) async{
-//
-//     print("Native called background task: ");
-//     await Duration(seconds: 1,);
-//     LocalNotifications.showSimpleNotification(
-//       title: "Your Notification Title",
-//       body: "Your Notification Body",
-//       // "Your Notification Payload",
-//       payload: '',
-//     );
-//     Timer.periodic(Duration(seconds: 2), (timer) {
-//       LocalNotifications.showSimpleNotification(
-//         title: "Your Notification Title",
-//         body: "Your Notification Body",
-//         // "Your Notification Payload",
-//         payload: '',
-//       );
-//     });
-//     var box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
-//     var list = box.values.toList();
-//     for(AddTransactionModel item in list){
-//       if(item.repeated != null){
-//         if(item.repeated?.name == "daily"){
-//           DateTime now = DateTime.now();
-//           var date = DateFormat("dd MMMM yyyy", "en").parse(item.transactionDate!);
-//           var time = DateFormat("hh:mm aa", "en").parse(item.time!);
-//           DateTime scheduledTime = DateTime(
-//             date.year,
-//             date.month,
-//             date.day,
-//             time.hour,
-//             time.minute,
-//           );
-//           if (now.isAfter(scheduledTime)) {
-//             scheduledTime = scheduledTime.add(Duration(days: 1));
-//           }
-//           Duration durationUntilNextRun = scheduledTime.difference(now);
-//           Timer.periodic(Duration(seconds: 2), (timer) {
-//             LocalNotifications.showScheduleNotification(
-//               notificationId: item.hashCode, // Unique ID based on item's hash code
-//               title: "Your Notification Title",
-//               body: "Your Notification Body",
-//               // "Your Notification Payload",
-//               scheduledDate: DateTime.parse(item.time!),
-//             );
-//           }
-//           );
-//         }
-//       }
-//     }
-//     return Future.value(true);
-//   });
-// }
+@pragma(
+    'vm:entry-point') // Mandatory if the App is obfuscated or using Flutter 3.1+
+void callbackDispatcher(List<AddTransactionModel> list) {
+  Workmanager().executeTask((task, inputData) async{
+
+    print("Native called background task: ");
+    await Duration(seconds: 1,);
+    LocalNotifications.showSimpleNotification(
+      title: "Your Notification Title",
+      body: "Your Notification Body",
+      // "Your Notification Payload",
+      payload: '',
+    );
+    Timer.periodic(Duration(seconds: 2), (timer) {
+      LocalNotifications.showSimpleNotification(
+        title: "Your Notification Title",
+        body: "Your Notification Body",
+        // "Your Notification Payload",
+        payload: '',
+      );
+    });
+    var box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
+    var list = box.values.toList();
+    for(AddTransactionModel item in list){
+      if(item.repeated != null){
+        if(item.repeated?.name == "daily"){
+          DateTime now = DateTime.now();
+          var date = DateFormat("dd MMMM yyyy", "en").parse(item.transactionDate!);
+          var time = DateFormat("hh:mm aa", "en").parse(item.time!);
+          DateTime scheduledTime = DateTime(
+            date.year,
+            date.month,
+            date.day,
+            time.hour,
+            time.minute,
+          );
+          if (now.isAfter(scheduledTime)) {
+            scheduledTime = scheduledTime.add(Duration(days: 1));
+          }
+          Duration durationUntilNextRun = scheduledTime.difference(now);
+          Timer.periodic(Duration(seconds: 2), (timer) {
+            LocalNotifications.showScheduleNotification(
+              notificationId: item.hashCode, // Unique ID based on item's hash code
+              title: "Your Notification Title",
+              body: "Your Notification Body",
+              // "Your Notification Payload",
+              scheduledDate: DateTime.parse(item.time!),
+            );
+          }
+          );
+        }
+      }
+    }
+    return Future.value(true);
+  });
+}
 
 
 
@@ -136,17 +136,17 @@ Future<void> main() async {
   await Hive.openBox<CountryModel>("countryBox");
   await Hive.openBox<NoteModel>(noteKey);
 
-  // Workmanager().initialize(
-  //     callbackDispatcher, // The top level function, aka callbackDispatcher
-  //     isInDebugMode:
-  //         true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
-  //     );
-  // Workmanager().registerPeriodicTask(
-  //     "task-identifier",
-  //     "Mohamed Salama",
-  //   frequency: Duration(seconds: 5),
-  //   initialDelay: Duration(seconds: 5),
-  // );
+  Workmanager().initialize(
+      callbackDispatcher, // The top level function, aka callbackDispatcher
+      isInDebugMode:
+          true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
+      );
+  Workmanager().registerPeriodicTask(
+      "task-identifier",
+      "Mohamed Salama",
+    frequency: Duration(seconds: 5),
+    initialDelay: Duration(seconds: 5),
+  );
 
   // Workmanager().initialize(() {
   //   Workmanager().executeTask((task, inputData) async{

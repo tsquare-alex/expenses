@@ -17,21 +17,27 @@ class CurrencyModelAdapter extends TypeAdapter<CurrencyModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return CurrencyModel(
-      mainCurrency: fields[0] as String,
-      subCurrency: fields[1] as String,
-      value: fields[2] as double,
+      mainCurrency: fields[0] as String?,
+      subCurrency: fields[1] as String?,
+      value: fields[4] as double?,
+      mainCurrencyName: fields[2] as String?,
+      subCurrencyName: fields[3] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, CurrencyModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.mainCurrency)
       ..writeByte(1)
       ..write(obj.subCurrency)
       ..writeByte(2)
+      ..write(obj.mainCurrencyName)
+      ..writeByte(3)
+      ..write(obj.subCurrencyName)
+      ..writeByte(4)
       ..write(obj.value);
   }
 

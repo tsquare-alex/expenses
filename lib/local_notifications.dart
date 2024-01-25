@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -8,12 +9,10 @@ class LocalNotifications {
       _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   static final onClickNotification = BehaviorSubject<String>();
 
-// on tap on any notification
   static void onNotificationTap(NotificationResponse notificationResponse) {
     onClickNotification.add(notificationResponse.payload!);
   }
 
-// initialize the local notifications
   static Future init() async {
     // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
     const AndroidInitializationSettings initializationSettingsAndroid =
@@ -34,69 +33,46 @@ class LocalNotifications {
         onDidReceiveBackgroundNotificationResponse: onNotificationTap);
   }
 
-  // show a simple notification
-  static Future showSimpleNotification({
-    required String title,
-    required String body,
-    required String payload,
-  }) async {
-    const AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails('your channel id', 'your channel name',
-            channelDescription: 'your channel description',
-            importance: Importance.max,
-            priority: Priority.high,
-            ticker: 'ticker');
-    const NotificationDetails notificationDetails =
-        NotificationDetails(android: androidNotificationDetails);
-    await _flutterLocalNotificationsPlugin
-        .show(0, title, body, notificationDetails, payload: payload);
-  }
 
-  // to show periodic notification at regular interval
-  static Future showPeriodicNotifications({
-    required String title,
-    required String body,
-    required String payload,
-  }) async {
-    const AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails('channel 2', 'your channel name',
-            channelDescription: 'your channel description',
-            importance: Importance.max,
-            priority: Priority.high,
-            ticker: 'ticker');
-    const NotificationDetails notificationDetails =
-        NotificationDetails(android: androidNotificationDetails);
-    await _flutterLocalNotificationsPlugin.periodicallyShow(
-        1, title, body, RepeatInterval.everyMinute, notificationDetails,
-        payload: payload);
-  }
 
-  // to schedule a local notification
+
   static Future showScheduleNotification({
+    required int notificationId, // Unique notification ID
     required String title,
     required String body,
-    required String payload,
+    // required String payload,
+    required DateTime scheduledDate,
   }) async {
     tz.initializeTimeZones();
+    final tz.TZDateTime notificationTime =
+    tz.TZDateTime.from(scheduledDate, tz.local);
+
+    if (notificationTime.isBefore(tz.TZDateTime.now(tz.local))) {
+      throw ArgumentError("Scheduled date must be in the future.");
+    }
+
     await _flutterLocalNotificationsPlugin.zonedSchedule(
-        2,
-        title,
-        body,
-        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
-        const NotificationDetails(
-            android: AndroidNotificationDetails(
-                'channel 3', 'your channel name',
-                channelDescription: 'your channel description',
-                importance: Importance.max,
-                priority: Priority.high,
-                ticker: 'ticker')),
-        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        payload: payload);
+      notificationId, // Use the unique notification ID
+      title,
+      body,
+      notificationTime,
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'channel 3',
+          'your channel name',
+          channelDescription: 'your channel description',
+          importance: Importance.max,
+          priority: Priority.high,
+          ticker: 'ticker',
+        ),
+      ),
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      uiLocalNotificationDateInterpretation:
+      UILocalNotificationDateInterpretation.absoluteTime,
+      // payload: payload,
+    );
   }
 
-  // close a specific channel notification
   static Future cancel(int id) async {
     await _flutterLocalNotificationsPlugin.cancel(id);
   }
@@ -114,7 +90,6 @@ class LocalNotifications {
   }) async {
     tz.initializeTimeZones();
 
-    // You can set a delay or interval for the notification, for example, 5 seconds from now
     final tz.TZDateTime notificationTime = tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5));
 
     await _flutterLocalNotificationsPlugin.zonedSchedule(
@@ -137,6 +112,102 @@ class LocalNotifications {
       UILocalNotificationDateInterpretation.absoluteTime,
       // payload: payload,
     );
+  }
+
+  static String getDeviceLanguage() {
+    return WidgetsBinding.instance?.window.locale.languageCode ?? 'en';
+  }
+
+
+  static Future temporaryNotification({
+    required int notificationId,
+    required String title,
+    required String body,
+    required DateTime scheduledDate,
+    required BuildContext context,
+  }) async {
+    tz.initializeTimeZones();
+    final tz.TZDateTime notificationTime =
+    tz.TZDateTime.from(scheduledDate, tz.local);
+
+    if (notificationTime.isBefore(tz.TZDateTime.now(tz.local))) {
+      throw ArgumentError("Scheduled date must be in the future.");
+    }
+
+    final String deviceLanguage = Localizations.localeOf(context).languageCode;
+
+    String localizedTitle = title;
+    String localizedBody = body;
+
+    if (deviceLanguage == 'ar') {
+      localizedTitle = 'تم الانتهاء من الوقت';
+      localizedBody = 'انتهى الوقت';
+    } else if (deviceLanguage == 'en') {
+      localizedTitle = 'Timer Ended';
+      localizedBody = 'Your Time has been end';
+    }
+
+    await _flutterLocalNotificationsPlugin.zonedSchedule(
+      notificationId,
+      localizedTitle,
+      localizedBody,
+      notificationTime,
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'channel 3',
+          'your channel name',
+          channelDescription: 'your channel description',
+          importance: Importance.max,
+          priority: Priority.high,
+          ticker: 'ticker',
+        ),
+      ),
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      uiLocalNotificationDateInterpretation:
+      UILocalNotificationDateInterpretation.absoluteTime,
+    );
+  }
+  static Future scheduleDailyNotification({
+    required String title,
+    required String body,
+  }) async {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+    AndroidNotificationDetails(
+      'your_channel_id',
+      'Your Channel Name',
+      importance: Importance.max,
+      priority: Priority.high,
+    );
+
+    final String deviceLanguage = getDeviceLanguage();
+
+    String localizedTitle = title;
+    String localizedBody = body;
+
+    if (deviceLanguage == 'ar') {
+      localizedTitle = 'افتح التطبيق الآن';
+      localizedBody = 'استمتع بجميع مميزات التطبيق';
+    } else if (deviceLanguage == 'en') {
+      localizedTitle = 'Open the application now';
+      localizedBody = 'Enjoy all the features of the application';
+    }
+    final NotificationDetails platformChannelSpecifics =
+    NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    await _flutterLocalNotificationsPlugin.periodicallyShow(
+      0,
+      localizedTitle,
+      localizedBody,
+      RepeatInterval.hourly,
+      platformChannelSpecifics,
+    );
+  }
+
+
+
+
+  static Future<void> cancelNotification(int notificationId) async {
+    await _flutterLocalNotificationsPlugin.cancel(notificationId);
   }
 
 }

@@ -8,7 +8,7 @@ void callbackDispatcher() {
 
 
   Workmanager().executeTask((task, inputData) async {
-    sendNotificationNow();
+    // sendNotificationNow();
     print("ExecuteTask =======================================");
     // final String title = inputData!["Name"] ?? "Default Title";
     // final String body = "Hello, this is the notification body.";
@@ -18,19 +18,40 @@ void callbackDispatcher() {
     return Future.value(true);
   });
 }
-void sendNotificationNow() {
-  Random random = Random();
-  int notificationId = random.nextInt(100000); // Generate a random number as notification ID
-  const title = 'Expenses Title Now';
-  const body = 'Expenses Notification Body';
 
-  print("Sending Notification $notificationId");
-  LocalNotifications.showScheduleNotification9(
-    title: title,
-    body: body,
-    notificationId: notificationId,
-  );
-}
+// void sendNotificationNow() {
+//   Random random = Random();
+//   int notificationId = random.nextInt(100000);
+//   const title = 'Expenses Title Now';
+//   const body = 'Expenses Notification Body';
+//
+//   print("Sending Notification $notificationId");
+//
+//   // You can set the language based on your app's logic here
+//   String language = 'ar'; // Set the default language or retrieve it from your app's state/logic
+//
+//   // Call the everyDayNotification method with the language parameter
+//   LocalNotifications.everyDayNotification(
+//     title: title,
+//     body: body,
+//     notificationId: notificationId,
+//     language: language,
+//   );
+// }
+
+// void sendNotificationNow() {
+//   Random random = Random();
+//   int notificationId = random.nextInt(100000); // Generate a random number as notification ID
+//   const title = 'Expenses Title Now';
+//   const body = 'Expenses Notification Body';
+//
+//   print("Sending Notification $notificationId");
+//   LocalNotifications.showScheduleNotification9(
+//     title: title,
+//     body: body,
+//     notificationId: notificationId,
+//   );
+// }
 class Splash extends StatefulWidget {
   final GlobalKey<NavigatorState> navigatorKey;
 

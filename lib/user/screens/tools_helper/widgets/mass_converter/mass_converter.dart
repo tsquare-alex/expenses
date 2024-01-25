@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../general/constants/MyColors.dart';
+import '../../../../../general/widgets/DefaultButton.dart';
 
 class MassConverterScreen extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class _MassConverterScreenState extends State<MassConverterScreen> {
       double? convertedValue = convertMass(inputValue, fromUnit, toUnit);
       if (convertedValue != null) {
         setState(() {
-          result = 'Result: $convertedValue $toUnit';
+          result = '${tr(context, "result")}: $convertedValue $toUnit';
         });
       } else {
         setState(() {
@@ -78,7 +79,7 @@ class _MassConverterScreenState extends State<MassConverterScreen> {
           children: [
             TextFormField(
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Enter Value'),
+              decoration: InputDecoration(labelText: tr(context, "enterValue")),
               onChanged: (value) {
                 setState(() {
                   inputValue = double.tryParse(value) ?? 0.0;
@@ -122,12 +123,14 @@ class _MassConverterScreenState extends State<MassConverterScreen> {
               },
             ),
             SizedBox(height: 32.0),
-            ElevatedButton(
-              onPressed: _performConversion,
-              child: MyText(title: tr(context, "calculate"), color: MyColors.primary, size: 25.sp,fontWeight: FontWeight.bold,),
+            DefaultButton(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              title: '${tr(context, "calculate")}',
+              onTap: _performConversion,
             ),
             SizedBox(height: 16.0),
-            Text(result),
+            MyText(title: result, color: MyColors.black, size: 20.sp,alien: TextAlign.center,)
           ],
         ),
       ),

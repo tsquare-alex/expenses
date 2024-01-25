@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../general/constants/MyColors.dart';
+import '../../../../../general/widgets/DefaultButton.dart';
 import '../../../../../general/widgets/MyText.dart';
 
 class ServiceTaxCalculatorScreen extends StatefulWidget {
@@ -61,14 +62,16 @@ class _ServiceTaxCalculatorScreenState extends State<ServiceTaxCalculatorScreen>
                     ),
                   ),
                   const SizedBox(height: 50,),
-                  ElevatedButton(
-                    onPressed: () {
+                  DefaultButton(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    title:'${tr(context, "calculate")}',
+                    onTap: (){
                       context.read<ServiceTaxCubit>().calculateServiceTax(
                         number: enteredNumber,
                         taxRate: enteredTaxRate,
                       );
                     },
-                    child: MyText(title: tr(context, "calculate"), color: MyColors.primary, size: 25.sp,fontWeight: FontWeight.bold,),
                   ),
                   if (serviceTax > 0.0)
                     Column(

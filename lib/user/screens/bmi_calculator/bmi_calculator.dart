@@ -23,7 +23,7 @@ class _BMICalculatorState extends State<BMICalculator> {
         ),
         centerTitle: true,
         title: MyText(
-          title: "BMI Calculator",
+          title: tr(context, "bmi"),
           color: MyColors.white,
           size: 18.sp,
           fontWeight: FontWeight.bold,

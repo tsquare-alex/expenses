@@ -70,7 +70,7 @@ class SettingsData {
                       ...dialogList
                           .map(
                             (item) => TextButton(
-                              onPressed: () {},
+                              onPressed: () => Navigator.pop(context),
                               child: MyText(
                                 title: item,
                                 color: context.watch<AppThemeCubit>().isDarkMode
@@ -92,7 +92,7 @@ class SettingsData {
                           ...dialogList
                               .map(
                                 (item) => TextButton(
-                                  onPressed: () {},
+                                  onPressed: () => Navigator.pop(context),
                                   child: MyText(
                                     title: item,
                                     color: context

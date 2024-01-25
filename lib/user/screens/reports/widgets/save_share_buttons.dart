@@ -42,8 +42,9 @@ class SaveAndShareButtons extends StatelessWidget {
             ),
             SizedBox.square(dimension: 16.r),
             OutlinedButton(
-              onPressed: () {
+              onPressed: () async {
                 CustomToast.showSimpleToast(msg: 'قيد التطوير حاليا');
+                // final result = await Share.shareXFiles(files);
               },
               style: OutlinedButton.styleFrom(
                 fixedSize: Size(64.w, 58.h),
@@ -57,12 +58,13 @@ class SaveAndShareButtons extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15.r),
                 ),
               ),
-              child: Icon(
-                Icons.share_outlined,
+              child: Image.asset(
+                Res.shareIcon,
                 color: context.watch<AppThemeCubit>().isDarkMode
                     ? AppDarkColors.primary
                     : MyColors.primary,
-                size: 24.r,
+                height: 24,
+                width: 24,
               ),
             ),
           ],

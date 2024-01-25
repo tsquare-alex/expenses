@@ -103,7 +103,7 @@ class ReportsCubit extends Cubit<ReportsState> {
   double getUserResidualMoney(List<WalletModel> wallets) {
     double total = 0;
     for (var wallet in wallets) {
-      total += wallet.totalBalance!;
+      total += wallet.balance;
     }
     return residualMoney = total;
   }

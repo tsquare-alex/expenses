@@ -2,6 +2,7 @@ import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
+import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/reports/cubit/reports_cubit.dart';
 import 'package:expenses/user/screens/reports/statistics/statistics_imports.dart';
 import 'package:expenses/user/screens/reports/widgets/reports_widgets_imports.dart';
@@ -81,9 +82,7 @@ class CompareBody extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
-                              color: context.watch<AppThemeCubit>().isDarkMode
-                                  ? Colors.white
-                                  : Colors.grey,
+                              color: Colors.grey,
                             ),
                           ),
                         ),
@@ -150,9 +149,7 @@ class CompareBody extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
-                              color: context.watch<AppThemeCubit>().isDarkMode
-                                  ? Colors.white
-                                  : Colors.grey,
+                              color: Colors.grey,
                             ),
                           ),
                         ),
@@ -316,19 +313,23 @@ class CompareBody extends StatelessWidget {
                 onPressed: () {},
                 style: OutlinedButton.styleFrom(
                   fixedSize: Size(64.w, 58.h),
-                  // backgroundColor: context.watch<AppThemeCubit>().isDarkMode
-                  //     ? AppDarkColors.primary
-                  //     : MyColors.primary,
                   elevation: 0,
-                  side: BorderSide(color: MyColors.primary),
+                  side: BorderSide(
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.primary
+                        : MyColors.primary,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.r),
                   ),
                 ),
-                child: Icon(
-                  Icons.share_outlined,
-                  color: MyColors.primary,
-                  size: 24.r,
+                child: Image.asset(
+                  Res.shareIcon,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.secondary
+                      : MyColors.primary,
+                  height: 24,
+                  width: 24,
                 ),
               ),
             ],

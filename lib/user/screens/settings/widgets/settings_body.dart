@@ -34,13 +34,14 @@ class SettingsBody extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black,
                     ),
                   ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
-                    color: MyColors.primary,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
                   ),
                 ],
               ),
@@ -80,13 +81,14 @@ class SettingsBody extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
-                            color: Colors.black,
                           ),
                         ),
                         const Spacer(),
                         Icon(
                           Icons.keyboard_arrow_down,
-                          color: MyColors.primary,
+                          color: context.watch<AppThemeCubit>().isDarkMode
+                              ? AppDarkColors.secondary
+                              : MyColors.primary,
                         ),
                       ],
                     ),
@@ -126,13 +128,14 @@ class SettingsBody extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
-                            color: Colors.black,
                           ),
                         ),
                         const Spacer(),
                         Icon(
                           Icons.keyboard_arrow_down,
-                          color: MyColors.primary,
+                          color: context.watch<AppThemeCubit>().isDarkMode
+                              ? AppDarkColors.secondary
+                              : MyColors.primary,
                         ),
                       ],
                     ),
@@ -187,13 +190,14 @@ class SettingsBody extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black,
                     ),
                   ),
                   const Spacer(),
                   Icon(
                     Icons.edit_rounded,
-                    color: MyColors.primary,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
                   ),
                 ],
               ),
@@ -223,13 +227,14 @@ class SettingsBody extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black,
                     ),
                   ),
                   const Spacer(),
                   Icon(
                     Icons.edit_rounded,
-                    color: MyColors.primary,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
                   ),
                 ],
               ),
@@ -283,13 +288,14 @@ class SettingsBody extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
-                        color: Colors.black,
                       ),
                     ),
                     const Spacer(),
                     Icon(
                       Icons.keyboard_arrow_down,
-                      color: MyColors.primary,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? AppDarkColors.secondary
+                          : MyColors.primary,
                     ),
                   ],
                 ),
@@ -318,13 +324,14 @@ class SettingsBody extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
-                        color: Colors.black,
                       ),
                     ),
                     const Spacer(),
                     Icon(
                       Icons.keyboard_arrow_down,
-                      color: MyColors.primary,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? AppDarkColors.secondary
+                          : MyColors.primary,
                     ),
                   ],
                 ),
@@ -352,13 +359,14 @@ class SettingsBody extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
-                    color: Colors.black,
                   ),
                 ),
                 const Spacer(),
                 Icon(
                   Icons.keyboard_arrow_down,
-                  color: MyColors.primary,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.secondary
+                      : MyColors.primary,
                 ),
               ],
             ),
@@ -386,14 +394,15 @@ class SettingsBody extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
-                    color: Colors.black,
                   ),
                 ),
                 const Spacer(),
                 BlocBuilder<AuthenticationCubit, AuthenticationState>(
                   builder: (context, state) {
                     return CupertinoSwitch(
-                      trackColor: const Color(0xFFD9D9D9),
+                      trackColor: context.watch<AppThemeCubit>().isDarkMode
+                          ? AppDarkColors.accentColor1
+                          : const Color(0xFFD9D9D9),
                       value: state.isAuthenticated,
                       onChanged: (value) async {
                         final authenticationCubit =
@@ -448,14 +457,15 @@ class SettingsBody extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
-                    color: Colors.black,
                   ),
                 ),
                 const Spacer(),
                 BlocBuilder<AppThemeCubit, AppThemeState>(
                   builder: (context, state) {
                     return CupertinoSwitch(
-                      trackColor: const Color(0xFFD9D9D9),
+                      trackColor: context.watch<AppThemeCubit>().isDarkMode
+                          ? AppDarkColors.accentColor1
+                          : const Color(0xFFD9D9D9),
                       value: AppThemeCubit.get(context).isDarkMode,
                       onChanged: (value) =>
                           AppThemeCubit.get(context).toggleTheme(value),
@@ -488,12 +498,13 @@ class SettingsBody extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
-                    color: Colors.black,
                   ),
                 ),
                 const Spacer(),
                 CupertinoSwitch(
-                  trackColor: const Color(0xFFD9D9D9),
+                  trackColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.accentColor1
+                      : const Color(0xFFD9D9D9),
                   value: false,
                   onChanged: (value) {},
                 ),
@@ -540,13 +551,14 @@ class SettingsBody extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black,
                     ),
                   ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
-                    color: MyColors.primary,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
                   ),
                 ],
               ),
@@ -575,13 +587,14 @@ class SettingsBody extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black,
                     ),
                   ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
-                    color: MyColors.primary,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
                   ),
                 ],
               ),
@@ -610,13 +623,14 @@ class SettingsBody extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black,
                     ),
                   ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
-                    color: MyColors.primary,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
                   ),
                 ],
               ),
@@ -645,13 +659,14 @@ class SettingsBody extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black,
                     ),
                   ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
-                    color: MyColors.primary,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
                   ),
                 ],
               ),
@@ -680,13 +695,14 @@ class SettingsBody extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black,
                     ),
                   ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
-                    color: MyColors.primary,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
                   ),
                 ],
               ),
@@ -715,13 +731,14 @@ class SettingsBody extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black,
                     ),
                   ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
-                    color: MyColors.primary,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
                   ),
                 ],
               ),

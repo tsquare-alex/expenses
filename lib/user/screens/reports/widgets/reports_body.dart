@@ -181,12 +181,9 @@ class ReportsBody extends StatelessWidget {
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
                         isExpanded: true,
-                        // value:
-                        //     context.watch<ReportsCubit>().selectedWallet.isEmpty
-                        //         ? null
-                        //         : context.watch<ReportsCubit>().selectedWallet,
+                        // value: null,
                         hint: Text(
-                          tr(context, 'chooseTransactions'),
+                          tr(context, 'statsTransactions'),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
@@ -244,7 +241,7 @@ class ReportsBody extends StatelessWidget {
                             )
                             .toList(),
                         onChanged: (value) {
-                          ReportsCubit.get(context).changeWallet(value!);
+                          // ReportsCubit.get(context).changeWallet(value!);
                         },
                       ),
                     ),

@@ -61,7 +61,7 @@ class SaveAndShareButtons extends StatelessWidget {
               child: Image.asset(
                 Res.shareIcon,
                 color: context.watch<AppThemeCubit>().isDarkMode
-                    ? AppDarkColors.primary
+                    ? AppDarkColors.secondary
                     : MyColors.primary,
                 height: 24,
                 width: 24,

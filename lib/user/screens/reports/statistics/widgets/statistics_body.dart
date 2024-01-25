@@ -118,7 +118,9 @@ class StatisticsBody extends StatelessWidget {
                           FaIcon(
                             FontAwesomeIcons.solidCalendarDays,
                             size: 22.r,
-                            color: MyColors.primary,
+                            color: context.watch<AppThemeCubit>().isDarkMode
+                                ? AppDarkColors.secondary
+                                : MyColors.primary,
                           ),
                           SizedBox(height: 8.h),
                           Text(
@@ -197,7 +199,10 @@ class StatisticsBody extends StatelessWidget {
                                 ),
                                 Icon(
                                   Icons.keyboard_arrow_down,
-                                  color: MyColors.primary,
+                                  color:
+                                      context.watch<AppThemeCubit>().isDarkMode
+                                          ? AppDarkColors.secondary
+                                          : MyColors.primary,
                                 ),
                               ],
                             ),
@@ -273,7 +278,10 @@ class StatisticsBody extends StatelessWidget {
                                 ),
                                 Icon(
                                   Icons.keyboard_arrow_down,
-                                  color: MyColors.primary,
+                                  color:
+                                      context.watch<AppThemeCubit>().isDarkMode
+                                          ? AppDarkColors.secondary
+                                          : MyColors.primary,
                                 ),
                               ],
                             ),
@@ -342,19 +350,23 @@ class StatisticsBody extends StatelessWidget {
                       onPressed: () {},
                       style: OutlinedButton.styleFrom(
                         fixedSize: Size(64.w, 58.h),
-                        // backgroundColor: context.watch<AppThemeCubit>().isDarkMode
-                        //     ? AppDarkColors.primary
-                        //     : MyColors.primary,
                         elevation: 0,
-                        side: BorderSide(color: MyColors.primary),
+                        side: BorderSide(
+                          color: context.watch<AppThemeCubit>().isDarkMode
+                              ? AppDarkColors.primary
+                              : MyColors.primary,
+                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.r),
                         ),
                       ),
-                      child: Icon(
-                        Icons.share_outlined,
-                        color: MyColors.primary,
-                        size: 24.r,
+                      child: Image.asset(
+                        Res.shareIcon,
+                        color: context.watch<AppThemeCubit>().isDarkMode
+                            ? AppDarkColors.secondary
+                            : MyColors.primary,
+                        height: 24,
+                        width: 24,
                       ),
                     ),
                   ],

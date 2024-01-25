@@ -18,7 +18,7 @@ class WalletDetailsRow extends StatelessWidget {
           width: 1.r,
         ),
         color: context.watch<AppThemeCubit>().isDarkMode
-            ? AppDarkColors.accentColor1
+            ? AppDarkColors.backgroundColor
             : Colors.white,
         borderRadius: BorderRadius.circular(15.r),
         boxShadow: [
@@ -40,7 +40,6 @@ class WalletDetailsRow extends StatelessWidget {
               Text(
                 tr(context, 'mainExpenses'),
                 style: TextStyle(
-                  color: Colors.black,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                 ),
@@ -53,6 +52,9 @@ class WalletDetailsRow extends StatelessWidget {
                   valueColor: const AlwaysStoppedAnimation(Colors.red),
                   borderColor: Colors.grey.shade400,
                   borderWidth: 0.5,
+                  backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.accentColor1
+                      : Colors.white,
                   center: Text(
                     NumberFormat.percentPattern('en').format(
                         context.watch<ReportsCubit>().spentMoneyPercentage),
@@ -71,7 +73,6 @@ class WalletDetailsRow extends StatelessWidget {
               Text(
                 tr(context, 'totalExpenses'),
                 style: TextStyle(
-                  color: Colors.black,
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w500,
                 ),
@@ -79,7 +80,6 @@ class WalletDetailsRow extends StatelessWidget {
               Text(
                 context.read<ReportsCubit>().spentMoney.toStringAsFixed(0),
                 style: TextStyle(
-                  color: Colors.black,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                 ),
@@ -161,7 +161,6 @@ class WalletDetailsRow extends StatelessWidget {
               Text(
                 tr(context, 'residual'),
                 style: TextStyle(
-                  color: Colors.black,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                 ),
@@ -174,6 +173,9 @@ class WalletDetailsRow extends StatelessWidget {
                   valueColor: const AlwaysStoppedAnimation(Color(0xFF5DE062)),
                   borderColor: Colors.grey.shade400,
                   borderWidth: 0.5,
+                  backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.accentColor1
+                      : Colors.white,
                   center: Text(
                     NumberFormat.percentPattern('en').format(
                         context.watch<ReportsCubit>().residualMoneyPercentage),
@@ -193,7 +195,6 @@ class WalletDetailsRow extends StatelessWidget {
               Text(
                 tr(context, 'totalResidual'),
                 style: TextStyle(
-                  color: Colors.black,
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w500,
                 ),
@@ -201,7 +202,6 @@ class WalletDetailsRow extends StatelessWidget {
               Text(
                 context.read<ReportsCubit>().residualMoney.toStringAsFixed(0),
                 style: TextStyle(
-                  color: Colors.black,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                 ),

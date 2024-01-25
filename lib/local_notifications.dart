@@ -167,6 +167,8 @@ class LocalNotifications {
       UILocalNotificationDateInterpretation.absoluteTime,
     );
   }
+
+
   static Future scheduleDailyNotification({
     required String title,
     required String body,
@@ -198,7 +200,7 @@ class LocalNotifications {
       0,
       localizedTitle,
       localizedBody,
-      RepeatInterval.hourly,
+      RepeatInterval.daily,
       platformChannelSpecifics,
     );
   }

@@ -165,7 +165,8 @@ class _MainState extends State<Main> {
                         const SizedBox(width: 8.0),
                         MyText(
                           title: tr(context, model.toolName),
-                          color: context.watch<AppThemeCubit>().isDarkMode
+                          // color: Colors.white,
+                          color: context.read<AppThemeCubit>().isDarkMode
                               ? Colors.white
                               : Colors.black,
                           size: 15.sp,

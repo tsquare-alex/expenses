@@ -50,12 +50,13 @@ class ToolsHelper extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.white,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
               Res.tool_ic,
-              width: 20.w,
-              height: 20.h,
+              // width: 20.w,
+              // height: 20.h,
               // color: MyColors.white,
             ),
             SizedBox(

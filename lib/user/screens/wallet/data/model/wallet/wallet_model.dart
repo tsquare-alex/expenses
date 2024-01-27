@@ -70,4 +70,55 @@ class WalletModel extends HiveObject {
       required this.currency,
       required this.currencyValue,
       this.totalBalance});
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'balance': balance,
+      'openDate': openDate,
+      'closedDate': closedDate,
+      'encomeSource': encomeSource,
+      'valueCategory': valueCategory,
+      'currancyChange': currancyChange,
+      'walletRepate': walletRepate,
+      'notification': notification,
+      'isClosed': isClosed,
+      'isHide': isHide,
+      'category': category,
+      'checkedValue': checkedValue,
+      'paymentMethod': paymentMethod,
+      'model': model?.toJson(),
+      'isFavorite': isFavorite,
+      'addNote': addNote,
+      'iconPath': iconPath,
+      'currency': currency,
+      'currencyValue': currencyValue,
+      'totalBalance': totalBalance,
+    };
+  }
+  factory WalletModel.fromJson(Map<String, dynamic> json) {
+    return WalletModel(
+      name: json['name'],
+      balance: json['balance'],
+      openDate: json['openDate'],
+      closedDate: json['closedDate'],
+      encomeSource: json['encomeSource'],
+      valueCategory: json['valueCategory'],
+      currancyChange: json['currancyChange'],
+      walletRepate: json['walletRepate'],
+      notification: json['notification'],
+      isClosed: json['isClosed'],
+      isHide: json['isHide'],
+      category: json['category'],
+      checkedValue: json['checkedValue'],
+      paymentMethod: json['paymentMethod'],
+      model: json['model'] != null ? CategoryModel.fromJson(json['model']) : null,
+      isFavorite: json['isFavorite'],
+      addNote: json['addNote'],
+      iconPath: json['iconPath'],
+      currency: json['currency'],
+      currencyValue: json['currencyValue'],
+      totalBalance: json['totalBalance'],
+    );
+  }
 }

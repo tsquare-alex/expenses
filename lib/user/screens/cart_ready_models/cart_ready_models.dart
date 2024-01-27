@@ -23,7 +23,9 @@ class _CartReadyModelsState extends State<CartReadyModels> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
+        centerTitle: true,
         title: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
               Res.readyModels,

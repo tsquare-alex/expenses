@@ -35,18 +35,27 @@ class _TransactionDetailsState extends State<TransactionDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : MyColors.white,
+        surfaceTintColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : MyColors.white,
         title: MyText(
           title: tr(context, "transactionDetails"),
-          color: MyColors.black,
+          color: context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              : MyColors.black,
           size: 18.sp,
           fontWeight: FontWeight.bold,
         ),
         leading: InkWell(
           onTap: () => AutoRouter.of(context).pop(),
-          child: Icon(Icons.arrow_back, color: MyColors.black,),
+          child: Icon(Icons.arrow_back, color: context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              : MyColors.black,),
         ),
+        centerTitle: true,
         actions: [
         Padding(
           padding: EdgeInsets.only(left:10.0.r),

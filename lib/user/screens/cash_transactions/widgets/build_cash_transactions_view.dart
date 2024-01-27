@@ -19,7 +19,9 @@ class BuildCashTransactionsView extends StatefulWidget {
 class _BuildCashTransactionsViewState extends State<BuildCashTransactionsView> {
   @override
   void initState() {
-    widget.data.initData(widget.transactionModel);
+    if(widget.hasData == true){
+      widget.data.initData(widget.transactionModel);
+    }
     super.initState();
   }
 
@@ -32,8 +34,12 @@ class _BuildCashTransactionsViewState extends State<BuildCashTransactionsView> {
         return Scaffold(
           appBar: widget.hasData == true
               ? AppBar(
-                  backgroundColor: Colors.white,
-                  surfaceTintColor: Colors.white,
+                  backgroundColor:  context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.backgroundColor
+                      : MyColors.white,
+                  surfaceTintColor:  context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.backgroundColor
+                      : MyColors.white,
                   title: Padding(
                     padding: EdgeInsets.only(left: 40.0.r),
                     child: Row(
@@ -49,7 +55,9 @@ class _BuildCashTransactionsViewState extends State<BuildCashTransactionsView> {
                         ),
                         MyText(
                           title: tr(context, "cashTransactions"),
-                          color: MyColors.black,
+                          color:  context.watch<AppThemeCubit>().isDarkMode
+                              ? MyColors.white
+                              : MyColors.black,
                           size: 18.sp,
                           fontWeight: FontWeight.bold,
                         ),
@@ -60,7 +68,9 @@ class _BuildCashTransactionsViewState extends State<BuildCashTransactionsView> {
                     onTap: () => AutoRouter.of(context).pop(),
                     child: Icon(
                       Icons.arrow_back,
-                      color: MyColors.black,
+                      color:  context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : MyColors.black,
                     ),
                   ),
                   centerTitle: true,

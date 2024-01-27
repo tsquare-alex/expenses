@@ -2,6 +2,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:expenses/general/themes/app_themes.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
+import 'package:expenses/local_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -22,6 +23,17 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final navigatorKey = GlobalKey<NavigatorState>();
   final _appRouter = AppRouter();
+  @override
+  @override
+  void initState() {
+    super.initState();
+    LocalNotifications.scheduleDailyNotification(
+
+      title: '',
+      body: '',
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {

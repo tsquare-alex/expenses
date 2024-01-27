@@ -290,16 +290,8 @@
   "unitPrice": "Unit Price",
   "stop": "Stop",
   "reset": "Reset",
-
-
   "selectMainCurrency": "Select Main Currency",
   "selectSubCurrency": "Select Sub Currency",
-
-
-
-
-
-
   "chooseTransaction": "Choose transaction",
   "chooseTransactions": "Choose transactions",
   "chooseSubTransaction": "Choose sub transaction",
@@ -491,9 +483,6 @@
   "edit": "Edit",
   "startTimer": "Start Timer",
   "stopTimer": "Stop Timer",
-  "selectTime": "Select Time",
-
-
   "buyingSucceeded": "Buying succeeded",
   "fullVersion": "Full version",
 
@@ -539,6 +528,13 @@
   "favorite": "Favorite",
   "balnceTransactionLessThan": "Budget Balance is less than Transaction Balance",
   "selectTheWallet": "Select the Wallet",
-  "editBudget": "Edit Budget"
+  "editBudget": "Edit Budget",
+  "selectTime": "Select Time",
+  "editNote": "Edit Note",
+  "enterWeight": "Enter your weight (kg)",
+  "enterHeight": "Enter your height (cm)",
+  "male": "Male",
+  "feMale": "Female",
+  "age": "Age"
 }
 

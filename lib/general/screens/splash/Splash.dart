@@ -1,36 +1,36 @@
 part of 'SplashImports.dart';
-void callbackDispatcher() {
-  WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized first
-  // sendNotificationNow();
-  print("function Called on calledbackDispatcher ========================");
-  LocalNotifications.init();
-
-
-
-  Workmanager().executeTask((task, inputData) async {
-    sendNotificationNow();
-    print("ExecuteTask =======================================");
-    // final String title = inputData!["Name"] ?? "Default Title";
-    // final String body = "Hello, this is the notification body.";
-    // final String payload = "yoooooo";
-    //
-    // LocalNotifications.showSimpleNotification(title: title, body: body, payload: payload);
-    return Future.value(true);
-  });
-}
-void sendNotificationNow() {
-  Random random = Random();
-  int notificationId = random.nextInt(100000); // Generate a random number as notification ID
-  const title = 'Expenses Title Now';
-  const body = 'Expenses Notification Body';
-
-  print("Sending Notification $notificationId");
-  LocalNotifications.showScheduleNotification9(
-    title: title,
-    body: body,
-    notificationId: notificationId,
-  );
-}
+// void callbackDispatcher() {
+//   WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized first
+//   // sendNotificationNow();
+//   print("function Called on calledbackDispatcher ========================");
+//   LocalNotifications.init();
+//
+//
+//
+//   Workmanager().executeTask((task, inputData) async {
+//     // sendNotificationNow();
+//     print("ExecuteTask =======================================");
+//     // final String title = inputData!["Name"] ?? "Default Title";
+//     // final String body = "Hello, this is the notification body.";
+//     // final String payload = "yoooooo";
+//     //
+//     // LocalNotifications.showSimpleNotification(title: title, body: body, payload: payload);
+//     return Future.value(true);
+//   });
+// }
+// void sendNotificationNow() {
+//   Random random = Random();
+//   int notificationId = random.nextInt(100000); // Generate a random number as notification ID
+//   const title = 'Expenses Title Now';
+//   const body = 'Expenses Notification Body';
+//
+//   print("Sending Notification $notificationId");
+//   LocalNotifications.showScheduleNotification9(
+//     title: title,
+//     body: body,
+//     notificationId: notificationId,
+//   );
+// }
 class Splash extends StatefulWidget {
   final GlobalKey<NavigatorState> navigatorKey;
 
@@ -46,10 +46,10 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     controller.checkingData(context);
-    Workmanager().initialize(
-      callbackDispatcher,
-      isInDebugMode: true,
-    );
+    // Workmanager().initialize(
+    //   callbackDispatcher,
+    //   isInDebugMode: true,
+    // );
 
     super.initState();
   }

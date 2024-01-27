@@ -55,10 +55,14 @@ class _TransactionsState extends State<Transactions> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: MyColors.white,
+            backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+                ? AppDarkColors.backgroundColor
+                : MyColors.white,
             title: MyText(
               title: tr(context, "transactions"),
-              color: MyColors.black,
+              color: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  : MyColors.black,
               size: 18.sp,
               fontWeight: FontWeight.bold,
             ),
@@ -72,7 +76,9 @@ class _TransactionsState extends State<Transactions> {
                     Res.repeated,
                     width: 35.w,
                     height: 35.h,
-                    color: MyColors.primary,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? MyColors.secondary
+                        : MyColors.primary,
                   ),
                 ),
               ),
@@ -81,7 +87,9 @@ class _TransactionsState extends State<Transactions> {
               onTap: () => AutoRouter.of(context).pop(),
               child: Icon(
                 Icons.arrow_back,
-                color: MyColors.black,
+                color: context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : MyColors.black,
               ),
             ),
             centerTitle: true,

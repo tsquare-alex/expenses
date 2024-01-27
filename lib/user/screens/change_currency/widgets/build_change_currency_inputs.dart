@@ -1,7 +1,8 @@
 part of 'change_currency_widgets_imports.dart';
 
 class BuildChangeCurrencyInputs extends StatelessWidget {
-  const BuildChangeCurrencyInputs({Key? key, required this.changeCurrencyData}) : super(key: key);
+  const BuildChangeCurrencyInputs({Key? key, required this.changeCurrencyData})
+      : super(key: key);
   final ChangeCurrencyData changeCurrencyData;
 
   @override
@@ -12,7 +13,10 @@ class BuildChangeCurrencyInputs extends StatelessWidget {
         children: [
           Row(
             children: [
-              MyText(title: tr(context, "from"), color: MyColors.txtColor, size: 14.sp),
+              MyText(
+                  title: tr(context, "from"),
+                  color: MyColors.txtColor,
+                  size: 14.sp),
               Expanded(
                 child: DropdownTextField<DropdownModel>(
                   dropKey: changeCurrencyData.fromCurrencyDropKey,
@@ -20,7 +24,7 @@ class BuildChangeCurrencyInputs extends StatelessWidget {
                   selectedItem: changeCurrencyData.selectedCurrency,
                   margin: const EdgeInsets.symmetric(vertical: 5),
                   validate: (value) {
-                    if(value==null){
+                    if (value == null) {
                       print("Please fill this field");
                     }
                   },
@@ -28,7 +32,7 @@ class BuildChangeCurrencyInputs extends StatelessWidget {
                   finData: (data) => changeCurrencyData.getCurrencies(context),
                   useName: true,
                   buttonsColor: MyColors.primary,
-                  searchHint:tr(context, "search"),
+                  searchHint: tr(context, "search"),
                 ),
               ),
             ],
@@ -38,15 +42,21 @@ class BuildChangeCurrencyInputs extends StatelessWidget {
           ),
           Row(
             children: [
-              MyText(title: tr(context, "to"), color: MyColors.txtColor, size: 14.sp),
+              MyText(
+                  title: tr(context, "to"),
+                  color: MyColors.txtColor,
+                  size: 14.sp),
               Expanded(
                 child: DropdownTextField<DropdownModel>(
                   dropKey: changeCurrencyData.toCurrencyDropKey,
                   label: tr(context, "subCurrency"),
+                  hintColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   selectedItem: changeCurrencyData.selectedCurrency,
                   margin: const EdgeInsets.symmetric(vertical: 5),
                   validate: (value) {
-                    if(value==null){
+                    if (value == null) {
                       print("Please fill this field");
                     }
                   },
@@ -54,7 +64,7 @@ class BuildChangeCurrencyInputs extends StatelessWidget {
                   finData: (data) => changeCurrencyData.getCurrencies(context),
                   useName: true,
                   buttonsColor: MyColors.primary,
-                  searchHint:tr(context, "search"),
+                  searchHint: tr(context, "search"),
                 ),
               ),
             ],
@@ -65,12 +75,23 @@ class BuildChangeCurrencyInputs extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              MyText(title: tr(context, "value"), color: MyColors.txtColor, size: 14.sp),
+              MyText(
+                  title: tr(context, "value"),
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
+                  size: 14.sp),
               SizedBox(
                 width: 120.w,
                 child: GenericTextField(
+                  hintColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
+                  textColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   controller: changeCurrencyData.valueController,
                   fieldTypes: FieldTypes.normal,
                   type: TextInputType.number,
@@ -87,12 +108,17 @@ class BuildChangeCurrencyInputs extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              MyText(title: tr(context, "transferValue"), color: MyColors.txtColor, size: 14.sp),
+              MyText(
+                  title: tr(context, "transferValue"),
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
+                  size: 14.sp),
               SizedBox(
                 width: 120.w,
                 child: GenericTextField(
                   contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   controller: changeCurrencyData.amountController,
                   fieldTypes: FieldTypes.normal,
                   type: TextInputType.number,
@@ -102,6 +128,12 @@ class BuildChangeCurrencyInputs extends StatelessWidget {
                   },
                   hint: "",
                   margin: const EdgeInsets.symmetric(vertical: 10),
+                  hintColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
+                  textColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                 ),
               ),
             ],

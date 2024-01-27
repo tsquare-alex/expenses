@@ -27,7 +27,7 @@ class _NoteViewBodyState extends State<NoteViewBody> {
       child: Column(
         children: [
           const SizedBox(height: 50,),
-           CustomAppBar(title: tr(context, "notes")),
+           // CustomAppBar(title: tr(context, "notes")),
           Expanded(child: NoteListView()),
         ],
       ),

@@ -125,7 +125,16 @@ class _MainState extends State<Main> {
             },
           ),
           PopupMenuButton<FavoriteModel>(
-            color: Colors.black,
+            // surfaceTintColor: Colors.blue,
+            icon: Icon(
+              Icons.more_vert,
+              color: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  : MyColors.black100,
+            ),
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? AppDarkColors.backgroundColor
+                :MyColors.white,
             onSelected: _onFavoriteItemSelected,
             itemBuilder: (BuildContext context) {
               if (getFavoriteModels(context).isEmpty) {
@@ -146,8 +155,11 @@ class _MainState extends State<Main> {
                         SizedBox(width: 8.0),
                         MyText(
                           title: tr(context, model.toolName),
-                          color: Colors.white,
+                          color:context.read<AppThemeCubit>().isDarkMode
+                              ? MyColors.white
+                              :MyColors.black100,
                           size: 15.sp,
+                          fontWeight: FontWeight.bold,
                         ),
                       ],
                     ),

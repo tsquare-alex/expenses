@@ -2,6 +2,10 @@ import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../../general/themes/app_colors.dart';
+import '../../../../../../general/themes/cubit/app_theme_cubit.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -18,6 +22,7 @@ class CustomButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        // color: MyColors.white,
         width: MediaQuery.sizeOf(context).width,
         height: 55,
         decoration: BoxDecoration(
@@ -33,7 +38,9 @@ class CustomButton extends StatelessWidget {
                   ))
               : MyText(
                   title: tr(context, "add"),
-                  color: MyColors.black100,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      :MyColors.black100,
                   size: 20,
                   fontWeight: FontWeight.bold,
                 ),

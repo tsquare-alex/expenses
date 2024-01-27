@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
@@ -5,10 +6,14 @@ import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/local_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
+
+import '../../../../../general/themes/app_colors.dart';
+import '../../../../../general/themes/cubit/app_theme_cubit.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 FlutterLocalNotificationsPlugin();
@@ -129,8 +134,22 @@ class _TemporaryScreenState extends State<TemporaryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () => AutoRouter.of(context).pop(),
+          child: Icon(
+            Icons.arrow_back,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+          ),
+        ),
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            :MyColors.white,
         centerTitle: true,
-        title: MyText(title: tr(context, "temporary"), color: Colors.white, size: 20,fontWeight: FontWeight.bold,),
+        title: MyText(title: tr(context, "temporary"),  color:context.watch<AppThemeCubit>().isDarkMode
+            ? MyColors.white
+            :MyColors.black, size: 20,fontWeight: FontWeight.bold,),
       ),
       body: Center(
         child: Column(
@@ -138,13 +157,19 @@ class _TemporaryScreenState extends State<TemporaryScreen> {
           children: [
             //selectTime
             DefaultButton(
+              color:  context.watch<AppThemeCubit>().isDarkMode
+                  ? AppDarkColors.primary
+                  : MyColors.primary,
+
               onTap: () => _selectDateTime(context),
               title: '${tr(context, "selectTime")}',fontSize: 20,fontWeight: FontWeight.bold,),
 
             SizedBox(height: 20),
             MyText(
              title: '${tr(context, "selectedDate")}: ${_selectedTime.format(context)}',
-              color: MyColors.black,
+              color:context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  :MyColors.black,
               size: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -160,7 +185,9 @@ class _TemporaryScreenState extends State<TemporaryScreen> {
               strokeCap: StrokeCap.round,
               textStyle: TextStyle(
                 fontSize: 22.0,
-                color: Colors.black,
+                color:context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    :MyColors.black,
                 fontWeight: FontWeight.bold,
               ),
               isReverse: true,
@@ -171,6 +198,10 @@ class _TemporaryScreenState extends State<TemporaryScreen> {
             )
                 : SizedBox(),
             DefaultButton(
+              color:  context.watch<AppThemeCubit>().isDarkMode
+                  ? AppDarkColors.primary
+                  : MyColors.primary,
+
               onTap:  _isRunning ? _stopTimer : () => _startTimer(),
                 title: _isRunning ?" ${tr(context, "stopTimer")}" : '${tr(context, "startTimer")}',fontSize: 20,fontWeight: FontWeight.bold,),
 

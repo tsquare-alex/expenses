@@ -19,14 +19,20 @@ class ReportComparison extends StatelessWidget {
           children: [
             TabBar(
               overlayColor: const MaterialStatePropertyAll(Colors.transparent),
-              indicatorColor: MyColors.primary,
+              indicatorColor: context.watch<AppThemeCubit>().isDarkMode
+                  ? AppDarkColors.secondary
+                  : MyColors.primary,
               indicatorSize: TabBarIndicatorSize.tab,
-              labelColor: Colors.black87,
-              unselectedLabelColor: Colors.grey.shade400,
+              labelColor: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  : Colors.black87,
+              unselectedLabelColor: context.watch<AppThemeCubit>().isDarkMode
+                  ? AppDarkColors.accentColor1
+                  : Colors.grey.shade400,
               tabs: [
                 Tab(
                   child: Text(
-                    'جدول',
+                    tr(context, 'table'),
                     style: TextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
@@ -35,7 +41,7 @@ class ReportComparison extends StatelessWidget {
                 ),
                 Tab(
                   child: Text(
-                    'رسم بياني',
+                    tr(context, 'chart'),
                     style: TextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.bold,

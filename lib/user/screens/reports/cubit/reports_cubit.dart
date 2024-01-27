@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:expenses/general/constants/MyColors.dart';
@@ -9,6 +10,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
+import 'package:open_file/open_file.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:syncfusion_flutter_xlsio/xlsio.dart' as xcel;
 
 import '../../../../general/constants/constants.dart';
 import '../../../models/add_transaction_model/add_transaction_model.dart';
@@ -24,7 +28,7 @@ class ReportsCubit extends Cubit<ReportsState> {
 
   final DateTime dateTimeNow = DateTime.now();
   late String dateTimeNowFormatted =
-      DateFormat('EEE, dd MMM yyyy').format(dateTimeNow);
+      DateFormat('dd-MMM-yyyy').format(dateTimeNow);
   late DateTimeRange reportInitialDate =
       DateTimeRange(start: dateTimeNow, end: dateTimeNow);
   late DateTimeRange? reportSelectedDate;
@@ -713,5 +717,378 @@ class ReportsCubit extends Cubit<ReportsState> {
       return;
     }
     emit(const ReportsState.showReportDetails());
+  }
+
+  Future<String> generateAndSaveReportExcel({
+    required List<ReportCategory> category,
+    required BuildContext context,
+    bool openFile = false,
+  }) async {
+    final xcel.Workbook workbook =
+        xcel.Workbook(); // create a new excel workbook
+    final xcel.Worksheet sheet = workbook.worksheets[
+        0]; // the sheet we will be populating (only the first sheet)
+    final String excelFile =
+        '${tr(context, 'reports')}-$dateTimeNowFormatted'; // the name of the excel
+
+    /// design how the data in the excel sheet will be presented
+    /// you can get the cell to populate by index e.g., (1, 1) or by name e.g., (A1)
+    if (reportFormattedDateFrom.isEmpty) {
+      sheet.getRangeByIndex(1, 1).setText(dateTimeNowFormatted);
+    } else {
+      sheet.getRangeByIndex(1, 1).setText(reportFormattedDateFrom);
+      sheet.getRangeByIndex(1, 2).setText(tr(context, 'to'));
+      sheet.getRangeByIndex(1, 3).setText(reportFormattedDateTo);
+    }
+
+    sheet.getRangeByIndex(3, 3).setText(tr(context, 'tableWallet'));
+    sheet.getRangeByIndex(3, 4).setText(selectedWallet.isEmpty
+        ? tr(context, 'allWallets')
+        : selectedWallet == 'all'
+            ? tr(context, 'allWallets')
+            : selectedWallet);
+    // set the titles for the subject results we want to fetch
+    sheet.getRangeByIndex(5, 3).setText(tr(context, 'reportCategory'));
+    sheet.getRangeByIndex(5, 4).setText(tr(context, 'reportCash'));
+    sheet.getRangeByIndex(5, 5).setText('%');
+
+    // loop through the results to set the data in the excel sheet cells
+    for (var i = 0; i < category.length; i++) {
+      sheet.getRangeByIndex(i + 6, 3).setText(
+          tr(context, category[i].title).isNotEmpty
+              ? tr(context, category[i].title)
+              : category[i].title);
+      sheet
+          .getRangeByIndex(i + 6, 4)
+          .setText(category[i].totalMoney.toStringAsFixed(0));
+      sheet.getRangeByIndex(i + 6, 5).setText(
+          NumberFormat.percentPattern('en').format(category[i].percentage));
+    }
+    sheet
+        .getRangeByIndex(category.indexOf(category.last) + 8, 3)
+        .setText(tr(context, 'reportTotal'));
+    sheet
+        .getRangeByIndex(category.indexOf(category.last) + 8, 4)
+        .setText(allSpentMoney.toStringAsFixed(0));
+
+    // save the document in the downloads file
+    final List<int> bytes = workbook.saveAsStream();
+    final file = await File('/storage/emulated/0/Download/$excelFile.xlsx')
+        .writeAsBytes(bytes);
+
+    if (openFile) {
+      final openResult = await OpenFile.open(file.path);
+      if (openResult.type != ResultType.done) {
+        // toast message to user
+        CustomToast.showSimpleToast(
+          msg: 'File saved, check your downloads folder',
+          color: MyColors.primary,
+        );
+      }
+    }
+
+    //dispose the workbook
+    workbook.dispose();
+
+    return file.path;
+  }
+
+  Future<void> generateAndShareStatsTableExcel({
+    required BuildContext context,
+  }) async {
+    if (state is! ShowReportDetails) {
+      if ((wallets.isNotEmpty &&
+              transactions.isNotEmpty &&
+              filteredTransactions.isEmpty &&
+              statsFormattedDateFrom.isEmpty) ||
+          (wallets.isNotEmpty &&
+              transactions.isNotEmpty &&
+              filteredTransactions.isEmpty &&
+              statsSelectedPriorities.isEmpty &&
+              statsPrioritiesList.isNotEmpty)) {
+        CustomToast.showSimpleToast(
+          msg: tr(context, 'continueInsertingData'),
+          color: MyColors.primary,
+        );
+        return;
+      }
+      if (statsPrioritiesList.isEmpty ||
+          wallets.isEmpty ||
+          transactions.isEmpty) {
+        CustomToast.showSimpleToast(
+          msg: tr(context, 'noEnoughData'),
+          color: MyColors.primary,
+        );
+        return;
+      }
+      return;
+    }
+    final xcel.Workbook workbook =
+        xcel.Workbook(); // create a new excel workbook
+    final xcel.Worksheet sheet = workbook.worksheets[
+        0]; // the sheet we will be populating (only the first sheet)
+    final String excelFile =
+        '${tr(context, 'reportDetails')}-$dateTimeNowFormatted'; // the name of the excel
+
+    /// design how the data in the excel sheet will be presented
+    /// you can get the cell to populate by index e.g., (1, 1) or by name e.g., (A1)
+
+    sheet.getRangeByIndex(1, 1).setText(statsFormattedDateFrom);
+    sheet.getRangeByIndex(1, 2).setText(tr(context, 'to'));
+    sheet.getRangeByIndex(1, 3).setText(statsFormattedDateTo);
+
+    sheet.getRangeByIndex(3, 4).setText(tr(context, 'tableWallet'));
+    sheet.getRangeByIndex(3, 5).setText(tr(context, 'tableTransaction'));
+    sheet.getRangeByIndex(3, 6).setText(tr(context, 'tableSubTransaction'));
+    sheet.getRangeByIndex(3, 7).setText(tr(context, 'tableDuration'));
+    sheet.getRangeByIndex(3, 8).setText(tr(context, 'tablePriority'));
+    sheet.getRangeByIndex(3, 9).setText(tr(context, 'tableAmount'));
+    sheet.getRangeByIndex(3, 10).setText(tr(context, 'tableValue'));
+    sheet.getRangeByIndex(3, 11).setText(tr(context, 'tableContact'));
+
+    // loop through the results to set the data in the excel sheet cells
+    for (var i = 0; i < filteredTransactions.length; i++) {
+      sheet.getRangeByIndex(i + 4, 4).setText(
+            tr(context, filteredTransactions[i].incomeSource!.name).isEmpty
+                ? filteredTransactions[i].incomeSource?.name
+                : tr(context, filteredTransactions[i].incomeSource!.name),
+          );
+      sheet.getRangeByIndex(i + 4, 5).setText(
+            tr(context, filteredTransactions[i].transactionType!.name!).isEmpty
+                ? filteredTransactions[i].transactionType?.name
+                : tr(context, filteredTransactions[i].transactionType!.name!),
+          );
+      sheet.getRangeByIndex(i + 4, 6).setText(
+            tr(context, filteredTransactions[i].transactionContent!.name!)
+                    .isEmpty
+                ? filteredTransactions[i].transactionContent?.name
+                : tr(
+                    context, filteredTransactions[i].transactionContent!.name!),
+          );
+      sheet
+          .getRangeByIndex(i + 4, 7)
+          .setText(filteredTransactions[i].transactionDate);
+      sheet.getRangeByIndex(i + 4, 8).setText(
+            tr(context, filteredTransactions[i].priority!.name!).isEmpty
+                ? filteredTransactions[i].priority?.name
+                : tr(context, filteredTransactions[i].priority!.name!),
+          );
+      sheet.getRangeByIndex(i + 4, 9).setText(
+            tr(
+                        context,
+                        filteredTransactions[i].unit == null
+                            ? ''
+                            : filteredTransactions[i].unit!.name!)
+                    .isEmpty
+                ? filteredTransactions[i].unit?.name
+                : tr(context, filteredTransactions[i].unit!.name!),
+          );
+      sheet.getRangeByIndex(i + 4, 10).setText(filteredTransactions[i].total);
+      sheet
+          .getRangeByIndex(i + 4, 11)
+          .setText(filteredTransactions[i].database?.name);
+    }
+    // save the document in the downloads file
+    final List<int> bytes = workbook.saveAsStream();
+    final file = await File('/storage/emulated/0/Download/$excelFile.xlsx')
+        .writeAsBytes(bytes);
+
+    Share.shareXFiles([
+      XFile(file.path),
+    ]);
+
+    //dispose the workbook
+    workbook.dispose();
+  }
+
+  Future<void> generateAndShareStatsCompareExcel({
+    required BuildContext context,
+  }) async {
+    if (state is! ShowReportDetails) {
+      if ((compare1FormattedDateFrom.isEmpty ||
+              compare2FormattedDateFrom.isEmpty) ||
+          (wallets.isNotEmpty &&
+              (selectedCompare1Wallet.isEmpty ||
+                  selectedCompare2Wallet.isEmpty)) ||
+          (selectedCompare1Transaction.isEmpty &&
+              compare1TransactionsList.isNotEmpty) ||
+          (selectedCompare2Transaction.isEmpty &&
+              compare2TransactionsList.isNotEmpty)) {
+        CustomToast.showSimpleToast(
+          msg: tr(context, 'continueInsertingData'),
+          color: MyColors.primary,
+        );
+        return;
+      }
+      if (compare1FilteredTransactions.isEmpty ||
+          compare2FilteredTransactions.isEmpty ||
+          wallets.isEmpty ||
+          transactions.isEmpty) {
+        CustomToast.showSimpleToast(
+          msg: tr(context, 'noEnoughData'),
+          color: MyColors.primary,
+        );
+        return;
+      }
+      if (selectedCompare1Wallet == selectedCompare2Wallet) {
+        CustomToast.showSimpleToast(
+          msg: tr(context, 'chooseDifferentWallets'),
+          color: MyColors.primary,
+        );
+        return;
+      }
+      return;
+    }
+    final xcel.Workbook workbook =
+        xcel.Workbook(); // create a new excel workbook
+    final xcel.Worksheet sheet = workbook.worksheets[
+        0]; // the sheet we will be populating (only the first sheet)
+    final String excelFile =
+        '${tr(context, 'reportDetails')}-$dateTimeNowFormatted'; // the name of the excel
+
+    /// design how the data in the excel sheet will be presented
+    /// you can get the cell to populate by index e.g., (1, 1) or by name e.g., (A1)
+
+    sheet.getRangeByIndex(1, 2).setText(compare1FormattedDateFrom);
+    sheet.getRangeByIndex(1, 3).setText(tr(context, 'to'));
+    sheet.getRangeByIndex(1, 4).setText(compare1FormattedDateTo);
+
+    sheet.getRangeByIndex(3, 3).setText(tr(context, 'firstChosen'));
+
+    sheet.getRangeByIndex(5, 2).setText(tr(context, 'duration'));
+    sheet.getRangeByIndex(5, 3).setText(tr(context, 'wallet'));
+    sheet.getRangeByIndex(5, 4).setText(tr(context, 'statsTransactions'));
+
+    // loop through the results to set the data in the excel sheet cells
+    for (var i = 0; i < compare1FilteredTransactions.length; i++) {
+      sheet
+          .getRangeByIndex(i + 6, 2)
+          .setText(compare1FilteredTransactions[i].transactionDate);
+      sheet.getRangeByIndex(i + 6, 3).setText(
+            tr(context, compare1FilteredTransactions[i].incomeSource!.name)
+                    .isEmpty
+                ? compare1FilteredTransactions[i].incomeSource?.name
+                : tr(context,
+                    compare1FilteredTransactions[i].incomeSource!.name),
+          );
+      sheet.getRangeByIndex(i + 6, 4).setText(
+            tr(
+                        context,
+                        compare1FilteredTransactions[i]
+                            .transactionContent!
+                            .name!)
+                    .isEmpty
+                ? compare1FilteredTransactions[i].transactionContent?.name
+                : tr(context,
+                    compare1FilteredTransactions[i].transactionContent!.name!),
+          );
+    }
+
+    sheet
+        .getRangeByIndex(
+            compare1FilteredTransactions
+                    .indexOf(compare1FilteredTransactions.last) +
+                9,
+            2)
+        .setText(compare2FormattedDateFrom);
+    sheet
+        .getRangeByIndex(
+            compare1FilteredTransactions
+                    .indexOf(compare1FilteredTransactions.last) +
+                9,
+            3)
+        .setText(tr(context, 'to'));
+    sheet
+        .getRangeByIndex(
+            compare1FilteredTransactions
+                    .indexOf(compare1FilteredTransactions.last) +
+                9,
+            4)
+        .setText(compare2FormattedDateTo);
+
+    sheet
+        .getRangeByIndex(
+            compare1FilteredTransactions
+                    .indexOf(compare1FilteredTransactions.last) +
+                11,
+            3)
+        .setText(tr(context, 'secondChosen'));
+
+    sheet
+        .getRangeByIndex(
+            compare1FilteredTransactions
+                    .indexOf(compare1FilteredTransactions.last) +
+                13,
+            2)
+        .setText(tr(context, 'duration'));
+    sheet
+        .getRangeByIndex(
+            compare1FilteredTransactions
+                    .indexOf(compare1FilteredTransactions.last) +
+                13,
+            3)
+        .setText(tr(context, 'wallet'));
+    sheet
+        .getRangeByIndex(
+            compare1FilteredTransactions
+                    .indexOf(compare1FilteredTransactions.last) +
+                13,
+            4)
+        .setText(tr(context, 'statsTransactions'));
+
+    // loop through the results to set the data in the excel sheet cells
+    for (var i = 0; i < compare2FilteredTransactions.length; i++) {
+      sheet
+          .getRangeByIndex(
+              i +
+                  compare1FilteredTransactions
+                      .indexOf(compare1FilteredTransactions.last) +
+                  14,
+              2)
+          .setText(compare2FilteredTransactions[i].transactionDate);
+      sheet
+          .getRangeByIndex(
+              i +
+                  compare1FilteredTransactions
+                      .indexOf(compare1FilteredTransactions.last) +
+                  14,
+              3)
+          .setText(
+            tr(context, compare2FilteredTransactions[i].incomeSource!.name)
+                    .isEmpty
+                ? compare2FilteredTransactions[i].incomeSource?.name
+                : tr(context,
+                    compare2FilteredTransactions[i].incomeSource!.name),
+          );
+      sheet
+          .getRangeByIndex(
+              i +
+                  compare1FilteredTransactions
+                      .indexOf(compare1FilteredTransactions.last) +
+                  14,
+              4)
+          .setText(
+            tr(
+                        context,
+                        compare2FilteredTransactions[i]
+                            .transactionContent!
+                            .name!)
+                    .isEmpty
+                ? compare2FilteredTransactions[i].transactionContent?.name
+                : tr(context,
+                    compare2FilteredTransactions[i].transactionContent!.name!),
+          );
+    }
+    // save the document in the downloads file
+    final List<int> bytes = workbook.saveAsStream();
+    final file = await File('/storage/emulated/0/Download/$excelFile.xlsx')
+        .writeAsBytes(bytes);
+
+    Share.shareXFiles([
+      XFile(file.path),
+    ]);
+
+    //dispose the workbook
+    workbook.dispose();
   }
 }

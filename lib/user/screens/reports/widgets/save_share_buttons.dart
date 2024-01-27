@@ -1,9 +1,12 @@
 part of 'reports_widgets_imports.dart';
 
 class SaveAndShareButtons extends StatelessWidget {
+  final List<ReportCategory> category;
+
   const SaveAndShareButtons({
-    super.key,
-  });
+    Key? key,
+    required this.category,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,8 @@ class SaveAndShareButtons extends StatelessWidget {
             Expanded(
               child: ElevatedButton(
                 onPressed: () {
-                  CustomToast.showSimpleToast(msg: 'قيد التطوير حاليا');
+                  ReportsCubit.get(context).generateAndSaveReportExcel(
+                      category: category, context: context, openFile: true);
                 },
                 style: ElevatedButton.styleFrom(
                   fixedSize: Size(318.w, 58.h),
@@ -43,8 +47,12 @@ class SaveAndShareButtons extends StatelessWidget {
             SizedBox.square(dimension: 16.r),
             OutlinedButton(
               onPressed: () async {
-                CustomToast.showSimpleToast(msg: 'قيد التطوير حاليا');
-                // final result = await Share.shareXFiles(files);
+                Share.shareXFiles([
+                  XFile(
+                    await ReportsCubit.get(context).generateAndSaveReportExcel(
+                        category: category, context: context),
+                  ),
+                ]);
               },
               style: OutlinedButton.styleFrom(
                 fixedSize: Size(64.w, 58.h),

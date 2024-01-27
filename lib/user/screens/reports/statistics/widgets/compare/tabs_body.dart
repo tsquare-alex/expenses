@@ -1,3 +1,4 @@
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/user/models/add_transaction_model/add_transaction_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,7 +29,7 @@ class TabsBody extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 20.h),
                   child: Text(
-                    'تحديد الاولى',
+                    tr(context, 'firstChosen'),
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
@@ -39,7 +40,7 @@ class TabsBody extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 20.h),
                   child: Text(
-                    'تحديد الثانية',
+                    tr(context, 'secondChosen'),
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
@@ -58,7 +59,7 @@ class TabsBody extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 20.h),
                   child: Text(
-                    'تحديد الاولى',
+                    tr(context, 'firstChosen'),
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
@@ -69,7 +70,7 @@ class TabsBody extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 20.h),
                   child: Text(
-                    'تحديد الثانية',
+                    tr(context, 'secondChosen'),
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.bold,

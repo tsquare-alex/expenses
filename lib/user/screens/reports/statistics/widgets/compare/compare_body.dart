@@ -310,7 +310,10 @@ class CompareBody extends StatelessWidget {
               ),
               SizedBox.square(dimension: 12.r),
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await ReportsCubit.get(context)
+                      .generateAndShareStatsCompareExcel(context: context);
+                },
                 style: OutlinedButton.styleFrom(
                   fixedSize: Size(64.w, 58.h),
                   elevation: 0,

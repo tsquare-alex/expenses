@@ -414,7 +414,8 @@ class ReportsBody extends StatelessWidget {
             ),
           ),
         ),
-        const SaveAndShareButtons(),
+        SaveAndShareButtons(
+            category: context.read<ReportsCubit>().categoriesList),
       ],
     );
   }

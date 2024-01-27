@@ -87,69 +87,72 @@ class WalletDetailsRow extends StatelessWidget {
             ],
           ),
           Expanded(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.r),
-                border: Border.all(
-                  color: context.watch<AppThemeCubit>().isDarkMode
-                      ? AppDarkColors.accentColor
-                      : MyColors.greyWhite,
-                  width: 2.r,
+            child: Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 16.r),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.r),
+                  border: Border.all(
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.accentColor
+                        : MyColors.greyWhite,
+                    width: 2.r,
+                  ),
                 ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.w),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                    isExpanded: true,
-                    value: context.watch<ReportsCubit>().selectedWallet.isEmpty
-                        ? null
-                        : context.watch<ReportsCubit>().selectedWallet,
-                    hint: Text(
-                      tr(context, 'wallet'),
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.bold,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.w),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton(
+                      isExpanded: true,
+                      value: context.watch<ReportsCubit>().selectedWallet.isEmpty
+                          ? null
+                          : context.watch<ReportsCubit>().selectedWallet,
+                      hint: Text(
+                        tr(context, 'wallet'),
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      icon: const Icon(
+                        Icons.keyboard_arrow_down,
                         color: Colors.grey,
                       ),
-                    ),
-                    icon: const Icon(
-                      Icons.keyboard_arrow_down,
-                      color: Colors.grey,
-                    ),
-                    menuMaxHeight: 0.3.sh,
-                    items: [
-                          DropdownMenuItem(
-                            value: 'all',
-                            child: Text(
-                              tr(context, 'allWallets'),
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          )
-                        ] +
-                        ReportsCubit.get(context)
-                            .wallets
-                            .map(
-                              (wallet) => DropdownMenuItem(
-                                value: wallet.name,
-                                child: Text(
-                                  wallet.name,
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey,
-                                  ),
+                      menuMaxHeight: 0.3.sh,
+                      items: [
+                            DropdownMenuItem(
+                              value: 'all',
+                              child: Text(
+                                tr(context, 'allWallets'),
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey,
                                 ),
                               ),
                             )
-                            .toList(),
-                    onChanged: (value) {
-                      ReportsCubit.get(context).changeMainWallet(value!);
-                    },
+                          ] +
+                          ReportsCubit.get(context)
+                              .wallets
+                              .map(
+                                (wallet) => DropdownMenuItem(
+                                  value: wallet.name,
+                                  child: Text(
+                                    wallet.name,
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                      onChanged: (value) {
+                        ReportsCubit.get(context).changeMainWallet(value!);
+                      },
+                    ),
                   ),
                 ),
               ),

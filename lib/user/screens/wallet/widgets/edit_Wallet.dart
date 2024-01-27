@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
@@ -87,11 +88,15 @@ class _EditWalletState extends State<EditWallet> {
                       : MyColors.black,
                 ),
               ),
-              backgroundColor: MyColors.white,
+              backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+                  ? AppDarkColors.backgroundColor
+                  : MyColors.white,
               centerTitle: true,
               title: MyText(
                 title: tr(context, "editWallet"),
-                color: MyColors.black,
+                color: context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : AppDarkColors.backgroundColor,
                 size: 16.sp,
                 fontWeight: FontWeight.bold,
               ),
@@ -204,6 +209,9 @@ class _EditWalletState extends State<EditWallet> {
                         controller:
                             context.read<WalletCubit>().walletNameController,
                         hint: tr(context, "walletName"),
+                        hintColor: context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.white
+                            : AppDarkColors.backgroundColor,
                         fieldTypes: FieldTypes.normal,
                         type: TextInputType.text,
                         action: TextInputAction.next,
@@ -318,6 +326,10 @@ class _EditWalletState extends State<EditWallet> {
                               controller:
                                   context.read<WalletCubit>().balanceController,
                               hint: tr(context, "amount"),
+                              hintColor:
+                                  context.watch<AppThemeCubit>().isDarkMode
+                                      ? MyColors.white
+                                      : AppDarkColors.backgroundColor,
                               fieldTypes: FieldTypes.normal,
                               type: TextInputType.number,
                               action: TextInputAction.next,
@@ -393,7 +405,9 @@ class _EditWalletState extends State<EditWallet> {
                         children: [
                           MyText(
                             title: tr(context, "automaticallyConvertCurrency"),
-                            color: MyColors.black,
+                            color: context.watch<AppThemeCubit>().isDarkMode
+                                ? MyColors.white
+                                : AppDarkColors.backgroundColor,
                             size: 16.sp,
                             fontWeight: FontWeight.w500,
                           ),
@@ -417,7 +431,9 @@ class _EditWalletState extends State<EditWallet> {
                             children: [
                               MyText(
                                 title: tr(context, "sourceDuration"),
-                                color: MyColors.black,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : AppDarkColors.backgroundColor,
                                 size: 16.sp,
                                 fontWeight: FontWeight.w500,
                               )
@@ -521,7 +537,9 @@ class _EditWalletState extends State<EditWallet> {
                           Text(
                             tr(context, "addNote"),
                             style: TextStyle(
-                              color: MyColors.black,
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? MyColors.white
+                                  : AppDarkColors.backgroundColor,
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
                             ),
@@ -535,6 +553,10 @@ class _EditWalletState extends State<EditWallet> {
                               controller:
                                   context.read<WalletCubit>().noteController,
                               hint: tr(context, "yourNotes"),
+                              hintColor:
+                                  context.watch<AppThemeCubit>().isDarkMode
+                                      ? MyColors.white
+                                      : AppDarkColors.backgroundColor,
                               maxLength: 9,
                               fieldTypes: FieldTypes.normal,
                               type: TextInputType.text,
@@ -557,7 +579,9 @@ class _EditWalletState extends State<EditWallet> {
                           Expanded(
                             child: MyText(
                                 title: tr(context, "walletRepetition"),
-                                color: MyColors.black,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : AppDarkColors.backgroundColor,
                                 size: 18.sp),
                           ),
                           Visibility(
@@ -595,7 +619,9 @@ class _EditWalletState extends State<EditWallet> {
                             MyText(
                                 title: tr(
                                     context, "numberOfTimesToRepeatTheWallet"),
-                                color: MyColors.black,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : AppDarkColors.backgroundColor,
                                 size: 14.sp),
                             SizedBox(
                               width: 150.w,
@@ -621,7 +647,9 @@ class _EditWalletState extends State<EditWallet> {
                           Expanded(
                             child: MyText(
                                 title: tr(context, "notificationWhenReaching"),
-                                color: MyColors.black,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : AppDarkColors.backgroundColor,
                                 size: 18.sp),
                           ),
                           Visibility(

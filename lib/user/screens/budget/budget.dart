@@ -39,7 +39,9 @@ class _BudgetState extends State<Budget> {
                         : MyColors.black,
                   ),
                 ),
-                backgroundColor: MyColors.white,
+                backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+                    ? AppDarkColors.backgroundColor
+                    : MyColors.white,
                 centerTitle: true,
                 title: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -47,7 +49,9 @@ class _BudgetState extends State<Budget> {
                     Image.asset(Res.budgetIcon, height: 28.h, width: 32.w),
                     MyText(
                       title: tr(context, "budget"),
-                      color: MyColors.black,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : AppDarkColors.backgroundColor,
                       size: 16.sp,
                       fontWeight: FontWeight.bold,
                     ),

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
@@ -74,7 +75,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                       : MyColors.black,
                 ),
               ),
-              backgroundColor: MyColors.white,
+              backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+                  ? AppDarkColors.backgroundColor
+                  : MyColors.white,
               centerTitle: true,
               title: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -83,7 +86,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                   SizedBox(width: 8.w),
                   MyText(
                     title: tr(context, "addBudget"),
-                    color: MyColors.black,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? MyColors.white
+                        : AppDarkColors.backgroundColor,
                     size: 16.sp,
                     fontWeight: FontWeight.bold,
                   ),
@@ -313,6 +318,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         controller:
                             context.read<BudgetCubit>().budgetValueController,
                         hint: tr(context, "selectValueType"),
+                        hintColor: context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.white
+                            : AppDarkColors.backgroundColor,
                         fieldTypes: FieldTypes.normal,
                         type: TextInputType.number,
                         action: TextInputAction.next,
@@ -337,7 +345,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         children: [
                           MyText(
                               title: tr(context, "transactionRepetition"),
-                              color: MyColors.black,
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? MyColors.white
+                                  : AppDarkColors.backgroundColor,
                               size: 16.sp),
                           Checkbox(
                               activeColor: MyColors.primary,
@@ -358,7 +368,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           Text(
                             tr(context, "addNote"),
                             style: TextStyle(
-                              color: MyColors.black,
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? MyColors.white
+                                  : AppDarkColors.backgroundColor,
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
                             ),
@@ -373,6 +385,10 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                   context.read<BudgetCubit>().noteController,
                               hint: tr(context, "yourNotes"),
                               maxLength: 9,
+                              hintColor:
+                                  context.watch<AppThemeCubit>().isDarkMode
+                                      ? MyColors.white
+                                      : AppDarkColors.backgroundColor,
                               fieldTypes: FieldTypes.normal,
                               type: TextInputType.text,
                               action: TextInputAction.next,
@@ -408,7 +424,11 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,
-                                    color: MyColors.black,
+                                    color: context
+                                            .watch<AppThemeCubit>()
+                                            .isDarkMode
+                                        ? MyColors.white
+                                        : AppDarkColors.backgroundColor,
                                   ),
                                 ),
                                 SizedBox(
@@ -449,8 +469,10 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                       Container(
                         height: 58.h,
                         width: double.infinity,
-                        decoration: const BoxDecoration(
-                          color: Color(0xffF7F7F6),
+                        decoration: BoxDecoration(
+                          color: context.watch<AppThemeCubit>().isDarkMode
+                              ? AppDarkColors.backgroundColor
+                              : Color(0xffF7F7F6),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -458,7 +480,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                             Expanded(
                               child: MyText(
                                 title: tr(context, "notificationWhenReaching"),
-                                color: MyColors.black,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : AppDarkColors.backgroundColor,
                                 size: 16.sp,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -487,8 +511,10 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                       Container(
                         height: 58.h,
                         width: double.infinity,
-                        decoration: const BoxDecoration(
-                          color: Color(0xffF7F7F6),
+                        decoration: BoxDecoration(
+                          color: context.watch<AppThemeCubit>().isDarkMode
+                              ? AppDarkColors.backgroundColor
+                              : Color(0xffF7F7F6),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -496,7 +522,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                             Expanded(
                               child: MyText(
                                 title: tr(context, "favorite"),
-                                color: MyColors.black,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : AppDarkColors.backgroundColor,
                                 size: 16.sp,
                                 fontWeight: FontWeight.w500,
                               ),

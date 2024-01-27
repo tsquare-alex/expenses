@@ -22,17 +22,26 @@ class _WalletBalanceTransferState extends State<WalletBalanceTransfer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: MyColors.white,
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : MyColors.white,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: Image.asset(Res.back),
-          onPressed: () => AutoRouter.of(context).pop(),
+        leading: GestureDetector(
+          onTap: () => AutoRouter.of(context).pop(),
+          child: Icon(
+            Icons.arrow_back,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+          ),
         ),
         centerTitle: true,
         title: MyText(
           title: tr(context, "transferBalanceBetweenWallets"),
-          color: MyColors.black,
+          color: context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              : AppDarkColors.backgroundColor,
           size: 16.sp,
           fontWeight: FontWeight.bold,
         ),

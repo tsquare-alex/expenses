@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/MyText.dart';
@@ -44,6 +45,9 @@ class _WalletBodyState extends State<WalletBody> {
           appBar: wallet.isEmpty
               ? null
               : AppBar(
+                  backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.backgroundColor
+                      : Colors.white,
                   surfaceTintColor: Colors.transparent,
                   leading: GestureDetector(
                     onTap: () => AutoRouter.of(context).pop(),
@@ -54,10 +58,11 @@ class _WalletBodyState extends State<WalletBody> {
                           : MyColors.black,
                     ),
                   ),
-                  backgroundColor: MyColors.white,
                   centerTitle: true,
                   title: MyText(
-                    color: MyColors.black,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? MyColors.white
+                        : MyColors.black,
                     size: 20.sp,
                     fontWeight: FontWeight.bold,
                     title: tr(context, "wallet"),

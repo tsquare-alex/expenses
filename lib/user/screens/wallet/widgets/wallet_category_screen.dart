@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
@@ -33,6 +34,9 @@ class _WalletCategoryState extends State<WalletCategory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : MyColors.white,
         surfaceTintColor: Colors.transparent,
         leading: GestureDetector(
           onTap: () => AutoRouter.of(context).pop(),
@@ -43,11 +47,12 @@ class _WalletCategoryState extends State<WalletCategory> {
                 : MyColors.black,
           ),
         ),
-        backgroundColor: MyColors.white,
         title: Center(
           child: MyText(
             title: tr(context, 'wallet'),
-            color: MyColors.black,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
             size: 16.sp,
             fontWeight: FontWeight.bold,
           ),

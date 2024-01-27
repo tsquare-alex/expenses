@@ -196,7 +196,7 @@ class _MainState extends State<Main> {
             }
             if (state is ReportDataLoaded) {
               return Container(
-                padding: EdgeInsets.all(15.r),
+                padding: EdgeInsets.all(16.r),
                 width: double.infinity,
                 height: double.infinity,
                 child: Column(

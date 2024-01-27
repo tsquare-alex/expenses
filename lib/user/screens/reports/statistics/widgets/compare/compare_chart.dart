@@ -1,7 +1,12 @@
-part of '../../statistics_imports.dart';
+import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/user/models/add_transaction_model/add_transaction_model.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
-class ReportChart extends StatelessWidget {
-  const ReportChart({
+class CompareChart extends StatelessWidget {
+  const CompareChart({
     Key? key,
     required this.data,
   }) : super(key: key);
@@ -10,10 +15,10 @@ class ReportChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<_ChartData> chartData = data
+    List<_CompareChartData> chartData = data
         .map(
-          (transaction) =>
-              _ChartData(transaction.transactionDate!, transaction.total!),
+          (transaction) => _CompareChartData(
+              transaction.transactionDate!, transaction.total!),
         )
         .toList();
     return SizedBox(
@@ -27,13 +32,13 @@ class ReportChart extends StatelessWidget {
           isInversed: true,
         ),
         primaryYAxis: NumericAxis(),
-        series: <CartesianSeries<_ChartData, DateTime>>[
-          ColumnSeries<_ChartData, DateTime>(
+        series: <CartesianSeries<_CompareChartData, DateTime>>[
+          ColumnSeries<_CompareChartData, DateTime>(
             animationDuration: 500,
             dataSource: chartData,
-            xValueMapper: (_ChartData chartData, _) =>
+            xValueMapper: (_CompareChartData chartData, _) =>
                 DateFormat('dd/MM/yyyy').parse(chartData.x),
-            yValueMapper: (_ChartData chartData, _) =>
+            yValueMapper: (_CompareChartData chartData, _) =>
                 int.tryParse(chartData.y),
             width: 0.25,
             color: MyColors.primary,
@@ -44,8 +49,8 @@ class ReportChart extends StatelessWidget {
   }
 }
 
-class _ChartData {
-  _ChartData(this.x, this.y);
+class _CompareChartData {
+  _CompareChartData(this.x, this.y);
 
   final String x;
   final String y;

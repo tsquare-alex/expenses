@@ -201,6 +201,7 @@ class Res {
   static const String setting = "assets/images/setting.png";
   static const String settings = "assets/images/settings.png";
   static const String share = "assets/images/share.png";
+  static const String shareIcon = "assets/images/shareIcon.png";
   static const String shoes = "assets/images/shoes.png";
   static const String shop = "assets/images/shop.png";
   static const String shopping = "assets/images/shopping.png";

@@ -1,3 +1,4 @@
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,7 +27,7 @@ class _NoteViewBodyState extends State<NoteViewBody> {
       child: Column(
         children: [
           const SizedBox(height: 50,),
-          const CustomAppBar(title: "Note"),
+           // CustomAppBar(title: tr(context, "notes")),
           Expanded(child: NoteListView()),
         ],
       ),

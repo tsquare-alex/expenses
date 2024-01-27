@@ -1,9 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../general/constants/MyColors.dart';
+import '../../../../../general/themes/app_colors.dart';
+import '../../../../../general/themes/cubit/app_theme_cubit.dart';
+import '../../../../../general/widgets/DefaultButton.dart';
 
 class MassConverterScreen extends StatefulWidget {
   @override
@@ -21,7 +26,7 @@ class _MassConverterScreenState extends State<MassConverterScreen> {
       double? convertedValue = convertMass(inputValue, fromUnit, toUnit);
       if (convertedValue != null) {
         setState(() {
-          result = 'Result: $convertedValue $toUnit';
+          result = '${tr(context, "result")}: $convertedValue $toUnit';
         });
       } else {
         setState(() {
@@ -67,7 +72,23 @@ class _MassConverterScreenState extends State<MassConverterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:MyText(title: tr(context, "convertMass"), color: Colors.white, size: 18.sp,fontWeight: FontWeight.bold,),
+        leading: GestureDetector(
+          onTap: () => AutoRouter.of(context).pop(),
+          child: Icon(
+            Icons.arrow_back,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+          ),
+        ),
+
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor:MyColors.white,
+        title:MyText(title: tr(context, "convertMass"),
+          color:context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              :MyColors.black,
+          size: 18.sp,fontWeight: FontWeight.bold,),
         centerTitle: true,
       ),
       body: Padding(
@@ -78,7 +99,7 @@ class _MassConverterScreenState extends State<MassConverterScreen> {
           children: [
             TextFormField(
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Enter Value'),
+              decoration: InputDecoration(labelText: tr(context, "enterValue")),
               onChanged: (value) {
                 setState(() {
                   inputValue = double.tryParse(value) ?? 0.0;
@@ -122,12 +143,18 @@ class _MassConverterScreenState extends State<MassConverterScreen> {
               },
             ),
             SizedBox(height: 32.0),
-            ElevatedButton(
-              onPressed: _performConversion,
-              child: MyText(title: tr(context, "calculate"), color: MyColors.primary, size: 25.sp,fontWeight: FontWeight.bold,),
+            DefaultButton(
+              color:  context.watch<AppThemeCubit>().isDarkMode
+                  ? AppDarkColors.primary
+                  : MyColors.primary,
+
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              title: '${tr(context, "calculate")}',
+              onTap: _performConversion,
             ),
             SizedBox(height: 16.0),
-            Text(result),
+            MyText(title: result, color: MyColors.black, size: 20.sp,alien: TextAlign.center,)
           ],
         ),
       ),

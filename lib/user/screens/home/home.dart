@@ -14,6 +14,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    LocalNotifications.init();
+
+
     data.initBottomNavigation(this, widget.index);
     if (widget.pageIndex != null) {
       data.homeTabCubit.onUpdateData(widget.pageIndex!);
@@ -23,6 +26,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
     List<Widget> screen = [
       Transactions(
         homeTabCubit: data.homeTabCubit,

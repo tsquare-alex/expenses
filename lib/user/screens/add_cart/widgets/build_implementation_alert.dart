@@ -13,7 +13,9 @@ class BuildImplementationAlert extends StatelessWidget {
           padding: EdgeInsets.all(10.r),
           margin: EdgeInsets.symmetric(vertical: 10.r),
           decoration: BoxDecoration(
-            color: MyColors.backgroundColor,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.greyWhite
+                : MyColors.backgroundColor,
             borderRadius: BorderRadius.circular(15.r),
           ),
           child: Row(
@@ -22,7 +24,9 @@ class BuildImplementationAlert extends StatelessWidget {
               Expanded(
                 child: MyText(
                   title: tr(context, "implementationAlert"),
-                  color: MyColors.black,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   size: 14.sp,
                   fontWeight: FontWeight.bold,
                 ),
@@ -32,6 +36,7 @@ class BuildImplementationAlert extends StatelessWidget {
               ),
               CupertinoSwitch(
                 trackColor: MyColors.blackOpacity,
+                activeColor: MyColors.primary,
                 value: state1.data,
                 onChanged: (value) {
                   data.alertCubit.onUpdateData(

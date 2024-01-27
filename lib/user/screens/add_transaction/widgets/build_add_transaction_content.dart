@@ -24,13 +24,19 @@ class BuildAddTransactionContent extends StatelessWidget {
                   controller: data.newContentController,
                   fieldTypes: FieldTypes.normal,
                   type: TextInputType.text,
+                  hintColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
+                  textColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   action: TextInputAction.next,
                   validate: (value) {
                     if (value!.isEmpty) {
                       return 'Enter the transaction type name';
                     }
                   },
-                  label: "محتوي جديد",
+                  label: tr(context, "addNewContent"),
                   margin: const EdgeInsets.symmetric(vertical: 10),
                 ),
               ],

@@ -117,7 +117,7 @@ class AddCartData {
               topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r))),
       context: context,
       builder: (context) => SizedBox(
-          height: 400.h,
+          height: 500.h,
           child: BuildAddCartType(
             data: this,
           )),

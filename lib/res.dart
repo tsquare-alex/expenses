@@ -24,6 +24,7 @@ class Res {
   static const String bmi_ic = "assets/images/bmi_ic.png";
   static const String bmr_ic = "assets/images/bmr_ic.png";
   static const String budget = "assets/images/budget.png";
+  static const String budget_icon = "assets/images/budget_icon.png";
   static const String budgetImage = "assets/images/budgetImage.png";
   static const String buyingCar = "assets/images/buyingCar.png";
   static const String cafe = "assets/images/cafe.png";
@@ -166,6 +167,7 @@ class Res {
   static const String plus = "assets/images/plus.png";
   static const String previouslyUsed = "assets/images/previouslyUsed.png";
   static const String privacy = "assets/images/privacy.png";
+  static const String pro = "assets/images/pro.png";
   static const String project_income = "assets/images/project_income.png";
   static const String qiblah_ic = "assets/images/qiblah_ic.png";
   static const String qrcode = "assets/images/qrcode.png";
@@ -201,6 +203,7 @@ class Res {
   static const String setting = "assets/images/setting.png";
   static const String settings = "assets/images/settings.png";
   static const String share = "assets/images/share.png";
+  static const String shareIcon = "assets/images/shareIcon.png";
   static const String shoes = "assets/images/shoes.png";
   static const String shop = "assets/images/shop.png";
   static const String shopping = "assets/images/shopping.png";
@@ -262,8 +265,9 @@ class Res {
   static const String womensize = "assets/images/womensize.png";
   static const String workshop = "assets/images/workshop.png";
   static const String zoom_ic = "assets/images/zoom_ic.png";
-  static const String pro = "assets/images/pro.png";
-  static const String budgetIcon = "assets/images/budget_icon.png";
-  static const String bluStar = "assets/images/blu_star.png";
-  static const String paln = "assets/images/plan.png";
+  static const String homeTransaction = "assets/images/homeTransaction.png";
+  static const String homeReports = "assets/images/homeReports.png";
+  static const String activeHome = "assets/images/activeHome.png";
+  static const String darkReports = "assets/images/darkReports.png";
+  static const String darkTransaction = "assets/images/darkTransaction.png";
 }

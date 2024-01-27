@@ -46,7 +46,7 @@ class _BudgetState extends State<Budget> {
                 title: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Image.asset(Res.budgetIcon, height: 28.h, width: 32.w),
+                    Image.asset(Res.budget_icon, height: 28.h, width: 32.w),
                     MyText(
                       title: tr(context, "budget"),
                       color: context.watch<AppThemeCubit>().isDarkMode

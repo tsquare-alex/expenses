@@ -2,8 +2,11 @@ import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../../../general/themes/cubit/app_theme_cubit.dart';
 
 class BuildToolsWidget extends StatelessWidget {
   final VoidCallback onTap;
@@ -34,7 +37,7 @@ class BuildToolsWidget extends StatelessWidget {
           const SizedBox(width: 10),
           MyText(
             title: tr(context, title),
-            color: MyColors.black,
+            color:context.watch<AppThemeCubit>().isDarkMode ? MyColors.white : MyColors.black,
             size: 16,
             fontWeight: FontWeight.bold,
           ),

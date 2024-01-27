@@ -69,4 +69,65 @@ class AddTransactionModel extends HiveObject {
 
   AddTransactionModel({this.transactionName,this.transactionType,this.image,this.database,this.unit,this.total,this.amount,this.time,this.brandName,this.endDate,this.incomeSource,this.notify,this.priority,this.repeated,this.startDate,this.targetValue,this.transactionContent,this.transactionDate,this.targetType,this.cashTransactionType,this.budget,this.initialValue,this.requiredValue,this.completedNotify,this.putReminderInWallet,this.ratio,this.description});
 
+  Map<String, dynamic> toJson() {
+    return {
+      'transactionName': transactionName,
+      'transactionType': transactionType?.toJson(),
+      'transactionContent': transactionContent?.toJson(),
+      'incomeSource': incomeSource?.toJson(),
+      'unit': unit?.toJson(),
+      'amount': amount,
+      'total': total,
+      'database': database,
+      'priority': priority?.toJson(),
+      'transactionDate': transactionDate,
+      'time': time,
+      'cashTransactionType': cashTransactionType?.toJson(),
+      'endDate': endDate,
+      'repeated': repeated?.toJson(),
+      'notify': notify,
+      'brandName': brandName,
+      'image': image,
+      'startDate': startDate,
+      'targetType': targetType?.toJson(),
+      'budget': budget?.toJson(),
+      'requiredValue': requiredValue,
+      'initialValue': initialValue,
+      'completedNotify': completedNotify,
+      'putReminderInWallet': putReminderInWallet,
+      'ratio': ratio?.toJson(),
+      'description': description,
+    };
+  }
+  factory AddTransactionModel.fromJson(Map<String, dynamic> json) {
+    return AddTransactionModel(
+      transactionName: json['transactionName'],
+      transactionType: TransactionTypeModel.fromJson(json['transactionType']),
+      transactionContent: TransactionContentModel.fromJson(json['transactionContent']),
+      incomeSource: WalletModel.fromJson(json['incomeSource']),
+      unit: DropdownModel.fromJson(json['unit']),
+      amount: json['amount'],
+      total: json['total'],
+      database: DatabaseModel.fromJson(json['database']),
+      priority: DropdownModel.fromJson(json['priority']),
+      transactionDate: json['transactionDate'],
+      time: json['time'],
+      cashTransactionType: TransactionTypeModel.fromJson(json['cashTransactionType']),
+      endDate: json['endDate'],
+      repeated: DropdownModel.fromJson(json['repeated']),
+      notify: json['notify'],
+      brandName: json['brandName'],
+      image: Uint8List.fromList(json['image'] ?? []),
+      startDate: json['startDate'],
+      targetValue: json['targetValue'],
+      targetType: TransactionTypeModel.fromJson(json['targetType']),
+      budget: BudgetModel.fromJson(json['budget']),
+      requiredValue: json['requiredValue'],
+      initialValue: json['initialValue'],
+      completedNotify: json['completedNotify'],
+      putReminderInWallet: json['putReminderInWallet'],
+      ratio: DropdownModel.fromJson(json['ratio']),
+      description: json['description'],
+    );
+  }
 }

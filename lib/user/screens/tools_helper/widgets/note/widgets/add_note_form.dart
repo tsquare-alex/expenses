@@ -1,3 +1,4 @@
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -32,13 +33,13 @@ class _AddNoteFormState extends State<AddNoteForm> {
       child: Column(
         children: [
           SizedBox(height: 32),
-          CustomTextField(hintText: "Title",
+          CustomTextField(hintText: tr(context, "enterTitle"),
             onSaved: (value) {
               title = value;
             },
           ),
           SizedBox(height: 16),
-          CustomTextField(hintText: "Content", maxLine: 5,
+          CustomTextField(hintText: tr(context, "enterBody"), maxLine: 5,
             onSaved: (value) {
               subTitle = value;
             },

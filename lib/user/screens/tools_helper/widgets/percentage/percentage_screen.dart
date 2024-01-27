@@ -1,10 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../general/themes/app_colors.dart';
+import '../../../../../general/themes/cubit/app_theme_cubit.dart';
 import 'percentage_cubit.dart';
 
 class PercentageCalculatorScreen extends StatefulWidget {
@@ -35,9 +39,22 @@ class _PercentageCalculatorScreenState extends State<PercentageCalculatorScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: MyColors.primary,
+        leading: GestureDetector(
+          onTap: () => AutoRouter.of(context).pop(),
+          child: Icon(
+            Icons.arrow_back,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+          ),
+        ),
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor:MyColors.white,
         centerTitle: true,
-        title: MyText(title: tr(context, "percentage"), color: Colors.white, size: 18.sp,fontWeight: FontWeight.bold,),
+        title: MyText(title: tr(context, "percentage"), color:context.watch<AppThemeCubit>().isDarkMode
+            ? MyColors.white
+            :MyColors.black,
+          size: 18.sp,fontWeight: FontWeight.bold,),
       ),
       body: SingleChildScrollView(
         child: BlocBuilder<PercentageCubit, double>(
@@ -69,19 +86,28 @@ class _PercentageCalculatorScreenState extends State<PercentageCalculatorScreen>
                     ),
                   ),
                   const SizedBox(height: 50,),
-                  ElevatedButton(
-                    onPressed: () {
+                  DefaultButton(
+
+                    color:  context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.primary
+                        : MyColors.primary,
+                    fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      title:'${tr(context, "calculate")}',
+                    onTap: (){
                       context.read<PercentageCubit>().calculatePercentage(
                         number: double.tryParse(numberController.text) ?? 0.0,
                         percentage: double.tryParse(percentageController.text) ?? 0.0,
                       );
                     },
-                    child: MyText(title: tr(context, "calculate"), color: MyColors.primary, size: 25.sp,fontWeight: FontWeight.bold,),
                   ),
                   if (result > 0.0)
                     // const SizedBox(height: 50,),
+
                   Center(
-                    child: MyText(title: '${tr(context, "result")}: ${result.toStringAsFixed(2)}',color: MyColors.primary,size: 18.sp),
+                    child: MyText(title: '${tr(context, "result")}: ${result.toStringAsFixed(2)}', color:context.watch<AppThemeCubit>().isDarkMode
+                        ? MyColors.white
+                        :MyColors.black,size: 18.sp),
                   ),
                 ],
               ),

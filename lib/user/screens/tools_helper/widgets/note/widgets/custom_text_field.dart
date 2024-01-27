@@ -1,5 +1,9 @@
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../../general/themes/app_colors.dart';
+import '../../../../../../general/themes/cubit/app_theme_cubit.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -37,7 +41,9 @@ class CustomTextField extends StatelessWidget {
           errorBorder: buildBorder(Colors.red),
           hintText: hintText,
           hintStyle: TextStyle(
-            color: MyColors.primary,
+            color:context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                :MyColors.black100,
           )),
     );
   }

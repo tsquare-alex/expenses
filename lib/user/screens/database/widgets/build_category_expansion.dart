@@ -1,10 +1,13 @@
 import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../general/constants/MyColors.dart';
 import '../../../../general/constants/validation.dart';
 import '../../../../general/packages/localization/Localizations.dart';
+import '../../../../general/themes/app_colors.dart';
+import '../../../../general/themes/cubit/app_theme_cubit.dart';
 import '../../../../general/widgets/DefaultButton.dart';
 import '../../../../general/widgets/MyText.dart';
 
@@ -163,7 +166,9 @@ class _BuildCategoryExpansionState extends State<BuildCategoryExpansion> {
           },
           title: MyText(
             title: tr(context, "category"),
-            color: isExpanded ? Colors.black : MyColors.grey,
+            color:   context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
             size: 16.sp,
             fontWeight:
             isExpanded ? FontWeight.bold : FontWeight.normal,
@@ -186,7 +191,9 @@ class _BuildCategoryExpansionState extends State<BuildCategoryExpansion> {
                           localizedCategory,
                           style: TextStyle(
                             color:
-                            isSelected ? MyColors.primary : Colors.black,
+                               context.watch<AppThemeCubit>().isDarkMode
+                              ? MyColors.white
+                              : MyColors.black,
                             fontWeight: isSelected
                                 ? FontWeight.bold
                                 : FontWeight.normal,
@@ -215,6 +222,9 @@ class _BuildCategoryExpansionState extends State<BuildCategoryExpansion> {
             DefaultButton(title:tr(context, "add"),
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
+                color:   context.watch<AppThemeCubit>().isDarkMode
+                    ? AppDarkColors.primary
+                    : MyColors.primary,
                 onTap: () async {
               _addNewCategory(context);
             }

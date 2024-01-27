@@ -18,7 +18,7 @@ class ReportNoRecord extends StatelessWidget {
             height: 15.h,
           ),
           MyText(
-            title: "No Records",
+            title: tr(context, 'noRecord'),
             color: MyColors.black,
             size: 16.sp,
             fontWeight: FontWeight.bold,

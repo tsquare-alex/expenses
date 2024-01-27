@@ -23,7 +23,7 @@ class ReportChart extends StatelessWidget {
           dateFormat: DateFormat('EE dd/MM'),
           intervalType: DateTimeIntervalType.days,
           interval: 1,
-          labelRotation: -90,
+          labelRotation: 90,
           isInversed: true,
         ),
         primaryYAxis: NumericAxis(),

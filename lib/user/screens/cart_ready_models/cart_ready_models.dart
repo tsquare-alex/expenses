@@ -21,9 +21,15 @@ class _CartReadyModelsState extends State<CartReadyModels> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.backgroundColor
+                      : MyColors.white,
+        surfaceTintColor:context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.backgroundColor
+                      : MyColors.white,
+        centerTitle: true,
         title: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
               Res.readyModels,
@@ -35,7 +41,9 @@ class _CartReadyModelsState extends State<CartReadyModels> {
             ),
             MyText(
               title: tr(context, "readyModels"),
-              color: MyColors.black,
+              color: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  : MyColors.black,
               size: 18.sp,
               fontWeight: FontWeight.bold,
             ),
@@ -45,7 +53,9 @@ class _CartReadyModelsState extends State<CartReadyModels> {
           onTap: () => AutoRouter.of(context).pop(),
           child: Icon(
             Icons.arrow_back,
-            color: MyColors.black,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
           ),
         ),
       ),

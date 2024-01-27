@@ -82,7 +82,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
               title: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Image.asset(Res.budgetIcon, height: 28.h, width: 32.w),
+                  Image.asset(Res.budget_icon, height: 28.h, width: 32.w),
                   SizedBox(width: 8.w),
                   MyText(
                     title: tr(context, "addBudget"),

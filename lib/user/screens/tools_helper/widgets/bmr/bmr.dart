@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/MyText.dart';
@@ -5,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../general/themes/app_colors.dart';
+import '../../../../../general/themes/cubit/app_theme_cubit.dart';
+import '../../../../../general/widgets/DefaultButton.dart';
 import 'bmr_cubit.dart';
 
 class BmrCalculatorScreen extends StatefulWidget {
@@ -16,15 +20,38 @@ class _BmrCalculatorScreenState extends State<BmrCalculatorScreen> {
   final TextEditingController weightController = TextEditingController();
   final TextEditingController heightController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
-  String selectedGender = 'Male';
+  String selectedGender = 'male'; // Default value, assuming "male" is the first item in your types list
+  List<String> types = [
+    "male",
+    "feMale",
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () => AutoRouter.of(context).pop(),
+          child: Icon(
+            Icons.arrow_back,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+          ),
+        ),
         centerTitle: true,
-        backgroundColor: MyColors.primary,
-        title: MyText(title: tr(context, "bmr"), color: Colors.white, size: 18.sp,fontWeight: FontWeight.bold,),
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            :MyColors.white,
+
+        title: MyText(
+          title: tr(context, "bmr"),
+          color:context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              :MyColors.black,
+          size: 18.sp,
+          fontWeight: FontWeight.bold,
+        ),
       ),
       body: SingleChildScrollView(
         child: BlocBuilder<BmrCubit, double>(
@@ -37,17 +64,17 @@ class _BmrCalculatorScreenState extends State<BmrCalculatorScreen> {
                   TextField(
                     controller: weightController,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(labelText: 'Weight (kg)'),
+                    decoration: InputDecoration(labelText: tr(context, "enterWeight")),
                   ),
                   TextField(
                     controller: heightController,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(labelText: 'Height (cm)'),
+                    decoration: InputDecoration(labelText: tr(context, "enterHeight")),
                   ),
                   TextField(
                     controller: ageController,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(labelText: 'Age'),
+                    decoration: InputDecoration(labelText: tr(context, "age")),
                   ),
                   DropdownButton<String>(
                     value: selectedGender,
@@ -56,29 +83,35 @@ class _BmrCalculatorScreenState extends State<BmrCalculatorScreen> {
                         selectedGender = newValue!;
                       });
                     },
-                    items: <String>['Male', 'Female']
+                    items: types
                         .map<DropdownMenuItem<String>>(
                           (String value) => DropdownMenuItem<String>(
                         value: value,
-                        child: Text(value),
+                        child: Text(tr(context, value)), // Use translation here
                       ),
                     )
                         .toList(),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
+                  DefaultButton(
+                    color:  context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.primary
+                        : MyColors.primary,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    title: '${tr(context, "calculate")}',
+                    onTap: () {
                       context.read<BmrCubit>().calculateBmr(
                         weight: int.tryParse(weightController.text) ?? 0,
                         height: int.tryParse(heightController.text) ?? 0,
                         age: int.tryParse(ageController.text) ?? 0,
-                        isMale: selectedGender == 'Male',
+                        isMale: selectedGender == 'male', // Use the key directly
                       );
                     },
-                    child: Text('Calculate'),
                   ),
                   if (bmr > 0.0)
                     Center(
-                      child: Text('BMR Result: ${bmr.toStringAsFixed(2)}'),
+                      child: Text(
+                          '${tr(context, "result")}: ${bmr.toStringAsFixed(2)}'),
                     ),
                 ],
               ),
@@ -89,3 +122,4 @@ class _BmrCalculatorScreenState extends State<BmrCalculatorScreen> {
     );
   }
 }
+

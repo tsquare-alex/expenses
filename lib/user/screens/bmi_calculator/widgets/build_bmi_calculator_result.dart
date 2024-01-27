@@ -10,8 +10,10 @@ class BuildBMICalculatorResult extends StatelessWidget {
       bloc: data.bmiCubit,
       builder: (context, state) {
         return MyText(
-          title: "Your BMI: ${state.data.toStringAsFixed(2)}",
-          color: MyColors.primary,
+          title: "${tr(context, "result")}: ${state.data.toStringAsFixed(2)}",
+          color:context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              :MyColors.black,
           size: 16.sp,
           fontWeight: FontWeight.bold,
         );

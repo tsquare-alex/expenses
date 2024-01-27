@@ -34,13 +34,14 @@ class SettingsBody extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black,
                     ),
                   ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
-                    color: MyColors.primary,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
                   ),
                 ],
               ),
@@ -53,33 +54,45 @@ class SettingsBody extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.r),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      Res.first_day_month,
-                      width: 24.w,
-                      height: 24.h,
-                      color: context.watch<AppThemeCubit>().isDarkMode
-                          ? AppDarkColors.secondary
-                          : MyColors.primary,
+              GestureDetector(
+                onTap: () => data.settingsDialog(
+                  context: context,
+                  dialogList: data.monthDays,
+                  title: tr(context, 'monthFirstDay'),
+                  isList: true,
+                ),
+                child: ColoredBox(
+                  color: Colors.transparent,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.r),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          Res.first_day_month,
+                          width: 24.w,
+                          height: 24.h,
+                          color: context.watch<AppThemeCubit>().isDarkMode
+                              ? AppDarkColors.secondary
+                              : MyColors.primary,
+                        ),
+                        SizedBox(width: 12.w),
+                        Text(
+                          tr(context, 'monthFirstDay'),
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const Spacer(),
+                        Icon(
+                          Icons.keyboard_arrow_down,
+                          color: context.watch<AppThemeCubit>().isDarkMode
+                              ? AppDarkColors.secondary
+                              : MyColors.primary,
+                        ),
+                      ],
                     ),
-                    SizedBox(width: 12.w),
-                    Text(
-                      tr(context, 'monthFirstDay'),
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
-                      ),
-                    ),
-                    const Spacer(),
-                    Icon(
-                      Icons.keyboard_arrow_down,
-                      color: MyColors.primary,
-                    ),
-                  ],
+                  ),
                 ),
               ),
               Divider(
@@ -88,33 +101,45 @@ class SettingsBody extends StatelessWidget {
                     : MyColors.black.withOpacity(0.05),
                 thickness: 2.5.r,
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.r),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      Res.first_day_week,
-                      width: 24.w,
-                      height: 24.h,
-                      color: context.watch<AppThemeCubit>().isDarkMode
-                          ? AppDarkColors.secondary
-                          : MyColors.primary,
+              GestureDetector(
+                onTap: () => data.settingsDialog(
+                  context: context,
+                  dialogList: data.weekDays(context),
+                  title: tr(context, 'weekFirstDay'),
+                  isList: true,
+                ),
+                child: ColoredBox(
+                  color: Colors.transparent,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.r),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          Res.first_day_week,
+                          width: 24.w,
+                          height: 24.h,
+                          color: context.watch<AppThemeCubit>().isDarkMode
+                              ? AppDarkColors.secondary
+                              : MyColors.primary,
+                        ),
+                        SizedBox(width: 12.w),
+                        Text(
+                          tr(context, 'weekFirstDay'),
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const Spacer(),
+                        Icon(
+                          Icons.keyboard_arrow_down,
+                          color: context.watch<AppThemeCubit>().isDarkMode
+                              ? AppDarkColors.secondary
+                              : MyColors.primary,
+                        ),
+                      ],
                     ),
-                    SizedBox(width: 12.w),
-                    Text(
-                      tr(context, 'weekFirstDay'),
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
-                      ),
-                    ),
-                    const Spacer(),
-                    Icon(
-                      Icons.keyboard_arrow_down,
-                      color: MyColors.primary,
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ],
@@ -165,13 +190,14 @@ class SettingsBody extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black,
                     ),
                   ),
                   const Spacer(),
                   Icon(
                     Icons.edit_rounded,
-                    color: MyColors.primary,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
                   ),
                 ],
               ),
@@ -201,13 +227,14 @@ class SettingsBody extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black,
                     ),
                   ),
                   const Spacer(),
                   Icon(
                     Icons.edit_rounded,
-                    color: MyColors.primary,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
                   ),
                 ],
               ),
@@ -261,13 +288,14 @@ class SettingsBody extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
-                        color: Colors.black,
                       ),
                     ),
                     const Spacer(),
                     Icon(
                       Icons.keyboard_arrow_down,
-                      color: MyColors.primary,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? AppDarkColors.secondary
+                          : MyColors.primary,
                     ),
                   ],
                 ),
@@ -296,13 +324,14 @@ class SettingsBody extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
-                        color: Colors.black,
                       ),
                     ),
                     const Spacer(),
                     Icon(
                       Icons.keyboard_arrow_down,
-                      color: MyColors.primary,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? AppDarkColors.secondary
+                          : MyColors.primary,
                     ),
                   ],
                 ),
@@ -330,13 +359,14 @@ class SettingsBody extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
-                    color: Colors.black,
                   ),
                 ),
                 const Spacer(),
                 Icon(
                   Icons.keyboard_arrow_down,
-                  color: MyColors.primary,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.secondary
+                      : MyColors.primary,
                 ),
               ],
             ),
@@ -364,14 +394,15 @@ class SettingsBody extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
-                    color: Colors.black,
                   ),
                 ),
                 const Spacer(),
                 BlocBuilder<AuthenticationCubit, AuthenticationState>(
                   builder: (context, state) {
                     return CupertinoSwitch(
-                      trackColor: const Color(0xFFD9D9D9),
+                      trackColor: context.watch<AppThemeCubit>().isDarkMode
+                          ? AppDarkColors.accentColor1
+                          : const Color(0xFFD9D9D9),
                       value: state.isAuthenticated,
                       onChanged: (value) async {
                         final authenticationCubit =
@@ -426,14 +457,15 @@ class SettingsBody extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
-                    color: Colors.black,
                   ),
                 ),
                 const Spacer(),
                 BlocBuilder<AppThemeCubit, AppThemeState>(
                   builder: (context, state) {
                     return CupertinoSwitch(
-                      trackColor: const Color(0xFFD9D9D9),
+                      trackColor: context.watch<AppThemeCubit>().isDarkMode
+                          ? AppDarkColors.accentColor1
+                          : const Color(0xFFD9D9D9),
                       value: AppThemeCubit.get(context).isDarkMode,
                       onChanged: (value) =>
                           AppThemeCubit.get(context).toggleTheme(value),
@@ -466,12 +498,13 @@ class SettingsBody extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
-                    color: Colors.black,
                   ),
                 ),
                 const Spacer(),
                 CupertinoSwitch(
-                  trackColor: const Color(0xFFD9D9D9),
+                  trackColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.accentColor1
+                      : const Color(0xFFD9D9D9),
                   value: false,
                   onChanged: (value) {},
                 ),
@@ -494,7 +527,11 @@ class SettingsBody extends StatelessWidget {
         //   ],
         // ),
         GestureDetector(
-          onTap: () => data.languagePressed(context),
+          onTap: () => data.settingsDialog(
+            context: context,
+            dialogList: data.saveFormat,
+            title: tr(context, 'save'),
+          ),
           child: SettingTile(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.r),
@@ -514,13 +551,14 @@ class SettingsBody extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black,
                     ),
                   ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
-                    color: MyColors.primary,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
                   ),
                 ],
               ),
@@ -549,13 +587,14 @@ class SettingsBody extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black,
                     ),
                   ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
-                    color: MyColors.primary,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
                   ),
                 ],
               ),
@@ -584,13 +623,14 @@ class SettingsBody extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black,
                     ),
                   ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
-                    color: MyColors.primary,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
                   ),
                 ],
               ),
@@ -619,13 +659,14 @@ class SettingsBody extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black,
                     ),
                   ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
-                    color: MyColors.primary,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
                   ),
                 ],
               ),
@@ -654,13 +695,14 @@ class SettingsBody extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black,
                     ),
                   ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
-                    color: MyColors.primary,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
                   ),
                 ],
               ),
@@ -689,13 +731,14 @@ class SettingsBody extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black,
                     ),
                   ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
-                    color: MyColors.primary,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
                   ),
                 ],
               ),

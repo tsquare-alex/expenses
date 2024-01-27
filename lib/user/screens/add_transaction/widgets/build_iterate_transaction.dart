@@ -21,7 +21,9 @@ class BuildIterateTransaction extends StatelessWidget {
                     padding: EdgeInsets.all(10.r),
                     margin: EdgeInsets.symmetric(vertical: 10.r),
                     decoration: BoxDecoration(
-                      color: MyColors.backgroundColor,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.greyWhite
+                          : MyColors.backgroundColor,
                       borderRadius: BorderRadius.circular(15.r),
                     ),
                     child: Row(
@@ -32,7 +34,9 @@ class BuildIterateTransaction extends StatelessWidget {
                             children: [
                               MyText(
                                 title: tr(context, "notify"),
-                                color: MyColors.black,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : MyColors.black,
                                 size: 14.sp,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -41,7 +45,9 @@ class BuildIterateTransaction extends StatelessWidget {
                               ),
                               MyText(
                                 title: "(${tr(context, "remember")})",
-                                color: MyColors.black,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : MyColors.black,
                                 size: 11.sp,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -54,6 +60,8 @@ class BuildIterateTransaction extends StatelessWidget {
                         CupertinoSwitch(
                           trackColor: MyColors.blackOpacity,
                           value: state1.data,
+                          activeColor: MyColors.primary,
+
                           onChanged: (value) {
                             addTransactionData.notifyCubit
                                 .onUpdateData(value);
@@ -71,7 +79,9 @@ class BuildIterateTransaction extends StatelessWidget {
                     padding: EdgeInsets.all(10.r),
                     margin: EdgeInsets.symmetric(vertical: 10.r),
                     decoration: BoxDecoration(
-                      color: MyColors.backgroundColor,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.greyWhite
+                          : MyColors.backgroundColor,
                       borderRadius: BorderRadius.circular(15.r),
                     ),
                     child: Row(
@@ -82,7 +92,9 @@ class BuildIterateTransaction extends StatelessWidget {
                             children: [
                               MyText(
                                 title: tr(context, "putRemainderInWallet"),
-                                color: MyColors.black,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : MyColors.black,
                                 size: 14.sp,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -93,6 +105,8 @@ class BuildIterateTransaction extends StatelessWidget {
                           width: 5.w,
                         ),
                         CupertinoSwitch(
+                          activeColor: MyColors.primary,
+
                           trackColor: MyColors.blackOpacity,
                           value: state1.data,
                           onChanged: (value) {
@@ -112,7 +126,9 @@ class BuildIterateTransaction extends StatelessWidget {
                     padding: EdgeInsets.all(10.r),
                     margin: EdgeInsets.symmetric(vertical: 10.r),
                     decoration: BoxDecoration(
-                      color: MyColors.backgroundColor,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.greyWhite
+                          : MyColors.backgroundColor,
                       borderRadius: BorderRadius.circular(15.r),
                     ),
                     child: Row(
@@ -123,38 +139,43 @@ class BuildIterateTransaction extends StatelessWidget {
                             children: [
                               MyText(
                                 title: tr(context, "completedNotify"),
-                                color: MyColors.black,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : MyColors.black,
                                 size: 14.sp,
                                 fontWeight: FontWeight.bold,
                               ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              if (state.data == true)
-                                Expanded(
-                                  child: DropdownTextField<DropdownModel>(
-                                    dropKey: addTransactionData
-                                        .ratioDropKey,
-                                    label: tr(context, "ratio"),
-                                    selectedItem: addTransactionData
-                                        .selectedRatio,
-                                    margin:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                                    validate: (value) {
-                                      if (value == null) {
-                                        print("Please fill this field");
-                                      }
-                                    },
-                                    onChange: addTransactionData
-                                        .setSelectRatio,
-                                    finData: (data) =>
-                                        addTransactionData
-                                            .getRatio(context),
-                                    useName: true,
-                                    buttonsColor: MyColors.primary,
-                                    searchHint: tr(context, "search"),
-                                  ),
-                                ),
+                              // SizedBox(
+                              //   width: 5.w,
+                              // ),
+                              // if (state.data == true)
+                              //   Expanded(
+                              //     child: DropdownTextField<DropdownModel>(
+                              //       dropKey: addTransactionData
+                              //           .ratioDropKey,
+                              //       label: tr(context, "ratio"),
+                              //       selectedItem: addTransactionData
+                              //           .selectedRatio,
+                              //       margin:
+                              //       const EdgeInsets.symmetric(vertical: 5),
+                              //       validate: (value) {
+                              //         if (value == null) {
+                              //           print("Please fill this field");
+                              //         }
+                              //       },
+                              //       hintColor: context.watch<AppThemeCubit>().isDarkMode
+                              //           ? MyColors.white
+                              //           : MyColors.black,
+                              //       onChange: addTransactionData
+                              //           .setSelectRatio,
+                              //       finData: (data) =>
+                              //           addTransactionData
+                              //               .getRatio(context),
+                              //       useName: true,
+                              //       buttonsColor: MyColors.primary,
+                              //       searchHint: tr(context, "search"),
+                              //     ),
+                              //   ),
                             ],
                           ),
                         ),
@@ -162,6 +183,8 @@ class BuildIterateTransaction extends StatelessWidget {
                           width: 8.w,
                         ),
                         CupertinoSwitch(
+                          activeColor: MyColors.primary,
+
                           trackColor: MyColors.blackOpacity,
                           value: state.data,
                           onChanged: (value) {
@@ -189,7 +212,9 @@ class BuildIterateTransaction extends StatelessWidget {
                     padding: EdgeInsets.all(10.r),
                     margin: EdgeInsets.symmetric(vertical: 10.r),
                     decoration: BoxDecoration(
-                      color: MyColors.backgroundColor,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.greyWhite
+                          : MyColors.backgroundColor,
                       borderRadius: BorderRadius.circular(15.r),
                     ),
                     child: Row(
@@ -200,7 +225,9 @@ class BuildIterateTransaction extends StatelessWidget {
                             children: [
                               MyText(
                                 title: tr(context, "repeatTransaction"),
-                                color: MyColors.black,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : MyColors.black,
                                 size: 14.sp,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -213,6 +240,9 @@ class BuildIterateTransaction extends StatelessWidget {
                                     dropKey: addTransactionData
                                         .iterateTransactionDropKey,
                                     label: tr(context, "repeatDuration"),
+                                    hintColor: context.watch<AppThemeCubit>().isDarkMode
+                                        ? MyColors.white
+                                        : MyColors.black,
                                     selectedItem: addTransactionData
                                         .selectedIterateTransaction,
                                     margin:
@@ -240,6 +270,8 @@ class BuildIterateTransaction extends StatelessWidget {
                           width: 8.w,
                         ),
                         CupertinoSwitch(
+                          activeColor: MyColors.primary,
+
                           trackColor: MyColors.blackOpacity,
                           value: state.data,
                           onChanged: (value) {
@@ -257,7 +289,9 @@ class BuildIterateTransaction extends StatelessWidget {
                           padding: EdgeInsets.all(10.r),
                           margin: EdgeInsets.symmetric(vertical: 10.r),
                           decoration: BoxDecoration(
-                            color: MyColors.backgroundColor,
+                            color: context.watch<AppThemeCubit>().isDarkMode
+                                ? MyColors.greyWhite
+                                : MyColors.backgroundColor,
                             borderRadius: BorderRadius.circular(15.r),
                           ),
                           child: Row(
@@ -268,7 +302,9 @@ class BuildIterateTransaction extends StatelessWidget {
                                   children: [
                                     MyText(
                                       title: tr(context, "notify"),
-                                      color: MyColors.black,
+                                      color: context.watch<AppThemeCubit>().isDarkMode
+                                          ? MyColors.white
+                                          : MyColors.black,
                                       size: 14.sp,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -277,7 +313,9 @@ class BuildIterateTransaction extends StatelessWidget {
                                     ),
                                     MyText(
                                       title: "(${tr(context, "remember")})",
-                                      color: MyColors.black,
+                                      color: context.watch<AppThemeCubit>().isDarkMode
+                                          ? MyColors.white
+                                          : MyColors.black,
                                       size: 11.sp,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -288,6 +326,8 @@ class BuildIterateTransaction extends StatelessWidget {
                                 width: 5.w,
                               ),
                               CupertinoSwitch(
+                                activeColor: MyColors.primary,
+
                                 trackColor: MyColors.blackOpacity,
                                 value: state1.data,
                                 onChanged: (value) {

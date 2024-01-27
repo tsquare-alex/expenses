@@ -26,9 +26,15 @@ class _CommitmentsState extends State<Commitments> {
       builder: (context, state1) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.white,
-            surfaceTintColor: Colors.white,
+            backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+                ? AppDarkColors.backgroundColor
+                : MyColors.white,
+            surfaceTintColor: context.watch<AppThemeCubit>().isDarkMode
+                ? AppDarkColors.backgroundColor
+                : MyColors.white,
+            centerTitle: true,
             title: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Image.asset(
                   Res.commitments,
@@ -40,7 +46,9 @@ class _CommitmentsState extends State<Commitments> {
                 ),
                 MyText(
                   title: tr(context, "commitments"),
-                  color: MyColors.black,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   size: 18.sp,
                   fontWeight: FontWeight.bold,
                 ),
@@ -50,13 +58,15 @@ class _CommitmentsState extends State<Commitments> {
               onTap: () => AutoRouter.of(context).pop(),
               child: Icon(
                 Icons.arrow_back,
-                color: MyColors.black,
+                color: context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : MyColors.black,
               ),
             ),
           ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: MyColors.primary,
-            onPressed: () async{
+            onPressed: () async {
               if (state1.data.isEmpty) {
                 data.addTransactionModel(context);
               } else {

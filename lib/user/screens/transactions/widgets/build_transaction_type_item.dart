@@ -1,7 +1,9 @@
 part of 'transactions_widgets_imports.dart';
 
 class BuildTransactionTypeItem extends StatelessWidget {
-  const BuildTransactionTypeItem({Key? key, required this.image, required this.name, this.onTap}) : super(key: key);
+  const BuildTransactionTypeItem(
+      {Key? key, required this.image, required this.name, this.onTap})
+      : super(key: key);
   final String image;
   final String name;
   final GestureTapCallback? onTap;
@@ -18,14 +20,28 @@ class BuildTransactionTypeItem extends StatelessWidget {
             height: 170,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: MyColors.greyWhite
+              color: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.greyWhite
+                  : MyColors.greyWhite,
             ),
-            child:  Image.asset(image,width: 55.w,height: 55.h,),
-
+            child: Image.asset(
+              image,
+              width: 55.w,
+              height: 55.h,
+            ),
           ),
-          SizedBox(height: 15.h,),
-          MyText(title: name, color: MyColors.black, size: 16.sp,fontWeight: FontWeight.bold,alien: TextAlign.center,),
-
+          SizedBox(
+            height: 15.h,
+          ),
+          MyText(
+            title: name,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+            size: 16.sp,
+            fontWeight: FontWeight.bold,
+            alien: TextAlign.center,
+          ),
         ],
       ),
     );

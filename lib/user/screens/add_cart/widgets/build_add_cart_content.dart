@@ -19,6 +19,12 @@ class BuildAddCartContent extends StatelessWidget {
                   controller: data.contentController,
                   fieldTypes: FieldTypes.normal,
                   type: TextInputType.text,
+                  hintColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
+                  textColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   action: TextInputAction.next,
                   validate: (value) {
                     if (value!.isEmpty) {

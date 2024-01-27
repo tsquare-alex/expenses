@@ -33,7 +33,9 @@ class BuildCartItem extends StatelessWidget {
         ),
         MyText(
           title: tr(context, name),
-          color: MyColors.black,
+          color: context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              : MyColors.black,
           size: 16.sp,
           fontWeight: FontWeight.bold,
         ),

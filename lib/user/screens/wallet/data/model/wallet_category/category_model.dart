@@ -10,4 +10,18 @@ class CategoryModel extends HiveObject {
   String? imagePath;
 
   CategoryModel({this.imagePath, this.name});
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'imagePath': imagePath,
+    };
+  }
+
+  factory CategoryModel.fromJson(Map<String, dynamic> json) {
+    return CategoryModel(
+      name: json['name'],
+      imagePath: json['imagePath'],
+    );
+  }
 }

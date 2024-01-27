@@ -10,76 +10,80 @@ class ReportTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Table(
-      defaultColumnWidth: const MaxColumnWidth(
-        IntrinsicColumnWidth(),
-        FlexColumnWidth(),
-      ),
-      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-      border: TableBorder.all(
-        borderRadius: BorderRadius.circular(12.r),
-        color: context.watch<AppThemeCubit>().isDarkMode
-            ? AppDarkColors.accentColor
-            : MyColors.greyWhite,
-        width: 2.r,
-      ),
-      children: [
-        const TableRow(
-          children: [
-            StatsRowCell(title: 'محفظة', padding: 5),
-            StatsRowCell(title: 'معاملة', padding: 5),
-            StatsRowCell(title: 'معاملة\nفرعية', padding: 5),
-            StatsRowCell(title: 'مدة', padding: 5),
-            StatsRowCell(title: 'أولوية', padding: 5),
-            StatsRowCell(title: 'كمية', padding: 5),
-            StatsRowCell(title: 'قيمة', padding: 5),
-            StatsRowCell(title: 'جهة', padding: 5),
-          ],
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Table(
+        defaultColumnWidth: const MaxColumnWidth(
+          IntrinsicColumnWidth(),
+          FlexColumnWidth(),
         ),
-        ...data
-            .map(
-              (transaction) => TableRow(
-                children: [
-                  StatsRowCell(
-                    title: tr(context, transaction.incomeSource!.name).isEmpty
-                        ? transaction.incomeSource?.name
-                        : tr(context, transaction.incomeSource!.name),
-                  ),
-                  StatsRowCell(
-                    title: tr(context, transaction.transactionType!.name!)
-                            .isEmpty
-                        ? transaction.transactionType?.name
-                        : tr(context, transaction.transactionType!.name!),
-                  ),
-                  StatsRowCell(
-                    title: tr(context, transaction.transactionContent!.name!)
-                            .isEmpty
-                        ? transaction.transactionContent?.name
-                        : tr(context, transaction.transactionContent!.name!),
-                  ),
-                  StatsRowCell(title: transaction.transactionDate),
-                  StatsRowCell(
-                    title: tr(context, transaction.priority!.name!).isEmpty
-                        ? transaction.priority?.name
-                        : tr(context, transaction.priority!.name!),
-                  ),
-                  StatsRowCell(
-                    title: tr(
-                                context,
-                                transaction.unit == null
-                                    ? ''
-                                    : transaction.unit!.name!)
-                            .isEmpty
-                        ? transaction.unit?.name
-                        : tr(context, transaction.unit!.name!),
-                  ),
-                  StatsRowCell(title: transaction.total),
-                  StatsRowCell(title: transaction.database?.name),
-                ],
-              ),
-            )
-            .toList(),
-      ],
+        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+        border: TableBorder.all(
+          borderRadius: BorderRadius.circular(12.r),
+          color: context.watch<AppThemeCubit>().isDarkMode
+              ? AppDarkColors.accentColor
+              : MyColors.greyWhite,
+          width: 2.r,
+        ),
+        children: [
+          TableRow(
+            children: [
+              StatsRowCell(title: tr(context, 'tableWallet'), padding: 10),
+              StatsRowCell(title: tr(context, 'tableTransaction'), padding: 10),
+              StatsRowCell(
+                  title: tr(context, 'tableSubTransaction'), padding: 10),
+              StatsRowCell(title: tr(context, 'tableDuration'), padding: 10),
+              StatsRowCell(title: tr(context, 'tablePriority'), padding: 10),
+              StatsRowCell(title: tr(context, 'tableAmount'), padding: 10),
+              StatsRowCell(title: tr(context, 'tableValue'), padding: 10),
+              StatsRowCell(title: tr(context, 'tableContact'), padding: 10),
+            ],
+          ),
+          ...data
+              .map(
+                (transaction) => TableRow(
+                  children: [
+                    StatsRowCell(
+                      title: tr(context, transaction.incomeSource!.name).isEmpty
+                          ? transaction.incomeSource?.name
+                          : tr(context, transaction.incomeSource!.name),
+                    ),
+                    StatsRowCell(
+                      title: tr(context, transaction.transactionType!.name!)
+                              .isEmpty
+                          ? transaction.transactionType?.name
+                          : tr(context, transaction.transactionType!.name!),
+                    ),
+                    StatsRowCell(
+                      title: tr(context, transaction.transactionContent!.name!)
+                              .isEmpty
+                          ? transaction.transactionContent?.name
+                          : tr(context, transaction.transactionContent!.name!),
+                    ),
+                    StatsRowCell(title: transaction.transactionDate),
+                    StatsRowCell(
+                      title: tr(context, transaction.priority!.name!).isEmpty
+                          ? transaction.priority?.name
+                          : tr(context, transaction.priority!.name!),
+                    ),
+                    StatsRowCell(
+                      title: tr(
+                                  context,
+                                  transaction.unit == null
+                                      ? ''
+                                      : transaction.unit!.name!)
+                              .isEmpty
+                          ? transaction.unit?.name
+                          : tr(context, transaction.unit!.name!),
+                    ),
+                    StatsRowCell(title: transaction.total),
+                    StatsRowCell(title: transaction.database?.name),
+                  ],
+                ),
+              )
+              .toList(),
+        ],
+      ),
     );
   }
 }

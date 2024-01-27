@@ -1,44 +1,23 @@
 part of 'SplashImports.dart';
-void callbackDispatcher() {
-  WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized first
-  // sendNotificationNow();
-  print("function Called on calledbackDispatcher ========================");
-  LocalNotifications.init();
-
-
-
-  Workmanager().executeTask((task, inputData) async {
-    // sendNotificationNow();
-    print("ExecuteTask =======================================");
-    // final String title = inputData!["Name"] ?? "Default Title";
-    // final String body = "Hello, this is the notification body.";
-    // final String payload = "yoooooo";
-    //
-    // LocalNotifications.showSimpleNotification(title: title, body: body, payload: payload);
-    return Future.value(true);
-  });
-}
-
-// void sendNotificationNow() {
-//   Random random = Random();
-//   int notificationId = random.nextInt(100000);
-//   const title = 'Expenses Title Now';
-//   const body = 'Expenses Notification Body';
+// void callbackDispatcher() {
+//   WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized first
+//   // sendNotificationNow();
+//   print("function Called on calledbackDispatcher ========================");
+//   LocalNotifications.init();
 //
-//   print("Sending Notification $notificationId");
 //
-//   // You can set the language based on your app's logic here
-//   String language = 'ar'; // Set the default language or retrieve it from your app's state/logic
 //
-//   // Call the everyDayNotification method with the language parameter
-//   LocalNotifications.everyDayNotification(
-//     title: title,
-//     body: body,
-//     notificationId: notificationId,
-//     language: language,
-//   );
+//   Workmanager().executeTask((task, inputData) async {
+//     // sendNotificationNow();
+//     print("ExecuteTask =======================================");
+//     // final String title = inputData!["Name"] ?? "Default Title";
+//     // final String body = "Hello, this is the notification body.";
+//     // final String payload = "yoooooo";
+//     //
+//     // LocalNotifications.showSimpleNotification(title: title, body: body, payload: payload);
+//     return Future.value(true);
+//   });
 // }
-
 // void sendNotificationNow() {
 //   Random random = Random();
 //   int notificationId = random.nextInt(100000); // Generate a random number as notification ID
@@ -67,10 +46,10 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     controller.checkingData(context);
-    Workmanager().initialize(
-      callbackDispatcher,
-      isInDebugMode: true,
-    );
+    // Workmanager().initialize(
+    //   callbackDispatcher,
+    //   isInDebugMode: true,
+    // );
 
     super.initState();
   }

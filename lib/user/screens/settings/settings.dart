@@ -16,10 +16,14 @@ class _SettingsState extends State<Settings> {
           onTap: () => AutoRouter.of(context).pop(),
           child: Icon(
             Icons.arrow_back,
-            color: MyColors.black,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
           ),
         ),
-        backgroundColor: MyColors.white,
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : Colors.white,
         surfaceTintColor: Colors.transparent,
         centerTitle: true,
         title: Row(
@@ -29,14 +33,18 @@ class _SettingsState extends State<Settings> {
               Res.settings,
               width: 24.w,
               height: 24.h,
-              color: MyColors.primary,
+              color: context.watch<AppThemeCubit>().isDarkMode
+                  ? AppDarkColors.secondary
+                  : MyColors.primary,
             ),
             SizedBox(
               width: 8.w,
             ),
             MyText(
               title: tr(context, 'settings'),
-              color: Colors.black,
+              color: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  : MyColors.black,
               size: 20.sp,
               fontWeight: FontWeight.bold,
             ),

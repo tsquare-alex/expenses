@@ -14,7 +14,9 @@ class BuildAddProductPhoto extends StatelessWidget {
                 margin: EdgeInsets.symmetric(vertical: 15.r),
                 padding: EdgeInsets.all(15.r),
                 decoration: BoxDecoration(
-                    color: MyColors.white,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+    ? MyColors.greyWhite
+        : MyColors.white,
                     border: Border.all(width: 1.w, color: MyColors.greyWhite),
                     borderRadius: BorderRadius.circular(15.r)),
                 child: Row(
@@ -22,7 +24,9 @@ class BuildAddProductPhoto extends StatelessWidget {
                   children: [
                     MyText(
                       title: tr(context, "addPhoto"),
-                      color: MyColors.black,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : MyColors.black,
                       size: 14.sp,
                       fontWeight: FontWeight.bold,
                     ),
@@ -71,7 +75,9 @@ class BuildAddProductPhoto extends StatelessWidget {
               margin: EdgeInsets.symmetric(vertical: 15.r),
               padding: EdgeInsets.all(15.r),
               decoration: BoxDecoration(
-                  color: MyColors.white,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.greyWhite
+                      : MyColors.white,
                   border: Border.all(width: 1.w, color: MyColors.greyWhite),
                   borderRadius: BorderRadius.circular(15.r)),
               child: InkWell(

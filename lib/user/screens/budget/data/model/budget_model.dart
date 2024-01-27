@@ -37,4 +37,37 @@ class BudgetModel extends HiveObject {
       this.notification,
       this.favoitate,
       this.transactionValue});
+
+  Map<String, dynamic> toJson() {
+    return {
+      'budgetValue': budgetValue,
+      'transactionName': transactionName,
+      'waletName': waletName,
+      'startBudget': startBudget,
+      'transactionRepeat': transactionRepeat,
+      'percentValue': percentValue,
+      'endBudget': endBudget,
+      'addNote': addNote,
+      'notification': notification,
+      'favoitate': favoitate,
+      'transactionValue': transactionValue,
+    };
+  }
+
+
+  factory BudgetModel.fromJson(Map<String, dynamic> json) {
+    return BudgetModel(
+      budgetValue: json['budgetValue']??0.0,
+      transactionName: json['transactionName']?? '',
+      waletName: json['waletName']??'',
+      startBudget: json['startBudget']??'',
+      transactionRepeat: json['transactionRepeat']??'',
+      percentValue: json['percentValue']??0.0,
+      endBudget: json['endBudget']??'',
+      addNote: json['addNote']??'',
+      notification: json['notification']??false,
+      favoitate: json['favoitate']??false,
+      transactionValue: json['transactionValue']??0.0,
+    );
+  }
 }

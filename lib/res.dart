@@ -24,6 +24,7 @@ class Res {
   static const String bmi_ic = "assets/images/bmi_ic.png";
   static const String bmr_ic = "assets/images/bmr_ic.png";
   static const String budget = "assets/images/budget.png";
+  static const String budget_icon = "assets/images/budget_icon.png";
   static const String budgetImage = "assets/images/budgetImage.png";
   static const String buyingCar = "assets/images/buyingCar.png";
   static const String cafe = "assets/images/cafe.png";
@@ -54,8 +55,7 @@ class Res {
   static const String commitments = "assets/images/commitments.png";
   static const String compass = "assets/images/compass.svg";
   static const String contacts = "assets/images/contacts.png";
-  static const String contanier_background =
-      "assets/images/contanier_background.png";
+  static const String contanier_background = "assets/images/contanier_background.png";
   static const String countries = "assets/images/countries.png";
   static const String country = "assets/images/country.png";
   static const String courseAssign = "assets/images/courseAssign.png";
@@ -166,6 +166,7 @@ class Res {
   static const String plus = "assets/images/plus.png";
   static const String previouslyUsed = "assets/images/previouslyUsed.png";
   static const String privacy = "assets/images/privacy.png";
+  static const String pro = "assets/images/pro.png";
   static const String project_income = "assets/images/project_income.png";
   static const String qiblah_ic = "assets/images/qiblah_ic.png";
   static const String qrcode = "assets/images/qrcode.png";
@@ -176,8 +177,7 @@ class Res {
   static const String rent = "assets/images/rent.png";
   static const String repair = "assets/images/repair.png";
   static const String repeated = "assets/images/repeated.png";
-  static const String repeatedTransactions =
-      "assets/images/repeatedTransactions.png";
+  static const String repeatedTransactions = "assets/images/repeatedTransactions.png";
   static const String report = "assets/images/report.png";
   static const String reports = "assets/images/reports.png";
   static const String reports_menu = "assets/images/reports_menu.png";
@@ -201,6 +201,7 @@ class Res {
   static const String setting = "assets/images/setting.png";
   static const String settings = "assets/images/settings.png";
   static const String share = "assets/images/share.png";
+  static const String shareIcon = "assets/images/shareIcon.png";
   static const String shoes = "assets/images/shoes.png";
   static const String shop = "assets/images/shop.png";
   static const String shopping = "assets/images/shopping.png";
@@ -262,6 +263,9 @@ class Res {
   static const String womensize = "assets/images/womensize.png";
   static const String workshop = "assets/images/workshop.png";
   static const String zoom_ic = "assets/images/zoom_ic.png";
-  static const String pro = "assets/images/pro.png";
-  static const String budgetIcon = "assets/images/budget_icon.png";
+  static const String homeTransaction = "assets/images/homeTransaction.png";
+  static const String homeReports = "assets/images/homeReports.png";
+  static const String activeHome = "assets/images/activeHome.png";
+  static const String darkReports = "assets/images/darkReports.png";
+  static const String darkTransaction = "assets/images/darkTransaction.png";
 }

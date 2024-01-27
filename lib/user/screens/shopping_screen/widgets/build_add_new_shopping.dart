@@ -22,6 +22,12 @@ class BuildAddNewShopping extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   controller: data.nameController,
                   fieldTypes: FieldTypes.normal,
+                  hintColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
+                  textColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   type: TextInputType.text,
                   action: TextInputAction.next,
                   validate: (value) {

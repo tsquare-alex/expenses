@@ -10,361 +10,394 @@ class StatisticsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.r),
-        child: Column(
-          children: [
-            SizedBox(height: 16.h),
-            StatisticsDropdown(
-              label: tr(context, 'chooseWallet'),
-              choice: ReportsCubit.get(context).statsSelectedWallet,
-              menuList: ReportsCubit.get(context)
-                  .wallets
-                  .map(
-                    (wallet) => DropdownMenuItem<String>(
-                      value: wallet.name,
-                      child: Text(
-                        wallet.name,
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey,
-                        ),
-                      ),
+    return (option == 'table' || option == 'chart')
+        ? SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 16.r),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 16.h),
+                if (option == 'table')
+                  Text(
+                    tr(context, 'showTable'),
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
                     ),
-                  )
-                  .toList(),
-              onSelect: (value) =>
-                  ReportsCubit.get(context).onWalletSelect(value),
-            ),
-            SizedBox(height: 20.h),
-            StatisticsDropdown(
-              label: tr(context, 'chooseTransaction'),
-              choice: ReportsCubit.get(context).statsSelectedTransaction,
-              menuList: context
-                  .watch<ReportsCubit>()
-                  .statsTransactions
-                  .map(
-                    (transaction) => DropdownMenuItem<String>(
-                      value: transaction,
-                      child: Text(
-                        tr(context, transaction).isEmpty
-                            ? transaction
-                            : tr(context, transaction),
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey,
-                        ),
-                      ),
+                  ),
+                if (option == 'chart')
+                  Text(
+                    tr(context, 'showChart'),
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
                     ),
-                  )
-                  .toList(),
-              onSelect: (value) =>
-                  ReportsCubit.get(context).onTransactionsSelect(value),
-            ),
-            SizedBox(height: 20.h),
-            StatisticsDropdown(
-              label: tr(context, 'chooseSubTransaction'),
-              choice: ReportsCubit.get(context).statsSelectedSubTransaction,
-              menuList: ReportsCubit.get(context)
-                  .statsSubTransactions
-                  .map(
-                    (transaction) => DropdownMenuItem<String>(
-                      value: transaction,
-                      child: Text(
-                        tr(context, transaction).isEmpty
-                            ? transaction
-                            : tr(context, transaction),
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey,
+                  ),
+                SizedBox(height: 16.h),
+                StatisticsDropdown(
+                  label: tr(context, 'chooseWallet'),
+                  choice: ReportsCubit.get(context).statsSelectedWallet,
+                  menuList: ReportsCubit.get(context)
+                      .wallets
+                      .map(
+                        (wallet) => DropdownMenuItem<String>(
+                          value: wallet.name,
+                          child: Text(
+                            wallet.name,
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  )
-                  .toList(),
-              onSelect: (value) =>
-                  ReportsCubit.get(context).onSubTransactionsSelect(value),
-            ),
-            SizedBox(height: 20.h),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 7.h, horizontal: 14.w),
-              child: Row(
-                children: [
-                  Column(
+                      )
+                      .toList(),
+                  onSelect: (value) =>
+                      ReportsCubit.get(context).onWalletSelect(value),
+                ),
+                SizedBox(height: 20.h),
+                StatisticsDropdown(
+                  label: tr(context, 'chooseTransaction'),
+                  choice: ReportsCubit.get(context).statsSelectedTransaction,
+                  menuList: context
+                      .watch<ReportsCubit>()
+                      .statsTransactions
+                      .map(
+                        (transaction) => DropdownMenuItem<String>(
+                          value: transaction,
+                          child: Text(
+                            tr(context, transaction).isEmpty
+                                ? transaction
+                                : tr(context, transaction),
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  onSelect: (value) =>
+                      ReportsCubit.get(context).onTransactionsSelect(value),
+                ),
+                SizedBox(height: 20.h),
+                StatisticsDropdown(
+                  label: tr(context, 'chooseSubTransaction'),
+                  choice: ReportsCubit.get(context).statsSelectedSubTransaction,
+                  menuList: ReportsCubit.get(context)
+                      .statsSubTransactions
+                      .map(
+                        (transaction) => DropdownMenuItem<String>(
+                          value: transaction,
+                          child: Text(
+                            tr(context, transaction).isEmpty
+                                ? transaction
+                                : tr(context, transaction),
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  onSelect: (value) =>
+                      ReportsCubit.get(context).onSubTransactionsSelect(value),
+                ),
+                SizedBox(height: 20.h),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 7.h, horizontal: 14.w),
+                  child: Row(
                     children: [
-                      FaIcon(
-                        FontAwesomeIcons.solidCalendarDays,
-                        size: 22.r,
-                        color: MyColors.primary,
+                      Column(
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.solidCalendarDays,
+                            size: 22.r,
+                            color: context.watch<AppThemeCubit>().isDarkMode
+                                ? AppDarkColors.secondary
+                                : MyColors.primary,
+                          ),
+                          SizedBox(height: 8.h),
+                          Text(
+                            tr(context, 'chooseDuration'),
+                            style: TextStyle(
+                              fontSize: 8.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(height: 8.h),
-                      Text(
-                        tr(context, 'chooseDuration'),
-                        style: TextStyle(
-                          fontSize: 8.sp,
-                          fontWeight: FontWeight.w500,
+                      SizedBox(width: 11.w),
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: () async {
+                            if (ReportsCubit.get(context)
+                                .beforeDatesFilteredTransactions
+                                .isEmpty) {
+                              return;
+                            }
+                            ReportsCubit.get(context).statsSelectedDateFrom =
+                                await showDatePicker(
+                              context: context,
+                              initialEntryMode:
+                                  DatePickerEntryMode.calendarOnly,
+                              initialDate: ReportsCubit.get(context)
+                                  .statsSelectedDateFrom!,
+                              firstDate: DateTime.now()
+                                  .subtract(const Duration(days: 365)),
+                              lastDate: DateTime.now().add(
+                                const Duration(days: 365),
+                              ),
+                              builder: (context, child) {
+                                return Theme(
+                                  data: Theme.of(context).copyWith(
+                                    colorScheme: ColorScheme.light(
+                                      background: Colors.white,
+                                      primary: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? AppDarkColors.primary
+                                          : MyColors.primary,
+                                      onSurface: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? AppDarkColors.primary
+                                          : MyColors.primary,
+                                    ),
+                                  ),
+                                  child: child!,
+                                );
+                              },
+                            );
+                            if (context.mounted) {
+                              ReportsCubit.get(context).changeStatsDateFrom();
+                            }
+                          },
+                          child: FieldSection(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  context
+                                          .watch<ReportsCubit>()
+                                          .statsFormattedDateFrom
+                                          .isEmpty
+                                      ? tr(context, 'from')
+                                      : context
+                                          .watch<ReportsCubit>()
+                                          .statsFormattedDateFrom,
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color:
+                                      context.watch<AppThemeCubit>().isDarkMode
+                                          ? AppDarkColors.secondary
+                                          : MyColors.primary,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 12.sp),
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: () async {
+                            if (ReportsCubit.get(context)
+                                    .beforeDatesFilteredTransactions
+                                    .isEmpty ||
+                                ReportsCubit.get(context)
+                                    .statsFormattedDateFrom
+                                    .isEmpty) {
+                              return;
+                            }
+                            ReportsCubit.get(context).statsSelectedDateTo =
+                                await showDatePicker(
+                              context: context,
+                              initialEntryMode:
+                                  DatePickerEntryMode.calendarOnly,
+                              initialDate:
+                                  ReportsCubit.get(context).statsSelectedDateTo,
+                              firstDate: ReportsCubit.get(context)
+                                  .statsSelectedDateFrom!,
+                              lastDate: DateTime.now().add(
+                                const Duration(days: 365),
+                              ),
+                              builder: (context, child) {
+                                return Theme(
+                                  data: Theme.of(context).copyWith(
+                                    colorScheme: ColorScheme.light(
+                                      primary: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? AppDarkColors.primary
+                                          : MyColors.primary,
+                                      onSurface: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? AppDarkColors.primary
+                                          : MyColors.primary,
+                                    ),
+                                  ),
+                                  child: child!,
+                                );
+                              },
+                            );
+                            if (context.mounted) {
+                              ReportsCubit.get(context).changeStatsDateTo();
+                            }
+                          },
+                          child: FieldSection(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  context
+                                          .watch<ReportsCubit>()
+                                          .statsFormattedDateTo
+                                          .isEmpty
+                                      ? tr(context, 'to')
+                                      : context
+                                          .watch<ReportsCubit>()
+                                          .statsFormattedDateTo,
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color:
+                                      context.watch<AppThemeCubit>().isDarkMode
+                                          ? AppDarkColors.secondary
+                                          : MyColors.primary,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(width: 11.w),
-                  Flexible(
-                    child: GestureDetector(
-                      onTap: () async {
-                        if (ReportsCubit.get(context)
-                            .beforeDatesFilteredTransactions
-                            .isEmpty) {
-                          return;
-                        }
-                        ReportsCubit.get(context).statsSelectedDateFrom =
-                            await showDatePicker(
-                          context: context,
-                          initialEntryMode: DatePickerEntryMode.calendarOnly,
-                          initialDate:
-                              ReportsCubit.get(context).statsSelectedDateFrom!,
-                          firstDate: DateTime.now()
-                              .subtract(const Duration(days: 365)),
-                          lastDate: DateTime.now().add(
-                            const Duration(days: 365),
-                          ),
-                          builder: (context, child) {
-                            return Theme(
-                              data: Theme.of(context).copyWith(
-                                colorScheme: ColorScheme.light(
-                                  background: Colors.white,
-                                  primary:
-                                      context.watch<AppThemeCubit>().isDarkMode
-                                          ? AppDarkColors.primary
-                                          : MyColors.primary,
-                                  onSurface:
-                                      context.watch<AppThemeCubit>().isDarkMode
-                                          ? AppDarkColors.primary
-                                          : MyColors.primary,
-                                ),
-                              ),
-                              child: child!,
-                            );
-                          },
-                        );
-                        if (context.mounted) {
-                          ReportsCubit.get(context).changeStatsDateFrom();
-                        }
-                      },
-                      child: FieldSection(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              context
-                                      .watch<ReportsCubit>()
-                                      .statsFormattedDateFrom
-                                      .isEmpty
-                                  ? tr(context, 'from')
-                                  : context
-                                      .watch<ReportsCubit>()
-                                      .statsFormattedDateFrom,
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            Icon(
-                              Icons.keyboard_arrow_down,
-                              color: MyColors.primary,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 12.sp),
-                  Flexible(
-                    child: GestureDetector(
-                      onTap: () async {
-                        if (ReportsCubit.get(context)
-                                .beforeDatesFilteredTransactions
-                                .isEmpty ||
-                            ReportsCubit.get(context)
-                                .statsFormattedDateFrom
-                                .isEmpty) {
-                          return;
-                        }
-                        ReportsCubit.get(context).statsSelectedDateTo =
-                            await showDatePicker(
-                          context: context,
-                          initialEntryMode: DatePickerEntryMode.calendarOnly,
-                          initialDate:
-                              ReportsCubit.get(context).statsSelectedDateTo,
-                          firstDate:
-                              ReportsCubit.get(context).statsSelectedDateFrom!,
-                          lastDate: DateTime.now().add(
-                            const Duration(days: 365),
-                          ),
-                          builder: (context, child) {
-                            return Theme(
-                              data: Theme.of(context).copyWith(
-                                colorScheme: ColorScheme.light(
-                                  primary:
-                                      context.watch<AppThemeCubit>().isDarkMode
-                                          ? AppDarkColors.primary
-                                          : MyColors.primary,
-                                  onSurface:
-                                      context.watch<AppThemeCubit>().isDarkMode
-                                          ? AppDarkColors.primary
-                                          : MyColors.primary,
-                                ),
-                              ),
-                              child: child!,
-                            );
-                          },
-                        );
-                        if (context.mounted) {
-                          ReportsCubit.get(context).changeStatsDateTo();
-                        }
-                      },
-                      child: FieldSection(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              context
-                                      .watch<ReportsCubit>()
-                                      .statsFormattedDateTo
-                                      .isEmpty
-                                  ? tr(context, 'to')
-                                  : context
-                                      .watch<ReportsCubit>()
-                                      .statsFormattedDateTo,
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            Icon(
-                              Icons.keyboard_arrow_down,
-                              color: MyColors.primary,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20.h),
-            StatisticsDropdown(
-              label: tr(context, 'setPriority'),
-              choice: ReportsCubit.get(context).statsSelectedPriorities,
-              menuList: ReportsCubit.get(context)
-                  .statsPriorities
-                  .map(
-                    (transaction) => DropdownMenuItem<String>(
-                      value: transaction,
-                      child: Text(
-                        tr(context, transaction).isEmpty
-                            ? transaction
-                            : tr(context, transaction),
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  )
-                  .toList(),
-              onSelect: (value) =>
-                  ReportsCubit.get(context).onPrioritiesSelect(value),
-            ),
-            SizedBox(height: 20.h),
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      ReportsCubit.get(context).showDetails();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(322.w, 58.h),
-                      backgroundColor: context.watch<AppThemeCubit>().isDarkMode
-                          ? AppDarkColors.primary
-                          : MyColors.primary,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                    ),
-                    child: Text(
-                      tr(context, 'show'),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
                 ),
-                SizedBox.square(dimension: 12.r),
-                OutlinedButton(
-                  onPressed: () {
-                    CustomToast.showSimpleToast(msg: 'قيد التطوير حاليا');
+                SizedBox(height: 20.h),
+                StatisticsDropdown(
+                  label: tr(context, 'setPriority'),
+                  choice: ReportsCubit.get(context).statsSelectedPriorities,
+                  menuList: ReportsCubit.get(context)
+                      .statsPriorities
+                      .map(
+                        (transaction) => DropdownMenuItem<String>(
+                          value: transaction,
+                          child: Text(
+                            tr(context, transaction).isEmpty
+                                ? transaction
+                                : tr(context, transaction),
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  onSelect: (value) =>
+                      ReportsCubit.get(context).onPrioritiesSelect(value),
+                ),
+                SizedBox(height: 32.h),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          ReportsCubit.get(context).showDetails(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: Size(322.w, 58.h),
+                          backgroundColor:
+                              context.watch<AppThemeCubit>().isDarkMode
+                                  ? AppDarkColors.primary
+                                  : MyColors.primary,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.r),
+                          ),
+                        ),
+                        child: Text(
+                          tr(context, 'showResults'),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox.square(dimension: 12.r),
+                    OutlinedButton(
+                      onPressed: () async {
+                        await ReportsCubit.get(context)
+                            .generateAndShareStatsTableExcel(context: context);
+                      },
+                      style: OutlinedButton.styleFrom(
+                        fixedSize: Size(64.w, 58.h),
+                        elevation: 0,
+                        side: BorderSide(
+                          color: context.watch<AppThemeCubit>().isDarkMode
+                              ? AppDarkColors.primary
+                              : MyColors.primary,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.r),
+                        ),
+                      ),
+                      child: Image.asset(
+                        Res.shareIcon,
+                        color: context.watch<AppThemeCubit>().isDarkMode
+                            ? AppDarkColors.secondary
+                            : MyColors.primary,
+                        height: 24,
+                        width: 24,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 32.h),
+                BlocBuilder<ReportsCubit, ReportsState>(
+                  builder: (context, state) {
+                    if (state is ShowReportDetails) {
+                      return switch (option) {
+                        'table' => ReportTable(
+                            data:
+                                ReportsCubit.get(context).filteredTransactions),
+                        'chart' => ReportChart(
+                            data:
+                                ReportsCubit.get(context).filteredTransactions),
+                        String _ => ReportTable(
+                            data:
+                                ReportsCubit.get(context).filteredTransactions),
+                      };
+                    } else {
+                      return const SizedBox.shrink();
+                    }
                   },
-                  style: OutlinedButton.styleFrom(
-                    fixedSize: Size(64.w, 58.h),
-                    // backgroundColor: context.watch<AppThemeCubit>().isDarkMode
-                    //     ? AppDarkColors.primary
-                    //     : MyColors.primary,
-                    elevation: 0,
-                    side: BorderSide(color: MyColors.primary),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.r),
-                    ),
-                  ),
-                  child: Icon(
-                    Icons.share_outlined,
-                    color: MyColors.primary,
-                    size: 24.r,
-                  ),
                 ),
+                SizedBox(height: 20.h),
               ],
             ),
-            SizedBox(height: 32.h),
-            BlocBuilder<ReportsCubit, ReportsState>(
-              builder: (context, state) {
-                if (state is ShowReportDetails) {
-                  return switch (option) {
-                    'table' => ReportTable(
-                        data: ReportsCubit.get(context).filteredTransactions),
-                    'chart' => ReportChart(
-                        data: ReportsCubit.get(context).filteredTransactions),
-                    'compare' => Center(
-                        child: Text(
-                          'قيد التطوير حاليا',
-                          style: TextStyle(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ),
-                    String _ => ReportTable(
-                        data: ReportsCubit.get(context).filteredTransactions),
-                  };
-                } else {
-                  return const SizedBox.shrink();
-                }
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+          )
+        : const CompareBody();
   }
 }

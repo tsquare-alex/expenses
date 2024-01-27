@@ -181,12 +181,9 @@ class ReportsBody extends StatelessWidget {
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
                         isExpanded: true,
-                        // value:
-                        //     context.watch<ReportsCubit>().selectedWallet.isEmpty
-                        //         ? null
-                        //         : context.watch<ReportsCubit>().selectedWallet,
+                        // value: null,
                         hint: Text(
-                          tr(context, 'chooseTransactions'),
+                          tr(context, 'statsTransactions'),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
@@ -207,31 +204,64 @@ class ReportsBody extends StatelessWidget {
                             .map(
                               (transaction) => DropdownMenuItem(
                                 value: transaction.transactionType!.name,
-                                child: Text(
-                                  tr(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      tr(
+                                                  context,
+                                                  transaction
+                                                      .transactionContent!
+                                                      .name!)
+                                              .isNotEmpty
+                                          ? tr(
                                               context,
                                               transaction
                                                   .transactionContent!.name!)
-                                          .isNotEmpty
-                                      ? tr(context,
-                                          transaction.transactionContent!.name!)
-                                      : transaction.transactionContent!.name!,
-                                  style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey,
-                                  ),
+                                          : transaction
+                                              .transactionContent!.name!,
+                                      style: TextStyle(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    Text(
+                                      transaction.total!,
+                                      style: TextStyle(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             )
                             .toList(),
                         onChanged: (value) {
-                          ReportsCubit.get(context).changeWallet(value!);
+                          // ReportsCubit.get(context).changeWallet(value!);
                         },
                       ),
                     ),
                   ),
                 ),
+                if (context.read<ReportsCubit>().transactions.isEmpty)
+                  SizedBox(
+                    height: 0.5.sh,
+                    child: Center(
+                      child: Text(
+                        tr(context, 'noRecord'),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.sp,
+                          color: Colors.grey,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
                 if (context
                     .watch<ReportsCubit>()
                     .categoriesList
@@ -246,7 +276,7 @@ class ReportsBody extends StatelessWidget {
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              '${tr(context, 'total')}\n${context.watch<ReportsCubit>().allSpentMoney.toStringAsFixed(0)}',
+                              '${tr(context, 'reportTotal')}\n${context.watch<ReportsCubit>().allSpentMoney.toStringAsFixed(0)}',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.sp,
@@ -315,14 +345,14 @@ class ReportsBody extends StatelessWidget {
                         TableRow(
                           children: [
                             Text(
-                              'الفئة',
+                              tr(context, 'reportCategory'),
                               style: TextStyle(
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              'مبلغ',
+                              tr(context, 'reportCash'),
                               style: TextStyle(
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.bold,
@@ -384,7 +414,8 @@ class ReportsBody extends StatelessWidget {
             ),
           ),
         ),
-        const SaveAndShareButtons(),
+        SaveAndShareButtons(
+            category: context.read<ReportsCubit>().categoriesList),
       ],
     );
   }

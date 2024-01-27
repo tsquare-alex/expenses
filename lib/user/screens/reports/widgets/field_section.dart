@@ -21,7 +21,7 @@ class FieldSection extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radius ?? 7.r),
         color: context.watch<AppThemeCubit>().isDarkMode
-            ? AppDarkColors.accentColor1
+            ? MyColors.greyWhite
             : Colors.white,
         border: Border.all(
           color: context.watch<AppThemeCubit>().isDarkMode

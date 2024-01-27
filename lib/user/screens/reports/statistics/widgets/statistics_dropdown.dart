@@ -31,7 +31,9 @@ class StatisticsDropdown extends StatelessWidget {
           ),
           icon: Icon(
             Icons.keyboard_arrow_down,
-            color: MyColors.primary,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? AppDarkColors.secondary
+                : MyColors.primary,
           ),
           menuMaxHeight: 0.3.sh,
           items: menuList,

@@ -1,7 +1,7 @@
 part of 'settings_widgets_imports.dart';
 
 class SettingTile extends StatelessWidget {
-  const  SettingTile({
+  const SettingTile({
     Key? key,
     required this.child,
     this.doubleRow = false,
@@ -21,7 +21,13 @@ class SettingTile extends StatelessWidget {
       width: 398.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.r),
-        color: greyBackground! ? const Color(0xFFFAFAFA) : MyColors.white,
+        color: greyBackground!
+            ? context.watch<AppThemeCubit>().isDarkMode
+                ? AppDarkColors.accentColor
+                : const Color(0xFFFAFAFA)
+            : context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.greyWhite
+                : MyColors.white,
         border: border!
             ? Border.all(
                 color: context.watch<AppThemeCubit>().isDarkMode

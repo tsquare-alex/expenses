@@ -14,6 +14,7 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
 
   @override
   void initState() {
+    data.initData(widget.model);
     data.fetchData();
     super.initState();
   }
@@ -26,7 +27,9 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
       builder: (context, state1) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.white,
+            backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+                ? AppDarkColors.backgroundColor
+                : MyColors.white,
             surfaceTintColor: Colors.white,
             centerTitle: true,
             title: Row(
@@ -42,7 +45,9 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                 ),
                 MyText(
                   title: tr(context, "shopping"),
-                  color: MyColors.black,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   size: 18.sp,
                   fontWeight: FontWeight.bold,
                 ),
@@ -50,7 +55,9 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
             ),
             leading: InkWell(
               onTap: () => AutoRouter.of(context).pop(),
-              child: Icon(Icons.arrow_back, color: MyColors.black,),
+              child: Icon(Icons.arrow_back, color: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  : MyColors.black,),
             ),
           ),
           floatingActionButton: BlocBuilder<GenericBloc<List<TransactionTypeModel>>, GenericState<List<TransactionTypeModel>>>(

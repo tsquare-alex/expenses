@@ -18,7 +18,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
             children: [
               MyText(
                 title: tr(context, "transaction"),
-                color: MyColors.black,
+                color: context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : MyColors.black,
                 size: 14.sp,
                 fontWeight: FontWeight.bold,
               ),
@@ -37,7 +39,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                     title: tr(context, model.transactionType!.name!).isNotEmpty
                         ? tr(context, model.transactionType?.name ?? "")
                         : model.transactionType?.name ?? "",
-                    color: MyColors.black,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? MyColors.white
+                        : MyColors.black,
                     size: 13.sp,
                     fontWeight: FontWeight.bold,
                   ),
@@ -53,7 +57,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                 children: [
                   MyText(
                     title: tr(context, "transactionContent"),
-                    color: MyColors.black,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? MyColors.white
+                        : MyColors.black,
                     size: 14.sp,
                     fontWeight: FontWeight.bold,
                   ),
@@ -74,7 +80,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                                 .isNotEmpty
                             ? tr(context, model.transactionContent?.name ?? "")
                             : model.transactionContent?.name ?? "",
-                        color: MyColors.black,
+                        color: context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.white
+                            : MyColors.black,
                         size: 13.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -88,7 +96,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
               children: [
                 MyText(
                   title: tr(context, "selectUnit"),
-                  color: MyColors.black,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   size: 14.sp,
                   fontWeight: FontWeight.bold,
                 ),
@@ -106,6 +116,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                       return null;
                     },
                     onChange: transactionDetailsData.setSelectUnit,
+                    hintColor: context.watch<AppThemeCubit>().isDarkMode
+                        ? MyColors.white
+                        : MyColors.black,
                     finData: (data) => transactionDetailsData.getUnits(
                       context,
                     ),
@@ -124,6 +137,12 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
               fieldTypes: FieldTypes.normal,
               type: TextInputType.number,
               action: TextInputAction.next,
+              hintColor: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  : MyColors.black,
+              textColor: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  : MyColors.black,
               validate: (value) {
                 return null;
               },
@@ -136,6 +155,12 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
             fieldTypes: FieldTypes.normal,
             type: TextInputType.number,
             action: TextInputAction.next,
+            hintColor: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+            textColor: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
             validate: (value) {
               return null;
             },
@@ -151,6 +176,12 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                   fieldTypes: FieldTypes.normal,
                   type: TextInputType.number,
                   action: TextInputAction.next,
+                  hintColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
+                  textColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   validate: (value) {
                     return null;
                   },
@@ -163,6 +194,12 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                   fieldTypes: FieldTypes.normal,
                   type: TextInputType.number,
                   action: TextInputAction.next,
+                  hintColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
+                  textColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   validate: (value) {
                     return null;
                   },
@@ -177,6 +214,12 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
             fieldTypes: FieldTypes.readonly,
             type: TextInputType.text,
             action: TextInputAction.next,
+            hintColor: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+            textColor: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
             validate: (value) {
               return null;
             },
@@ -190,6 +233,12 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
               fieldTypes: FieldTypes.readonly,
               type: TextInputType.text,
               action: TextInputAction.next,
+              hintColor: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  : MyColors.black,
+              textColor: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  : MyColors.black,
               validate: (value) {
                 return null;
               },
@@ -202,6 +251,12 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
             fieldTypes: FieldTypes.normal,
             type: TextInputType.text,
             action: TextInputAction.next,
+            hintColor: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+            textColor: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
             validate: (value) {
               return null;
             },
@@ -215,6 +270,12 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
               fieldTypes: FieldTypes.normal,
               type: TextInputType.text,
               action: TextInputAction.next,
+              hintColor: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  : MyColors.black,
+              textColor: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  : MyColors.black,
               validate: (value) {
                 return null;
               },
@@ -236,7 +297,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
               children: [
                 MyText(
                   title: tr(context, "priorityRatio"),
-                  color: MyColors.black,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   size: 14.sp,
                   fontWeight: FontWeight.bold,
                 ),
@@ -249,6 +312,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                     label: tr(context, "priority"),
                     selectedItem: transactionDetailsData.selectedPriority ??
                         model.priority,
+                    hintColor: context.watch<AppThemeCubit>().isDarkMode
+                        ? MyColors.white
+                        : MyColors.black,
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     validate: (value) {
                       if (value == null) {
@@ -279,7 +345,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                   ),
                   MyText(
                     title: tr(context, "transactionDate"),
-                    color: MyColors.black,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? MyColors.white
+                        : MyColors.black,
                     size: 11.sp,
                     fontWeight: FontWeight.bold,
                   ),
@@ -296,6 +364,12 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 20.r, vertical: 10.r),
                   radius: 10.r,
+                  hintColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
+                  textColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   fieldTypes: FieldTypes.clickable,
                   type: TextInputType.text,
                   action: TextInputAction.next,
@@ -325,6 +399,12 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                   radius: 10.r,
                   fieldTypes: FieldTypes.clickable,
                   type: TextInputType.text,
+                  hintColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
+                  textColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   action: TextInputAction.next,
                   label: tr(context, "time"),
                   validate: (value) {
@@ -350,6 +430,12 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 20.r, vertical: 10.r),
                   radius: 10.r,
+                  hintColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
+                  textColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   fieldTypes: FieldTypes.clickable,
                   type: TextInputType.text,
                   action: TextInputAction.next,
@@ -385,6 +471,12 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 20.r, vertical: 10.r),
                   radius: 10.r,
+                  hintColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
+                  textColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   fieldTypes: FieldTypes.clickable,
                   type: TextInputType.text,
                   action: TextInputAction.next,
@@ -412,7 +504,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                 children: [
                   MyText(
                     title: tr(context, "repeatTransaction"),
-                    color: MyColors.black,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? MyColors.white
+                        : MyColors.black,
                     size: 14.sp,
                     fontWeight: FontWeight.bold,
                   ),
@@ -426,6 +520,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                       selectedItem:
                           transactionDetailsData.selectedIterateTransaction,
                       margin: const EdgeInsets.symmetric(vertical: 5),
+                      hintColor: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : MyColors.black,
                       validate: (value) {
                         if (value == null) {
                           print("Please fill this field");
@@ -462,7 +559,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                       padding: EdgeInsets.all(10.r),
                       margin: EdgeInsets.symmetric(vertical: 10.r),
                       decoration: BoxDecoration(
-                        color: MyColors.backgroundColor,
+                        color: context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.greyWhite
+                            : MyColors.backgroundColor,
                         borderRadius: BorderRadius.circular(15.r),
                       ),
                       child: Row(
@@ -474,7 +573,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                                 Expanded(
                                   child: MyText(
                                     title: tr(context, "repeatTransaction"),
-                                    color: MyColors.black,
+                                    color: context.watch<AppThemeCubit>().isDarkMode
+                                        ? MyColors.white
+                                        : MyColors.black,
                                     size: 14.sp,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -498,6 +599,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                                           print("Please fill this field");
                                         }
                                       },
+                                      hintColor: context.watch<AppThemeCubit>().isDarkMode
+                                          ? MyColors.white
+                                          : MyColors.black,
                                       onChange: transactionDetailsData
                                           .setSelectIterateTransaction,
                                       finData: (data) => transactionDetailsData
@@ -532,7 +636,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                             padding: EdgeInsets.all(10.r),
                             margin: EdgeInsets.symmetric(vertical: 10.r),
                             decoration: BoxDecoration(
-                              color: MyColors.backgroundColor,
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? MyColors.greyWhite
+                                  : MyColors.backgroundColor,
                               borderRadius: BorderRadius.circular(15.r),
                             ),
                             child: Row(
@@ -543,7 +649,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                                     children: [
                                       MyText(
                                         title: tr(context, "notify"),
-                                        color: MyColors.black,
+                                        color: context.watch<AppThemeCubit>().isDarkMode
+                                            ? MyColors.white
+                                            : MyColors.black,
                                         size: 14.sp,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -552,7 +660,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                                       ),
                                       MyText(
                                         title: "(${tr(context, "remember")})",
-                                        color: MyColors.black,
+                                        color: context.watch<AppThemeCubit>().isDarkMode
+                                            ? MyColors.white
+                                            : MyColors.black,
                                         size: 11.sp,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -591,7 +701,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                       padding: EdgeInsets.all(10.r),
                       margin: EdgeInsets.symmetric(vertical: 10.r),
                       decoration: BoxDecoration(
-                        color: MyColors.backgroundColor,
+                        color: context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.greyWhite
+                            : MyColors.backgroundColor,
                         borderRadius: BorderRadius.circular(15.r),
                       ),
                       child: Row(
@@ -602,7 +714,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                               children: [
                                 MyText(
                                   title: tr(context, "notify"),
-                                  color: MyColors.black,
+                                  color: context.watch<AppThemeCubit>().isDarkMode
+                                      ? MyColors.white
+                                      : MyColors.black,
                                   size: 14.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -611,7 +725,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                                 ),
                                 MyText(
                                   title: "(${tr(context, "remember")})",
-                                  color: MyColors.black,
+                                  color: context.watch<AppThemeCubit>().isDarkMode
+                                      ? MyColors.white
+                                      : MyColors.black,
                                   size: 11.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -641,7 +757,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                       padding: EdgeInsets.all(10.r),
                       margin: EdgeInsets.symmetric(vertical: 10.r),
                       decoration: BoxDecoration(
-                        color: MyColors.backgroundColor,
+                        color: context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.greyWhite
+                            : MyColors.backgroundColor,
                         borderRadius: BorderRadius.circular(15.r),
                       ),
                       child: Row(
@@ -652,7 +770,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                               children: [
                                 MyText(
                                   title: tr(context, "putRemainderInWallet"),
-                                  color: MyColors.black,
+                                  color: context.watch<AppThemeCubit>().isDarkMode
+                                      ? MyColors.white
+                                      : MyColors.black,
                                   size: 14.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -682,7 +802,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                       padding: EdgeInsets.all(10.r),
                       margin: EdgeInsets.symmetric(vertical: 10.r),
                       decoration: BoxDecoration(
-                        color: MyColors.backgroundColor,
+                        color: context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.greyWhite
+                            : MyColors.backgroundColor,
                         borderRadius: BorderRadius.circular(15.r),
                       ),
                       child: Row(
@@ -693,7 +815,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                               children: [
                                 MyText(
                                   title: tr(context, "completedNotify"),
-                                  color: MyColors.black,
+                                  color: context.watch<AppThemeCubit>().isDarkMode
+                                      ? MyColors.white
+                                      : MyColors.black,
                                   size: 14.sp,
                                   fontWeight: FontWeight.bold,
                                 ),

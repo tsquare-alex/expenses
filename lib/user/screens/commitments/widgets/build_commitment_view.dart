@@ -43,7 +43,9 @@ class _BuildCommitmentViewState extends State<BuildCommitmentView> {
               ),
               MyText(
                 title: tr(context, "commitments"),
-                color: MyColors.black,
+                color: context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : MyColors.black,
                 size: 18.sp,
                 fontWeight: FontWeight.bold,
               ),
@@ -52,7 +54,9 @@ class _BuildCommitmentViewState extends State<BuildCommitmentView> {
         ),
         leading: InkWell(
           onTap: () => AutoRouter.of(context).pop(),
-          child: Icon(Icons.arrow_back, color: MyColors.black,),
+          child: Icon(Icons.arrow_back, color: context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              : MyColors.black,),
         ),
         centerTitle: true,
       ):null,

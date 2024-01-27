@@ -9,7 +9,9 @@ class BuildTransactionDate extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5.r),
       decoration: BoxDecoration(
-        color: MyColors.white,
+        color: context.watch<AppThemeCubit>().isDarkMode
+            ? MyColors.greyWhite
+            : MyColors.white,
         borderRadius: BorderRadius.circular(15.r),
       ),
       child: Form(
@@ -24,7 +26,9 @@ class BuildTransactionDate extends StatelessWidget {
                 ),
                 MyText(
                   title: tr(context, "transactionDate"),
-                  color: MyColors.black,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   size: 11.sp,
                   fontWeight: FontWeight.bold,
                 ),
@@ -44,6 +48,12 @@ class BuildTransactionDate extends StatelessWidget {
                 fieldTypes: FieldTypes.clickable,
                 type: TextInputType.text,
                 action: TextInputAction.next,
+                hintColor: context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : MyColors.black,
+                textColor: context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : MyColors.black,
                 label: tr(context, "date"),
                 validate: (value) {
                   if(value!.isEmpty){
@@ -71,6 +81,12 @@ class BuildTransactionDate extends StatelessWidget {
                 fieldTypes: FieldTypes.clickable,
                 type: TextInputType.text,
                 action: TextInputAction.next,
+                hintColor: context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : MyColors.black,
+                textColor: context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : MyColors.black,
                 label: tr(context, "time"),
                 validate: (value) {
                   if(value!.isEmpty){

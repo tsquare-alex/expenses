@@ -28,6 +28,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       print("On Then");
       // sendNotificationNow();
     });
+    // Workmanager().registerPeriodicTask(
+    //     "2",
+    //     "repeated transaction",
+    //   frequency: Duration(minutes: 15),
+    //
+    //   inputData: {
+    //     "id":"transaction",
+    //   },
+    // );
     data.initBottomNavigation(this, widget.index);
     if (widget.pageIndex != null) {
       data.homeTabCubit.onUpdateData(widget.pageIndex!);

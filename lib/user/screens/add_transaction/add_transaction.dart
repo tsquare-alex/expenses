@@ -33,14 +33,20 @@ class _AddTransactionState extends State<AddTransaction> {
 
     return Scaffold(
       appBar: AppBar(
-        surfaceTintColor: MyColors.white,
+        surfaceTintColor:  context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : MyColors.white,
         elevation: 0,
-        backgroundColor: MyColors.white,
+        backgroundColor:  context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : MyColors.white,
         leading: IconButton(
           onPressed: () => AutoRouter.of(context).pop(),
           icon: Icon(
             Icons.arrow_back,
-            color: MyColors.black,
+            color:  context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
             size: 20.sp,
           ),
         ),
@@ -54,7 +60,9 @@ class _AddTransactionState extends State<AddTransaction> {
             ),
             MyText(
               title: tr(context, widget.model!.name!).isNotEmpty?tr(context, widget.model!.name!):widget.model?.name??"",
-              color: MyColors.black,
+              color:  context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  : MyColors.black,
               size: 18.sp,
               fontWeight: FontWeight.bold,
             ),

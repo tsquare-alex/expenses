@@ -21,7 +21,9 @@ class BuildIterateTransaction extends StatelessWidget {
                     padding: EdgeInsets.all(10.r),
                     margin: EdgeInsets.symmetric(vertical: 10.r),
                     decoration: BoxDecoration(
-                      color: MyColors.backgroundColor,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.greyWhite
+                          : MyColors.backgroundColor,
                       borderRadius: BorderRadius.circular(15.r),
                     ),
                     child: Row(
@@ -32,7 +34,9 @@ class BuildIterateTransaction extends StatelessWidget {
                             children: [
                               MyText(
                                 title: tr(context, "notify"),
-                                color: MyColors.black,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : MyColors.black,
                                 size: 14.sp,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -41,7 +45,9 @@ class BuildIterateTransaction extends StatelessWidget {
                               ),
                               MyText(
                                 title: "(${tr(context, "remember")})",
-                                color: MyColors.black,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : MyColors.black,
                                 size: 11.sp,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -71,7 +77,9 @@ class BuildIterateTransaction extends StatelessWidget {
                     padding: EdgeInsets.all(10.r),
                     margin: EdgeInsets.symmetric(vertical: 10.r),
                     decoration: BoxDecoration(
-                      color: MyColors.backgroundColor,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.greyWhite
+                          : MyColors.backgroundColor,
                       borderRadius: BorderRadius.circular(15.r),
                     ),
                     child: Row(
@@ -82,7 +90,9 @@ class BuildIterateTransaction extends StatelessWidget {
                             children: [
                               MyText(
                                 title: tr(context, "putRemainderInWallet"),
-                                color: MyColors.black,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : MyColors.black,
                                 size: 14.sp,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -112,7 +122,9 @@ class BuildIterateTransaction extends StatelessWidget {
                     padding: EdgeInsets.all(10.r),
                     margin: EdgeInsets.symmetric(vertical: 10.r),
                     decoration: BoxDecoration(
-                      color: MyColors.backgroundColor,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.greyWhite
+                          : MyColors.backgroundColor,
                       borderRadius: BorderRadius.circular(15.r),
                     ),
                     child: Row(
@@ -123,7 +135,9 @@ class BuildIterateTransaction extends StatelessWidget {
                             children: [
                               MyText(
                                 title: tr(context, "completedNotify"),
-                                color: MyColors.black,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : MyColors.black,
                                 size: 14.sp,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -145,6 +159,9 @@ class BuildIterateTransaction extends StatelessWidget {
                                         print("Please fill this field");
                                       }
                                     },
+                                    hintColor: context.watch<AppThemeCubit>().isDarkMode
+                                        ? MyColors.white
+                                        : MyColors.black,
                                     onChange: addTransactionData
                                         .setSelectRatio,
                                     finData: (data) =>
@@ -189,7 +206,9 @@ class BuildIterateTransaction extends StatelessWidget {
                     padding: EdgeInsets.all(10.r),
                     margin: EdgeInsets.symmetric(vertical: 10.r),
                     decoration: BoxDecoration(
-                      color: MyColors.backgroundColor,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.greyWhite
+                          : MyColors.backgroundColor,
                       borderRadius: BorderRadius.circular(15.r),
                     ),
                     child: Row(
@@ -200,7 +219,9 @@ class BuildIterateTransaction extends StatelessWidget {
                             children: [
                               MyText(
                                 title: tr(context, "repeatTransaction"),
-                                color: MyColors.black,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : MyColors.black,
                                 size: 14.sp,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -213,6 +234,9 @@ class BuildIterateTransaction extends StatelessWidget {
                                     dropKey: addTransactionData
                                         .iterateTransactionDropKey,
                                     label: tr(context, "repeatDuration"),
+                                    hintColor: context.watch<AppThemeCubit>().isDarkMode
+                                        ? MyColors.white
+                                        : MyColors.black,
                                     selectedItem: addTransactionData
                                         .selectedIterateTransaction,
                                     margin:
@@ -257,7 +281,9 @@ class BuildIterateTransaction extends StatelessWidget {
                           padding: EdgeInsets.all(10.r),
                           margin: EdgeInsets.symmetric(vertical: 10.r),
                           decoration: BoxDecoration(
-                            color: MyColors.backgroundColor,
+                            color: context.watch<AppThemeCubit>().isDarkMode
+                                ? MyColors.greyWhite
+                                : MyColors.backgroundColor,
                             borderRadius: BorderRadius.circular(15.r),
                           ),
                           child: Row(
@@ -268,7 +294,9 @@ class BuildIterateTransaction extends StatelessWidget {
                                   children: [
                                     MyText(
                                       title: tr(context, "notify"),
-                                      color: MyColors.black,
+                                      color: context.watch<AppThemeCubit>().isDarkMode
+                                          ? MyColors.white
+                                          : MyColors.black,
                                       size: 14.sp,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -277,7 +305,9 @@ class BuildIterateTransaction extends StatelessWidget {
                                     ),
                                     MyText(
                                       title: "(${tr(context, "remember")})",
-                                      color: MyColors.black,
+                                      color: context.watch<AppThemeCubit>().isDarkMode
+                                          ? MyColors.white
+                                          : MyColors.black,
                                       size: 11.sp,
                                       fontWeight: FontWeight.bold,
                                     ),

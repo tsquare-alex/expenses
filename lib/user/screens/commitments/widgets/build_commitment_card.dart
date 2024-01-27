@@ -13,7 +13,9 @@ class BuildCommitmentCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 15.r, vertical: 20.r),
       margin: EdgeInsets.only(bottom: 10.h),
       decoration: BoxDecoration(
-          color: MyColors.white,
+          color: context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.greyWhite
+              : MyColors.white,
           borderRadius: BorderRadius.circular(15.r),
           border: Border.all(width: 1.w, color: MyColors.greyWhite)),
       child: Column(
@@ -39,7 +41,9 @@ class BuildCommitmentCard extends StatelessWidget {
                             .isNotEmpty
                             ? tr(context, model.transactionType?.name ?? "")
                             : model.transactionType?.name ?? "",
-                        color: MyColors.black,
+                        color: context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.white
+                            : MyColors.black,
                         size: 16.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -81,7 +85,9 @@ class BuildCommitmentCard extends StatelessWidget {
                             .isNotEmpty
                             ? tr(context, model.transactionContent?.name ?? "")
                             : model.transactionContent?.name ?? "",
-                        color: MyColors.black,
+                        color: context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.white
+                            : MyColors.black,
                         size: 16.sp,
                         max: 2,
                         fontWeight: FontWeight.bold,
@@ -116,7 +122,9 @@ class BuildCommitmentCard extends StatelessWidget {
                   ),
                   MyText(
                     title: "${tr(context, "value")} : ${model.total}",
-                    color: MyColors.black,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? MyColors.white
+                        : MyColors.black,
                     size: 14.sp,
                     fontWeight: FontWeight.bold,
                   ),

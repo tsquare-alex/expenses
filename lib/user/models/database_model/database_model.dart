@@ -51,6 +51,20 @@ class DatabaseModel extends HiveObject {
 
     return '$category,$name,$phone,$address,$socialAddress,$note,$emailAddress,$date,$job';
   }
+  factory DatabaseModel.fromJson(Map<String, dynamic> json) {
+    return DatabaseModel(
+      category: json['category'],
+      name: json['name'],
+      phone: json['phone'],
+      address: json['address'],
+      socialAddress: json['socialAddress'],
+      note: json['note'],
+      image: Uint8List.fromList(json['image'] ?? []),
+      emailAddress: json['emailAddress'],
+      date: json['date'],
+      job: json['job'],
+    );
+  }
 
 
 }

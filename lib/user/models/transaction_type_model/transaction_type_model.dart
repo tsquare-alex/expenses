@@ -15,4 +15,23 @@ class TransactionTypeModel extends HiveObject{
 
   bool? isSelected;
   TransactionTypeModel({ this.name,this.content,this.isSelected=false,this.image});
+
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'content': content?.map((contentModel) => contentModel.toJson()).toList(),
+      'image': image,
+    };
+  }
+
+  factory TransactionTypeModel.fromJson(Map<String, dynamic> json) {
+    return TransactionTypeModel(
+      name: json['name'],
+      content: (json['content'] as List<dynamic>?)
+          ?.map((contentJson) => TransactionContentModel.fromJson(contentJson))
+          .toList(),
+      image: json['image'],
+    );
+  }
 }

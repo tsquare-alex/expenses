@@ -32,37 +32,39 @@ class _DatabaseState extends State<Database> {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: MyColors.primary,
+              surfaceTintColor: Colors.transparent,
+              centerTitle: true,
+              backgroundColor: context.watch<AppThemeCubit>().isDarkMode ? AppDarkColors.backgroundColor :MyColors.white,
               title: Row(
-
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Image.asset(
                     Res.database,
                     width: 20.w,
                     height: 20.h,
-                    color: MyColors.white,
+                    color: context.watch<AppThemeCubit>().isDarkMode ?  Colors.white : MyColors.black100,
                   ),
                   SizedBox(
                     width: 10.w,
                   ),
                   MyText(
                     title: tr(context, 'database'),
-                    color: Colors.white,
-                    size: 14.sp,
+                    color:context.watch<AppThemeCubit>().isDarkMode ?  Colors.white : MyColors.black100,
+                    size: 20.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ],
               ),
               automaticallyImplyLeading: false,
-              actions: [
-                IconButton(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  onPressed: () {
-                    BlocProvider.of<DatabaseCubit>(context).scanQRCode();
-                  },
-                  icon: Icon(FontAwesomeIcons.qrcode),
-                ),
-              ],
+              // actions: [
+              //   IconButton(
+              //     padding: EdgeInsets.symmetric(horizontal: 20.w),
+              //     onPressed: () {
+              //       BlocProvider.of<DatabaseCubit>(context).scanQRCode();
+              //     },
+              //     icon: Icon(FontAwesomeIcons.qrcode),
+              //   ),
+              // ],
             ),
             // floatingActionButton: FloatingActionButton(
             //     onPressed: () => AutoRouter.of(context).push(AddDatabaseRoute()),
@@ -100,14 +102,18 @@ class _DatabaseState extends State<Database> {
                         // // print("${dataBase[1].name}");
                         // // print("${dataBase.length}");
                         // print("========================================");
+                        if (dataBase.isEmpty) {
+                          return BuildNoRecord(); // Show your no record widget
+                        }
                         return Padding(
                           padding: const EdgeInsets.all(25.0),
                           child: ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: dataBase.length,
                             itemBuilder: (context, index) {
                               return Padding(
-                                padding: const EdgeInsets.all(20.0),
+                                padding: const EdgeInsets.all(0.0),
                                 child: ExpandableCard(
                                     databaseData: dataBase[index]),
                               );

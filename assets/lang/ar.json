@@ -730,6 +730,8 @@
   "favorite": "المفضلة",
   "balnceTransactionLessThan": "رصيد الميزانية اقل من رصيد المعاملات",
   "startingDate": "تاريخ البداية",
-  "editBudget": "تعديل الميزانية"
+  "editBudget": "تعديل الميزانية",
+  "addDestination": "أضافة جهة"
+
 }
 

@@ -12,6 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../general/themes/app_colors.dart';
+import '../../../../general/themes/cubit/app_theme_cubit.dart';
+
 part 'build_change_currency_button.dart';
 part 'build_change_currency_inputs.dart';
 part 'build_change_currency_result.dart';

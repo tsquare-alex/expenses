@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/themes/app_colors.dart';
+import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
@@ -63,15 +65,24 @@ class _EditBudgetState extends State<EditBudget> {
           return Scaffold(
             appBar: AppBar(
               surfaceTintColor: Colors.transparent,
-              leading: IconButton(
-                icon: Image.asset(Res.back),
-                onPressed: () => AutoRouter.of(context).pop(),
+              leading: GestureDetector(
+                onTap: () => AutoRouter.of(context).pop(),
+                child: Icon(
+                  Icons.arrow_back,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
+                ),
               ),
-              backgroundColor: MyColors.white,
+              backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+                  ? AppDarkColors.backgroundColor
+                  : MyColors.white,
               title: Center(
                 child: MyText(
                   title: tr(context, "editBudget"),
-                  color: MyColors.black,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : AppDarkColors.backgroundColor,
                   size: 16.sp,
                   fontWeight: FontWeight.bold,
                 ),
@@ -293,6 +304,9 @@ class _EditBudgetState extends State<EditBudget> {
                             context.read<BudgetCubit>().budgetValueController,
                         hint: tr(context, "determiningValue"),
                         fieldTypes: FieldTypes.normal,
+                        hintColor: context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.white
+                            : AppDarkColors.backgroundColor,
                         type: TextInputType.number,
                         action: TextInputAction.next,
                         validate: (text) {
@@ -316,7 +330,9 @@ class _EditBudgetState extends State<EditBudget> {
                         children: [
                           MyText(
                               title: tr(context, "transactionRepetition"),
-                              color: MyColors.black,
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? MyColors.white
+                                  : AppDarkColors.backgroundColor,
                               size: 16.sp),
                           Checkbox(
                               activeColor: MyColors.primary,
@@ -337,7 +353,9 @@ class _EditBudgetState extends State<EditBudget> {
                           Text(
                             tr(context, "addNote"),
                             style: TextStyle(
-                              color: MyColors.black,
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? MyColors.white
+                                  : AppDarkColors.backgroundColor,
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
                             ),
@@ -353,6 +371,10 @@ class _EditBudgetState extends State<EditBudget> {
                               hint: tr(context, "youNotes"),
                               maxLength: 9,
                               fieldTypes: FieldTypes.normal,
+                              hintColor:
+                                  context.watch<AppThemeCubit>().isDarkMode
+                                      ? MyColors.white
+                                      : AppDarkColors.backgroundColor,
                               type: TextInputType.text,
                               action: TextInputAction.next,
                               validate: (text) {
@@ -428,8 +450,10 @@ class _EditBudgetState extends State<EditBudget> {
                       Container(
                         height: 58.h,
                         width: double.infinity,
-                        decoration: const BoxDecoration(
-                          color: Color(0xffF7F7F6),
+                        decoration: BoxDecoration(
+                          color: context.watch<AppThemeCubit>().isClosed
+                              ? AppDarkColors.backgroundColor
+                              : Color(0xffF7F7F6),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

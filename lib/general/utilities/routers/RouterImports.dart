@@ -29,6 +29,7 @@ import 'package:expenses/user/screens/home/home_imports.dart';
 import 'package:expenses/user/screens/reports/statistics/statistics_imports.dart';
 import 'package:expenses/user/screens/repeated_transactions/repeated_transactions_imports.dart';
 import 'package:expenses/user/screens/shopping_screen/shopping_screen_imports.dart';
+import 'package:expenses/user/screens/subscriptions/subscriptions.dart';
 import 'package:expenses/user/screens/transaction_type/transaction_type_imports.dart';
 import 'package:expenses/user/screens/transfer_wallet_transaction/transfer_wallet_transaction_imports.dart';
 import 'package:expenses/user/screens/wallet/wallet_imports.dart';

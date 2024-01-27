@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:expenses/general/blocks/lang_cubit/lang_cubit.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/themes/app_colors.dart';
+import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
@@ -39,7 +42,9 @@ class ItemBudget extends StatelessWidget {
                       // "Budget Name",
                       model.transactionName,
                       style: TextStyle(
-                          color: MyColors.black,
+                          color: context.watch<AppThemeCubit>().isDarkMode
+                              ? MyColors.white
+                              : AppDarkColors.backgroundColor,
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w600),
                     )
@@ -51,7 +56,11 @@ class ItemBudget extends StatelessWidget {
                 Row(
                   children: [
                     LinearPercentIndicator(
-                      isRTL: true,
+                      isRTL:
+                          context.read<LangCubit>().state.locale.languageCode ==
+                                  "ar"
+                              ? true
+                              : false,
                       alignment: MainAxisAlignment.end,
                       width: 350.w,
                       animation: true,
@@ -99,7 +108,9 @@ class ItemBudget extends StatelessWidget {
                     ),
                     MyText(
                         title: tr(context, "from"),
-                        color: MyColors.black,
+                        color: context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.white
+                            : MyColors.black,
                         size: 14.sp),
                     Row(
                       children: [
@@ -115,7 +126,9 @@ class ItemBudget extends StatelessWidget {
                         ),
                         MyText(
                           title: tr(context, "transaction"),
-                          color: MyColors.black,
+                          color: context.watch<AppThemeCubit>().isDarkMode
+                              ? MyColors.white
+                              : MyColors.black,
                           size: 14.sp,
                           fontWeight: FontWeight.w400,
                         ),
@@ -142,7 +155,9 @@ class ItemBudget extends StatelessWidget {
                       children: [
                         MyText(
                           title: tr(context, "startDate"),
-                          color: MyColors.black,
+                          color: context.watch<AppThemeCubit>().isDarkMode
+                              ? MyColors.white
+                              : MyColors.black,
                           size: 16.sp,
                           fontWeight: FontWeight.w600,
                         ),
@@ -163,7 +178,9 @@ class ItemBudget extends StatelessWidget {
                       children: [
                         MyText(
                           title: tr(context, "endDate"),
-                          color: MyColors.black,
+                          color: context.watch<AppThemeCubit>().isDarkMode
+                              ? MyColors.white
+                              : MyColors.black,
                           size: 16.sp,
                           fontWeight: FontWeight.w600,
                         ),

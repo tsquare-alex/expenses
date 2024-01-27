@@ -609,6 +609,7 @@
   "withdraw": "سحب",
   "editWallet": "تعديل المحفظة",
   "edit": "تعديل",
+
   "zoomIn": "تكبير",
   "ruler": "مسطرة",
   "waterScale": "ميزان مياة",
@@ -641,8 +642,15 @@
 
 
 
+  "selectTime": "حدد الوقت",
+  "editNote": "تعديل الملاحظات",
+  "enterWeight": "أدخل وزنك (كجم)",
+  "enterHeight": "أدخل طولك (سم)",
+  "male": "ذكر",
+  "feMale": "أنثى",
+  "age": "السن",
 
-  
+
   "totalBalance": "إجمالي الرصيد",
   "withdrawBalance": "سحب رصيد",
   "transferBalanceBetweenWallets": "تحويل رصيد بين المحافظ",
@@ -687,4 +695,3 @@
   "startingDate": "تاريخ البداية",
   "editBudget": "تعديل الميزانية"
 }
-

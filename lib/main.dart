@@ -29,6 +29,7 @@ import 'package:flutter/material.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:googleapis/driveactivity/v2.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -39,20 +40,7 @@ import 'firebase_options.dart';
 import 'general/constants/constants.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
-void sendNotificationNow() {
-  Random random = Random();
-  int notificationId =
-      random.nextInt(100000); // Generate a random number as notification ID
-  const title = 'Expenses Title Now';
-  const body = 'Expenses Notification Body';
 
-  print("Sending Notification $notificationId");
-  LocalNotifications.showScheduleNotification9(
-    title: title,
-    body: body,
-    notificationId: notificationId,
-  );
-}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

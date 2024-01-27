@@ -469,6 +469,9 @@
 
   "operationNotAllowed" : "The operation is not possible because the transaction balance is greater than the wallet value.",
   "edit": "Edit",
+  "buyingSucceeded": "Buying succeeded",
+  "fullVersion": "Full version",
+  "operationNotAllowed": "The operation is not possible because the transaction balance is greater than the wallet value.",
   "startTimer": "Start Timer",
   "stopTimer": "Stop Timer",
   "selectTime": "Select Time",
@@ -519,6 +522,13 @@
   "favorite": "Favorite",
   "balnceTransactionLessThan": "Budget Balance is less than Transaction Balance",
   "selectTheWallet": "Select the Wallet",
-  "editBudget": "Edit Budget"
+  "editBudget": "Edit Budget",
+  "selectTime": "Select Time",
+  "editNote": "Edit Note",
+  "enterWeight": "Enter your weight (kg)",
+  "enterHeight": "Enter your height (cm)",
+  "male": "Male",
+  "feMale": "Female",
+  "age": "Age"
 }
 

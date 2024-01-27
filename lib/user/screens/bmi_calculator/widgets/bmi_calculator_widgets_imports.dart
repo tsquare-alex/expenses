@@ -1,6 +1,7 @@
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/generic_bloc/generic_cubit.dart';
 import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/screens/bmi_calculator/bmi_calculator_imports.dart';

@@ -1,5 +1,7 @@
+import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
-
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -29,13 +31,11 @@ class CustomButton extends StatelessWidget {
                   child: const CircularProgressIndicator(
                     color: Colors.black,
                   ))
-              : const Text(
-                  "Add",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+              : MyText(
+                  title: tr(context, "add"),
+                  color: MyColors.black100,
+                  size: 20,
+                  fontWeight: FontWeight.bold,
                 ),
         ),
       ),

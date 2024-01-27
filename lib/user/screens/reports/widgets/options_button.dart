@@ -24,7 +24,7 @@ class OptionButton extends StatelessWidget {
           if (isPro) {
             onPressed();
           } else {
-            CustomToast.showSimpleToast(msg: 'Pro');
+            AutoRouter.of(context).push(const SubscriptionsRoute());
           }
         },
         style: ElevatedButton.styleFrom(

@@ -5,7 +5,6 @@ import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/MyText.dart';
-import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
@@ -86,9 +85,13 @@ class _WalletBodyState extends State<WalletBody> {
                               Text(
                                 tr(context, "totalBalance"),
                                 style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: MyColors.black),
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color:
+                                      context.watch<AppThemeCubit>().isDarkMode
+                                          ? MyColors.white
+                                          : MyColors.black,
+                                ),
                               ),
                             ],
                           ),

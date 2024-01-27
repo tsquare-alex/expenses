@@ -702,5 +702,9 @@
   "18pound": "18 جنيهاً",
   "182pound": "182.5 جنيهاً",
   "191pound": "191.5 جنيهاً",
-  "SubscribeNow": "اشترك الان"
+  "SubscribeNow": "اشترك الان",
+  "walletCash": "نقدي",
+  "points": "نقاط",
+  "bankTransfer": "تحويل بنكي",
+  "semiAnnually": "نصف سنوياً"
 }

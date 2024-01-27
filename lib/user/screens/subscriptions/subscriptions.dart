@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/res.dart';
@@ -16,7 +17,9 @@ class Subscriptions extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
-          backgroundColor: MyColors.white,
+          backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+              ? AppDarkColors.backgroundColor
+              : MyColors.white,
           leading: GestureDetector(
             onTap: () => AutoRouter.of(context).pop(),
             child: Icon(
@@ -34,13 +37,21 @@ class Subscriptions extends StatelessWidget {
             style: TextStyle(
                 fontSize: 20.sp,
                 fontWeight: FontWeight.bold,
-                color: MyColors.black),
+                color: context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : AppDarkColors.backgroundColor),
           )),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Center(
+                child: Image.asset(
+              Res.pro,
+              height: 100,
+              width: 200,
+            )),
             Row(
               children: [
                 Text(
@@ -48,7 +59,9 @@ class Subscriptions extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: MyColors.black),
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : AppDarkColors.backgroundColor),
                 ),
                 SizedBox(width: 8.w),
                 Image.asset(Res.bluStar, height: 20.h, width: 20.w),
@@ -70,7 +83,9 @@ class Subscriptions extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: MyColors.black),
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : AppDarkColors.backgroundColor),
                 ),
                 SizedBox(width: 8.w),
                 Image.asset(Res.paln, height: 20.h, width: 20.w),

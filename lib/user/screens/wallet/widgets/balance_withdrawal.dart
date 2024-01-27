@@ -93,6 +93,9 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                               ? MyColors.white
                               : AppDarkColors.backgroundColor,
                           controller: controller,
+                          textColor: context.watch<AppThemeCubit>().isDarkMode
+                              ? MyColors.white
+                              : MyColors.black,
                           fieldTypes: FieldTypes.normal,
                           type: TextInputType.number,
                           action: TextInputAction.next,
@@ -200,9 +203,12 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                                                         "walletOpeningDate"),
                                                 style: TextStyle(
                                                   fontSize: 12.sp,
-                                                  color: selectedDate != null
-                                                      ? Colors.black
-                                                      : Colors.grey,
+                                                  color: context
+                                                          .watch<
+                                                              AppThemeCubit>()
+                                                          .isDarkMode
+                                                      ? MyColors.white
+                                                      : MyColors.black,
                                                   fontWeight: FontWeight.w400,
                                                 ),
                                               ),
@@ -243,9 +249,12 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                                                         "walletClosingDate"),
                                                 style: TextStyle(
                                                   fontSize: 12.sp,
-                                                  color: closedDate != null
-                                                      ? Colors.black
-                                                      : Colors.grey,
+                                                  color: context
+                                                          .watch<
+                                                              AppThemeCubit>()
+                                                          .isDarkMode
+                                                      ? MyColors.white
+                                                      : MyColors.black,
                                                   fontWeight: FontWeight.w400,
                                                 ),
                                               ),

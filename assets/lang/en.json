@@ -522,5 +522,9 @@
   "18pound": "18 Pound",
   "182pound": "182.5 pound",
   "191pound": "191 pound",
-  "SubscribeNow": "Subscribe Now"
+  "SubscribeNow": "Subscribe Now",
+  "walletCash": "cash",
+  "points": "Points",
+  "bankTransfer": "Bank Transfer",
+  "semiAnnually": "Semmi Annually"
 }

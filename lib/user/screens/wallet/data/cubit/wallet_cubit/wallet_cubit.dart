@@ -39,14 +39,12 @@ class WalletCubit extends Cubit<WalletState> {
   final TextEditingController currencyController = TextEditingController();
 
   List<String> valueCategory = [
-    "تحويل بنكي",
-    "نقاط",
-    "نقدي",
-    "حساب بنكي",
+    "bankTransfer",
+    "points",
+    "walletCash",
+    "bankAccount",
   ];
-  List<String> walletSource = ["شخص", "جهة"];
 
-  List<String> paymentMethod = ["تحويل بنكي", "حساب بنكي", "نقدي"];
   List<String> walletDuplicate = [
     "1",
     "2",
@@ -90,14 +88,13 @@ class WalletCubit extends Cubit<WalletState> {
 
   List<String> encomeSource = ["entity", "person"];
 
-  List<String> curancyType = ["ر.س", "ج.م"];
   List<String> repeatWallet = [
-    "يومياً",
-    "اسبوعياً",
-    "شهرياً",
-    "ربع سنوياً",
-    "نصف سنوياً",
-    "سنوياً",
+    "daily",
+    "weekly",
+    "monthly",
+    "quarterly",
+    "semiAnnually",
+    "annually",
   ];
 
   List<WalletModel> walletList = [];
@@ -182,7 +179,7 @@ class WalletCubit extends Cubit<WalletState> {
                     emit(WalletInitial());
 
                     if (controller.text.isNotEmpty) {
-                      paymentMethod.add(controller.text);
+                      valueCategory.add(controller.text);
                       emit(AddWalletSucess());
                       Navigator.of(context).pop();
                     }

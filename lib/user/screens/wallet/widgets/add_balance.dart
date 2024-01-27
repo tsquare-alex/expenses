@@ -86,6 +86,9 @@ class _AddBalanceState extends State<AddBalance> {
                           height: 10.h,
                         ),
                         GenericTextField(
+                          textColor: context.watch<AppThemeCubit>().isDarkMode
+                              ? MyColors.white
+                              : MyColors.white,
                           hint: tr(context, "amount"),
                           hintColor: context.watch<AppThemeCubit>().isDarkMode
                               ? MyColors.white
@@ -198,9 +201,12 @@ class _AddBalanceState extends State<AddBalance> {
                                                         "walletOpeningDate"),
                                                 style: TextStyle(
                                                   fontSize: 12.sp,
-                                                  color: selectedDate != null
-                                                      ? Colors.black
-                                                      : Colors.grey,
+                                                  color: context
+                                                          .watch<
+                                                              AppThemeCubit>()
+                                                          .isDarkMode
+                                                      ? MyColors.white
+                                                      : MyColors.white,
                                                   fontWeight: FontWeight.w400,
                                                 ),
                                               ),
@@ -241,9 +247,12 @@ class _AddBalanceState extends State<AddBalance> {
                                                         "walletClosingDate"),
                                                 style: TextStyle(
                                                   fontSize: 12.sp,
-                                                  color: closedDate != null
-                                                      ? Colors.black
-                                                      : Colors.grey,
+                                                  color: context
+                                                          .watch<
+                                                              AppThemeCubit>()
+                                                          .isDarkMode
+                                                      ? MyColors.white
+                                                      : MyColors.black,
                                                   fontWeight: FontWeight.w400,
                                                 ),
                                               ),

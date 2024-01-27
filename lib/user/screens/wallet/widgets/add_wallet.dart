@@ -142,7 +142,7 @@ class _AddWalletState extends State<AddWallet> {
                               children: [
                                 ...context
                                     .read<WalletCubit>()
-                                    .walletSource
+                                    .encomeSource
                                     .asMap()
                                     .entries
                                     .map(
@@ -158,10 +158,12 @@ class _AddWalletState extends State<AddWallet> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(tr(context, item)),
+                                              Text(tr(context, item).isNotEmpty
+                                                  ? tr(context, item)
+                                                  : item),
                                               Radio<String>(
                                                 activeColor: MyColors.primary,
-                                                value: tr(context, item),
+                                                value: item,
                                                 groupValue: selectedValue,
                                                 onChanged: (value) {
                                                   setState(() {
@@ -223,6 +225,9 @@ class _AddWalletState extends State<AddWallet> {
                                 .read<WalletCubit>()
                                 .walletNameController,
                             hint: tr(context, "walletName"),
+                            textColor: context.watch<AppThemeCubit>().isDarkMode
+                                ? MyColors.white
+                                : AppDarkColors.backgroundColor,
                             hintColor: context.watch<AppThemeCubit>().isDarkMode
                                 ? MyColors.white
                                 : AppDarkColors.backgroundColor,
@@ -277,11 +282,9 @@ class _AddWalletState extends State<AddWallet> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                item,
-                                                textDirection:
-                                                    TextDirection.rtl,
-                                              ),
+                                              Text(tr(context, item).isNotEmpty
+                                                  ? tr(context, item)
+                                                  : item),
                                               Radio<String>(
                                                 activeColor: MyColors.primary,
                                                 value: item,
@@ -347,6 +350,9 @@ class _AddWalletState extends State<AddWallet> {
                                 ? MyColors.white
                                 : AppDarkColors.backgroundColor,
                             focusBorderColor: MyColors.greyWhite,
+                            textColor: context.watch<AppThemeCubit>().isDarkMode
+                                ? MyColors.white
+                                : AppDarkColors.backgroundColor,
                             fieldTypes: FieldTypes.normal,
                             type: TextInputType.number,
                             action: TextInputAction.next,
@@ -497,9 +503,13 @@ class _AddWalletState extends State<AddWallet> {
                                                           "walletOpeningDate"),
                                                   style: TextStyle(
                                                     fontSize: 12.sp,
-                                                    color: selectedDate != null
-                                                        ? Colors.black
-                                                        : Colors.grey,
+                                                    color: context
+                                                            .watch<
+                                                                AppThemeCubit>()
+                                                            .isDarkMode
+                                                        ? MyColors.white
+                                                        : AppDarkColors
+                                                            .backgroundColor,
                                                     fontWeight: FontWeight.w400,
                                                   ),
                                                 ),
@@ -544,9 +554,13 @@ class _AddWalletState extends State<AddWallet> {
                                                         ),
                                                   style: TextStyle(
                                                     fontSize: 12.sp,
-                                                    color: closedDate != null
-                                                        ? Colors.black
-                                                        : Colors.grey,
+                                                    color: context
+                                                            .watch<
+                                                                AppThemeCubit>()
+                                                            .isDarkMode
+                                                        ? MyColors.white
+                                                        : AppDarkColors
+                                                            .backgroundColor,
                                                     fontWeight: FontWeight.w400,
                                                   ),
                                                 ),
@@ -581,6 +595,10 @@ class _AddWalletState extends State<AddWallet> {
                               SizedBox(
                                 width: 284.w,
                                 child: GenericTextField(
+                                  textColor:
+                                      context.watch<AppThemeCubit>().isDarkMode
+                                          ? MyColors.white
+                                          : AppDarkColors.backgroundColor,
                                   controller: context
                                       .read<WalletCubit>()
                                       .noteController,

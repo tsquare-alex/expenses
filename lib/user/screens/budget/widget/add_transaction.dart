@@ -259,9 +259,11 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                               : tr(context, "from"),
                                           style: TextStyle(
                                             fontSize: 12.sp,
-                                            color: selectedDate != null
-                                                ? Colors.black
-                                                : Colors.grey,
+                                            color: context
+                                                    .watch<AppThemeCubit>()
+                                                    .isDarkMode
+                                                ? MyColors.white
+                                                : MyColors.black,
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
@@ -297,9 +299,11 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                                 : tr(context, "to"),
                                             style: TextStyle(
                                               fontSize: 12.sp,
-                                              color: closedDate != null
-                                                  ? Colors.black
-                                                  : Colors.grey,
+                                              color: context
+                                                      .watch<AppThemeCubit>()
+                                                      .isDarkMode
+                                                  ? MyColors.white
+                                                  : MyColors.black,
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -322,6 +326,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                             ? MyColors.white
                             : AppDarkColors.backgroundColor,
                         fieldTypes: FieldTypes.normal,
+                        textColor: context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.white
+                            : MyColors.black,
                         type: TextInputType.number,
                         action: TextInputAction.next,
                         validate: (text) {
@@ -381,6 +388,10 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           SizedBox(
                             width: 284.w,
                             child: GenericTextField(
+                              textColor:
+                                  context.watch<AppThemeCubit>().isDarkMode
+                                      ? MyColors.white
+                                      : MyColors.black,
                               controller:
                                   context.read<BudgetCubit>().noteController,
                               hint: tr(context, "yourNotes"),

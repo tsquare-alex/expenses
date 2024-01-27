@@ -116,10 +116,23 @@ class Subscriptions extends StatelessWidget {
                           height: 90.h,
                           width: 135.w,
                           child: Center(
-                              child: Text(
-                            tr(context, "subscription30"),
-                            style: TextStyle(
-                                fontSize: 14.sp, fontWeight: FontWeight.bold),
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                "30",
+                                style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                tr(context, "subscription30"),
+                                style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           )),
                         ),
                       ),
@@ -128,10 +141,23 @@ class Subscriptions extends StatelessWidget {
                             height: 90.h,
                             width: 135.w,
                             child: Center(
-                                child: Text(
-                              tr(context, "subscription365"),
-                              style: TextStyle(
-                                  fontSize: 14.sp, fontWeight: FontWeight.bold),
+                                child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "365",
+                                  style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  tr(context, "subscription365"),
+                                  style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ))),
                       ),
                       TableCell(
@@ -139,10 +165,23 @@ class Subscriptions extends StatelessWidget {
                             height: 95.h,
                             width: 135.w,
                             child: Center(
-                                child: Text(
-                              tr(context, "subscription547"),
-                              style: TextStyle(
-                                  fontSize: 14.sp, fontWeight: FontWeight.bold),
+                                child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "547",
+                                  style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  tr(context, "subscription547"),
+                                  style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ))),
                       ),
                     ],
@@ -198,7 +237,7 @@ class Subscriptions extends StatelessWidget {
                                 child: Text(
                               tr(context, "18pound"),
                               style: TextStyle(
-                                  fontSize: 12.sp, fontWeight: FontWeight.w600),
+                                  fontSize: 14.sp, fontWeight: FontWeight.bold),
                             ))),
                       ),
                       TableCell(
@@ -209,7 +248,7 @@ class Subscriptions extends StatelessWidget {
                                 child: Text(
                               tr(context, "182pound"),
                               style: TextStyle(
-                                  fontSize: 12.sp, fontWeight: FontWeight.w600),
+                                  fontSize: 14.sp, fontWeight: FontWeight.bold),
                             ))),
                       ),
                       TableCell(
@@ -220,7 +259,7 @@ class Subscriptions extends StatelessWidget {
                                 child: Text(
                               tr(context, "191pound"),
                               style: TextStyle(
-                                  fontSize: 12.sp, fontWeight: FontWeight.w600),
+                                  fontSize: 14.sp, fontWeight: FontWeight.bold),
                             ))),
                       ),
                     ],

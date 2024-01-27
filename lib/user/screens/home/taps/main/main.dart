@@ -73,6 +73,7 @@ class _MainState extends State<Main> {
             ? Colors.transparent
             : MyColors.white,
         // leadingWidth: 35.w,
+        centerTitle: true,
         title: BlocBuilder<GenericBloc<int>, GenericState<int>>(
           bloc: data.homeTabCubit,
           builder: (context, state) {
@@ -83,6 +84,8 @@ class _MainState extends State<Main> {
                   Res.activeHome,
                   width: 30.w,
                   height: 30.h,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ?MyColors.white:null,
                 ),
                 SizedBox(
                   width: 10.w,
@@ -114,23 +117,23 @@ class _MainState extends State<Main> {
           ),
         ),
         actions: [
-          BlocBuilder<AppThemeCubit, AppThemeState>(
-            builder: (context, state) {
-              return IconButton(
-                onPressed: () {
-                  AppThemeCubit.get(context).changeTheme();
-                },
-                padding: EdgeInsets.zero,
-                icon: Icon(
-                  Icons.dark_mode_outlined,
-                  color: context.watch<AppThemeCubit>().isDarkMode
-                      ? Colors.white
-                      : MyColors.black,
-                  size: 20.w,
-                ),
-              );
-            },
-          ),
+          // BlocBuilder<AppThemeCubit, AppThemeState>(
+          //   builder: (context, state) {
+          //     return IconButton(
+          //       onPressed: () {
+          //         AppThemeCubit.get(context).changeTheme();
+          //       },
+          //       padding: EdgeInsets.zero,
+          //       icon: Icon(
+          //         Icons.dark_mode_outlined,
+          //         color: context.watch<AppThemeCubit>().isDarkMode
+          //             ? Colors.white
+          //             : MyColors.black,
+          //         size: 20.w,
+          //       ),
+          //     );
+          //   },
+          // ),
           PopupMenuButton<FavoriteModel>(
             color: context.watch<AppThemeCubit>().isDarkMode
                 ? Colors.white

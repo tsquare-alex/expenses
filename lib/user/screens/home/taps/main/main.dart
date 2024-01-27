@@ -268,7 +268,8 @@ class _MainState extends State<Main> {
   }
 
   void _navigateToToolScreen(BuildContext context, FavoriteModel tool) {
-    switch (tool.toolName) {
+    switch (tool.toolName)
+    {
       case "percentage":
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => PercentageCalculatorScreen()));
@@ -287,7 +288,8 @@ class _MainState extends State<Main> {
         break;
       case "scanner":
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => ScannerQrCode()));
+            .push(
+            MaterialPageRoute(builder: (context) => const ScannerQrCode()));
         break;
       case "calender":
         Navigator.of(context)
@@ -348,6 +350,30 @@ class _MainState extends State<Main> {
       case "convertVolume":
         Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => VolumeConverterScreen()));
+        break;
+      case "reminder":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => ReminderScreen()));
+        break;
+      case "ruler":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => RulerScreen()));
+        break;
+      case "note":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => NoteView()));
+        break;
+      case "calculateUnitPrice":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => UnitPriceScreen()));
+        break;
+      case "temporary":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => TemporaryScreen()));
+        break;
+      case "stopWatch":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => StopwatchScreen()));
         break;
     }
   }

@@ -13,8 +13,8 @@ class BuildPieChart extends StatelessWidget {
       child: PieChart(
         PieChartData(
           borderData: FlBorderData(show: false),
-          centerSpaceRadius: 60.r,
-          sectionsSpace: 5.w,
+          centerSpaceRadius: 75.r,
+          sectionsSpace: 10.w,
           sections: mainData.getSections(context),
           pieTouchData:
               PieTouchData(touchCallback: (event, pieTouchResponse) {

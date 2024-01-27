@@ -1,9 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../general/themes/app_colors.dart';
+import '../../../../../general/themes/cubit/app_theme_cubit.dart';
 import '../../../../../general/widgets/DefaultButton.dart';
 
 class UnitPriceScreen extends StatefulWidget {
@@ -21,8 +25,25 @@ class _UnitPriceScreenState extends State<UnitPriceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () => AutoRouter.of(context).pop(),
+          child: Icon(
+            Icons.arrow_back,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+          ),
+        ),
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            :MyColors.white,
+
         centerTitle: true,
-        title: MyText(title: tr(context, "unitPrice"), color: MyColors.white, size: 20,fontWeight: FontWeight.bold,),
+        title: MyText(title: tr(context, "unitPrice"),
+          color:context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              :MyColors.black,
+          size: 20,fontWeight: FontWeight.bold,),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.w),
@@ -46,6 +67,10 @@ class _UnitPriceScreenState extends State<UnitPriceScreen> {
             ),
             SizedBox(height: 32.h),
             DefaultButton(
+              color:  context.watch<AppThemeCubit>().isDarkMode
+                  ? AppDarkColors.primary
+                  : MyColors.primary,
+
               fontSize: 20,
               fontWeight: FontWeight.bold,
               title:'${tr(context, "calculate")}',
@@ -57,6 +82,7 @@ class _UnitPriceScreenState extends State<UnitPriceScreen> {
             Text(
               '${tr(context, "unitPrice")}: $unitPrice جنيه',
               style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
             ),
           ],
         ),

@@ -121,6 +121,7 @@
 //     );
 //   }
 // }
+import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -128,6 +129,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../general/packages/localization/Localizations.dart';
+import '../../../../../general/themes/app_colors.dart';
+import '../../../../../general/themes/cubit/app_theme_cubit.dart';
 import '../../../../../general/widgets/MyText.dart';
 import '../../../database/cubit/database_cubit.dart';
 
@@ -140,10 +143,23 @@ class ScannerQrCode extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: MyColors.primary,
+        leading: GestureDetector(
+          onTap: () => AutoRouter.of(context).pop(),
+          child: Icon(
+            Icons.arrow_back,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+          ),
+        ),
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            :MyColors.white,
         title: MyText(
           title: tr(context, "scanner"),
-          color: Colors.white,
+          color:context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              :MyColors.black,
           size: 18.sp,
           fontWeight: FontWeight.bold,
         ),

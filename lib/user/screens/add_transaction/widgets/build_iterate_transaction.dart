@@ -60,6 +60,8 @@ class BuildIterateTransaction extends StatelessWidget {
                         CupertinoSwitch(
                           trackColor: MyColors.blackOpacity,
                           value: state1.data,
+                          activeColor: MyColors.primary,
+
                           onChanged: (value) {
                             addTransactionData.notifyCubit
                                 .onUpdateData(value);
@@ -103,6 +105,8 @@ class BuildIterateTransaction extends StatelessWidget {
                           width: 5.w,
                         ),
                         CupertinoSwitch(
+                          activeColor: MyColors.primary,
+
                           trackColor: MyColors.blackOpacity,
                           value: state1.data,
                           onChanged: (value) {
@@ -141,37 +145,37 @@ class BuildIterateTransaction extends StatelessWidget {
                                 size: 14.sp,
                                 fontWeight: FontWeight.bold,
                               ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              if (state.data == true)
-                                Expanded(
-                                  child: DropdownTextField<DropdownModel>(
-                                    dropKey: addTransactionData
-                                        .ratioDropKey,
-                                    label: tr(context, "ratio"),
-                                    selectedItem: addTransactionData
-                                        .selectedRatio,
-                                    margin:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                                    validate: (value) {
-                                      if (value == null) {
-                                        print("Please fill this field");
-                                      }
-                                    },
-                                    hintColor: context.watch<AppThemeCubit>().isDarkMode
-                                        ? MyColors.white
-                                        : MyColors.black,
-                                    onChange: addTransactionData
-                                        .setSelectRatio,
-                                    finData: (data) =>
-                                        addTransactionData
-                                            .getRatio(context),
-                                    useName: true,
-                                    buttonsColor: MyColors.primary,
-                                    searchHint: tr(context, "search"),
-                                  ),
-                                ),
+                              // SizedBox(
+                              //   width: 5.w,
+                              // ),
+                              // if (state.data == true)
+                              //   Expanded(
+                              //     child: DropdownTextField<DropdownModel>(
+                              //       dropKey: addTransactionData
+                              //           .ratioDropKey,
+                              //       label: tr(context, "ratio"),
+                              //       selectedItem: addTransactionData
+                              //           .selectedRatio,
+                              //       margin:
+                              //       const EdgeInsets.symmetric(vertical: 5),
+                              //       validate: (value) {
+                              //         if (value == null) {
+                              //           print("Please fill this field");
+                              //         }
+                              //       },
+                              //       hintColor: context.watch<AppThemeCubit>().isDarkMode
+                              //           ? MyColors.white
+                              //           : MyColors.black,
+                              //       onChange: addTransactionData
+                              //           .setSelectRatio,
+                              //       finData: (data) =>
+                              //           addTransactionData
+                              //               .getRatio(context),
+                              //       useName: true,
+                              //       buttonsColor: MyColors.primary,
+                              //       searchHint: tr(context, "search"),
+                              //     ),
+                              //   ),
                             ],
                           ),
                         ),
@@ -179,6 +183,8 @@ class BuildIterateTransaction extends StatelessWidget {
                           width: 8.w,
                         ),
                         CupertinoSwitch(
+                          activeColor: MyColors.primary,
+
                           trackColor: MyColors.blackOpacity,
                           value: state.data,
                           onChanged: (value) {
@@ -264,6 +270,8 @@ class BuildIterateTransaction extends StatelessWidget {
                           width: 8.w,
                         ),
                         CupertinoSwitch(
+                          activeColor: MyColors.primary,
+
                           trackColor: MyColors.blackOpacity,
                           value: state.data,
                           onChanged: (value) {
@@ -318,6 +326,8 @@ class BuildIterateTransaction extends StatelessWidget {
                                 width: 5.w,
                               ),
                               CupertinoSwitch(
+                                activeColor: MyColors.primary,
+
                                 trackColor: MyColors.blackOpacity,
                                 value: state1.data,
                                 onChanged: (value) {

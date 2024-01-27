@@ -1,13 +1,19 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/local_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+
+import '../../../../../general/constants/MyColors.dart';
+import '../../../../../general/themes/app_colors.dart';
+import '../../../../../general/themes/cubit/app_theme_cubit.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 FlutterLocalNotificationsPlugin();
@@ -95,8 +101,23 @@ class _ReminderScreenState extends State<ReminderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () => AutoRouter.of(context).pop(),
+          child: Icon(
+            Icons.arrow_back,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+          ),
+        ),
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            :MyColors.white,
         centerTitle: true,
-        title: MyText(title: tr(context, "setReminder"), color: Colors.white, size: 20,fontWeight: FontWeight.bold,),
+        title: MyText(title: tr(context, "setReminder"),  color:context.watch<AppThemeCubit>().isDarkMode
+            ? MyColors.white
+            :MyColors.black,
+          size: 20,fontWeight: FontWeight.bold,),
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
@@ -105,7 +126,12 @@ class _ReminderScreenState extends State<ReminderScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              DefaultButton(title: tr(context, "selectedDateTime"),onTap: ()=> _selectDateTime(context),fontSize: 20,fontWeight: FontWeight.bold,),
+              DefaultButton(
+                color:  context.watch<AppThemeCubit>().isDarkMode
+                    ? AppDarkColors.primary
+                    : MyColors.primary,
+
+                title: tr(context, "selectedDateTime"),onTap: ()=> _selectDateTime(context),fontSize: 20,fontWeight: FontWeight.bold,),
               // ElevatedButton(
               //   onPressed: () => _selectDateTime(context),
               //   child: MyText(title: tr(context, "selectedDateTime"), color: Colors.white, size: 18,fontWeight: FontWeight.bold,)),
@@ -129,7 +155,13 @@ class _ReminderScreenState extends State<ReminderScreen> {
                 },
                 decoration: InputDecoration(labelText: tr(context, "enterBody")),
               ),
-              DefaultButton(title: tr(context, "setReminder"),onTap: ()=> _scheduleNotification(),fontSize: 20,fontWeight: FontWeight.bold,),
+              DefaultButton(
+
+                color:  context.watch<AppThemeCubit>().isDarkMode
+                    ? AppDarkColors.primary
+                    : MyColors.primary,
+
+                title: tr(context, "setReminder"),onTap: ()=> _scheduleNotification(),fontSize: 20,fontWeight: FontWeight.bold,),
 
               Text(
                 "${tr(context, "selectedDate")} ${_formatDate(selectedDateTime)}",

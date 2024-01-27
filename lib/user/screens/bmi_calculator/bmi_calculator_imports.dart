@@ -8,5 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../general/themes/app_colors.dart';
+import '../../../general/themes/cubit/app_theme_cubit.dart';
+
 part 'bmi_calculator.dart';
 part 'bmi_calculator_data.dart';

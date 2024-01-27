@@ -535,6 +535,7 @@
   "enterHeight": "Enter your height (cm)",
   "male": "Male",
   "feMale": "Female",
-  "age": "Age"
+  "age": "Age",
+  "addDestination": "Add a Destination"
 }
 

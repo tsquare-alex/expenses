@@ -61,7 +61,9 @@ class CustomDrawerCard extends StatelessWidget {
                 title: "$title",
                 fontWeight: FontWeight.bold,
                 size: 14,
-                color: textColor??MyColors.black,
+                color: context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : MyColors.black,
               ),
             )
           ],

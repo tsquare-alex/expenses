@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/area_converter/area_converter.dart';
@@ -27,6 +28,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../general/themes/app_colors.dart';
 import '../../../general/utilities/routers/RouterImports.gr.dart';
 import '../bmi_calculator/bmi_calculator_imports.dart';
 import '../change_currency/change_currency_imports.dart';
@@ -47,24 +49,27 @@ class ToolsHelper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            :MyColors.white,
         title: Row(
           // mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
               Res.tool_ic,
-              // width: 20.w,
-              // height: 20.h,
+              width: 32.w,
+              height: 28.h,
               // color: MyColors.white,
             ),
-            SizedBox(
-              width: 10.w,
-            ),
+            // SizedBox(
+            //   width: 10.w,
+            // ),
             MyText(
               title: tr(context, 'tools'),
-              color: MyColors.black100,
+              color:context.watch<AppThemeCubit>().isDarkMode ? MyColors.white : MyColors.black100,
               size: 20.sp,
               fontWeight: FontWeight.bold,
             ),
@@ -85,7 +90,7 @@ class ToolsHelper extends StatelessWidget {
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "calculator"),
                       title: "calculator",
-                      image:Res.tool_ic,
+                      image:Res.calculator_ic,
                       isFavorite: context
                           .watch<FavoriteCubit>()
                           .isFavorite("calculator"),
@@ -673,11 +678,15 @@ class ExpandableTile extends StatelessWidget {
                 const SizedBox(
                   width: 15,
                 ),
-                MyText(
-                  title: tr(context, title),
-                  color: MyColors.black,
-                  size: 16,
-                  fontWeight: FontWeight.bold,
+                Expanded(
+                  child: MyText(
+                    title: tr(context, title),
+                    color:context.watch<AppThemeCubit>().isDarkMode ? MyColors.white : MyColors.black,
+                    size: 16,
+                    max: 1,
+                    overflow: TextOverflow.ellipsis,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),

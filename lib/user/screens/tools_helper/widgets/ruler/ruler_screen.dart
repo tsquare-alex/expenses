@@ -1,9 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rulers/rulers.dart';
+
+import '../../../../../general/themes/app_colors.dart';
+import '../../../../../general/themes/cubit/app_theme_cubit.dart';
 
 class RulerScreen extends StatefulWidget {
   @override
@@ -15,8 +20,24 @@ class _RulerScreenState extends State<RulerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () => AutoRouter.of(context).pop(),
+          child: Icon(
+            Icons.arrow_back,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+          ),
+        ),
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            :MyColors.white,
+
         centerTitle: true,
-        title: MyText(title: tr(context, "ruler"), color: MyColors.white, size: 16.sp,fontWeight: FontWeight.bold,),
+        title: MyText(title: tr(context, "ruler"),  color:context.watch<AppThemeCubit>().isDarkMode
+            ? MyColors.white
+            :MyColors.black,
+          size: 16.sp,fontWeight: FontWeight.bold,),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -26,7 +47,9 @@ class _RulerScreenState extends State<RulerScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                MyText(title: tr(context, "normalScale"), color: MyColors.black, size: 16.sp,fontWeight: FontWeight.bold,),
+                MyText(title: tr(context, "normalScale"), color:context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    :MyColors.black, size: 16.sp,fontWeight: FontWeight.bold,),
                 Container(
                   margin: const EdgeInsets.only(top: 8.0),
                   child: RulerWidget(
@@ -48,7 +71,9 @@ class _RulerScreenState extends State<RulerScreen> {
 
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
-                  child: MyText(title: tr(context, "horizontalScale"), color: MyColors.black, size: 16.sp,fontWeight: FontWeight.bold,),
+                  child: MyText(title: tr(context, "horizontalScale"),  color:context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      :MyColors.black, size: 16.sp,fontWeight: FontWeight.bold,),
 
                 ),
                 Container(

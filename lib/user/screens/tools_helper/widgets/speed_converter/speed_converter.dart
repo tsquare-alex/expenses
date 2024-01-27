@@ -1,9 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../general/themes/app_colors.dart';
+import '../../../../../general/themes/cubit/app_theme_cubit.dart';
 import '../../../../../general/widgets/DefaultButton.dart';
 
 class SpeedConverterScreen extends StatefulWidget {
@@ -52,7 +56,23 @@ class _SpeedConverterScreenState extends State<SpeedConverterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:MyText(title: tr(context, "convertSpeed"), color: Colors.white, size: 18.sp,fontWeight: FontWeight.bold,),
+        leading: GestureDetector(
+          onTap: () => AutoRouter.of(context).pop(),
+          child: Icon(
+            Icons.arrow_back,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+          ),
+        ),
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            :MyColors.white,
+        title:MyText(title: tr(context, "convertSpeed"),
+          color:context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              :MyColors.black,
+          size: 18.sp,fontWeight: FontWeight.bold,),
         centerTitle: true,
       ),
       body: Padding(
@@ -118,13 +138,20 @@ class _SpeedConverterScreenState extends State<SpeedConverterScreen> {
             ),
             SizedBox(height: 32.0),
             DefaultButton(
+              color:  context.watch<AppThemeCubit>().isDarkMode
+                  ? AppDarkColors.primary
+                  : MyColors.primary,
               fontSize: 20,
               fontWeight: FontWeight.bold,
               title: '${tr(context, "calculate")}',
               onTap: _performConversion,
             ),
             SizedBox(height: 16.0),
-            MyText(title: result, color: MyColors.black, size: 20.sp,alien: TextAlign.center,)
+            MyText(title: result,
+              color:context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  :MyColors.black,
+              size: 20.sp,alien: TextAlign.center,)
           ],
         ),
       ),

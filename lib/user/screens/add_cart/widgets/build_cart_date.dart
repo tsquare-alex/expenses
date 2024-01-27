@@ -8,7 +8,9 @@ class BuildCartDate extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5.r),
       decoration: BoxDecoration(
-        color: MyColors.white,
+        color: context.watch<AppThemeCubit>().isDarkMode
+            ? MyColors.greyWhite
+            : MyColors.white,
         borderRadius: BorderRadius.circular(15.r),
       ),
       child: Form(
@@ -23,7 +25,9 @@ class BuildCartDate extends StatelessWidget {
                 ),
                 MyText(
                   title: tr(context, "implementationTime"),
-                  color: MyColors.black,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   size: 11.sp,
                   fontWeight: FontWeight.bold,
                 ),
@@ -40,6 +44,12 @@ class BuildCartDate extends StatelessWidget {
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 20.r, vertical: 10.r),
                 radius: 10.r,
+                hintColor: context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : MyColors.black,
+                textColor: context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : MyColors.black,
                 fieldTypes: FieldTypes.clickable,
                 type: TextInputType.text,
                 action: TextInputAction.next,
@@ -67,6 +77,12 @@ class BuildCartDate extends StatelessWidget {
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 radius: 10.r,
+                hintColor: context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : MyColors.black,
+                textColor: context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : MyColors.black,
                 fieldTypes: FieldTypes.clickable,
                 type: TextInputType.text,
                 action: TextInputAction.next,

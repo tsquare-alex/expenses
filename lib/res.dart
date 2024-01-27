@@ -269,5 +269,8 @@ class Res {
   static const String homeReports = "assets/images/homeReports.png";
   static const String activeHome = "assets/images/activeHome.png";
   static const String darkReports = "assets/images/darkReports.png";
+
   static const String darkTransaction = "assets/images/darkTransaction.png";
+  static const String blueStar = "assets/images/blu_star.png";
+  static const String plan = "assets/images/plan.png";
 }

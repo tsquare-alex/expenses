@@ -6,11 +6,13 @@ class OptionButton extends StatelessWidget {
     required this.label,
     required this.color,
     required this.onPressed,
+    this.isPro = false,
   }) : super(key: key);
 
   final String label;
   final Color color;
   final Function onPressed;
+  final bool isPro;
 
   @override
   Widget build(BuildContext context) {
@@ -19,25 +21,51 @@ class OptionButton extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          onPressed();
+          if (isPro) {
+            onPressed();
+          } else {
+            CustomToast.showSimpleToast(msg: 'Pro');
+          }
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: color,
           elevation: 0,
+          padding: EdgeInsets.symmetric(horizontal: 0.2.sw),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.r),
           ),
         ),
-        child: Text(
-          label,
-          style: TextStyle(
-            color: context.watch<AppThemeCubit>().isDarkMode
-                ? AppDarkColors.secondary
-                : MyColors.primary,
-            fontSize: 16.sp,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        child: isPro
+            ? Text(
+                label,
+                style: TextStyle(
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.secondary
+                      : MyColors.primary,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    label,
+                    style: TextStyle(
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? AppDarkColors.secondary
+                          : MyColors.primary,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Image.asset(
+                    Res.pro,
+                    height: 40.h,
+                    width: 40.w,
+                  ),
+                ],
+              ),
       ),
     );
   }
@@ -85,9 +113,6 @@ Future<dynamic> showReportOptionsModalSheet({required BuildContext context}) {
                     color: context.watch<AppThemeCubit>().isDarkMode
                         ? AppDarkColors.accentColor
                         : Colors.grey.shade200,
-                    // color: context.watch<AppThemeCubit>().isDarkMode
-                    //     ? AppDarkColors.primary
-                    //     : MyColors.primary,
                     onPressed: () {
                       AutoRouter.of(context)
                           .push(StatisticsRoute(option: entry.key));

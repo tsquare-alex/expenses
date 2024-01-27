@@ -459,6 +459,12 @@ class SettingsBody extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
+                SizedBox(width: 12.w),
+                Image.asset(
+                  Res.pro,
+                  height: 40.h,
+                  width: 40.w,
+                ),
                 const Spacer(),
                 BlocBuilder<AppThemeCubit, AppThemeState>(
                   builder: (context, state) {
@@ -499,6 +505,12 @@ class SettingsBody extends StatelessWidget {
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
                   ),
+                ),
+                SizedBox(width: 12.w),
+                Image.asset(
+                  Res.pro,
+                  height: 40.h,
+                  width: 40.w,
                 ),
                 const Spacer(),
                 CupertinoSwitch(
@@ -589,6 +601,12 @@ class SettingsBody extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
+                  SizedBox(width: 12.w),
+                  Image.asset(
+                    Res.pro,
+                    height: 40.h,
+                    width: 40.w,
+                  ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
@@ -624,6 +642,12 @@ class SettingsBody extends StatelessWidget {
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
                     ),
+                  ),
+                  SizedBox(width: 12.w),
+                  Image.asset(
+                    Res.pro,
+                    height: 40.h,
+                    width: 40.w,
                   ),
                   const Spacer(),
                   Icon(
@@ -661,6 +685,12 @@ class SettingsBody extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
+                  SizedBox(width: 12.w),
+                  Image.asset(
+                    Res.pro,
+                    height: 40.h,
+                    width: 40.w,
+                  ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
@@ -696,6 +726,12 @@ class SettingsBody extends StatelessWidget {
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
                     ),
+                  ),
+                  SizedBox(width: 12.w),
+                  Image.asset(
+                    Res.pro,
+                    height: 40.h,
+                    width: 40.w,
                   ),
                   const Spacer(),
                   Icon(

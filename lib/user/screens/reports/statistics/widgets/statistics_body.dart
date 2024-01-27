@@ -157,16 +157,20 @@ class StatisticsBody extends StatelessWidget {
                                 return Theme(
                                   data: Theme.of(context).copyWith(
                                     colorScheme: ColorScheme.light(
-                                      background: Colors.white,
                                       primary: context
                                               .watch<AppThemeCubit>()
                                               .isDarkMode
                                           ? AppDarkColors.primary
                                           : MyColors.primary,
+                                      secondary: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? AppDarkColors.accentColor
+                                          : Colors.grey.shade200,
                                       onSurface: context
                                               .watch<AppThemeCubit>()
                                               .isDarkMode
-                                          ? AppDarkColors.primary
+                                          ? AppDarkColors.secondary
                                           : MyColors.primary,
                                     ),
                                   ),
@@ -242,10 +246,15 @@ class StatisticsBody extends StatelessWidget {
                                               .isDarkMode
                                           ? AppDarkColors.primary
                                           : MyColors.primary,
+                                      secondary: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? AppDarkColors.accentColor
+                                          : Colors.grey.shade200,
                                       onSurface: context
                                               .watch<AppThemeCubit>()
                                               .isDarkMode
-                                          ? AppDarkColors.primary
+                                          ? AppDarkColors.secondary
                                           : MyColors.primary,
                                     ),
                                   ),

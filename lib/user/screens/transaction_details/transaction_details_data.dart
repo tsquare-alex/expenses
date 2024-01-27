@@ -160,7 +160,7 @@ class TransactionDetailsData {
         context: context,
         onConfirm: (date) {
           transactionDateController.text =
-              DateFormat("dd MMMM yyyy", "en").format(date!);
+              DateFormat("dd/MM/yyyy", "en").format(date!);
         },
         title: '');
   }
@@ -174,7 +174,7 @@ class TransactionDetailsData {
         minDate: DateTime.now().subtract(Duration(days: 30)),
         onConfirm: (date) {
           startDateController.text =
-              DateFormat("dd MMMM yyyy", "en").format(date!);
+              DateFormat("dd/MM/yyyy", "en").format(date!);
         },
         title: '');
   }
@@ -185,15 +185,15 @@ class TransactionDetailsData {
     FocusScope.of(context).requestFocus(FocusNode());
     AdaptivePicker.datePicker(
         initial: startDateController.text.isNotEmpty
-            ? DateFormat("dd MMMM yyyy", "en").parse(startDateController.text)
+            ? DateFormat("dd/MM/yyyy", "en").parse(startDateController.text)
             : DateTime.now(),
         minDate: startDateController.text.isNotEmpty
-            ? DateFormat("dd MMMM yyyy", "en").parse(startDateController.text)
+            ? DateFormat("dd/MM/yyyy", "en").parse(startDateController.text)
             : DateTime.now(),
         context: context,
         onConfirm: (date) {
           endDateController.text =
-              DateFormat("dd MMMM yyyy", "en").format(date!);
+              DateFormat("dd/MM/yyyy", "en").format(date!);
         },
         title: '');
   }

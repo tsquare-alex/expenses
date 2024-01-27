@@ -13,4 +13,20 @@ class TransactionContentModel extends HiveObject{
 
   TransactionContentModel({this.name,this.image,this.selected=false});
 
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'image': image,
+      "selected":selected,
+    };
+  }
+
+  factory TransactionContentModel.fromJson(Map<String, dynamic> json) {
+    return TransactionContentModel(
+      name: json['name'],
+      image: json['image'],
+      selected: json['selected'],
+    );
+  }
+
 }

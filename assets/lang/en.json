@@ -293,6 +293,17 @@
   "unitPrice": "Unit Price",
   "stop": "Stop",
   "reset": "Reset",
+
+
+
+  "selectMainCurrency": "Select Main Currency",
+  "selectSubCurrency": "Select Sub Currency",
+
+
+
+
+
+
   "chooseTransaction": "Choose transaction",
   "chooseTransactions": "Choose transactions",
   "chooseSubTransaction": "Choose sub transaction",

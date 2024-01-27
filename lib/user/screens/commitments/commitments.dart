@@ -26,9 +26,15 @@ class _CommitmentsState extends State<Commitments> {
       builder: (context, state1) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.white,
-            surfaceTintColor: Colors.white,
+            backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+                ? AppDarkColors.backgroundColor
+                : MyColors.white,
+            surfaceTintColor: context.watch<AppThemeCubit>().isDarkMode
+                ? AppDarkColors.backgroundColor
+                : MyColors.white,
+            centerTitle: true,
             title: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Image.asset(
                   Res.commitments,
@@ -40,7 +46,9 @@ class _CommitmentsState extends State<Commitments> {
                 ),
                 MyText(
                   title: tr(context, "commitments"),
-                  color: MyColors.black,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   size: 18.sp,
                   fontWeight: FontWeight.bold,
                 ),
@@ -50,13 +58,15 @@ class _CommitmentsState extends State<Commitments> {
               onTap: () => AutoRouter.of(context).pop(),
               child: Icon(
                 Icons.arrow_back,
-                color: MyColors.black,
+                color: context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : MyColors.black,
               ),
             ),
           ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: MyColors.primary,
-            onPressed: () async{
+            onPressed: () async {
               if (state1.data.isEmpty) {
                 data.addTransactionModel(context);
               } else {
@@ -66,60 +76,6 @@ class _CommitmentsState extends State<Commitments> {
                           data: data,
                           transactionModel: widget.model,
                         )));
-                var box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
-                var list = box.values.toList();
-                for(AddTransactionModel item in list){
-                  AddTransactionModel newModel = AddTransactionModel(
-                    image: item.image,
-                    total: item.total,
-                    amount: item.amount,
-                    time: DateFormat("hh:mm aa", "en").format(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, TimeOfDay.now().hour, TimeOfDay.now().minute)),
-                    description: item.description,
-                    putReminderInWallet: item.putReminderInWallet,
-                    notify: null,
-                    requiredValue: item.requiredValue,
-                    initialValue: item.initialValue,
-                    transactionName: item.transactionName,
-                    priority: item.priority,
-                    endDate: item.endDate,
-                    startDate: DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
-                    targetValue: item.targetValue,
-                    transactionType: item.transactionType,
-                    brandName: item.brandName,
-                    repeated: null,
-                    transactionDate: DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
-                    unit: item.unit,
-                    incomeSource: item.incomeSource,
-                    transactionContent: item.transactionContent,
-                    budget: item.budget,
-                    cashTransactionType: item.cashTransactionType,
-                    completedNotify: item.completedNotify,
-                    database: item.database,
-                    ratio: item.ratio,
-                    targetType: item.targetType,
-                  );
-                  if(item.repeated != null){
-                    if(item.repeated?.name == "daily"){
-                      double total = double.parse(item.total!);
-                      if (total <= item.incomeSource!.balance) {
-                        var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
-                        var walletList = walletBox.values.toList();
-                        WalletModel? targetModel = walletList.firstWhere(
-                              (model) => model.name == item.incomeSource?.name,
-                        );
-                        print("object ${targetModel.name}");
-                        targetModel.balance = targetModel.balance - total;
-                        print("balance ${targetModel.balance}");
-                        await walletBox.put(item.incomeSource?.key, targetModel);
-                        print(item.incomeSource!.balance);
-                        box.add(newModel);
-                        print("object");
-                      }else{
-                        CustomToast.showSimpleToast(msg: "msg");
-                      }
-                    }
-                  }
-                }
               }
             },
             shape: const CircleBorder(),

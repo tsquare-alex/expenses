@@ -41,7 +41,9 @@ class BuildTransactionType extends StatelessWidget {
                     ),
                     MyText(
                       title: tr(context, "transaction"),
-                      color: MyColors.black,
+                      color:  context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : MyColors.black,
                       size: 14.sp,
                       fontWeight: FontWeight.bold,
                     ),
@@ -78,7 +80,9 @@ class BuildTransactionType extends StatelessWidget {
                                             ? tr(context,
                                                 state.data![index].name!)
                                             : state.data?[index].name ?? "",
-                                        color: MyColors.black,
+                                        color:  context.watch<AppThemeCubit>().isDarkMode
+                                            ? MyColors.white
+                                            : MyColors.black,
                                         size: 13.sp,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -133,7 +137,9 @@ class BuildTransactionType extends StatelessWidget {
                       children: [
                         MyText(
                           title: tr(context, "addNewContent"),
-                          color: MyColors.black,
+                          color:  context.watch<AppThemeCubit>().isDarkMode
+                              ? MyColors.white
+                              : MyColors.black,
                           size: 14.sp,
                           fontWeight: FontWeight.bold,
                         ),
@@ -181,7 +187,9 @@ class BuildTransactionType extends StatelessWidget {
                       title: tr(context, model.name!).isNotEmpty
                           ? tr(context, model.name!)
                           : model.name ?? "",
-                      color: MyColors.black,
+                      color:  context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : MyColors.black,
                       size: 13.sp,
                       fontWeight: FontWeight.bold,
                     ),

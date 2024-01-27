@@ -1,9 +1,10 @@
-
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BuildNoRecord extends StatelessWidget {
@@ -25,15 +26,12 @@ class BuildNoRecord extends StatelessWidget {
           ),
           MyText(
             title: tr(context, "noRecord"),
-            color: MyColors.black,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
             size: 16.sp,
             fontWeight: FontWeight.bold,
           ),
-          // MyText(
-          //   title: tr(context, "toAddNewRecord"),
-          //   color: MyColors.grey,
-          //   size: 14.sp,
-          // ),
         ],
       ),
     );

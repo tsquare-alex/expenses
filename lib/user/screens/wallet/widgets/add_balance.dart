@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/themes/app_colors.dart';
+import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
@@ -10,6 +12,7 @@ import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart
 import 'package:expenses/user/screens/wallet/wallet_imports.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddBalance extends StatefulWidget {
@@ -35,18 +38,26 @@ class _AddBalanceState extends State<AddBalance> {
     return Scaffold(
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
-        leading: IconButton(
-          icon: Image.asset(Res.back),
-          onPressed: () => AutoRouter.of(context).pop(),
-        ),
-        backgroundColor: MyColors.white,
-        title: Center(
-          child: MyText(
-            title: tr(context, 'addBalance'),
-            color: MyColors.black,
-            size: 16.sp,
-            fontWeight: FontWeight.bold,
+        leading: GestureDetector(
+          onTap: () => AutoRouter.of(context).pop(),
+          child: Icon(
+            Icons.arrow_back,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
           ),
+        ),
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : MyColors.white,
+        centerTitle: true,
+        title: MyText(
+          title: tr(context, 'addBalance'),
+          color: context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              : AppDarkColors.backgroundColor,
+          size: 16.sp,
+          fontWeight: FontWeight.bold,
         ),
       ),
       body: SingleChildScrollView(
@@ -66,14 +77,22 @@ class _AddBalanceState extends State<AddBalance> {
                       children: [
                         MyText(
                             title: tr(context, "theAmountToBeAdded"),
-                            color: MyColors.black,
+                            color: context.watch<AppThemeCubit>().isDarkMode
+                                ? MyColors.white
+                                : AppDarkColors.backgroundColor,
                             size: 16.sp,
                             fontWeight: FontWeight.w500),
                         SizedBox(
                           height: 10.h,
                         ),
                         GenericTextField(
+                          textColor: context.watch<AppThemeCubit>().isDarkMode
+                              ? MyColors.white
+                              : MyColors.white,
                           hint: tr(context, "amount"),
+                          hintColor: context.watch<AppThemeCubit>().isDarkMode
+                              ? MyColors.white
+                              : AppDarkColors.backgroundColor,
                           controller: controller,
                           fieldTypes: FieldTypes.normal,
                           type: TextInputType.number,
@@ -98,7 +117,9 @@ class _AddBalanceState extends State<AddBalance> {
                           children: [
                             MyText(
                               title: tr(context, "currentAmount"),
-                              color: MyColors.black,
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? MyColors.white
+                                  : AppDarkColors.backgroundColor,
                               size: 16.sp,
                               fontWeight: FontWeight.w500,
                             ),
@@ -118,7 +139,9 @@ class _AddBalanceState extends State<AddBalance> {
                           children: [
                             MyText(
                                 title: tr(context, "remainingAmount"),
-                                color: MyColors.black,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : AppDarkColors.backgroundColor,
                                 size: 16.sp),
                             MyText(
                                 title: "${widget.model.balance + parsedNumber}",
@@ -135,7 +158,10 @@ class _AddBalanceState extends State<AddBalance> {
                               children: [
                                 MyText(
                                   title: tr(context, "sourceDuration"),
-                                  color: MyColors.black,
+                                  color:
+                                      context.watch<AppThemeCubit>().isDarkMode
+                                          ? MyColors.white
+                                          : AppDarkColors.backgroundColor,
                                   size: 16.sp,
                                   fontWeight: FontWeight.w500,
                                 )
@@ -175,9 +201,12 @@ class _AddBalanceState extends State<AddBalance> {
                                                         "walletOpeningDate"),
                                                 style: TextStyle(
                                                   fontSize: 12.sp,
-                                                  color: selectedDate != null
-                                                      ? Colors.black
-                                                      : Colors.grey,
+                                                  color: context
+                                                          .watch<
+                                                              AppThemeCubit>()
+                                                          .isDarkMode
+                                                      ? MyColors.white
+                                                      : MyColors.white,
                                                   fontWeight: FontWeight.w400,
                                                 ),
                                               ),
@@ -218,9 +247,12 @@ class _AddBalanceState extends State<AddBalance> {
                                                         "walletClosingDate"),
                                                 style: TextStyle(
                                                   fontSize: 12.sp,
-                                                  color: closedDate != null
-                                                      ? Colors.black
-                                                      : Colors.grey,
+                                                  color: context
+                                                          .watch<
+                                                              AppThemeCubit>()
+                                                          .isDarkMode
+                                                      ? MyColors.white
+                                                      : MyColors.black,
                                                   fontWeight: FontWeight.w400,
                                                 ),
                                               ),
@@ -242,7 +274,10 @@ class _AddBalanceState extends State<AddBalance> {
                             Expanded(
                               child: MyText(
                                   title: tr(context, "repetition"),
-                                  color: MyColors.black,
+                                  color:
+                                      context.watch<AppThemeCubit>().isDarkMode
+                                          ? MyColors.white
+                                          : AppDarkColors.backgroundColor,
                                   size: 14.sp),
                             ),
                             Visibility(

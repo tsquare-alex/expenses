@@ -37,12 +37,12 @@ class WalletData {
   List<String> encomeSource = ["شخص", "جهة"];
   List<String> curancyType = ["ر.س", "ج.م"];
   List<String> repeatWallet = [
-    "يومياً",
-    "اسبوعياً",
-    "شهرياً",
-    "ربع سنوياً",
-    "نصف سنوياً",
-    "سنوياً",
+    "daily",
+    "weekly",
+    "monthly",
+    "quarterly",
+    "semiAnnually",
+    "annually",
   ];
 
   addPaymentMethodValue(

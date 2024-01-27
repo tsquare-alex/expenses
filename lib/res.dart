@@ -55,7 +55,8 @@ class Res {
   static const String commitments = "assets/images/commitments.png";
   static const String compass = "assets/images/compass.svg";
   static const String contacts = "assets/images/contacts.png";
-  static const String contanier_background = "assets/images/contanier_background.png";
+  static const String contanier_background =
+      "assets/images/contanier_background.png";
   static const String countries = "assets/images/countries.png";
   static const String country = "assets/images/country.png";
   static const String courseAssign = "assets/images/courseAssign.png";
@@ -177,7 +178,8 @@ class Res {
   static const String rent = "assets/images/rent.png";
   static const String repair = "assets/images/repair.png";
   static const String repeated = "assets/images/repeated.png";
-  static const String repeatedTransactions = "assets/images/repeatedTransactions.png";
+  static const String repeatedTransactions =
+      "assets/images/repeatedTransactions.png";
   static const String report = "assets/images/report.png";
   static const String reports = "assets/images/reports.png";
   static const String reports_menu = "assets/images/reports_menu.png";

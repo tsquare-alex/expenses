@@ -28,7 +28,7 @@ class BuildBottomNavigationBar extends StatelessWidget {
           rightCornerRadius: 0,
 
 
-          height: 75.h,
+          height: 86.h,
           onTap: (index) => controller.animateTabsPages(index, context),
         );
       },

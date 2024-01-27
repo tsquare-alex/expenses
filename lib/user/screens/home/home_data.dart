@@ -10,88 +10,34 @@ class HomeData{
 
   final GenericBloc<int> homeTabCubit = GenericBloc(0);
 
-  List<TabModel> tabs = [
+  List<TabModel> activeTabs = [
     TabModel(
-      image: Res.transaction,
+      image: Res.transactions,
       title: "transactions",
     ),
     TabModel(
-      image: Res.home,
+      image: Res.activeHome,
       title: "main",
     ),
     TabModel(
-      image: Res.chart,
+      image: Res.reports,
       title: "reports",
     ),
   ];
-  List<String> titles=[
-    "",
-    "main",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    // "transactions",
-    // "main",
-    // "reports",
-    // "settings",
-    // "tools",
-    // "database",
-    // "help",
-    // "wallets",
-    // "budget",
-    // "expense",
-    // "target",
-    // "cashTransactions",
-    // "recurringTransactions",
-    // "commitments",
-    // "shopping",
-    // "cart",
-  ];
 
-  List<String> icons=[
-    "",
-    Res.home,
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    // Res.transaction,
-    // Res.home,
-    // Res.report,
-    // Res.settings,
-    // Res.tools,
-    // Res.database,
-    // Res.explain,
-    // Res.wallet,
-    // Res.budget,
-    // Res.transaction,
-    // Res.budget,
-    // Res.cashTransactions,
-    // Res.repeatedTransactions,
-    // Res.commitment,
-    // Res.bag,
-    // Res.cart,
+  List<TabModel> tabs=[
+    TabModel(
+      image: Res.homeTransaction,
+      title: "transactions",
+    ),
+    TabModel(
+      image: Res.activeHome,
+      title: "main",
+    ),
+    TabModel(
+      image: Res.homeReports,
+      title: "reports",
+    ),
   ];
 
 

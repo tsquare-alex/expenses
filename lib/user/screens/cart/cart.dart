@@ -8,15 +8,18 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-
   CartData data = CartData();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : MyColors.white,
+        surfaceTintColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : MyColors.white,
         centerTitle: true,
         title: Row(
           mainAxisSize: MainAxisSize.min,
@@ -31,7 +34,9 @@ class _CartState extends State<Cart> {
             ),
             MyText(
               title: tr(context, "cart"),
-              color: MyColors.black,
+              color: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  : MyColors.black,
               size: 18.sp,
               fontWeight: FontWeight.bold,
             ),
@@ -41,21 +46,30 @@ class _CartState extends State<Cart> {
           onTap: () => AutoRouter.of(context).pop(),
           child: Icon(
             Icons.arrow_back,
-            color: MyColors.black,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: MyColors.primary,
-        onPressed: (){
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? MyColors.primary.withOpacity(0.4)
+            : MyColors.primary,
+        onPressed: () {
           AutoRouter.of(context).push(AddCartRoute(model: data.cartModel));
         },
         shape: const CircleBorder(),
-        child: const Icon(Icons.add),
+        child: Icon(
+          Icons.add,
+          color: MyColors.white,
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(15.r),
-        child: BuildCartView(data: data,),
+        child: BuildCartView(
+          data: data,
+        ),
       ),
     );
   }

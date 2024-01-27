@@ -618,6 +618,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                             width: 8.w,
                           ),
                           CupertinoSwitch(
+                            activeColor: MyColors.primary,
                             trackColor: MyColors.blackOpacity,
                             value: state.data,
                             onChanged: (value) {
@@ -673,6 +674,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                                   width: 5.w,
                                 ),
                                 CupertinoSwitch(
+                                  activeColor: MyColors.primary,
                                   trackColor: MyColors.blackOpacity,
                                   value: state1.data,
                                   onChanged: (value) {
@@ -738,6 +740,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                             width: 5.w,
                           ),
                           CupertinoSwitch(
+                            activeColor: MyColors.primary,
                             trackColor: MyColors.blackOpacity,
                             value: state1.data,
                             onChanged: (value) {
@@ -783,6 +786,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                             width: 5.w,
                           ),
                           CupertinoSwitch(
+                            activeColor: MyColors.primary,
                             trackColor: MyColors.blackOpacity,
                             value: state1.data,
                             onChanged: (value) {
@@ -855,6 +859,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                             width: 8.w,
                           ),
                           CupertinoSwitch(
+                            activeColor: MyColors.primary,
                             trackColor: MyColors.blackOpacity,
                             value: state.data,
                             onChanged: (value) {

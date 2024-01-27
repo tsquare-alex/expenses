@@ -27,6 +27,7 @@ class BuildChooseCartType extends StatelessWidget {
                             value: state.data[index]
                                 .active,
                             groupValue: true,
+                            activeColor: MyColors.primary,
                             onChanged: (value) {
                               data.selectMethod(value!, index);
                             },
@@ -35,7 +36,9 @@ class BuildChooseCartType extends StatelessWidget {
                             title:tr(context, state.data[index]
                                 .title),
                             size: 14.sp,
-                            color: MyColors.black,
+                            color: context.watch<AppThemeCubit>().isDarkMode
+                                ? MyColors.white
+                                : MyColors.black,
                             fontWeight: FontWeight.bold,
                           ),
                         ],
@@ -83,6 +86,9 @@ class BuildChooseCartType extends StatelessWidget {
                   },
                   title: tr(context, "save"),
                   fontWeight: FontWeight.bold,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.primary.withOpacity(0.7)
+                      : MyColors.primary,
                   fontSize: 14.sp,
                 ),
               ),
@@ -97,9 +103,15 @@ class BuildChooseCartType extends StatelessWidget {
                   title: tr(context, "cancel"),
                   fontWeight: FontWeight.bold,
                   fontSize: 14.sp,
-                  color: MyColors.white,
-                  textColor: MyColors.primary,
-                  borderColor: MyColors.primary,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.greyWhite
+                      : MyColors.white,
+                  textColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
+                  borderColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.grey
+                      : MyColors.primary,
                 ),
               ),
             ],

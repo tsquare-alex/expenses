@@ -12,6 +12,7 @@ class BuildTargetCard extends StatelessWidget {
   final TargetData data;
   @override
   Widget build(BuildContext context) {
+    var lang = context.watch<LangCubit>().state.locale.languageCode;
     var remaining = double.parse(model.total!) - model.initialValue!;
     double percentage =
         (model.initialValue! / double.parse(model.total!)) * 100;
@@ -137,10 +138,10 @@ class BuildTargetCard extends StatelessWidget {
           ),
           if (model.transactionName == "الاهداف المالية المستهدفة")
             LinearPercentIndicator(
-              isRTL: true,
+              isRTL: lang=="ar"?true:false,
               lineHeight: 24.0.h,
               percent: percentage / 100,
-              progressColor: Colors.green,
+              progressColor: MyColors.primary,
               animateFromLastPercent: true,
               animation: true,
               animationDuration: 1000,

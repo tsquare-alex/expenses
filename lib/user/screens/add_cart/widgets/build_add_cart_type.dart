@@ -1,19 +1,25 @@
 part of 'add_cart_widgets_imports.dart';
 
 class BuildAddCartType extends StatelessWidget {
-  const BuildAddCartType({Key? key, required this.data, })
-      : super(key: key);
+  const BuildAddCartType({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
   final AddCartData data;
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: EdgeInsets.all(15.0.r),
       child: SingleChildScrollView(
         child: Column(
           children: [
-            MyText(title: tr(context, "addTransaction"), color: MyColors.primary , size: 14.sp,fontWeight: FontWeight.bold,),
+            MyText(
+              title: tr(context, "addTransaction"),
+              color: MyColors.primary,
+              size: 14.sp,
+              fontWeight: FontWeight.bold,
+            ),
             SizedBox(
               height: 20.h,
             ),
@@ -21,11 +27,17 @@ class BuildAddCartType extends StatelessWidget {
               children: [
                 GenericTextField(
                   contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   controller: data.typeController,
                   fieldTypes: FieldTypes.normal,
                   type: TextInputType.text,
                   action: TextInputAction.next,
+                  hintColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
+                  textColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   validate: (value) {
                     if (value!.isEmpty) {
                       return 'Enter the transaction type name';
@@ -37,14 +49,9 @@ class BuildAddCartType extends StatelessWidget {
               ],
             ),
             DefaultButton(
-              onTap: () async{
-              data.addCartType(
-                  CartTypeModel(
-                      name: data.typeController.text,
-                      content: [
-
-                      ]
-                  ),
+              onTap: () async {
+                data.addCartType(
+                  CartTypeModel(name: data.typeController.text, content: []),
                 );
                 await AutoRouter.of(context).pop();
                 data.typeController.clear();
@@ -57,7 +64,5 @@ class BuildAddCartType extends StatelessWidget {
         ),
       ),
     );
-
-
   }
 }

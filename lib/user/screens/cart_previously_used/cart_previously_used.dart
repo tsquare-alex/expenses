@@ -21,8 +21,12 @@ class _CartPreviouslyUsedState extends State<CartPreviouslyUsed> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : MyColors.white,
+        surfaceTintColor:context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : MyColors.white,
         centerTitle: true,
         title: Row(
           mainAxisSize: MainAxisSize.min,
@@ -37,7 +41,9 @@ class _CartPreviouslyUsedState extends State<CartPreviouslyUsed> {
             ),
             MyText(
               title: tr(context, "previouslyUsed"),
-              color: MyColors.black,
+              color: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  : MyColors.black,
               size: 18.sp,
               fontWeight: FontWeight.bold,
             ),
@@ -47,7 +53,9 @@ class _CartPreviouslyUsedState extends State<CartPreviouslyUsed> {
           onTap: () => AutoRouter.of(context).pop(),
           child: Icon(
             Icons.arrow_back,
-            color: MyColors.black,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
           ),
         ),
       ),

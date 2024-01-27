@@ -525,6 +525,9 @@ class BuildTransactionInputs extends StatelessWidget {
                     dropKey: addTransactionData.transferDropKey,
                     label: tr(context, "select"),
                     selectedItem: addTransactionData.selectedDatabaseModel,
+                    enableColor: context.watch<AppThemeCubit>().isDarkMode
+                        ? MyColors.white
+                        : MyColors.black,
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     validate: (value) {
                       if (value == null) {
@@ -606,9 +609,7 @@ class BuildTransactionInputs extends StatelessWidget {
                         : MyColors.black,
                     action: TextInputAction.next,
                     validate: (value) {
-                      if (value!.isEmpty) {
-                        return 'Enter the transfer value';
-                      }
+                      return null;
                     },
                     hint: tr(context, "notes"),
                     margin: EdgeInsets.symmetric(vertical: 10.r),

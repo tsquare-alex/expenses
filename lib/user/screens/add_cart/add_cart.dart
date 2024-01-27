@@ -22,10 +22,14 @@ class _AddCartState extends State<AddCart> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : MyColors.white,
+        surfaceTintColor:context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : MyColors.white,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
               Res.bag,
@@ -37,7 +41,9 @@ class _AddCartState extends State<AddCart> {
             ),
             MyText(
               title: tr(context, "addNewCart"),
-              color: MyColors.black,
+              color: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  : MyColors.black,
               size: 18.sp,
               fontWeight: FontWeight.bold,
             ),
@@ -47,7 +53,9 @@ class _AddCartState extends State<AddCart> {
           onTap: () => AutoRouter.of(context).pop(),
           child: Icon(
             Icons.arrow_back,
-            color: MyColors.black,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
           ),
         ),
         centerTitle: true,

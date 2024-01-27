@@ -1,7 +1,9 @@
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:googleapis/analytics/v3.dart';
 import 'CustomDropDown.dart';
@@ -114,7 +116,9 @@ class _DropdownTextFieldState<DataType> extends State<DropdownTextField> {
           hintText: widget.searchHint ?? tr(context, "search"),
           enabledBorder: OutlineInputBorder(
             borderSide:
-            BorderSide(color: Colors.black, width: .7.w),
+            BorderSide(color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black, width: .7.w),
             borderRadius: widget.radius??BorderRadius.circular(10.r),
           ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),

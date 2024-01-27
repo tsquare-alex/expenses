@@ -13,16 +13,15 @@ class _MainState extends State<Main> {
   @override
   Widget build(BuildContext context) {
     Map<Widget, int> widgets = {
-      Container(): 6,
+      ToolsHelper(): 4,
       Transactions(
         homeTabCubit: widget.homeTabCubit,
       ): 0,
       const Reports(): 2,
-      const Settings(): 3,
       Database(): 5,
-      const Budget(): 8,
       const Wallet(): 7,
-      Container(): 4,
+      const Budget(): 8,
+
     };
     return Scaffold(
       key: data.scaffold,
@@ -70,16 +69,18 @@ class _MainState extends State<Main> {
       //   ],
       // ),
       appBar: AppBar(
-        //backgroundColor: MyColors.primary,
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? Colors.transparent
+            : MyColors.white,
         // leadingWidth: 35.w,
         title: BlocBuilder<GenericBloc<int>, GenericState<int>>(
           bloc: data.homeTabCubit,
           builder: (context, state) {
             return Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Image.asset(
-                  Res.home,
-                  color: MyColors.white,
+                  Res.activeHome,
                   width: 30.w,
                   height: 30.h,
                 ),
@@ -88,7 +89,9 @@ class _MainState extends State<Main> {
                 ),
                 MyText(
                   title: tr(context,"main"),
-                  color: MyColors.white,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? Colors.white
+                      : MyColors.black,
                   size: 18.sp,
                   alien: TextAlign.center,
                   fontWeight: FontWeight.bold,
@@ -104,7 +107,9 @@ class _MainState extends State<Main> {
           },
           child: Icon(
             Icons.menu,
-            color: MyColors.white,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? Colors.white
+                : MyColors.black,
             size: 30.w,
           ),
         ),
@@ -118,14 +123,18 @@ class _MainState extends State<Main> {
                 padding: EdgeInsets.zero,
                 icon: Icon(
                   Icons.dark_mode_outlined,
-                  color: MyColors.white,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? Colors.white
+                      : MyColors.black,
                   size: 20.w,
                 ),
               );
             },
           ),
           PopupMenuButton<FavoriteModel>(
-            color: Colors.black,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? Colors.white
+                : MyColors.black,
             onSelected: _onFavoriteItemSelected,
             itemBuilder: (BuildContext context) {
               if (getFavoriteModels(context).isEmpty) {
@@ -143,10 +152,12 @@ class _MainState extends State<Main> {
                           height: 24.0,
                           color: MyColors.primary,
                         ),
-                        SizedBox(width: 8.0),
+                        const SizedBox(width: 8.0),
                         MyText(
                           title: tr(context, model.toolName),
-                          color: Colors.white,
+                          color: context.watch<AppThemeCubit>().isDarkMode
+                              ? Colors.white
+                              : Colors.black,
                           size: 15.sp,
                         ),
                       ],
@@ -169,7 +180,9 @@ class _MainState extends State<Main> {
             },
             icon: Image.asset(
               Res.menu,
-              color: MyColors.white,
+              color: context.watch<AppThemeCubit>().isDarkMode
+                  ? Colors.white
+                  : MyColors.black,
               width: 20.w,
               height: 20.h,
             ),

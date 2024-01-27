@@ -40,29 +40,26 @@ class _BuildCashTransactionsViewState extends State<BuildCashTransactionsView> {
                   surfaceTintColor:  context.watch<AppThemeCubit>().isDarkMode
                       ? AppDarkColors.backgroundColor
                       : MyColors.white,
-                  title: Padding(
-                    padding: EdgeInsets.only(left: 40.0.r),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          Res.cash,
-                          width: 30.w,
-                          height: 30.h,
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        MyText(
-                          title: tr(context, "cashTransactions"),
-                          color:  context.watch<AppThemeCubit>().isDarkMode
-                              ? MyColors.white
-                              : MyColors.black,
-                          size: 18.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ],
-                    ),
+                  title: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image.asset(
+                        Res.cash,
+                        width: 30.w,
+                        height: 30.h,
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      MyText(
+                        title: tr(context, "cashTransactions"),
+                        color:  context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.white
+                            : MyColors.black,
+                        size: 18.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ],
                   ),
                   leading: InkWell(
                     onTap: () => AutoRouter.of(context).pop(),

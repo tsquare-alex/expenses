@@ -34,35 +34,40 @@ class _BuildShoppingScreenViewState extends State<BuildShoppingScreenView> {
         return Scaffold(
           appBar: widget.hasData == true
               ? AppBar(
-                  backgroundColor: Colors.white,
-                  surfaceTintColor: Colors.white,
-                  title: Padding(
-                    padding: EdgeInsets.only(left: 40.0.r),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          Res.shopping,
-                          width: 30.w,
-                          height: 30.h,
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        MyText(
-                          title: tr(context, "shopping"),
-                          color: MyColors.black,
-                          size: 18.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ],
-                    ),
+                  backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.backgroundColor
+                      : MyColors.white,
+                  surfaceTintColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.backgroundColor
+                      : MyColors.white,
+                  title: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image.asset(
+                        Res.shopping,
+                        width: 30.w,
+                        height: 30.h,
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      MyText(
+                        title: tr(context, "shopping"),
+                        color: context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.white
+                            : MyColors.black,
+                        size: 18.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ],
                   ),
                   leading: InkWell(
                     onTap: () => AutoRouter.of(context).pop(),
                     child: Icon(
                       Icons.arrow_back,
-                      color: MyColors.black,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : MyColors.black,
                     ),
                   ),
                   centerTitle: true,

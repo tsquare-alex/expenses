@@ -42,7 +42,7 @@ class _BudgetState extends State<Budget> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(Res.budgetIcon, height: 28.h, width: 32.w),
+                    Image.asset(Res.budget_icon, height: 28.h, width: 32.w),
                     MyText(
                       title: tr(context, "budget"),
                       color: MyColors.black,

@@ -64,7 +64,7 @@ dependencies:
   google_sign_in:
   googleapis:
   googleapis_auth:
-  path_provider:
+  path_provider: ^2.1.2
   extension_google_sign_in_as_googleapis_auth:
   hive:
   hive_flutter:
@@ -106,6 +106,7 @@ dependencies:
   syncfusion_flutter_xlsio: ^23.2.7
   pdf: ^3.10.7
   open_file: ^3.3.2
+  permission_handler: ^11.2.0
 
 
 dev_dependencies:

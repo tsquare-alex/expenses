@@ -75,10 +75,22 @@ class BuildDrawer extends StatelessWidget {
                     hasProStack: true,
                     switchWidget: SizedBox(
                       height: 30.h,
-                      child: Switch(
-                        activeColor: MyColors.primary,
-                        value: true,
-                        onChanged: (v){},
+                      child: BlocBuilder<AppThemeCubit, AppThemeState>(
+                        builder: (context, state) {
+                          return CupertinoSwitch(
+                            trackColor:
+                                context.watch<AppThemeCubit>().isDarkMode
+                                    ? AppDarkColors.accentColor1
+                                    : const Color(0xFFD9D9D9),
+                            activeColor: MyColors.primary,
+                            value: AppThemeCubit.get(context).isDarkMode,
+                            onChanged: (value) {
+                              AutoRouter.of(context)
+                                  .push(const SubscriptionsRoute());
+                              // AppThemeCubit.get(context).toggleTheme(value);
+                            },
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -94,16 +106,21 @@ class BuildDrawer extends StatelessWidget {
                     hasProStack: true,
                     switchWidget: SizedBox(
                       height: 30.h,
-                      child: Switch(
-                        activeColor: MyColors.primary,
-                        value: true,
-                        onChanged: (v){},
+                      child: CupertinoSwitch(
+                        trackColor: context.watch<AppThemeCubit>().isDarkMode
+                            ? AppDarkColors.accentColor1
+                            : const Color(0xFFD9D9D9),
+                        value: false,
+                        onChanged: (value) {
+                          AutoRouter.of(context)
+                              .push(const SubscriptionsRoute());
+                        },
                       ),
                     ),
                   ),
                   CustomDrawerCard(
                     title: tr(context, "language"),
-                    onTap: () async{
+                    onTap: () async {
                       await showDialog(
                         context: context,
                         builder: (context) {
@@ -120,7 +137,7 @@ class BuildDrawer extends StatelessWidget {
                   ),
                   CustomDrawerCard(
                     title: tr(context, "sync"),
-                    onTap: (){
+                    onTap: () {
                       Navigator.of(context).pop();
                       AutoRouter.of(context).push(const SubscriptionsRoute());
                     },
@@ -131,7 +148,7 @@ class BuildDrawer extends StatelessWidget {
                   ),
                   CustomDrawerCard(
                     title: tr(context, "backupData"),
-                    onTap: (){
+                    onTap: () {
                       Navigator.of(context).pop();
                       AutoRouter.of(context).push(const SubscriptionsRoute());
                     },
@@ -142,7 +159,7 @@ class BuildDrawer extends StatelessWidget {
                   ),
                   CustomDrawerCard(
                     title: tr(context, "downloadData"),
-                    onTap: (){
+                    onTap: () {
                       Navigator.of(context).pop();
                       AutoRouter.of(context).push(const SubscriptionsRoute());
                     },
@@ -153,7 +170,7 @@ class BuildDrawer extends StatelessWidget {
                   ),
                   CustomDrawerCard(
                     title: tr(context, "deleteData"),
-                    onTap: (){
+                    onTap: () {
                       Navigator.of(context).pop();
                       AutoRouter.of(context).push(const SubscriptionsRoute());
                     },

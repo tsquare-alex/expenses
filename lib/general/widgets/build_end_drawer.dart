@@ -39,38 +39,48 @@ class BuildEndDrawer extends StatelessWidget {
                     children: [
                       CustomDrawerCard(
                         title: tr(context, "fullVersion"),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          AutoRouter.of(context).push(const SubscriptionsRoute());
+                        },
                         endDrawer: false,
                         image: Res.pro,
+                        hasArrowBack: true,
                       ),
                       CustomDrawerCard(
                         title: tr(context, "wallets"),
                         onTap: (){
+                          Navigator.of(context).pop();
                           AutoRouter.of(context).push(HomeRoute(index: 0,pageIndex: 7,),);
-                  
                         },
                         image: Res.walletImage,
                         endDrawer: true,
+                        hasArrowBack: true,
                       ),
                       CustomDrawerCard(
                         title: tr(context, "transactions"),
                         onTap: (){
+                          Navigator.of(context).pop();
                           AutoRouter.of(context).push(HomeRoute(index: 0,pageIndex: 0,),);
                         },
                         image: Res.transactions,
                         endDrawer: true,
+                        hasArrowBack: true,
                       ),
                       CustomDrawerCard(
                         title: tr(context, "budget"),
                         onTap: (){
+                          Navigator.of(context).pop();
                           AutoRouter.of(context).push(HomeRoute(index: 0,pageIndex: 8,),);
                         },
                         image: Res.budgetImage,
                         endDrawer: true,
+                        hasArrowBack: true,
                       ),
                       CustomDrawerCard(
                         title: tr(context, "database"),
                         onTap: () {
+                          Navigator.of(context).pop();
                           AutoRouter.of(context).push(
                             HomeRoute(
                               index: 0,
@@ -80,11 +90,12 @@ class BuildEndDrawer extends StatelessWidget {
                         },
                         image: Res.databaseImage,
                         endDrawer: false,
+                        hasArrowBack: true,
                       ),
                       CustomDrawerCard(
                         title: tr(context, "tools"),
                         onTap: () {
-                          //Navigator.of(context).pop();
+                          Navigator.of(context).pop();
                           AutoRouter.of(context).push(
                             HomeRoute(
                               index: 0,
@@ -95,22 +106,27 @@ class BuildEndDrawer extends StatelessWidget {
                         },
                         image: Res.toolsImage,
                         endDrawer: false,
+                        hasArrowBack: true,
                       ),
                       CustomDrawerCard(
                         title: tr(context, "reports"),
                         onTap: (){
+                          Navigator.of(context).pop();
                           AutoRouter.of(context).push(HomeRoute(index: 0,pageIndex: 2,),);
                         },
                         image: Res.reports,
                         endDrawer: true,
+                        hasArrowBack: true,
                       ),
                       CustomDrawerCard(
                         title: tr(context, "addCart"),
                         onTap: (){
+                          Navigator.of(context).pop();
                           AutoRouter.of(context).push(HomeRoute(index: 0,pageIndex: 15,),);
                         },
                         image: Res.bag,
                         endDrawer: true,
+                        hasArrowBack: true,
                       ),
                     ],
                   ),

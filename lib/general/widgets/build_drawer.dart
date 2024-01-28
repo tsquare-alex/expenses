@@ -28,7 +28,7 @@ class BuildDrawer extends StatelessWidget {
                 child: Image(
                   height: MediaQuery.of(context).size.height * 0.18,
                   width: MediaQuery.of(context).size.width * 0.55,
-                  image: AssetImage(
+                  image: const AssetImage(
                     Res.logo,
                   ),
                   fit: BoxFit.contain,
@@ -41,13 +41,17 @@ class BuildDrawer extends StatelessWidget {
                 children: [
                   CustomDrawerCard(
                     title: tr(context, "fullVersion"),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                    },
                     endDrawer: false,
-                    image: Res.pro,
+                    isPro: true,
                   ),
                   CustomDrawerCard(
                     title: tr(context, "settings"),
                     onTap: () {
+                      Navigator.of(context).pop();
                       AutoRouter.of(context).push(
                         HomeRoute(
                           index: 0,
@@ -57,104 +61,173 @@ class BuildDrawer extends StatelessWidget {
                     },
                     image: Res.settings,
                     endDrawer: false,
+                    hasArrowBack: true,
                   ),
                   CustomDrawerCard(
-                    title: tr(context, "help"),
+                    title: tr(context, "darkMode"),
                     onTap: () {
-                      AutoRouter.of(context).push(
-                        HomeRoute(
-                          index: 0,
-                          pageIndex: 6,
-                        ),
+                      Navigator.of(context).pop();
+                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                    },
+                    image: Res.dark_mode,
+                    endDrawer: false,
+                    hasSwitch: true,
+                    hasProStack: true,
+                    switchWidget: SizedBox(
+                      height: 30.h,
+                      child: Switch(
+                        activeColor: MyColors.primary,
+                        value: true,
+                        onChanged: (v){},
+                      ),
+                    ),
+                  ),
+                  CustomDrawerCard(
+                    title: tr(context, "reminders"),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                    },
+                    image: Res.notifications,
+                    endDrawer: false,
+                    hasSwitch: true,
+                    hasProStack: true,
+                    switchWidget: SizedBox(
+                      height: 30.h,
+                      child: Switch(
+                        activeColor: MyColors.primary,
+                        value: true,
+                        onChanged: (v){},
+                      ),
+                    ),
+                  ),
+                  CustomDrawerCard(
+                    title: tr(context, "language"),
+                    onTap: () async{
+                      await showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: const BuildLanguageBottomSheet(),
+                            surfaceTintColor: MyColors.white,
+                          );
+                        },
                       );
                     },
-                    image: Res.explain,
+                    image: Res.language,
                     endDrawer: false,
+                    hasArrowBack: true,
                   ),
                   CustomDrawerCard(
-                    title: tr(context, "help"),
+                    title: tr(context, "sync"),
+                    onTap: (){
+                      Navigator.of(context).pop();
+                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                    },
+                    image: Res.sync,
+                    endDrawer: false,
+                    hasProStack: true,
+                    hasArrowBack: true,
+                  ),
+                  CustomDrawerCard(
+                    title: tr(context, "backupData"),
+                    onTap: (){
+                      Navigator.of(context).pop();
+                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                    },
+                    image: Res.upload,
+                    endDrawer: false,
+                    hasProStack: true,
+                    hasArrowBack: true,
+                  ),
+                  CustomDrawerCard(
+                    title: tr(context, "downloadData"),
+                    onTap: (){
+                      Navigator.of(context).pop();
+                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                    },
+                    image: Res.download,
+                    endDrawer: false,
+                    hasProStack: true,
+                    hasArrowBack: true,
+                  ),
+                  CustomDrawerCard(
+                    title: tr(context, "deleteData"),
+                    onTap: (){
+                      Navigator.of(context).pop();
+                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                    },
+                    image: Res.delete,
+                    endDrawer: false,
+                    hasProStack: true,
+                    hasArrowBack: true,
+                  ),
+                  CustomDrawerCard(
+                    title: tr(context, "rate"),
                     onTap: () {
-                      AutoRouter.of(context).push(
-                        HomeRoute(
-                          index: 0,
-                          pageIndex: 6,
-                        ),
+                      CustomToast.showSimpleToast(
+                        msg: "تحت التطوير",
+                        color: Colors.red,
                       );
                     },
-                    image: Res.explain,
+                    image: Res.blueStar,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.backgroundColor
+                        : MyColors.white,
+                    textColor: context.watch<AppThemeCubit>().isDarkMode
+                        ? MyColors.white
+                        : MyColors.black,
+                    imageColor: MyColors.amber,
                     endDrawer: false,
+                    hasArrowBack: true,
                   ),
                   CustomDrawerCard(
-                    title: tr(context, "share"),
+                    title: tr(context, "shareApp"),
                     onTap: () {
                       shareCubit.onUpdateData(!shareCubit.state.data);
                       print(shareCubit.state.data);
                     },
-                    image: Res.share,
+                    image: Res.shareIcon,
                     endDrawer: false,
+                    hasArrowBack: true,
                   ),
-                  BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
-                    bloc: shareCubit,
-                    builder: (context, state) => state.data == true
-                        ? Column(
-                            children: [
-                              CustomDrawerCard(
-                                title: tr(context, "about"),
-                                onTap: () {
-                                  CustomToast.showSimpleToast(
-                                    msg: "تحت التطوير",
-                                    color: Colors.red,
-                                  );
-                                },
-                                image: Res.about,
-                                color: context.watch<AppThemeCubit>().isDarkMode
-                                    ? AppDarkColors.backgroundColor
-                                    : MyColors.white,
-                                textColor: context.watch<AppThemeCubit>().isDarkMode
-                                    ? MyColors.white
-                                    : MyColors.black,
-                                imageColor: MyColors.primary,
-                                endDrawer: false,
-                              ),
-                              CustomDrawerCard(
-                                title: tr(context, "terms"),
-                                onTap: () {
-                                  CustomToast.showSimpleToast(
-                                    msg: "تحت التطوير",
-                                    color: Colors.red,
-                                  );
-                                },
-                                image: Res.terms,
-                                color: context.watch<AppThemeCubit>().isDarkMode
-                                    ? AppDarkColors.backgroundColor
-                                    : MyColors.white,
-                                textColor: context.watch<AppThemeCubit>().isDarkMode
-                                    ? MyColors.white
-                                    : MyColors.black,
-                                imageColor: MyColors.primary,
-                                endDrawer: false,
-                              ),
-                              CustomDrawerCard(
-                                title: tr(context, "rate"),
-                                onTap: () {
-                                  CustomToast.showSimpleToast(
-                                    msg: "تحت التطوير",
-                                    color: Colors.red,
-                                  );
-                                },
-                                image: Res.star,
-                                color: context.watch<AppThemeCubit>().isDarkMode
-                                    ? AppDarkColors.backgroundColor
-                                    : MyColors.white,
-                                textColor: context.watch<AppThemeCubit>().isDarkMode
-                                    ? MyColors.white
-                                    : MyColors.black,
-                                imageColor: MyColors.amber,
-                                endDrawer: false,
-                              ),
-                            ],
-                          )
-                        : Container(),
+                  // CustomDrawerCard(
+                  //   title: tr(context, "help"),
+                  //   onTap: () {
+                  //     CustomToast.showSimpleToast(
+                  //       msg: "تحت التطوير",
+                  //       color: Colors.red,
+                  //     );
+                  //   },
+                  //   image: Res.toolsImage,
+                  //   color: context.watch<AppThemeCubit>().isDarkMode
+                  //       ? AppDarkColors.backgroundColor
+                  //       : MyColors.white,
+                  //   textColor: context.watch<AppThemeCubit>().isDarkMode
+                  //       ? MyColors.white
+                  //       : MyColors.black,
+                  //   imageColor: MyColors.primary,
+                  //   endDrawer: false,
+                  //   hasArrowBack: true,
+                  // ),
+                  CustomDrawerCard(
+                    title: tr(context, "messageUs"),
+                    onTap: () {
+                      CustomToast.showSimpleToast(
+                        msg: "تحت التطوير",
+                        color: Colors.red,
+                      );
+                    },
+                    image: Res.chat,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.backgroundColor
+                        : MyColors.white,
+                    textColor: context.watch<AppThemeCubit>().isDarkMode
+                        ? MyColors.white
+                        : MyColors.black,
+                    imageColor: MyColors.primary,
+                    endDrawer: false,
+                    hasArrowBack: true,
                   ),
                 ],
               ),

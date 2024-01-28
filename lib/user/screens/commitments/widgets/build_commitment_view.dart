@@ -86,7 +86,7 @@ class _BuildCommitmentViewState extends State<BuildCommitmentView> {
                 widget.data.addTransactionList.clear();
                 widget.data.fetchData();
               }else{
-                CustomToast.showSimpleToast(msg: "msg");
+                AutoRouter.of(context).push(const SubscriptionsRoute());
               }
 
 

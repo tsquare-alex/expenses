@@ -5,6 +5,7 @@ class BuildLanguageBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lang = context.watch<LangCubit>().state.locale.languageCode;
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.all(15.0.r),
@@ -28,15 +29,23 @@ class BuildLanguageBottomSheet extends StatelessWidget {
                 DefaultButton(
                   title: tr(context, 'langAr'),
                   onTap: () {
-                    Utils.changeLanguage("ar",context);
-                    Phoenix.rebirth(context);
+                    if(lang == "ar"){
+                      Navigator.of(context).pop();
+                    }else{
+                      Utils.changeLanguage("ar",context);
+                      Phoenix.rebirth(context);
+                    }
                   },
                 ),
                 DefaultButton(
                   title: tr(context, "langEn"),
                   onTap: () {
-                    Utils.changeLanguage("en",context);
-                    Phoenix.rebirth(context);
+                    if(lang == "en"){
+                      Navigator.of(context).pop();
+                    }else{
+                      Utils.changeLanguage("en",context);
+                      Phoenix.rebirth(context);
+                    }
                   },
                 ),
               ],

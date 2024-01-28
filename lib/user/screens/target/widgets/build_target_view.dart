@@ -102,7 +102,7 @@ class _BuildTargetViewState extends State<BuildTargetView> {
                       boxName: "targetBox"));
                   widget.data.fetchData();
                 }else{
-                  CustomToast.showSimpleToast(msg: "msg");
+                  AutoRouter.of(context).push(const SubscriptionsRoute());
                 }
               },
               image: state.data[i].image ?? Res.shopping,

@@ -1,9 +1,15 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../general/themes/app_colors.dart';
+import '../../../../../general/themes/cubit/app_theme_cubit.dart';
 
 class StopwatchScreen extends StatefulWidget {
   @override
@@ -63,8 +69,22 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () => AutoRouter.of(context).pop(),
+          child: Icon(
+            Icons.arrow_back,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+          ),
+        ),
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            :MyColors.white,
         centerTitle: true,
-        title: MyText(title: tr(context, "stopWatch"), color: MyColors.white, size: 20,fontWeight: FontWeight.bold,),
+        title: MyText(title: tr(context, "stopWatch"), color:context.watch<AppThemeCubit>().isDarkMode
+            ? MyColors.white
+            :MyColors.black, size: 20,fontWeight: FontWeight.bold,),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -79,21 +99,31 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: MyColors.primary,
+                Expanded(
+                  child: DefaultButton(
+                    color:  context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.primary
+                        : MyColors.primary,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    title: _stopwatch.isRunning ? tr(context, "stop") : tr(context, "start"),
+                    onTap: _startStopwatch,
                   ),
-                  onPressed: _startStopwatch,
-                  child: MyText(title: _stopwatch.isRunning ? tr(context, "stop") : tr(context, "start"),color: MyColors.white, size: 16 ,),
                 ),
-                SizedBox(width: 20.0),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: MyColors.primary,
+                // SizedBox(width: 20.0),
+                Expanded(
+                  child: DefaultButton(
+                    width: 100,
+                    color:  context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.primary
+                        : MyColors.primary,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    title: '${tr(context, "reset")}',
+                    onTap: _resetStopwatch,
                   ),
-                  onPressed: _resetStopwatch,
-                  child: MyText(title: tr(context, "reset"),color: MyColors.white, size: 16 ,),
                 ),
+
               ],
             ),
           ],

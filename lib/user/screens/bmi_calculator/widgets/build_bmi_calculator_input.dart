@@ -13,7 +13,9 @@ class BuildBMICalculatorInput extends StatelessWidget {
         children: [
           MyText(
             title: tr(context, "enterWeight"),
-            color: MyColors.black,
+            color:context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                :MyColors.black,
             size: 16.sp,
             fontWeight: FontWeight.bold,
           ),
@@ -21,6 +23,12 @@ class BuildBMICalculatorInput extends StatelessWidget {
             height: 10.h,
           ),
           GenericTextField(
+            hintColor: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+            textColor: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             controller: data.weightController,
@@ -40,7 +48,9 @@ class BuildBMICalculatorInput extends StatelessWidget {
           ),
           MyText(
             title:  tr(context, "enterHeight"),
-            color: MyColors.black,
+            color:context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                :MyColors.black,
             size: 16.sp,
             fontWeight: FontWeight.bold,
           ),
@@ -48,6 +58,12 @@ class BuildBMICalculatorInput extends StatelessWidget {
             height: 10.h,
           ),
           GenericTextField(
+            hintColor: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+            textColor: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             controller: data.heightController,

@@ -135,9 +135,16 @@ class _MainState extends State<Main> {
           //   },
           // ),
           PopupMenuButton<FavoriteModel>(
+            // surfaceTintColor: Colors.blue,
+            icon: Icon(
+              Icons.more_vert,
+              color: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  : MyColors.black100,
+            ),
             color: context.watch<AppThemeCubit>().isDarkMode
-                ? Colors.white
-                : MyColors.black,
+                ? AppDarkColors.backgroundColor
+                :MyColors.white,
             onSelected: _onFavoriteItemSelected,
             itemBuilder: (BuildContext context) {
               if (getFavoriteModels(context).isEmpty) {
@@ -158,10 +165,12 @@ class _MainState extends State<Main> {
                         const SizedBox(width: 8.0),
                         MyText(
                           title: tr(context, model.toolName),
-                          color: context.watch<AppThemeCubit>().isDarkMode
+                          // color: Colors.white,
+                          color: context.read<AppThemeCubit>().isDarkMode
                               ? Colors.white
                               : Colors.black,
                           size: 15.sp,
+                          fontWeight: FontWeight.bold,
                         ),
                       ],
                     ),
@@ -259,7 +268,8 @@ class _MainState extends State<Main> {
   }
 
   void _navigateToToolScreen(BuildContext context, FavoriteModel tool) {
-    switch (tool.toolName) {
+    switch (tool.toolName)
+    {
       case "percentage":
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => PercentageCalculatorScreen()));
@@ -278,7 +288,8 @@ class _MainState extends State<Main> {
         break;
       case "scanner":
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => ScannerQrCode()));
+            .push(
+            MaterialPageRoute(builder: (context) => const ScannerQrCode()));
         break;
       case "calender":
         Navigator.of(context)
@@ -320,6 +331,7 @@ class _MainState extends State<Main> {
         Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => MassConverterScreen()));
         break;
+        //
       case "convertTemperature":
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => TemperatureConverterScreen()));
@@ -339,6 +351,30 @@ class _MainState extends State<Main> {
       case "convertVolume":
         Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => VolumeConverterScreen()));
+        break;
+      case "reminder":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => ReminderScreen()));
+        break;
+      case "ruler":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => RulerScreen()));
+        break;
+      case "note":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => NoteView()));
+        break;
+      case "calculateUnitPrice":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => UnitPriceScreen()));
+        break;
+      case "temporary":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => TemporaryScreen()));
+        break;
+      case "stopWatch":
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => StopwatchScreen()));
         break;
     }
   }

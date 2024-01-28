@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/themes/app_colors.dart';
+import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/MyText.dart';
@@ -79,7 +81,10 @@ class _CustomContainerState extends State<CustomContainer> {
                           return Container(
                             height: 300.h,
                             padding: EdgeInsets.all(16.w),
-                            decoration: BoxDecoration(color: MyColors.white),
+                            decoration: BoxDecoration(
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? AppDarkColors.backgroundColor
+                                    : MyColors.white),
                             child: Column(
                               children: [
                                 InkWell(
@@ -98,8 +103,12 @@ class _CustomContainerState extends State<CustomContainer> {
                                     width: double.infinity,
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 16.w),
-                                    decoration: const BoxDecoration(
-                                      color: Color(0xffF7F7F6),
+                                    decoration: BoxDecoration(
+                                      color: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? AppDarkColors.backgroundColor
+                                          : Color(0xffF7F7F6),
                                     ),
                                     child: Row(
                                       children: [
@@ -111,7 +120,11 @@ class _CustomContainerState extends State<CustomContainer> {
                                         SizedBox(width: 12.w),
                                         MyText(
                                           title: tr(context, "withdrawBalance"),
-                                          color: MyColors.black,
+                                          color: context
+                                                  .watch<AppThemeCubit>()
+                                                  .isDarkMode
+                                              ? MyColors.white
+                                              : MyColors.black,
                                           size: 16.sp,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -137,8 +150,12 @@ class _CustomContainerState extends State<CustomContainer> {
                                     width: double.infinity,
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 16.w),
-                                    decoration: const BoxDecoration(
-                                      color: Color(0xffF7F7F6),
+                                    decoration: BoxDecoration(
+                                      color: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? AppDarkColors.backgroundColor
+                                          : Color(0xffF7F7F6),
                                     ),
                                     child: Row(
                                       children: [
@@ -150,7 +167,11 @@ class _CustomContainerState extends State<CustomContainer> {
                                         SizedBox(width: 12.w),
                                         MyText(
                                           title: tr(context, "addBalance"),
-                                          color: MyColors.black,
+                                          color: context
+                                                  .watch<AppThemeCubit>()
+                                                  .isDarkMode
+                                              ? MyColors.white
+                                              : MyColors.black,
                                           size: 16.sp,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -163,18 +184,19 @@ class _CustomContainerState extends State<CustomContainer> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    // CustomToast.showSimpleToast(msg: "msg");
-                                    AutoRouter.of(context).push(
-                                      WalletBalanceTransferRoute(
-                                          model: widget.model),
-                                    );
+                                    AutoRouter.of(context)
+                                        .push(const SubscriptionsRoute());
                                   },
                                   child: Container(
                                     height: 60.h,
                                     width: double.infinity,
                                     padding: EdgeInsets.all(16.w),
-                                    decoration: const BoxDecoration(
-                                      color: Color(0xffF7F7F6),
+                                    decoration: BoxDecoration(
+                                      color: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? AppDarkColors.backgroundColor
+                                          : Color(0xffF7F7F6),
                                     ),
                                     child: Row(
                                       children: [
@@ -187,7 +209,11 @@ class _CustomContainerState extends State<CustomContainer> {
                                         MyText(
                                             title: tr(context,
                                                 "transferBalanceBetweenWallets"),
-                                            color: MyColors.black,
+                                            color: context
+                                                    .watch<AppThemeCubit>()
+                                                    .isDarkMode
+                                                ? MyColors.white
+                                                : MyColors.white,
                                             size: 16.sp,
                                             fontWeight: FontWeight.w500),
                                         const Spacer(),
@@ -203,8 +229,9 @@ class _CustomContainerState extends State<CustomContainer> {
                                 Column(
                                   children: [
                                     InkWell(
-                                      onTap: () => CustomToast.showSimpleToast(
-                                          msg: "msg"),
+                                      onTap: () => AutoRouter.of(context)
+                                          .push(const SubscriptionsRoute()),
+
                                       //  AutoRouter.of(context).push(
                                       //     WalletTransactionsRoute(
                                       //         model: widget.model)),
@@ -212,8 +239,12 @@ class _CustomContainerState extends State<CustomContainer> {
                                         height: 60.h,
                                         width: double.infinity,
                                         padding: EdgeInsets.all(16.w),
-                                        decoration: const BoxDecoration(
-                                          color: Color(0xffF7F7F6),
+                                        decoration: BoxDecoration(
+                                          color: context
+                                                  .watch<AppThemeCubit>()
+                                                  .isDarkMode
+                                              ? AppDarkColors.backgroundColor
+                                              : Color(0xffF7F7F6),
                                         ),
                                         child: Row(
                                           children: [
@@ -226,7 +257,11 @@ class _CustomContainerState extends State<CustomContainer> {
                                             MyText(
                                                 title: tr(
                                                     context, "viewTransaction"),
-                                                color: MyColors.black,
+                                                color: context
+                                                        .watch<AppThemeCubit>()
+                                                        .isDarkMode
+                                                    ? MyColors.white
+                                                    : MyColors.white,
                                                 size: 16.sp,
                                                 fontWeight: FontWeight.w500),
                                             const Spacer(),
@@ -351,7 +386,12 @@ class _CustomContainerState extends State<CustomContainer> {
                         elevation: 0,
                         context: context,
                         builder: (buildContext) {
-                          return SizedBox(
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? AppDarkColors.backgroundColor
+                                  : Color(0xffF7F7F6),
+                            ),
                             height: 200.h,
                             child: Column(
                               children: [
@@ -364,8 +404,12 @@ class _CustomContainerState extends State<CustomContainer> {
                                   },
                                   child: Container(
                                     padding: EdgeInsets.all(8.w),
-                                    decoration: const BoxDecoration(
-                                      color: Color(0xffF7F7F6),
+                                    decoration: BoxDecoration(
+                                      color: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? AppDarkColors.backgroundColor
+                                          : Color(0xffF7F7F6),
                                     ),
                                     child: Row(
                                       children: [
@@ -379,7 +423,11 @@ class _CustomContainerState extends State<CustomContainer> {
                                         ),
                                         MyText(
                                           title: tr(context, "deletWallet"),
-                                          color: MyColors.black,
+                                          color: context
+                                                  .watch<AppThemeCubit>()
+                                                  .isDarkMode
+                                              ? MyColors.white
+                                              : MyColors.white,
                                           size: 16.sp,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -401,8 +449,12 @@ class _CustomContainerState extends State<CustomContainer> {
                                   },
                                   child: Container(
                                     padding: EdgeInsets.all(8.w),
-                                    decoration: const BoxDecoration(
-                                      color: Color(0xffF7F7F6),
+                                    decoration: BoxDecoration(
+                                      color: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? AppDarkColors.backgroundColor
+                                          : Color(0xffF7F7F6),
                                     ),
                                     child: Row(
                                       children: [
@@ -416,7 +468,11 @@ class _CustomContainerState extends State<CustomContainer> {
                                         ),
                                         MyText(
                                           title: tr(context, "editWallet"),
-                                          color: MyColors.black,
+                                          color: context
+                                                  .watch<AppThemeCubit>()
+                                                  .isDarkMode
+                                              ? MyColors.white
+                                              : MyColors.white,
                                           size: 16.sp,
                                           fontWeight: FontWeight.w600,
                                         )
@@ -436,13 +492,13 @@ class _CustomContainerState extends State<CustomContainer> {
                   ),
                   color: MyColors.white,
                 ),
-                widget.model.checkedValue == true
-                    ? IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.star),
-                        color: MyColors.white,
-                      )
-                    : const SizedBox(),
+                // widget.model.checkedValue == true
+                //     ? IconButton(
+                //         onPressed: () {},
+                //         icon: const Icon(Icons.star),
+                //         color: MyColors.white,
+                //       )
+                //     : const SizedBox(),
               ],
             )
           ],

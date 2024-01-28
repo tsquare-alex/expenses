@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/user/screens/tools_helper/widgets/services_tax/services_tax_cubit.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../general/constants/MyColors.dart';
+import '../../../../../general/themes/app_colors.dart';
+import '../../../../../general/themes/cubit/app_theme_cubit.dart';
 import '../../../../../general/widgets/DefaultButton.dart';
 import '../../../../../general/widgets/MyText.dart';
 
@@ -23,9 +26,21 @@ class _ServiceTaxCalculatorScreenState extends State<ServiceTaxCalculatorScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: MyColors.primary,
-        centerTitle: true,
-        title: MyText(title: tr(context, "tax"), color: Colors.white, size: 18.sp,fontWeight: FontWeight.bold,),
+        leading: GestureDetector(
+          onTap: () => AutoRouter.of(context).pop(),
+          child: Icon(
+            Icons.arrow_back,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+          ),
+        ),
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            :MyColors.white,        centerTitle: true,
+        title: MyText(title: tr(context, "tax"),  color:context.watch<AppThemeCubit>().isDarkMode
+            ? MyColors.white
+            :MyColors.black, size: 18.sp,fontWeight: FontWeight.bold,),
       ),
       body: SingleChildScrollView(
         child: BlocBuilder<ServiceTaxCubit, double>(
@@ -63,6 +78,9 @@ class _ServiceTaxCalculatorScreenState extends State<ServiceTaxCalculatorScreen>
                   ),
                   const SizedBox(height: 50,),
                   DefaultButton(
+                    color:  context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.primary
+                        : MyColors.primary,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     title:'${tr(context, "calculate")}',
@@ -77,8 +95,12 @@ class _ServiceTaxCalculatorScreenState extends State<ServiceTaxCalculatorScreen>
                     Column(
                       children: [
                         SizedBox(height: 16.0),
-                        MyText(title: "${tr(context, "taxAmount")}: ${serviceTax.toStringAsFixed(2)}", color: MyColors.primary, size: 20.sp,fontWeight: FontWeight.bold,),
-                        MyText(title: "${tr(context, "totalAmount")}: ${totalAmount.toStringAsFixed(2)}", color: MyColors.primary, size: 20.sp,fontWeight: FontWeight.bold,),
+                        MyText(title: "${tr(context, "taxAmount")}: ${serviceTax.toStringAsFixed(2)}",  color:context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.white
+                            :MyColors.black, size: 20.sp,fontWeight: FontWeight.bold,),
+                        MyText(title: "${tr(context, "totalAmount")}: ${totalAmount.toStringAsFixed(2)}", color:context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.white
+                            :MyColors.black, size: 20.sp,fontWeight: FontWeight.bold,),
 
                       ],
                     ),

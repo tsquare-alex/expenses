@@ -52,10 +52,13 @@ class CompareBody extends StatelessWidget {
                               primary: context.watch<AppThemeCubit>().isDarkMode
                                   ? AppDarkColors.primary
                                   : MyColors.primary,
-                              secondary: Colors.grey.shade200,
+                              secondary:
+                                  context.watch<AppThemeCubit>().isDarkMode
+                                      ? AppDarkColors.accentColor
+                                      : Colors.grey.shade200,
                               onSurface:
                                   context.watch<AppThemeCubit>().isDarkMode
-                                      ? AppDarkColors.primary
+                                      ? AppDarkColors.secondary
                                       : MyColors.primary,
                             ),
                           ),
@@ -119,10 +122,13 @@ class CompareBody extends StatelessWidget {
                               primary: context.watch<AppThemeCubit>().isDarkMode
                                   ? AppDarkColors.primary
                                   : MyColors.primary,
-                              secondary: Colors.grey.shade200,
+                              secondary:
+                                  context.watch<AppThemeCubit>().isDarkMode
+                                      ? AppDarkColors.accentColor
+                                      : Colors.grey.shade200,
                               onSurface:
                                   context.watch<AppThemeCubit>().isDarkMode
-                                      ? AppDarkColors.primary
+                                      ? AppDarkColors.secondary
                                       : MyColors.primary,
                             ),
                           ),

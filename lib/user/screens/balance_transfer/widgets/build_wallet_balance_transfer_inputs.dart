@@ -1,7 +1,8 @@
 part of 'wallet_balance_transfer_widgets_imports.dart';
 
 class BuildWalletBalanceTransferInputs extends StatelessWidget {
-  const BuildWalletBalanceTransferInputs({Key? key, required this.transferData}) : super(key: key);
+  const BuildWalletBalanceTransferInputs({Key? key, required this.transferData})
+      : super(key: key);
   final WalletBalanceTransferData transferData;
 
   @override
@@ -20,6 +21,9 @@ class BuildWalletBalanceTransferInputs extends StatelessWidget {
               return null;
             },
             label: tr(context, "wallet"),
+            hintColor: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : AppDarkColors.backgroundColor,
             margin: EdgeInsets.symmetric(vertical: 10.r),
           ),
           Row(
@@ -43,6 +47,9 @@ class BuildWalletBalanceTransferInputs extends StatelessWidget {
                 child: DropdownTextField<WalletModel>(
                   dropKey: transferData.walletDropKey,
                   label: tr(context, "selectWallet"),
+                  hintColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? AppDarkColors.primary
+                      : MyColors.primary,
                   selectedItem: transferData.selectedWalletModel,
                   margin: const EdgeInsets.symmetric(vertical: 5),
                   validate: (value) {
@@ -56,7 +63,7 @@ class BuildWalletBalanceTransferInputs extends StatelessWidget {
                   ),
                   useName: true,
                   buttonsColor: MyColors.primary,
-                  searchHint:tr(context, "search"),
+                  searchHint: tr(context, "search"),
                 ),
               )
             ],
@@ -65,6 +72,9 @@ class BuildWalletBalanceTransferInputs extends StatelessWidget {
             height: 10.h,
           ),
           GenericTextField(
+            hintColor: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : AppDarkColors.backgroundColor,
             contentPadding: const EdgeInsets.symmetric(horizontal: 16),
             controller: transferData.transferValueController,
             fieldTypes: FieldTypes.normal,

@@ -12,6 +12,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../../general/constants/MyColors.dart';
 import '../../../../general/models/data_base_model/data_base_model.dart';
+import '../../../../general/themes/cubit/app_theme_cubit.dart';
 import '../../../../general/widgets/MyText.dart';
 import '../cubit/database_cubit.dart';
 import 'database_details.dart';
@@ -56,8 +57,12 @@ class _ExpandableCardState extends State<ExpandableCard> {
         // );
       },
       child: Card(
-        color: MyColors.white,
-        child: Padding(
+        elevation: 1,
+        // surfaceTintColor: Colors.transparent,
+        color:  context.watch<AppThemeCubit>().isDarkMode
+            ? MyColors.greyWhite : MyColors.white,
+        child: Container(
+          margin:  EdgeInsets.only(bottom: 16.r),
           padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

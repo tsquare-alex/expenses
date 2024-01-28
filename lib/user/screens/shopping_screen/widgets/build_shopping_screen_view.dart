@@ -103,7 +103,7 @@ class _BuildShoppingScreenViewState extends State<BuildShoppingScreenView> {
                       boxName: "transactionShoppingBox"));
                   widget.data.fetchData();
                 }else{
-                  CustomToast.showSimpleToast(msg: "msg");
+                  AutoRouter.of(context).push(const SubscriptionsRoute());
                 }
               },
               image: state.data[i].image ?? Res.shopping,

@@ -37,6 +37,7 @@ class _CustomContainerState extends State<CustomContainer> {
     DateTime currentDate = DateTime.now();
 
     currentDate.isAfter(context.read<WalletCubit>().endDate);
+    var currencyList = context.read<WalletCubit>().currencyBox.values.toList();
     return Container(
       padding: EdgeInsets.all(12.r),
       height: 230.h,
@@ -231,7 +232,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                     InkWell(
                                       onTap: () => AutoRouter.of(context)
                                           .push(const SubscriptionsRoute()),
-
+            
                                       //  AutoRouter.of(context).push(
                                       //     WalletTransactionsRoute(
                                       //         model: widget.model)),
@@ -286,50 +287,66 @@ class _CustomContainerState extends State<CustomContainer> {
                 )
               ],
             ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Column(
-                children: [
-                  Visibility(
-                    visible: !widget.model.isHide!,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        MyText(
-                            alien: TextAlign.end,
-                            title: widget.model.checkedValue == false
-                                ? widget.model.balance.toStringAsFixed(2)
-                                : widget.model.totalBalance.toString(),
-                            color: MyColors.white,
-                            size: 22.sp),
-                        SizedBox(
-                          width: 5.w,
-                        ),
-                        Text(
-                          widget.model.checkedValue == false
-                              ? widget.model.currency
-                              : context
-                                      .read<WalletCubit>()
-                                      .currencyData[0]
-                                      .mainCurrency ??
-                                  "",
-                          style: TextStyle(
+            Flexible(
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  children: [
+                    Flexible(
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 8.0.r),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            MyText(
+                              title: tr(context, "availableBalance"),
                               color: MyColors.white,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500),
+                              size: 12.sp,
+                              fontWeight: FontWeight.w700,
+                              alien: TextAlign.end,
+                            ),
+                            SizedBox(
+                              width: 15.w,
+                            ),
+                            Visibility(
+                              visible: !widget.model.isHide!,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  MyText(
+                                      alien: TextAlign.end,
+                                      title: widget.model.checkedValue == false
+                                          ? widget.model.remainBalance!.toStringAsFixed(2)
+                                          : widget.model.remainTotalBalance.toString(),
+                                      color: MyColors.white,
+                                      size: 22.sp),
+                                  SizedBox(
+                                    width: 5.w,
+                                  ),
+                                  Text(
+                                    widget.model.checkedValue == false
+                                        ? widget.model.currency
+                                        : context
+                                                .read<WalletCubit>()
+                                                .currencyData[0]
+                                                .mainCurrency ??
+                                            "",
+                                    style: TextStyle(
+                                        color: MyColors.white,
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                  MyText(
-                    title: tr(context, "availableBalance"),
-                    color: MyColors.white,
-                    size: 10.sp,
-                    fontWeight: FontWeight.w400,
-                    alien: TextAlign.end,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Row(

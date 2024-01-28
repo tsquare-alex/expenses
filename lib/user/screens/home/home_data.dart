@@ -31,7 +31,7 @@ class HomeData{
       title: "transactions",
     ),
     TabModel(
-      image: Res.activeHome,
+      image: Res.home,
       title: "main",
     ),
     TabModel(

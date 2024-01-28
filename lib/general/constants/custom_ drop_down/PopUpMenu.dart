@@ -215,6 +215,9 @@ class PopupMenuItemState<T, W extends CustomPopupMenuItem<T>> extends State<W> {
     }
 
     return InkWell(
+      splashColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
       onTap: widget.enabled ? handleTap : null,
       canRequestFocus: widget.enabled,
       child: item,

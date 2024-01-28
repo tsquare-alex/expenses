@@ -46,6 +46,9 @@ class _RepeatedTransactionsState extends State<RepeatedTransactions> {
           ),
         ),
         leading: InkWell(
+          splashColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           onTap: () => AutoRouter.of(context).pop(),
           child: Icon(Icons.arrow_back, color: MyColors.black,),
         ),

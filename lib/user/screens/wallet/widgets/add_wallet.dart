@@ -802,41 +802,51 @@ class _AddWalletState extends State<AddWallet> {
                             onTap: () {
                               if (formKey.currentState!.validate()) {
                                 var walletData = WalletModel(
-                                    name: context
-                                        .read<WalletCubit>()
-                                        .walletNameController
-                                        .text,
-                                    balance: parsedNumber,
-                                    openDate: context
-                                        .read<WalletCubit>()
-                                        .openDateController
-                                        .text,
-                                    closedDate: context
-                                        .read<WalletCubit>()
-                                        .closedDateController
-                                        .text,
-                                    encomeSource: context
-                                        .read<WalletCubit>()
-                                        .encomSourceController
-                                        .text,
-                                    category: widget.selectedCategory,
-                                    valueCategory: context
-                                        .read<WalletCubit>()
-                                        .valueCategoryController
-                                        .text,
-                                    currencyValue: currencyValue,
-                                    currency: context
-                                        .read<WalletCubit>()
-                                        .currencyController
-                                        .text,
-                                    checkedValue: context
-                                        .read<WalletCubit>()
-                                        .checkedValue,
-                                    totalBalance:
-                                        selectMainCurrency == mainCurrency
-                                            ? parsedNumber
-                                            : (parsedNumber * currencyValue),
-                                    iconPath: widget.iconPath);
+                                  name: context
+                                      .read<WalletCubit>()
+                                      .walletNameController
+                                      .text,
+                                  balance: parsedNumber,
+                                  remainBalance: parsedNumber,
+                                  openDate: context
+                                      .read<WalletCubit>()
+                                      .openDateController
+                                      .text,
+                                  closedDate: context
+                                      .read<WalletCubit>()
+                                      .closedDateController
+                                      .text,
+                                  encomeSource: context
+                                      .read<WalletCubit>()
+                                      .encomSourceController
+                                      .text,
+                                  category: widget.selectedCategory,
+                                  valueCategory: context
+                                      .read<WalletCubit>()
+                                      .valueCategoryController
+                                      .text,
+                                  currencyValue: currencyValue,
+                                  currency: context
+                                      .read<WalletCubit>()
+                                      .currencyController
+                                      .text,
+                                  checkedValue:
+                                      selectMainCurrency == mainCurrency
+                                          ? false
+                                          : context
+                                              .read<WalletCubit>()
+                                              .checkedValue,
+                                  totalBalance:
+                                      selectMainCurrency == mainCurrency
+                                          ? parsedNumber
+                                          : (parsedNumber * currencyValue),
+                                  iconPath: widget.iconPath,
+                                  remainTotalBalance:
+                                      selectMainCurrency == mainCurrency
+                                          ? parsedNumber
+                                          : (parsedNumber * currencyValue),
+                                );
+
                                 context.read<WalletCubit>().addNote(walletData);
                                 if (context.mounted) {
                                   AutoRouter.of(context)

@@ -47,6 +47,10 @@ class WalletModel extends HiveObject {
   double currencyValue;
   @HiveField(20)
   double? totalBalance;
+  @HiveField(21)
+  double? remainTotalBalance;
+  @HiveField(22)
+  double? remainBalance;
 
   WalletModel(
       {required this.name,
@@ -69,7 +73,10 @@ class WalletModel extends HiveObject {
       this.iconPath,
       required this.currency,
       required this.currencyValue,
-      this.totalBalance});
+      this.totalBalance,
+        this.remainBalance=0.0,
+        this.remainTotalBalance=0.0,
+      });
 
   Map<String, dynamic> toJson() {
     return {
@@ -94,6 +101,8 @@ class WalletModel extends HiveObject {
       'currency': currency,
       'currencyValue': currencyValue,
       'totalBalance': totalBalance,
+      'remainBalance': remainBalance,
+      'remainTotalBalance': remainTotalBalance,
     };
   }
   factory WalletModel.fromJson(Map<String, dynamic> json) {
@@ -119,6 +128,8 @@ class WalletModel extends HiveObject {
       currency: json['currency'],
       currencyValue: json['currencyValue'],
       totalBalance: json['totalBalance'],
+      remainBalance: json['remainBalance'],
+      remainTotalBalance: json['remainTotalBalance'],
     );
   }
 }

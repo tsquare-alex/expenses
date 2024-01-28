@@ -13,20 +13,23 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Padding(
-          padding: EdgeInsets.all(15.0.r),
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                HeaderLogo(topPadding: 100.r,height: MediaQuery.of(context).size.height * 0.35,width: MediaQuery.of(context).size.width * 0.50,),
-                BuildLoginForm(loginData: loginData),
-                BuildLoginButton(loginData: loginData),
-                const BuildForgetPasswordView(),
-                const BuildDontHaveAccount()
-              ],
+      body: SafeArea(
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Padding(
+            padding: EdgeInsets.all(15.0.r),
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  const BuildLoginSkip(),
+                  HeaderLogo(topPadding: 10.r,height: MediaQuery.of(context).size.height * 0.35,width: MediaQuery.of(context).size.width * 0.50,),
+                  BuildLoginForm(loginData: loginData),
+                  BuildLoginButton(loginData: loginData),
+                  const BuildForgetPasswordView(),
+                  const BuildDontHaveAccount()
+                ],
+              ),
             ),
           ),
         ),

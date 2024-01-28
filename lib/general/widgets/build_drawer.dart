@@ -19,141 +19,237 @@ class BuildDrawer extends StatelessWidget {
         ),
         child: Padding(
           padding: EdgeInsets.all(8.0.r),
-          child: SingleChildScrollView(
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 50.r),
-                    child: CircleAvatar(
-                      backgroundColor: MyColors.greyWhite,
-                      radius: 80.r,
-                      child: Image(
-                        height: MediaQuery.of(context).size.height * 0.18,
-                        width:MediaQuery.of(context).size.width * 0.55,
-                        image: AssetImage(Res.logo,),
-                        fit: BoxFit.contain,
-
-                      ),
-                    ),
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Container(
+              margin: EdgeInsets.only(top: 50.r),
+              child: CircleAvatar(
+                backgroundColor: MyColors.greyWhite,
+                radius: 80.r,
+                child: Image(
+                  height: MediaQuery.of(context).size.height * 0.18,
+                  width: MediaQuery.of(context).size.width * 0.55,
+                  image: const AssetImage(
+                    Res.logo,
                   ),
-              CustomDrawerCard(
-                title: tr(context, "fullVersion"),
-                onTap: () {},
-                endDrawer: false,
+                  fit: BoxFit.contain,
+                ),
               ),
-              CustomDrawerCard(
-                title: tr(context, "settings"),
-                onTap: () {
-                  AutoRouter.of(context).push(
-                    HomeRoute(
-                      index: 0,
-                      pageIndex: 3,
-                    ),
-                  );
-                },
-                image: Res.settings,
-                endDrawer: false,
-              ),
+            ),
+            Flexible(
+              child: ListView(
+                shrinkWrap: true,
+                children: [
                   CustomDrawerCard(
-                    title: tr(context, "help"),
+                    title: tr(context, "fullVersion"),
                     onTap: () {
+                      Navigator.of(context).pop();
+                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                    },
+                    endDrawer: false,
+                    isPro: true,
+                  ),
+                  CustomDrawerCard(
+                    title: tr(context, "settings"),
+                    onTap: () {
+                      Navigator.of(context).pop();
                       AutoRouter.of(context).push(
                         HomeRoute(
                           index: 0,
-                          pageIndex: 6,
+                          pageIndex: 3,
                         ),
                       );
                     },
-                    image: Res.explain,
+                    image: Res.settings,
                     endDrawer: false,
+                    hasArrowBack: true,
                   ),
-              CustomDrawerCard(
-                title: tr(context, "help"),
-                onTap: () {
-                  AutoRouter.of(context).push(
-                    HomeRoute(
-                      index: 0,
-                      pageIndex: 6,
+                  CustomDrawerCard(
+                    title: tr(context, "darkMode"),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                    },
+                    image: Res.dark_mode,
+                    endDrawer: false,
+                    hasSwitch: true,
+                    hasProStack: true,
+                    switchWidget: SizedBox(
+                      height: 30.h,
+                      child: BlocBuilder<AppThemeCubit, AppThemeState>(
+                        builder: (context, state) {
+                          return CupertinoSwitch(
+                            trackColor:
+                                context.watch<AppThemeCubit>().isDarkMode
+                                    ? AppDarkColors.accentColor1
+                                    : const Color(0xFFD9D9D9),
+                            activeColor: MyColors.primary,
+                            value: AppThemeCubit.get(context).isDarkMode,
+                            onChanged: (value) {
+                              AutoRouter.of(context)
+                                  .push(const SubscriptionsRoute());
+                              // AppThemeCubit.get(context).toggleTheme(value);
+                            },
+                          );
+                        },
+                      ),
                     ),
-                  );
-                },
-                image: Res.explain,
-                endDrawer: false,
+                  ),
+                  CustomDrawerCard(
+                    title: tr(context, "reminders"),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                    },
+                    image: Res.notifications,
+                    endDrawer: false,
+                    hasSwitch: true,
+                    hasProStack: true,
+                    switchWidget: SizedBox(
+                      height: 30.h,
+                      child: CupertinoSwitch(
+                        trackColor: context.watch<AppThemeCubit>().isDarkMode
+                            ? AppDarkColors.accentColor1
+                            : const Color(0xFFD9D9D9),
+                        value: false,
+                        onChanged: (value) {
+                          AutoRouter.of(context)
+                              .push(const SubscriptionsRoute());
+                        },
+                      ),
+                    ),
+                  ),
+                  CustomDrawerCard(
+                    title: tr(context, "language"),
+                    onTap: () async {
+                      await showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: const BuildLanguageBottomSheet(),
+                            surfaceTintColor: MyColors.white,
+                          );
+                        },
+                      );
+                    },
+                    image: Res.language,
+                    endDrawer: false,
+                    hasArrowBack: true,
+                  ),
+                  CustomDrawerCard(
+                    title: tr(context, "sync"),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                    },
+                    image: Res.sync,
+                    endDrawer: false,
+                    hasProStack: true,
+                    hasArrowBack: true,
+                  ),
+                  CustomDrawerCard(
+                    title: tr(context, "backupData"),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                    },
+                    image: Res.upload,
+                    endDrawer: false,
+                    hasProStack: true,
+                    hasArrowBack: true,
+                  ),
+                  CustomDrawerCard(
+                    title: tr(context, "downloadData"),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                    },
+                    image: Res.download,
+                    endDrawer: false,
+                    hasProStack: true,
+                    hasArrowBack: true,
+                  ),
+                  CustomDrawerCard(
+                    title: tr(context, "deleteData"),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                    },
+                    image: Res.delete,
+                    endDrawer: false,
+                    hasProStack: true,
+                    hasArrowBack: true,
+                  ),
+                  CustomDrawerCard(
+                    title: tr(context, "rate"),
+                    onTap: () {
+                      CustomToast.showSimpleToast(
+                        msg: "تحت التطوير",
+                        color: Colors.red,
+                      );
+                    },
+                    image: Res.blueStar,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.backgroundColor
+                        : MyColors.white,
+                    textColor: context.watch<AppThemeCubit>().isDarkMode
+                        ? MyColors.white
+                        : MyColors.black,
+                    imageColor: MyColors.amber,
+                    endDrawer: false,
+                    hasArrowBack: true,
+                  ),
+                  CustomDrawerCard(
+                    title: tr(context, "shareApp"),
+                    onTap: () {
+                      shareCubit.onUpdateData(!shareCubit.state.data);
+                      print(shareCubit.state.data);
+                    },
+                    image: Res.shareIcon,
+                    endDrawer: false,
+                    hasArrowBack: true,
+                  ),
+                  // CustomDrawerCard(
+                  //   title: tr(context, "help"),
+                  //   onTap: () {
+                  //     CustomToast.showSimpleToast(
+                  //       msg: "تحت التطوير",
+                  //       color: Colors.red,
+                  //     );
+                  //   },
+                  //   image: Res.toolsImage,
+                  //   color: context.watch<AppThemeCubit>().isDarkMode
+                  //       ? AppDarkColors.backgroundColor
+                  //       : MyColors.white,
+                  //   textColor: context.watch<AppThemeCubit>().isDarkMode
+                  //       ? MyColors.white
+                  //       : MyColors.black,
+                  //   imageColor: MyColors.primary,
+                  //   endDrawer: false,
+                  //   hasArrowBack: true,
+                  // ),
+                  CustomDrawerCard(
+                    title: tr(context, "messageUs"),
+                    onTap: () {
+                      CustomToast.showSimpleToast(
+                        msg: "تحت التطوير",
+                        color: Colors.red,
+                      );
+                    },
+                    image: Res.chat,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.backgroundColor
+                        : MyColors.white,
+                    textColor: context.watch<AppThemeCubit>().isDarkMode
+                        ? MyColors.white
+                        : MyColors.black,
+                    imageColor: MyColors.primary,
+                    endDrawer: false,
+                    hasArrowBack: true,
+                  ),
+                ],
               ),
-              CustomDrawerCard(
-                title: tr(context, "share"),
-                onTap: () {
-                  shareCubit.onUpdateData(!shareCubit.state.data);
-                  print(shareCubit.state.data);
-                },
-                image: Res.share,
-                endDrawer: false,
-              ),
-              BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
-                bloc: shareCubit,
-                builder: (context, state) => state.data == true
-                    ? Column(
-                        children: [
-                          CustomDrawerCard(
-                            title: tr(context, "about"),
-                            onTap: () {
-                              CustomToast.showSimpleToast(
-                                msg: "تحت التطوير",
-                                color: Colors.red,
-                              );
-                            },
-                            image: Res.about,
-                            color: context.watch<AppThemeCubit>().isDarkMode
-                                ? AppDarkColors.backgroundColor
-                                : MyColors.white,
-                            textColor: context.watch<AppThemeCubit>().isDarkMode
-                                ? MyColors.white
-                                : MyColors.black,
-                            imageColor: MyColors.primary,
-                            endDrawer: false,
-                          ),
-                          CustomDrawerCard(
-                            title: tr(context, "terms"),
-                            onTap: () {
-                              CustomToast.showSimpleToast(
-                                msg: "تحت التطوير",
-                                color: Colors.red,
-                              );
-                            },
-                            image: Res.terms,
-                            color: context.watch<AppThemeCubit>().isDarkMode
-                                ? AppDarkColors.backgroundColor
-                                : MyColors.white,
-                            textColor: context.watch<AppThemeCubit>().isDarkMode
-                                ? MyColors.white
-                                : MyColors.black,
-                            imageColor: MyColors.primary,
-                            endDrawer: false,
-                          ),
-                          CustomDrawerCard(
-                            title: tr(context, "rate"),
-                            onTap: () {
-                              CustomToast.showSimpleToast(
-                                msg: "تحت التطوير",
-                                color: Colors.red,
-                              );
-                            },
-                            image: Res.star,
-                            color: context.watch<AppThemeCubit>().isDarkMode
-                                ? AppDarkColors.backgroundColor
-                                : MyColors.white,
-                            textColor: context.watch<AppThemeCubit>().isDarkMode
-                                ? MyColors.white
-                                : MyColors.black,
-                            imageColor: MyColors.amber,
-                            endDrawer: false,
-                          ),
-                        ],
-                      )
-                    : Container(),
-              ),
-            ]),
-          ),
+            ),
+          ]),
         ));
   }
 }

@@ -28,12 +28,10 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     LocalNotifications.scheduleDailyNotification(
-
       title: '',
       body: '',
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -42,34 +40,40 @@ class _MyAppState extends State<MyApp> {
       child: BlocBuilder<LangCubit, LangState>(
         builder: (context, state) {
           return ScreenUtilInit(
-              designSize: const Size(430, 932),
-              minTextAdapt: true,
-              splitScreenMode: true,
-              builder: (BuildContext context, child) {
-                return MaterialApp.router(
-                    debugShowCheckedModeBanner: false,
-                    theme: AppThemes.lightTheme,
-                    darkTheme: AppThemes.darkTheme,
-                    themeMode: context.watch<AppThemeCubit>().themeMode,
-                    title: 'Expenses : نفقاتي',
-                    supportedLocales: const [
-                      Locale('en', 'US'),
-                      Locale('ar', 'EG')
-                    ],
-                    localizationsDelegates: const [
-                      LocalizationHelper.localizationsDelegate,
-                      CountryLocalizations.delegate,
-                      GlobalMaterialLocalizations.delegate,
-                      GlobalWidgetsLocalizations.delegate,
-                      GlobalCupertinoLocalizations.delegate,
-                    ],
-                    locale: state.locale,
-                    routerDelegate: _appRouter.delegate(initialRoutes: [
-                      SplashRoute(navigatorKey: navigatorKey)
-                    ]),
-                    routeInformationParser: _appRouter.defaultRouteParser(),
-                    builder: (ctx, child) => FlutterEasyLoading(child: child));
-              });
+            designSize: const Size(430, 932),
+            minTextAdapt: true,
+            splitScreenMode: true,
+            builder: (BuildContext context, child) {
+              return GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+                child: MaterialApp.router(
+                  debugShowCheckedModeBanner: false,
+                  theme: AppThemes.lightTheme,
+                  darkTheme: AppThemes.darkTheme,
+                  themeMode: context.watch<AppThemeCubit>().themeMode,
+                  title: 'Expenses : نفقاتي',
+                  supportedLocales: const [
+                    Locale('en', 'US'),
+                    Locale('ar', 'EG'),
+                  ],
+                  localizationsDelegates: const [
+                    LocalizationHelper.localizationsDelegate,
+                    CountryLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  locale: state.locale,
+                  routerDelegate: _appRouter.delegate(
+                    initialRoutes: [SplashRoute(navigatorKey: navigatorKey)],
+                  ),
+                  routeInformationParser: _appRouter.defaultRouteParser(),
+                  builder: (ctx, child) => FlutterEasyLoading(child: child),
+                ),
+              );
+            },
+          );
         },
       ),
     );

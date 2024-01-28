@@ -311,6 +311,9 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
         return IgnorePointer(
           ignoring: !widget.enabled,
           child: InkWell(
+            splashColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
             onTap: () => _selectSearchMode(data),
             child: _formField(data),
           ),
@@ -425,20 +428,32 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
         if (data != null && widget.showClearButton == true)
           widget.clearButtonBuilder != null
               ? InkWell(
+            splashColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
                   onTap: clearButtonPressed,
                   child: widget.clearButtonBuilder!(context),
                 )
               : InkWell(
+            splashColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
                   child:
                       widget.clearButton ?? const Icon(Icons.clear, size: 24),
                   onTap: clearButtonPressed,
                 ),
         widget.dropdownButtonBuilder != null
             ? InkWell(
+          splashColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          highlightColor: Colors.transparent,
                 onTap: dropdownButtonPressed,
                 child: widget.dropdownButtonBuilder!(context),
               )
             : InkWell(
+          splashColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          highlightColor: Colors.transparent,
                 child: widget.dropDownButton ??
                     const Icon(Icons.arrow_drop_down, size: 24),
                 onTap: dropdownButtonPressed,

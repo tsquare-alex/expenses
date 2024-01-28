@@ -18,6 +18,9 @@ class BuildHaveAccount extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           InkWell(
+            splashColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
             onTap: () => AutoRouter.of(context).push(const LoginRoute()),
             child: MyText(
               title: tr(context, "login"),

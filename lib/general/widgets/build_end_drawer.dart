@@ -16,37 +16,38 @@ class BuildEndDrawer extends StatelessWidget {
         ),
         child: Padding(
           padding: EdgeInsets.all(8.0.r),
-          child: SingleChildScrollView(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 50.r),
-                    child: CircleAvatar(
-                      backgroundColor: MyColors.greyWhite,
-                      radius: 80.r,
-                      child: Image(
-                        height: MediaQuery.of(context).size.height * 0.18,
-                        width:MediaQuery.of(context).size.width * 0.55,
-                        image: AssetImage(Res.logo,),
-                        fit: BoxFit.contain,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: 50.r),
+                  child: CircleAvatar(
+                    backgroundColor: MyColors.greyWhite,
+                    radius: 80.r,
+                    child: Image(
+                      height: MediaQuery.of(context).size.height * 0.18,
+                      width:MediaQuery.of(context).size.width * 0.55,
+                      image: AssetImage(Res.logo,),
+                      fit: BoxFit.contain,
 
-                      ),
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                ),
+                Flexible(
+                  child: ListView(
+                    shrinkWrap: true,
                     children: [
                       CustomDrawerCard(
                         title: tr(context, "fullVersion"),
                         onTap: () {},
                         endDrawer: false,
+                        image: Res.pro,
                       ),
                       CustomDrawerCard(
                         title: tr(context, "wallets"),
                         onTap: (){
                           AutoRouter.of(context).push(HomeRoute(index: 0,pageIndex: 7,),);
-
+                  
                         },
                         image: Res.walletImage,
                         endDrawer: true,
@@ -113,9 +114,9 @@ class BuildEndDrawer extends StatelessWidget {
                       ),
                     ],
                   ),
+                ),
 
-                ]
-            ),
+              ]
           ),
         )
     );

@@ -11,6 +11,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart' as xcel;
 
@@ -773,8 +775,9 @@ class ReportsCubit extends Cubit<ReportsState> {
 
     // save the document in the downloads file
     final List<int> bytes = workbook.saveAsStream();
-    final file = await File('/storage/emulated/0/Download/$excelFile.xlsx')
-        .writeAsBytes(bytes);
+    final Directory? downloadsDir = await getDownloadsDirectory();
+    final file =
+        await File('${downloadsDir!.path}/$excelFile.xlsx').writeAsBytes(bytes);
 
     if (openFile) {
       final openResult = await OpenFile.open(file.path);
@@ -890,8 +893,9 @@ class ReportsCubit extends Cubit<ReportsState> {
     }
     // save the document in the downloads file
     final List<int> bytes = workbook.saveAsStream();
-    final file = await File('/storage/emulated/0/Download/$excelFile.xlsx')
-        .writeAsBytes(bytes);
+    final Directory? downloadsDir = await getDownloadsDirectory();
+    final file =
+        await File('${downloadsDir!.path}/$excelFile.xlsx').writeAsBytes(bytes);
 
     Share.shareXFiles([
       XFile(file.path),
@@ -1081,8 +1085,9 @@ class ReportsCubit extends Cubit<ReportsState> {
     }
     // save the document in the downloads file
     final List<int> bytes = workbook.saveAsStream();
-    final file = await File('/storage/emulated/0/Download/$excelFile.xlsx')
-        .writeAsBytes(bytes);
+    final Directory? downloadsDir = await getDownloadsDirectory();
+    final file =
+        await File('${downloadsDir!.path}/$excelFile.xlsx').writeAsBytes(bytes);
 
     Share.shareXFiles([
       XFile(file.path),

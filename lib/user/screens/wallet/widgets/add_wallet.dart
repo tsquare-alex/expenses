@@ -80,7 +80,6 @@ class _AddWalletState extends State<AddWallet> {
                   .map((currencyData) => currencyData.subCurrency)
                   .first
                   .toString();
-
               double currencyValue = double.parse(
                 context
                     .read<WalletCubit>()
@@ -106,7 +105,7 @@ class _AddWalletState extends State<AddWallet> {
                       : MyColors.white,
                   centerTitle: true,
                   title: MyText(
-                    title: widget.selectedCategory,
+                    title: tr(context, widget.selectedCategory),
                     color: context.watch<AppThemeCubit>().isDarkMode
                         ? MyColors.white
                         : AppDarkColors.backgroundColor,
@@ -612,9 +611,6 @@ class _AddWalletState extends State<AddWallet> {
                                   type: TextInputType.text,
                                   action: TextInputAction.next,
                                   validate: (text) {
-                                    if (text == null || text.isEmpty) {
-                                      return tr(context, "PleaseInputYourNote");
-                                    }
                                     return null;
                                   },
                                   onChange: (value) {},

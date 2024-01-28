@@ -404,9 +404,6 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                               type: TextInputType.text,
                               action: TextInputAction.next,
                               validate: (text) {
-                                if (text == null || text.isEmpty) {
-                                  return tr(context, "PleaseInputYourNote");
-                                }
                                 return null;
                               },
                               onChange: (value) {},

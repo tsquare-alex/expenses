@@ -104,6 +104,7 @@ class BuildTransactionType extends StatelessWidget {
                                       value: addTransactionData.selectedContent==null?false:
                                           state.data?[index].selected ?? false,
                                       groupValue: true,
+                                      activeColor: MyColors.primary,
                                       onChanged: (v) {
                                         addTransactionData.selectContent(
                                             v!,
@@ -113,11 +114,19 @@ class BuildTransactionType extends StatelessWidget {
                                             type,
                                             boxName);
                                       })
-                                  : Image.asset(
-                                      Res.pro,
-                                      width: 50.w,
-                                      height: 60.h,
-                                    ),
+                                  : InkWell(
+                                highlightColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                splashColor: Colors.transparent,
+                                    onTap: (){
+                                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                                    },
+                                    child: Image.asset(
+                                        Res.pro,
+                                        width: 50.w,
+                                        height: 60.h,
+                                      ),
+                                  ),
                             ],
                           );
                         }),

@@ -273,4 +273,5 @@ class Res {
   static const String darkTransaction = "assets/images/darkTransaction.png";
   static const String blueStar = "assets/images/blu_star.png";
   static const String plan = "assets/images/plan.png";
+  static const String chat = "assets/images/chat.png";
 }

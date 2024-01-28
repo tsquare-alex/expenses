@@ -12,7 +12,9 @@ class BuildCartPreviouslyUsedCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 15.r, vertical: 20.r),
       margin: EdgeInsets.only(bottom: 20.h),
       decoration: BoxDecoration(
-          color: MyColors.white,
+          color:context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.greyWhite
+              : MyColors.white,
           borderRadius: BorderRadius.circular(15.r),
           border: Border.all(width: 1.w, color: MyColors.greyWhite)),
       child: Column(
@@ -29,6 +31,7 @@ class BuildCartPreviouslyUsedCard extends StatelessWidget {
                       Checkbox(
                           value: model.isCompleted,
                           activeColor: MyColors.primary,
+                          checkColor: MyColors.white,
                           onChanged: (val) {
                             data.checkCubit.onUpdateData(!model.isCompleted!);
                             // model.isCompleted=state.data;
@@ -37,7 +40,9 @@ class BuildCartPreviouslyUsedCard extends StatelessWidget {
                           }),
                       MyText(
                         title: tr(context, "buyingSucceeded"),
-                        color: MyColors.black,
+                        color: context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.white
+                            : MyColors.black,
                         size: 14.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -87,7 +92,9 @@ class BuildCartPreviouslyUsedCard extends StatelessWidget {
                         tr(context, model.typeModel?.name ?? "").isNotEmpty
                             ? tr(context, model.typeModel?.name ?? "")
                             : model.typeModel?.name ?? "",
-                        color: MyColors.black,
+                        color: context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.white
+                            : MyColors.black,
                         size: 16.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -132,7 +139,9 @@ class BuildCartPreviouslyUsedCard extends StatelessWidget {
                       tr(context, model.contentModel?.name ?? "").isNotEmpty
                           ? tr(context, model.contentModel?.name ?? "")
                           : model.typeModel?.name ?? "",
-                      color: MyColors.black,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : MyColors.black,
                       size: 16.sp,
                       fontWeight: FontWeight.bold,
                     ),
@@ -141,7 +150,9 @@ class BuildCartPreviouslyUsedCard extends StatelessWidget {
               ),
               MyText(
                 title: "${tr(context, "value")} : ${model.total}",
-                color: MyColors.black,
+                color: context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : MyColors.black,
                 size: 14.sp,
                 fontWeight: FontWeight.bold,
               )

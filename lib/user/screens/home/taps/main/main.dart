@@ -72,6 +72,9 @@ class _MainState extends State<Main> {
         backgroundColor: context.watch<AppThemeCubit>().isDarkMode
             ? Colors.transparent
             : MyColors.white,
+        surfaceTintColor: context.watch<AppThemeCubit>().isDarkMode
+          ? Colors.transparent
+          : MyColors.white,
         // leadingWidth: 35.w,
         centerTitle: true,
         title: BlocBuilder<GenericBloc<int>, GenericState<int>>(

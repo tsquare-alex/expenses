@@ -8,6 +8,9 @@ class BuildForgetPasswordView extends StatelessWidget {
     return Align(
       alignment: AlignmentDirectional.centerEnd,
       child: InkWell(
+        splashColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         onTap: () => AutoRouter.of(context).push(const ForgetPasswordRoute()),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20),

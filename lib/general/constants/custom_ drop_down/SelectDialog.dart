@@ -354,6 +354,9 @@ class _SelectDialogState<T> extends State<SelectDialog<T>> {
   Widget _itemWidget(T item) {
     if (widget.itemBuilder != null)
       return InkWell(
+        splashColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         // ignore pointers in itemBuilder
         child: IgnorePointer(
           ignoring: true,
@@ -505,6 +508,9 @@ class _SelectDialogState<T> extends State<SelectDialog<T>> {
                   children: favoriteItems
                       .map(
                         (f) => InkWell(
+                          splashColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
                       onTap: () => _handleSelectItem(f),
                       child: Container(
                         margin: EdgeInsets.only(right: 4),

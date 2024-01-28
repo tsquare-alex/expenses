@@ -103,7 +103,7 @@ class _BuildCashTransactionsViewState extends State<BuildCashTransactionsView> {
                 // ),
                 // );
                 // widget.data.fetchData();
-                CustomToast.showSimpleToast(msg: "msg");
+                AutoRouter.of(context).push(const SubscriptionsRoute());
               },
               image: state.data[i].image ?? Res.commitments,
               name: state.data[i].name ?? "",

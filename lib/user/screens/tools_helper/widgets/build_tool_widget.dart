@@ -15,13 +15,14 @@ class BuildToolsWidget extends StatelessWidget {
   final String image;
   final bool isFavorite;
   final VoidCallback onFavoriteTap;
+  final String? imagePro;
 
   const BuildToolsWidget({
     required this.onTap,
     required this.title,
     required this.image, // Add this line
     required this.isFavorite,
-    required this.onFavoriteTap,
+    required this.onFavoriteTap, this.imagePro,
   });
 
   @override
@@ -34,14 +35,17 @@ class BuildToolsWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Image.asset(image),
           ),
-          const SizedBox(width: 10),
+           SizedBox(width: 10.w),
           MyText(
             title: tr(context, title),
             color:context.watch<AppThemeCubit>().isDarkMode ? MyColors.white : MyColors.black,
             size: 16,
             fontWeight: FontWeight.bold,
           ),
+           // SizedBox(width: 80.w),
           Spacer(),
+          imagePro != null ? Image.asset(imagePro!,width: 40.w,) : SizedBox(),
+
           IconButton(
             icon: Icon(
               isFavorite ? Icons.star : Icons.star_border,

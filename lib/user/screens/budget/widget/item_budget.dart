@@ -28,10 +28,7 @@ class ItemBudget extends StatelessWidget {
       builder: (context, state) {
         double total = 0;
         double percentageValue = 0;
-        if (state is SuccessCalculat) {
-          print("sdsdsd" + state.calculatedValue.toString());
-          // total = state.calculatedValue;
-        }
+
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.r),
           child: Column(

@@ -172,12 +172,10 @@ class BudgetCubit extends Cubit<BudgetState> {
           var targetBudet = budgetBoxList
               .firstWhere((element) => element.key == budgetBoxList[i].key);
           var total = double.parse(transactionBoxList[g].total!);
-          // calculatedInitial = calculatedInitial + total;
-          // print(calculatedInitial);
-
           targetBudet.transactionValue = targetBudet.transactionValue! + total;
-          budgetBox.put(targetBudet.key, targetBudet);
           getBudgetData(context);
+
+          budgetBox.put(targetBudet.key, targetBudet);
 
           print(targetBudet.transactionValue);
         }

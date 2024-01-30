@@ -26,6 +26,12 @@ class ItemBudget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BudgetCubit, BudgetState>(
       builder: (context, state) {
+        double total = 0;
+        double percentageValue = 0;
+        if (state is SuccessCalculat) {
+          print("sdsdsd" + state.calculatedValue.toString());
+          // total = state.calculatedValue;
+        }
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.r),
           child: Column(
@@ -68,7 +74,8 @@ class ItemBudget extends StatelessWidget {
                       animation: true,
                       lineHeight: 20.0,
                       animationDuration: 2000,
-                      percent: model.percentValue!,
+                      percent: (model.budgetValue - model.transactionValue!) /
+                          model.budgetValue,
                       progressColor: model.percentValue! < 0.2
                           ? Colors.red
                           : MyColors.primary,
@@ -102,7 +109,7 @@ class ItemBudget extends StatelessWidget {
                           width: 12.w,
                         ),
                         Text(
-                          "${context.read<BudgetCubit>().calculatedInitial}",
+                          "${model.transactionValue}",
                           style: TextStyle(
                               fontSize: 16.sp, fontWeight: FontWeight.bold),
                         ),

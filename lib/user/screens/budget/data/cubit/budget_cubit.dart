@@ -149,31 +149,41 @@ class BudgetCubit extends Cubit<BudgetState> {
     emit(BudgetValu(value: res));
   }
 
-  double calculatedInitial = 1.0;
+  double calculatedInitial = 0.0;
 
-  Future<void> calcualteRatio() async {
+  Future<void> calcualteRatio(BuildContext context) async {
     emit(LoadingCalculat());
     var budgetBox = Hive.box<BudgetModel>("budgetBox");
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
     var budgetBoxList = budgetBox.values.toList();
     var transactionBoxList = box.values.toList();
     for (int i = 0; i < budgetBoxList.length; i++) {
+      calculatedInitial = 0;
+      var targetBudet = budgetBoxList
+          .firstWhere((element) => element.key == budgetBoxList[i].key);
+      targetBudet.transactionValue = 0;
+      budgetBox.put(targetBudet.key, targetBudet);
+
       for (int g = 0; g < transactionBoxList.length; g++) {
         if (budgetBoxList[i].transactionName ==
             transactionBoxList[g].transactionContent?.name) {
-          // var targetBudet = budgetBoxList
           print(budgetBoxList[i].transactionName ==
               transactionBoxList[g].transactionContent?.name);
-          // .firstWhere((element) => element.key == budgetBoxList[i].key);
+          var targetBudet = budgetBoxList
+              .firstWhere((element) => element.key == budgetBoxList[i].key);
           var total = double.parse(transactionBoxList[g].total!);
-          calculatedInitial = calculatedInitial + total;
-          emit(SuccessCalculat());
+          // calculatedInitial = calculatedInitial + total;
+          // print(calculatedInitial);
 
-          // targetBudet.transactionValue = targetBudet.transactionValue! + total;
-          // budgetBox.put(targetBudet.key, targetBudet);
+          targetBudet.transactionValue = targetBudet.transactionValue! + total;
+          budgetBox.put(targetBudet.key, targetBudet);
+          getBudgetData(context);
+
+          print(targetBudet.transactionValue);
         }
       }
     }
+    emit(SuccessCalculat(calculatedValue: 15));
   }
 
   List<String> dummyTransaction = [

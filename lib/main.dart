@@ -40,8 +40,6 @@ import 'firebase_options.dart';
 import 'general/constants/constants.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
-
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   tz.initializeTimeZones();
@@ -84,8 +82,8 @@ Future<void> main() async {
 
   await initializeDateFormatting('en');
 
- Utils.repeatTransaction();
- Utils.repeatTargetTransaction();
+//  Utils.repeatTransaction();
+//  Utils.repeatTargetTransaction();
 
   runApp(BlocProvider(
     create: (BuildContext context) => LangCubit(),

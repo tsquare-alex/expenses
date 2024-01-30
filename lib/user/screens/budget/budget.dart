@@ -31,7 +31,9 @@ class _BudgetState extends State<Budget> {
       controller: refreshController,
       onRefresh: onRefresh,
       child: BlocProvider(
-        create: (context) => BudgetCubit()..fetchData(),
+        create: (context) => BudgetCubit()
+          ..calcualteRatio(context)
+          ..fetchData(),
         child: BlocBuilder<BudgetCubit, BudgetState>(
           builder: (context, state) {
             return Scaffold(

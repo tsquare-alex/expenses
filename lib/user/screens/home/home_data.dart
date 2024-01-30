@@ -1,9 +1,7 @@
 part of 'home_imports.dart';
 
 class HomeData{
-  final GlobalKey<ScaffoldState> scaffold = GlobalKey();
   final GenericBloc<int> navCubit = GenericBloc(0);
-  GenericBloc<bool> shareCubit = GenericBloc(false);
 
   late AnimationController animationController;
   late TabController tabController;
@@ -12,35 +10,36 @@ class HomeData{
 
   final GenericBloc<int> homeTabCubit = GenericBloc(0);
 
-  List<TabModel> tabs = [
+  List<TabModel> activeTabs = [
     TabModel(
-      image: Res.dollar,
-      title: "المعاملات والمصروفات",
+      image: Res.transactions,
+      title: "transactions",
+    ),
+    TabModel(
+      image: Res.activeHome,
+      title: "main",
+    ),
+    TabModel(
+      image: Res.reports,
+      title: "reports",
+    ),
+  ];
+
+  List<TabModel> tabs=[
+    TabModel(
+      image: Res.homeTransaction,
+      title: "transactions",
     ),
     TabModel(
       image: Res.home,
-      title: "القائمة الرئيسية",
+      title: "main",
     ),
     TabModel(
-      image: Res.cart,
-      title: "التقارير والاحصائيات",
+      image: Res.homeReports,
+      title: "reports",
     ),
   ];
-  List<String> titles=[
-    "المعاملات والمصروفات",
-    "القائمة الرئيسية",
-    "التقارير والاحصائيات",
-    "الاعدادات والضبط",
-    "الادوات المساعده",
-    "السجل وقاعدة البيانات",
-    "المساعدة والشرح",
-    "المصادر المالية",
-    "الميزانية والخطط المالية",
-    "المصروفات",
-    "الأهداف المالية المستهدفة",
-    "المعاملات النقدية",
-    "المعاملات المتكررة",
-  ];
+
 
 
   void initBottomNavigation(TickerProvider ticker,int index) {

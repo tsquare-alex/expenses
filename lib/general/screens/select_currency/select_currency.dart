@@ -12,26 +12,41 @@ class _SelectCurrencyState extends State<SelectCurrency> {
   SelectCurrencyData data = SelectCurrencyData();
 
   @override
+  void initState() {
+    data.getCurrency();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return  Scaffold(
       backgroundColor: MyColors.backgroundColor,
       body: Padding(
         padding: EdgeInsets.all(15.r),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              children: [
-                HeaderLogo(topPadding: 100.r,image: Res.currency,),
-                const BuildSelectCurrencyText(),
-                BuildSelectCurrencyInput(currencyData: data,),
-              ],
-            ),
-            const BuildSelectCurrencyNextButton()
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  HeaderLogo(topPadding: 100.r,image: Res.currency,color: MyColors.primary,),
+                  const BuildSelectCurrencyText(),
+                  BuildSelectCurrencyInput(currencyData: data,),
+                ],
+              ),
+              BuildSelectCurrencyNextButton(data: data,)
+            ],
+          ),
         ),
       ),
     );
+  }
+  @override
+  void dispose() {
+    data.mainCurrencyController.dispose();
+    data.subCurrencyController.dispose();
+    data.valueController.dispose();
+    super.dispose();
   }
 }

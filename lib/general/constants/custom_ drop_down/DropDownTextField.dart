@@ -1,7 +1,11 @@
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:googleapis/analytics/v3.dart';
 import 'CustomDropDown.dart';
 
 class DropdownTextField<DataType> extends StatefulWidget {
@@ -28,6 +32,7 @@ class DropdownTextField<DataType> extends StatefulWidget {
   final Color? hintColor;
   final Color? buttonsColor;
   final BorderRadius? radius;
+  final bool? hasLocalization;
 
   DropdownTextField(
       {this.label,
@@ -52,7 +57,9 @@ class DropdownTextField<DataType> extends StatefulWidget {
       this.enableColor,
       this.selectedItem,
       this.radius,
-      this.showSelectedItem = false});
+      this.showSelectedItem = false,
+      this.hasLocalization = false,
+      });
 
   @override
   _DropdownTextFieldState<DataType> createState() =>
@@ -68,7 +75,7 @@ class _DropdownTextFieldState<DataType> extends State<DropdownTextField> {
         key: widget.dropKey,
         mode: Mode.BOTTOM_SHEET,
         isFilteredOnline: false,
-        maxHeight: 350,
+        maxHeight: 0.45.sh,
         label: widget.label,
         items: widget.data,
         onFind: widget.finData,
@@ -89,7 +96,13 @@ class _DropdownTextFieldState<DataType> extends State<DropdownTextField> {
               size: 28, color: widget.buttonsColor ?? Colors.black),
         ),
         selectedItem: widget.selectedItem,
-        itemAsString: (dynamic u) => widget.useName ? u.name : u,
+        itemAsString: (dynamic u) {
+          if(widget.hasLocalization == false){
+            return widget.useName ? u.name : u;
+          }else{
+            return tr(context, u.name).isNotEmpty?tr(context, u.name):  u.name;
+          }
+        },
         showSelectedItem: widget.showSelectedItem,
         style: TextStyle(
           fontSize: widget.textSize ?? 14.sp,
@@ -100,10 +113,12 @@ class _DropdownTextFieldState<DataType> extends State<DropdownTextField> {
           fontWeight: FontWeight.bold
         ),
         searchBoxDecoration: InputDecoration(
-          hintText: widget.searchHint ?? "بحث",
+          hintText: widget.searchHint ?? tr(context, "search"),
           enabledBorder: OutlineInputBorder(
             borderSide:
-            BorderSide(color: Colors.black, width: .7.w),
+            BorderSide(color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black, width: .7.w),
             borderRadius: widget.radius??BorderRadius.circular(10.r),
           ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -116,13 +131,13 @@ class _DropdownTextFieldState<DataType> extends State<DropdownTextField> {
           child: Center(
             child: MyText(
               title: widget.label != null ? widget.label??"" : widget.hint??"",
-              size: 16,
+              size: 16.sp,
               color: Colors.white,
             ),
           ),
         ),
         dropdownSearchDecoration: InputDecoration(
-          label: MyText(title: "${widget.label}", color: MyColors.txtColor, size: 13.sp),
+          label: MyText(title: "${widget.label}", color: MyColors.grey, size: 14.sp,fontWeight: FontWeight.bold,),
           hintText: widget.hint,
           fillColor: widget.fillColor,
           enabledBorder: OutlineInputBorder(

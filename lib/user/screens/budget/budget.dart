@@ -1,40 +1,109 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:expenses/general/constants/MyColors.dart';
-import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
-import 'package:expenses/general/widgets/MyText.dart';
-import 'package:expenses/user/screens/budget/widget/custom_icon.dart';
-import 'package:expenses/user/screens/budget/widget/item_budget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+part of 'budget_imports.dart';
 
-class Budget extends StatelessWidget {
+class Budget extends StatefulWidget {
   const Budget({super.key});
 
   @override
+  State<Budget> createState() => _BudgetState();
+}
+
+class _BudgetState extends State<Budget> {
+  BudgetData budgetData = BudgetData();
+
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
+
+  void onRefresh() async {
+    await Future.delayed(const Duration(seconds: 2));
+
+    refreshController.refreshCompleted();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(children: [
-        Expanded(
-          child: ListView.separated(
-            itemCount: 5,
-            itemBuilder: (context, index) => const ItemBudget(
-                precent: 0.4,
-                title: "title",
-                value: "value",
-                secValue: "secValue"),
-            separatorBuilder: (BuildContext context, int index) {
-              return Divider(
-                color: MyColors.black,
-              );
-            },
-          ),
-        ),
-        CustomIcon(
-          onPressed: () {
-            AutoRouter.of(context).push(const AddTransactionBudgetRoute());
+    return SmartRefresher(
+      controller: refreshController,
+      onRefresh: onRefresh,
+      child: BlocProvider(
+        create: (context) => BudgetCubit()
+          ..calcualteRatio(context)
+          ..fetchData(),
+        child: BlocBuilder<BudgetCubit, BudgetState>(
+          builder: (context, state) {
+            return Scaffold(
+              appBar: AppBar(
+                surfaceTintColor: Colors.transparent,
+                leading: GestureDetector(
+                  onTap: () => AutoRouter.of(context).pop(),
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? MyColors.white
+                        : MyColors.black,
+                  ),
+                ),
+                backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+                    ? AppDarkColors.backgroundColor
+                    : MyColors.white,
+                centerTitle: true,
+                title: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(Res.budget_icon, height: 28.h, width: 32.w),
+                    MyText(
+                      title: tr(context, "budget"),
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : AppDarkColors.backgroundColor,
+                      size: 16.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ],
+                ),
+              ),
+              body: Column(children: [
+                Expanded(
+                  child: BlocBuilder<BudgetCubit, BudgetState>(
+                    builder: (context, state) {
+                      List<BudgetModel> data =
+                          BlocProvider.of<BudgetCubit>(context).budgetList;
+                      return Padding(
+                        padding: EdgeInsets.symmetric(vertical: 3.h),
+                        child: data.isEmpty
+                            ? const BuildNoRecord()
+                            : ListView.builder(
+                                itemCount: data.length,
+                                itemBuilder: (context, index) {
+                                  return ItemBudget(
+                                    model: data[index],
+                                  );
+                                },
+                              ),
+                      );
+                    },
+                  ),
+                ),
+              ]),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () async {
+                  await AutoRouter.of(context)
+                      .push(const AddTransactionBudgetRoute());
+                  if (context.mounted) {
+                    context.read<BudgetCubit>().fetchData();
+                  }
+                },
+                backgroundColor: MyColors.primary,
+                child: Icon(
+                  Icons.add,
+                  size: 20.sp,
+                  color: MyColors.white,
+                ),
+              ),
+            );
           },
         ),
-      ]),
+      ),
     );
   }
 }

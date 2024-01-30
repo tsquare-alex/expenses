@@ -1,9 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../../general/themes/app_colors.dart';
+import '../../../../../general/themes/cubit/app_theme_cubit.dart';
 
 class RingSizeScreen extends StatelessWidget {
   const RingSizeScreen({Key? key}) : super(key: key);
@@ -12,11 +17,25 @@ class RingSizeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: MyColors.primary,
+        leading: GestureDetector(
+          onTap: () => AutoRouter.of(context).pop(),
+          child: Icon(
+            Icons.arrow_back,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+          ),
+        ),
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            :MyColors.white,
+
         centerTitle: true,
-        title: MyText(title: tr(context, "ringSize"), color: Colors.white, size: 15.sp,fontWeight: FontWeight.bold,),
+        title: MyText(title: tr(context, "ringSize"), color:context.watch<AppThemeCubit>().isDarkMode
+            ? MyColors.white
+            :MyColors.black, size: 15.sp,fontWeight: FontWeight.bold,),
       ),
-      body: Image.asset(Res.ringSize,fit: BoxFit.cover,),
+      body: Image.asset(Res.ring_size,fit: BoxFit.cover,),
     );
   }
 }

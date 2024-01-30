@@ -1,17 +1,22 @@
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/user/models/database_model/database_model.dart';
 import 'package:expenses/user/screens/database/cubit/add_database_cubit/add_data_base_cubit.dart';
 import 'package:expenses/user/screens/database/cubit/add_database_cubit/add_data_base_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../../general/constants/MyColors.dart';
 import '../../../../general/models/data_base_model/data_base_model.dart';
+import '../../../../general/themes/cubit/app_theme_cubit.dart';
 import '../../../../general/widgets/MyText.dart';
 import '../cubit/database_cubit.dart';
 import 'database_details.dart';
+import 'package:barcode_scan2/barcode_scan2.dart';
 
 class ExpandableCard extends StatefulWidget {
   final DatabaseModel databaseData;
@@ -27,44 +32,64 @@ class ExpandableCard extends StatefulWidget {
 
 class _ExpandableCardState extends State<ExpandableCard> {
   bool isExpanded = false;
-  File? pickedImage;
 
   @override
   Widget build(BuildContext context) {
-    print('==================================================');
+    print("QR Code Data: ${widget.databaseData.generateQRCodeData()}");
+    print("Image Data: ${widget.databaseData.image}");
+    print("Other Details: ${widget.databaseData.name}, ${widget.databaseData.category}, ...");
 
-    print(widget.databaseData.image);
-    print('==================================================');
+
 
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>
-                DatabaseDetails(databaseData: widget.databaseData),
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => DatabaseDetails(
+        //       databaseData: widget.databaseData,
+        //       onDataChanged: () {
+        //         // This callback will be called when data is changed in DatabaseDetails
+        //         setState(() {});
+        //       },
+        //     ),
+        //   ),
+        // );
       },
       child: Card(
-        color: MyColors.white,
-        child: Padding(
+        elevation: 1,
+        // surfaceTintColor: Colors.transparent,
+        color:  context.watch<AppThemeCubit>().isDarkMode
+            ? MyColors.greyWhite : MyColors.white,
+        child: Container(
+          margin:  EdgeInsets.only(bottom: 16.r),
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Container(
+                height: 100,
+                width: 100,
+                // alignment: Alignment.bottomRight,
+                child: QrImageView(
+                  data: widget.databaseData.generateQRCodeData() ?? '',
+                  version: QrVersions.auto,
+                  size: 200.0,
+                  errorCorrectionLevel: QrErrorCorrectLevel.L,
+                ),
+              ),
+
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  widget.databaseData.image.isNotEmpty
+                  widget.databaseData.image!.isNotEmpty
                       ? CircleAvatar(
                     radius: 25.0,
-                    backgroundImage: MemoryImage(widget.databaseData.image),
+                    backgroundImage: MemoryImage(widget.databaseData.image!),
                     // child: Image.memory(widget.databaseData.image),
                   )
-
-
                       : CircleAvatar(
                     radius: 25.0,
                     child: Image.asset(
@@ -80,38 +105,37 @@ class _ExpandableCardState extends State<ExpandableCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MyText(
-                          title: widget.databaseData.company,
+                          title: widget.databaseData.name!,
                           color: MyColors.primary,
                           size: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),
                         MyText(
-                          title: widget.databaseData.category,
+                          title: widget.databaseData.category!,
                           color: MyColors.primary,
                           size: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),
-                        Row(
-                          children: [
-                            MyText(
-                              title: widget.databaseData.firstName,
-                              color: MyColors.primary,
-                              size: 10.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            MyText(
-                              title: widget.databaseData.phoneNumber,
-                              color: MyColors.primary,
-                              size: 10.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ],
+                        MyText(
+                          title: widget.databaseData.phone!,
+                          color: MyColors.primary,
+                          size: 10.sp,
+                          fontWeight: FontWeight.bold,
                         ),
                         MyText(
-                          title: widget.databaseData.city,
+                          title: widget.databaseData.address!,
+                          color: MyColors.primary,
+                          size: 10.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        MyText(
+                          title: widget.databaseData.socialAddress!,
+                          color: MyColors.primary,
+                          size: 10.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        MyText(
+                          title: widget.databaseData.note!,
                           color: MyColors.primary,
                           size: 10.sp,
                           fontWeight: FontWeight.bold,
@@ -119,68 +143,61 @@ class _ExpandableCardState extends State<ExpandableCard> {
                       ],
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isExpanded = !isExpanded;
-                      });
-                      // print(BlocProvider.of<DatabaseCubit>(context).isExpanded);
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: MyColors.primary,
-                          width: 2,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: EdgeInsets.symmetric(horizontal: 8.sp),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          MyText(
-                            title: "تفاصيل",
-                            color: MyColors.primary,
-                            size: 10.sp,
-                            fontWeight: FontWeight.bold,
-                            alien: TextAlign.center,
-                          ),
-                          Icon(
-                            isExpanded
-                                ? Icons.keyboard_arrow_up
-                                : Icons.keyboard_arrow_down,
-                            color: MyColors.primary,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+
                 ],
               ),
-              if (isExpanded)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 10.0),
-                    MyText(
-                      title: widget.databaseData.department,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: widget.databaseData.emailAddress,
-                      color: MyColors.primary,
-                      size: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ],
-                )
+
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class DatabaseTitle extends StatelessWidget {
+  const DatabaseTitle({
+    super.key,
+     required this.titleLocalization, required this.title,
+  });
+
+  // final ExpandableCard widget;
+  final String titleLocalization;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        MyText(
+          title: "${tr(context, titleLocalization)} :",
+          color: MyColors.secondary,
+          size: 15.sp,
+          fontWeight: FontWeight.bold,
+        ),
+        MyText(
+          title: title,
+          color: MyColors.primary,
+          size: 15.sp,
+          fontWeight: FontWeight.bold,
+        ),
+      ],
     );
   }
 }

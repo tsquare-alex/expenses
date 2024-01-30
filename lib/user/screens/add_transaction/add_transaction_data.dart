@@ -6,8 +6,17 @@ class AddTransactionData {
   final GlobalKey<FormState> formKey2 = GlobalKey();
   GenericBloc<bool> contentCubit = GenericBloc(false);
   GenericBloc<bool> iterateCubit = GenericBloc(false);
+  GenericBloc<bool> ratioCubit = GenericBloc(false);
   GenericBloc<bool> notifyCubit = GenericBloc(false);
+  GenericBloc<bool> remainderCubit = GenericBloc(false);
   final GenericBloc<Uint8List?> imageBloc = GenericBloc(null);
+  final GenericBloc<TransactionTypeModel?> typeCubit = GenericBloc(null);
+  final GenericBloc<List<TransactionContentModel>?> typeContentCubit =
+      GenericBloc(null);
+  final GenericBloc<List<TransactionTypeModel>> transactionTypeModelCubit =
+      GenericBloc([]);
+  final GenericBloc<DropdownModel?> targetTypeCubit = GenericBloc(null);
+  final GenericBloc<DropdownModel?> cashTypeCubit = GenericBloc(null);
 
   final GlobalKey<DropdownSearchState> commitmentDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> commitmentContentDropKey = GlobalKey();
@@ -17,11 +26,14 @@ class AddTransactionData {
   final GlobalKey<DropdownSearchState> priorityDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> shoppingPartyDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> iterateTransactionDropKey = GlobalKey();
+  final GlobalKey<DropdownSearchState> ratioDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> targetDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> cashTransactionDropKey = GlobalKey();
   final GlobalKey<DropdownSearchState> transferDropKey = GlobalKey();
+  final GlobalKey<DropdownSearchState> budgetDropKey = GlobalKey();
 
   TextEditingController dateController = TextEditingController();
+  TextEditingController transactionController = TextEditingController();
   TextEditingController startDateController = TextEditingController();
   TextEditingController endDateController = TextEditingController();
   TextEditingController timeController = TextEditingController();
@@ -35,18 +47,20 @@ class AddTransactionData {
   TextEditingController contentController = TextEditingController();
   TextEditingController newContentController = TextEditingController();
   TextEditingController targetController = TextEditingController();
+  TextEditingController initialValueController = TextEditingController();
+  TextEditingController requiredValueController = TextEditingController();
   TextEditingController transferController = TextEditingController();
+  TextEditingController addNoteController = TextEditingController();
   TextEditingController initValueController = TextEditingController();
 
   void onSelectTime(
     BuildContext context,
   ) {
     FocusScope.of(context).requestFocus(FocusNode());
-    var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.timePicker(
         context: context,
         onConfirm: (date) {
-          timeController.text = DateFormat("hh:mm aa", local).format(date!);
+          timeController.text = DateFormat("hh:mm aa", "en").format(date!);
         },
         title: '');
   }
@@ -55,11 +69,11 @@ class AddTransactionData {
     BuildContext context,
   ) {
     FocusScope.of(context).requestFocus(FocusNode());
-    var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
         context: context,
+        minDate: DateTime.now().subtract(Duration(days: 30)),
         onConfirm: (date) {
-          dateController.text = DateFormat("dd MMMM yyyy", local).format(date!);
+          dateController.text = DateFormat("dd/MM/yyyy", "en").format(date!);
         },
         title: '');
   }
@@ -68,12 +82,12 @@ class AddTransactionData {
     BuildContext context,
   ) {
     FocusScope.of(context).requestFocus(FocusNode());
-    var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
         context: context,
+        minDate: DateTime.now().subtract(Duration(days: 30)),
         onConfirm: (date) {
           startDateController.text =
-              DateFormat("dd MMMM yyyy", local).format(date!);
+              DateFormat("dd/MM/yyyy", "en").format(date!);
         },
         title: '');
   }
@@ -82,12 +96,17 @@ class AddTransactionData {
     BuildContext context,
   ) {
     FocusScope.of(context).requestFocus(FocusNode());
-    var local = context.read<LangCubit>().state.locale.languageCode;
     AdaptivePicker.datePicker(
+        initial: startDateController.text.isNotEmpty
+            ? DateFormat("dd/MM/yyyy", "en").parse(startDateController.text)
+            : DateTime.now(),
+        minDate: startDateController.text.isNotEmpty
+            ? DateFormat("dd/MM/yyyy", "en").parse(startDateController.text)
+            : DateTime.now(),
         context: context,
         onConfirm: (date) {
           endDateController.text =
-              DateFormat("dd MMMM yyyy", local).format(date!);
+              DateFormat("dd/MM/yyyy", "en").format(date!);
         },
         title: '');
   }
@@ -108,70 +127,22 @@ class AddTransactionData {
   List<DropdownModel> cashTransactionList = [];
   List<AddTransactionModel> addTransactionList = [];
 
-  initialTransaction(TransactionModel model) async {
-    if (model.name == "الالتزامات") {
-      final box = await Hive.openBox<TransactionTypeModel>("transactionBox");
-      var boxItems = box.values.cast<TransactionTypeModel>().toList();
-      var content = model.content;
-      for (var item in content!) {
-        // Check if the name of the item in list1 is not equal to any name in list2
-        if (!boxItems.any((element) => element.name == item.name)) {
-          // Add the item to list2
-          box.add(item);
-        }
-      }
-      fetchData();
-      transactionType = box.values.cast<TransactionTypeModel>().toList();
-      print(transactionType[0].content?[0].name);
-      transactionTypeCubit.onUpdateData(transactionType);
-      await box.close();
-    } else if (model.name == "التسوق والشراء") {
-      final box =
-          await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
-      var boxItems = box.values.cast<TransactionTypeModel>().toList();
-      var content = model.content;
-      for (var item in content!) {
-        // Check if the name of the item in list1 is not equal to any name in list2
-        if (!boxItems.any((element) => element.name == item.name)) {
-          // Add the item to list2
-          box.add(item);
-        }
-      }
-      fetchShoppingData();
-      shoppingType = box.values.cast<TransactionTypeModel>().toList();
-      print(shoppingType[0].content?[0].name);
-      shoppingTypeCubit.onUpdateData(shoppingType);
-      await box.close();
-    } else if (model.name == "الاهداف المالية المستهدفة") {
-      final box = await Hive.openBox<DropdownModel>("targetBox");
-      var boxItems = box.values.cast<DropdownModel>().toList();
-      for (var item in targets) {
-        // Check if the name of the item in list1 is not equal to any name in list2
-        if (!boxItems.any((element) => element.name == item.name)) {
-          // Add the item to list2
-          box.add(item);
-        }
-      }
-      fetchTargetData();
-      targetList = box.values.cast<DropdownModel>().toList();
-      print(targetList[0].name);
-      targetCubit.onUpdateData(targetList);
-      await box.close();
-    } else if (model.name == "المعاملات النقدية") {
-      final box = await Hive.openBox<DropdownModel>("cashTransactionBox");
-      var boxItems = box.values.cast<DropdownModel>().toList();
-      for (var item in cashTransactions) {
-        // Check if the name of the item in list1 is not equal to any name in list2
-        if (!boxItems.any((element) => element.name == item.name)) {
-          // Add the item to list2
-          box.add(item);
-        }
-      }
-      fetchCashTransactionData();
-      cashTransactionList = box.values.cast<DropdownModel>().toList();
-      print(cashTransactionList[0].name);
-      cashTransactionCubit.onUpdateData(cashTransactionList);
-      await box.close();
+  getContents(TransactionTypeModel model,String name) async{
+    final box ;
+    if(name == "الالتزامات"){
+      box= await Hive.openBox<TransactionTypeModel>("transactionBox");
+      var transactionTypeList = box.values.cast<TransactionTypeModel>().toList();
+      var targetModel = transactionTypeList.firstWhere((element) => element.key == model.key);
+      typeContentCubit.onUpdateData(targetModel.content);
+      //box.close();
+    }else if(name == "التسوق والشراء"){
+      box= await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
+      var transactionTypeList = box.values.cast<TransactionTypeModel>().toList();
+      var targetModel = transactionTypeList.firstWhere((element) => element.key == model.key);
+      typeContentCubit.onUpdateData(targetModel.content);
+      box.close();
+    }else{
+      typeContentCubit.onUpdateData(null);
     }
   }
 
@@ -201,9 +172,9 @@ class AddTransactionData {
     box.add(model);
     print(box.values.length);
     print('success');
+    print(model.name);
     targetList = box.values.cast<DropdownModel>().toList();
     targetCubit.onUpdateData(targetList);
-    print(targetList[1].name);
   }
 
   addCashTransaction(DropdownModel model) async {
@@ -211,34 +182,36 @@ class AddTransactionData {
     box.add(model);
     print(box.values.length);
     print('success');
+    print(model.name);
     cashTransactionList = box.values.cast<DropdownModel>().toList();
-    cashTransactionCubit.onUpdateData(cashTransactionList);
-    print(cashTransactionList[1].name);
+    cashTransactionCubit.onUpdateData(box.values.toList());
   }
 
-  addTransactionContent(TransactionContentModel model, String type) async {
+  addTransactionContent(TransactionContentModel model, String type,
+      TransactionTypeModel typeModel) async {
     if (type == "الالتزامات") {
       final box = await Hive.openBox<TransactionTypeModel>("transactionBox");
       int modelIndex =
-          box.values.toList().indexWhere((model) => model.name == commitmentId);
+          box.values.toList().indexWhere((model) => model.key == typeModel.key);
       var transactionType = box.getAt(modelIndex);
-      print(modelIndex);
       transactionType?.content?.add(model);
       box.putAt(modelIndex, transactionType!);
       transactionContentCubit.onUpdateData(transactionType.content!);
-      print(transactionType.content?[0].name);
+      transactionTypeCubit.onUpdateData(box.values.toList());
       print(box.values.length);
+      typeContentCubit.onUpdateData(transactionType.content!);
+      var editModel = box.getAt(modelIndex);
+      getContents(editModel!,type);
       print('success');
     } else if (type == "التسوق والشراء") {
-      final box =
-          await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
-      int modelIndex =
-          box.values.toList().indexWhere((model) => model.name == commitmentId);
+      final box = await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
+      int modelIndex = box.values.toList().indexWhere((model) => model.key == typeModel.key);
       var shoppingType = box.getAt(modelIndex);
       print(modelIndex);
       shoppingType?.content?.add(model);
       box.putAt(modelIndex, shoppingType!);
       transactionContentCubit.onUpdateData(shoppingType.content!);
+      shoppingTypeCubit.onUpdateData(box.values.toList());
       print(shoppingType.content?[0].name);
       print(box.values.length);
       print('success');
@@ -285,7 +258,7 @@ class AddTransactionData {
   }
 
   Future<void> fetchTargetData() async {
-    final box = Hive.box<TransactionTypeModel>("targetBox");
+    final box = Hive.box<DropdownModel>("targetBox");
     try {
       var list = box.values.map((dynamic value) {
         if (value is DropdownModel) {
@@ -298,13 +271,11 @@ class AddTransactionData {
       targetCubit.onUpdateData(targetList);
     } catch (e) {
       print('Error fetching data from Hive: $e');
-    } finally {
-      await box.close();
     }
   }
 
   Future<void> fetchCashTransactionData() async {
-    final box = Hive.box<TransactionTypeModel>("cashTransactionBox");
+    final box = Hive.box<DropdownModel>("cashTransactionBox");
     try {
       var list = box.values.map((dynamic value) {
         if (value is DropdownModel) {
@@ -317,8 +288,6 @@ class AddTransactionData {
       cashTransactionCubit.onUpdateData(cashTransactionList);
     } catch (e) {
       print('Error fetching data from Hive: $e');
-    } finally {
-      await box.close();
     }
   }
 
@@ -344,7 +313,7 @@ class AddTransactionData {
               topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r))),
       context: context,
       builder: (context) => SizedBox(
-          height: 400.h,
+          height: 500.h,
           child: BuildAddTransactionModel(
             data: this,
             type: type,
@@ -352,17 +321,19 @@ class AddTransactionData {
     );
   }
 
-  addTransactionContentModel(BuildContext context, String type) {
+  addTransactionContentModel(
+      BuildContext context, String type, TransactionTypeModel typeModel) {
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r))),
       context: context,
       builder: (context) => SizedBox(
-          height: 300.h,
+          height: 500.h,
           child: BuildAddTransactionContent(
             data: this,
             type: type,
+            typeModel: typeModel,
           )),
     );
   }
@@ -396,6 +367,8 @@ class AddTransactionData {
 
   void setSelectCommitmentContent(TransactionContentModel? model) {
     selectedCommitmentContent = model;
+    commitmentContentId = model?.name;
+    print(commitmentContentId);
   }
 
   //
@@ -404,6 +377,7 @@ class AddTransactionData {
   int? commitmentPartyId;
   int? shoppingPartyId;
   int? priorityId;
+  int? ratioId;
   int? targetId;
   int? cashTransactionId;
   int? transferId;
@@ -411,56 +385,51 @@ class AddTransactionData {
   DropdownModel? selectedCommitmentParty;
   DropdownModel? selectedShoppingParty;
   DropdownModel? selectedPriority;
+  DropdownModel? selectedRatio;
   DropdownModel? selectedIterateTransaction;
   DropdownModel? selectedTarget;
   DropdownModel? selectedCashTransaction;
   DropdownModel? selectedTransfer;
 
-  List<DropdownModel> cashTransactions = [
-    DropdownModel(id: 0, name: "سحب"),
-    DropdownModel(id: 1, name: "تحويل"),
-  ];
-  List<DropdownModel> targets = [
-    DropdownModel(id: 0, name: "استثمار"),
-    DropdownModel(id: 1, name: "توفير"),
-    DropdownModel(id: 2, name: "تشطيب"),
-    DropdownModel(id: 3, name: "شراء سيارة"),
-    DropdownModel(id: 4, name: "مصاريف مدارس أو جامعة"),
-  ];
-  List<DropdownModel> shoppingParty = [
-    DropdownModel(id: 0, name: "ShoppingParty"),
-  ];
   List<DropdownModel> priorities = [
-    DropdownModel(id: 0, name: "ضروري"),
-    DropdownModel(id: 1, name: "هام"),
-    DropdownModel(id: 2, name: "عادي"),
-  ];
-  List<DropdownModel> commitmentParty = [
-    DropdownModel(id: 0, name: "Commitment Party1"),
-  ];
-  List<DropdownModel> units = [
-    DropdownModel(id: 0, name: "كيلوغرام"),
-    DropdownModel(id: 1, name: "غرام"),
-    DropdownModel(id: 2, name: "طن"),
-    DropdownModel(id: 3, name: "متر"),
-    DropdownModel(id: 4, name: "كيلومتر"),
-    DropdownModel(id: 5, name: "سنتيمتر"),
-  ];
-  List<DropdownModel> iterateTransaction = [
-    DropdownModel(id: 0, name: "يوميا"),
-    DropdownModel(id: 1, name: "أسبوعيا"),
-    DropdownModel(id: 2, name: "شهريا"),
-    DropdownModel(id: 3, name: "ربع سنويا"),
-    DropdownModel(id: 4, name: "نصف سنويا"),
-    DropdownModel(id: 5, name: "سنويا"),
-  ];
-  List<DropdownModel> transfer = [
-    DropdownModel(id: 0, name: "Transfer"),
+    DropdownModel(id: 0, name: "necessary"),
+    DropdownModel(id: 1, name: "important"),
+    DropdownModel(id: 2, name: "normal"),
   ];
 
-  Future<List<DropdownModel>> getCommitmentParty(BuildContext context) async {
-    return commitmentParty;
-  }
+  List<DropdownModel> ratio = [
+    DropdownModel(id: 0, name: "10 %"),
+    DropdownModel(id: 1, name: "20 %"),
+    DropdownModel(id: 2, name: "30 %"),
+    DropdownModel(id: 2, name: "40 %"),
+    DropdownModel(id: 2, name: "50 %"),
+    DropdownModel(id: 2, name: "60 %"),
+    DropdownModel(id: 2, name: "70 %"),
+    DropdownModel(id: 2, name: "80 %"),
+    DropdownModel(id: 2, name: "90 %"),
+    DropdownModel(id: 2, name: "100 %"),
+  ];
+
+  List<DropdownModel> units = [
+    DropdownModel(id: 0, name: "time1"),
+    DropdownModel(id: 1, name: "length"),
+    DropdownModel(id: 2, name: "weight"),
+    DropdownModel(id: 3, name: "mass"),
+    DropdownModel(id: 4, name: "speed"),
+    DropdownModel(id: 5, name: "power"),
+    DropdownModel(id: 6, name: "pressure"),
+    DropdownModel(id: 7, name: "energy"),
+    DropdownModel(id: 8, name: "electric"),
+  ];
+  List<DropdownModel> iterateTransaction = [
+    DropdownModel(id: 0, name: "daily"),
+    DropdownModel(id: 1, name: "weekly"),
+    DropdownModel(id: 2, name: "monthly"),
+    DropdownModel(id: 3, name: "quarterly"),
+    DropdownModel(id: 4, name: "SemiAnnually"),
+    DropdownModel(id: 5, name: "annually"),
+  ];
+
 
   Future<List<DropdownModel>> getUnits(BuildContext context) async {
     return units;
@@ -470,9 +439,10 @@ class AddTransactionData {
     return priorities;
   }
 
-  Future<List<DropdownModel>> getShoppingParty(BuildContext context) async {
-    return shoppingParty;
+  Future<List<DropdownModel>> getRatio(BuildContext context) async {
+    return ratio;
   }
+
 
   Future<List<DropdownModel>> getIterateTransaction(
       BuildContext context) async {
@@ -491,9 +461,6 @@ class AddTransactionData {
     return total;
   }
 
-  Future<List<DropdownModel>> getTransfer(BuildContext context) async {
-    return transfer;
-  }
 
   void setSelectTarget(DropdownModel? model) {
     selectedTarget = model;
@@ -504,6 +471,11 @@ class AddTransactionData {
   void setSelectPriority(DropdownModel? model) {
     selectedPriority = model;
     priorityId = model?.id;
+  }
+
+  void setSelectRatio(DropdownModel? model) {
+    selectedRatio = model;
+    ratioId = model?.id;
   }
 
   void setSelectCommitmentParty(DropdownModel? model) {
@@ -598,170 +570,222 @@ class AddTransactionData {
 
   clearData() {}
 
-  addTransaction(BuildContext context, String type) async {
+  addTransaction(BuildContext context, String type,TransactionTypeModel transactionType) async {
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
-    if (formKey.currentState!.validate() &&
-        formKey1.currentState!.validate() &&
+    if (formKey1.currentState!.validate() &&
+
         formKey2.currentState!.validate()) {
       if (type == "الالتزامات") {
-        AddTransactionModel model = AddTransactionModel(
-          transactionName: "الالتزامات",
-          transactionType: selectedCommitment,
-          transactionContent: selectedCommitmentContent,
-          incomeSource: selectedWalletModel,
-          unit: selectedUnit?.name,
-          amount: amountController.text,
-          total: totalController.text,
-          commitmentParty: selectedDatabaseModel,
-          priority: selectedPriority?.name,
-          time: timeController.text,
-          transactionDate: dateController.text,
-          repeated: iterateCubit.state.data != false
-              ? selectedIterateTransaction
-              : null,
-          notify: notifyCubit.state.data,
-        );
-        var total = double.parse(totalController.text);
-        if (total <= selectedWalletModel!.balance) {
-          var walletBox = Hive.box<WalletModel>(databaseBox);
-          var walletList = walletBox.values.toList();
-          WalletModel? targetModel = walletList.firstWhere(
-            (model) => model.name == selectedWalletModel?.name,
+        if(transactionType != null && selectedContent!=null){
+          AddTransactionModel model = AddTransactionModel(
+            transactionName: "الالتزامات",
+            transactionType: transactionType,
+            transactionContent: selectedContent,
+            incomeSource: selectedWalletModel,
+            total: totalController.text,
+            database: selectedDatabaseModel,
+            budget: selectedBudget,
+            priority: selectedPriority,
+            image: imageBloc.state.data,
+            time: timeController.text,
+            description: addNoteController.text,
+            transactionDate: dateController.text,
+            notify: notifyCubit.state.data,
+            repeated: iterateCubit.state.data != false
+                ? selectedIterateTransaction
+                : null,
           );
-          print("object ${targetModel.name}");
-          targetModel.balance = targetModel.balance - total;
-          print("balance ${targetModel.balance}");
-          await walletBox.put(selectedWalletModel?.key, targetModel);
-          print(selectedWalletModel!.balance);
-          box.add(model);
-          addTransactionList = box.values.toList();
-          addTransactionCubit.onUpdateData(addTransactionList);
-          AutoRouter.of(context).pop();
-          AutoRouter.of(context).replace(HomeRoute(index: 0));
-        } else if (total > selectedWalletModel!.balance) {
-          print(selectedWalletModel!.balance);
-          CustomToast.showSimpleToast(
-              msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
-              color: Colors.red);
+          print('mmmm');
+
+          var total = double.parse(totalController.text);
+          if (total <= selectedWalletModel!.totalBalance!) {
+            var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+            var currencyBox = Hive.box<CurrencyModel>("currencyBox");
+            var currencyList = currencyBox.values.toList();
+            var walletList = walletBox.values.toList();
+            WalletModel? targetModel = walletList.firstWhere(
+              (model) => model.name == selectedWalletModel?.name,
+            );
+            print("object ${targetModel.name}");
+            if(targetModel.currency != currencyList[0].mainCurrency){
+              if(targetModel.checkedValue ==false){
+                print("sss");
+                var calculatedTotalBalance = targetModel.totalBalance! - total;
+                targetModel.totalBalance = calculatedTotalBalance;
+                double remain = (calculatedTotalBalance)/ currencyList[0].value!;
+                targetModel.remainBalance = remain;
+                await walletBox.put(selectedWalletModel?.key, targetModel);
+              }else{
+                print("mmm");
+                var calculatedTotalBalance = targetModel.totalBalance! - total;
+                targetModel.totalBalance = calculatedTotalBalance;
+                double remain = calculatedTotalBalance;
+                targetModel.remainTotalBalance = remain;
+                await walletBox.put(selectedWalletModel?.key, targetModel);
+              }
+            }else{
+              print('mmmm');
+              var calculatedTotalBalance = targetModel.totalBalance! - total;
+              targetModel.totalBalance = calculatedTotalBalance;
+              targetModel.remainBalance = targetModel.remainBalance! - total;
+              await walletBox.put(selectedWalletModel?.key, targetModel);
+            }
+            print("balance ${targetModel.totalBalance!}");
+            print(selectedWalletModel!.remainBalance!);
+            print(selectedWalletModel!.totalBalance!);
+
+            box.add(model);
+            addTransactionList = box.values.toList();
+            AutoRouter.of(context).pop();
+          } else if (total > selectedWalletModel!.totalBalance!) {
+            print(selectedWalletModel!.totalBalance!);
+            CustomToast.showSimpleToast(
+                msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
+                color: Colors.red);
+          }
+        } else {
+          CustomToast.showSimpleToast(msg: "اختر المعاملة", color: Colors.red);
         }
-      } else if (type == "التسوق والشراء") {
-        AddTransactionModel model = AddTransactionModel(
-          transactionName: "التسوق والشراء",
-          transactionType: selectedCommitment,
-          transactionContent: selectedCommitmentContent,
-          shoppingParty: selectedDatabaseModel,
-          incomeSource: selectedWalletModel,
-          unit: selectedUnit?.name,
-          amount: amountController.text,
-          total: totalController.text,
-          brandName: brandController.text,
-          priority: selectedPriority?.name,
-          time: timeController.text,
-          transactionDate: dateController.text,
-          image: imageBloc.state.data,
-          repeated: iterateCubit.state.data != false
-              ? selectedIterateTransaction
-              : null,
-          notify: notifyCubit.state.data,
-        );
-        var total = double.parse(totalController.text);
-        if (total <= selectedWalletModel!.balance) {
-          var walletBox = Hive.box<WalletModel>(databaseBox);
-          var walletList = walletBox.values.toList();
-          WalletModel? targetModel = walletList.firstWhere(
-            (model) => model.name == selectedWalletModel?.name,
+      } else if (type == "التسوق والشراء"&& selectedContent!=null) {
+        if(transactionType != null){
+          AddTransactionModel model = AddTransactionModel(
+            transactionName: "التسوق والشراء",
+            transactionType: transactionType,
+            transactionContent: selectedContent,
+            database: selectedDatabaseModel,
+            budget: selectedBudget,
+            incomeSource: selectedWalletModel,
+            unit: selectedUnit,
+            amount: amountController.text.isNotEmpty?amountController.text:"1",
+            total: totalController.text,
+            description: addNoteController.text,
+            brandName: brandController.text,
+            priority: selectedPriority,
+            time: timeController.text,
+            transactionDate: dateController.text,
+            image: imageBloc.state.data,
+            notify: notifyCubit.state.data,
+            repeated: iterateCubit.state.data != false
+                ? selectedIterateTransaction
+                : null,
           );
-          print("object ${targetModel.name}");
-          targetModel.balance = targetModel.balance - total;
-          print("balance ${targetModel.balance}");
-          await walletBox.put(selectedWalletModel?.key, targetModel);
-          print(selectedWalletModel!.balance);
-          box.add(model);
-          addTransactionList = box.values.toList();
-          addTransactionCubit.onUpdateData(addTransactionList);
-          AutoRouter.of(context).pop();
-          AutoRouter.of(context).replace(HomeRoute(index: 0));
-        } else if (total > selectedWalletModel!.balance) {
-          print(selectedWalletModel!.balance);
-          CustomToast.showSimpleToast(
-              msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
-              color: Colors.red);
+          var total = double.parse(totalController.text);
+          if (total <= selectedWalletModel!.totalBalance!) {
+            var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+            var walletList = walletBox.values.toList();
+            WalletModel? targetModel = walletList.firstWhere(
+              (model) => model.name == selectedWalletModel?.name,
+            );
+            print("object ${targetModel.name}");
+            targetModel.totalBalance = targetModel.totalBalance! - total;
+            print("balance ${targetModel.totalBalance!}");
+            await walletBox.put(selectedWalletModel?.key, targetModel);
+            print(selectedWalletModel!.totalBalance!);
+            box.add(model);
+            addTransactionList = box.values.toList();
+            addTransactionCubit.onUpdateData(addTransactionList);
+            AutoRouter.of(context).pop();
+          } else if (total > selectedWalletModel!.totalBalance!) {
+            print(selectedWalletModel!.totalBalance!);
+            CustomToast.showSimpleToast(
+                msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
+                color: Colors.red);
+          }
+        } else {
+          CustomToast.showSimpleToast(msg: "اختر المعاملة", color: Colors.red);
         }
       } else if (type == "الاهداف المالية المستهدفة") {
-        AddTransactionModel model = AddTransactionModel(
-          transactionName: "الاهداف المالية المستهدفة",
-          targetType: selectedTarget,
-          incomeSource: selectedWalletModel,
-          targetValue: targetController.text,
-          startDate: startDateController.text,
-          endDate: endDateController.text,
-          time: timeController.text,
-          transactionDate: dateController.text,
-          repeated: iterateCubit.state.data != false
-              ? selectedIterateTransaction
-              : null,
-          notify: notifyCubit.state.data,
-        );
-        var total = double.parse(targetController.text);
-        if (total <= selectedWalletModel!.balance) {
-          var walletBox = Hive.box<WalletModel>(databaseBox);
-          var walletList = walletBox.values.toList();
-          WalletModel? targetModel = walletList.firstWhere(
-            (model) => model.name == selectedWalletModel?.name,
+        if(transactionType!=null){
+          AddTransactionModel model = AddTransactionModel(
+            transactionName: "الاهداف المالية المستهدفة",
+            transactionType: transactionType,
+            total: targetController.text,
+            description: addNoteController.text,
+            incomeSource: selectedWalletModel,
+            targetValue: targetController.text,
+            startDate: startDateController.text,
+            budget: selectedBudget,
+            endDate: endDateController.text,
+            time: timeController.text,
+            image: imageBloc.state.data,
+            transactionDate: dateController.text,
+            ratio: ratioCubit.state.data != false
+                ? selectedRatio
+                : null,
+            repeated: selectedIterateTransaction,
+            initialValue: double.parse(initialValueController.text),
+            requiredValue: double.parse(requiredValueController.text),
+            notify: notifyCubit.state.data,
+            putReminderInWallet: remainderCubit.state.data,
           );
-          print("object ${targetModel.name}");
-          targetModel.balance = targetModel.balance - total;
-          print("balance ${targetModel.balance}");
-          await walletBox.put(selectedWalletModel?.key, targetModel);
-          print(selectedWalletModel!.balance);
-          box.add(model);
-          addTransactionList = box.values.toList();
-          addTransactionCubit.onUpdateData(addTransactionList);
-          AutoRouter.of(context).pop();
-          AutoRouter.of(context).replace(HomeRoute(index: 0));
-        } else if (total > selectedWalletModel!.balance) {
-          print(selectedWalletModel!.balance);
-          CustomToast.showSimpleToast(
-              msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
-              color: Colors.red);
+          var total = double.parse(initialValueController.text);
+          if (total <= selectedWalletModel!.totalBalance!) {
+            var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+            var walletList = walletBox.values.toList();
+            WalletModel? targetModel = walletList.firstWhere(
+              (model) => model.name == selectedWalletModel?.name,
+            );
+            print("object ${targetModel.name}");
+            targetModel.totalBalance = targetModel.totalBalance! - total;
+            print("balance ${targetModel.totalBalance!}");
+            await walletBox.put(selectedWalletModel?.key, targetModel);
+            print(selectedWalletModel!.totalBalance!);
+            box.add(model);
+            addTransactionList = box.values.toList();
+            addTransactionCubit.onUpdateData(addTransactionList);
+            AutoRouter.of(context).pop();
+          } else if (total > selectedWalletModel!.totalBalance!) {
+            print(selectedWalletModel!.totalBalance!);
+            CustomToast.showSimpleToast(
+                msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
+                color: Colors.red);
+          }
+        } else {
+          CustomToast.showSimpleToast(msg: "اختر المعاملة", color: Colors.red);
         }
       } else if (type == "المعاملات النقدية") {
-        AddTransactionModel model = AddTransactionModel(
-          transactionName: "المعاملات النقدية",
-          cashTransactionType: selectedCashTransaction,
-          incomeSource: selectedWalletModel,
-          transferTo: selectedDatabaseModel,
-          priority: selectedPriority?.name,
-          total: transferController.text,
-          time: timeController.text,
-          transactionDate: dateController.text,
-          repeated: iterateCubit.state.data != false
-              ? selectedIterateTransaction
-              : null,
-          notify: notifyCubit.state.data,
-        );
-        var total = double.parse(transferController.text);
-        if (total <= selectedWalletModel!.balance) {
-          var walletBox = Hive.box<WalletModel>(databaseBox);
-          var walletList = walletBox.values.toList();
-          WalletModel? targetModel = walletList.firstWhere(
-            (model) => model.name == selectedWalletModel?.name,
+        if(transactionType !=null){
+          AddTransactionModel model = AddTransactionModel(
+            transactionName: "المعاملات النقدية",
+            transactionType: transactionType,
+            incomeSource: selectedWalletModel,
+            database: selectedDatabaseModel,
+            priority: selectedPriority,
+            description: addNoteController.text,
+            total: transferController.text,
+            time: timeController.text,
+            transactionDate: dateController.text,
+            image: imageBloc.state.data,
+            budget: selectedBudget,
+            notify: notifyCubit.state.data,
+            repeated: iterateCubit.state.data != false
+                ? selectedIterateTransaction
+                : null,
           );
-          print("object ${targetModel.name}");
-          targetModel.balance = targetModel.balance - total;
-          print("balance ${targetModel.balance}");
-          await walletBox.put(selectedWalletModel?.key, targetModel);
-          print(selectedWalletModel!.balance);
-          box.add(model);
-          addTransactionList = box.values.toList();
-          addTransactionCubit.onUpdateData(addTransactionList);
-          AutoRouter.of(context).pop();
-          AutoRouter.of(context).replace(HomeRoute(index: 0));
-        } else if (total > selectedWalletModel!.balance) {
-          print(selectedWalletModel!.balance);
-          CustomToast.showSimpleToast(
-              msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
-              color: Colors.red);
+          var total = double.parse(transferController.text);
+          if (total <= selectedWalletModel!.totalBalance!) {
+            var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+            var walletList = walletBox.values.toList();
+            WalletModel? targetModel = walletList.firstWhere(
+              (model) => model.key == selectedWalletModel?.key,
+            );
+            print("object ${targetModel.name}");
+            targetModel.totalBalance = targetModel.totalBalance! - total;
+            print("balance ${targetModel.totalBalance!}");
+            await walletBox.put(selectedWalletModel?.key, targetModel);
+            print(selectedWalletModel!.totalBalance!);
+            box.add(model);
+            addTransactionList = box.values.toList();
+            addTransactionCubit.onUpdateData(addTransactionList);
+            AutoRouter.of(context).pop();
+          } else if (total > selectedWalletModel!.totalBalance!) {
+            print(selectedWalletModel!.totalBalance!);
+            CustomToast.showSimpleToast(
+                msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
+                color: Colors.red);
+          }
+        } else {
+          CustomToast.showSimpleToast(msg: "اختر المعاملة", color: Colors.red);
         }
       }
     } else {
@@ -772,13 +796,20 @@ class AddTransactionData {
   }
 
   WalletModel? selectedWalletModel;
+  BudgetModel? selectedBudget;
   DatabaseModel? selectedDatabaseModel;
   String? walletName;
+  String? budgetName;
   String? databaseName;
 
   void setSelectWalletModel(WalletModel? model) {
     selectedWalletModel = model;
     walletName = model?.name;
+  }
+
+  void setSelectBudgetModel(BudgetModel? model) {
+    selectedBudget = model;
+    // budgetName = model?."budgetName";
   }
 
   void setSelectDatabaseModel(DatabaseModel? model) {
@@ -787,7 +818,7 @@ class AddTransactionData {
   }
 
   Future<List<WalletModel>> getWalletData(BuildContext context) async {
-    var walletBox = Hive.box<WalletModel>(databaseBox);
+    var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
     List<WalletModel> total = walletBox.values.toList();
     return total;
   }
@@ -796,5 +827,30 @@ class AddTransactionData {
     var databaseData = Hive.box<DatabaseModel>(database);
     List<DatabaseModel> total = databaseData.values.toList();
     return total;
+  }
+
+  Future<List<BudgetModel>> getBudgetData(BuildContext context) async {
+    var budgetData = Hive.box<BudgetModel>("budgetBox");
+    List<BudgetModel> total = budgetData.values.toList();
+    return total;
+  }
+
+  GenericBloc<TransactionContentModel?> contentBloc = GenericBloc(null);
+
+  TransactionContentModel? selectedContent;
+
+  selectContent(bool value, TransactionTypeModel typeModel,TransactionContentModel contentModel,int index, String type,String boxName) async{
+    final box = await Hive.openBox<TransactionTypeModel>(boxName);
+    print(type);
+    int modelIndex =
+    box.values.toList().indexWhere((model) => model.key == typeModel.key);
+
+    var neededTransactionType = box.getAt(modelIndex);
+    neededTransactionType?.content?.map((e) => e.selected = false).toList();
+    neededTransactionType?.content?[index].selected = !value;
+    selectedContent = neededTransactionType?.content?[index];
+    print("index :${neededTransactionType?.content?.length}");
+    typeContentCubit.onUpdateData(neededTransactionType?.content);
+    print(selectedContent?.name);
   }
 }

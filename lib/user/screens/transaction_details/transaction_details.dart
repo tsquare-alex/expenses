@@ -12,35 +12,73 @@ class _TransactionDetailsState extends State<TransactionDetails> {
 
   TransactionDetailsData data = TransactionDetailsData();
 
-
+  @override
+  void initState() {
+    print("notify${widget.model.notify}");
+    data.fetchData(widget.model,context);
+    data.notifyCubit.onUpdateData(widget.model.notify??false);
+    data.ratioCubit.onUpdateData(widget.model.ratio!=null?true:false);
+    data.iterateCubit.onUpdateData(widget.model.repeated!=null?true:false);
+    data.remainderCubit.onUpdateData(widget.model.putReminderInWallet??false);
+    data.selectedIterateTransaction= widget.model.repeated;
+    print(widget.model.repeated?.name);
+    data.selectedUnit= widget.model.unit;
+    data.selectedWalletModel= widget.model.incomeSource;
+    data.selectedBudget= widget.model.budget;
+    data.selectedRatio= widget.model.ratio;
+    data.selectedPriority= widget.model.priority;
+    data.descriptionController.text = widget.model.description??"";
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => AutoRouter.of(context).pop(),
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: MyColors.white,
-            size: 20.sp,
-          ),
-        ),
-        centerTitle: true,
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : MyColors.white,
+        surfaceTintColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : MyColors.white,
         title: MyText(
-          title: "تفاصيل المعاملة",
-          color: MyColors.white,
-          size: 16.sp,
+          title: tr(context, "transactionDetails"),
+          color: context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              : MyColors.black,
+          size: 18.sp,
           fontWeight: FontWeight.bold,
         ),
+        leading: InkWell(
+          onTap: () => AutoRouter.of(context).pop(),
+          child: Icon(Icons.arrow_back, color: context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              : MyColors.black,),
+        ),
+        centerTitle: true,
+        actions: [
+        Padding(
+          padding: EdgeInsets.only(left:10.0.r),
+          child: InkWell(
+          onTap: ()=>data.deleteItem(widget.model, context),
+          child: CircleAvatar(
+            radius: 20.r,
+            backgroundColor: MyColors.greyWhite,
+            child: const Icon(
+              Icons.delete,
+              color: Colors.red,
+            ),
+          ),),
+        ),
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.all(15.r),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              BuildTransactionDetailsInputs(transactionDetailsData: data,model: widget.model,)
+              BuildTransactionDetailsInputs(transactionDetailsData: data,model: widget.model,),
+              BuildTransactionDetailsButton(data: data, model: widget.model),
             ],
           ),
         ),
@@ -50,8 +88,17 @@ class _TransactionDetailsState extends State<TransactionDetails> {
 
   @override
   void dispose() {
-    data.endDateController.dispose();
-    data.startDateController.clear();
+    data.transactionTypeController.dispose();
+    data.transactionContentController.dispose();
+    data.amountController.dispose();
+    data.totalController.dispose();
+    data.partyController.dispose();
+    data.walletController.dispose();
+    data.transactionDateController.dispose();
+    data.timeController.dispose();
+    data.brandNameController.dispose();
+    data.initialValueController.dispose();
+    data.requiredValueController.dispose();
 
     super.dispose();
   }

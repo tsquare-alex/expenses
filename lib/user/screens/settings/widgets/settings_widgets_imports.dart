@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:expenses/general/blocks/lang_cubit/lang_cubit.dart';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/themes/app_colors.dart';
@@ -17,9 +18,11 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../general/themes/cubit/app_theme_cubit.dart';
+import '../../auth_info_cubit/auth_info_cubit.dart';
 
 part 'build_language_bottom_sheet.dart';
 part 'settings_body.dart';
 part 'settings_custom_tile.dart';
 part 'settings_tile_dropdown.dart';
 part 'settings_tile_row.dart';
+part 'settings_tile.dart';

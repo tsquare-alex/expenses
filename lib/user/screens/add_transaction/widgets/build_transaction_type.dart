@@ -1,130 +1,213 @@
 part of 'add_transaction_widgets_imports.dart';
 
 class BuildTransactionType extends StatelessWidget {
-  const BuildTransactionType({Key? key, required this.addTransactionData, required this.type,}) : super(key: key);
+  const BuildTransactionType({
+    Key? key,
+    required this.addTransactionData,
+    required this.type,
+    required this.model,
+    required this.boxName,
+  }) : super(key: key);
   final AddTransactionData addTransactionData;
   final String type;
+  final TransactionTypeModel model;
+  final String boxName;
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: addTransactionData.formKey,
-      child: Column(
-        children: [
-          if( type=="الالتزامات" ||  type=="التسوق والشراء") BlocBuilder<GenericBloc<List<TransactionTypeModel>>, GenericState<List<TransactionTypeModel>>>(
-            bloc: type=="الالتزامات"?addTransactionData.transactionTypeCubit:addTransactionData.shoppingTypeCubit,
-            builder: (context, state) {
-          return Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    print(type);
+    return Column(
+      children: [
+        if (type == "الالتزامات" || type == "التسوق والشراء")
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(width: 1.w, color: MyColors.greyWhite),
+              borderRadius: BorderRadius.circular(10.r),
+            ),
+            child: Theme(
+              data:
+                  Theme.of(context).copyWith(dividerColor: Colors.transparent),
+              child: ExpansionTile(
+                childrenPadding: EdgeInsets.all(10.r),
+                title: Row(
+                  children: [
+                    Image.asset(
+                      Res.transactions,
+                      width: 30.w,
+                      height: 30.h,
+                    ),
+                    SizedBox(
+                      width: 15.w,
+                    ),
+                    MyText(
+                      title: tr(context, "transaction"),
+                      color:  context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : MyColors.black,
+                      size: 14.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ],
+                ),
                 children: [
-                  MyText(title: type=="الالتزامات"?"اختار الالتزام":"تحديد جهة التسوق والشراء", color: MyColors.black, size: 12.sp,fontWeight: FontWeight.bold,),
-                  IconButton(onPressed: ()=>addTransactionData.clearBoxData("addTransactionBox"), icon: Icon(Icons.add))
+                  BlocBuilder<GenericBloc<List<TransactionContentModel>?>,
+                      GenericState<List<TransactionContentModel>?>>(
+                    bloc: addTransactionData.typeContentCubit,
+                    builder: (context, state) {
+                      return Column(
+                        children:
+                            List.generate(state.data?.length ?? 0, (index) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      state.data?[index].image ??
+                                          Res.commitments,
+                                      width: 30.w,
+                                      height: 30.h,
+                                    ),
+                                    SizedBox(
+                                      width: 15.w,
+                                    ),
+                                    Flexible(
+                                      child: MyText(
+                                        title: tr(context,
+                                                    state.data![index].name!)
+                                                .isNotEmpty
+                                            ? tr(context,
+                                                state.data![index].name!)
+                                            : state.data?[index].name ?? "",
+                                        color:  context.watch<AppThemeCubit>().isDarkMode
+                                            ? MyColors.white
+                                            : MyColors.black,
+                                        size: 13.sp,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              state.data?[index].name == "electric" ||
+                                      state.data?[index].name == "telephone"||
+                                  state.data?[index].name == "dairy"
+                              ||state.data?[index].name == "cheese"
+                              ||state.data?[index].name == "bakedGoods"
+                              ||state.data?[index].name == "vegetable"
+                              ||state.data?[index].name == "fruits"
+                              ||state.data?[index].name == "oil"
+                              ||state.data?[index].name == "salt"
+                              ||state.data?[index].name == "rent"
+                              ? Radio(
+                                      value: addTransactionData.selectedContent==null?false:
+                                          state.data?[index].selected ?? false,
+                                      groupValue: true,
+                                      activeColor: MyColors.primary,
+                                      onChanged: (v) {
+                                        addTransactionData.selectContent(
+                                            v!,
+                                            model,
+                                            state.data![index],
+                                            index,
+                                            type,
+                                            boxName);
+                                      })
+                                  : InkWell(
+                                highlightColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                splashColor: Colors.transparent,
+                                    onTap: (){
+                                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                                    },
+                                    child: Image.asset(
+                                        Res.pro,
+                                        width: 50.w,
+                                        height: 60.h,
+                                      ),
+                                  ),
+                            ],
+                          );
+                        }),
+                      );
+                    },
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  InkWell(
+                    onTap: () => addTransactionData.addTransactionContentModel(
+                        context, type, model),
+                    splashColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        MyText(
+                          title: tr(context, "addNewContent"),
+                          color:  context.watch<AppThemeCubit>().isDarkMode
+                              ? MyColors.white
+                              : MyColors.black,
+                          size: 14.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        Icon(
+                          Icons.add,
+                          color: MyColors.primary,
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
-              DropdownTextField<TransactionTypeModel>(
-                dropKey: addTransactionData.commitmentDropKey,
-                label: "المعاملات",
-                selectedItem: addTransactionData.selectedCommitment,
-                margin: const EdgeInsets.symmetric(vertical: 5),
-                validate: (value) {
-                  if(value==null){
-                    print("Please fill this field");
-                  }
-                },
-                onChange: addTransactionData.setSelectCommitment,
-                finData: (data) => addTransactionData.getCommitments(context,state.data),
-                useName: true,
-                buttonsColor: MyColors.primary,
-                searchHint: "بحث",
+            ),
+          ),
+        if (type == "المعاملات النقدية" || type == "الاهداف المالية المستهدفة")
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              MyText(
+                title: tr(context, "transaction"),
+                color: MyColors.black,
+                size: 14.sp,
+                fontWeight: FontWeight.bold,
               ),
               SizedBox(
-                height: 20.h,
+                height: 5.h,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MyText(title: "اختار محتوي المعاملة", color: MyColors.black, size: 12.sp,fontWeight: FontWeight.bold,),
-                  IconButton(onPressed: ()=>addTransactionData.addTransactionContentModel(context,type), icon: Icon(Icons.add))
-                ],
-              ),
-              DropdownTextField<TransactionContentModel>(
-                dropKey: addTransactionData.commitmentContentDropKey,
-                label: "اختر",
-                selectedItem: addTransactionData.selectedCommitmentContent,
-                margin: const EdgeInsets.symmetric(vertical: 5),
-                validate: (value) {
-                  if(value==null){
-                    print("Please fill this field");
-                  }
-                },
-                onChange: addTransactionData.selectedCommitmentContent,
-                finData: (data) => addTransactionData.getCommitmentsContent(context,),
-                useName: true,
-                buttonsColor: MyColors.primary,
-                searchHint: "بحث",
-              ),
-            ],
-          );
-            },
-          ),
-          if( type=="الاهداف المالية المستهدفة") Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MyText(title: "تحديد اسم المستهدف", color: MyColors.black, size: 12.sp,fontWeight: FontWeight.bold,),
-                  IconButton(onPressed: ()=>addTransactionData.addTransactionContentModel(context, type), icon: Icon(Icons.add))
-                ],
-              ),
-              DropdownTextField<DropdownModel>(
-                dropKey: addTransactionData.targetDropKey,
-                label: "اختر",
-                selectedItem: addTransactionData.selectedTarget,
-                margin: const EdgeInsets.symmetric(vertical: 5),
-                validate: (value) {
-                  if(value==null){
-                    print("Please fill this field");
-                  }
-                },
-                onChange: addTransactionData.setSelectTarget,
-                finData: (data) => addTransactionData.getTarget(context,),
-                useName: true,
-                buttonsColor: MyColors.primary,
-                searchHint: "بحث",
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(width: 1.w, color: MyColors.greyWhite),
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                padding: EdgeInsets.all(10.r),
+                child: Row(
+                  children: [
+                    Image.asset(
+                      model.image ?? "",
+                      width: 30.w,
+                      height: 30.h,
+                    ),
+                    SizedBox(
+                      width: 15.w,
+                    ),
+                    MyText(
+                      title: tr(context, model.name!).isNotEmpty
+                          ? tr(context, model.name!)
+                          : model.name ?? "",
+                      color:  context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : MyColors.black,
+                      size: 13.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
-          if( type=="المعاملات النقدية") Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MyText(title: "نوع المعامله النقدية", color: MyColors.black, size: 12.sp,fontWeight: FontWeight.bold,),
-                  IconButton(onPressed: ()=>addTransactionData.addTransactionContentModel(context, type), icon: Icon(Icons.add))
-                ],
-              ),
-              DropdownTextField<DropdownModel>(
-                dropKey: addTransactionData.cashTransactionDropKey,
-                label: "اختر",
-                selectedItem: addTransactionData.selectedCashTransaction,
-                margin: const EdgeInsets.symmetric(vertical: 5),
-                validate: (value) {
-                  if(value==null){
-                    print("Please fill this field");
-                  }
-                },
-                onChange: addTransactionData.setSelectCashTransactions,
-                finData: (data) => addTransactionData.getCashTransactions(context,),
-                useName: true,
-                buttonsColor: MyColors.primary,
-                searchHint: "بحث",
-              ),
-            ],
-          ),
-        ],
-      ),
+      ],
     );
   }
 }

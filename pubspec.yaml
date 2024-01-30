@@ -64,7 +64,7 @@ dependencies:
   google_sign_in:
   googleapis:
   googleapis_auth:
-  path_provider:
+  path_provider: ^2.1.2
   extension_google_sign_in_as_googleapis_auth:
   hive:
   hive_flutter:
@@ -76,10 +76,38 @@ dependencies:
   adaptive_action_sheet:
   flutter_image_compress:
   font_awesome_flutter:
-  flutter_barcode_scanner:
+#  flutter_barcode_scanner:
+  local_auth: ^2.1.7
   flutter_rounded_date_picker:
   intl: ^0.18.1
   macos_ui: ^2.0.2
+  barcode_scan2: ^4.3.0
+  flutter_expandable_fab: ^2.0.0
+  country_picker:
+  currency_picker:
+  animations:
+  pull_to_refresh:
+  timezone: ^0.9.2
+  time_picker_widget:
+  rulers: ^1.0.7
+  qr_flutter: ^4.0.0
+  uuid:
+  audioplayers:
+  circular_countdown_timer:
+  timer_count_down: ^2.2.2
+  dropdown_textfield: ^1.0.8
+  flutter_local_notifications: ^15.1.1
+  rxdart: ^0.27.7
+  workmanager: ^0.5.2
+  syncfusion_flutter_charts: ^23.2.7
+  flutter_timezone: ^1.0.7
+  liquid_progress_indicator_v2: ^0.5.0
+  share_plus: ^7.2.1
+  syncfusion_flutter_xlsio: ^23.2.7
+  pdf: ^3.10.7
+  open_file: ^3.3.2
+  permission_handler: ^11.2.0
+
 
 dev_dependencies:
   flutter_test:
@@ -116,6 +144,8 @@ flutter:
   assets:
     - assets/images/
     - assets/lang/
+    - assets/sounds/
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -14,22 +14,6 @@ class Wallet extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             backgroundColor: MyColors.white,
-            floatingActionButton: FloatingActionButton(
-              onPressed: () async {
-                await AutoRouter.of(context).push(
-                  const AddWalletRoute(),
-                );
-                if (context.mounted) {
-                  context.read<WalletCubit>().fetchAllData();
-                }
-              },
-              backgroundColor: MyColors.primary,
-              child: Icon(
-                Icons.add,
-                size: 20.sp,
-                color: MyColors.white,
-              ),
-            ),
             body: const WalletBody(),
           );
         },

@@ -8,7 +8,7 @@ class BuildSelectCurrencyText extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       child: MyText(
-        title: tr(context, "selectCurrency"),
+        title: tr(context, "selectSubCurrency"),
         color: MyColors.black,
         size: 17,
         alien: TextAlign.center,

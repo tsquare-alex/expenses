@@ -1,6 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/constants/MyColors.dart';
+import 'package:expenses/general/packages/localization/Localizations.dart';
+import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
+import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
+import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HeaderLogo extends StatelessWidget {
   final double? topPadding;
@@ -22,7 +29,7 @@ class HeaderLogo extends StatelessWidget {
         bottom: 20,
       ),
       child: Image(
-        color: color??MyColors.primary,
+        color: color,
         height: width??MediaQuery.of(context).size.height * 0.18,
         width: height??MediaQuery.of(context).size.width * 0.55,
         image: AssetImage(image??Res.logo),

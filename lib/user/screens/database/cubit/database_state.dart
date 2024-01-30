@@ -12,6 +12,7 @@ abstract class DatabaseState extends Equatable {
 class DatabaseInitial extends DatabaseState {}
 
 class DatabaseLoading extends DatabaseState {}
+class DatabaseSuccess extends DatabaseState {}
 
 class DatabaseDataLoaded extends DatabaseState {
   final List<DatabaseModel> dataBaseModel;
@@ -34,3 +35,26 @@ class DatabaseToggle extends DatabaseState{
 
   DatabaseToggle({required this.isExpanded});
 }
+
+class DatabaseScannedResult extends DatabaseState {
+  final String scanResult;
+
+  DatabaseScannedResult({required this.scanResult});
+
+  @override
+  List<Object> get props => [scanResult];
+}
+class DatabaseDataFirestoreLoaded extends DatabaseState {
+  final String documentNumber;
+  final String documentData;
+
+
+  DatabaseDataFirestoreLoaded({
+    required this.documentNumber,
+    required this.documentData,
+
+  });
+
+
+}
+

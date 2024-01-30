@@ -24,6 +24,9 @@ class BuildTransactionItem extends StatelessWidget {
     return Column(
       children: [
         InkWell(
+          splashColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           onTap: onTap,
           child: Row(
             children: [

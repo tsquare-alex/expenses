@@ -14,6 +14,10 @@ class BuildAddTransactionModel extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
+            MyText(title: tr(context, "addTransaction"), color: MyColors.primary , size: 14.sp,fontWeight: FontWeight.bold,),
+            SizedBox(
+              height: 20.h,
+            ),
             Column(
               children: [
                 GenericTextField(
@@ -31,41 +35,35 @@ class BuildAddTransactionModel extends StatelessWidget {
                   label: "نوع المعاملة",
                   margin: const EdgeInsets.symmetric(vertical: 10),
                 ),
-                GenericTextField(
-                  contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  controller: data.contentController,
-                  fieldTypes: FieldTypes.normal,
-                  type: TextInputType.text,
-                  action: TextInputAction.next,
-                  validate: (value) {
-                    if (value!.isEmpty) {
-                      return 'Enter the transaction type name';
-                    }
-                  },
-                  label: "محتوي المعاملة",
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                ),
               ],
             ),
             DefaultButton(
               onTap: () {
                 // var box = Hive.box(ApiNames.kTransactionTypes);
                 // box.put("name", "Mohamed");
-                data.addTransactionType(
+                if(type == "الالتزامات"||type=="التسوق والشراء"){data.addTransactionType(
                   TransactionTypeModel(
                       name: data.nameController.text,
                       content: [
-                        TransactionContentModel(
-                            name: data.contentController.text
-                        )
+
                       ]
                   ),
                   type
-                );
+                );}else if(type == "الاهداف المالية المستهدفة"){
+                  data.addTarget(
+                    DropdownModel(
+                      name: data.nameController.text,
+                    ),
+                  );
+                }else if (type == "المعاملات النقدية"){
+                  data.addCashTransaction(
+                    DropdownModel(
+                      name: data.nameController.text,
+                    ),
+                  );
+                }
                 AutoRouter.of(context).pop();
                 data.nameController.clear();
-                data.contentController.clear();
               },
               title: "إضافة",
               fontSize: 14.sp,

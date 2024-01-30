@@ -9,8 +9,12 @@ class BuildChangeCurrencyButton extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: 20.r),
       child: DefaultButton(
+        color:  context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.primary
+            : MyColors.primary,
+
         onTap: ()=>data.changeCurrency(),
-        title: "Change Currency",
+        title: tr(context, "currencyTransfer"),
         fontWeight: FontWeight.bold,
         fontSize: 14.sp,
       ),

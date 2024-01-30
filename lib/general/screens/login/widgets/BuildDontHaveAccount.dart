@@ -17,6 +17,9 @@ class BuildDontHaveAccount extends StatelessWidget {
             size: 13,
           ),
           InkWell(
+            splashColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
             onTap: () => AutoRouter.of(context).push(const RegisterRoute()),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 5),

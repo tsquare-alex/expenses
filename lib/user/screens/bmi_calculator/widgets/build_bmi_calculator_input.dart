@@ -12,8 +12,10 @@ class BuildBMICalculatorInput extends StatelessWidget {
       child: Column(
         children: [
           MyText(
-            title: "Enter your weight (kg)",
-            color: MyColors.black,
+            title: tr(context, "enterWeight"),
+            color:context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                :MyColors.black,
             size: 16.sp,
             fontWeight: FontWeight.bold,
           ),
@@ -21,6 +23,12 @@ class BuildBMICalculatorInput extends StatelessWidget {
             height: 10.h,
           ),
           GenericTextField(
+            hintColor: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+            textColor: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             controller: data.weightController,
@@ -29,7 +37,7 @@ class BuildBMICalculatorInput extends StatelessWidget {
             action: TextInputAction.next,
             validate: (value) {
               if (value!.isEmpty) {
-                return 'Enter your Weight (kg)';
+                return  tr(context, "enterWeight");
               }
             },
             label: "الوزن",
@@ -39,8 +47,10 @@ class BuildBMICalculatorInput extends StatelessWidget {
             height: 15.h,
           ),
           MyText(
-            title: "Enter your height (cm)",
-            color: MyColors.black,
+            title:  tr(context, "enterHeight"),
+            color:context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                :MyColors.black,
             size: 16.sp,
             fontWeight: FontWeight.bold,
           ),
@@ -48,6 +58,12 @@ class BuildBMICalculatorInput extends StatelessWidget {
             height: 10.h,
           ),
           GenericTextField(
+            hintColor: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
+            textColor: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             controller: data.heightController,
@@ -56,7 +72,7 @@ class BuildBMICalculatorInput extends StatelessWidget {
             action: TextInputAction.none,
             validate: (value) {
               if (value!.isEmpty) {
-                return 'Enter your Height(cm)';
+                return tr(context, "enterHeight");
               }
             },
             label: "الطول",

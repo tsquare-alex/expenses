@@ -19,33 +19,38 @@ class AddTransactionModelAdapter extends TypeAdapter<AddTransactionModel> {
     return AddTransactionModel(
       transactionName: fields[0] as String?,
       transactionType: fields[1] as TransactionTypeModel?,
-      image: fields[17] as Uint8List?,
-      shoppingParty: fields[15] as DatabaseModel?,
-      commitmentParty: fields[7] as DatabaseModel?,
-      unit: fields[4] as String?,
+      image: fields[16] as Uint8List?,
+      database: fields[7] as DatabaseModel?,
+      unit: fields[4] as DropdownModel?,
       total: fields[6] as String?,
       amount: fields[5] as String?,
       time: fields[10] as String?,
-      brandName: fields[16] as String?,
+      brandName: fields[15] as String?,
       endDate: fields[12] as String?,
       incomeSource: fields[3] as WalletModel?,
       notify: fields[14] as bool?,
-      priority: fields[8] as String?,
+      priority: fields[8] as DropdownModel?,
       repeated: fields[13] as DropdownModel?,
-      startDate: fields[18] as String?,
-      targetValue: fields[19] as String?,
+      startDate: fields[17] as String?,
+      targetValue: fields[18] as String?,
       transactionContent: fields[2] as TransactionContentModel?,
       transactionDate: fields[9] as String?,
-      transferTo: fields[20] as DatabaseModel?,
-      targetType: fields[21] as DropdownModel?,
-      cashTransactionType: fields[11] as DropdownModel?,
+      targetType: fields[19] as TransactionTypeModel?,
+      cashTransactionType: fields[11] as TransactionTypeModel?,
+      budget: fields[20] as BudgetModel?,
+      initialValue: fields[22] as double?,
+      requiredValue: fields[21] as double?,
+      completedNotify: fields[23] as bool?,
+      putReminderInWallet: fields[24] as bool?,
+      ratio: fields[25] as DropdownModel?,
+      description: fields[26] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, AddTransactionModel obj) {
     writer
-      ..writeByte(22)
+      ..writeByte(27)
       ..writeByte(0)
       ..write(obj.transactionName)
       ..writeByte(1)
@@ -61,7 +66,7 @@ class AddTransactionModelAdapter extends TypeAdapter<AddTransactionModel> {
       ..writeByte(6)
       ..write(obj.total)
       ..writeByte(7)
-      ..write(obj.commitmentParty)
+      ..write(obj.database)
       ..writeByte(8)
       ..write(obj.priority)
       ..writeByte(9)
@@ -77,19 +82,29 @@ class AddTransactionModelAdapter extends TypeAdapter<AddTransactionModel> {
       ..writeByte(14)
       ..write(obj.notify)
       ..writeByte(15)
-      ..write(obj.shoppingParty)
-      ..writeByte(16)
       ..write(obj.brandName)
-      ..writeByte(17)
+      ..writeByte(16)
       ..write(obj.image)
-      ..writeByte(18)
+      ..writeByte(17)
       ..write(obj.startDate)
-      ..writeByte(19)
+      ..writeByte(18)
       ..write(obj.targetValue)
+      ..writeByte(19)
+      ..write(obj.targetType)
       ..writeByte(20)
-      ..write(obj.transferTo)
+      ..write(obj.budget)
       ..writeByte(21)
-      ..write(obj.targetType);
+      ..write(obj.requiredValue)
+      ..writeByte(22)
+      ..write(obj.initialValue)
+      ..writeByte(23)
+      ..write(obj.completedNotify)
+      ..writeByte(24)
+      ..write(obj.putReminderInWallet)
+      ..writeByte(25)
+      ..write(obj.ratio)
+      ..writeByte(26)
+      ..write(obj.description);
   }
 
   @override

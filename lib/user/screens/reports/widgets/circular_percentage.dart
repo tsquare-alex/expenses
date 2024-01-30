@@ -7,26 +7,28 @@ class CircularPercentage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => showReportOptionsModalSheet(context: context),
-      child: CircularPercentIndicator(
-        animationDuration: 1000,
-        radius: 65.r,
-        lineWidth: 22.r,
-        startAngle: 340,
-        animation: true,
-        percent: 0.75,
-        center: Text(
-          '75%',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 14.r,
-          ),
+    return CircularPercentIndicator(
+      animationDuration: 1000,
+      radius: 130.r,
+      lineWidth: 30.r,
+      startAngle: 0,
+      animation: true,
+      percent: context.watch<ReportsCubit>().circleChartPercentage,
+      center: Text(
+        NumberFormat.percentPattern('en')
+            .format(context.watch<ReportsCubit>().circleChartPercentage),
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 32.sp,
         ),
-        circularStrokeCap: CircularStrokeCap.round,
-        progressColor: Colors.red,
-        backgroundColor: Colors.yellowAccent,
       ),
+      circularStrokeCap: CircularStrokeCap.round,
+      progressColor: context.watch<AppThemeCubit>().isDarkMode
+          ? AppDarkColors.secondary
+          : MyColors.primary,
+      backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+          ? AppDarkColors.accentColor1
+          : Colors.grey.shade100,
     );
   }
 }

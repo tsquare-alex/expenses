@@ -10,8 +10,10 @@ class BuildChangeCurrencyResult extends StatelessWidget {
       bloc: data.currencyCubit,
       builder: (context, state) {
         return MyText(
-          title: "Result: ${state.data.toStringAsFixed(2)}",
-          color: MyColors.primary,
+          title: "${tr(context, "result")} ${state.data.toStringAsFixed(2)}",
+          color:context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              :MyColors.black,
           size: 16.sp,
           fontWeight: FontWeight.bold,
         );

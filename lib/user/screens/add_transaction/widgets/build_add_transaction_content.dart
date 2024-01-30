@@ -4,10 +4,11 @@ class BuildAddTransactionContent extends StatelessWidget {
   const BuildAddTransactionContent({
     Key? key,
     required this.data,
-    required this.type,
+    required this.type, required this.typeModel,
   }) : super(key: key);
   final AddTransactionData data;
   final String type;
+  final TransactionTypeModel typeModel;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,42 +24,39 @@ class BuildAddTransactionContent extends StatelessWidget {
                   controller: data.newContentController,
                   fieldTypes: FieldTypes.normal,
                   type: TextInputType.text,
+                  hintColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
+                  textColor: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   action: TextInputAction.next,
                   validate: (value) {
                     if (value!.isEmpty) {
                       return 'Enter the transaction type name';
                     }
                   },
-                  label: "محتوي جديد",
+                  label: tr(context, "addNewContent"),
                   margin: const EdgeInsets.symmetric(vertical: 10),
                 ),
               ],
             ),
             DefaultButton(
-              onTap: () {
+              onTap: () async {
 
                 if(type == "الالتزامات"||type == "التسوق والشراء"){
                   data.addTransactionContent(
                     TransactionContentModel(
                       name: data.newContentController.text,
+                      image: Res.transaction,
                     ),
                     type,
-                  );
-                }else if(type == "الاهداف المالية المستهدفة"){
-                  data.addTarget(
-                    DropdownModel(
-                      name: data.newContentController.text,
-                    ),
-                  );
-                }else if (type == "المعاملات النقدية"){
-                  data.addCashTransaction(
-                    DropdownModel(
-                      name: data.newContentController.text,
-                    ),
+                    typeModel
                   );
                 }
-                AutoRouter.of(context).pop();
+                await AutoRouter.of(context).pop();
                 data.newContentController.clear();
+                data.getContents(typeModel, type);
               },
               title: "إضافة",
               fontSize: 14.sp,

@@ -12,32 +12,34 @@ class BuildPageView extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(model.image ?? ""),
-          fit: BoxFit.fill,
-        ),
+        color: MyColors.greyWhite
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
-            const Spacer(),
+            Expanded(child: Image.asset(model.image!,color: MyColors.primary,width: 250.w,)),
+            SizedBox(
+              height: 20.h,
+            ),
             Container(
               padding: const EdgeInsets.only(bottom: 20),
               child: MyText(
-                title: model.title ?? "",
+                title: tr(context, model.title??""),
                 size: 24,
-                color: MyColors.white,
+                color: MyColors.primary,
                 alien: TextAlign.center,
+                fontWeight: FontWeight.bold,
               ),
             ),
             Container(
               padding: const EdgeInsets.only(bottom: 30),
               child: MyText(
-                title: model.desc ?? "",
+                title: tr(context, model.desc??""),
                 size: 18,
-                color: MyColors.greyWhite,
+                color: MyColors.grey,
                 alien: TextAlign.center,
+                fontWeight: FontWeight.bold,
               ),
             ),
             Row(
@@ -45,18 +47,23 @@ class BuildPageView extends StatelessWidget {
               children: [
                 Expanded(
                   child: GestureDetector(
-                    onTap: () => AutoRouter.of(context).push(const SelectLanguageRoute()),
+                    onTap: () => AutoRouter.of(context)
+                        .push(const SelectLanguageRoute()),
                     child: MyText(
-                      title: (model.index! == 2) ?tr(context, "start") : tr(context, "skip"),
+                      title: (model.index! == 2)
+                          ? tr(context, "start")
+                          : tr(context, "skip"),
                       size: 18,
-                      color: MyColors.white,
+                      color: MyColors.grey,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
                 Expanded(
                   child: GestureDetector(
                     onTap: () => model.last
-                        ? AutoRouter.of(context).push(const SelectLanguageRoute())
+                        ? AutoRouter.of(context)
+                            .push(const SelectLanguageRoute())
                         : model.pageCubit?.onUpdateData(model.index! + 1),
                     child: Container(
                         margin: const EdgeInsets.all(17),
@@ -68,14 +75,16 @@ class BuildPageView extends StatelessWidget {
                             child: Container(
                                 margin: const EdgeInsets.all(8),
                                 padding:
-                                const EdgeInsetsDirectional.only(start: 7),
+                                    const EdgeInsetsDirectional.only(start: 7),
                                 decoration: BoxDecoration(
                                   color: MyColors.primary,
                                   borderRadius: BorderRadius.circular(150),
                                 ),
                                 alignment: Alignment.center,
                                 child: Icon(
-                                  lang=="ar"?Icons.arrow_back_ios:Icons.arrow_forward_ios,
+                                  lang == "ar"
+                                      ? Icons.arrow_back_ios
+                                      : Icons.arrow_forward_ios,
                                   size: 25,
                                   color: MyColors.white,
                                 )))),

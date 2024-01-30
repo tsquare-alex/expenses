@@ -39,8 +39,10 @@ class ItemBudget extends StatelessWidget {
                       width: 20.w,
                     ),
                     Text(
-                      // "Budget Name",
-                      model.transactionName,
+                      tr(
+                        context,
+                        model.transactionName,
+                      ),
                       style: TextStyle(
                           color: context.watch<AppThemeCubit>().isDarkMode
                               ? MyColors.white
@@ -91,7 +93,7 @@ class ItemBudget extends StatelessWidget {
                     Row(
                       children: [
                         MyText(
-                          title: model.transactionName,
+                          title: tr(context, model.transactionName),
                           color: MyColors.black,
                           size: 14.sp,
                           fontWeight: FontWeight.w500,
@@ -100,7 +102,7 @@ class ItemBudget extends StatelessWidget {
                           width: 12.w,
                         ),
                         Text(
-                          "${model.transactionValue}",
+                          "${context.read<BudgetCubit>().calculatedInitial}",
                           style: TextStyle(
                               fontSize: 16.sp, fontWeight: FontWeight.bold),
                         ),

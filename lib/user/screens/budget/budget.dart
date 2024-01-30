@@ -20,6 +20,12 @@ class _BudgetState extends State<Budget> {
   }
 
   @override
+  void initState() {
+    context.read<BudgetCubit>().calcualteRatio();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SmartRefresher(
       controller: refreshController,
@@ -30,6 +36,7 @@ class _BudgetState extends State<Budget> {
           builder: (context, state) {
             return Scaffold(
               appBar: AppBar(
+                surfaceTintColor: Colors.transparent,
                 leading: GestureDetector(
                   onTap: () => AutoRouter.of(context).pop(),
                   child: Icon(

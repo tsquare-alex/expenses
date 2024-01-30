@@ -8,9 +8,14 @@ import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
+import 'package:expenses/user/models/transaction_model/transaction_model.dart';
+import 'package:expenses/user/models/transaction_type_model/transaction_content_model.dart';
+import 'package:expenses/user/models/transaction_type_model/transaction_type_model.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_cubit.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_state.dart';
 import 'package:expenses/user/screens/budget/data/model/budget_model.dart';
+import 'package:expenses/user/screens/transaction_type/transaction_type_imports.dart';
+import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +35,6 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
 
   var formKey = GlobalKey<FormState>();
   double parsedNumber = 0;
-  // BudgetData data = BudgetData();
   String? selectTransactionValue;
   String? selectWalletValue;
   DateTime? selectedDate;
@@ -57,11 +61,74 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
               .wallets
               .map((wallet) => wallet.name)
               .toList();
-          List<String> transactionName = context
+
+          List<TransactionTypeModel> transaction = context
               .read<BudgetCubit>()
-              .transactioList
-              .map((transaction) => transaction.transactionType?.name ?? "")
+              .transactionShopping
+              .map((transaction) => transaction)
               .toList();
+          List<TransactionContentModel> firstContent = [];
+          transaction.forEach((element) {
+            firstContent.addAll(element.content!);
+          });
+          List<String> firstTransaction = firstContent
+              .map((transaction) => transaction.name ?? "")
+              .toList();
+
+          List<TransactionTypeModel> secTransaction =
+              context.read<BudgetCubit>().transactionBox.map((e) => e).toList();
+          List<TransactionContentModel> secContent = [];
+          secTransaction.forEach((element) {
+            secContent.addAll(element.content!);
+          });
+          List<String> secTrans =
+              secContent.map((transaction) => transaction.name ?? "").toList();
+
+          List<TransactionTypeModel> thirdTransaction =
+              context.read<BudgetCubit>().transactionBox.map((e) => e).toList();
+          List<TransactionContentModel> thirdContent = [];
+          thirdTransaction.forEach((element) {
+            thirdContent.addAll(element.content!);
+          });
+          List<String> thirdTrans = thirdContent
+              .map((transaction) => transaction.name ?? "")
+              .toList();
+
+          List<TransactionTypeModel> fourthTransaction = context
+              .read<BudgetCubit>()
+              .transactionTargetBBox
+              .map((e) => e)
+              .toList();
+
+          List<TransactionContentModel> fourthContent = [];
+          fourthTransaction.forEach((element) {
+            fourthContent.addAll(element.content!);
+          });
+          List<String> fourthTrans = fourthContent
+              .map((transaction) => transaction.name ?? "")
+              .toList();
+
+          List<TransactionTypeModel> fifthTransaction = context
+              .read<BudgetCubit>()
+              .cashTransactionBox
+              .map((e) => e)
+              .toList();
+
+          List<TransactionContentModel> fifthContent = [];
+          fifthTransaction.forEach((element) {
+            fifthContent.addAll(element.content!);
+          });
+          List<String> fifthTrans = fifthContent
+              .map((transaction) => transaction.name ?? "")
+              .toList();
+
+          List<String> allTransaction = [
+            ...firstTransaction,
+            ...secTrans,
+            ...thirdTrans,
+            ...fourthTrans,
+            ...fifthTrans
+          ];
 
           return Scaffold(
             appBar: AppBar(
@@ -113,7 +180,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           ),
                           title: Text(tr(context, "selectTransaction")),
                           children: [
-                            ...transactionName.asMap().entries.map(
+                            ...allTransaction.asMap().entries.map(
                               (entry) {
                                 final String item = entry.value;
                                 return Column(
@@ -125,9 +192,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
-                                            item,
-                                          ),
+                                          Text(tr(context, item).isNotEmpty
+                                              ? tr(context, item)
+                                              : item),
                                           Radio<String>(
                                             activeColor: MyColors.primary,
                                             value: item,
@@ -137,7 +204,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                                 selectTransactionValue = value;
                                                 context
                                                     .read<BudgetCubit>()
-                                                    .walletNameController
+                                                    .transactionNameController
                                                     .text = value.toString();
                                               });
                                             },
@@ -563,16 +630,17 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           DefaultButton(
                             onTap: () {
                               if (formKey.currentState!.validate()) {
-                                double transactionValue = context
-                                    .read<BudgetCubit>()
-                                    .transactioList
-                                    .map((value) =>
-                                        double.tryParse(value.total ?? '0.0') ??
-                                        0.0)
-                                    .fold(
-                                        0.0,
-                                        ((previousValue, current) =>
-                                            previousValue + current));
+                                double transactionValue = 0;
+                                // double transactionValue = context
+                                //     .read<BudgetCubit>()
+                                //     .transactioList
+                                //     .map((value) =>
+                                //         double.tryParse(value.total ?? '0.0') ??
+                                //         0.0)
+                                //     .fold(
+                                //         0.0,
+                                //         ((previousValue, current) =>
+                                //             previousValue + current));
                                 double deficiency =
                                     parsedNumber - transactionValue;
                                 if (deficiency < 0) {

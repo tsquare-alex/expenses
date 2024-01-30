@@ -1,5 +1,6 @@
 import 'package:expenses/user/models/add_transaction_model/add_transaction_model.dart';
 import 'package:expenses/user/models/transaction_model/transaction_model.dart';
+import 'package:expenses/user/models/transaction_type_model/transaction_type_model.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_state.dart';
 import 'package:expenses/user/screens/budget/data/model/budget_model.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
@@ -36,28 +37,73 @@ class BudgetCubit extends Cubit<BudgetState> {
 
   late List<AddTransactionModel> transactioList;
   Future<void> fetchDataFromTransations(context) async {
-    // final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
-    // var transactionBox = Hive.box<AddTransactionModel>("addTransactionBox");
-    // List<AddTransactionModel> data = transactionBox.values.toList();
-    // transactioList = data;
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
-
     var list = box.values.map((dynamic value) {
       if (value is AddTransactionModel) {
         return value;
       } else {
-        return AddTransactionModel(); // Replace with your default value or handle it accordingly
+        return AddTransactionModel();
       }
     }).toList();
     transactioList = list;
-
     box.close();
-    // data.sort((a, b) => b.transactionDate!.compareTo(a.transactionDate!));
-    // print(data);
+  }
 
-    // transactioList = data;
-    // transactioList = data.where((model) => model.budget?.name == "m").toList();
-    // print(transactioList);
+  late List<TransactionTypeModel> transactionShopping;
+  Future<void> fetchTransactionShopping(context) async {
+    final box =
+        await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
+    var list = box.values.map((dynamic value) {
+      if (value is TransactionTypeModel) {
+        return value;
+      } else {
+        return TransactionTypeModel();
+      }
+    }).toList();
+    transactionShopping = list;
+    box.close();
+  }
+
+  late List<TransactionTypeModel> transactionBox;
+  Future<void> fetchTransactionBox(context) async {
+    final box = await Hive.openBox<TransactionTypeModel>("transactionBox");
+    var list = box.values.map((dynamic value) {
+      if (value is TransactionTypeModel) {
+        return value;
+      } else {
+        return TransactionTypeModel();
+      }
+    }).toList();
+    transactionBox = list;
+    box.close();
+  }
+
+  late List<TransactionTypeModel> transactionTargetBBox;
+  Future<void> fetchTransactionTargetBox(context) async {
+    final box = await Hive.openBox<TransactionTypeModel>("targetBox");
+    var list = box.values.map((dynamic value) {
+      if (value is TransactionTypeModel) {
+        return value;
+      } else {
+        return TransactionTypeModel();
+      }
+    }).toList();
+    transactionTargetBBox = list;
+    box.close();
+  }
+
+  late List<TransactionTypeModel> cashTransactionBox;
+  Future<void> fetchCashTransaction(context) async {
+    final box = await Hive.openBox<TransactionTypeModel>("cashTransactionBox");
+    var list = box.values.map((dynamic value) {
+      if (value is TransactionTypeModel) {
+        return value;
+      } else {
+        return TransactionTypeModel();
+      }
+    }).toList();
+    cashTransactionBox = list;
+    box.close();
   }
 
   Future addData(BudgetModel model) async {
@@ -74,8 +120,16 @@ class BudgetCubit extends Cubit<BudgetState> {
 
   Future<void> getBudgetData(context) async {
     emit(AddBudgetLoading());
-    await Future.wait(
-        [fetchDataFromTransations(context), fetchdataFromWallet(context)]);
+    await Future.wait([
+      fetchDataFromTransations(context),
+      fetchdataFromWallet(context),
+      fetchCashTransaction(context),
+      fetchTransactionBox(context),
+      fetchTransactionTargetBox(
+        context,
+      ),
+      fetchTransactionShopping(context)
+    ]);
     emit(OpenBudget());
   }
 
@@ -93,6 +147,41 @@ class BudgetCubit extends Cubit<BudgetState> {
     double transactionValue = double.parse(transactionModel.total ?? '0');
     var res = transactionValue / walletValue;
     emit(BudgetValu(value: res));
+  }
+
+  double calculatedInitial = 0.0;
+
+  Future<void> calcualteRatio(BuildContext context) async {
+    emit(LoadingCalculat());
+    var budgetBox = Hive.box<BudgetModel>("budgetBox");
+    final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
+    var budgetBoxList = budgetBox.values.toList();
+    var transactionBoxList = box.values.toList();
+    for (int i = 0; i < budgetBoxList.length; i++) {
+      calculatedInitial = 0;
+      var targetBudet = budgetBoxList
+          .firstWhere((element) => element.key == budgetBoxList[i].key);
+      targetBudet.transactionValue = 0;
+      budgetBox.put(targetBudet.key, targetBudet);
+
+      for (int g = 0; g < transactionBoxList.length; g++) {
+        if (budgetBoxList[i].transactionName ==
+            transactionBoxList[g].transactionContent?.name) {
+          print(budgetBoxList[i].transactionName ==
+              transactionBoxList[g].transactionContent?.name);
+          var targetBudet = budgetBoxList
+              .firstWhere((element) => element.key == budgetBoxList[i].key);
+          var total = double.parse(transactionBoxList[g].total!);
+          targetBudet.transactionValue = targetBudet.transactionValue! + total;
+
+          await budgetBox.put(targetBudet.key, targetBudet);
+          fetchData();
+
+          print(targetBudet.transactionValue);
+        }
+      }
+    }
+    emit(SuccessCalculat(calculatedValue: 15));
   }
 
   List<String> dummyTransaction = [

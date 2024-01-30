@@ -14,6 +14,14 @@ class AddBudgetSuccess extends BudgetState {}
 
 class OpenBudget extends BudgetState {}
 
+class LoadingCalculat extends BudgetState {}
+
+class SuccessCalculat extends BudgetState {
+  final double calculatedValue;
+
+  SuccessCalculat({required this.calculatedValue});
+}
+
 class SuccessFetchData extends BudgetState {
   final List<BudgetModel> budgets;
 

@@ -19,11 +19,6 @@ class _BudgetState extends State<Budget> {
     refreshController.refreshCompleted();
   }
 
-  @override
-  void initState() {
-    context.read<BudgetCubit>().calcualteRatio(context);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

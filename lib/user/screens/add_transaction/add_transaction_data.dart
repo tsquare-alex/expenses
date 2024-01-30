@@ -627,11 +627,11 @@ class AddTransactionData {
               print('mmmm');
               var calculatedTotalBalance = targetModel.totalBalance! - total;
               targetModel.totalBalance = calculatedTotalBalance;
-              targetModel.remainBalance = targetModel.remainBalance! - total;
+              targetModel.balance = targetModel.balance - total;
               await walletBox.put(selectedWalletModel?.key, targetModel);
             }
             print("balance ${targetModel.totalBalance!}");
-            print(selectedWalletModel!.remainBalance!);
+            print(selectedWalletModel!.balance!);
             print(selectedWalletModel!.totalBalance!);
 
             box.add(model);
@@ -672,18 +672,42 @@ class AddTransactionData {
           var total = double.parse(totalController.text);
           if (total <= selectedWalletModel!.totalBalance!) {
             var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+            var currencyBox = Hive.box<CurrencyModel>("currencyBox");
+            var currencyList = currencyBox.values.toList();
             var walletList = walletBox.values.toList();
             WalletModel? targetModel = walletList.firstWhere(
-              (model) => model.name == selectedWalletModel?.name,
+                  (model) => model.name == selectedWalletModel?.name,
             );
             print("object ${targetModel.name}");
-            targetModel.totalBalance = targetModel.totalBalance! - total;
+            if(targetModel.currency != currencyList[0].mainCurrency){
+              if(targetModel.checkedValue ==false){
+                print("sss");
+                var calculatedTotalBalance = targetModel.totalBalance! - total;
+                targetModel.totalBalance = calculatedTotalBalance;
+                double remain = (calculatedTotalBalance)/ currencyList[0].value!;
+                targetModel.remainBalance = remain;
+                await walletBox.put(selectedWalletModel?.key, targetModel);
+              }else{
+                print("mmm");
+                var calculatedTotalBalance = targetModel.totalBalance! - total;
+                targetModel.totalBalance = calculatedTotalBalance;
+                double remain = calculatedTotalBalance;
+                targetModel.remainTotalBalance = remain;
+                await walletBox.put(selectedWalletModel?.key, targetModel);
+              }
+            }else{
+              print('mmmm');
+              var calculatedTotalBalance = targetModel.totalBalance! - total;
+              targetModel.totalBalance = calculatedTotalBalance;
+              targetModel.balance = targetModel.balance - total;
+              await walletBox.put(selectedWalletModel?.key, targetModel);
+            }
             print("balance ${targetModel.totalBalance!}");
-            await walletBox.put(selectedWalletModel?.key, targetModel);
+            print(selectedWalletModel!.balance!);
             print(selectedWalletModel!.totalBalance!);
+
             box.add(model);
             addTransactionList = box.values.toList();
-            addTransactionCubit.onUpdateData(addTransactionList);
             AutoRouter.of(context).pop();
           } else if (total > selectedWalletModel!.totalBalance!) {
             print(selectedWalletModel!.totalBalance!);
@@ -694,7 +718,7 @@ class AddTransactionData {
         } else {
           CustomToast.showSimpleToast(msg: "اختر المعاملة", color: Colors.red);
         }
-      } else if (type == "الاهداف المالية المستهدفة") {
+      }else if (type == "الاهداف المالية المستهدفة") {
         if(transactionType!=null){
           AddTransactionModel model = AddTransactionModel(
             transactionName: "الاهداف المالية المستهدفة",
@@ -718,21 +742,45 @@ class AddTransactionData {
             notify: notifyCubit.state.data,
             putReminderInWallet: remainderCubit.state.data,
           );
-          var total = double.parse(initialValueController.text);
+          var total = double.parse(totalController.text);
           if (total <= selectedWalletModel!.totalBalance!) {
             var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+            var currencyBox = Hive.box<CurrencyModel>("currencyBox");
+            var currencyList = currencyBox.values.toList();
             var walletList = walletBox.values.toList();
             WalletModel? targetModel = walletList.firstWhere(
-              (model) => model.name == selectedWalletModel?.name,
+                  (model) => model.name == selectedWalletModel?.name,
             );
             print("object ${targetModel.name}");
-            targetModel.totalBalance = targetModel.totalBalance! - total;
+            if(targetModel.currency != currencyList[0].mainCurrency){
+              if(targetModel.checkedValue ==false){
+                print("sss");
+                var calculatedTotalBalance = targetModel.totalBalance! - total;
+                targetModel.totalBalance = calculatedTotalBalance;
+                double remain = (calculatedTotalBalance)/ currencyList[0].value!;
+                targetModel.remainBalance = remain;
+                await walletBox.put(selectedWalletModel?.key, targetModel);
+              }else{
+                print("mmm");
+                var calculatedTotalBalance = targetModel.totalBalance! - total;
+                targetModel.totalBalance = calculatedTotalBalance;
+                double remain = calculatedTotalBalance;
+                targetModel.remainTotalBalance = remain;
+                await walletBox.put(selectedWalletModel?.key, targetModel);
+              }
+            }else{
+              print('mmmm');
+              var calculatedTotalBalance = targetModel.totalBalance! - total;
+              targetModel.totalBalance = calculatedTotalBalance;
+              targetModel.balance = targetModel.balance - total;
+              await walletBox.put(selectedWalletModel?.key, targetModel);
+            }
             print("balance ${targetModel.totalBalance!}");
-            await walletBox.put(selectedWalletModel?.key, targetModel);
+            print(selectedWalletModel!.balance!);
             print(selectedWalletModel!.totalBalance!);
+
             box.add(model);
             addTransactionList = box.values.toList();
-            addTransactionCubit.onUpdateData(addTransactionList);
             AutoRouter.of(context).pop();
           } else if (total > selectedWalletModel!.totalBalance!) {
             print(selectedWalletModel!.totalBalance!);
@@ -743,7 +791,7 @@ class AddTransactionData {
         } else {
           CustomToast.showSimpleToast(msg: "اختر المعاملة", color: Colors.red);
         }
-      } else if (type == "المعاملات النقدية") {
+      }else if (type == "المعاملات النقدية") {
         if(transactionType !=null){
           AddTransactionModel model = AddTransactionModel(
             transactionName: "المعاملات النقدية",
@@ -762,21 +810,45 @@ class AddTransactionData {
                 ? selectedIterateTransaction
                 : null,
           );
-          var total = double.parse(transferController.text);
+          var total = double.parse(totalController.text);
           if (total <= selectedWalletModel!.totalBalance!) {
             var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+            var currencyBox = Hive.box<CurrencyModel>("currencyBox");
+            var currencyList = currencyBox.values.toList();
             var walletList = walletBox.values.toList();
             WalletModel? targetModel = walletList.firstWhere(
-              (model) => model.key == selectedWalletModel?.key,
+                  (model) => model.name == selectedWalletModel?.name,
             );
             print("object ${targetModel.name}");
-            targetModel.totalBalance = targetModel.totalBalance! - total;
+            if(targetModel.currency != currencyList[0].mainCurrency){
+              if(targetModel.checkedValue ==false){
+                print("sss");
+                var calculatedTotalBalance = targetModel.totalBalance! - total;
+                targetModel.totalBalance = calculatedTotalBalance;
+                double remain = (calculatedTotalBalance)/ currencyList[0].value!;
+                targetModel.remainBalance = remain;
+                await walletBox.put(selectedWalletModel?.key, targetModel);
+              }else{
+                print("mmm");
+                var calculatedTotalBalance = targetModel.totalBalance! - total;
+                targetModel.totalBalance = calculatedTotalBalance;
+                double remain = calculatedTotalBalance;
+                targetModel.remainTotalBalance = remain;
+                await walletBox.put(selectedWalletModel?.key, targetModel);
+              }
+            }else{
+              print('mmmm');
+              var calculatedTotalBalance = targetModel.totalBalance! - total;
+              targetModel.totalBalance = calculatedTotalBalance;
+              targetModel.balance = targetModel.balance - total;
+              await walletBox.put(selectedWalletModel?.key, targetModel);
+            }
             print("balance ${targetModel.totalBalance!}");
-            await walletBox.put(selectedWalletModel?.key, targetModel);
+            print(selectedWalletModel!.remainBalance!);
             print(selectedWalletModel!.totalBalance!);
+
             box.add(model);
             addTransactionList = box.values.toList();
-            addTransactionCubit.onUpdateData(addTransactionList);
             AutoRouter.of(context).pop();
           } else if (total > selectedWalletModel!.totalBalance!) {
             print(selectedWalletModel!.totalBalance!);

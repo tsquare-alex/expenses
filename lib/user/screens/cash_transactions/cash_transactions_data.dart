@@ -54,6 +54,7 @@ class CashTransactionsData{
 
 
   Future<void> fetchData() async {
+    addTransactionList.clear();
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
     try {
       var list = box.values.map((dynamic value) {

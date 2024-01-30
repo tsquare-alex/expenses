@@ -317,8 +317,8 @@ class _CustomContainerState extends State<CustomContainer> {
                                   MyText(
                                       alien: TextAlign.end,
                                       title: widget.model.checkedValue == false
-                                          ? widget.model.remainBalance!.toStringAsFixed(2)
-                                          : widget.model.remainTotalBalance.toString(),
+                                          ? widget.model.balance.toStringAsFixed(2)
+                                          : widget.model.totalBalance.toString(),
                                       color: MyColors.white,
                                       size: 22.sp),
                                   SizedBox(

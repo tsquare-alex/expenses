@@ -207,7 +207,7 @@ class _EditWalletState extends State<EditWallet> {
                       GenericTextField(
                         textColor: context.watch<AppThemeCubit>().isDarkMode
                             ? MyColors.white
-                            : MyColors.white,
+                            : MyColors.black,
                         controller:
                             context.read<WalletCubit>().walletNameController,
                         hint: tr(context, "walletName"),
@@ -571,9 +571,7 @@ class _EditWalletState extends State<EditWallet> {
                               type: TextInputType.text,
                               action: TextInputAction.next,
                               validate: (text) {
-                                if (text == null || text.isEmpty) {
-                                  return tr(context, "PleaseInputYourNote");
-                                }
+                                if (text == null || text.isEmpty) {}
                                 return null;
                               },
                               onChange: (value) {},
@@ -721,6 +719,18 @@ class _EditWalletState extends State<EditWallet> {
                                 .currencyController
                                 .text;
                             widget.model.currencyValue = currencyValue;
+                            widget.model.totalBalance =
+                                selectMainCurrency == mainCurrency
+                                    ? parsedNumber
+                                    : (parsedNumber * currencyValue);
+                            widget.model.remainBalance =
+                                selectMainCurrency == mainCurrency
+                                    ? parsedNumber
+                                    : (parsedNumber * currencyValue);
+                            widget.model.checkedValue =
+                                selectMainCurrency == mainCurrency
+                                    ? false
+                                    : context.read<WalletCubit>().checkedValue;
                             AutoRouter.of(context).pop();
                           }
                         },

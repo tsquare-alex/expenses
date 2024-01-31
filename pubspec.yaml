@@ -107,7 +107,6 @@ dependencies:
   syncfusion_flutter_xlsio: ^23.2.7
   pdf: ^3.10.7
   open_file: ^3.3.2
-  permission_handler: ^11.2.0
 
 
 dev_dependencies:

@@ -10,6 +10,7 @@ class AddTransactionData {
   GenericBloc<bool> notifyCubit = GenericBloc(false);
   GenericBloc<bool> remainderCubit = GenericBloc(false);
   final GenericBloc<Uint8List?> imageBloc = GenericBloc(null);
+  final GenericBloc<String?> transactionNameBloc = GenericBloc(null);
   final GenericBloc<TransactionTypeModel?> typeCubit = GenericBloc(null);
   final GenericBloc<List<TransactionContentModel>?> typeContentCubit =
       GenericBloc(null);

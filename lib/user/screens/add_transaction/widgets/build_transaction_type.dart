@@ -39,13 +39,22 @@ class BuildTransactionType extends StatelessWidget {
                     SizedBox(
                       width: 15.w,
                     ),
-                    MyText(
-                      title: tr(context, "transaction"),
-                      color:  context.watch<AppThemeCubit>().isDarkMode
-                          ? MyColors.white
-                          : MyColors.black,
-                      size: 14.sp,
-                      fontWeight: FontWeight.bold,
+                    BlocBuilder<GenericBloc<String?>, GenericState<String?>>(
+                      bloc: addTransactionData.transactionNameBloc,
+                      builder: (context, state) {
+                        return MyText(
+                          title: state.data == null
+                              ? tr(context, "transaction")
+                              : tr(context, state.data!).isNotEmpty
+                                  ? tr(context, state.data!)
+                                  : state.data??"",
+                          color: context.watch<AppThemeCubit>().isDarkMode
+                              ? MyColors.white
+                              : MyColors.black,
+                          size: 14.sp,
+                          fontWeight: FontWeight.bold,
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -80,7 +89,9 @@ class BuildTransactionType extends StatelessWidget {
                                             ? tr(context,
                                                 state.data![index].name!)
                                             : state.data?[index].name ?? "",
-                                        color:  context.watch<AppThemeCubit>().isDarkMode
+                                        color: context
+                                                .watch<AppThemeCubit>()
+                                                .isDarkMode
                                             ? MyColors.white
                                             : MyColors.black,
                                         size: 13.sp,
@@ -91,18 +102,22 @@ class BuildTransactionType extends StatelessWidget {
                                 ),
                               ),
                               state.data?[index].name == "electric" ||
-                                      state.data?[index].name == "telephone"||
-                                  state.data?[index].name == "dairy"
-                              ||state.data?[index].name == "cheese"
-                              ||state.data?[index].name == "bakedGoods"
-                              ||state.data?[index].name == "vegetable"
-                              ||state.data?[index].name == "fruits"
-                              ||state.data?[index].name == "oil"
-                              ||state.data?[index].name == "salt"
-                              ||state.data?[index].name == "rent"
-                              ? Radio(
-                                      value: addTransactionData.selectedContent==null?false:
-                                          state.data?[index].selected ?? false,
+                                      state.data?[index].name == "telephone" ||
+                                      state.data?[index].name == "dairy" ||
+                                      state.data?[index].name == "cheese" ||
+                                      state.data?[index].name == "bakedGoods" ||
+                                      state.data?[index].name == "vegetable" ||
+                                      state.data?[index].name == "fruits" ||
+                                      state.data?[index].name == "oil" ||
+                                      state.data?[index].name == "salt" ||
+                                      state.data?[index].name == "rent"
+                                  ? Radio(
+                                      value:
+                                          addTransactionData.selectedContent ==
+                                                  null
+                                              ? false
+                                              : state.data?[index].selected ??
+                                                  false,
                                       groupValue: true,
                                       activeColor: MyColors.primary,
                                       onChanged: (v) {
@@ -113,20 +128,23 @@ class BuildTransactionType extends StatelessWidget {
                                             index,
                                             type,
                                             boxName);
+                                        addTransactionData.transactionNameBloc
+                                            .onUpdateData(state.data?[index].name);
                                       })
                                   : InkWell(
-                                highlightColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                splashColor: Colors.transparent,
-                                    onTap: (){
-                                      AutoRouter.of(context).push(const SubscriptionsRoute());
-                                    },
-                                    child: Image.asset(
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      splashColor: Colors.transparent,
+                                      onTap: () {
+                                        AutoRouter.of(context)
+                                            .push(const SubscriptionsRoute());
+                                      },
+                                      child: Image.asset(
                                         Res.pro,
                                         width: 50.w,
                                         height: 60.h,
                                       ),
-                                  ),
+                                    ),
                             ],
                           );
                         }),
@@ -146,7 +164,7 @@ class BuildTransactionType extends StatelessWidget {
                       children: [
                         MyText(
                           title: tr(context, "addNewContent"),
-                          color:  context.watch<AppThemeCubit>().isDarkMode
+                          color: context.watch<AppThemeCubit>().isDarkMode
                               ? MyColors.white
                               : MyColors.black,
                           size: 14.sp,
@@ -196,7 +214,7 @@ class BuildTransactionType extends StatelessWidget {
                       title: tr(context, model.name!).isNotEmpty
                           ? tr(context, model.name!)
                           : model.name ?? "",
-                      color:  context.watch<AppThemeCubit>().isDarkMode
+                      color: context.watch<AppThemeCubit>().isDarkMode
                           ? MyColors.white
                           : MyColors.black,
                       size: 13.sp,

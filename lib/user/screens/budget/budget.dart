@@ -19,10 +19,6 @@ class _BudgetState extends State<Budget> {
     refreshController.refreshCompleted();
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

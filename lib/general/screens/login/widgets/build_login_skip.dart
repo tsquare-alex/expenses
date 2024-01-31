@@ -8,21 +8,19 @@ class BuildLoginSkip extends StatelessWidget {
     return BlocProvider(
       create: (context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
-        listener: (context,state){
+        listener: (context, state) {
           if (state is LoginAnonymouslyErrorState) {
-            CustomToast.showSimpleToast(msg: "Email address or password is wrong", color: Colors.red);
+            CustomToast.showSimpleToast(
+                msg: "Email address or password is wrong", color: Colors.red);
           }
 
           if (state is LoginAnonymouslySuccessState) {
-            CustomToast.showSimpleToast(
-              msg: "Login Success",
-              color: Colors.green,
-            );
-            Storage.setToken(state.uId!).then((value) async{
+            Storage.setToken(state.uId!).then((value) async {
               final isAuthenticated =
                   context.read<AuthenticationCubit>().state.isAuthenticated;
               SharedPreferences prefs = await SharedPreferences.getInstance();
-              bool skipAuthentication = prefs.getBool(authSharedPrefSkip) ?? false;
+              bool skipAuthentication =
+                  prefs.getBool(authSharedPrefSkip) ?? false;
               if (isAuthenticated || skipAuthentication) {
                 AutoRouter.of(context).push(HomeRoute(index: 1));
               } else {
@@ -34,10 +32,8 @@ class BuildLoginSkip extends StatelessWidget {
                 );
               }
             });
-
           }
         },
-
         builder: (context, state) {
           var cubit = LoginCubit.get(context);
           return Container(
@@ -53,11 +49,9 @@ class BuildLoginSkip extends StatelessWidget {
               },
               child: MyText(
                 title: tr(context, "skip"),
-                color: context
-                    .read<AppThemeCubit>()
-                    .isDarkMode ?
-                MyColors.white :
-                MyColors.primary,
+                color: context.read<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : MyColors.primary,
                 size: 16.sp,
                 fontWeight: FontWeight.bold,
                 decoration: TextDecoration.underline,

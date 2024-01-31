@@ -8,6 +8,8 @@ import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
+import 'package:expenses/user/models/transaction_type_model/transaction_content_model.dart';
+import 'package:expenses/user/models/transaction_type_model/transaction_type_model.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_cubit.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_state.dart';
 import 'package:expenses/user/screens/budget/data/model/budget_model.dart';
@@ -56,11 +58,74 @@ class _EditBudgetState extends State<EditBudget> {
               .wallets
               .map((wallet) => wallet.name)
               .toList();
-          List<String> transactionName = context
+
+          List<TransactionTypeModel> transaction = context
               .read<BudgetCubit>()
-              .transactioList
-              .map((transaction) => transaction.transactionType?.name ?? "")
+              .transactionShopping
+              .map((transaction) => transaction)
               .toList();
+          List<TransactionContentModel> firstContent = [];
+          transaction.forEach((element) {
+            firstContent.addAll(element.content!);
+          });
+          List<String> firstTransaction = firstContent
+              .map((transaction) => transaction.name ?? "")
+              .toList();
+
+          List<TransactionTypeModel> secTransaction =
+              context.read<BudgetCubit>().transactionBox.map((e) => e).toList();
+          List<TransactionContentModel> secContent = [];
+          secTransaction.forEach((element) {
+            secContent.addAll(element.content!);
+          });
+          List<String> secTrans =
+              secContent.map((transaction) => transaction.name ?? "").toList();
+
+          List<TransactionTypeModel> thirdTransaction =
+              context.read<BudgetCubit>().transactionBox.map((e) => e).toList();
+          List<TransactionContentModel> thirdContent = [];
+          thirdTransaction.forEach((element) {
+            thirdContent.addAll(element.content!);
+          });
+          List<String> thirdTrans = thirdContent
+              .map((transaction) => transaction.name ?? "")
+              .toList();
+
+          List<TransactionTypeModel> fourthTransaction = context
+              .read<BudgetCubit>()
+              .transactionTargetBBox
+              .map((e) => e)
+              .toList();
+
+          List<TransactionContentModel> fourthContent = [];
+          fourthTransaction.forEach((element) {
+            fourthContent.addAll(element.content!);
+          });
+          List<String> fourthTrans = fourthContent
+              .map((transaction) => transaction.name ?? "")
+              .toList();
+
+          List<TransactionTypeModel> fifthTransaction = context
+              .read<BudgetCubit>()
+              .cashTransactionBox
+              .map((e) => e)
+              .toList();
+
+          List<TransactionContentModel> fifthContent = [];
+          fifthTransaction.forEach((element) {
+            fifthContent.addAll(element.content!);
+          });
+          List<String> fifthTrans = fifthContent
+              .map((transaction) => transaction.name ?? "")
+              .toList();
+
+          List<String> allTransaction = [
+            ...firstTransaction,
+            ...secTrans,
+            ...thirdTrans,
+            ...fourthTrans,
+            ...fifthTrans
+          ];
 
           return Scaffold(
             appBar: AppBar(
@@ -103,7 +168,7 @@ class _EditBudgetState extends State<EditBudget> {
                         child: ExpansionTile(
                           title: Text(tr(context, "selectTransaction")),
                           children: [
-                            ...transactionName.asMap().entries.map(
+                            ...allTransaction.asMap().entries.map(
                               (entry) {
                                 final String item = entry.value;
                                 return Column(
@@ -116,9 +181,10 @@ class _EditBudgetState extends State<EditBudget> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            item,
+                                            tr(context, item),
                                           ),
                                           Radio<String>(
+                                            activeColor: MyColors.primary,
                                             value: item,
                                             groupValue: selectTransactionValue,
                                             onChanged: (value) {
@@ -175,6 +241,7 @@ class _EditBudgetState extends State<EditBudget> {
                                           Radio<String>(
                                             value: item,
                                             groupValue: selectWalletValue,
+                                            activeColor: MyColors.primary,
                                             onChanged: (value) {
                                               setState(() {
                                                 selectWalletValue = value;
@@ -244,9 +311,11 @@ class _EditBudgetState extends State<EditBudget> {
                                               : tr(context, "from"),
                                           style: TextStyle(
                                             fontSize: 12.sp,
-                                            color: selectedDate != null
-                                                ? Colors.black
-                                                : Colors.grey,
+                                            color: context
+                                                    .watch<AppThemeCubit>()
+                                                    .isDarkMode
+                                                ? MyColors.white
+                                                : MyColors.black,
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
@@ -282,9 +351,11 @@ class _EditBudgetState extends State<EditBudget> {
                                                 : tr(context, "to"),
                                             style: TextStyle(
                                               fontSize: 12.sp,
-                                              color: closedDate != null
-                                                  ? Colors.black
-                                                  : Colors.grey,
+                                              color: context
+                                                      .watch<AppThemeCubit>()
+                                                      .isDarkMode
+                                                  ? MyColors.white
+                                                  : MyColors.black,
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -302,7 +373,7 @@ class _EditBudgetState extends State<EditBudget> {
                       GenericTextField(
                         controller:
                             context.read<BudgetCubit>().budgetValueController,
-                        hint: tr(context, "determiningValue"),
+                        hint: tr(context, "selectValueType"),
                         fieldTypes: FieldTypes.normal,
                         hintColor: context.watch<AppThemeCubit>().isDarkMode
                             ? MyColors.white
@@ -378,9 +449,6 @@ class _EditBudgetState extends State<EditBudget> {
                               type: TextInputType.text,
                               action: TextInputAction.next,
                               validate: (text) {
-                                if (text == null || text.isEmpty) {
-                                  return tr(context, "PleaseInputYourNote");
-                                }
                                 return null;
                               },
                               onChange: (value) {},
@@ -549,6 +617,11 @@ class _EditBudgetState extends State<EditBudget> {
                               double percentageValue =
                                   deficiency / parsedNumber;
                               if (formKey.currentState!.validate()) {
+                                if (deficiency < 0) {
+                                  return CustomToast.showSimpleToast(
+                                      msg:
+                                          "رصيد الميزانية اقل من رصيد المعاملات");
+                                }
                                 widget.model.addNote = context
                                     .read<BudgetCubit>()
                                     .noteController
@@ -579,7 +652,7 @@ class _EditBudgetState extends State<EditBudget> {
                             },
                             height: 57.h,
                             width: 170.w,
-                            title: "add",
+                            title: tr(context, "add"),
                             color: MyColors.primary,
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -594,7 +667,7 @@ class _EditBudgetState extends State<EditBudget> {
                             height: 57.h,
                             width: 170.w,
                             borderColor: MyColors.primary,
-                            title: "cancle",
+                            title: tr(context, "cancel"),
                             textColor: MyColors.primary,
                             color: MyColors.white,
                             fontWeight: FontWeight.bold,

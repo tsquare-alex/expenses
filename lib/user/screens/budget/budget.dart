@@ -21,7 +21,6 @@ class _BudgetState extends State<Budget> {
 
   @override
   void initState() {
-    context.read<BudgetCubit>().calcualteRatio(context);
     super.initState();
   }
 

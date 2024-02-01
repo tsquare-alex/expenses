@@ -19,7 +19,7 @@ class ShoppingScreenData{
     var boxItems = box.values.cast<TransactionTypeModel>().toList();
     var content = model.content;
     for (var item in content!) {
-      if (!boxItems.any((element) => element.name == item.name)) {
+      if (!boxItems.any((element) => element.key != item.key)) {
         box.add(item);
       }
     }
@@ -37,7 +37,7 @@ class ShoppingScreenData{
         if (value is TransactionTypeModel) {
           return value;
         } else {
-          return TransactionTypeModel(); // Replace with your default value or handle it accordingly
+          return TransactionTypeModel();
         }
       }).toList();
       transactionType.addAll(list);
@@ -59,7 +59,7 @@ class ShoppingScreenData{
         if (value is AddTransactionModel) {
           return value;
         } else {
-          return AddTransactionModel(); // Replace with your default value or handle it accordingly
+          return AddTransactionModel();
         }
       }).toList();
       for (AddTransactionModel item in list) {
@@ -78,7 +78,6 @@ class ShoppingScreenData{
 
   Future<void> deleteItem(AddTransactionModel targetModel) async {
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
-    // Find the index of the target model in the list
     var modelList =box.values.toList();
     int index = modelList.indexWhere((model) => model.key == targetModel.key);
     var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
@@ -121,7 +120,9 @@ class ShoppingScreenData{
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r))),
+              topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r),
+          ),
+      ),
       context: context,
       builder: (context) => SizedBox(
           height: 550.h,

@@ -47,7 +47,7 @@ class BuildTransactionType extends StatelessWidget {
                               ? tr(context, "transaction")
                               : tr(context, state.data!).isNotEmpty
                                   ? tr(context, state.data!)
-                                  : state.data??"",
+                                  : state.data ?? "",
                           color: context.watch<AppThemeCubit>().isDarkMode
                               ? MyColors.white
                               : MyColors.black,
@@ -129,8 +129,10 @@ class BuildTransactionType extends StatelessWidget {
                                             type,
                                             boxName);
                                         addTransactionData.transactionNameBloc
-                                            .onUpdateData(state.data?[index].name);
-                                      })
+                                            .onUpdateData(
+                                                state.data?[index].name);
+                                      },
+                                    )
                                   : InkWell(
                                       highlightColor: Colors.transparent,
                                       hoverColor: Colors.transparent,

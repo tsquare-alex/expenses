@@ -185,8 +185,11 @@ class _CustomContainerState extends State<CustomContainer> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    AutoRouter.of(context)
-                                        .push(const SubscriptionsRoute());
+                                     // AutoRouter.of(context)
+                                    //     .push(const SubscriptionsRoute());
+                                    AutoRouter.of(context).push(
+                                        WalletBalanceTransferRoute(
+                                            model: widget.model));
                                   },
                                   child: Container(
                                     height: 60.h,
@@ -217,9 +220,9 @@ class _CustomContainerState extends State<CustomContainer> {
                                                 : MyColors.black,
                                             size: 16.sp,
                                             fontWeight: FontWeight.w500),
-                                        const Spacer(),
-                                        Image.asset(Res.pro,
-                                            height: 50.h, width: 50.w)
+                                        // const Spacer(),
+                                        // Image.asset(Res.pro,
+                                        //     height: 50.h, width: 50.w)
                                       ],
                                     ),
                                   ),
@@ -230,12 +233,12 @@ class _CustomContainerState extends State<CustomContainer> {
                                 Column(
                                   children: [
                                     InkWell(
-                                      onTap: () => AutoRouter.of(context)
-                                          .push(const SubscriptionsRoute()),
-            
-                                      //  AutoRouter.of(context).push(
-                                      //     WalletTransactionsRoute(
-                                      //         model: widget.model)),
+                                      onTap: () => // AutoRouter.of(context)
+                                          //     .push(const SubscriptionsRoute()),
+
+                                          AutoRouter.of(context).push(
+                                              WalletTransactionsRoute(
+                                                  model: widget.model)),
                                       child: Container(
                                         height: 60.h,
                                         width: double.infinity,

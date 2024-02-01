@@ -96,18 +96,18 @@ class _BuildCashTransactionsViewState extends State<BuildCashTransactionsView> {
                 childAspectRatio: 0.5.w / 0.65.h),
             itemBuilder: (context, i) => BuildCashTransactionsItem(
               onTap: () async{
-                // await AutoRouter.of(context).push(AddTransactionRoute(
-                //     model: state.data[i],
-                //     transactionName: "المعاملات النقدية",
-                //   boxName: "cashTransactionBox",
-                // ),
-                // );
-                // widget.data.fetchData();
-                AutoRouter.of(context).push(const SubscriptionsRoute());
+                await AutoRouter.of(context).push(AddTransactionRoute(
+                    model: state.data[i],
+                    transactionName: "المعاملات النقدية",
+                  boxName: "cashTransactionBox",
+                ),
+                );
+                widget.data.fetchData();
+                // AutoRouter.of(context).push(const SubscriptionsRoute());
               },
               image: state.data[i].image ?? Res.commitments,
               name: state.data[i].name ?? "",
-              isPro: false,
+              isPro: true,
             ),
           ),
         );

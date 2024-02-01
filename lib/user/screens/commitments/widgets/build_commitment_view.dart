@@ -96,24 +96,26 @@ class _BuildCommitmentViewState extends State<BuildCommitmentView> {
                   childAspectRatio: 0.5.h / 0.65.w),
               itemBuilder: (context, i) => BuildCommitmentItem(
                 onTap: () async {
-                  if (state.data[i].name == "bills" ||
-                      state.data[i].name == "family") {
+                  // if (state.data[i].name == "bills" ||
+                  //     state.data[i].name == "family") {
                     await AutoRouter.of(context).push(AddTransactionRoute(
                         model: state.data[i],
                         transactionName: "الالتزامات",
                         boxName: "transactionBox"));
                     widget.data.addTransactionList.clear();
                     widget.data.fetchData();
-                  } else {
-                    AutoRouter.of(context).push(const SubscriptionsRoute());
-                  }
+                  // } else {
+                  //   AutoRouter.of(context).push(const SubscriptionsRoute());
+                  // }
                 },
                 image: state.data[i].image ?? Res.commitments,
                 name: state.data[i].name ?? "",
-                isPro: state.data[i].name != "bills" &&
-                        state.data[i].name != "family"
-                    ? false
-                    : true,
+                isPro:
+                //  state.data[i].name != "bills" &&
+                //         state.data[i].name != "family"
+                //     ? false
+                //     :
+                     true,
               ),
             ),
           ),

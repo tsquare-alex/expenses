@@ -8,6 +8,8 @@ class BuildDrawer extends StatelessWidget {
   final GenericBloc<int> homeTabCubit;
   @override
   Widget build(BuildContext context) {
+    final GoogleDriveClientRepository googleRepo =
+        GoogleDriveClientRepository(GoogleDriveClient());
     return Drawer(
         surfaceTintColor: context.watch<AppThemeCubit>().isDarkMode
             ? AppDarkColors.backgroundColor
@@ -39,15 +41,15 @@ class BuildDrawer extends StatelessWidget {
               child: ListView(
                 shrinkWrap: true,
                 children: [
-                  CustomDrawerCard(
-                    title: tr(context, "fullVersion"),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      AutoRouter.of(context).push(const SubscriptionsRoute());
-                    },
-                    endDrawer: false,
-                    isPro: true,
-                  ),
+                  // CustomDrawerCard(
+                  //   title: tr(context, "fullVersion"),
+                  //   onTap: () {
+                  //     Navigator.of(context).pop();
+                  //     AutoRouter.of(context).push(const SubscriptionsRoute());
+                  //   },
+                  //   endDrawer: false,
+                  //   isPro: true,
+                  // ),
                   CustomDrawerCard(
                     title: tr(context, "settings"),
                     onTap: () {
@@ -65,14 +67,14 @@ class BuildDrawer extends StatelessWidget {
                   ),
                   CustomDrawerCard(
                     title: tr(context, "darkMode"),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      AutoRouter.of(context).push(const SubscriptionsRoute());
-                    },
+                    // onTap: () {
+                    //   Navigator.of(context).pop();
+                    //   AutoRouter.of(context).push(const SubscriptionsRoute());
+                    // },
                     image: Res.dark_mode,
                     endDrawer: false,
                     hasSwitch: true,
-                    hasProStack: true,
+                    hasProStack: false,
                     switchWidget: SizedBox(
                       height: 30.h,
                       child: BlocBuilder<AppThemeCubit, AppThemeState>(
@@ -85,9 +87,9 @@ class BuildDrawer extends StatelessWidget {
                             activeColor: MyColors.primary,
                             value: AppThemeCubit.get(context).isDarkMode,
                             onChanged: (value) {
-                              AutoRouter.of(context)
-                                  .push(const SubscriptionsRoute());
-                              // AppThemeCubit.get(context).toggleTheme(value);
+                              // AutoRouter.of(context)
+                              //     .push(const SubscriptionsRoute());
+                              AppThemeCubit.get(context).toggleTheme(value);
                             },
                           );
                         },
@@ -98,12 +100,12 @@ class BuildDrawer extends StatelessWidget {
                     title: tr(context, "reminders"),
                     onTap: () {
                       Navigator.of(context).pop();
-                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                      // AutoRouter.of(context).push(const SubscriptionsRoute());
                     },
                     image: Res.notifications,
                     endDrawer: false,
                     hasSwitch: true,
-                    hasProStack: true,
+                    hasProStack: false,
                     switchWidget: SizedBox(
                       height: 30.h,
                       child: CupertinoSwitch(
@@ -112,8 +114,8 @@ class BuildDrawer extends StatelessWidget {
                             : const Color(0xFFD9D9D9),
                         value: false,
                         onChanged: (value) {
-                          AutoRouter.of(context)
-                              .push(const SubscriptionsRoute());
+                          // AutoRouter.of(context)
+                          //     .push(const SubscriptionsRoute());
                         },
                       ),
                     ),
@@ -137,46 +139,50 @@ class BuildDrawer extends StatelessWidget {
                   ),
                   CustomDrawerCard(
                     title: tr(context, "sync"),
-                    onTap: () {
+                    onTap: () async {
                       Navigator.of(context).pop();
-                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                      // AutoRouter.of(context).push(const SubscriptionsRoute());
+                      await googleRepo.syncData();
                     },
                     image: Res.sync,
                     endDrawer: false,
-                    hasProStack: true,
+                    hasProStack: false,
                     hasArrowBack: true,
                   ),
                   CustomDrawerCard(
                     title: tr(context, "backupData"),
-                    onTap: () {
+                    onTap: () async {
                       Navigator.of(context).pop();
-                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                      // AutoRouter.of(context).push(const SubscriptionsRoute());
+                      await googleRepo.backupData();
                     },
                     image: Res.upload,
                     endDrawer: false,
-                    hasProStack: true,
+                    hasProStack: false,
                     hasArrowBack: true,
                   ),
                   CustomDrawerCard(
                     title: tr(context, "downloadData"),
-                    onTap: () {
+                    onTap: () async {
                       Navigator.of(context).pop();
-                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                      // AutoRouter.of(context).push(const SubscriptionsRoute());
+                      await googleRepo.downloadData();
                     },
                     image: Res.download,
                     endDrawer: false,
-                    hasProStack: true,
+                    hasProStack: false,
                     hasArrowBack: true,
                   ),
                   CustomDrawerCard(
                     title: tr(context, "deleteData"),
-                    onTap: () {
+                    onTap: () async {
                       Navigator.of(context).pop();
-                      AutoRouter.of(context).push(const SubscriptionsRoute());
+                      // AutoRouter.of(context).push(const SubscriptionsRoute());
+                      await googleRepo.deleteData();
                     },
                     image: Res.delete,
                     endDrawer: false,
-                    hasProStack: true,
+                    hasProStack: false,
                     hasArrowBack: true,
                   ),
                   CustomDrawerCard(

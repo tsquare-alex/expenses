@@ -72,8 +72,11 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
               .map((transaction) => transaction.name ?? "")
               .toList();
 
-          List<TransactionTypeModel> secTransaction =
-              context.read<BudgetCubit>().commitmentsList.map((e) => e).toList();
+          List<TransactionTypeModel> secTransaction = context
+              .read<BudgetCubit>()
+              .commitmentsList
+              .map((e) => e)
+              .toList();
           List<TransactionContentModel> secContent = [];
           secTransaction.forEach((element) {
             secContent.addAll(element.content!);
@@ -175,7 +178,30 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           shape: const RoundedRectangleBorder(
                             side: BorderSide(color: Colors.transparent),
                           ),
-                          title: Text(tr(context, "selectTransaction")),
+                          title: Text(context
+                                  .read<BudgetCubit>()
+                                  .transactionNameController
+                                  .text
+                                  .isNotEmpty
+                              ? tr(
+                                          context,
+                                          context
+                                              .read<BudgetCubit>()
+                                              .transactionNameController
+                                              .text)
+                                      .isNotEmpty
+                                  ? tr(
+                                      context,
+                                      context
+                                          .read<BudgetCubit>()
+                                          .transactionNameController
+                                          .text)
+                                  : context
+                                      .read<BudgetCubit>()
+                                      .transactionNameController
+                                      .text
+                              : tr(context, "selectTransaction")),
+                          // Text(tr(context, "selectTransaction")),
                           children: [
                             ...allTransaction.asMap().entries.map(
                               (entry) {
@@ -233,7 +259,29 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           shape: const RoundedRectangleBorder(
                             side: BorderSide(color: Colors.transparent),
                           ),
-                          title: Text(tr(context, "selectTheWallet")),
+                          title: Text(context
+                                  .read<BudgetCubit>()
+                                  .walletNameController
+                                  .text
+                                  .isNotEmpty
+                              ? tr(
+                                          context,
+                                          context
+                                              .read<BudgetCubit>()
+                                              .walletNameController
+                                              .text)
+                                      .isNotEmpty
+                                  ? tr(
+                                      context,
+                                      context
+                                          .read<BudgetCubit>()
+                                          .walletNameController
+                                          .text)
+                                  : context
+                                      .read<BudgetCubit>()
+                                      .walletNameController
+                                      .text
+                              : tr(context, "selectTheWallet")),
                           children: [
                             ...walletsName.asMap().entries.map(
                               (entry) {

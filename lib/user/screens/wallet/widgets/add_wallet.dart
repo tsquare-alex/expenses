@@ -132,11 +132,32 @@ class _AddWalletState extends State<AddWallet> {
                                 side: BorderSide(color: Colors.transparent),
                               ),
                               title: Text(
-                                tr(context, "sources"),
+                                context
+                                            .read<WalletCubit>()
+                                            .encomSourceController
+                                            .text !=
+                                        ""
+                                    ? tr(
+                                                context,
+                                                context
+                                                    .read<WalletCubit>()
+                                                    .encomSourceController
+                                                    .text)
+                                            .isNotEmpty
+                                        ? tr(
+                                            context,
+                                            context
+                                                .read<WalletCubit>()
+                                                .encomSourceController
+                                                .text)
+                                        : context
+                                            .read<WalletCubit>()
+                                            .encomSourceController
+                                            .text
+                                    : tr(context, "selectValueType"),
                                 style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                                    fontSize: 16.h,
+                                    fontWeight: FontWeight.w500),
                               ),
                               children: [
                                 ...context
@@ -257,7 +278,29 @@ class _AddWalletState extends State<AddWallet> {
                                 side: BorderSide(color: Colors.transparent),
                               ),
                               title: Text(
-                                tr(context, "selectValueType"),
+                                context
+                                            .read<WalletCubit>()
+                                            .valueCategoryController
+                                            .text !=
+                                        ""
+                                    ? tr(
+                                                context,
+                                                context
+                                                    .read<WalletCubit>()
+                                                    .valueCategoryController
+                                                    .text)
+                                            .isNotEmpty
+                                        ? tr(
+                                            context,
+                                            context
+                                                .read<WalletCubit>()
+                                                .valueCategoryController
+                                                .text)
+                                        : context
+                                            .read<WalletCubit>()
+                                            .valueCategoryController
+                                            .text
+                                    : tr(context, "selectValueType"),
                                 style: TextStyle(
                                     fontSize: 16.h,
                                     fontWeight: FontWeight.w500),
@@ -386,7 +429,16 @@ class _AddWalletState extends State<AddWallet> {
                                   shape: const RoundedRectangleBorder(
                                     side: BorderSide(color: Colors.transparent),
                                   ),
-                                  title: Text(tr(context, "selectCurrency")),
+                                  title: Text(context
+                                          .read<WalletCubit>()
+                                          .currencyController
+                                          .text
+                                          .isNotEmpty
+                                      ? context
+                                          .read<WalletCubit>()
+                                          .currencyController
+                                          .text
+                                      : tr(context, "selectCurrency")),
                                   children: [
                                     context
                                         .read<WalletCubit>()

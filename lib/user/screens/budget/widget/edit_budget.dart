@@ -73,7 +73,7 @@ class _EditBudgetState extends State<EditBudget> {
               .toList();
 
           List<TransactionTypeModel> secTransaction =
-              context.read<BudgetCubit>().transactionBox.map((e) => e).toList();
+              context.read<BudgetCubit>().commitmentsList.map((e) => e).toList();
           List<TransactionContentModel> secContent = [];
           secTransaction.forEach((element) {
             secContent.addAll(element.content!);
@@ -81,15 +81,15 @@ class _EditBudgetState extends State<EditBudget> {
           List<String> secTrans =
               secContent.map((transaction) => transaction.name ?? "").toList();
 
-          List<TransactionTypeModel> thirdTransaction =
-              context.read<BudgetCubit>().transactionBox.map((e) => e).toList();
-          List<TransactionContentModel> thirdContent = [];
-          thirdTransaction.forEach((element) {
-            thirdContent.addAll(element.content!);
-          });
-          List<String> thirdTrans = thirdContent
-              .map((transaction) => transaction.name ?? "")
-              .toList();
+          // List<TransactionTypeModel> thirdTransaction =
+          //     context.read<BudgetCubit>().transactionBox.map((e) => e).toList();
+          // List<TransactionContentModel> thirdContent = [];
+          // thirdTransaction.forEach((element) {
+          //   thirdContent.addAll(element.content!);
+          // });
+          // List<String> thirdTrans = thirdContent
+          //     .map((transaction) => transaction.name ?? "")
+          //     .toList();
 
           List<TransactionTypeModel> fourthTransaction = context
               .read<BudgetCubit>()
@@ -122,7 +122,7 @@ class _EditBudgetState extends State<EditBudget> {
           List<String> allTransaction = [
             ...firstTransaction,
             ...secTrans,
-            ...thirdTrans,
+            // ...thirdTrans,
             ...fourthTrans,
             ...fifthTrans
           ];

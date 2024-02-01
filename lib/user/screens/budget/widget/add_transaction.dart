@@ -65,31 +65,31 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
               .map((transaction) => transaction)
               .toList();
           List<TransactionContentModel> firstContent = [];
-          for (var element in transaction) {
+          transaction.forEach((element) {
             firstContent.addAll(element.content!);
-          }
+          });
           List<String> firstTransaction = firstContent
               .map((transaction) => transaction.name ?? "")
               .toList();
 
           List<TransactionTypeModel> secTransaction =
-              context.read<BudgetCubit>().transactionBox.map((e) => e).toList();
+              context.read<BudgetCubit>().commitmentsList.map((e) => e).toList();
           List<TransactionContentModel> secContent = [];
-          for (var element in secTransaction) {
+          secTransaction.forEach((element) {
             secContent.addAll(element.content!);
-          }
+          });
           List<String> secTrans =
               secContent.map((transaction) => transaction.name ?? "").toList();
 
-          List<TransactionTypeModel> thirdTransaction =
-              context.read<BudgetCubit>().transactionBox.map((e) => e).toList();
-          List<TransactionContentModel> thirdContent = [];
-          for (var element in thirdTransaction) {
-            thirdContent.addAll(element.content!);
-          }
-          List<String> thirdTrans = thirdContent
-              .map((transaction) => transaction.name ?? "")
-              .toList();
+          // List<TransactionTypeModel> thirdTransaction =
+          //     context.read<BudgetCubit>().transactionBox.map((e) => e).toList();
+          // List<TransactionContentModel> thirdContent = [];
+          // thirdTransaction.forEach((element) {
+          //   thirdContent.addAll(element.content!);
+          // });
+          // List<String> thirdTrans = thirdContent
+          //     .map((transaction) => transaction.name ?? "")
+          //     .toList();
 
           List<TransactionTypeModel> fourthTransaction = context
               .read<BudgetCubit>()
@@ -98,9 +98,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
               .toList();
 
           List<TransactionContentModel> fourthContent = [];
-          for (var element in fourthTransaction) {
+          fourthTransaction.forEach((element) {
             fourthContent.addAll(element.content!);
-          }
+          });
           List<String> fourthTrans = fourthContent
               .map((transaction) => transaction.name ?? "")
               .toList();
@@ -112,9 +112,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
               .toList();
 
           List<TransactionContentModel> fifthContent = [];
-          for (var element in fifthTransaction) {
+          fifthTransaction.forEach((element) {
             fifthContent.addAll(element.content!);
-          }
+          });
           List<String> fifthTrans = fifthContent
               .map((transaction) => transaction.name ?? "")
               .toList();
@@ -122,7 +122,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
           List<String> allTransaction = [
             ...firstTransaction,
             ...secTrans,
-            ...thirdTrans,
+            // ...thirdTrans,
             ...fourthTrans,
             ...fifthTrans
           ];
@@ -175,36 +175,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           shape: const RoundedRectangleBorder(
                             side: BorderSide(color: Colors.transparent),
                           ),
-                          title: Text(tr(
-                                      context,
-                                      context
-                                          .read<BudgetCubit>()
-                                          .transactionNameController
-                                          .text)
-                                  .isNotEmpty
-                              ? tr(
-                                  context,
-                                  context
-                                      .read<BudgetCubit>()
-                                      .transactionNameController
-                                      .text)
-                              : tr(context, "selectTransaction")),
-
-                          // Text(tr(
-                          //         context,
-                          //         context
-                          //             .read<BudgetCubit>()
-                          //             .walletNameController
-                          //             .text)
-                          //     .isNotEmpty
-                          // ? tr(context, "selectTheWallet")
-                          // : tr(
-                          //     context,
-                          //     context
-                          //         .read<BudgetCubit>()
-                          //         .walletNameController
-                          //         .text)),
-
+                          title: Text(tr(context, "selectTransaction")),
                           children: [
                             ...allTransaction.asMap().entries.map(
                               (entry) {
@@ -262,20 +233,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           shape: const RoundedRectangleBorder(
                             side: BorderSide(color: Colors.transparent),
                           ),
-                          title: Text(tr(
-                                      context,
-                                      context
-                                          .read<BudgetCubit>()
-                                          .walletNameController
-                                          .text)
-                                  .isNotEmpty
-                              ? tr(
-                                  context,
-                                  context
-                                      .read<BudgetCubit>()
-                                      .walletNameController
-                                      .text)
-                              : tr(context, "selectTheWallet")),
+                          title: Text(tr(context, "selectTheWallet")),
                           children: [
                             ...walletsName.asMap().entries.map(
                               (entry) {
@@ -586,7 +544,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         decoration: BoxDecoration(
                           color: context.watch<AppThemeCubit>().isDarkMode
                               ? AppDarkColors.backgroundColor
-                              : const Color(0xffF7F7F6),
+                              : Color(0xffF7F7F6),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -628,7 +586,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         decoration: BoxDecoration(
                           color: context.watch<AppThemeCubit>().isDarkMode
                               ? AppDarkColors.backgroundColor
-                              : const Color(0xffF7F7F6),
+                              : Color(0xffF7F7F6),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

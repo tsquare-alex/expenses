@@ -67,6 +67,7 @@ class BudgetCubit extends Cubit<BudgetState> {
       }).toList();
       cashTransactionBox.addAll(list);
     } catch (e) {
+      //
       print('Error fetching data from Hive: $e');
     }
     final commitmentBox = await Hive.openBox<TransactionTypeModel>("transactionBox");

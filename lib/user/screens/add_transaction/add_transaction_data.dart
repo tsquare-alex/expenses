@@ -743,7 +743,7 @@ class AddTransactionData {
             notify: notifyCubit.state.data,
             putReminderInWallet: remainderCubit.state.data,
           );
-          var total = double.parse(totalController.text);
+          var total = double.parse(initialValueController.text);
           if (total <= selectedWalletModel!.totalBalance!) {
             var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
             var currencyBox = Hive.box<CurrencyModel>("currencyBox");

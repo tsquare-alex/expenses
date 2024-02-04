@@ -224,7 +224,7 @@ class ReportsBody extends StatelessWidget {
                                               transaction
                                                   .transactionContent!.name!)
                                           : transaction
-                                              .transactionContent!.name!,
+                                              .transactionContent?.name??"",
                                       style: TextStyle(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.w500,

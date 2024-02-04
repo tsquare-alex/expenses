@@ -17,7 +17,7 @@ class MainData{
       radius: 130.r,
       badgeWidget: Padding(
         padding: EdgeInsets.only(top: 90.0.r),
-        child: Image.asset(data.image!,width: 30.w,height: 30.h,color: MyColors.white,),
+        child: Image.asset(data.image!,width: 30.w,height: 30.h),
       ),
       titlePositionPercentageOffset: 0.54,
       titleStyle: TextStyle(

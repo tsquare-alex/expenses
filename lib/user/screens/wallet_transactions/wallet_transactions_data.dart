@@ -1,13 +1,12 @@
 part of 'wallet_transactions_imports.dart';
 
-class WalletTransactionsData{
-
+class WalletTransactionsData {
   GenericBloc<List<AddTransactionModel>> addTransactionCubit = GenericBloc([]);
 
   List<AddTransactionModel> addTransactionList = [];
 
-  showSelectTypeDialog(BuildContext context,AddTransactionModel model) {
-    return  showAdaptiveActionSheet(
+  showSelectTypeDialog(BuildContext context, AddTransactionModel model) {
+    return showAdaptiveActionSheet(
       context: context,
       isDismissible: false,
       androidBorderRadius: 15.r,
@@ -16,46 +15,66 @@ class WalletTransactionsData{
           InkWell(
             onTap: () {
               Navigator.of(context).pop();
-              AutoRouter.of(context).push(TransactionDetailsRoute(model: model));
+              AutoRouter.of(context)
+                  .push(TransactionDetailsRoute(model: model));
             },
             child: Container(
               padding: EdgeInsets.all(10.r),
-              margin: EdgeInsets.symmetric(vertical:10.r),
+              margin: EdgeInsets.symmetric(vertical: 10.r),
               color: MyColors.greyWhite,
               width: double.infinity,
               child: Center(
-                child: MyText(title: "تعديل المعاملة", color: MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,alien: TextAlign.center,),
+                child: MyText(
+                  title: "تعديل المعاملة",
+                  color: MyColors.black,
+                  size: 13.sp,
+                  fontWeight: FontWeight.bold,
+                  alien: TextAlign.center,
+                ),
               ),
             ),
           ),
           InkWell(
-            onTap: (){
+            onTap: () {
               Navigator.of(context).pop();
               deleteItem(context, model);
-              },
+            },
             child: Container(
               padding: EdgeInsets.all(10.r),
-              margin: EdgeInsets.symmetric(vertical:10.r),
+              margin: EdgeInsets.symmetric(vertical: 10.r),
               color: MyColors.greyWhite,
               width: double.infinity,
               child: Center(
-                child: MyText(title: "حذف المعاملة", color: MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,alien: TextAlign.center,),
+                child: MyText(
+                  title: "حذف المعاملة",
+                  color: MyColors.black,
+                  size: 13.sp,
+                  fontWeight: FontWeight.bold,
+                  alien: TextAlign.center,
+                ),
               ),
             ),
           ),
           InkWell(
-            onTap: (){
+            onTap: () {
               Navigator.of(context).pop();
               AutoRouter.of(context).push(
-              TransferWalletTransactionRoute(model: model),
-            );},
+                TransferWalletTransactionRoute(model: model),
+              );
+            },
             child: Container(
               padding: EdgeInsets.all(10.r),
-              margin: EdgeInsets.symmetric(vertical:10.r),
+              margin: EdgeInsets.symmetric(vertical: 10.r),
               color: MyColors.greyWhite,
               width: double.infinity,
               child: Center(
-                child: MyText(title: "تحويل المعاملة الي محفظة اخري", color: MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,alien: TextAlign.center,),
+                child: MyText(
+                  title: "تحويل المعاملة الي محفظة اخري",
+                  color: MyColors.black,
+                  size: 13.sp,
+                  fontWeight: FontWeight.bold,
+                  alien: TextAlign.center,
+                ),
               ),
             ),
           ),
@@ -64,15 +83,16 @@ class WalletTransactionsData{
       actions: [],
       cancelAction: CancelAction(
           title: MyText(
-            title: "Cancel",
-            size: 14.sp,
-            color: MyColors.secondary,
-            fontWeight: FontWeight.bold,
-          )),
+        title: tr(context, "cancel"),
+        size: 14.sp,
+        color: MyColors.secondary,
+        fontWeight: FontWeight.bold,
+      )),
     );
   }
 
-  Future<void> getWalletTransactions(BuildContext context, WalletModel model) async{
+  Future<void> getWalletTransactions(
+      BuildContext context, WalletModel model) async {
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
     try {
       var list = box.values.map((dynamic value) {
@@ -96,31 +116,57 @@ class WalletTransactionsData{
     }
   }
 
-
-  Future<void> deleteItem(BuildContext context,AddTransactionModel targetModel) async {
+  Future<void> deleteItem(
+    BuildContext context,
+    AddTransactionModel targetModel,
+  ) async {
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
     // Find the index of the target model in the list
-    var modelList =box.values.toList();
+    var modelList = box.values.toList();
     int index = modelList.indexWhere((model) => model.key == targetModel.key);
     var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
     var walletList = walletBox.values.toList();
     WalletModel? targetWallet = walletList.firstWhere(
-          (item) => item.name == targetModel.incomeSource?.name,
+      (item) => item.name == targetModel.incomeSource?.name,
     );
+    var currencyBox = Hive.box<CurrencyModel>("currencyBox");
+    var currencyList = currencyBox.values.toList();
     double total = double.parse(targetModel.total!);
-    targetWallet.balance = targetWallet.balance + total;
+    if (targetWallet.currency != currencyList[0].mainCurrency) {
+      if (targetWallet.checkedValue == false) {
+        print("sss");
+        var calculatedTotalBalance = targetWallet.totalBalance! + total;
+        targetWallet.totalBalance = calculatedTotalBalance;
+        double remain = (calculatedTotalBalance) / currencyList[0].value!;
+        targetWallet.remainBalance = remain;
+        await walletBox.put(targetWallet.key, targetWallet);
+        box.deleteAt(index);
+        AutoRouter.of(context).push(
+          HomeRoute(index: 1, pageIndex: 7),
+        );
+      } else {
+        print("mmm");
+        var calculatedTotalBalance = targetWallet.totalBalance! + total;
+        targetWallet.totalBalance = calculatedTotalBalance;
+        double remain = calculatedTotalBalance;
+        targetWallet.remainTotalBalance = remain;
+        await walletBox.put(targetWallet.key, targetWallet);
+        box.deleteAt(index);
+        AutoRouter.of(context).push(
+          HomeRoute(index: 1, pageIndex: 7),
+        );
+      }
+    } else {
+      print('mmmm');
+      var calculatedTotalBalance = targetWallet.totalBalance! + total;
+      targetWallet.totalBalance = calculatedTotalBalance;
+      targetWallet.balance = targetWallet.balance + total;
+      await walletBox.put(targetWallet.key, targetWallet);
+      box.deleteAt(index);
+      AutoRouter.of(context).push(HomeRoute(index: 1,pageIndex: 7),);    }
     print("balance ${targetWallet.balance}");
-    await walletBox.put(targetWallet.key, targetWallet);
-    box.deleteAt(index);
-    // var boxList = box.values.toList();
-    // List<AddTransactionModel> newList = [];
-    // for (AddTransactionModel item in boxList) {
-    //   if (item.transactionName == "التسوق والشراء") {
-    //     newList.add(item);
-    //   }
-    // }
-    // addTransactionCubit.onUpdateData(newList);
-    AutoRouter.of(context).push(HomeRoute(index: 1,pageIndex: 7),);
+
+    // AutoRouter.of(context).push(HomeRoute(index: 0));
     if (index != -1) {
       print('Index of the target model: $index');
     } else {
@@ -128,4 +174,34 @@ class WalletTransactionsData{
     }
   }
 
+  // Future<void> deleteItem(BuildContext context,AddTransactionModel targetModel) async {
+  //   final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
+  //   // Find the index of the target model in the list
+  //   var modelList =box.values.toList();
+  //   int index = modelList.indexWhere((model) => model.key == targetModel.key);
+  //   var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+  //   var walletList = walletBox.values.toList();
+  //   WalletModel? targetWallet = walletList.firstWhere(
+  //         (item) => item.name == targetModel.incomeSource?.name,
+  //   );
+  //   double total = double.parse(targetModel.total!);
+  //   targetWallet.balance = targetWallet.balance + total;
+  //   print("balance ${targetWallet.balance}");
+  //   await walletBox.put(targetWallet.key, targetWallet);
+  //   box.deleteAt(index);
+  //   // var boxList = box.values.toList();
+  //   // List<AddTransactionModel> newList = [];
+  //   // for (AddTransactionModel item in boxList) {
+  //   //   if (item.transactionName == "التسوق والشراء") {
+  //   //     newList.add(item);
+  //   //   }
+  //   // }
+  //   // addTransactionCubit.onUpdateData(newList);
+  //   AutoRouter.of(context).push(HomeRoute(index: 1,pageIndex: 7),);
+  //   if (index != -1) {
+  //     print('Index of the target model: $index');
+  //   } else {
+  //     print('Target model not found in the list.');
+  //   }
+  // }
 }

@@ -268,9 +268,9 @@ class _CustomContainerState extends State<CustomContainer> {
                                                     : MyColors.black,
                                                 size: 16.sp,
                                                 fontWeight: FontWeight.w500),
-                                            const Spacer(),
-                                            Image.asset(Res.pro,
-                                                height: 50.h, width: 50.w)
+                                            // const Spacer(),
+                                            // Image.asset(Res.pro,
+                                            //     height: 50.h, width: 50.w)
                                           ],
                                         ),
                                       ),

@@ -223,7 +223,9 @@ class _EditWalletState extends State<EditWallet> {
                           }
                           return null;
                         },
-                        onChange: (value) {},
+                        onChange: (value) {
+                          context.read<WalletCubit>().walletNameController.text;
+                        },
                       ),
                       SizedBox(
                         height: 20.h,

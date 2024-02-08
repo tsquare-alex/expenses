@@ -692,7 +692,7 @@
   "addOther": "إضافة اخري",
   "walletName": "إسم المحفظة",
   "pleaseEnterWalletName": "رجاء ادخل إاسم المحافظة",
-  "selectValueType": "تحديد نوع القيمة",
+  "selectValueType": "تحديد القيمة",
   "balance": "الرصيد",
   "pleaseEnterValueSource": "رجاء إدخال قيمة المصدر ",
   "automaticallyConvertCurrency": "تحويل العمله اوتوماتك",
@@ -743,5 +743,9 @@
   "walletCash": "نقدي",
   "points": "نقاط",
   "bankTransfer": "تحويل بنكي",
-  "semiAnnually": "نصف سنوياً"
+  "semiAnnually": "نصف سنوياً",
+  "theAmount": "المبلغ",
+  "withdrawalDate": "تاريخ السحب",
+  "dateOfOperation": "تاريخ العملية",
+  "dateAdded":"تاريخ الإضافة"
 }

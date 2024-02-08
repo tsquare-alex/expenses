@@ -65,9 +65,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
               .map((transaction) => transaction)
               .toList();
           List<TransactionContentModel> firstContent = [];
-          transaction.forEach((element) {
+          for (var element in transaction) {
             firstContent.addAll(element.content!);
-          });
+          }
           List<String> firstTransaction = firstContent
               .map((transaction) => transaction.name ?? "")
               .toList();
@@ -78,9 +78,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
               .map((e) => e)
               .toList();
           List<TransactionContentModel> secContent = [];
-          secTransaction.forEach((element) {
+          for (var element in secTransaction) {
             secContent.addAll(element.content!);
-          });
+          }
           List<String> secTrans =
               secContent.map((transaction) => transaction.name ?? "").toList();
 
@@ -101,9 +101,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
               .toList();
 
           List<TransactionContentModel> fourthContent = [];
-          fourthTransaction.forEach((element) {
+          for (var element in fourthTransaction) {
             fourthContent.addAll(element.content!);
-          });
+          }
           List<String> fourthTrans = fourthContent
               .map((transaction) => transaction.name ?? "")
               .toList();
@@ -115,9 +115,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
               .toList();
 
           List<TransactionContentModel> fifthContent = [];
-          fifthTransaction.forEach((element) {
+          for (var element in fifthTransaction) {
             fifthContent.addAll(element.content!);
-          });
+          }
           List<String> fifthTrans = fifthContent
               .map((transaction) => transaction.name ?? "")
               .toList();
@@ -459,29 +459,29 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                       SizedBox(
                         height: 20.h,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          MyText(
-                              title: tr(context, "transactionRepetition"),
-                              color: context.watch<AppThemeCubit>().isDarkMode
-                                  ? MyColors.white
-                                  : AppDarkColors.backgroundColor,
-                              size: 16.sp),
-                          Checkbox(
-                              activeColor: MyColors.primary,
-                              value: context.read<BudgetCubit>().checkedValue,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  context.read<BudgetCubit>().checkedValue =
-                                      newValue!;
-                                });
-                              })
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     MyText(
+                      //         title: tr(context, "transactionRepetition"),
+                      //         color: context.watch<AppThemeCubit>().isDarkMode
+                      //             ? MyColors.white
+                      //             : AppDarkColors.backgroundColor,
+                      //         size: 16.sp),
+                      //     Checkbox(
+                      //         activeColor: MyColors.primary,
+                      //         value: context.read<BudgetCubit>().checkedValue,
+                      //         onChanged: (newValue) {
+                      //           setState(() {
+                      //             context.read<BudgetCubit>().checkedValue =
+                      //                 newValue!;
+                      //           });
+                      //         })
+                      //   ],
+                      // ),
+                      // SizedBox(
+                      //   height: 20.h,
+                      // ),
                       Row(
                         children: [
                           Text(
@@ -592,7 +592,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         decoration: BoxDecoration(
                           color: context.watch<AppThemeCubit>().isDarkMode
                               ? AppDarkColors.backgroundColor
-                              : Color(0xffF7F7F6),
+                              : const Color(0xffF7F7F6),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -634,7 +634,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         decoration: BoxDecoration(
                           color: context.watch<AppThemeCubit>().isDarkMode
                               ? AppDarkColors.backgroundColor
-                              : Color(0xffF7F7F6),
+                              : const Color(0xffF7F7F6),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

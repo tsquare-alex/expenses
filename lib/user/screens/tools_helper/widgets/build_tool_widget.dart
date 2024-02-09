@@ -11,18 +11,19 @@ import '../../../../general/themes/cubit/app_theme_cubit.dart';
 class BuildToolsWidget extends StatelessWidget {
   final VoidCallback onTap;
   final String title;
-  // final IconData icon; // Add this line
+  // final IconData icon;
   final String image;
   final bool isFavorite;
   final VoidCallback onFavoriteTap;
-  final String? imagePro;
+  // final String? imagePro;
 
   const BuildToolsWidget({
     required this.onTap,
     required this.title,
-    required this.image, // Add this line
+    required this.image,
     required this.isFavorite,
-    required this.onFavoriteTap, this.imagePro,
+    required this.onFavoriteTap,
+    // this.imagePro,
   });
 
   @override
@@ -30,6 +31,7 @@ class BuildToolsWidget extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Row(
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -44,7 +46,7 @@ class BuildToolsWidget extends StatelessWidget {
           ),
            // SizedBox(width: 80.w),
           Spacer(),
-          imagePro != null ? Image.asset(imagePro!,width: 40.w,) : SizedBox(),
+          // imagePro != null ? Image.asset(imagePro!,width: 40.w,) : SizedBox(),
 
           IconButton(
             icon: Icon(

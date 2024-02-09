@@ -512,9 +512,9 @@ class ToolsHelper extends StatelessWidget {
         //     builder: (context) => DiscountCalculatorScreen()));
         break;
       case "qiblah":
-        // AutoRouter.of(context).push( SubscriptionsRoute());
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => QiblahCompass()));
+        AutoRouter.of(context).push( SubscriptionsRoute());
+        // Navigator.of(context)
+        //     .push(MaterialPageRoute(builder: (context) => QiblahCompass()));
         break;
       case "scanner":
         AutoRouter.of(context).push( SubscriptionsRoute());

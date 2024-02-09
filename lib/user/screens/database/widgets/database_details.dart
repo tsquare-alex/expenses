@@ -715,7 +715,7 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
                       backgroundColor: Colors.red,
                     ),
                     child: MyText(
-                      title: "حذف",
+                      title: tr(context, "deleteData"),
                       color: MyColors.white,
                       size: 16,
                       fontWeight: FontWeight.bold,

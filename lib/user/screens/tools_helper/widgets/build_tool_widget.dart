@@ -40,7 +40,7 @@ class BuildToolsWidget extends StatelessWidget {
             title: tr(context, title),
             color:context.watch<AppThemeCubit>().isDarkMode ? MyColors.white : MyColors.black,
             size: 16,
-            fontWeight: FontWeight.bold,
+            // fontWeight: FontWeight.bold,
           ),
            // SizedBox(width: 80.w),
           Spacer(),

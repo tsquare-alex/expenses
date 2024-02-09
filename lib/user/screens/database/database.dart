@@ -8,18 +8,7 @@ class Database extends StatefulWidget {
 
 class _DatabaseState extends State<Database> {
 
-  // String scannedContent = ""; // Variable to store the scanned content
-  //
-  // Future<void> _scanQRCode() async {
-  //   try {
-  //     var result = await BarcodeScanner.scan();
-  //     setState(() {
-  //       scannedContent = result.rawContent;
-  //     });
-  //   } on Exception catch (e) {
-  //     print("Error scanning QR Code: $e");
-  //   }
-  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +16,9 @@ class _DatabaseState extends State<Database> {
       create: (context) => DatabaseCubit()..fetchAllDatabase(),
       child: BlocConsumer<DatabaseCubit, DatabaseState>(
         listener: (context, state) {
+          if (state is DeleteDatabaseSuccess) {
+            context.read<DatabaseCubit>().fetchAllDatabase(); // Fetch updated data
+          }
           if (state is DatabaseSuccess) {}
         },
         builder: (context, state) {

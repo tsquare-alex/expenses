@@ -27,9 +27,20 @@ class DatabaseModel extends HiveObject {
   String? date;
   @HiveField(10)
   String? job;
+  @HiveField(11)
+  String? extraPhone;
+  @HiveField(12)
+  String? facebook;
+  @HiveField(13)
+  String? whatsapp;
+  @HiveField(14)
+  String? instagram;
+  @HiveField(15)
+  String? twitter;
+  @HiveField(16)
+  String? youtube;
 
-  DatabaseModel({
-    required this.category,
+  DatabaseModel({required this.category,
     required this.name,
     required this.phone,
     required this.address,
@@ -39,18 +50,27 @@ class DatabaseModel extends HiveObject {
     required this.emailAddress,
     required this.date,
     required this.job,
+    required this.extraPhone,
+    required this.facebook,
+    required this.whatsapp,
+    required this.instagram,
+    required this.twitter,
+    required this.youtube,
   }) {
     qrCodeData = generateQRCodeData();
   }
 
   String generateQRCodeData() {
+    print(
+        "===============================================================================");
+    print(
+        '$category,$name,$phone,$address,$socialAddress,$note,$emailAddress,$date,$job,$extraPhone,$facebook,$whatsapp,$instagram,$twitter,$youtube');
+    print(
+        "===============================================================================");
 
-    print("===============================================================================");
-    print('$category,$name,$phone,$address,$socialAddress,$note,$emailAddress,$date,$job');
-    print("===============================================================================");
-
-    return '$category,$name,$phone,$address,$socialAddress,$note,$emailAddress,$date,$job';
+    return '$category,$name,$phone,$address,$socialAddress,$note,$emailAddress,$date,$job,$extraPhone,$facebook,$whatsapp,$instagram,$twitter,$youtube';
   }
+
   factory DatabaseModel.fromJson(Map<String, dynamic> json) {
     return DatabaseModel(
       category: json['category'],
@@ -63,11 +83,16 @@ class DatabaseModel extends HiveObject {
       emailAddress: json['emailAddress'],
       date: json['date'],
       job: json['job'],
+      extraPhone: json['extraPhone'],
+      facebook: json['facebook'],
+      whatsapp: json['whatsapp'],
+      instagram: json['instagram'],
+      twitter: json['twitter'],
+      youtube: json['youtube'],
     );
   }
-
-
 }
+
 class ScannedData {
   final String category;
   final String name;
@@ -78,6 +103,12 @@ class ScannedData {
   final String emailAddress;
   final String date;
   final String job;
+  final String extraPhone;
+  final String facebook;
+  final String whatsapp;
+  final String instagram;
+  final String twitter;
+  final String youtube;
 
   ScannedData({
     required this.category,
@@ -89,6 +120,10 @@ class ScannedData {
     required this.emailAddress,
     required this.date,
     required this.job,
+    required this.extraPhone,
+    required this.facebook, required this.whatsapp, required this.instagram,
+    required this.twitter,
+    required this.youtube,
   });
 }
 
@@ -99,7 +134,13 @@ ScannedData scannedData = ScannedData(
   address: '',
   socialAddress: '',
   note: '',
-  emailAddress: "",
-  date: "",
-  job: "",
+  emailAddress: '',
+  date: '',
+  job: '',
+  extraPhone: '',
+  facebook: '',
+  whatsapp: '',
+  instagram: '',
+  twitter: '',
+  youtube: '',
 );

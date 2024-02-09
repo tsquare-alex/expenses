@@ -98,7 +98,7 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "calculator",
-                              imagePath: Res.tool_ic),
+                              imagePath: Res.calculator_ic),
                     ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "scanner"),
@@ -113,13 +113,13 @@ class ToolsHelper extends StatelessWidget {
                               toolName: "scanner",
                               imagePath: Res.barcode_ic),
                     ),
-                    BuildToolsWidget(
-                      onTap: () {},
-                      title: "zoomIn",
-                      image: Res.zoom_ic,
-                      isFavorite:false,
-                      onFavoriteTap: () {},
-                    ),
+                    // BuildToolsWidget(
+                    //   onTap: () => _navigateToToolScreen(context, "zoomIn"),
+                    //   title: "zoomIn",
+                    //   image: Res.zoom_ic,
+                    //   isFavorite:false,
+                    //   onFavoriteTap: () {},
+                    // ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "note"),
                       title: "note",
@@ -144,13 +144,13 @@ class ToolsHelper extends StatelessWidget {
                               toolName: "ruler",
                               imagePath:Res.ruler_ic),
                     ),
-                    BuildToolsWidget(
-                      onTap: () {},
-                      title: "waterScale",
-                      image: Res.waterScale_ic,
-                      isFavorite:false,
-                      onFavoriteTap: () {},
-                    ),
+                    // BuildToolsWidget(
+                    //   onTap: () {},
+                    //   title: "waterScale",
+                    //   image: Res.waterScale_ic,
+                    //   isFavorite:false,
+                    //   onFavoriteTap: () {},
+                    // ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "qiblah"),
                       title: "qiblah",
@@ -184,6 +184,8 @@ class ToolsHelper extends StatelessWidget {
                     // ),
 
                   ]),
+
+
               ExpandableTile(
                   image: Res.time_ic,
                   title: "timeManagement",
@@ -510,9 +512,9 @@ class ToolsHelper extends StatelessWidget {
         //     builder: (context) => DiscountCalculatorScreen()));
         break;
       case "qiblah":
-        AutoRouter.of(context).push( SubscriptionsRoute());
-        // Navigator.of(context)
-        //     .push(MaterialPageRoute(builder: (context) => QiblahCompass()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => QiblahCompass()));
         break;
       case "scanner":
         AutoRouter.of(context).push( SubscriptionsRoute());
@@ -719,7 +721,7 @@ class ExpandableTile extends StatelessWidget {
                     size: 16,
                     max: 1,
                     overflow: TextOverflow.ellipsis,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],

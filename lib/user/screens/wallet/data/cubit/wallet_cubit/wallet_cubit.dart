@@ -368,7 +368,7 @@ class WalletCubit extends Cubit<WalletState> {
         return Padding(
           padding: EdgeInsets.all(12.h),
           child: SizedBox(
-            height: 200.h,
+            height: 500.h,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -416,7 +416,7 @@ class WalletCubit extends Cubit<WalletState> {
         return Padding(
           padding: EdgeInsets.all(12.h),
           child: SizedBox(
-            height: 200.h,
+            height: 500.h,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -455,7 +455,7 @@ class WalletCubit extends Cubit<WalletState> {
         return Padding(
           padding: EdgeInsets.all(12.h),
           child: SizedBox(
-            height: 200.h,
+            height: 500.h,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

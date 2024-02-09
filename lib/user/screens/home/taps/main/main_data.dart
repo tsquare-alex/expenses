@@ -14,9 +14,9 @@ class MainData{
       color: data.color,
       value: data.percent,
       title: tr(context, data.name!),
-      radius: 125.r,
+      radius: 130.r,
       badgeWidget: Padding(
-        padding: EdgeInsets.only(top: 80.0.r),
+        padding: EdgeInsets.only(top: 90.0.r),
         child: Image.asset(data.image!,width: 30.w,height: 30.h,color: MyColors.white,),
       ),
       titlePositionPercentageOffset: 0.54,

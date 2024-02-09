@@ -47,7 +47,15 @@ class _DatabaseState extends State<Database> {
                   ),
                 ],
               ),
-              automaticallyImplyLeading: false,
+              leading: GestureDetector(
+                onTap: () => AutoRouter.of(context).pop(),
+                child: Icon(
+                  Icons.arrow_back,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
+                ),
+              ),
               // actions: [
               //   IconButton(
               //     padding: EdgeInsets.symmetric(horizontal: 20.w),

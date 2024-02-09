@@ -10,34 +10,74 @@ class ShoppingScreenData{
 
   TextEditingController nameController = TextEditingController();
 
+
+
+
+
+  Future<void> initData(TransactionModel model) async {
+    final box = await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
+    var boxItems = box.values.cast<TransactionTypeModel>().toList();
+    var content = model.content;
+    for (var item in content!) {
+      if (!boxItems.any((element) => element.key != item.key)) {
+        box.add(item);
+      }
+    }
+    getCommitments();
+    transactionType = box.values.cast<TransactionTypeModel>().toList();
+    print(transactionType[0].content?[0].name);
+    transactionTypeCubit.onUpdateData(transactionType);
+    await box.close();
+  }
+
+  Future<void> getCommitments() async {
+    final box = await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
+    try {
+      var list = box.values.map((dynamic value) {
+        if (value is TransactionTypeModel) {
+          return value;
+        } else {
+          return TransactionTypeModel();
+        }
+      }).toList();
+      transactionType.addAll(list);
+      transactionTypeCubit.onUpdateData(transactionType);
+    } catch (e) {
+      print('Error fetching data from Hive: $e');
+    }
+  }
+
   GenericBloc<List<AddTransactionModel>> addTransactionCubit = GenericBloc([]);
 
   List<AddTransactionModel> addTransactionList = [];
 
-  // Future<void> fetchData() async {
-  //   final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
-  //   try {
-  //     var list = box.values.map((dynamic value) {
-  //       if (value is AddTransactionModel) {
-  //         return value;
-  //       } else {
-  //         return AddTransactionModel(); // Replace with your default value or handle it accordingly
-  //       }
-  //     }).toList();
-  //     for (AddTransactionModel item in list) {
-  //       if (item.transactionName == "التسوق والشراء") {
-  //         addTransactionList.add(item);
-  //       }
-  //     }
-  //     addTransactionCubit.onUpdateData(addTransactionList);
-  //   } catch (e) {
-  //     print('Error fetching data from Hive: $e');
-  //   }
-  // }
+  Future<void> fetchData() async {
+    addTransactionList.clear();
+    final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
+    try {
+      var list = box.values.map((dynamic value) {
+        if (value is AddTransactionModel) {
+          return value;
+        } else {
+          return AddTransactionModel();
+        }
+      }).toList();
+      for (AddTransactionModel item in list) {
+        if (item.transactionName == "التسوق والشراء") {
+          addTransactionList.add(item);
+        }
+      }
+      addTransactionCubit.onUpdateData(addTransactionList);
+    } catch (e) {
+      print('Error fetching data from Hive: $e');
+    } finally {
+      await box.close();
+    }
+  }
+
 
   Future<void> deleteItem(AddTransactionModel targetModel) async {
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
-    // Find the index of the target model in the list
     var modelList =box.values.toList();
     int index = modelList.indexWhere((model) => model.key == targetModel.key);
     var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
@@ -65,44 +105,6 @@ class ShoppingScreenData{
     }
   }
 
-
-  // Future<void> initData(TransactionModel model) async {
-  //   final box = await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
-  //   var boxItems = box.values.cast<TransactionTypeModel>().toList();
-  //   var content = model.content;
-  //   for (var item in content!) {
-  //     // Check if the name of the item in list1 is not equal to any name in list2
-  //     if (!boxItems.any((element) => element.name == item.name)) {
-  //       // Add the item to list2
-  //       box.add(item);
-  //     }
-  //   }
-  //   getShopping();
-  //   transactionType = box.values.cast<TransactionTypeModel>().toList();
-  //   print(transactionType[0].content?[0].name);
-  //   transactionTypeCubit.onUpdateData(transactionType);
-  //   await box.close();
-  //
-  // }
-  //
-  // Future<void> getShopping() async {
-  //   final box = await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
-  //   try {
-  //     var list = box.values.map((dynamic value) {
-  //       if (value is TransactionTypeModel) {
-  //         return value;
-  //       } else {
-  //         return TransactionTypeModel(); // Replace with your default value or handle it accordingly
-  //       }
-  //     }).toList();
-  //     transactionType.addAll(list);
-  //     transactionTypeCubit.onUpdateData(transactionType);
-  //   } catch (e) {
-  //     print('Error fetching data from Hive: $e');
-  //   }
-  // }
-
-
   addTransactionType(TransactionTypeModel model) async {
     final box = await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
     box.add(model);
@@ -118,7 +120,9 @@ class ShoppingScreenData{
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r))),
+              topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r),
+          ),
+      ),
       context: context,
       builder: (context) => SizedBox(
           height: 550.h,
@@ -128,64 +132,4 @@ class ShoppingScreenData{
     );
   }
 
-
-  Future<void> initData(TransactionModel model) async {
-    final box = await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
-    var boxItems = box.values.cast<TransactionTypeModel>().toList();
-    var content = model.content;
-    for (var item in content!) {
-      if (!boxItems.any((element) => element.name == item.name)) {
-        box.add(item);
-      }
-    }
-    getCommitments();
-    transactionType = box.values.cast<TransactionTypeModel>().toList();
-    print(transactionType[0].content?[0].name);
-    transactionTypeCubit.onUpdateData(transactionType);
-    await box.close();
-  }
-
-  Future<void> getCommitments() async {
-    final box = await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
-    try {
-      var list = box.values.map((dynamic value) {
-        if (value is TransactionTypeModel) {
-          return value;
-        } else {
-          return TransactionTypeModel(); // Replace with your default value or handle it accordingly
-        }
-      }).toList();
-      transactionType.addAll(list);
-      transactionTypeCubit.onUpdateData(transactionType);
-    } catch (e) {
-      print('Error fetching data from Hive: $e');
-    }
-  }
-
-  // GenericBloc<List<AddTransactionModel>> addTransactionCubit = GenericBloc([]);
-
-  // List<AddTransactionModel> addTransactionList = [];
-
-  Future<void> fetchData() async {
-    final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
-    try {
-      var list = box.values.map((dynamic value) {
-        if (value is AddTransactionModel) {
-          return value;
-        } else {
-          return AddTransactionModel(); // Replace with your default value or handle it accordingly
-        }
-      }).toList();
-      for (AddTransactionModel item in list) {
-        if (item.transactionName == "التسوق والشراء") {
-          addTransactionList.add(item);
-        }
-      }
-      addTransactionCubit.onUpdateData(addTransactionList);
-    } catch (e) {
-      print('Error fetching data from Hive: $e');
-    } finally {
-      await box.close();
-    }
-  }
 }

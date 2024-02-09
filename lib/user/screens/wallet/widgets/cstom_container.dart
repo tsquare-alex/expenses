@@ -64,7 +64,7 @@ class _CustomContainerState extends State<CustomContainer> {
                       width: 8.w,
                     ),
                     MyText(
-                      title: widget.model.category,
+                      title: tr(context, widget.model.category),
                       color: MyColors.white,
                       size: 14.sp,
                       fontWeight: FontWeight.w600,
@@ -214,7 +214,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                                     .watch<AppThemeCubit>()
                                                     .isDarkMode
                                                 ? MyColors.white
-                                                : MyColors.white,
+                                                : MyColors.black,
                                             size: 16.sp,
                                             fontWeight: FontWeight.w500),
                                         const Spacer(),
@@ -262,12 +262,12 @@ class _CustomContainerState extends State<CustomContainer> {
                                                         .watch<AppThemeCubit>()
                                                         .isDarkMode
                                                     ? MyColors.white
-                                                    : MyColors.white,
+                                                    : MyColors.black,
                                                 size: 16.sp,
                                                 fontWeight: FontWeight.w500),
                                             const Spacer(),
                                             Image.asset(Res.pro,
-                                                height: 50.h, width: 50.h)
+                                                height: 50.h, width: 50.w)
                                           ],
                                         ),
                                       ),
@@ -317,8 +317,8 @@ class _CustomContainerState extends State<CustomContainer> {
                                   MyText(
                                       alien: TextAlign.end,
                                       title: widget.model.checkedValue == false
-                                          ? widget.model.remainBalance!.toStringAsFixed(2)
-                                          : widget.model.remainTotalBalance.toString(),
+                                          ? widget.model.balance.toStringAsFixed(2)
+                                          : widget.model.totalBalance.toString(),
                                       color: MyColors.white,
                                       size: 22.sp),
                                   SizedBox(
@@ -444,7 +444,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                                   .watch<AppThemeCubit>()
                                                   .isDarkMode
                                               ? MyColors.white
-                                              : MyColors.white,
+                                              : MyColors.black,
                                           size: 16.sp,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -489,7 +489,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                                   .watch<AppThemeCubit>()
                                                   .isDarkMode
                                               ? MyColors.white
-                                              : MyColors.white,
+                                              : MyColors.black,
                                           size: 16.sp,
                                           fontWeight: FontWeight.w600,
                                         )

@@ -80,7 +80,6 @@ class _AddWalletState extends State<AddWallet> {
                   .map((currencyData) => currencyData.subCurrency)
                   .first
                   .toString();
-
               double currencyValue = double.parse(
                 context
                     .read<WalletCubit>()
@@ -106,7 +105,7 @@ class _AddWalletState extends State<AddWallet> {
                       : MyColors.white,
                   centerTitle: true,
                   title: MyText(
-                    title: widget.selectedCategory,
+                    title: tr(context, widget.selectedCategory),
                     color: context.watch<AppThemeCubit>().isDarkMode
                         ? MyColors.white
                         : AppDarkColors.backgroundColor,
@@ -133,11 +132,32 @@ class _AddWalletState extends State<AddWallet> {
                                 side: BorderSide(color: Colors.transparent),
                               ),
                               title: Text(
-                                tr(context, "sources"),
+                                context
+                                            .read<WalletCubit>()
+                                            .encomSourceController
+                                            .text !=
+                                        ""
+                                    ? tr(
+                                                context,
+                                                context
+                                                    .read<WalletCubit>()
+                                                    .encomSourceController
+                                                    .text)
+                                            .isNotEmpty
+                                        ? tr(
+                                            context,
+                                            context
+                                                .read<WalletCubit>()
+                                                .encomSourceController
+                                                .text)
+                                        : context
+                                            .read<WalletCubit>()
+                                            .encomSourceController
+                                            .text
+                                    : tr(context, "selectValueType"),
                                 style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                                    fontSize: 16.h,
+                                    fontWeight: FontWeight.w500),
                               ),
                               children: [
                                 ...context
@@ -258,7 +278,29 @@ class _AddWalletState extends State<AddWallet> {
                                 side: BorderSide(color: Colors.transparent),
                               ),
                               title: Text(
-                                tr(context, "selectValueType"),
+                                context
+                                            .read<WalletCubit>()
+                                            .valueCategoryController
+                                            .text !=
+                                        ""
+                                    ? tr(
+                                                context,
+                                                context
+                                                    .read<WalletCubit>()
+                                                    .valueCategoryController
+                                                    .text)
+                                            .isNotEmpty
+                                        ? tr(
+                                            context,
+                                            context
+                                                .read<WalletCubit>()
+                                                .valueCategoryController
+                                                .text)
+                                        : context
+                                            .read<WalletCubit>()
+                                            .valueCategoryController
+                                            .text
+                                    : tr(context, "selectValueType"),
                                 style: TextStyle(
                                     fontSize: 16.h,
                                     fontWeight: FontWeight.w500),
@@ -387,7 +429,16 @@ class _AddWalletState extends State<AddWallet> {
                                   shape: const RoundedRectangleBorder(
                                     side: BorderSide(color: Colors.transparent),
                                   ),
-                                  title: Text(tr(context, "selectCurrency")),
+                                  title: Text(context
+                                          .read<WalletCubit>()
+                                          .currencyController
+                                          .text
+                                          .isNotEmpty
+                                      ? context
+                                          .read<WalletCubit>()
+                                          .currencyController
+                                          .text
+                                      : tr(context, "selectCurrency")),
                                   children: [
                                     context
                                         .read<WalletCubit>()
@@ -612,9 +663,6 @@ class _AddWalletState extends State<AddWallet> {
                                   type: TextInputType.text,
                                   action: TextInputAction.next,
                                   validate: (text) {
-                                    if (text == null || text.isEmpty) {
-                                      return tr(context, "PleaseInputYourNote");
-                                    }
                                     return null;
                                   },
                                   onChange: (value) {},

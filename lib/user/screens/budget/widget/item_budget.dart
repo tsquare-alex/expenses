@@ -26,6 +26,9 @@ class ItemBudget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BudgetCubit, BudgetState>(
       builder: (context, state) {
+        double total = 0;
+        double percentageValue = 0;
+
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.r),
           child: Column(
@@ -39,8 +42,10 @@ class ItemBudget extends StatelessWidget {
                       width: 20.w,
                     ),
                     Text(
-                      // "Budget Name",
-                      model.transactionName,
+                      tr(
+                        context,
+                        model.transactionName,
+                      ),
                       style: TextStyle(
                           color: context.watch<AppThemeCubit>().isDarkMode
                               ? MyColors.white
@@ -66,7 +71,8 @@ class ItemBudget extends StatelessWidget {
                       animation: true,
                       lineHeight: 20.0,
                       animationDuration: 2000,
-                      percent: model.percentValue!,
+                      percent: (model.budgetValue - model.transactionValue!) /
+                          model.budgetValue,
                       progressColor: model.percentValue! < 0.2
                           ? Colors.red
                           : MyColors.primary,
@@ -91,7 +97,7 @@ class ItemBudget extends StatelessWidget {
                     Row(
                       children: [
                         MyText(
-                          title: model.transactionName,
+                          title: tr(context, model.transactionName),
                           color: MyColors.black,
                           size: 14.sp,
                           fontWeight: FontWeight.w500,

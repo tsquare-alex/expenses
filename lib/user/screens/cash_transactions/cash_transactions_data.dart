@@ -17,7 +17,7 @@ class CashTransactionsData{
     var content = model.content;
     for (var item in content!) {
       // Check if the name of the item in list1 is not equal to any name in list2
-      if (!boxItems.any((element) => element.name == item.name)) {
+      if (!boxItems.any((element) => element.key != item.key)) {
         // Add the item to list2
         box.add(item);
       }
@@ -54,6 +54,7 @@ class CashTransactionsData{
 
 
   Future<void> fetchData() async {
+    addTransactionList.clear();
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
     try {
       var list = box.values.map((dynamic value) {

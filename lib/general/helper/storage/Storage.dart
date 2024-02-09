@@ -31,9 +31,18 @@ class Storage{
     return prefs.getString("token");
   }
 
+  static Future<String?> getSkipToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString("skipToken");
+  }
+
   static Future<void> setToken(String uId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("token", uId);
+  }
+  static Future<void> setSkipToken(String skipToken) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("skipToken", skipToken);
   }
 
 

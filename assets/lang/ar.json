@@ -735,9 +735,9 @@
   "subscription30": "يوم اشتراك",
   "subscription365": "يوم اشتراك",
   "subscription547": "يوم اشتراك",
-  "subscription30Cost": "تكلفة الاشتراك في اليوم خلال المدة 60 قرشا",
-  "subscription365Cost": "تكلفة الاشتراك في اليوم خلال المدة 50 قرشا",
-  "subscription547Cost": "تكلفة الاشتراك في اليوم خلال المدة 35 قرشا",
+  "subscription30Cost": "تكلفة الاشتراك 60 قرش في اليوم",
+  "subscription365Cost": "تكلفة الاشتراك 50 قرش في اليوم",
+  "subscription547Cost": "تكلفة الاشتراك 35 قرش في اليوم",
   "18pound": "18 جنيهاً",
   "182pound": "182.5 جنيهاً",
   "191pound": "191.5 جنيهاً",
@@ -749,10 +749,8 @@
   "theAmount": "المبلغ",
   "withdrawalDate": "تاريخ السحب",
   "dateOfOperation": "تاريخ العملية",
-  "dateAdded":"تاريخ الإضافة",
+  "dateAdded": "تاريخ الإضافة",
   "secondPhoneNumber": "رقم الهاتف الاخر",
   "enterOnlyNumbers": "من فضلك ادخل ارقام فقط",
   "pleaseTryAgain": "من فضلك حاول مرة اخرى"
-
-
 }

@@ -156,6 +156,8 @@
   "databaseSocialAddressInstagram": "Instagram",
   "databaseSocialAddressYoutube": "YouTube",
   "databaseSocialAddressMessenger": "Messenger",
+  "databaseSocialAddressWhatsapp": "Whatsapp",
+  "databaseSocialAddressTwitter": "Twitter",
   "databaseSocialAddressAddWeb": "Add Web",
   "language": "Language",
   "monthFirstDay": "First day of month",
@@ -572,5 +574,8 @@
   "theAmount": "The Amount",
   "withdrawalDate": "Withdrawal date",
   "dateOfOperation": "Date of Operation",
-  "dateAdded":"Date added"
+  "dateAdded": "Date added",
+  "secondPhoneNumber": "Second Phone Number",
+  "enterOnlyNumbers": "Please enter only numbers",
+  "pleaseTryAgain": "Please Try Again"
 }

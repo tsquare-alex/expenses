@@ -335,6 +335,8 @@
   "databaseSocialAddress": "عناوين الكترونية",
   "databaseSocialAddressWeb": "الموقع الالكترونى",
   "databaseSocialAddressFacebook": "الفيس بوك",
+  "databaseSocialAddressWhatsapp": "الواتس اب",
+  "databaseSocialAddressTwitter": "تويتر",
   "databaseSocialAddressInstagram": "الانستجرام",
   "databaseSocialAddressYoutube": "اليوتيوب",
   "databaseSocialAddressMessenger": "الماسنجر",
@@ -747,5 +749,10 @@
   "theAmount": "المبلغ",
   "withdrawalDate": "تاريخ السحب",
   "dateOfOperation": "تاريخ العملية",
-  "dateAdded":"تاريخ الإضافة"
+  "dateAdded":"تاريخ الإضافة",
+  "secondPhoneNumber": "رقم الهاتف الاخر",
+  "enterOnlyNumbers": "من فضلك ادخل ارقام فقط",
+  "pleaseTryAgain": "من فضلك حاول مرة اخرى"
+
+
 }

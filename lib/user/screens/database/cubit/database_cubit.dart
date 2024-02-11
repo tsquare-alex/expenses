@@ -111,7 +111,20 @@ class DatabaseCubit extends Cubit<DatabaseState> {
   //   }
   // }
 
+  Future<void> deleteDatabaseItem(DatabaseModel item) async {
+    try {
+      var databaseDataBox = await Hive.openBox<DatabaseModel>(database);
+      await databaseDataBox.delete(item.key);
 
+      // Fetch updated data after deletion
+      var updatedData = databaseDataBox.values.toList();
+      emit(DatabaseDataLoaded(dataBaseModel: updatedData));
+      emit(DeleteDatabaseSuccess());
+    } catch (e) {
+      print("Error deleting item: $e");
+      emit(DatabaseError(errorMessage: "Error deleting item: $e"));
+    }
+  }
 
   List<DatabaseModel>? dataBase;
 

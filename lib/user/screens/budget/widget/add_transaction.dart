@@ -607,48 +607,48 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      Container(
-                        height: 58.h,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: context.watch<AppThemeCubit>().isDarkMode
-                              ? AppDarkColors.backgroundColor
-                              : const Color(0xffF7F7F6),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: MyText(
-                                title: tr(context, "notificationWhenReaching"),
-                                color: context.watch<AppThemeCubit>().isDarkMode
-                                    ? MyColors.white
-                                    : AppDarkColors.backgroundColor,
-                                size: 16.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Visibility(
-                              visible: notificationSwitchvalu,
-                              child: SizedBox(
-                                width: 150.w,
-                                child: Container(),
-                              ),
-                            ),
-                            CupertinoSwitch(
-                              value: notificationSwitchvalu,
-                              onChanged: (value) {
-                                setState(() {
-                                  notificationSwitchvalu = value;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
+                      // SizedBox(
+                      //   height: 20.h,
+                      // ),
+                      // Container(
+                      //   height: 58.h,
+                      //   width: double.infinity,
+                      //   decoration: BoxDecoration(
+                      //     color: context.watch<AppThemeCubit>().isDarkMode
+                      //         ? AppDarkColors.backgroundColor
+                      //         : const Color(0xffF7F7F6),
+                      //   ),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Expanded(
+                      //         child: MyText(
+                      //           title: tr(context, "notificationWhenReaching"),
+                      //           color: context.watch<AppThemeCubit>().isDarkMode
+                      //               ? MyColors.white
+                      //               : AppDarkColors.backgroundColor,
+                      //           size: 16.sp,
+                      //           fontWeight: FontWeight.w500,
+                      //         ),
+                      //       ),
+                      //       Visibility(
+                      //         visible: notificationSwitchvalu,
+                      //         child: SizedBox(
+                      //           width: 150.w,
+                      //           child: Container(),
+                      //         ),
+                      //       ),
+                      //       CupertinoSwitch(
+                      //         value: notificationSwitchvalu,
+                      //         onChanged: (value) {
+                      //           setState(() {
+                      //             notificationSwitchvalu = value;
+                      //           });
+                      //         },
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       SizedBox(
                         height: 20.h,
                       ),
@@ -742,6 +742,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                         .read<BudgetCubit>()
                                         .noteController
                                         .text,
+                                    favoitate: favorite,
                                     transactionValue: transactionValue);
                                 context.read<BudgetCubit>().addData(budgetData);
                                 AutoRouter.of(context).pop();

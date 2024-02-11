@@ -71,28 +71,25 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
           List<String> firstTransaction = firstContent
               .map((transaction) => transaction.name ?? "")
               .toList();
+          List<String> firstIconsList = firstContent
+              .map((transaction) => transaction.image ?? "")
+              .toList();
 
           List<TransactionTypeModel> secTransaction = context
               .read<BudgetCubit>()
               .commitmentsList
               .map((e) => e)
               .toList();
+
           List<TransactionContentModel> secContent = [];
           for (var element in secTransaction) {
             secContent.addAll(element.content!);
           }
+          List<String> secIconContent =
+              secContent.map((transaction) => transaction.image ?? "").toList();
+
           List<String> secTrans =
               secContent.map((transaction) => transaction.name ?? "").toList();
-
-          // List<TransactionTypeModel> thirdTransaction =
-          //     context.read<BudgetCubit>().transactionBox.map((e) => e).toList();
-          // List<TransactionContentModel> thirdContent = [];
-          // thirdTransaction.forEach((element) {
-          //   thirdContent.addAll(element.content!);
-          // });
-          // List<String> thirdTrans = thirdContent
-          //     .map((transaction) => transaction.name ?? "")
-          //     .toList();
 
           List<TransactionTypeModel> fourthTransaction = context
               .read<BudgetCubit>()
@@ -104,6 +101,11 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
           for (var element in fourthTransaction) {
             fourthContent.addAll(element.content!);
           }
+
+          List<String> thirdIconsContent = fourthContent
+              .map((transaction) => transaction.image ?? "")
+              .toList();
+
           List<String> fourthTrans = fourthContent
               .map((transaction) => transaction.name ?? "")
               .toList();
@@ -118,6 +120,9 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
           for (var element in fifthTransaction) {
             fifthContent.addAll(element.content!);
           }
+          List<String> fifthIconContent = fifthContent
+              .map((transaction) => transaction.image ?? "")
+              .toList();
           List<String> fifthTrans = fifthContent
               .map((transaction) => transaction.name ?? "")
               .toList();
@@ -125,9 +130,15 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
           List<String> allTransaction = [
             ...firstTransaction,
             ...secTrans,
-            // ...thirdTrans,
             ...fourthTrans,
             ...fifthTrans
+          ];
+
+          List<String> allTransactionsIcons = [
+            ...firstIconsList,
+            ...secIconContent,
+            ...thirdIconsContent,
+            ...fifthIconContent
           ];
 
           return Scaffold(
@@ -206,6 +217,12 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                             ...allTransaction.asMap().entries.map(
                               (entry) {
                                 final String item = entry.value;
+                                final int index = entry.key;
+                                for (int index = 0;
+                                    index < allTransaction.length;
+                                    index++) {
+                                  {}
+                                }
                                 return Column(
                                   children: [
                                     ListTile(
@@ -215,6 +232,13 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
+                                          if (index <
+                                              allTransactionsIcons.length)
+                                            Image.asset(
+                                              allTransactionsIcons[index],
+                                              height: 50.h,
+                                              width: 50.w,
+                                            ),
                                           Text(tr(context, item).isNotEmpty
                                               ? tr(context, item)
                                               : item),

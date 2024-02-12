@@ -33,7 +33,7 @@ class WalletModelAdapter extends TypeAdapter<WalletModel> {
       paymentMethod: fields[13] as String?,
       model: fields[14] as CategoryModel?,
       isFavorite: fields[15] as bool?,
-      addNote: fields[16] as String?,
+      addNote: fields[16] as String,
       iconPath: fields[17] as String?,
       currency: fields[18] as String,
       currencyValue: fields[19] as double,

@@ -27,6 +27,8 @@ class AddTransactionBudget extends StatefulWidget {
 }
 
 class _AddTransactionBudgetState extends State<AddTransactionBudget> {
+  ExpansionTileController transactionController = ExpansionTileController();
+  ExpansionTileController walletController = ExpansionTileController();
   bool favorite = false;
   bool notificationSwitchvalu = false;
 
@@ -65,11 +67,14 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
               .map((transaction) => transaction)
               .toList();
           List<TransactionContentModel> firstContent = [];
-          transaction.forEach((element) {
+          for (var element in transaction) {
             firstContent.addAll(element.content!);
-          });
+          }
           List<String> firstTransaction = firstContent
               .map((transaction) => transaction.name ?? "")
+              .toList();
+          List<String> firstIconsList = firstContent
+              .map((transaction) => transaction.image ?? "")
               .toList();
 
           List<TransactionTypeModel> secTransaction = context
@@ -77,22 +82,16 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
               .commitmentsList
               .map((e) => e)
               .toList();
+
           List<TransactionContentModel> secContent = [];
-          secTransaction.forEach((element) {
+          for (var element in secTransaction) {
             secContent.addAll(element.content!);
-          });
+          }
+          List<String> secIconContent =
+              secContent.map((transaction) => transaction.image ?? "").toList();
+
           List<String> secTrans =
               secContent.map((transaction) => transaction.name ?? "").toList();
-
-          // List<TransactionTypeModel> thirdTransaction =
-          //     context.read<BudgetCubit>().transactionBox.map((e) => e).toList();
-          // List<TransactionContentModel> thirdContent = [];
-          // thirdTransaction.forEach((element) {
-          //   thirdContent.addAll(element.content!);
-          // });
-          // List<String> thirdTrans = thirdContent
-          //     .map((transaction) => transaction.name ?? "")
-          //     .toList();
 
           List<TransactionTypeModel> fourthTransaction = context
               .read<BudgetCubit>()
@@ -101,9 +100,14 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
               .toList();
 
           List<TransactionContentModel> fourthContent = [];
-          fourthTransaction.forEach((element) {
+          for (var element in fourthTransaction) {
             fourthContent.addAll(element.content!);
-          });
+          }
+
+          List<String> thirdIconsContent = fourthContent
+              .map((transaction) => transaction.image ?? "")
+              .toList();
+
           List<String> fourthTrans = fourthContent
               .map((transaction) => transaction.name ?? "")
               .toList();
@@ -115,9 +119,12 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
               .toList();
 
           List<TransactionContentModel> fifthContent = [];
-          fifthTransaction.forEach((element) {
+          for (var element in fifthTransaction) {
             fifthContent.addAll(element.content!);
-          });
+          }
+          List<String> fifthIconContent = fifthContent
+              .map((transaction) => transaction.image ?? "")
+              .toList();
           List<String> fifthTrans = fifthContent
               .map((transaction) => transaction.name ?? "")
               .toList();
@@ -125,9 +132,15 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
           List<String> allTransaction = [
             ...firstTransaction,
             ...secTrans,
-            // ...thirdTrans,
             ...fourthTrans,
             ...fifthTrans
+          ];
+
+          List<String> allTransactionsIcons = [
+            ...firstIconsList,
+            ...secIconContent,
+            ...thirdIconsContent,
+            ...fifthIconContent
           ];
 
           return Scaffold(
@@ -175,6 +188,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
+                          controller: transactionController,
                           shape: const RoundedRectangleBorder(
                             side: BorderSide(color: Colors.transparent),
                           ),
@@ -206,6 +220,12 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                             ...allTransaction.asMap().entries.map(
                               (entry) {
                                 final String item = entry.value;
+                                final int index = entry.key;
+                                for (int index = 0;
+                                    index < allTransaction.length;
+                                    index++) {
+                                  {}
+                                }
                                 return Column(
                                   children: [
                                     ListTile(
@@ -215,6 +235,13 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
+                                          if (index <
+                                              allTransactionsIcons.length)
+                                            Image.asset(
+                                              allTransactionsIcons[index],
+                                              height: 40.h,
+                                              width: 40.w,
+                                            ),
                                           Text(tr(context, item).isNotEmpty
                                               ? tr(context, item)
                                               : item),
@@ -229,6 +256,8 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                                     .read<BudgetCubit>()
                                                     .transactionNameController
                                                     .text = value.toString();
+                                                transactionController
+                                                    .collapse();
                                               });
                                             },
                                           ),
@@ -256,6 +285,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
+                          controller: walletController,
                           shape: const RoundedRectangleBorder(
                             side: BorderSide(color: Colors.transparent),
                           ),
@@ -309,6 +339,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                                     .read<BudgetCubit>()
                                                     .walletNameController
                                                     .text = value.toString();
+                                                walletController.collapse();
                                               });
                                             },
                                           ),
@@ -459,29 +490,29 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                       SizedBox(
                         height: 20.h,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          MyText(
-                              title: tr(context, "transactionRepetition"),
-                              color: context.watch<AppThemeCubit>().isDarkMode
-                                  ? MyColors.white
-                                  : AppDarkColors.backgroundColor,
-                              size: 16.sp),
-                          Checkbox(
-                              activeColor: MyColors.primary,
-                              value: context.read<BudgetCubit>().checkedValue,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  context.read<BudgetCubit>().checkedValue =
-                                      newValue!;
-                                });
-                              })
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     MyText(
+                      //         title: tr(context, "transactionRepetition"),
+                      //         color: context.watch<AppThemeCubit>().isDarkMode
+                      //             ? MyColors.white
+                      //             : AppDarkColors.backgroundColor,
+                      //         size: 16.sp),
+                      //     Checkbox(
+                      //         activeColor: MyColors.primary,
+                      //         value: context.read<BudgetCubit>().checkedValue,
+                      //         onChanged: (newValue) {
+                      //           setState(() {
+                      //             context.read<BudgetCubit>().checkedValue =
+                      //                 newValue!;
+                      //           });
+                      //         })
+                      //   ],
+                      // ),
+                      // SizedBox(
+                      //   height: 20.h,
+                      // ),
                       Row(
                         children: [
                           Text(
@@ -583,6 +614,48 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           ),
                         ],
                       ),
+                      // SizedBox(
+                      //   height: 20.h,
+                      // ),
+                      // Container(
+                      //   height: 58.h,
+                      //   width: double.infinity,
+                      //   decoration: BoxDecoration(
+                      //     color: context.watch<AppThemeCubit>().isDarkMode
+                      //         ? AppDarkColors.backgroundColor
+                      //         : const Color(0xffF7F7F6),
+                      //   ),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Expanded(
+                      //         child: MyText(
+                      //           title: tr(context, "notificationWhenReaching"),
+                      //           color: context.watch<AppThemeCubit>().isDarkMode
+                      //               ? MyColors.white
+                      //               : AppDarkColors.backgroundColor,
+                      //           size: 16.sp,
+                      //           fontWeight: FontWeight.w500,
+                      //         ),
+                      //       ),
+                      //       Visibility(
+                      //         visible: notificationSwitchvalu,
+                      //         child: SizedBox(
+                      //           width: 150.w,
+                      //           child: Container(),
+                      //         ),
+                      //       ),
+                      //       CupertinoSwitch(
+                      //         value: notificationSwitchvalu,
+                      //         onChanged: (value) {
+                      //           setState(() {
+                      //             notificationSwitchvalu = value;
+                      //           });
+                      //         },
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       SizedBox(
                         height: 20.h,
                       ),
@@ -592,49 +665,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         decoration: BoxDecoration(
                           color: context.watch<AppThemeCubit>().isDarkMode
                               ? AppDarkColors.backgroundColor
-                              : Color(0xffF7F7F6),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: MyText(
-                                title: tr(context, "notificationWhenReaching"),
-                                color: context.watch<AppThemeCubit>().isDarkMode
-                                    ? MyColors.white
-                                    : AppDarkColors.backgroundColor,
-                                size: 16.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Visibility(
-                              visible: notificationSwitchvalu,
-                              child: SizedBox(
-                                width: 150.w,
-                                child: Container(),
-                              ),
-                            ),
-                            CupertinoSwitch(
-                              value: notificationSwitchvalu,
-                              onChanged: (value) {
-                                setState(() {
-                                  notificationSwitchvalu = value;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      Container(
-                        height: 58.h,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: context.watch<AppThemeCubit>().isDarkMode
-                              ? AppDarkColors.backgroundColor
-                              : Color(0xffF7F7F6),
+                              : const Color(0xffF7F7F6),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -718,6 +749,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                         .read<BudgetCubit>()
                                         .noteController
                                         .text,
+                                    favoitate: favorite,
                                     transactionValue: transactionValue);
                                 context.read<BudgetCubit>().addData(budgetData);
                                 AutoRouter.of(context).pop();

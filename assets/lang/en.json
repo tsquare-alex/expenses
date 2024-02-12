@@ -512,7 +512,7 @@
   "addOther": "Add Other",
   "walletName": "Wallet Name",
   "pleaseEnterWalletName": "Please Enter Wallet Name",
-  "selectValueType": "Select Value Type",
+  "selectValueType": "Select Value",
   "balance": "Balance",
   "pleaseEnterValueSource": "Please enter the value of the source",
   "automaticallyConvertCurrency": "Automatically Convert Currency",
@@ -571,8 +571,11 @@
   "points": "Points",
   "bankTransfer": "Bank Transfer",
   "semiAnnually": "Semmi Annually",
+  "theAmount": "The Amount",
+  "withdrawalDate": "Withdrawal date",
+  "dateOfOperation": "Date of Operation",
+  "dateAdded": "Date added",
   "secondPhoneNumber": "Second Phone Number",
   "enterOnlyNumbers": "Please enter only numbers",
   "pleaseTryAgain": "Please Try Again"
-
 }

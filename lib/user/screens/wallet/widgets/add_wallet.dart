@@ -865,6 +865,10 @@ class _AddWalletState extends State<AddWallet> {
                             onTap: () {
                               if (formKey.currentState!.validate()) {
                                 var walletData = WalletModel(
+                                  addNote: context
+                                      .read<WalletCubit>()
+                                      .noteController
+                                      .text,
                                   name: context
                                       .read<WalletCubit>()
                                       .walletNameController
@@ -963,6 +967,4 @@ class _AddWalletState extends State<AddWallet> {
       });
     }
   }
-
- 
 }

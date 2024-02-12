@@ -30,7 +30,6 @@ class _EditWalletState extends State<EditWallet> {
   ExpansionTileController valueTypeController = ExpansionTileController();
   ExpansionTileController currencyController = ExpansionTileController();
 
-
   WalletData data = WalletData();
   var formKey = GlobalKey<FormState>();
   DateTime? selectedDate;
@@ -44,6 +43,23 @@ class _EditWalletState extends State<EditWallet> {
   bool isFirstValidationError = false;
   bool isSecondValidationError = false;
   bool notificationSwitchvalu = false;
+  TextEditingController encomSourceController = TextEditingController();
+  TextEditingController walletNameController = TextEditingController();
+  TextEditingController valueCategoryController = TextEditingController();
+  TextEditingController currency = TextEditingController();
+  TextEditingController noteController = TextEditingController();
+  TextEditingController closeDateController = TextEditingController();
+  TextEditingController openDateController = TextEditingController();
+
+  @override
+  void initState() {
+    encomSourceController.text = widget.model.encomeSource;
+    walletNameController.text = widget.model.name;
+    valueCategoryController.text = widget.model.valueCategory;
+    currency.text = widget.model.currency;
+    noteController.text = widget.model.addNote;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,11 +131,7 @@ class _EditWalletState extends State<EditWallet> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          border: Border.all(color: MyColors.greyWhite
-                              // color: isFirstValidationError
-                              //     ? Colors.red
-                              //     : Colors.grey.withOpacity(0.5),
-                              ),
+                          border: Border.all(color: MyColors.greyWhite),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
@@ -128,28 +140,25 @@ class _EditWalletState extends State<EditWallet> {
                             side: BorderSide(color: Colors.transparent),
                           ),
                           title: Text(
-                            context
-                                        .read<WalletCubit>()
-                                        .encomSourceController
-                                        .text !=
-                                    ""
-                                ? tr(
-                                            context,
-                                            context
-                                                .read<WalletCubit>()
-                                                .encomSourceController
-                                                .text)
+                            // context
+                            //             .read<WalletCubit>()
+                            //             .encomSourceController
+                            //             .text !=
+                            encomSourceController.text != ""
+                                ? tr(context, encomSourceController.text)
                                         .isNotEmpty
-                                    ? tr(
-                                        context,
-                                        context
-                                            .read<WalletCubit>()
-                                            .encomSourceController
-                                            .text)
-                                    : context
-                                        .read<WalletCubit>()
-                                        .encomSourceController
-                                        .text
+                                    ? tr(context, encomSourceController.text
+                                        // context
+                                        //     .read<WalletCubit>()
+                                        //     .encomSourceController
+                                        //     .text
+                                        )
+                                    :
+                                    //  context
+                                    //     .read<WalletCubit>()
+                                    //     .encomSourceController
+                                    //     .text
+                                    encomSourceController.text
                                 : tr(context, "selectValueType"),
                             style: TextStyle(
                                 fontSize: 16.h, fontWeight: FontWeight.w500),
@@ -183,10 +192,12 @@ class _EditWalletState extends State<EditWallet> {
                                             onChanged: (value) {
                                               setState(() {
                                                 selectedValue = value;
-                                                context
-                                                    .read<WalletCubit>()
-                                                    .encomSourceController
-                                                    .text = value.toString();
+                                                // context
+                                                //     .read<WalletCubit>()
+                                                //     .encomSourceController
+                                                //     .text
+                                                encomSourceController.text =
+                                                    value.toString();
                                                 isFirstValidationError = false;
                                                 controller.collapse();
                                               });
@@ -235,8 +246,8 @@ class _EditWalletState extends State<EditWallet> {
                         textColor: context.watch<AppThemeCubit>().isDarkMode
                             ? MyColors.white
                             : MyColors.black,
-                        controller:
-                            context.read<WalletCubit>().walletNameController,
+                        controller: walletNameController,
+                        // context.read<WalletCubit>().walletNameController,
                         hint: tr(context, "walletName"),
                         hintColor: context.watch<AppThemeCubit>().isDarkMode
                             ? MyColors.white
@@ -251,7 +262,8 @@ class _EditWalletState extends State<EditWallet> {
                           return null;
                         },
                         onChange: (value) {
-                          context.read<WalletCubit>().walletNameController.text;
+                          walletNameController.text;
+                          // context.read<WalletCubit>().walletNameController.text;
                         },
                       ),
                       SizedBox(
@@ -268,28 +280,30 @@ class _EditWalletState extends State<EditWallet> {
                             side: BorderSide(color: Colors.transparent),
                           ),
                           title: Text(
-                            context
-                                        .read<WalletCubit>()
-                                        .valueCategoryController
-                                        .text !=
-                                    ""
-                                ? tr(
-                                            context,
-                                            context
-                                                .read<WalletCubit>()
-                                                .valueCategoryController
-                                                .text)
+                            // context
+                            //             .read<WalletCubit>()
+                            //             .valueCategoryController
+                            //             .text !=
+                            valueCategoryController.text != ""
+                                ? tr(context, valueCategoryController.text
+                                            // context
+                                            //     .read<WalletCubit>()
+                                            //     .valueCategoryController
+                                            //     .text
+                                            )
                                         .isNotEmpty
-                                    ? tr(
-                                        context,
-                                        context
-                                            .read<WalletCubit>()
-                                            .valueCategoryController
-                                            .text)
-                                    : context
-                                        .read<WalletCubit>()
-                                        .valueCategoryController
-                                        .text
+                                    ? tr(context, valueCategoryController.text
+                                        // context
+                                        //     .read<WalletCubit>()
+                                        //     .valueCategoryController
+                                        //     .text
+                                        )
+                                    :
+                                    // context
+                                    //     .read<WalletCubit>()
+                                    //     .valueCategoryController
+                                    //     .text
+                                    valueCategoryController.text
                                 : tr(context, "selectValueType"),
                             style: TextStyle(
                                 fontSize: 16.h, fontWeight: FontWeight.w500),
@@ -323,10 +337,12 @@ class _EditWalletState extends State<EditWallet> {
                                             onChanged: (value) {
                                               setState(() {
                                                 secValue = value;
-                                                context
-                                                    .read<WalletCubit>()
-                                                    .valueCategoryController
-                                                    .text = value.toString();
+                                                valueCategoryController.text
+                                                    // context
+                                                    //     .read<WalletCubit>()
+                                                    //     .valueCategoryController
+                                                    //     .text
+                                                    = value.toString();
                                                 isSecondValidationError = false;
                                                 valueTypeController.collapse();
                                               });
@@ -425,16 +441,18 @@ class _EditWalletState extends State<EditWallet> {
                               shape: const RoundedRectangleBorder(
                                 side: BorderSide(color: Colors.transparent),
                               ),
-                              title: Text(context
-                                      .read<WalletCubit>()
-                                      .currencyController
-                                      .text
-                                      .isNotEmpty
-                                  ? context
-                                      .read<WalletCubit>()
-                                      .currencyController
-                                      .text
-                                  : tr(context, "selectCurrency")),
+                              title: Text(
+                                  // context
+                                  //       .read<WalletCubit>()
+                                  //       .currencyController
+                                  //       .text
+                                  currency.text.isNotEmpty
+                                      ? currency.text
+                                      // ? context
+                                      //     .read<WalletCubit>()
+                                      //     .currencyController
+                                      //     .text
+                                      : tr(context, "selectCurrency")),
                               children: [
                                 context.read<WalletCubit>().buildCurrencyList(
                                       currencyList: mainCurrency,
@@ -443,10 +461,10 @@ class _EditWalletState extends State<EditWallet> {
                                       onCurrencySelected: (value) {
                                         setState(() {
                                           selectMainCurrency = value;
-                                          context
-                                              .read<WalletCubit>()
-                                              .currencyController
-                                              .text = value ?? "";
+                                          // context
+                                          //     .read<WalletCubit>()
+                                          //     .currencyController
+                                          currency.text = value ?? "";
                                           currencyController.collapse();
                                         });
                                       },
@@ -457,10 +475,10 @@ class _EditWalletState extends State<EditWallet> {
                                     onCurrencySelected: (value) {
                                       setState(() {
                                         selectMainCurrency = value;
-                                        context
-                                            .read<WalletCubit>()
-                                            .currencyController
-                                            .text = value ?? "";
+                                        // context
+                                        //     .read<WalletCubit>()
+                                        //     .currencyController
+                                        currency.text = value ?? "";
                                         currencyController.collapse();
                                       });
                                     })
@@ -624,8 +642,8 @@ class _EditWalletState extends State<EditWallet> {
                           SizedBox(
                             width: 284.w,
                             child: GenericTextField(
-                              controller:
-                                  context.read<WalletCubit>().noteController,
+                              controller: noteController,
+                              // context.read<WalletCubit>().noteController,
                               hint: tr(context, "yourNotes"),
                               hintColor:
                                   context.watch<AppThemeCubit>().isDarkMode
@@ -758,31 +776,38 @@ class _EditWalletState extends State<EditWallet> {
                         onTap: () {
                           if (formKey.currentState!.validate()) {
                             widget.model.balance = parsedNumber;
-                            widget.model.valueCategory = context
-                                .read<WalletCubit>()
-                                .valueCategoryController
-                                .text;
-                            widget.model.name = context
-                                .read<WalletCubit>()
-                                .walletNameController
-                                .text;
-                            widget.model.encomeSource = context
-                                .read<WalletCubit>()
-                                .encomSourceController
-                                .text;
-                            widget.model.openDate = context
-                                .read<WalletCubit>()
-                                .openDateController
-                                .text;
-                            widget.model.closedDate = context
-                                .read<WalletCubit>()
-                                .closedDateController
-                                .text;
-                            widget.model.save();
-                            widget.model.currency = context
-                                .read<WalletCubit>()
-                                .currencyController
-                                .text;
+                            widget.model.valueCategory =
+                                valueCategoryController.text;
+                            // context
+                            //     .read<WalletCubit>()
+                            //     .valueCategoryController
+                            //     .text;
+                            widget.model.name = walletNameController.text;
+                            // context
+                            //     .read<WalletCubit>()
+                            //     .walletNameController
+                            //     .text;
+                            widget.model.encomeSource =
+                                encomSourceController.text;
+                            // context
+                            //     .read<WalletCubit>()
+                            //     .encomSourceController
+                            //     .text;
+                            widget.model.openDate = openDateController.text;
+                            // context
+                            //     .read<WalletCubit>()
+                            //     .openDateController
+                            //     .text;
+                            widget.model.closedDate = closeDateController.text;
+                            // context
+                            //     .read<WalletCubit>()
+                            //     .closedDateController
+                            //     .text;
+                            widget.model.currency = currency.text;
+                            // context
+                            //     .read<WalletCubit>()
+                            //     .currencyController
+                            //     .text;
                             widget.model.currencyValue = currencyValue;
                             widget.model.totalBalance =
                                 selectMainCurrency == mainCurrency
@@ -796,6 +821,8 @@ class _EditWalletState extends State<EditWallet> {
                                 selectMainCurrency == mainCurrency
                                     ? false
                                     : context.read<WalletCubit>().checkedValue;
+                            widget.model.save();
+
                             AutoRouter.of(context).pop();
                           }
                         },
@@ -823,8 +850,8 @@ class _EditWalletState extends State<EditWallet> {
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
-        context.read<WalletCubit>().openDateController.text =
-            selectedDate.toString();
+        // context.read<WalletCubit>().openDateController.text =
+        openDateController.text = selectedDate.toString();
       });
     }
   }
@@ -840,9 +867,23 @@ class _EditWalletState extends State<EditWallet> {
     if (picked != null && picked != closedDate) {
       setState(() {
         closedDate = picked;
-        context.read<WalletCubit>().closedDateController.text =
-            closedDate.toString();
+
+        // context.read<WalletCubit>().closedDateController.text =
+        closeDateController.text = closedDate.toString();
       });
     }
+  }
+
+  @override
+  void dispose() {
+    closeDateController.clear();
+    encomSourceController.clear();
+    currency.clear();
+    openDateController.clear();
+    walletNameController.clear();
+    noteController.clear();
+    valueCategoryController.clear();
+
+    super.dispose();
   }
 }

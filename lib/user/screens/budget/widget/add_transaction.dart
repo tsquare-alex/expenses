@@ -27,6 +27,8 @@ class AddTransactionBudget extends StatefulWidget {
 }
 
 class _AddTransactionBudgetState extends State<AddTransactionBudget> {
+  ExpansionTileController transactionController = ExpansionTileController();
+  ExpansionTileController walletController = ExpansionTileController();
   bool favorite = false;
   bool notificationSwitchvalu = false;
 
@@ -186,6 +188,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
+                          controller: transactionController,
                           shape: const RoundedRectangleBorder(
                             side: BorderSide(color: Colors.transparent),
                           ),
@@ -236,8 +239,8 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                               allTransactionsIcons.length)
                                             Image.asset(
                                               allTransactionsIcons[index],
-                                              height: 50.h,
-                                              width: 50.w,
+                                              height: 40.h,
+                                              width: 40.w,
                                             ),
                                           Text(tr(context, item).isNotEmpty
                                               ? tr(context, item)
@@ -253,6 +256,8 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                                     .read<BudgetCubit>()
                                                     .transactionNameController
                                                     .text = value.toString();
+                                                transactionController
+                                                    .collapse();
                                               });
                                             },
                                           ),
@@ -280,6 +285,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
+                          controller: walletController,
                           shape: const RoundedRectangleBorder(
                             side: BorderSide(color: Colors.transparent),
                           ),
@@ -333,6 +339,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                                     .read<BudgetCubit>()
                                                     .walletNameController
                                                     .text = value.toString();
+                                                walletController.collapse();
                                               });
                                             },
                                           ),

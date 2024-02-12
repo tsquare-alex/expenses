@@ -28,6 +28,8 @@ class EditBudget extends StatefulWidget {
 }
 
 class _EditBudgetState extends State<EditBudget> {
+  ExpansionTileController transactionController = ExpansionTileController();
+  ExpansionTileController walletController = ExpansionTileController();
   var formKey = GlobalKey<FormState>();
   double parsedNumber = 0;
   bool favorite = false;
@@ -180,7 +182,30 @@ class _EditBudgetState extends State<EditBudget> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
-                          title: Text(tr(context, "selectTransaction")),
+                          controller: transactionController,
+                          title: Text(context
+                                  .read<BudgetCubit>()
+                                  .transactionNameController
+                                  .text
+                                  .isNotEmpty
+                              ? tr(
+                                          context,
+                                          context
+                                              .read<BudgetCubit>()
+                                              .transactionNameController
+                                              .text)
+                                      .isNotEmpty
+                                  ? tr(
+                                      context,
+                                      context
+                                          .read<BudgetCubit>()
+                                          .transactionNameController
+                                          .text)
+                                  : context
+                                      .read<BudgetCubit>()
+                                      .transactionNameController
+                                      .text
+                              : tr(context, "selectTransaction")),
                           children: [
                             ...allTransaction.asMap().entries.map(
                               (entry) {
@@ -217,6 +242,8 @@ class _EditBudgetState extends State<EditBudget> {
                                                     .read<BudgetCubit>()
                                                     .transactionNameController
                                                     .text = value.toString();
+                                                transactionController
+                                                    .collapse();
                                               });
                                             },
                                           ),
@@ -244,7 +271,30 @@ class _EditBudgetState extends State<EditBudget> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
-                          title: Text(tr(context, "selectWallet")),
+                          controller: walletController,
+                          title: Text(context
+                                  .read<BudgetCubit>()
+                                  .walletNameController
+                                  .text
+                                  .isNotEmpty
+                              ? tr(
+                                          context,
+                                          context
+                                              .read<BudgetCubit>()
+                                              .walletNameController
+                                              .text)
+                                      .isNotEmpty
+                                  ? tr(
+                                      context,
+                                      context
+                                          .read<BudgetCubit>()
+                                          .walletNameController
+                                          .text)
+                                  : context
+                                      .read<BudgetCubit>()
+                                      .walletNameController
+                                      .text
+                              : tr(context, "selectTheWallet")),
                           children: [
                             ...walletsName.asMap().entries.map(
                               (entry) {
@@ -272,6 +322,7 @@ class _EditBudgetState extends State<EditBudget> {
                                                     .read<BudgetCubit>()
                                                     .walletNameController
                                                     .text = value.toString();
+                                                walletController.collapse();
                                               });
                                             },
                                           ),

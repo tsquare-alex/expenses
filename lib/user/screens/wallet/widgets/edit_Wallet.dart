@@ -26,6 +26,11 @@ class EditWallet extends StatefulWidget {
 }
 
 class _EditWalletState extends State<EditWallet> {
+  ExpansionTileController controller = ExpansionTileController();
+  ExpansionTileController valueTypeController = ExpansionTileController();
+  ExpansionTileController currencyController = ExpansionTileController();
+
+
   WalletData data = WalletData();
   var formKey = GlobalKey<FormState>();
   DateTime? selectedDate;
@@ -118,15 +123,36 @@ class _EditWalletState extends State<EditWallet> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
+                          controller: controller,
                           shape: const RoundedRectangleBorder(
                             side: BorderSide(color: Colors.transparent),
                           ),
                           title: Text(
-                            tr(context, "sources"),
+                            context
+                                        .read<WalletCubit>()
+                                        .encomSourceController
+                                        .text !=
+                                    ""
+                                ? tr(
+                                            context,
+                                            context
+                                                .read<WalletCubit>()
+                                                .encomSourceController
+                                                .text)
+                                        .isNotEmpty
+                                    ? tr(
+                                        context,
+                                        context
+                                            .read<WalletCubit>()
+                                            .encomSourceController
+                                            .text)
+                                    : context
+                                        .read<WalletCubit>()
+                                        .encomSourceController
+                                        .text
+                                : tr(context, "selectValueType"),
                             style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
+                                fontSize: 16.h, fontWeight: FontWeight.w500),
                           ),
                           children: [
                             ...context
@@ -162,6 +188,7 @@ class _EditWalletState extends State<EditWallet> {
                                                     .encomSourceController
                                                     .text = value.toString();
                                                 isFirstValidationError = false;
+                                                controller.collapse();
                                               });
                                             },
                                           ),
@@ -236,13 +263,36 @@ class _EditWalletState extends State<EditWallet> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
+                          controller: valueTypeController,
                           shape: const RoundedRectangleBorder(
                             side: BorderSide(color: Colors.transparent),
                           ),
                           title: Text(
-                            tr(context, "selectValueType"),
+                            context
+                                        .read<WalletCubit>()
+                                        .valueCategoryController
+                                        .text !=
+                                    ""
+                                ? tr(
+                                            context,
+                                            context
+                                                .read<WalletCubit>()
+                                                .valueCategoryController
+                                                .text)
+                                        .isNotEmpty
+                                    ? tr(
+                                        context,
+                                        context
+                                            .read<WalletCubit>()
+                                            .valueCategoryController
+                                            .text)
+                                    : context
+                                        .read<WalletCubit>()
+                                        .valueCategoryController
+                                        .text
+                                : tr(context, "selectValueType"),
                             style: TextStyle(
-                                fontSize: 16.sp, fontWeight: FontWeight.w500),
+                                fontSize: 16.h, fontWeight: FontWeight.w500),
                           ),
                           children: [
                             ...context
@@ -278,6 +328,7 @@ class _EditWalletState extends State<EditWallet> {
                                                     .valueCategoryController
                                                     .text = value.toString();
                                                 isSecondValidationError = false;
+                                                valueTypeController.collapse();
                                               });
                                             },
                                           ),
@@ -370,10 +421,20 @@ class _EditWalletState extends State<EditWallet> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: ExpansionTile(
+                              controller: currencyController,
                               shape: const RoundedRectangleBorder(
                                 side: BorderSide(color: Colors.transparent),
                               ),
-                              title: Text(tr(context, "selectCurrency")),
+                              title: Text(context
+                                      .read<WalletCubit>()
+                                      .currencyController
+                                      .text
+                                      .isNotEmpty
+                                  ? context
+                                      .read<WalletCubit>()
+                                      .currencyController
+                                      .text
+                                  : tr(context, "selectCurrency")),
                               children: [
                                 context.read<WalletCubit>().buildCurrencyList(
                                       currencyList: mainCurrency,
@@ -386,6 +447,7 @@ class _EditWalletState extends State<EditWallet> {
                                               .read<WalletCubit>()
                                               .currencyController
                                               .text = value ?? "";
+                                          currencyController.collapse();
                                         });
                                       },
                                     ),
@@ -399,6 +461,7 @@ class _EditWalletState extends State<EditWallet> {
                                             .read<WalletCubit>()
                                             .currencyController
                                             .text = value ?? "";
+                                        currencyController.collapse();
                                       });
                                     })
                               ],

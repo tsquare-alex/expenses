@@ -22,6 +22,109 @@ class Utils {
     context.read<LangCubit>().onUpdateLanguage(lang);
   }
 
+  static Future<void> repeatWallet() async {
+    var box = await Hive.openBox<WalletModel>(walletDatabaseBox);
+    var list = box.values.toList();
+    print(list.length);
+    print("object8");
+    for (WalletModel item in list) {
+      var now = DateTime.now();
+      print("object3");
+      var date = DateFormat("dd/MM/yyyy", "en").parse(item.openDate!);
+      // int counter = calculateDifferenceInDays(date);
+      // int weeksCounter = calculateDifferenceInWeeks(date);
+      // int monthsCounter = calculateDifferenceInMonths(date);
+      // int quaterCounter = calculateDifferenceInQuarterYears(date);
+      // int semiAnnuallyCounter = calculateDifferenceInSemiAnnually(date);
+      // int annuallyCounter = calculateDifferenceInAnnually(date);
+      int myCounter = 0;
+      switch (item.repeatWallet) {
+        case "daily":
+          myCounter = calculateDifferenceInDays(date);
+          break;
+        case "weekly":
+          myCounter = calculateDifferenceInWeeks(date);
+          break;
+        case "monthly":
+          myCounter = calculateDifferenceInMonths(date);
+          break;
+        case "quarterly":
+          myCounter = calculateDifferenceInQuarterYears(date);
+          break;
+        case "SemiAnnually":
+          myCounter = calculateDifferenceInSemiAnnually(date);
+          break;
+        case "annually":
+          myCounter = calculateDifferenceInAnnually(date);
+          break;
+      }
+      print("myCounter $myCounter");
+
+      print("item.repeated ${item.repeatWallet}");
+      if (item.repeatWallet != null) {
+        print("object4");
+        for (int i = 0; i < myCounter; i++) {
+          WalletModel newModel = WalletModel(
+            addNote: item.addNote,
+            balance: item.balance,
+            category: item.category,
+            currency: item.currency,
+            currencyValue: item.currencyValue,
+            name: item.name,
+            valueCategory: item.valueCategory,
+            currancyChange: item.currancyChange,
+            encomeSource: item.encomeSource,
+            checkedValue: item.checkedValue,
+            iconPath: item.iconPath,
+            walletRepate: item.walletRepate,
+            isClosed: item.isClosed,
+            isFavorite: item.isFavorite,
+            notification: item.notification,
+            totalBalance: item.totalBalance,
+            isHide: item.isHide,
+            paymentMethod: item.paymentMethod,
+            repeatWallet: item.repeatWallet,
+            model: item.model,
+            remainBalance: item.remainBalance,
+            remainTotalBalance: item.remainBalance,
+            closedDate: item.closedDate,
+            openDate: DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
+          );
+          var targetModel = WalletModel(
+              addNote: item.addNote,
+              balance: item.balance,
+              category: item.category,
+              currency: item.currency,
+              currencyValue: item.currencyValue,
+              name: item.name,
+              valueCategory: item.valueCategory,
+              currancyChange: item.currancyChange,
+              encomeSource: item.encomeSource,
+              checkedValue: item.checkedValue,
+              iconPath: item.iconPath,
+              walletRepate: item.walletRepate,
+              isClosed: item.isClosed,
+              isFavorite: item.isFavorite,
+              notification: item.notification,
+              totalBalance: item.totalBalance,
+              isHide: item.isHide,
+              paymentMethod: item.paymentMethod,
+              repeatWallet: null,
+              model: item.model,
+              remainBalance: item.remainBalance,
+              remainTotalBalance: item.remainBalance,
+              closedDate: item.closedDate,
+              openDate: item.openDate);
+          print("item.key${item.key}");
+          box.put(item.key.toString(), targetModel);
+
+          box.add(newModel);
+        }
+        box.delete(item.key);
+      }
+    }
+  }
+
   static Future<Uint8List?> getImage(bool isCamera) async {
     final ImagePicker picker = ImagePicker();
     XFile? image = await picker.pickImage(
@@ -115,9 +218,11 @@ class Utils {
       int semiAnnuallyCounter = calculateDifferenceInSemiAnnually(date);
       int annuallyCounter = calculateDifferenceInAnnually(date);
       print("counter $counter}");
-      if (item.repeated != null && item.transactionName != "الاهداف المالية المستهدفة") {
+      if (item.repeated != null &&
+          item.transactionName != "الاهداف المالية المستهدفة") {
         print("object4");
-        if (item.repeated?.name == "daily" && item.transactionName != "الاهداف المالية المستهدفة") {
+        if (item.repeated?.name == "daily" &&
+            item.transactionName != "الاهداف المالية المستهدفة") {
           for (int i = 0; i < counter; i++) {
             AddTransactionModel newModel = AddTransactionModel(
               image: item.image,
@@ -185,8 +290,8 @@ class Utils {
               targetType: item.targetType,
             );
             print(item.key);
-            if(counter == 1){
-            }else if (counter >0 && counter!=1){
+            if (counter == 1) {
+            } else if (counter > 0 && counter != 1) {
               box.put(item.key.toString(), targetModel);
             }
             print("counter $counter");
@@ -209,8 +314,8 @@ class Utils {
               CustomToast.showSimpleToast(msg: "msg");
             }
           }
-        }
-        else if (item.repeated?.name == "weekly" && item.transactionName != "الاهداف المالية المستهدفة") {
+        } else if (item.repeated?.name == "weekly" &&
+            item.transactionName != "الاهداف المالية المستهدفة") {
           for (int i = 0; i < weeksCounter; i++) {
             AddTransactionModel newModel = AddTransactionModel(
               image: item.image,
@@ -298,8 +403,8 @@ class Utils {
               CustomToast.showSimpleToast(msg: "msg");
             }
           }
-        }
-        else if (item.repeated?.name == "monthly" && item.transactionName != "الاهداف المالية المستهدفة") {
+        } else if (item.repeated?.name == "monthly" &&
+            item.transactionName != "الاهداف المالية المستهدفة") {
           for (int i = 0; i < monthsCounter; i++) {
             AddTransactionModel newModel = AddTransactionModel(
               image: item.image,
@@ -387,8 +492,8 @@ class Utils {
               CustomToast.showSimpleToast(msg: "msg");
             }
           }
-        }
-        else if (item.repeated?.name == "quarterly" && item.transactionName != "الاهداف المالية المستهدفة") {
+        } else if (item.repeated?.name == "quarterly" &&
+            item.transactionName != "الاهداف المالية المستهدفة") {
           for (int i = 0; i < quaterCounter; i++) {
             AddTransactionModel newModel = AddTransactionModel(
               image: item.image,
@@ -476,8 +581,8 @@ class Utils {
               CustomToast.showSimpleToast(msg: "msg");
             }
           }
-        }
-        else if (item.repeated?.name == "SemiAnnually" && item.transactionName != "الاهداف المالية المستهدفة") {
+        } else if (item.repeated?.name == "SemiAnnually" &&
+            item.transactionName != "الاهداف المالية المستهدفة") {
           for (int i = 0; i < semiAnnuallyCounter; i++) {
             AddTransactionModel newModel = AddTransactionModel(
               image: item.image,
@@ -565,8 +670,8 @@ class Utils {
               CustomToast.showSimpleToast(msg: "msg");
             }
           }
-        }
-        else if (item.repeated?.name == "annually" && item.transactionName != "الاهداف المالية المستهدفة") {
+        } else if (item.repeated?.name == "annually" &&
+            item.transactionName != "الاهداف المالية المستهدفة") {
           for (int i = 0; i < annuallyCounter; i++) {
             AddTransactionModel newModel = AddTransactionModel(
               image: item.image,
@@ -677,7 +782,8 @@ class Utils {
       print("counter $counter}");
       if (item.repeated != null) {
         print("object4");
-        if (item.repeated?.name == "daily" && item.transactionName == "الاهداف المالية المستهدفة") {
+        if (item.repeated?.name == "daily" &&
+            item.transactionName == "الاهداف المالية المستهدفة") {
           for (int i = 0; i < counter; i++) {
             var targetModel = AddTransactionModel(
               image: item.image,
@@ -717,7 +823,7 @@ class Utils {
               var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
               var walletList = walletBox.values.toList();
               WalletModel? targetModel = walletList.firstWhere(
-                    (model) => model.name == item.incomeSource?.name,
+                (model) => model.name == item.incomeSource?.name,
               );
               print("object ${targetModel.name}");
               targetModel.totalBalance = targetModel.totalBalance! - total;
@@ -728,8 +834,8 @@ class Utils {
               CustomToast.showSimpleToast(msg: "msg");
             }
           }
-        }
-        else if (item.repeated?.name == "weekly" && item.transactionName == "الاهداف المالية المستهدفة") {
+        } else if (item.repeated?.name == "weekly" &&
+            item.transactionName == "الاهداف المالية المستهدفة") {
           for (int i = 0; i < weeksCounter; i++) {
             AddTransactionModel newModel = AddTransactionModel(
               image: item.image,
@@ -756,7 +862,7 @@ class Utils {
               brandName: item.brandName,
               repeated: item.repeated,
               transactionDate:
-              DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
+                  DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
               unit: item.unit,
               incomeSource: item.incomeSource,
               transactionContent: item.transactionContent,
@@ -805,7 +911,7 @@ class Utils {
               var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
               var walletList = walletBox.values.toList();
               WalletModel? targetModel = walletList.firstWhere(
-                    (model) => model.name == item.incomeSource?.name,
+                (model) => model.name == item.incomeSource?.name,
               );
               print("object ${targetModel.name}");
               targetModel.totalBalance = targetModel.totalBalance! - total;
@@ -817,8 +923,8 @@ class Utils {
               CustomToast.showSimpleToast(msg: "msg");
             }
           }
-        }
-        else if (item.repeated?.name == "monthly" && item.transactionName == "الاهداف المالية المستهدفة") {
+        } else if (item.repeated?.name == "monthly" &&
+            item.transactionName == "الاهداف المالية المستهدفة") {
           for (int i = 0; i < monthsCounter; i++) {
             AddTransactionModel newModel = AddTransactionModel(
               image: item.image,
@@ -845,7 +951,7 @@ class Utils {
               brandName: item.brandName,
               repeated: item.repeated,
               transactionDate:
-              DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
+                  DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
               unit: item.unit,
               incomeSource: item.incomeSource,
               transactionContent: item.transactionContent,
@@ -894,7 +1000,7 @@ class Utils {
               var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
               var walletList = walletBox.values.toList();
               WalletModel? targetModel = walletList.firstWhere(
-                    (model) => model.name == item.incomeSource?.name,
+                (model) => model.name == item.incomeSource?.name,
               );
               print("object ${targetModel.name}");
               targetModel.totalBalance = targetModel.totalBalance! - total;
@@ -906,8 +1012,8 @@ class Utils {
               CustomToast.showSimpleToast(msg: "msg");
             }
           }
-        }
-        else if (item.repeated?.name == "quarterly" && item.transactionName == "الاهداف المالية المستهدفة") {
+        } else if (item.repeated?.name == "quarterly" &&
+            item.transactionName == "الاهداف المالية المستهدفة") {
           for (int i = 0; i < quaterCounter; i++) {
             AddTransactionModel newModel = AddTransactionModel(
               image: item.image,
@@ -934,7 +1040,7 @@ class Utils {
               brandName: item.brandName,
               repeated: item.repeated,
               transactionDate:
-              DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
+                  DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
               unit: item.unit,
               incomeSource: item.incomeSource,
               transactionContent: item.transactionContent,
@@ -983,7 +1089,7 @@ class Utils {
               var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
               var walletList = walletBox.values.toList();
               WalletModel? targetModel = walletList.firstWhere(
-                    (model) => model.name == item.incomeSource?.name,
+                (model) => model.name == item.incomeSource?.name,
               );
               print("object ${targetModel.name}");
               targetModel.totalBalance = targetModel.totalBalance! - total;
@@ -995,8 +1101,8 @@ class Utils {
               CustomToast.showSimpleToast(msg: "msg");
             }
           }
-        }
-        else if (item.repeated?.name == "SemiAnnually" && item.transactionName == "الاهداف المالية المستهدفة") {
+        } else if (item.repeated?.name == "SemiAnnually" &&
+            item.transactionName == "الاهداف المالية المستهدفة") {
           for (int i = 0; i < semiAnnuallyCounter; i++) {
             AddTransactionModel newModel = AddTransactionModel(
               image: item.image,
@@ -1023,7 +1129,7 @@ class Utils {
               brandName: item.brandName,
               repeated: item.repeated,
               transactionDate:
-              DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
+                  DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
               unit: item.unit,
               incomeSource: item.incomeSource,
               transactionContent: item.transactionContent,
@@ -1072,7 +1178,7 @@ class Utils {
               var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
               var walletList = walletBox.values.toList();
               WalletModel? targetModel = walletList.firstWhere(
-                    (model) => model.name == item.incomeSource?.name,
+                (model) => model.name == item.incomeSource?.name,
               );
               print("object ${targetModel.name}");
               targetModel.totalBalance = targetModel.totalBalance! - total;
@@ -1084,8 +1190,8 @@ class Utils {
               CustomToast.showSimpleToast(msg: "msg");
             }
           }
-        }
-        else if (item.repeated?.name == "annually" && item.transactionName == "الاهداف المالية المستهدفة") {
+        } else if (item.repeated?.name == "annually" &&
+            item.transactionName == "الاهداف المالية المستهدفة") {
           for (int i = 0; i < annuallyCounter; i++) {
             AddTransactionModel newModel = AddTransactionModel(
               image: item.image,
@@ -1112,7 +1218,7 @@ class Utils {
               brandName: item.brandName,
               repeated: item.repeated,
               transactionDate:
-              DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
+                  DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
               unit: item.unit,
               incomeSource: item.incomeSource,
               transactionContent: item.transactionContent,
@@ -1161,7 +1267,7 @@ class Utils {
               var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
               var walletList = walletBox.values.toList();
               WalletModel? targetModel = walletList.firstWhere(
-                    (model) => model.name == item.incomeSource?.name,
+                (model) => model.name == item.incomeSource?.name,
               );
               print("object ${targetModel.name}");
               targetModel.totalBalance = targetModel.totalBalance! - total;

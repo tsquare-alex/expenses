@@ -17,7 +17,9 @@ class BuildLanguageBottomSheet extends StatelessWidget {
                 alignment: Alignment.center,
                 child: MyText(
                   title: tr(context, 'changeLanguage'),
-                  color: MyColors.primary,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? Colors.lightBlue[200]
+                      : MyColors.primary,
                   fontWeight: FontWeight.bold,
                   size: 18.sp,
                 ),
@@ -29,22 +31,24 @@ class BuildLanguageBottomSheet extends StatelessWidget {
                 DefaultButton(
                   title: tr(context, 'langAr'),
                   onTap: () {
-                    if(lang == "ar"){
+                    if (lang == "ar") {
                       Navigator.of(context).pop();
-                    }else{
-                      Utils.changeLanguage("ar",context);
-                      Phoenix.rebirth(context);
+                    } else {
+                      Navigator.of(context).pop();
+                      Utils.changeLanguage("ar", context);
+                      // Phoenix.rebirth(context);
                     }
                   },
                 ),
                 DefaultButton(
                   title: tr(context, "langEn"),
                   onTap: () {
-                    if(lang == "en"){
+                    if (lang == "en") {
                       Navigator.of(context).pop();
-                    }else{
-                      Utils.changeLanguage("en",context);
-                      Phoenix.rebirth(context);
+                    } else {
+                      Navigator.of(context).pop();
+                      Utils.changeLanguage("en", context);
+                      // Phoenix.rebirth(context);
                     }
                   },
                 ),

@@ -11,9 +11,15 @@ class ReportChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<_ChartData> chartData = data
+        .asMap()
+        .entries
         .map(
-          (transaction) =>
-              _ChartData(transaction.transactionDate!, transaction.total!),
+          (entry) => _ChartData(
+            entry.value.transactionDate!,
+            entry.value.total!,
+            ReportsCubit.get(context).randomColors[entry.key],
+            entry.value.transactionContent!.name!,
+          ),
         )
         .toList();
     return SizedBox(
@@ -29,14 +35,24 @@ class ReportChart extends StatelessWidget {
         primaryYAxis: NumericAxis(),
         series: <CartesianSeries<_ChartData, DateTime>>[
           ColumnSeries<_ChartData, DateTime>(
+            dataLabelMapper: (_ChartData chartData, _) =>
+                tr(context, chartData.name),
+            dataLabelSettings: const DataLabelSettings(
+              isVisible: true,
+              labelAlignment: ChartDataLabelAlignment.middle,
+              angle: 90,
+              textStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            enableTooltip: true,
             animationDuration: 500,
             dataSource: chartData,
             xValueMapper: (_ChartData chartData, _) =>
                 DateFormat('dd/MM/yyyy').parse(chartData.x),
             yValueMapper: (_ChartData chartData, _) =>
                 int.tryParse(chartData.y),
-            width: 0.25,
-            color: MyColors.primary,
+            pointColorMapper: (_ChartData chartData, _) => chartData.color,
           ),
         ],
       ),
@@ -45,8 +61,15 @@ class ReportChart extends StatelessWidget {
 }
 
 class _ChartData {
-  _ChartData(this.x, this.y);
+  _ChartData(
+    this.x,
+    this.y,
+    this.color,
+    this.name,
+  );
 
   final String x;
   final String y;
+  final Color color;
+  final String name;
 }

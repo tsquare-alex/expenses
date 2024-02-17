@@ -76,7 +76,9 @@ class ReportTable extends StatelessWidget {
                           ? transaction.unit?.name
                           : tr(context, transaction.unit!.name!),
                     ),
-                    StatsRowCell(title: transaction.total),
+                    StatsRowCell(
+                        title: transaction.total!
+                            .formatToDecimal(context: context)),
                     StatsRowCell(title: transaction.database?.name),
                   ],
                 ),

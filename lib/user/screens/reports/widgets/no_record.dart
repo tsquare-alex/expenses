@@ -19,7 +19,9 @@ class ReportNoRecord extends StatelessWidget {
           ),
           MyText(
             title: tr(context, 'noRecord'),
-            color: MyColors.black,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? Colors.white
+                : MyColors.black,
             size: 16.sp,
             fontWeight: FontWeight.bold,
           ),

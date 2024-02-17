@@ -78,7 +78,11 @@ class WalletDetailsRow extends StatelessWidget {
                 ),
               ),
               Text(
-                context.read<ReportsCubit>().spentMoney.toStringAsFixed(0),
+                context
+                    .read<ReportsCubit>()
+                    .spentMoney
+                    .toStringAsFixed(0)
+                    .formatToDecimal(context: context),
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
@@ -88,7 +92,7 @@ class WalletDetailsRow extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 16.r),
+              padding: EdgeInsets.symmetric(horizontal: 16.r),
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.r),
@@ -104,9 +108,10 @@ class WalletDetailsRow extends StatelessWidget {
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton(
                       isExpanded: true,
-                      value: context.watch<ReportsCubit>().selectedWallet.isEmpty
-                          ? null
-                          : context.watch<ReportsCubit>().selectedWallet,
+                      value:
+                          context.watch<ReportsCubit>().selectedWallet.isEmpty
+                              ? null
+                              : context.watch<ReportsCubit>().selectedWallet,
                       hint: Text(
                         tr(context, 'wallet'),
                         style: TextStyle(
@@ -203,7 +208,11 @@ class WalletDetailsRow extends StatelessWidget {
                 ),
               ),
               Text(
-                context.read<ReportsCubit>().residualMoney.toStringAsFixed(0),
+                context
+                    .read<ReportsCubit>()
+                    .residualMoney
+                    .toStringAsFixed(0)
+                    .formatToDecimal(context: context),
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,

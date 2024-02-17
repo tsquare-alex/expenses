@@ -9,6 +9,7 @@ import 'package:expenses/user/screens/reports/widgets/reports_widgets_imports.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 class CompareBody extends StatelessWidget {
   const CompareBody({super.key});
@@ -29,6 +30,60 @@ class CompareBody extends StatelessWidget {
             ),
           ),
           SizedBox(height: 16.h),
+          Row(
+            children: [
+              Flexible(
+                child: StatisticsDropdown(
+                  label: '${tr(context, 'chooseWallet')} 1',
+                  choice: ReportsCubit.get(context).selectedCompare1Wallet,
+                  menuList: ReportsCubit.get(context)
+                      .wallets
+                      .map(
+                        (wallet) => DropdownMenuItem<String>(
+                          value: wallet.name,
+                          child: Text(
+                            wallet.name,
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  onSelect: (value) =>
+                      ReportsCubit.get(context).onCompareWallet1Select(value),
+                ),
+              ),
+              SizedBox(width: 16.r),
+              Flexible(
+                child: StatisticsDropdown(
+                  label: '${tr(context, 'chooseWallet')} 2',
+                  choice: ReportsCubit.get(context).selectedCompare2Wallet,
+                  menuList: ReportsCubit.get(context)
+                      .wallets
+                      .map(
+                        (wallet) => DropdownMenuItem<String>(
+                          value: wallet.name,
+                          child: Text(
+                            wallet.name,
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  onSelect: (value) =>
+                      ReportsCubit.get(context).onCompareWallet2Select(value),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 20.r),
           Row(
             children: [
               Flexible(
@@ -177,60 +232,6 @@ class CompareBody extends StatelessWidget {
             children: [
               Flexible(
                 child: StatisticsDropdown(
-                  label: '${tr(context, 'chooseWallet')} 1',
-                  choice: ReportsCubit.get(context).selectedCompare1Wallet,
-                  menuList: ReportsCubit.get(context)
-                      .wallets
-                      .map(
-                        (wallet) => DropdownMenuItem<String>(
-                          value: wallet.name,
-                          child: Text(
-                            wallet.name,
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                  onSelect: (value) =>
-                      ReportsCubit.get(context).onCompareWallet1Select(value),
-                ),
-              ),
-              SizedBox(width: 16.r),
-              Flexible(
-                child: StatisticsDropdown(
-                  label: '${tr(context, 'chooseWallet')} 2',
-                  choice: ReportsCubit.get(context).selectedCompare2Wallet,
-                  menuList: ReportsCubit.get(context)
-                      .wallets
-                      .map(
-                        (wallet) => DropdownMenuItem<String>(
-                          value: wallet.name,
-                          child: Text(
-                            wallet.name,
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                  onSelect: (value) =>
-                      ReportsCubit.get(context).onCompareWallet2Select(value),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 20.r),
-          Row(
-            children: [
-              Flexible(
-                child: StatisticsDropdown(
                   label: '${tr(context, 'chooseTransaction')} 1',
                   choice: ReportsCubit.get(context).selectedCompare1Transaction,
                   menuList: context
@@ -348,8 +349,20 @@ class CompareBody extends StatelessWidget {
             builder: (context, state) {
               if (state is ShowReportDetails) {
                 return ReportComparison(
-                  data1: ReportsCubit.get(context).compare1FilteredTransactions,
-                  data2: ReportsCubit.get(context).compare2FilteredTransactions,
+                  data1: ReportsCubit.get(context).compare1FilteredTransactions
+                    ..sort(
+                      (a, b) => DateFormat('dd/MM/yyyy', 'en')
+                          .parse(b.transactionDate!)
+                          .compareTo(DateFormat('dd/MM/yyyy', 'en')
+                              .parse(a.transactionDate!)),
+                    ),
+                  data2: ReportsCubit.get(context).compare2FilteredTransactions
+                    ..sort(
+                      (a, b) => DateFormat('dd/MM/yyyy', 'en')
+                          .parse(b.transactionDate!)
+                          .compareTo(DateFormat('dd/MM/yyyy', 'en')
+                              .parse(a.transactionDate!)),
+                    ),
                 );
               } else {
                 return const SizedBox.shrink();

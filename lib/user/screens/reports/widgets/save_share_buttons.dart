@@ -74,13 +74,24 @@ class SaveAndShareButtons extends StatelessWidget {
             OutlinedButton(
               onPressed: () async {
                 if (isPro) {
-                  Share.shareXFiles([
-                    XFile(
-                      await ReportsCubit.get(context)
-                          .generateAndSaveReportExcel(
-                              category: category, context: context),
-                    ),
-                  ]);
+                  await ReportsCubit.get(context).generateAndSaveReportExcel(
+                      category: category, context: context);
+                  if (context.mounted) {
+                    if (ReportsCubit.get(context).reportExcelPath.isNotEmpty &&
+                        context
+                            .read<ReportsCubit>()
+                            .categoriesList
+                            .isNotEmpty) {
+                      Share.shareXFiles([
+                        XFile(ReportsCubit.get(context).reportExcelPath),
+                      ]);
+                    } else {
+                      CustomToast.showSimpleToast(
+                        msg: tr(context, 'noRecord'),
+                        color: MyColors.primary,
+                      );
+                    }
+                  }
                 } else {
                   AutoRouter.of(context).push(const SubscriptionsRoute());
                 }
@@ -110,15 +121,16 @@ class SaveAndShareButtons extends StatelessWidget {
                       width: 24.w,
                     ),
                   ),
-                  Positioned(
-                    bottom: -7.r,
-                    left: 0.r,
-                    child: Image.asset(
-                      Res.pro,
-                      height: 40.h,
-                      width: 40.w,
+                  if (!isPro)
+                    Positioned(
+                      bottom: -7.r,
+                      left: 0.r,
+                      child: Image.asset(
+                        Res.pro,
+                        height: 40.h,
+                        width: 40.w,
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),

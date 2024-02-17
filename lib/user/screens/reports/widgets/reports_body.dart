@@ -182,18 +182,19 @@ class ReportsBody extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.r),
                   child: FieldSection(
+                    isBlack: true,
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
                         isExpanded: true,
                         // value: null,
                         hint: Text(
-                          tr(context, 'statsTransactions'),
+                          tr(context, 'viewTransactionsContent'),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
                             color: context.watch<AppThemeCubit>().isDarkMode
                                 ? Colors.white
-                                : Colors.grey,
+                                : Colors.black87,
                           ),
                         ),
                         icon: Icon(
@@ -203,8 +204,15 @@ class ReportsBody extends StatelessWidget {
                               : MyColors.primary,
                         ),
                         menuMaxHeight: 0.3.sh,
-                        items: ReportsCubit.get(context)
-                            .reportFilteredTransactions
+                        items: (ReportsCubit.get(context)
+                                        .reportFilteredTransactions
+                                        .isEmpty &&
+                                    ReportsCubit.get(context)
+                                        .selectedWallet
+                                        .isEmpty
+                                ? ReportsCubit.get(context).transactions
+                                : ReportsCubit.get(context)
+                                    .reportFilteredTransactions)
                             .map(
                               (transaction) => DropdownMenuItem(
                                 value: transaction.transactionType!.name,
@@ -224,19 +232,29 @@ class ReportsBody extends StatelessWidget {
                                               transaction
                                                   .transactionContent!.name!)
                                           : transaction
-                                              .transactionContent?.name??"",
+                                                  .transactionContent?.name ??
+                                              "",
                                       style: TextStyle(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.w500,
-                                        color: Colors.grey,
+                                        color: context
+                                                .watch<AppThemeCubit>()
+                                                .isDarkMode
+                                            ? Colors.white
+                                            : Colors.black87,
                                       ),
                                     ),
                                     Text(
-                                      transaction.total!,
+                                      transaction.total!
+                                          .formatToDecimal(context: context),
                                       style: TextStyle(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.w500,
-                                        color: Colors.grey,
+                                        color: context
+                                                .watch<AppThemeCubit>()
+                                                .isDarkMode
+                                            ? Colors.white
+                                            : Colors.black87,
                                       ),
                                     ),
                                   ],
@@ -251,7 +269,8 @@ class ReportsBody extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (context.read<ReportsCubit>().transactions.isEmpty)
+                if (context.read<ReportsCubit>().transactions.isEmpty ||
+                    context.watch<ReportsCubit>().categoriesList.isEmpty)
                   SizedBox(
                     height: 0.5.sh,
                     child: Center(
@@ -272,18 +291,80 @@ class ReportsBody extends StatelessWidget {
                     .isNotEmpty) ...[
                   SizedBox(height: 16.h),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 32.r),
+                    padding: EdgeInsets.symmetric(horizontal: 16.r),
                     child: AspectRatio(
-                      aspectRatio: 1,
+                      aspectRatio: 1.5,
                       child: Stack(
                         children: [
                           Align(
+                            alignment: Alignment.topCenter,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      tr(context, 'reportTotalResidual')
+                                          .split(' ')
+                                          .join('\n'),
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.sp,
+                                      ),
+                                    ),
+                                    Text(
+                                      context
+                                          .watch<ReportsCubit>()
+                                          .residualMoney
+                                          .toStringAsFixed(0)
+                                          .formatToDecimal(context: context),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.sp,
+                                        color: const Color(0xFF5DE062),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      tr(context, 'totalSources')
+                                          .split(' ')
+                                          .join('\n'),
+                                      textAlign: TextAlign.end,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.sp,
+                                      ),
+                                    ),
+                                    Text(
+                                      context
+                                          .watch<ReportsCubit>()
+                                          .totalMoney
+                                          .toStringAsFixed(0)
+                                          .formatToDecimal(context: context),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.sp,
+                                        color: Colors.lightBlue,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Align(
                             alignment: Alignment.center,
                             child: Text(
-                              '${tr(context, 'reportTotal')}\n${context.watch<ReportsCubit>().allSpentMoney.toStringAsFixed(0)}',
+                              '${tr(context, 'reportTotal').split(' ').join('\n')}\n${context.watch<ReportsCubit>().allSpentMoney.toStringAsFixed(0).formatToDecimal(context: context)}',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 20.sp,
+                                fontSize: 18.sp,
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -292,7 +373,7 @@ class ReportsBody extends StatelessWidget {
                             PieChartData(
                               startDegreeOffset: -90,
                               sectionsSpace: 3.r,
-                              centerSpaceRadius: double.infinity,
+                              centerSpaceRadius: 0.15.sw,
                               sections: context
                                   .watch<ReportsCubit>()
                                   .categoriesList
@@ -307,8 +388,9 @@ class ReportsBody extends StatelessWidget {
                                               '${NumberFormat.percentPattern('en').format(entry.value.percentage)}\n${(tr(context, entry.value.title).isNotEmpty ? tr(context, entry.value.title) : entry.value.title).split(' ').join('\n')}',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 18.sp,
+                                                fontSize: 16.sp,
                                                 overflow: TextOverflow.ellipsis,
+                                                color: Colors.black,
                                               ),
                                               maxLines:
                                                   entry.value.percentage <= 0.1
@@ -321,7 +403,7 @@ class ReportsBody extends StatelessWidget {
                                               textAlign: TextAlign.center,
                                             ),
                                       showTitle: false,
-                                      radius: 110.r,
+                                      radius: 75.r,
                                       color: context
                                           .read<ReportsCubit>()
                                           .randomColors[entry.key],
@@ -334,7 +416,7 @@ class ReportsBody extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 40.h),
+                  SizedBox(height: 18.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.r),
                     child: Table(
@@ -399,7 +481,8 @@ class ReportsBody extends StatelessWidget {
                                   ),
                                   ReportsRowCell(
                                     title: entry.value.totalMoney
-                                        .toStringAsFixed(0),
+                                        .toStringAsFixed(0)
+                                        .formatToDecimal(context: context),
                                   ),
                                   ReportsRowCell(
                                     title: NumberFormat.percentPattern('en')

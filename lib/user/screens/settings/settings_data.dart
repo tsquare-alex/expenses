@@ -38,7 +38,7 @@ class SettingsData {
 
   Future settingsDialog({
     required BuildContext context,
-    required List<String> dialogList,
+    required List dialogList,
     required String title,
     bool isList = false,
   }) async {
@@ -57,7 +57,9 @@ class SettingsData {
                   child: Center(
                     child: MyText(
                       title: title,
-                      color: MyColors.primary,
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? Colors.lightBlue[200]
+                          : MyColors.primary,
                       fontWeight: FontWeight.bold,
                       size: 18.sp,
                     ),

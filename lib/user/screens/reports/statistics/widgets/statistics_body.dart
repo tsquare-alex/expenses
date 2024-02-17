@@ -172,6 +172,7 @@ class StatisticsBody extends StatelessWidget {
                                               .isDarkMode
                                           ? AppDarkColors.secondary
                                           : MyColors.primary,
+                                      surfaceTint: Colors.transparent,
                                     ),
                                   ),
                                   child: child!,
@@ -256,6 +257,7 @@ class StatisticsBody extends StatelessWidget {
                                               .isDarkMode
                                           ? AppDarkColors.secondary
                                           : MyColors.primary,
+                                      surfaceTint: Colors.transparent,
                                     ),
                                   ),
                                   child: child!,
@@ -389,14 +391,32 @@ class StatisticsBody extends StatelessWidget {
                     if (state is ShowReportDetails) {
                       return switch (option) {
                         'table' => ReportTable(
-                            data:
-                                ReportsCubit.get(context).filteredTransactions),
+                            data: ReportsCubit.get(context).filteredTransactions
+                              ..sort(
+                                (a, b) => DateFormat('dd/MM/yyyy', 'en')
+                                    .parse(b.transactionDate!)
+                                    .compareTo(DateFormat('dd/MM/yyyy', 'en')
+                                        .parse(a.transactionDate!)),
+                              ),
+                          ),
                         'chart' => ReportChart(
-                            data:
-                                ReportsCubit.get(context).filteredTransactions),
+                            data: ReportsCubit.get(context).filteredTransactions
+                              ..sort(
+                                (a, b) => DateFormat('dd/MM/yyyy', 'en')
+                                    .parse(a.transactionDate!)
+                                    .compareTo(DateFormat('dd/MM/yyyy', 'en')
+                                        .parse(b.transactionDate!)),
+                              ),
+                          ),
                         String _ => ReportTable(
-                            data:
-                                ReportsCubit.get(context).filteredTransactions),
+                            data: ReportsCubit.get(context).filteredTransactions
+                              ..sort(
+                                (a, b) => DateFormat('dd/MM/yyyy', 'en')
+                                    .parse(b.transactionDate!)
+                                    .compareTo(DateFormat('dd/MM/yyyy', 'en')
+                                        .parse(a.transactionDate!)),
+                              ),
+                          ),
                       };
                     } else {
                       return const SizedBox.shrink();

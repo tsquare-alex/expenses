@@ -31,6 +31,7 @@ import 'package:expenses/general/screens/welcome_page/WelcomePageImports.dart'
     as _i2;
 import 'package:expenses/user/models/add_transaction_model/add_transaction_model.dart'
     as _i50;
+import 'package:expenses/user/models/cart_model/add_cart_model.dart' as _i55;
 import 'package:expenses/user/models/cart_model/cart_model.dart' as _i54;
 import 'package:expenses/user/models/database_model/database_model.dart'
     as _i48;
@@ -479,9 +480,13 @@ class AppRouter extends _i46.RootStackRouter {
       );
     },
     CartDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<CartDetailsRouteArgs>();
       return _i46.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i42.CartDetails(),
+        child: _i42.CartDetails(
+          key: args.key,
+          model: args.model,
+        ),
         opaque: true,
       );
     },
@@ -1632,14 +1637,36 @@ class CartPreviouslyUsedRoute extends _i46.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i42.CartDetails]
-class CartDetailsRoute extends _i46.PageRouteInfo<void> {
-  const CartDetailsRoute()
-      : super(
+class CartDetailsRoute extends _i46.PageRouteInfo<CartDetailsRouteArgs> {
+  CartDetailsRoute({
+    _i47.Key? key,
+    required _i55.AddCartModel model,
+  }) : super(
           CartDetailsRoute.name,
           path: '/cart-details',
+          args: CartDetailsRouteArgs(
+            key: key,
+            model: model,
+          ),
         );
 
   static const String name = 'CartDetailsRoute';
+}
+
+class CartDetailsRouteArgs {
+  const CartDetailsRouteArgs({
+    this.key,
+    required this.model,
+  });
+
+  final _i47.Key? key;
+
+  final _i55.AddCartModel model;
+
+  @override
+  String toString() {
+    return 'CartDetailsRouteArgs{key: $key, model: $model}';
+  }
 }
 
 /// generated route for

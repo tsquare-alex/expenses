@@ -15,6 +15,7 @@ class BuildTransactionType extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ExpansionTileController transactionController = ExpansionTileController();
     print(type);
     return Column(
       children: [
@@ -28,6 +29,7 @@ class BuildTransactionType extends StatelessWidget {
               data:
                   Theme.of(context).copyWith(dividerColor: Colors.transparent),
               child: ExpansionTile(
+                controller: transactionController,
                 childrenPadding: EdgeInsets.all(10.r),
                 title: Row(
                   children: [
@@ -131,7 +133,8 @@ class BuildTransactionType extends StatelessWidget {
                                         addTransactionData.transactionNameBloc
                                             .onUpdateData(
                                                 state.data?[index].name);
-                                      },
+                                        transactionController.collapse();
+                                        },
                                     )
                                   : InkWell(
                                       highlightColor: Colors.transparent,

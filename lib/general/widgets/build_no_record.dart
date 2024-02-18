@@ -8,8 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BuildNoRecord extends StatelessWidget {
-  const BuildNoRecord({Key? key}) : super(key: key);
-
+  const BuildNoRecord({Key? key, this.text}) : super(key: key);
+  final String? text;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -25,7 +25,7 @@ class BuildNoRecord extends StatelessWidget {
             height: 50.h,
           ),
           MyText(
-            title: tr(context, "noRecord"),
+            title: text??tr(context, "noRecord"),
             color: context.watch<AppThemeCubit>().isDarkMode
                 ? MyColors.white
                 : MyColors.black,

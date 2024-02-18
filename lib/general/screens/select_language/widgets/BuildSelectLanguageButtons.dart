@@ -21,7 +21,7 @@ class BuildSelectLanguageButtons extends StatelessWidget {
                  AutoRouter.of(context).push(const SelectCountryRoute());
                }else{
                  Utils.changeLanguage("ar",context);
-                 Phoenix.rebirth(context);
+                 AutoRouter.of(context).pop();
                }
               },
               color: MyColors.primary,
@@ -37,7 +37,7 @@ class BuildSelectLanguageButtons extends StatelessWidget {
                   AutoRouter.of(context).push(const SelectCountryRoute());
                 }else{
                   Utils.changeLanguage("en",context);
-                  Phoenix.rebirth(context);
+                  AutoRouter.of(context).pop();
                 }
               },
               borderColor: MyColors.primary.withOpacity(0.1),

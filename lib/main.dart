@@ -82,8 +82,8 @@ Future<void> main() async {
 
   await initializeDateFormatting('en');
 
-//  Utils.repeatTransaction();
-//  Utils.repeatTargetTransaction();
+  await Utils.repeatTransaction();
+  Utils.repeatTargetTransaction();
 
   runApp(BlocProvider(
     create: (BuildContext context) => LangCubit(),

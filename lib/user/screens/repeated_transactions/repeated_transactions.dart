@@ -21,8 +21,12 @@ class _RepeatedTransactionsState extends State<RepeatedTransactions> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : MyColors.white,
+        surfaceTintColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : MyColors.white,
         title: Padding(
           padding: EdgeInsets.only(left: 40.0.r),
           child: Row(
@@ -38,7 +42,9 @@ class _RepeatedTransactionsState extends State<RepeatedTransactions> {
               ),
               MyText(
                 title: tr(context, "recurringTransactions"),
-                color: MyColors.black,
+                color: context.watch<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    : MyColors.black,
                 size: 18.sp,
                 fontWeight: FontWeight.bold,
               ),
@@ -50,7 +56,9 @@ class _RepeatedTransactionsState extends State<RepeatedTransactions> {
           hoverColor: Colors.transparent,
           highlightColor: Colors.transparent,
           onTap: () => AutoRouter.of(context).pop(),
-          child: Icon(Icons.arrow_back, color: MyColors.black,),
+          child: Icon(Icons.arrow_back, color: context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              : MyColors.black,),
         ),
         centerTitle: true,
       ),

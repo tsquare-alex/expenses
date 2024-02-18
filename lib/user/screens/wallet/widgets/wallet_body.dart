@@ -142,7 +142,7 @@ class _WalletBodyState extends State<WalletBody> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.r)),
               onPressed: () {
-                AutoRouter.of(context).push(const WalletCategoryRoute());
+                AutoRouter.of(context).push( WalletCategoryRoute());
               },
               backgroundColor: MyColors.primary,
               child: Icon(

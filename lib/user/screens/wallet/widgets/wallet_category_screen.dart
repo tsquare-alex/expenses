@@ -16,9 +16,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WalletCategory extends StatefulWidget {
   const WalletCategory({
-    super.key,
+    super.key, this.fromTransaction=false,
   });
-
+  final bool? fromTransaction;
   @override
   State<WalletCategory> createState() => _WalletCategoryState();
 }
@@ -122,6 +122,7 @@ class _WalletCategoryState extends State<WalletCategory> {
                                   selectItemIndex: index,
                                   selectedCategory: selectedCategory,
                                   iconPath: iconPath,
+                                  fromTransaction: widget.fromTransaction,
                                 ));
                               // }
                             },

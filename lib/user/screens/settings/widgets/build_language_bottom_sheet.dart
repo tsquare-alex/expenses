@@ -33,7 +33,7 @@ class BuildLanguageBottomSheet extends StatelessWidget {
                       Navigator.of(context).pop();
                     }else{
                       Utils.changeLanguage("ar",context);
-                      Phoenix.rebirth(context);
+                      AutoRouter.of(context).pop();
                     }
                   },
                 ),
@@ -44,7 +44,7 @@ class BuildLanguageBottomSheet extends StatelessWidget {
                       Navigator.of(context).pop();
                     }else{
                       Utils.changeLanguage("en",context);
-                      Phoenix.rebirth(context);
+                      AutoRouter.of(context).pop();
                     }
                   },
                 ),

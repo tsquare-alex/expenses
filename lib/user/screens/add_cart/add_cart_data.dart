@@ -87,6 +87,8 @@ class AddCartData {
     selectedCart = model;
     cartId = model?.name;
     print(cartId);
+    CartContentModel? cartContentModel = CartContentModel();
+    print(selectedCartContent);
     cartContentCubit.onUpdateData(model?.content ?? []);
   }
 

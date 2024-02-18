@@ -22,12 +22,14 @@ class AddWallet extends StatefulWidget {
   final int selectItemIndex;
   final String selectedCategory;
   final String iconPath;
+  final bool? fromTransaction;
 
   const AddWallet({
     super.key,
     required this.selectItemIndex,
     required this.selectedCategory,
     required this.iconPath,
+    this.fromTransaction=false,
   });
   @override
   State<AddWallet> createState() => _AddWalletState();
@@ -901,8 +903,12 @@ class _AddWalletState extends State<AddWallet> {
 
                                 context.read<WalletCubit>().addNote(walletData);
                                 if (context.mounted) {
-                                  AutoRouter.of(context)
-                                      .push(HomeRoute(index: 0, pageIndex: 7));
+                                  if(widget.fromTransaction==false){
+                                    AutoRouter.of(context).push(
+                                        HomeRoute(index: 0, pageIndex: 7));
+                                  }else{
+                                    AutoRouter.of(context).pop();
+                                  }
                                 }
                               }
                             },

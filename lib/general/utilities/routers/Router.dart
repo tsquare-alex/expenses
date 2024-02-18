@@ -54,7 +54,9 @@ part of 'RouterImports.dart';
     AdaptiveRoute(page: CartPreviouslyUsed),
     AdaptiveRoute(page: CartDetails),
     AdaptiveRoute(page: MainCurrency),
-    AdaptiveRoute(page: Subscriptions)
+    AdaptiveRoute(page: Subscriptions),
+    AdaptiveRoute(page: CartDetails),
+    AdaptiveRoute(page: NotificationScreen),
   ],
 )
 class $AppRouter {}

@@ -302,6 +302,7 @@ class AppRouter extends _i46.RootStackRouter {
           selectItemIndex: args.selectItemIndex,
           selectedCategory: args.selectedCategory,
           iconPath: args.iconPath,
+          fromTransaction: args.fromTransaction,
         ),
         opaque: true,
       );
@@ -419,9 +420,14 @@ class AppRouter extends _i46.RootStackRouter {
       );
     },
     WalletCategoryRoute.name: (routeData) {
+      final args = routeData.argsAs<WalletCategoryRouteArgs>(
+          orElse: () => const WalletCategoryRouteArgs());
       return _i46.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i35.WalletCategory(),
+        child: _i35.WalletCategory(
+          key: args.key,
+          fromTransaction: args.fromTransaction,
+        ),
         opaque: true,
       );
     },
@@ -1147,6 +1153,7 @@ class AddWalletRoute extends _i46.PageRouteInfo<AddWalletRouteArgs> {
     required int selectItemIndex,
     required String selectedCategory,
     required String iconPath,
+    bool? fromTransaction = false,
   }) : super(
           AddWalletRoute.name,
           path: '/add-wallet',
@@ -1155,6 +1162,7 @@ class AddWalletRoute extends _i46.PageRouteInfo<AddWalletRouteArgs> {
             selectItemIndex: selectItemIndex,
             selectedCategory: selectedCategory,
             iconPath: iconPath,
+            fromTransaction: fromTransaction,
           ),
         );
 
@@ -1167,6 +1175,7 @@ class AddWalletRouteArgs {
     required this.selectItemIndex,
     required this.selectedCategory,
     required this.iconPath,
+    this.fromTransaction = false,
   });
 
   final _i47.Key? key;
@@ -1177,9 +1186,11 @@ class AddWalletRouteArgs {
 
   final String iconPath;
 
+  final bool? fromTransaction;
+
   @override
   String toString() {
-    return 'AddWalletRouteArgs{key: $key, selectItemIndex: $selectItemIndex, selectedCategory: $selectedCategory, iconPath: $iconPath}';
+    return 'AddWalletRouteArgs{key: $key, selectItemIndex: $selectItemIndex, selectedCategory: $selectedCategory, iconPath: $iconPath, fromTransaction: $fromTransaction}';
   }
 }
 
@@ -1487,14 +1498,36 @@ class TransactionTypeRoute extends _i46.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i35.WalletCategory]
-class WalletCategoryRoute extends _i46.PageRouteInfo<void> {
-  const WalletCategoryRoute()
-      : super(
+class WalletCategoryRoute extends _i46.PageRouteInfo<WalletCategoryRouteArgs> {
+  WalletCategoryRoute({
+    _i47.Key? key,
+    bool? fromTransaction = false,
+  }) : super(
           WalletCategoryRoute.name,
           path: '/wallet-category',
+          args: WalletCategoryRouteArgs(
+            key: key,
+            fromTransaction: fromTransaction,
+          ),
         );
 
   static const String name = 'WalletCategoryRoute';
+}
+
+class WalletCategoryRouteArgs {
+  const WalletCategoryRouteArgs({
+    this.key,
+    this.fromTransaction = false,
+  });
+
+  final _i47.Key? key;
+
+  final bool? fromTransaction;
+
+  @override
+  String toString() {
+    return 'WalletCategoryRouteArgs{key: $key, fromTransaction: $fromTransaction}';
+  }
 }
 
 /// generated route for

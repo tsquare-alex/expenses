@@ -14,6 +14,23 @@ class BuildTransactionInputs extends StatelessWidget {
         key: addTransactionData.formKey1,
         child: Column(
           children: [
+            Padding(
+              padding: EdgeInsets.all(10.r),
+              child: Row(
+                children: [
+                  MyText(title: tr(context, "addWallet"), color: MyColors.txtColor, size: 14.sp,fontWeight: FontWeight.bold,),
+                  const Spacer(),
+                  InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    onTap: (){
+                      AutoRouter.of(context).push(WalletCategoryRoute(fromTransaction: true));
+                    },
+                    child: const Icon(Icons.add),
+                  ),
+                ],
+              ),
+            ),
             Row(
               children: [
                 Image.asset(

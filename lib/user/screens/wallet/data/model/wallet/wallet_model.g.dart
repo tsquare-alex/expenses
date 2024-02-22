@@ -40,13 +40,14 @@ class WalletModelAdapter extends TypeAdapter<WalletModel> {
       totalBalance: fields[20] as double?,
       remainBalance: fields[22] as double?,
       remainTotalBalance: fields[21] as double?,
+      repeatWallet: fields[23] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, WalletModel obj) {
     writer
-      ..writeByte(23)
+      ..writeByte(24)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -92,7 +93,9 @@ class WalletModelAdapter extends TypeAdapter<WalletModel> {
       ..writeByte(21)
       ..write(obj.remainTotalBalance)
       ..writeByte(22)
-      ..write(obj.remainBalance);
+      ..write(obj.remainBalance)
+      ..writeByte(23)
+      ..write(obj.repeatWallet);
   }
 
   @override

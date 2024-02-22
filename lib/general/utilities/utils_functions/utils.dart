@@ -100,6 +100,45 @@ class Utils {
     return differenceInQuarterYears.floor();
   }
 
+  static int calculateTotalDifferenceInDays(DateTime startDate,DateTime endDate) {
+    Duration difference = startDate.difference(endDate);
+    print("objectDifference $difference");
+    return difference.inDays.abs();
+  }
+
+  static int calculateTotalDifferenceInWeeks(DateTime startDate,DateTime endDate) {
+    Duration difference = startDate.difference(endDate);
+    return (difference.inDays.abs() / 7).floor();
+  }
+
+  static int calculateTotalDifferenceInMonths(DateTime startDate,DateTime endDate) {
+    double differenceInDays = endDate.difference(startDate).inDays.toDouble();
+    double differenceInMonths =
+        differenceInDays / 30; // Assuming 30 days per month
+    return differenceInMonths.floor();
+  }
+
+  static int calculateTotalDifferenceInQuarterYears(DateTime startDate,DateTime endDate) {
+    double differenceInMonths = endDate.difference(startDate).inDays / 30;
+    double differenceInQuarterYears =
+        differenceInMonths / 3; // Assuming 3 months per quarter-year
+    return differenceInQuarterYears.floor();
+  }
+
+  static int calculateTotalDifferenceInSemiAnnually(DateTime startDate,DateTime endDate) {
+    double differenceInMonths = endDate.difference(startDate).inDays / 30;
+    double differenceInQuarterYears =
+        differenceInMonths / 6; // Assuming 3 months per quarter-year
+    return differenceInQuarterYears.floor();
+  }
+
+  static int calculateTotalDifferenceInAnnually(DateTime startDate,DateTime endDate) {
+    double differenceInMonths = endDate.difference(startDate).inDays / 30;
+    double differenceInQuarterYears =
+        differenceInMonths / 12; // Assuming 3 months per quarter-year
+    return differenceInQuarterYears.floor();
+  }
+
   static Future<void> repeatTransaction() async {
     print("object15");
     var box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
@@ -230,7 +269,7 @@ class Utils {
     }
   }
 
-  static void repeatTargetTransaction() async {
+  static Future<void> repeatTargetTransaction() async {
     var box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
     var list = box.values.toList();
     print(list.length);
@@ -238,8 +277,14 @@ class Utils {
     for (AddTransactionModel item in list) {
       var now = DateTime.now();
       print("object3");
-      var date = DateFormat("dd/MM/yyyy", "en").parse(item.transactionDate!);
-
+      var date = DateFormat("dd/MM/yyyy", "en").parse(item.startDate!);
+      var endDate = DateFormat("dd/MM/yyyy", "en").parse(item.endDate!);
+      var startDate = DateFormat("dd/MM/yyyy", "en").parse(item.transactionDate!);
+      var endDateString = DateFormat("dd/MM/yyyy", "en").format(endDate);
+      var currentDate = DateFormat("dd/MM/yyyy", "en").format(now);
+      if(endDateString == currentDate){
+        print("trueDate");
+      }
       int myCounter = 0;
       switch (item.repeated?.name){
         case "daily":
@@ -261,58 +306,138 @@ class Utils {
           myCounter = calculateDifferenceInAnnually(date);
           break;
       }
+
+      int totalCounter = 0;
+      switch (item.repeated?.name){
+        case "daily":
+          totalCounter = calculateTotalDifferenceInDays(startDate,endDate);
+          break;
+        case "weekly":
+          totalCounter = calculateTotalDifferenceInWeeks(startDate,endDate);
+          break;
+        case "monthly":
+          totalCounter = calculateTotalDifferenceInMonths(startDate,endDate);
+          break;
+        case "quarterly":
+          totalCounter = calculateTotalDifferenceInQuarterYears(startDate,endDate);
+          break;
+        case "SemiAnnually":
+          totalCounter = calculateTotalDifferenceInSemiAnnually(startDate,endDate);
+          break;
+        case "annually":
+          totalCounter = calculateTotalDifferenceInAnnually(startDate,endDate);
+          break;
+      }
       print("myCounter $myCounter");
+      print("totalCounter $totalCounter");
       if (item.repeated != null&& item.transactionName == "الاهداف المالية المستهدفة") {
         print("object4");
-        var targetModel = AddTransactionModel(
-          image: item.image,
-          total: item.total,
-          amount: item.amount,
-          time: item.time,
-          description: item.description,
-          putReminderInWallet: item.putReminderInWallet,
-          notify: item.notify,
-          requiredValue: item.requiredValue,
-          initialValue: item.initialValue! + (item.requiredValue!*myCounter),
-          transactionName: item.transactionName,
-          priority: item.priority,
-          endDate: item.endDate,
-          startDate: item.startDate,
-          targetValue: item.targetValue,
-          transactionType: item.transactionType,
-          brandName: item.brandName,
-          repeated: item.repeated,
-          transactionDate: item.transactionDate,
-          unit: item.unit,
-          incomeSource: item.incomeSource,
-          transactionContent: item.transactionContent,
-          budget: item.budget,
-          cashTransactionType: item.cashTransactionType,
-          completedNotify: item.completedNotify,
-          database: item.database,
-          ratio: item.ratio,
-          targetType: item.targetType,
-        );
-        box.put(item.key, targetModel);
-        print("myCounter $myCounter");
-        print("object5");
-        double total = item.requiredValue!;
-        if (total <= item.incomeSource!.totalBalance!){
-          print("object6");
-          var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
-          var walletList = walletBox.values.toList();
-          WalletModel? targetModel = walletList.firstWhere(
-                (model) => model.name == item.incomeSource?.name,
+        if(endDateString != currentDate){
+          var targetModel = AddTransactionModel(
+            image: item.image,
+            total: item.total,
+            amount: item.amount,
+            time: item.time,
+            description: item.description,
+            putReminderInWallet: item.putReminderInWallet,
+            notify: item.notify,
+            requiredValue: item.requiredValue,
+            initialValue:
+                item.initialValue! + (item.requiredValue! * myCounter),
+            transactionName: item.transactionName,
+            priority: item.priority,
+            endDate: item.endDate,
+            startDate: DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
+            targetValue: item.targetValue,
+            transactionType: item.transactionType,
+            brandName: item.brandName,
+            repeated: item.repeated,
+            transactionDate: item.transactionDate,
+            unit: item.unit,
+            incomeSource: item.incomeSource,
+            transactionContent: item.transactionContent,
+            budget: item.budget,
+            cashTransactionType: item.cashTransactionType,
+            completedNotify: item.completedNotify,
+            initialStaticValue: item.initialStaticValue,
+            database: item.database,
+            ratio: item.ratio,
+            targetType: item.targetType,
           );
-          print("object ${targetModel.name}");
-          targetModel.totalBalance = targetModel.totalBalance! - total;
-          print("balance ${targetModel.totalBalance!}");
-          await walletBox.put(targetModel.key, targetModel);
-          print(item.incomeSource!.totalBalance!);
-        } else {
-          CustomToast.showSimpleToast(msg: "msg");
+          box.put(item.key, targetModel);
+          print("myCounter $myCounter");
+          print("object5");
+          double total = item.requiredValue!;
+          if (total <= item.incomeSource!.totalBalance!) {
+            print("object6");
+            var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+            var walletList = walletBox.values.toList();
+            WalletModel? targetModel = walletList.firstWhere(
+              (model) => model.name == item.incomeSource?.name,
+            );
+            print("object ${targetModel.name}");
+            targetModel.totalBalance = targetModel.totalBalance! - total;
+            print("balance ${targetModel.totalBalance!}");
+            await walletBox.put(targetModel.key, targetModel);
+            print(item.incomeSource!.totalBalance!);
+          } else {
+            CustomToast.showSimpleToast(msg: "msg");
+          }
+        }else{
+          print("initVal ${item.initialStaticValue}");
+          print("initVal1 ${item.initialValue}");
+          print("initDate ${item.transactionDate}");
+          var targetModel = AddTransactionModel(
+            image: item.image,
+            total: item.total,
+            amount: item.amount,
+            time: item.time,
+            description: item.description,
+            putReminderInWallet: item.putReminderInWallet,
+            notify: item.notify,
+            requiredValue: item.requiredValue,
+            initialValue:
+            item.initialStaticValue! + (item.requiredValue! * totalCounter),
+            transactionName: item.transactionName,
+            priority: item.priority,
+            endDate: item.endDate,
+            initialStaticValue: item.initialStaticValue,
+            startDate: DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
+            targetValue: item.targetValue,
+            transactionType: item.transactionType,
+            brandName: item.brandName,
+            repeated: null,
+            transactionDate: item.transactionDate,
+            unit: item.unit,
+            incomeSource: item.incomeSource,
+            transactionContent: item.transactionContent,
+            budget: item.budget,
+            cashTransactionType: item.cashTransactionType,
+            completedNotify: item.completedNotify,
+            database: item.database,
+            ratio: item.ratio,
+            targetType: item.targetType,
+          );
+          box.put(item.key, targetModel);
+          print("myCounter $myCounter");
+          print("object5");
+          double total = item.requiredValue!;
+          if (total <= item.incomeSource!.totalBalance!) {
+            print("object6");
+            var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+            var walletList = walletBox.values.toList();
+            WalletModel? targetModel = walletList.firstWhere(
+                  (model) => model.name == item.incomeSource?.name,
+            );
+            print("object ${targetModel.name}");
+            targetModel.totalBalance = targetModel.totalBalance! - total;
+            print("balance ${targetModel.totalBalance!}");
+            await walletBox.put(targetModel.key, targetModel);
+            print(item.incomeSource!.totalBalance!);
+          } else {
+            CustomToast.showSimpleToast(msg: "msg");
+          }
         }
-        // box.delete(item.key);
       }
     }
   }

@@ -265,113 +265,136 @@ class SettingsBody extends StatelessWidget {
         //     ),
         //   ],
         // ),
-        SettingTile(
-          doubleRow: true,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.r),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      Res.numbers,
-                      width: 24.w,
-                      height: 24.h,
-                      color: context.watch<AppThemeCubit>().isDarkMode
-                          ? AppDarkColors.secondary
-                          : MyColors.primary,
-                    ),
-                    SizedBox(width: 12.w),
-                    Text(
-                      tr(context, 'numbers'),
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
+        GestureDetector(
+          onTap: () async => showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                contentPadding: EdgeInsets.all(16.r),
+                content: SizedBox(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: Center(
+                          child: MyText(
+                            title: tr(context, 'decimal'),
+                            color: context.watch<AppThemeCubit>().isDarkMode
+                                ? Colors.lightBlue[200]
+                                : MyColors.primary,
+                            fontWeight: FontWeight.bold,
+                            size: 18.sp,
+                          ),
+                        ),
                       ),
-                    ),
-                    const Spacer(),
-                    Icon(
-                      Icons.keyboard_arrow_down,
-                      color: context.watch<AppThemeCubit>().isDarkMode
-                          ? AppDarkColors.secondary
-                          : MyColors.primary,
-                    ),
-                  ],
-                ),
-              ),
-              Divider(
-                color: context.watch<AppThemeCubit>().isDarkMode
-                    ? AppDarkColors.accentColor
-                    : MyColors.black.withOpacity(0.05),
-                thickness: 2.5.r,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.r),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      Res.decimals,
-                      width: 24.w,
-                      height: 24.h,
-                      color: context.watch<AppThemeCubit>().isDarkMode
-                          ? AppDarkColors.secondary
-                          : MyColors.primary,
-                    ),
-                    SizedBox(width: 12.w),
-                    Text(
-                      tr(context, 'decimal'),
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              AppThemeCubit.get(context).changeDecimals();
+                            },
+                            child: MyText(
+                              title: NumberFormat.decimalPattern().format(1234),
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? Colors.lightBlue[200]
+                                  : MyColors.primary,
+                              size: 14.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              AppThemeCubit.get(context)
+                                  .enableDecimalFormatting = false;
+                            },
+                            child: MyText(
+                              title: '1234',
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? Colors.lightBlue[200]
+                                  : MyColors.primary,
+                              size: 14.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    const Spacer(),
-                    Icon(
-                      Icons.keyboard_arrow_down,
-                      color: context.watch<AppThemeCubit>().isDarkMode
-                          ? AppDarkColors.secondary
-                          : MyColors.primary,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 20.h),
-        SettingTile(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.r),
-            child: Row(
-              children: [
-                Image.asset(
-                  Res.privacy,
-                  width: 24.w,
-                  height: 24.h,
-                  color: context.watch<AppThemeCubit>().isDarkMode
-                      ? AppDarkColors.secondary
-                      : MyColors.primary,
-                ),
-                SizedBox(width: 12.w),
-                Text(
-                  tr(context, 'privacy'),
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
+                    ],
                   ),
                 ),
-                const Spacer(),
-                Icon(
-                  Icons.keyboard_arrow_down,
-                  color: context.watch<AppThemeCubit>().isDarkMode
-                      ? AppDarkColors.secondary
-                      : MyColors.primary,
-                ),
-              ],
+                surfaceTintColor: MyColors.white,
+              );
+            },
+          ),
+          child: SettingTile(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.r),
+              child: Row(
+                children: [
+                  Image.asset(
+                    Res.decimals,
+                    width: 24.w,
+                    height: 24.h,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
+                  ),
+                  SizedBox(width: 12.w),
+                  Text(
+                    tr(context, 'decimal'),
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const Spacer(),
+                  Icon(
+                    Icons.keyboard_arrow_down,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
+        // SizedBox(height: 20.h),
+        // SettingTile(
+        //   child: Padding(
+        //     padding: EdgeInsets.symmetric(horizontal: 16.r),
+        //     child: Row(
+        //       children: [
+        //         Image.asset(
+        //           Res.privacy,
+        //           width: 24.w,
+        //           height: 24.h,
+        //           color: context.watch<AppThemeCubit>().isDarkMode
+        //               ? AppDarkColors.secondary
+        //               : MyColors.primary,
+        //         ),
+        //         SizedBox(width: 12.w),
+        //         Text(
+        //           tr(context, 'privacy'),
+        //           style: TextStyle(
+        //             fontSize: 16.sp,
+        //             fontWeight: FontWeight.w500,
+        //           ),
+        //         ),
+        //         const Spacer(),
+        //         Icon(
+        //           Icons.keyboard_arrow_down,
+        //           color: context.watch<AppThemeCubit>().isDarkMode
+        //               ? AppDarkColors.secondary
+        //               : MyColors.primary,
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
         SizedBox(height: 20.h),
         SettingTile(
           border: false,

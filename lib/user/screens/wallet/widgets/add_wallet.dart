@@ -36,6 +36,9 @@ class AddWallet extends StatefulWidget {
 }
 
 class _AddWalletState extends State<AddWallet> {
+  ExpansionTileController controller = ExpansionTileController();
+  ExpansionTileController valueTypeController = ExpansionTileController();
+  ExpansionTileController currencyController = ExpansionTileController();
   var formKey = GlobalKey<FormState>();
 
   WalletData data = WalletData();
@@ -130,6 +133,7 @@ class _AddWalletState extends State<AddWallet> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: ExpansionTile(
+                              controller: controller,
                               shape: const RoundedRectangleBorder(
                                 side: BorderSide(color: Colors.transparent),
                               ),
@@ -196,6 +200,7 @@ class _AddWalletState extends State<AddWallet> {
                                                         .text = value.toString();
                                                     isFirstValidationError =
                                                         false;
+                                                    controller.collapse();
                                                   });
                                                 },
                                               ),
@@ -276,6 +281,7 @@ class _AddWalletState extends State<AddWallet> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: ExpansionTile(
+                              controller: valueTypeController,
                               shape: const RoundedRectangleBorder(
                                 side: BorderSide(color: Colors.transparent),
                               ),
@@ -342,6 +348,8 @@ class _AddWalletState extends State<AddWallet> {
                                                         .text = value.toString();
                                                     isSecondValidationError =
                                                         false;
+                                                    valueTypeController
+                                                        .collapse();
                                                   });
                                                 },
                                               ),
@@ -428,6 +436,7 @@ class _AddWalletState extends State<AddWallet> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: ExpansionTile(
+                                  controller: currencyController,
                                   shape: const RoundedRectangleBorder(
                                     side: BorderSide(color: Colors.transparent),
                                   ),
@@ -455,6 +464,7 @@ class _AddWalletState extends State<AddWallet> {
                                                   .read<WalletCubit>()
                                                   .currencyController
                                                   .text = value ?? "";
+                                              currencyController.collapse();
                                             });
                                           },
                                         ),
@@ -471,6 +481,7 @@ class _AddWalletState extends State<AddWallet> {
                                                     .read<WalletCubit>()
                                                     .currencyController
                                                     .text = value ?? "";
+                                                currencyController.collapse();
                                               });
                                             })
                                   ],
@@ -856,6 +867,10 @@ class _AddWalletState extends State<AddWallet> {
                             onTap: () {
                               if (formKey.currentState!.validate()) {
                                 var walletData = WalletModel(
+                                  addNote: context
+                                      .read<WalletCubit>()
+                                      .noteController
+                                      .text,
                                   name: context
                                       .read<WalletCubit>()
                                       .walletNameController

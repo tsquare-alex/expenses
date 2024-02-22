@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:expenses/general/constants/MyColors.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
+import 'package:expenses/general/utilities/utils_functions/decimal_format.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,24 +48,46 @@ class ReportsCubit extends Cubit<ReportsState> {
       List<String> dateParts = reportSelectedDate.toString().split(' - ');
       reportFormattedDateFrom = _formatDateTime(dateParts.first);
       reportFormattedDateTo = _formatDateTime(dateParts.last);
-      reportFilteredTransactions = transactions
-          .where(
-            (transaction) => (DateFormat('dd/MM/yyyy', 'en')
-                    .parse(transaction.transactionDate!)
-                    .isAfter(
-                      reportSelectedDate!.start.subtract(
-                        const Duration(days: 1),
-                      ),
-                    ) &&
-                DateFormat('dd/MM/yyyy', 'en')
-                    .parse(transaction.transactionDate!)
-                    .isBefore(
-                      reportSelectedDate!.end.add(
-                        const Duration(days: 1),
-                      ),
-                    )),
-          )
-          .toList();
+      if (selectedWallet != 'all' && selectedWallet.isNotEmpty) {
+        reportFilteredTransactions = transactions
+            .where(
+              (transaction) => (DateFormat('dd/MM/yyyy', 'en')
+                      .parse(transaction.transactionDate!)
+                      .isAfter(
+                        reportSelectedDate!.start.subtract(
+                          const Duration(days: 1),
+                        ),
+                      ) &&
+                  DateFormat('dd/MM/yyyy', 'en')
+                      .parse(transaction.transactionDate!)
+                      .isBefore(
+                        reportSelectedDate!.end.add(
+                          const Duration(days: 1),
+                        ),
+                      ) &&
+                  transaction.incomeSource!.name == selectedWallet),
+            )
+            .toList();
+      } else {
+        reportFilteredTransactions = transactions
+            .where(
+              (transaction) => (DateFormat('dd/MM/yyyy', 'en')
+                      .parse(transaction.transactionDate!)
+                      .isAfter(
+                        reportSelectedDate!.start.subtract(
+                          const Duration(days: 1),
+                        ),
+                      ) &&
+                  DateFormat('dd/MM/yyyy', 'en')
+                      .parse(transaction.transactionDate!)
+                      .isBefore(
+                        reportSelectedDate!.end.add(
+                          const Duration(days: 1),
+                        ),
+                      )),
+            )
+            .toList();
+      }
       createCategories();
       emit(const ReportsState.changeDate());
       return;
@@ -212,10 +235,12 @@ class ReportsCubit extends Cubit<ReportsState> {
                 transaction.incomeSource!.name == selectedWallet)
             .toList();
         createCategories();
-        getUserTotalMoney(wallets, transactions);
+        getUserTotalMoney(
+            [wallets.firstWhere((wallet) => wallet.name == selectedWallet)],
+            reportFilteredTransactions);
       } else if (selectedWallet == 'all') {
         reportFilteredTransactions = transactions;
-        getUserTotalMoney(wallets, transactions);
+        getUserTotalMoney(wallets, reportFilteredTransactions);
         createCategories();
       } else {
         reportFilteredTransactions = List.empty();
@@ -354,7 +379,7 @@ class ReportsCubit extends Cubit<ReportsState> {
       beforeDatesFilteredTransactions.clear();
       clearStatsDates();
       filteredTransactions.clear();
-      statsTransactionsList = transactions
+      filteredTransactions = statsTransactionsList = transactions
           .where(
               (transaction) => transaction.incomeSource!.name == selectedWallet)
           .toList();
@@ -379,8 +404,8 @@ class ReportsCubit extends Cubit<ReportsState> {
       statsPrioritiesList.clear();
       beforeDatesFilteredTransactions.clear();
       clearStatsDates();
-      filteredTransactions.clear();
-      statsSubTransactionsList = statsTransactionsList
+      filteredTransactions = [];
+      filteredTransactions = statsSubTransactionsList = statsTransactionsList
           .where((transaction) =>
               transaction.transactionType!.name == selectedTransaction)
           .toList();
@@ -402,11 +427,13 @@ class ReportsCubit extends Cubit<ReportsState> {
       statsSelectedPriorities = '';
       statsPriorities.clear();
       statsPrioritiesList.clear();
-      filteredTransactions.clear();
-      beforeDatesFilteredTransactions = statsSubTransactionsList
-          .where((transaction) =>
-              transaction.transactionContent!.name! == selectedSubTransaction)
-          .toList();
+      filteredTransactions = [];
+      filteredTransactions = beforeDatesFilteredTransactions =
+          statsSubTransactionsList
+              .where((transaction) =>
+                  transaction.transactionContent!.name! ==
+                  selectedSubTransaction)
+              .toList();
       emit(const ReportsState.statsWalletsSelected());
     }
   }
@@ -417,7 +444,7 @@ class ReportsCubit extends Cubit<ReportsState> {
       statsSelectedPriorities = '';
       statsPriorities.clear();
       statsPrioritiesList.clear();
-      filteredTransactions.clear();
+      filteredTransactions = [];
       statsFormattedDateFrom =
           DateFormat('dd/MM/yyyy').format(statsSelectedDateFrom!);
 
@@ -444,27 +471,28 @@ class ReportsCubit extends Cubit<ReportsState> {
       statsSelectedPriorities = '';
       statsPriorities.clear();
       statsPrioritiesList.clear();
-      filteredTransactions.clear();
+      filteredTransactions = [];
       statsFormattedDateTo =
           DateFormat('dd/MM/yyyy').format(statsSelectedDateTo!);
-      statsPrioritiesList = beforeDatesFilteredTransactions
-          .where(
-            (transaction) => (DateFormat('dd/MM/yyyy')
-                    .parse(transaction.transactionDate!)
-                    .isAfter(
-                      statsSelectedDateFrom!.subtract(
-                        const Duration(days: 1),
-                      ),
-                    ) &&
-                DateFormat('dd/MM/yyyy')
-                    .parse(transaction.transactionDate!)
-                    .isBefore(
-                      statsSelectedDateTo!.add(
-                        const Duration(days: 1),
-                      ),
-                    )),
-          )
-          .toList();
+      filteredTransactions =
+          statsPrioritiesList = beforeDatesFilteredTransactions
+              .where(
+                (transaction) => (DateFormat('dd/MM/yyyy')
+                        .parse(transaction.transactionDate!)
+                        .isAfter(
+                          statsSelectedDateFrom!.subtract(
+                            const Duration(days: 1),
+                          ),
+                        ) &&
+                    DateFormat('dd/MM/yyyy')
+                        .parse(transaction.transactionDate!)
+                        .isBefore(
+                          statsSelectedDateTo!.add(
+                            const Duration(days: 1),
+                          ),
+                        )),
+              )
+              .toList();
       statsPriorities = statsPrioritiesList
           .map((transaction) => transaction.priority!.name!)
           .toSet()
@@ -506,30 +534,44 @@ class ReportsCubit extends Cubit<ReportsState> {
   }
 
   void showDetails(BuildContext context) {
-    if ((wallets.isNotEmpty &&
-            transactions.isNotEmpty &&
-            filteredTransactions.isEmpty &&
-            statsFormattedDateFrom.isEmpty) ||
-        (wallets.isNotEmpty &&
-            transactions.isNotEmpty &&
-            filteredTransactions.isEmpty &&
-            statsSelectedPriorities.isEmpty &&
-            statsPrioritiesList.isNotEmpty)) {
+    if (statsSelectedWallet.isEmpty) {
       CustomToast.showSimpleToast(
         msg: tr(context, 'continueInsertingData'),
         color: MyColors.primary,
       );
       return;
     }
-    if (statsPrioritiesList.isEmpty ||
-        wallets.isEmpty ||
-        transactions.isEmpty) {
+    if (filteredTransactions.isEmpty) {
       CustomToast.showSimpleToast(
         msg: tr(context, 'noEnoughData'),
         color: MyColors.primary,
       );
       return;
     }
+    // if ((wallets.isNotEmpty &&
+    //         transactions.isNotEmpty &&
+    //         filteredTransactions.isEmpty &&
+    //         statsFormattedDateFrom.isEmpty) ||
+    //     (wallets.isNotEmpty &&
+    //         transactions.isNotEmpty &&
+    //         filteredTransactions.isEmpty &&
+    //         statsSelectedPriorities.isEmpty &&
+    //         statsPrioritiesList.isNotEmpty)) {
+    //   CustomToast.showSimpleToast(
+    //     msg: tr(context, 'continueInsertingData'),
+    //     color: MyColors.primary,
+    //   );
+    //   return;
+    // }
+    // if (statsPrioritiesList.isEmpty ||
+    //     wallets.isEmpty ||
+    //     transactions.isEmpty) {
+    //   CustomToast.showSimpleToast(
+    //     msg: tr(context, 'noEnoughData'),
+    //     color: MyColors.primary,
+    //   );
+    //   return;
+    // }
     emit(const ReportsState.showReportDetails());
   }
 
@@ -571,28 +613,32 @@ class ReportsCubit extends Cubit<ReportsState> {
   }
 
   void createCompare1Transactions() {
-    if (selectedCompare1Wallet.isEmpty || compare1FormattedDateFrom.isEmpty) {
+    if (selectedCompare1Wallet.isEmpty
+        //  || compare1FormattedDateFrom.isEmpty
+        ) {
       return;
     }
     selectedCompare1Transaction = '';
-    compare1Transactions.clear();
-    compare1TransactionsList = transactions
+    compare1Transactions = [];
+    compare1FilteredTransactions = compare1TransactionsList = transactions
         .where(
-          (transaction) => (DateFormat('dd/MM/yyyy', 'en')
-                  .parse(transaction.transactionDate!)
-                  .isAfter(
-                    compare1SelectedDate!.start.subtract(
-                      const Duration(days: 1),
-                    ),
-                  ) &&
-              DateFormat('dd/MM/yyyy', 'en')
-                  .parse(transaction.transactionDate!)
-                  .isBefore(
-                    compare1SelectedDate!.end.add(
-                      const Duration(days: 1),
-                    ),
-                  ) &&
-              transaction.incomeSource!.name == selectedCompare1Wallet),
+          (transaction) => (compare1FormattedDateFrom.isNotEmpty
+              ? DateFormat('dd/MM/yyyy', 'en')
+                      .parse(transaction.transactionDate!)
+                      .isAfter(
+                        compare1SelectedDate!.start.subtract(
+                          const Duration(days: 1),
+                        ),
+                      ) &&
+                  DateFormat('dd/MM/yyyy', 'en')
+                      .parse(transaction.transactionDate!)
+                      .isBefore(
+                        compare1SelectedDate!.end.add(
+                          const Duration(days: 1),
+                        ),
+                      ) &&
+                  transaction.incomeSource!.name == selectedCompare1Wallet
+              : transaction.incomeSource!.name == selectedCompare1Wallet),
         )
         .toList();
     compare1Transactions = compare1TransactionsList
@@ -602,28 +648,32 @@ class ReportsCubit extends Cubit<ReportsState> {
   }
 
   void createCompare2Transactions() {
-    if (selectedCompare2Wallet.isEmpty || compare2FormattedDateFrom.isEmpty) {
+    if (selectedCompare2Wallet.isEmpty
+        // || compare2FormattedDateFrom.isEmpty
+        ) {
       return;
     }
     selectedCompare2Transaction = '';
-    compare2Transactions.clear();
-    compare2TransactionsList = transactions
+    compare2Transactions = [];
+    compare2FilteredTransactions = compare2TransactionsList = transactions
         .where(
-          (transaction) => (DateFormat('dd/MM/yyyy', 'en')
-                  .parse(transaction.transactionDate!)
-                  .isAfter(
-                    compare2SelectedDate!.start.subtract(
-                      const Duration(days: 1),
-                    ),
-                  ) &&
-              DateFormat('dd/MM/yyyy', 'en')
-                  .parse(transaction.transactionDate!)
-                  .isBefore(
-                    compare2SelectedDate!.end.add(
-                      const Duration(days: 1),
-                    ),
-                  ) &&
-              transaction.incomeSource!.name == selectedCompare2Wallet),
+          (transaction) => (compare2FormattedDateFrom.isNotEmpty
+              ? DateFormat('dd/MM/yyyy', 'en')
+                      .parse(transaction.transactionDate!)
+                      .isAfter(
+                        compare2SelectedDate!.start.subtract(
+                          const Duration(days: 1),
+                        ),
+                      ) &&
+                  DateFormat('dd/MM/yyyy', 'en')
+                      .parse(transaction.transactionDate!)
+                      .isBefore(
+                        compare2SelectedDate!.end.add(
+                          const Duration(days: 1),
+                        ),
+                      ) &&
+                  transaction.incomeSource!.name == selectedCompare2Wallet
+              : transaction.incomeSource!.name == selectedCompare2Wallet),
         )
         .toList();
     compare2Transactions = compare2TransactionsList
@@ -639,6 +689,10 @@ class ReportsCubit extends Cubit<ReportsState> {
     if (wallet1Value != selectedCompare1Wallet) {
       emit(const ReportsState.initial());
       selectedCompare1Wallet = wallet1Value;
+      compare1InitialDate = DateTimeRange(start: dateTimeNow, end: dateTimeNow);
+      compare1SelectedDate = null;
+      compare1FormattedDateFrom = '';
+      compare1FormattedDateTo = '';
       createCompare1Transactions();
       emit(const ReportsState.changeWallet());
     }
@@ -651,6 +705,10 @@ class ReportsCubit extends Cubit<ReportsState> {
     if (wallet2Value != selectedCompare2Wallet) {
       emit(const ReportsState.initial());
       selectedCompare2Wallet = wallet2Value;
+      compare2InitialDate = DateTimeRange(start: dateTimeNow, end: dateTimeNow);
+      compare2SelectedDate = null;
+      compare2FormattedDateFrom = '';
+      compare2FormattedDateTo = '';
       createCompare2Transactions();
       emit(const ReportsState.changeWallet());
     }
@@ -685,15 +743,7 @@ class ReportsCubit extends Cubit<ReportsState> {
   }
 
   void showComparison(BuildContext context) {
-    if ((compare1FormattedDateFrom.isEmpty ||
-            compare2FormattedDateFrom.isEmpty) ||
-        (wallets.isNotEmpty &&
-            (selectedCompare1Wallet.isEmpty ||
-                selectedCompare2Wallet.isEmpty)) ||
-        (selectedCompare1Transaction.isEmpty &&
-            compare1TransactionsList.isNotEmpty) ||
-        (selectedCompare2Transaction.isEmpty &&
-            compare2TransactionsList.isNotEmpty)) {
+    if (selectedCompare1Wallet.isEmpty || selectedCompare2Wallet.isEmpty) {
       CustomToast.showSimpleToast(
         msg: tr(context, 'continueInsertingData'),
         color: MyColors.primary,
@@ -701,16 +751,51 @@ class ReportsCubit extends Cubit<ReportsState> {
       return;
     }
     if (compare1FilteredTransactions.isEmpty ||
-        compare2FilteredTransactions.isEmpty ||
-        wallets.isEmpty ||
-        transactions.isEmpty) {
+        compare2FilteredTransactions.isEmpty) {
       CustomToast.showSimpleToast(
         msg: tr(context, 'noEnoughData'),
         color: MyColors.primary,
       );
       return;
     }
-    if (selectedCompare1Wallet == selectedCompare2Wallet) {
+    // if ((compare1FormattedDateFrom.isEmpty ||
+    //         compare2FormattedDateFrom.isEmpty) ||
+    //     (wallets.isNotEmpty &&
+    //         (selectedCompare1Wallet.isEmpty ||
+    //             selectedCompare2Wallet.isEmpty)) ||
+    //     (selectedCompare1Transaction.isEmpty &&
+    //         compare1TransactionsList.isNotEmpty) ||
+    //     (selectedCompare2Transaction.isEmpty &&
+    //         compare2TransactionsList.isNotEmpty)) {
+    //   CustomToast.showSimpleToast(
+    //     msg: tr(context, 'continueInsertingData'),
+    //     color: MyColors.primary,
+    //   );
+    //   return;
+    // }
+    // if (compare1FilteredTransactions.isEmpty ||
+    //     compare2FilteredTransactions.isEmpty ||
+    //     wallets.isEmpty ||
+    //     transactions.isEmpty) {
+    //   CustomToast.showSimpleToast(
+    //     msg: tr(context, 'noEnoughData'),
+    //     color: MyColors.primary,
+    //   );
+    //   return;
+    // }
+    if (selectedCompare1Transaction.isEmpty &&
+        selectedCompare2Transaction.isEmpty &&
+        (selectedCompare1Wallet == selectedCompare2Wallet)) {
+      CustomToast.showSimpleToast(
+        msg: tr(context, 'chooseDifferentWallets'),
+        color: MyColors.primary,
+      );
+      return;
+    }
+    if (selectedCompare1Transaction.isNotEmpty &&
+        selectedCompare2Transaction.isNotEmpty &&
+        (selectedCompare1Wallet == selectedCompare2Wallet) &&
+        (selectedCompare1Transaction == selectedCompare2Transaction)) {
       CustomToast.showSimpleToast(
         msg: tr(context, 'chooseDifferentWallets'),
         color: MyColors.primary,
@@ -720,11 +805,20 @@ class ReportsCubit extends Cubit<ReportsState> {
     emit(const ReportsState.showReportDetails());
   }
 
-  Future<String> generateAndSaveReportExcel({
+  String reportExcelPath = '';
+  Future<void> generateAndSaveReportExcel({
     required List<ReportCategory> category,
     required BuildContext context,
     bool openFile = false,
   }) async {
+    if (context.read<ReportsCubit>().transactions.isEmpty ||
+        context.read<ReportsCubit>().categoriesList.isEmpty) {
+      CustomToast.showSimpleToast(
+        msg: tr(context, 'noRecord'),
+        color: MyColors.primary,
+      );
+      return;
+    }
     final xcel.Workbook workbook =
         xcel.Workbook(); // create a new excel workbook
     final xcel.Worksheet sheet = workbook.worksheets[
@@ -774,7 +868,22 @@ class ReportsCubit extends Cubit<ReportsState> {
 
     // save the document in the downloads file
     final List<int> bytes = workbook.saveAsStream();
-    final Directory? downloadsDir = await getDownloadsDirectory();
+
+    bool dirDownloadExists = true;
+    Directory? downloadsDir;
+    if (Platform.isIOS) {
+      downloadsDir = await getDownloadsDirectory();
+    } else {
+      downloadsDir = Directory("/storage/emulated/0/Download/");
+
+      dirDownloadExists = await downloadsDir.exists();
+      if (dirDownloadExists) {
+        downloadsDir = Directory("/storage/emulated/0/Download/");
+      } else {
+        downloadsDir = Directory("/storage/emulated/0/Downloads/");
+      }
+    }
+
     final file =
         await File('${downloadsDir!.path}/$excelFile.xlsx').writeAsBytes(bytes);
 
@@ -783,48 +892,37 @@ class ReportsCubit extends Cubit<ReportsState> {
       if (openResult.type != ResultType.done) {
         // toast message to user
         CustomToast.showSimpleToast(
-          msg: 'File saved, check your downloads folder',
+          msg: context.mounted ? tr(context, 'fileSaved') : '',
           color: MyColors.primary,
         );
       }
     }
+    reportExcelPath = file.path;
 
     //dispose the workbook
     workbook.dispose();
-
-    return file.path;
   }
 
   Future<void> generateAndShareStatsTableExcel({
     required BuildContext context,
   }) async {
-    if (state is! ShowReportDetails) {
-      if ((wallets.isNotEmpty &&
-              transactions.isNotEmpty &&
-              filteredTransactions.isEmpty &&
-              statsFormattedDateFrom.isEmpty) ||
-          (wallets.isNotEmpty &&
-              transactions.isNotEmpty &&
-              filteredTransactions.isEmpty &&
-              statsSelectedPriorities.isEmpty &&
-              statsPrioritiesList.isNotEmpty)) {
-        CustomToast.showSimpleToast(
-          msg: tr(context, 'continueInsertingData'),
-          color: MyColors.primary,
-        );
-        return;
-      }
-      if (statsPrioritiesList.isEmpty ||
-          wallets.isEmpty ||
-          transactions.isEmpty) {
-        CustomToast.showSimpleToast(
-          msg: tr(context, 'noEnoughData'),
-          color: MyColors.primary,
-        );
-        return;
-      }
+    if (statsSelectedWallet.isEmpty) {
+      CustomToast.showSimpleToast(
+        msg: tr(context, 'continueInsertingData'),
+        color: MyColors.primary,
+      );
       return;
     }
+    if (filteredTransactions.isEmpty ||
+        wallets.isEmpty ||
+        transactions.isEmpty) {
+      CustomToast.showSimpleToast(
+        msg: tr(context, 'noEnoughData'),
+        color: MyColors.primary,
+      );
+      return;
+    }
+
     final xcel.Workbook workbook =
         xcel.Workbook(); // create a new excel workbook
     final xcel.Worksheet sheet = workbook.worksheets[
@@ -885,14 +983,28 @@ class ReportsCubit extends Cubit<ReportsState> {
                 ? filteredTransactions[i].unit?.name
                 : tr(context, filteredTransactions[i].unit!.name!),
           );
-      sheet.getRangeByIndex(i + 4, 10).setText(filteredTransactions[i].total);
+      sheet.getRangeByIndex(i + 4, 10).setText(
+          filteredTransactions[i].total!.formatToDecimal(context: context));
       sheet
           .getRangeByIndex(i + 4, 11)
           .setText(filteredTransactions[i].database?.name);
     }
     // save the document in the downloads file
     final List<int> bytes = workbook.saveAsStream();
-    final Directory? downloadsDir = await getDownloadsDirectory();
+    bool dirDownloadExists = true;
+    Directory? downloadsDir;
+    if (Platform.isIOS) {
+      downloadsDir = await getDownloadsDirectory();
+    } else {
+      downloadsDir = Directory("/storage/emulated/0/Download/");
+
+      dirDownloadExists = await downloadsDir.exists();
+      if (dirDownloadExists) {
+        downloadsDir = Directory("/storage/emulated/0/Download/");
+      } else {
+        downloadsDir = Directory("/storage/emulated/0/Downloads/");
+      }
+    }
     final file =
         await File('${downloadsDir!.path}/$excelFile.xlsx').writeAsBytes(bytes);
 
@@ -907,39 +1019,38 @@ class ReportsCubit extends Cubit<ReportsState> {
   Future<void> generateAndShareStatsCompareExcel({
     required BuildContext context,
   }) async {
-    if (state is! ShowReportDetails) {
-      if ((compare1FormattedDateFrom.isEmpty ||
-              compare2FormattedDateFrom.isEmpty) ||
-          (wallets.isNotEmpty &&
-              (selectedCompare1Wallet.isEmpty ||
-                  selectedCompare2Wallet.isEmpty)) ||
-          (selectedCompare1Transaction.isEmpty &&
-              compare1TransactionsList.isNotEmpty) ||
-          (selectedCompare2Transaction.isEmpty &&
-              compare2TransactionsList.isNotEmpty)) {
-        CustomToast.showSimpleToast(
-          msg: tr(context, 'continueInsertingData'),
-          color: MyColors.primary,
-        );
-        return;
-      }
-      if (compare1FilteredTransactions.isEmpty ||
-          compare2FilteredTransactions.isEmpty ||
-          wallets.isEmpty ||
-          transactions.isEmpty) {
-        CustomToast.showSimpleToast(
-          msg: tr(context, 'noEnoughData'),
-          color: MyColors.primary,
-        );
-        return;
-      }
-      if (selectedCompare1Wallet == selectedCompare2Wallet) {
-        CustomToast.showSimpleToast(
-          msg: tr(context, 'chooseDifferentWallets'),
-          color: MyColors.primary,
-        );
-        return;
-      }
+    if (selectedCompare1Wallet.isEmpty || selectedCompare2Wallet.isEmpty) {
+      CustomToast.showSimpleToast(
+        msg: tr(context, 'continueInsertingData'),
+        color: MyColors.primary,
+      );
+      return;
+    }
+    if (compare1FilteredTransactions.isEmpty ||
+        compare2FilteredTransactions.isEmpty) {
+      CustomToast.showSimpleToast(
+        msg: tr(context, 'noEnoughData'),
+        color: MyColors.primary,
+      );
+      return;
+    }
+    if (selectedCompare1Transaction.isEmpty &&
+        selectedCompare2Transaction.isEmpty &&
+        (selectedCompare1Wallet == selectedCompare2Wallet)) {
+      CustomToast.showSimpleToast(
+        msg: tr(context, 'chooseDifferentWallets'),
+        color: MyColors.primary,
+      );
+      return;
+    }
+    if (selectedCompare1Transaction.isNotEmpty &&
+        selectedCompare2Transaction.isNotEmpty &&
+        (selectedCompare1Wallet == selectedCompare2Wallet) &&
+        (selectedCompare1Transaction == selectedCompare2Transaction)) {
+      CustomToast.showSimpleToast(
+        msg: tr(context, 'chooseDifferentWallets'),
+        color: MyColors.primary,
+      );
       return;
     }
     final xcel.Workbook workbook =
@@ -1084,7 +1195,20 @@ class ReportsCubit extends Cubit<ReportsState> {
     }
     // save the document in the downloads file
     final List<int> bytes = workbook.saveAsStream();
-    final Directory? downloadsDir = await getDownloadsDirectory();
+    bool dirDownloadExists = true;
+    Directory? downloadsDir;
+    if (Platform.isIOS) {
+      downloadsDir = await getDownloadsDirectory();
+    } else {
+      downloadsDir = Directory("/storage/emulated/0/Download/");
+
+      dirDownloadExists = await downloadsDir.exists();
+      if (dirDownloadExists) {
+        downloadsDir = Directory("/storage/emulated/0/Download/");
+      } else {
+        downloadsDir = Directory("/storage/emulated/0/Downloads/");
+      }
+    }
     final file =
         await File('${downloadsDir!.path}/$excelFile.xlsx').writeAsBytes(bytes);
 

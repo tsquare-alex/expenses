@@ -38,7 +38,7 @@ class WalletModel extends HiveObject {
   @HiveField(15)
   bool? isFavorite;
   @HiveField(16)
-  String? addNote;
+  String addNote;
   @HiveField(17)
   String? iconPath;
   @HiveField(18)
@@ -69,7 +69,7 @@ class WalletModel extends HiveObject {
       this.paymentMethod,
       this.model,
       this.isFavorite = false,
-      this.addNote,
+     required this.addNote,
       this.iconPath,
       required this.currency,
       required this.currencyValue,

@@ -63,4 +63,30 @@ class AppThemeCubit extends Cubit<AppThemeState> {
     setAppTheme();
     emit(const AppThemeState.changed());
   }
+
+  bool enableDecimalFormatting = false;
+
+  Future<void> setDecimalValue() async {
+    final preferences = await getPreferences();
+    preferences.setBool('DecimalValue', enableDecimalFormatting);
+  }
+
+  Future<bool?> fetchDecimalValue() async {
+    final preferences = await getPreferences();
+    return preferences.getBool('DecimalValue');
+  }
+
+  Future<void> applyDecimalValue() async {
+    final isDecimalValueFetched = await fetchDecimalValue();
+    isDecimalValueFetched == null
+        ? false
+        : enableDecimalFormatting = isDecimalValueFetched;
+  }
+
+  void changeDecimals() {
+    enableDecimalFormatting
+        ? enableDecimalFormatting = false
+        : enableDecimalFormatting = true;
+    setDecimalValue();
+  }
 }

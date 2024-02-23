@@ -82,8 +82,8 @@ Future<void> main() async {
 
   await initializeDateFormatting('en');
 
- // Utils.repeatTransaction();
- // Utils.repeatTargetTransaction();
+ Utils.repeatTransaction();
+ Utils.repeatTargetTransaction();
  Utils.repeatWallet();
 
   runApp(BlocProvider(

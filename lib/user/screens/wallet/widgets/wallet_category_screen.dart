@@ -14,9 +14,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WalletCategory extends StatefulWidget {
   const WalletCategory({
-    super.key,
+    super.key, this.fromTransaction=false,
   });
-
+  final bool? fromTransaction;
   @override
   State<WalletCategory> createState() => _WalletCategoryState();
 }
@@ -91,19 +91,19 @@ class _WalletCategoryState extends State<WalletCategory> {
                       itemBuilder: (context, index) {
                         return InkWell(
                             onTap: () {
-                              if (context
-                                          .read<WalletCubit>()
-                                          .categoryList[index]
-                                          .name !=
-                                      "salary" &&
-                                  context
-                                          .read<WalletCubit>()
-                                          .categoryList[index]
-                                          .name !=
-                                      "bankAccount") {
-                                AutoRouter.of(context)
-                                    .push(const SubscriptionsRoute());
-                              } else {
+                              // if (context
+                              //             .read<WalletCubit>()
+                              //             .categoryList[index]
+                              //             .name !=
+                              //         "salary" &&
+                              //     context
+                              //             .read<WalletCubit>()
+                              //             .categoryList[index]
+                              //             .name !=
+                              //         "bankAccount") {
+                              //   AutoRouter.of(context)
+                              //       .push(const SubscriptionsRoute());
+                              // } else {
                                 String iconPath = context
                                     .read<WalletCubit>()
                                     .categoryList[index]
@@ -120,8 +120,9 @@ class _WalletCategoryState extends State<WalletCategory> {
                                   selectItemIndex: index,
                                   selectedCategory: selectedCategory,
                                   iconPath: iconPath,
+                                  fromTransaction: widget.fromTransaction,
                                 ));
-                              }
+                              // }
                             },
                             child: Column(
                               children: [
@@ -146,25 +147,25 @@ class _WalletCategoryState extends State<WalletCategory> {
                                         ),
                                       ),
                                     ),
-                                    if (context
-                                                .read<WalletCubit>()
-                                                .categoryList[index]
-                                                .name !=
-                                            "salary" &&
-                                        context
-                                                .read<WalletCubit>()
-                                                .categoryList[index]
-                                                .name !=
-                                            "bankAccount")
-                                      Positioned(
-                                        bottom: 55.h,
-                                        right: 30.w,
-                                        child: Image.asset(
-                                          Res.pro,
-                                          height: 50.h,
-                                          width: 50.w,
-                                        ),
-                                      ),
+                                    // if (context
+                                    //             .read<WalletCubit>()
+                                    //             .categoryList[index]
+                                    //             .name !=
+                                    //         "salary" &&
+                                    //     context
+                                    //             .read<WalletCubit>()
+                                    //             .categoryList[index]
+                                    //             .name !=
+                                    //         "bankAccount")
+                                    //   Positioned(
+                                    //     bottom: 55.h,
+                                    //     right: 30.w,
+                                    //     child: Image.asset(
+                                    //       Res.pro,
+                                    //       height: 50.h,
+                                    //       width: 50.w,
+                                    //     ),
+                                    //   ),
                                   ],
                                 ),
                                 SizedBox(

@@ -39,6 +39,7 @@ class WalletCubit extends Cubit<WalletState> {
   final TextEditingController addCategoryController = TextEditingController();
   final TextEditingController noteController = TextEditingController();
   final TextEditingController currencyController = TextEditingController();
+  final TextEditingController repeatedController = TextEditingController();
 
   List<String> valueCategory = [
     "bankTransfer",

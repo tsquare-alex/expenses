@@ -1,6 +1,6 @@
 part of 'add_transaction_widgets_imports.dart';
 
-class BuildTransactionType extends StatelessWidget {
+class BuildTransactionType extends StatefulWidget {
   const BuildTransactionType({
     Key? key,
     required this.addTransactionData,
@@ -14,11 +14,19 @@ class BuildTransactionType extends StatelessWidget {
   final String boxName;
 
   @override
+  State<BuildTransactionType> createState() => _BuildTransactionTypeState();
+}
+
+class _BuildTransactionTypeState extends State<BuildTransactionType> {
+
+  ExpansionTileController transactionController = ExpansionTileController();
+
+  @override
   Widget build(BuildContext context) {
-    print(type);
+    print(widget.type);
     return Column(
       children: [
-        if (type == "الالتزامات" || type == "التسوق والشراء")
+        if (widget.type == "الالتزامات" || widget.type == "التسوق والشراء")
           Container(
             decoration: BoxDecoration(
               border: Border.all(width: 1.w, color: MyColors.greyWhite),
@@ -28,6 +36,7 @@ class BuildTransactionType extends StatelessWidget {
               data:
                   Theme.of(context).copyWith(dividerColor: Colors.transparent),
               child: ExpansionTile(
+                controller: transactionController,
                 childrenPadding: EdgeInsets.all(10.r),
                 title: Row(
                   children: [
@@ -40,7 +49,7 @@ class BuildTransactionType extends StatelessWidget {
                       width: 15.w,
                     ),
                     BlocBuilder<GenericBloc<String?>, GenericState<String?>>(
-                      bloc: addTransactionData.transactionNameBloc,
+                      bloc: widget.addTransactionData.transactionNameBloc,
                       builder: (context, state) {
                         return MyText(
                           title: state.data == null
@@ -61,7 +70,7 @@ class BuildTransactionType extends StatelessWidget {
                 children: [
                   BlocBuilder<GenericBloc<List<TransactionContentModel>?>,
                       GenericState<List<TransactionContentModel>?>>(
-                    bloc: addTransactionData.typeContentCubit,
+                    bloc: widget.addTransactionData.typeContentCubit,
                     builder: (context, state) {
                       return Column(
                         children:
@@ -113,7 +122,7 @@ class BuildTransactionType extends StatelessWidget {
                                       state.data?[index].name == "rent"
                                   ? Radio(
                                       value:
-                                          addTransactionData.selectedContent ==
+                                          widget.addTransactionData.selectedContent ==
                                                   null
                                               ? false
                                               : state.data?[index].selected ??
@@ -121,17 +130,20 @@ class BuildTransactionType extends StatelessWidget {
                                       groupValue: true,
                                       activeColor: MyColors.primary,
                                       onChanged: (v) {
-                                        addTransactionData.selectContent(
+                                        widget.addTransactionData.selectContent(
                                             v!,
-                                            model,
+                                            widget.model,
                                             state.data![index],
                                             index,
-                                            type,
-                                            boxName);
-                                        addTransactionData.transactionNameBloc
+                                            widget.type,
+                                            widget.boxName);
+                                        widget.addTransactionData.transactionNameBloc
                                             .onUpdateData(
                                                 state.data?[index].name);
-                                      },
+                                        setState(() {
+                                          transactionController.collapse();
+                                        });
+                                        },
                                     )
                                   : InkWell(
                                       highlightColor: Colors.transparent,
@@ -157,8 +169,8 @@ class BuildTransactionType extends StatelessWidget {
                     height: 20.h,
                   ),
                   InkWell(
-                    onTap: () => addTransactionData.addTransactionContentModel(
-                        context, type, model),
+                    onTap: () => widget.addTransactionData.addTransactionContentModel(
+                        context, widget.type, widget.model),
                     splashColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     child: Row(
@@ -183,7 +195,7 @@ class BuildTransactionType extends StatelessWidget {
               ),
             ),
           ),
-        if (type == "المعاملات النقدية" || type == "الاهداف المالية المستهدفة")
+        if (widget.type == "المعاملات النقدية" || widget.type == "الاهداف المالية المستهدفة")
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -205,7 +217,7 @@ class BuildTransactionType extends StatelessWidget {
                 child: Row(
                   children: [
                     Image.asset(
-                      model.image ?? "",
+                      widget.model.image ?? "",
                       width: 30.w,
                       height: 30.h,
                     ),
@@ -213,9 +225,9 @@ class BuildTransactionType extends StatelessWidget {
                       width: 15.w,
                     ),
                     MyText(
-                      title: tr(context, model.name!).isNotEmpty
-                          ? tr(context, model.name!)
-                          : model.name ?? "",
+                      title: tr(context, widget.model.name!).isNotEmpty
+                          ? tr(context, widget.model.name!)
+                          : widget.model.name ?? "",
                       color: context.watch<AppThemeCubit>().isDarkMode
                           ? MyColors.white
                           : MyColors.black,

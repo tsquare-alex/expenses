@@ -22,12 +22,14 @@ class AddWallet extends StatefulWidget {
   final int selectItemIndex;
   final String selectedCategory;
   final String iconPath;
+  final bool? fromTransaction;
 
   const AddWallet({
     super.key,
     required this.selectItemIndex,
     required this.selectedCategory,
     required this.iconPath,
+    this.fromTransaction=false,
   });
   @override
   State<AddWallet> createState() => _AddWalletState();
@@ -763,7 +765,10 @@ class _AddWalletState extends State<AddWallet> {
                                   child: TileDropdownButton(
                                       menuList: data.repeatWallet,
                                       value: data.repeatWallet.first,
-                                      onChanged: (value) {}),
+                                      onChanged: (value) {
+                                        context.read<WalletCubit>().repeatedController.text = value.toString();
+                                        print(context.read<WalletCubit>().repeatedController.text);
+                                      }),
                                 ),
                               ),
                               SizedBox(
@@ -912,12 +917,17 @@ class _AddWalletState extends State<AddWallet> {
                                       selectMainCurrency == mainCurrency
                                           ? parsedNumber
                                           : (parsedNumber * currencyValue),
+                                  repeatWallet: context.read<WalletCubit>().repeatedController.text,
                                 );
 
                                 context.read<WalletCubit>().addNote(walletData);
                                 if (context.mounted) {
-                                  AutoRouter.of(context)
-                                      .push(HomeRoute(index: 0, pageIndex: 7));
+                                  if(widget.fromTransaction==false){
+                                    AutoRouter.of(context).push(
+                                        HomeRoute(index: 0, pageIndex: 7));
+                                  }else{
+                                    AutoRouter.of(context).pop();
+                                  }
                                 }
                               }
                             },

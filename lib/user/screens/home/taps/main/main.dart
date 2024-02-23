@@ -13,7 +13,7 @@ class _MainState extends State<Main> {
   @override
   Widget build(BuildContext context) {
     Map<Widget, int> widgets = {
-      ToolsHelper(): 4,
+      const ToolsHelper(): 4,
       Transactions(
         homeTabCubit: widget.homeTabCubit,
       ): 0,
@@ -76,13 +76,32 @@ class _MainState extends State<Main> {
           ? Colors.transparent
           : MyColors.white,
         // leadingWidth: 35.w,
-        centerTitle: true,
+        centerTitle: false,
         title: BlocBuilder<GenericBloc<int>, GenericState<int>>(
           bloc: data.homeTabCubit,
           builder: (context, state) {
             return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
+                InkWell(
+                  hoverColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () {
+                    AutoRouter.of(context).push(const NotificationScreenRoute());
+                  },
+                  child: Icon(
+                    Icons.notifications_active_outlined,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? MyColors.amber
+                        : MyColors.amber,
+                    size: 30.w,
+                  ),
+                ),
+                SizedBox(
+                  width: 15.w,
+                ),
                 Image.asset(
                   Res.activeHome,
                   width: 30.w,
@@ -107,16 +126,19 @@ class _MainState extends State<Main> {
           },
         ),
         leadingWidth: 40.w,
-        leading: InkWell(
-          onTap: () {
-            data.scaffold.currentState?.openDrawer();
-          },
-          child: Icon(
-            Icons.menu,
-            color: context.watch<AppThemeCubit>().isDarkMode
-                ? Colors.white
-                : MyColors.black,
-            size: 30.w,
+        leading: Padding(
+          padding: EdgeInsets.only(right: 8.0.w),
+          child: InkWell(
+            onTap: () {
+              data.scaffold.currentState?.openDrawer();
+            },
+            child: Icon(
+              Icons.menu,
+              color: context.watch<AppThemeCubit>().isDarkMode
+                  ? Colors.white
+                  : MyColors.black,
+              size: 30.w,
+            ),
           ),
         ),
         actions: [

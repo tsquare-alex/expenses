@@ -57,11 +57,15 @@ class ReportsBody extends StatelessWidget {
                                     DropdownMenuItem(
                                       value: 'all',
                                       child: Text(
-                                        tr(context, 'allWallets'),
+                                        tr(context, 'all'),
                                         style: TextStyle(
                                           fontSize: 16.sp,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.grey,
+                                          fontWeight: FontWeight.w700,
+                                          color: context
+                                                  .watch<AppThemeCubit>()
+                                                  .isDarkMode
+                                              ? Colors.white
+                                              : Colors.black54,
                                         ),
                                       ),
                                     )
@@ -75,8 +79,12 @@ class ReportsBody extends StatelessWidget {
                                             wallet.name,
                                             style: TextStyle(
                                               fontSize: 16.sp,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.grey,
+                                              fontWeight: FontWeight.w700,
+                                              color: context
+                                                      .watch<AppThemeCubit>()
+                                                      .isDarkMode
+                                                  ? Colors.white
+                                                  : Colors.black54,
                                             ),
                                           ),
                                         ),
@@ -94,11 +102,11 @@ class ReportsBody extends StatelessWidget {
                         flex: 1,
                         child: GestureDetector(
                           onTap: () async {
-                            if (ReportsCubit.get(context)
-                                .selectedWallet
-                                .isEmpty) {
-                              return;
-                            }
+                            // if (ReportsCubit.get(context)
+                            //     .selectedWallet
+                            //     .isEmpty) {
+                            //   return;
+                            // }
                             ReportsCubit.get(context).reportSelectedDate =
                                 await showDateRangePicker(
                               context: context,
@@ -145,23 +153,34 @@ class ReportsBody extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Flexible(
-                                  child: Text(
-                                    context
-                                            .watch<ReportsCubit>()
-                                            .reportFormattedDateFrom
-                                            .isEmpty
-                                        ? tr(context, 'chooseDuration')
-                                        : '${tr(context, 'from')} ${context.watch<ReportsCubit>().reportFormattedDateFrom} ${tr(context, 'to')} ${context.watch<ReportsCubit>().reportFormattedDateTo}',
-                                    style: TextStyle(
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: context
-                                              .watch<AppThemeCubit>()
-                                              .isDarkMode
-                                          ? Colors.white
-                                          : Colors.grey,
-                                    ),
-                                  ),
+                                  child: context
+                                          .watch<ReportsCubit>()
+                                          .reportFormattedDateFrom
+                                          .isEmpty
+                                      ? Text(
+                                          tr(context, 'chooseDuration'),
+                                          style: TextStyle(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: context
+                                                    .watch<AppThemeCubit>()
+                                                    .isDarkMode
+                                                ? Colors.white
+                                                : Colors.grey,
+                                          ),
+                                        )
+                                      : Text(
+                                          '${tr(context, 'from')} ${context.watch<ReportsCubit>().reportFormattedDateFrom} ${tr(context, 'to')} ${context.watch<ReportsCubit>().reportFormattedDateTo}',
+                                          style: TextStyle(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w700,
+                                            color: context
+                                                    .watch<AppThemeCubit>()
+                                                    .isDarkMode
+                                                ? Colors.white
+                                                : Colors.black54,
+                                          ),
+                                        ),
                                 ),
                                 Icon(
                                   Icons.keyboard_arrow_down,
@@ -318,7 +337,7 @@ class ReportsBody extends StatelessWidget {
                                       context
                                           .watch<ReportsCubit>()
                                           .residualMoney
-                                          .toStringAsFixed(0)
+                                          .toString()
                                           .formatToDecimal(context: context),
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -345,7 +364,7 @@ class ReportsBody extends StatelessWidget {
                                       context
                                           .watch<ReportsCubit>()
                                           .totalMoney
-                                          .toStringAsFixed(0)
+                                          .toString()
                                           .formatToDecimal(context: context),
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -361,7 +380,7 @@ class ReportsBody extends StatelessWidget {
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              '${tr(context, 'reportTotal').split(' ').join('\n')}\n${context.watch<ReportsCubit>().allSpentMoney.toStringAsFixed(0).formatToDecimal(context: context)}',
+                              '${tr(context, 'reportTotal').split(' ').join('\n')}\n${context.watch<ReportsCubit>().allSpentMoney.toString().formatToDecimal(context: context)}',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18.sp,
@@ -481,7 +500,7 @@ class ReportsBody extends StatelessWidget {
                                   ),
                                   ReportsRowCell(
                                     title: entry.value.totalMoney
-                                        .toStringAsFixed(0)
+                                        .toString()
                                         .formatToDecimal(context: context),
                                   ),
                                   ReportsRowCell(
@@ -501,8 +520,7 @@ class ReportsBody extends StatelessWidget {
             ),
           ),
         ),
-        SaveAndShareButtons(
-            category: context.read<ReportsCubit>().categoriesList),
+        const SaveAndShareButtons(),
       ],
     );
   }

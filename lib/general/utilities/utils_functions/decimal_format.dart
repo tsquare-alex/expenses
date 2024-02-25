@@ -5,15 +5,20 @@ import 'package:intl/intl.dart';
 
 extension DecimalFormatting on String {
   String formatToDecimal({required BuildContext context}) {
-    if (!context.read<AppThemeCubit>().enableDecimalFormatting) {
-      return this;
+    String formattedNumber = this;
+
+    switch (context.read<AppThemeCubit>().decimalValue) {
+      case '0':
+        formattedNumber = NumberFormat.decimalPattern()
+            .format(double.tryParse(this)!.round());
+
+      case '0.0':
+        formattedNumber = NumberFormat('#,##0.0').format(double.tryParse(this));
+
+      case '0.00':
+        formattedNumber =
+            NumberFormat('#,##0.00').format(double.tryParse(this));
     }
-    String numberString = this;
-
-    double number = double.tryParse(numberString) ?? 0.0;
-
-    // String formattedNumber = number.toStringAsFixed(2);
-    String formattedNumber = NumberFormat.decimalPattern().format(number);
 
     return formattedNumber;
   }

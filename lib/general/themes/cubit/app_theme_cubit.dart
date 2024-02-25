@@ -64,29 +64,49 @@ class AppThemeCubit extends Cubit<AppThemeState> {
     emit(const AppThemeState.changed());
   }
 
-  bool enableDecimalFormatting = false;
+  String decimalValue = '0';
 
   Future<void> setDecimalValue() async {
     final preferences = await getPreferences();
-    preferences.setBool('DecimalValue', enableDecimalFormatting);
+    preferences.setString('DecimalValue', decimalValue);
   }
 
-  Future<bool?> fetchDecimalValue() async {
+  Future<String?> fetchDecimalValue() async {
     final preferences = await getPreferences();
-    return preferences.getBool('DecimalValue');
+    return preferences.getString('DecimalValue');
   }
 
   Future<void> applyDecimalValue() async {
-    final isDecimalValueFetched = await fetchDecimalValue();
-    isDecimalValueFetched == null
-        ? false
-        : enableDecimalFormatting = isDecimalValueFetched;
+    final fetchedDecimalValue = await fetchDecimalValue();
+    fetchedDecimalValue == null
+        ? decimalValue
+        : decimalValue = fetchedDecimalValue;
   }
 
-  void changeDecimals() {
-    enableDecimalFormatting
-        ? enableDecimalFormatting = false
-        : enableDecimalFormatting = true;
-    setDecimalValue();
+  String saveMethod = SaveMethods.pdf.name;
+
+  Future<void> setSaveMethod() async {
+    final preferences = await getPreferences();
+    preferences.setString('SaveMethod', saveMethod);
   }
+
+  Future<String?> fetchSaveMethod() async {
+    final preferences = await getPreferences();
+    return preferences.getString('SaveMethod');
+  }
+
+  Future<void> applySaveMethod() async {
+    final fetchedSaveMethod = await fetchSaveMethod();
+    fetchedSaveMethod == null ? saveMethod : saveMethod = fetchedSaveMethod;
+  }
+}
+
+enum SaveMethods {
+  pdf(method: 'Pdf'),
+  excel(method: 'Excel');
+
+  final String method;
+  const SaveMethods({
+    required this.method,
+  });
 }

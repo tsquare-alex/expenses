@@ -1,6 +1,7 @@
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/user/models/add_transaction_model/add_transaction_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -42,7 +43,7 @@ class _CompareChartState extends State<CompareChart> {
         DateFormat('dd/MM/yyyy').parse(entry.value.transactionDate!),
         null,
         int.tryParse(entry.value.total!),
-        ReportsCubit.get(context).randomColors[entry.key],
+        ReportsCubit.get(context).randomColors.reversed.toList()[entry.key],
         entry.value.transactionContent!.name!,
       );
     }).toList();
@@ -52,17 +53,14 @@ class _CompareChartState extends State<CompareChart> {
     return SizedBox(
       height: 0.4.sh,
       child: SfCartesianChart(
+        key: ReportsCubit.get(context).cartesianChartKey,
         primaryXAxis: DateTimeCategoryAxis(
           dateFormat: DateFormat('EE dd/MM'),
           intervalType: DateTimeIntervalType.days,
           interval: 1,
           labelRotation: 90,
         ),
-        primaryYAxis: NumericAxis(
-          numberFormat: AppThemeCubit.get(context).enableDecimalFormatting
-              ? NumberFormat.decimalPattern()
-              : null,
-        ),
+        primaryYAxis: NumericAxis(),
         series: <CartesianSeries<_CompareChartData, DateTime>>[
           ColumnSeries<_CompareChartData, DateTime>(
             dataLabelMapper: (_CompareChartData chartData, _) =>
@@ -88,12 +86,15 @@ class _CompareChartState extends State<CompareChart> {
           ColumnSeries<_CompareChartData, DateTime>(
             dataLabelMapper: (_CompareChartData chartData, _) =>
                 tr(context, chartData.name),
-            dataLabelSettings: const DataLabelSettings(
+            dataLabelSettings: DataLabelSettings(
               isVisible: true,
               labelAlignment: ChartDataLabelAlignment.middle,
               angle: 90,
               textStyle: TextStyle(
                 fontWeight: FontWeight.bold,
+                color: context.watch<AppThemeCubit>().isDarkMode
+                    ? null
+                    : Colors.black87,
               ),
             ),
             animationDuration: 500,

@@ -25,6 +25,7 @@ class ReportChart extends StatelessWidget {
     return SizedBox(
       height: 0.4.sh,
       child: SfCartesianChart(
+        key: ReportsCubit.get(context).cartesianChartKey,
         primaryXAxis: DateTimeCategoryAxis(
           dateFormat: DateFormat('EE dd/MM'),
           intervalType: DateTimeIntervalType.days,
@@ -37,12 +38,15 @@ class ReportChart extends StatelessWidget {
           ColumnSeries<_ChartData, DateTime>(
             dataLabelMapper: (_ChartData chartData, _) =>
                 tr(context, chartData.name),
-            dataLabelSettings: const DataLabelSettings(
+            dataLabelSettings: DataLabelSettings(
               isVisible: true,
               labelAlignment: ChartDataLabelAlignment.middle,
               angle: 90,
               textStyle: TextStyle(
                 fontWeight: FontWeight.bold,
+                color: context.watch<AppThemeCubit>().isDarkMode
+                    ? null
+                    : Colors.black87,
               ),
             ),
             enableTooltip: true,

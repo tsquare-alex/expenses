@@ -45,8 +45,10 @@ class CompareBody extends StatelessWidget {
                             wallet.name,
                             style: TextStyle(
                               fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey,
+                              fontWeight: FontWeight.w700,
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? Colors.white
+                                  : Colors.black54,
                             ),
                           ),
                         ),
@@ -70,8 +72,10 @@ class CompareBody extends StatelessWidget {
                             wallet.name,
                             style: TextStyle(
                               fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey,
+                              fontWeight: FontWeight.w700,
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? Colors.white
+                                  : Colors.black54,
                             ),
                           ),
                         ),
@@ -139,8 +143,20 @@ class CompareBody extends StatelessWidget {
                                 : '${tr(context, 'from')} ${context.watch<ReportsCubit>().compare1FormattedDateFrom} ${tr(context, 'to')} ${context.watch<ReportsCubit>().compare1FormattedDateTo}',
                             style: TextStyle(
                               fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey,
+                              fontWeight: context
+                                      .watch<ReportsCubit>()
+                                      .compare1FormattedDateFrom
+                                      .isEmpty
+                                  ? FontWeight.w500
+                                  : FontWeight.w700,
+                              color: context
+                                      .watch<ReportsCubit>()
+                                      .compare1FormattedDateFrom
+                                      .isEmpty
+                                  ? Colors.grey
+                                  : context.watch<AppThemeCubit>().isDarkMode
+                                      ? Colors.white
+                                      : Colors.black54,
                             ),
                           ),
                         ),
@@ -209,8 +225,20 @@ class CompareBody extends StatelessWidget {
                                 : '${tr(context, 'from')} ${context.watch<ReportsCubit>().compare2FormattedDateFrom} ${tr(context, 'to')} ${context.watch<ReportsCubit>().compare2FormattedDateTo}',
                             style: TextStyle(
                               fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey,
+                              fontWeight: context
+                                      .watch<ReportsCubit>()
+                                      .compare2FormattedDateFrom
+                                      .isEmpty
+                                  ? FontWeight.w500
+                                  : FontWeight.w700,
+                              color: context
+                                      .watch<ReportsCubit>()
+                                      .compare2FormattedDateFrom
+                                      .isEmpty
+                                  ? Colors.grey
+                                  : context.watch<AppThemeCubit>().isDarkMode
+                                      ? Colors.white
+                                      : Colors.black54,
                             ),
                           ),
                         ),
@@ -246,8 +274,10 @@ class CompareBody extends StatelessWidget {
                                 : tr(context, transaction),
                             style: TextStyle(
                               fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey,
+                              fontWeight: FontWeight.w700,
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? Colors.white
+                                  : Colors.black54,
                             ),
                           ),
                         ),
@@ -274,8 +304,10 @@ class CompareBody extends StatelessWidget {
                                 : tr(context, transaction),
                             style: TextStyle(
                               fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey,
+                              fontWeight: FontWeight.w700,
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? Colors.white
+                                  : Colors.black54,
                             ),
                           ),
                         ),
@@ -317,9 +349,15 @@ class CompareBody extends StatelessWidget {
               ),
               SizedBox.square(dimension: 12.r),
               OutlinedButton(
-                onPressed: () async {
-                  await ReportsCubit.get(context)
-                      .generateAndShareStatsCompareExcel(context: context);
+                onPressed: () {
+                  switch (AppThemeCubit.get(context).saveMethod) {
+                    case 'excel':
+                      ReportsCubit.get(context)
+                          .generateAndShareStatsCompareExcel(context: context);
+                    case 'pdf':
+                      ReportsCubit.get(context)
+                          .generateAndShareComparePDF(context: context);
+                  }
                 },
                 style: OutlinedButton.styleFrom(
                   fixedSize: Size(64.w, 58.h),

@@ -70,7 +70,7 @@ Future<pw.Document> generateAndSaveStatsTablePDF({
                                 'ar_EG'
                             ? [
                                 statsPdfTableRowCell(
-                                  title: tr(context, 'tableWallet'),
+                                  title: tr(context, 'source'),
                                 ),
                                 statsPdfTableRowCell(
                                   title: tr(context, 'tableTransaction'),
@@ -96,7 +96,7 @@ Future<pw.Document> generateAndSaveStatsTablePDF({
                               ].reversed.toList()
                             : [
                                 statsPdfTableRowCell(
-                                  title: tr(context, 'tableWallet'),
+                                  title: tr(context, 'source'),
                                 ),
                                 statsPdfTableRowCell(
                                   title: tr(context, 'tableTransaction'),

@@ -117,7 +117,7 @@ Future<pw.Document> generateAndSaveComparePDF({
                                         title: tr(context, 'duration'),
                                       ),
                                       comparePdfTableRowCell(
-                                        title: tr(context, 'wallet'),
+                                        title: tr(context, 'source'),
                                       ),
                                       comparePdfTableRowCell(
                                         title: tr(context, 'statsTransactions'),
@@ -125,10 +125,10 @@ Future<pw.Document> generateAndSaveComparePDF({
                                     ].reversed.toList()
                                   : [
                                       comparePdfTableRowCell(
-                                        title: tr(context, 'duration'),
+                                        title: tr(context, 'tableDuration'),
                                       ),
                                       comparePdfTableRowCell(
-                                        title: tr(context, 'wallet'),
+                                        title: tr(context, 'source'),
                                       ),
                                       comparePdfTableRowCell(
                                         title: tr(context, 'statsTransactions'),

@@ -56,11 +56,11 @@ Future<pw.Document> generateAndSaveChartPDF({
               pw.SizedBox(height: 5),
               pw.Text(
                 ReportsCubit.get(context).statsSelectedWallet.isEmpty
-                    ? '${tr(context, 'wallet')}: ${tr(context, 'all')}'
+                    ? '${tr(context, 'source')}: ${tr(context, 'all')}'
                     : tr(context, ReportsCubit.get(context).statsSelectedWallet)
                             .isEmpty
-                        ? '${tr(context, 'wallet')}: ${ReportsCubit.get(context).statsSelectedWallet}'
-                        : '${tr(context, 'wallet')}: ${tr(context, ReportsCubit.get(context).statsSelectedWallet)}',
+                        ? '${tr(context, 'source')}: ${ReportsCubit.get(context).statsSelectedWallet}'
+                        : '${tr(context, 'source')}: ${tr(context, ReportsCubit.get(context).statsSelectedWallet)}',
                 textAlign: pw.TextAlign.center,
               ),
               pw.SizedBox(height: 5),

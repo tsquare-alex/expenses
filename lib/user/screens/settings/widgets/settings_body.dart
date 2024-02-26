@@ -299,11 +299,17 @@ class SettingsBody extends StatelessWidget {
                             },
                             child: MyText(
                               title: '1,234',
-                              color: context.watch<AppThemeCubit>().isDarkMode
-                                  ? Colors.lightBlue[200]
-                                  : MyColors.primary,
+                              color: AppThemeCubit.get(context).decimalValue !=
+                                      '0'
+                                  ? Colors.grey
+                                  : context.watch<AppThemeCubit>().isDarkMode
+                                      ? Colors.lightBlue[200]
+                                      : MyColors.primary,
                               size: 14.sp,
-                              fontWeight: FontWeight.bold,
+                              fontWeight:
+                                  AppThemeCubit.get(context).decimalValue != '0'
+                                      ? null
+                                      : FontWeight.bold,
                             ),
                           ),
                           TextButton(
@@ -314,11 +320,18 @@ class SettingsBody extends StatelessWidget {
                             },
                             child: MyText(
                               title: '1,234.0',
-                              color: context.watch<AppThemeCubit>().isDarkMode
-                                  ? Colors.lightBlue[200]
-                                  : MyColors.primary,
+                              color: AppThemeCubit.get(context).decimalValue !=
+                                      '0.0'
+                                  ? Colors.grey
+                                  : context.watch<AppThemeCubit>().isDarkMode
+                                      ? Colors.lightBlue[200]
+                                      : MyColors.primary,
                               size: 14.sp,
-                              fontWeight: FontWeight.bold,
+                              fontWeight:
+                                  AppThemeCubit.get(context).decimalValue !=
+                                          '0.0'
+                                      ? null
+                                      : FontWeight.bold,
                             ),
                           ),
                           TextButton(
@@ -329,11 +342,18 @@ class SettingsBody extends StatelessWidget {
                             },
                             child: MyText(
                               title: '1,234.00',
-                              color: context.watch<AppThemeCubit>().isDarkMode
-                                  ? Colors.lightBlue[200]
-                                  : MyColors.primary,
+                              color: AppThemeCubit.get(context).decimalValue !=
+                                      '0.00'
+                                  ? Colors.grey
+                                  : context.watch<AppThemeCubit>().isDarkMode
+                                      ? Colors.lightBlue[200]
+                                      : MyColors.primary,
                               size: 14.sp,
-                              fontWeight: FontWeight.bold,
+                              fontWeight:
+                                  AppThemeCubit.get(context).decimalValue !=
+                                          '0.00'
+                                      ? null
+                                      : FontWeight.bold,
                             ),
                           ),
                         ],
@@ -617,11 +637,18 @@ class SettingsBody extends StatelessWidget {
                             },
                             child: MyText(
                               title: SaveMethods.excel.method,
-                              color: context.watch<AppThemeCubit>().isDarkMode
-                                  ? Colors.lightBlue[200]
-                                  : MyColors.primary,
+                              color: AppThemeCubit.get(context).saveMethod !=
+                                      SaveMethods.excel.name
+                                  ? Colors.grey
+                                  : context.watch<AppThemeCubit>().isDarkMode
+                                      ? Colors.lightBlue[200]
+                                      : MyColors.primary,
                               size: 14.sp,
-                              fontWeight: FontWeight.bold,
+                              fontWeight:
+                                  AppThemeCubit.get(context).saveMethod !=
+                                          SaveMethods.excel.name
+                                      ? null
+                                      : FontWeight.bold,
                             ),
                           ),
                           TextButton(
@@ -633,11 +660,18 @@ class SettingsBody extends StatelessWidget {
                             },
                             child: MyText(
                               title: SaveMethods.pdf.method,
-                              color: context.watch<AppThemeCubit>().isDarkMode
-                                  ? Colors.lightBlue[200]
-                                  : MyColors.primary,
+                              color: AppThemeCubit.get(context).saveMethod !=
+                                      SaveMethods.pdf.name
+                                  ? Colors.grey
+                                  : context.watch<AppThemeCubit>().isDarkMode
+                                      ? Colors.lightBlue[200]
+                                      : MyColors.primary,
                               size: 14.sp,
-                              fontWeight: FontWeight.bold,
+                              fontWeight:
+                                  AppThemeCubit.get(context).saveMethod !=
+                                          SaveMethods.pdf.name
+                                      ? null
+                                      : FontWeight.bold,
                             ),
                           ),
                         ],

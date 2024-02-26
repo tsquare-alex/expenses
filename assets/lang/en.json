@@ -586,5 +586,6 @@
   "dateAdded": "Date added",
   "secondPhoneNumber": "Second Phone Number",
   "enterOnlyNumbers": "Please enter only numbers",
-  "pleaseTryAgain": "Please Try Again"
+  "pleaseTryAgain": "Please Try Again",
+  "viewTransaction":"View Transaction"
 }

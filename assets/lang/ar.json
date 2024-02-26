@@ -760,5 +760,6 @@
   "dateAdded": "تاريخ الإضافة",
   "secondPhoneNumber": "رقم الهاتف الاخر",
   "enterOnlyNumbers": "من فضلك ادخل ارقام فقط",
-  "pleaseTryAgain": "من فضلك حاول مرة اخرى"
+  "pleaseTryAgain": "من فضلك حاول مرة اخرى",
+  "viewTransaction": "عرض المعاملات"
 }

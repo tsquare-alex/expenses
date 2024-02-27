@@ -53,6 +53,8 @@ class WalletModel extends HiveObject {
   double? remainBalance;
   @HiveField(23)
   String? repeatWallet;
+  @HiveField(24)
+  double? notificationBalance;
 
   WalletModel({
     required this.name,
@@ -79,6 +81,7 @@ class WalletModel extends HiveObject {
     this.remainBalance = 0.0,
     this.remainTotalBalance = 0.0,
     this.repeatWallet,
+    this.notificationBalance,
   });
 
   Map<String, dynamic> toJson() {

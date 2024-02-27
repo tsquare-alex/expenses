@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:expenses/general/blocks/lang_cubit/lang_cubit.dart';
 import 'package:expenses/general/constants/constants.dart';
+import 'package:expenses/general/constants/local_notification/local_notification.dart';
 import 'package:expenses/general/helper/configration/DecorationUtils.dart';
 import 'package:expenses/general/helper/storage/Storage.dart';
 import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
@@ -111,7 +112,7 @@ class Utils {
       print("object3");
       var date = DateFormat("dd/MM/yyyy", "en").parse(item.transactionDate!);
       int myCounter = 0;
-      switch (item.repeated?.name){
+      switch (item.repeated?.name) {
         case "daily":
           myCounter = calculateDifferenceInDays(date);
           break;
@@ -134,7 +135,8 @@ class Utils {
       print("myCounter $myCounter");
 
       print("item.repeated ${item.repeated}");
-      if (item.repeated != null && item.transactionName != "الاهداف المالية المستهدفة") {
+      if (item.repeated != null &&
+          item.transactionName != "الاهداف المالية المستهدفة") {
         print("object4");
         for (int i = 0; i < myCounter; i++) {
           AddTransactionModel newModel = AddTransactionModel(
@@ -150,7 +152,7 @@ class Utils {
             // time: item.time,
             description: item.description,
             putReminderInWallet: item.putReminderInWallet,
-            notify: i==myCounter-1?item.notify:null,
+            notify: i == myCounter - 1 ? item.notify : null,
             requiredValue: item.requiredValue,
             initialValue: item.initialValue,
             transactionName: item.transactionName,
@@ -160,9 +162,9 @@ class Utils {
             targetValue: item.targetValue,
             transactionType: item.transactionType,
             brandName: item.brandName,
-            repeated: i==myCounter-1?item.repeated:null,
+            repeated: i == myCounter - 1 ? item.repeated : null,
             transactionDate:
-            DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
+                DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
             unit: item.unit,
             incomeSource: item.incomeSource,
             transactionContent: item.transactionContent,
@@ -211,7 +213,7 @@ class Utils {
             var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
             var walletList = walletBox.values.toList();
             WalletModel? targetModel = walletList.firstWhere(
-                  (model) => model.name == item.incomeSource?.name,
+              (model) => model.name == item.incomeSource?.name,
             );
             print("object ${targetModel.name}");
             targetModel.totalBalance = targetModel.totalBalance! - total;
@@ -240,7 +242,7 @@ class Utils {
       var date = DateFormat("dd/MM/yyyy", "en").parse(item.transactionDate!);
 
       int myCounter = 0;
-      switch (item.repeated?.name){
+      switch (item.repeated?.name) {
         case "daily":
           myCounter = calculateDifferenceInDays(date);
           break;
@@ -261,7 +263,8 @@ class Utils {
           break;
       }
       print("myCounter $myCounter");
-      if (item.repeated != null&& item.transactionName == "الاهداف المالية المستهدفة") {
+      if (item.repeated != null &&
+          item.transactionName == "الاهداف المالية المستهدفة") {
         print("object4");
         var targetModel = AddTransactionModel(
           image: item.image,
@@ -272,7 +275,7 @@ class Utils {
           putReminderInWallet: item.putReminderInWallet,
           notify: item.notify,
           requiredValue: item.requiredValue,
-          initialValue: item.initialValue! + (item.requiredValue!*myCounter),
+          initialValue: item.initialValue! + (item.requiredValue! * myCounter),
           transactionName: item.transactionName,
           priority: item.priority,
           endDate: item.endDate,
@@ -296,12 +299,12 @@ class Utils {
         print("myCounter $myCounter");
         print("object5");
         double total = item.requiredValue!;
-        if (total <= item.incomeSource!.totalBalance!){
+        if (total <= item.incomeSource!.totalBalance!) {
           print("object6");
           var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
           var walletList = walletBox.values.toList();
           WalletModel? targetModel = walletList.firstWhere(
-                (model) => model.name == item.incomeSource?.name,
+            (model) => model.name == item.incomeSource?.name,
           );
           print("object ${targetModel.name}");
           targetModel.totalBalance = targetModel.totalBalance! - total;
@@ -372,6 +375,7 @@ class Utils {
             isHide: item.isHide,
             paymentMethod: item.paymentMethod,
             repeatWallet: item.repeatWallet,
+            notificationBalance: item.notificationBalance,
             model: item.model,
             remainBalance: item.remainBalance,
             remainTotalBalance: item.remainBalance,
@@ -409,7 +413,28 @@ class Utils {
           box.add(newModel);
         }
         box.delete(item.key);
+      }
     }
+  }
+
+  static Future<void> walletNotification() async {
+    var box = await Hive.openBox<WalletModel>(walletDatabaseBox);
+    var walletList = box.values.toList();
+
+    for (WalletModel item in walletList) {
+      print("inside the function+++++++++++++++++++++++++++");
+      if (item.notification == true) {
+        if (item.notificationBalance != null) {
+          if ((item.notificationBalance! * 0.8) > item.totalBalance!) {
+            print("object=>>>>>>>>>>>>>>>>>>>>>>> success");
+            await LocalNotifications.showSimpleNotification(
+                title: "المحافظ",
+                body: "الرصيد اصبح اقل بنسبة 20%",
+                payload: "payload");
+          }
+        }
+      }
     }
-    }
+  }
+  
 }

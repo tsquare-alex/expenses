@@ -5,7 +5,6 @@ import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/MyText.dart';
-import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
 import 'package:flutter/material.dart';
@@ -92,38 +91,38 @@ class _WalletCategoryState extends State<WalletCategory> {
                       itemBuilder: (context, index) {
                         return InkWell(
                             onTap: () {
-                              if (context
-                                          .read<WalletCubit>()
-                                          .categoryList[index]
-                                          .name !=
-                                      "salary" &&
-                                  context
-                                          .read<WalletCubit>()
-                                          .categoryList[index]
-                                          .name !=
-                                      "bankAccount") {
-                                AutoRouter.of(context)
-                                    .push(const SubscriptionsRoute());
-                              } else {
-                                String iconPath = context
-                                    .read<WalletCubit>()
-                                    .categoryList[index]
-                                    .imagePath!;
-                                String selectedCategory = context
-                                    .read<WalletCubit>()
-                                    .categoryList[index]
-                                    .name!;
-                                context
-                                    .read<WalletCubit>()
-                                    .selectedCategoryIndex
-                                    .value = index;
-                                AutoRouter.of(context).push(AddWalletRoute(
-                                  selectItemIndex: index,
-                                  selectedCategory: selectedCategory,
-                                  iconPath: iconPath,
-                                  fromTransaction: widget.fromTransaction,
-                                ));
-                              }
+                              // if (context
+                              //             .read<WalletCubit>()
+                              //             .categoryList[index]
+                              //             .name !=
+                              //         "salary" &&
+                              //     context
+                              //             .read<WalletCubit>()
+                              //             .categoryList[index]
+                              //             .name !=
+                              //         "bankAccount") {
+                              //   AutoRouter.of(context)
+                              //       .push(const SubscriptionsRoute());
+                              // } else {
+                              String iconPath = context
+                                  .read<WalletCubit>()
+                                  .categoryList[index]
+                                  .imagePath!;
+                              String selectedCategory = context
+                                  .read<WalletCubit>()
+                                  .categoryList[index]
+                                  .name!;
+                              context
+                                  .read<WalletCubit>()
+                                  .selectedCategoryIndex
+                                  .value = index;
+                              AutoRouter.of(context).push(AddWalletRoute(
+                                selectItemIndex: index,
+                                selectedCategory: selectedCategory,
+                                iconPath: iconPath,
+                                fromTransaction: widget.fromTransaction,
+                              ));
+                              // }
                             },
                             child: Column(
                               children: [
@@ -148,25 +147,25 @@ class _WalletCategoryState extends State<WalletCategory> {
                                         ),
                                       ),
                                     ),
-                                    if (context
-                                                .read<WalletCubit>()
-                                                .categoryList[index]
-                                                .name !=
-                                            "salary" &&
-                                        context
-                                                .read<WalletCubit>()
-                                                .categoryList[index]
-                                                .name !=
-                                            "bankAccount")
-                                      Positioned(
-                                        bottom: 55.h,
-                                        right: 30.w,
-                                        child: Image.asset(
-                                          Res.pro,
-                                          height: 50.h,
-                                          width: 50.w,
-                                        ),
-                                      ),
+                                    // if (context
+                                    //             .read<WalletCubit>()
+                                    //             .categoryList[index]
+                                    //             .name !=
+                                    //         "salary" &&
+                                    //     context
+                                    //             .read<WalletCubit>()
+                                    //             .categoryList[index]
+                                    //             .name !=
+                                    //         "bankAccount")
+                                    //   Positioned(
+                                    //     bottom: 55.h,
+                                    //     right: 30.w,
+                                    //     child: Image.asset(
+                                    //       Res.pro,
+                                    //       height: 50.h,
+                                    //       width: 50.w,
+                                    //     ),
+                                    //   ),
                                   ],
                                 ),
                                 SizedBox(

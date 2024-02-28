@@ -7,10 +7,8 @@ import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
-import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
 import 'package:expenses/user/screens/wallet/wallet_imports.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -265,41 +263,41 @@ class _AddBalanceState extends State<AddBalance> {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 25.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: MyText(
-                                  title: tr(context, "repetition"),
-                                  color:
-                                      context.watch<AppThemeCubit>().isDarkMode
-                                          ? MyColors.white
-                                          : AppDarkColors.backgroundColor,
-                                  size: 14.sp),
-                            ),
-                            Visibility(
-                              visible: repeatSwitchValue,
-                              child: SizedBox(
-                                width: 150.w,
-                                child: TileDropdownButton(
-                                    menuList: data.repeatWallet,
-                                    value: data.repeatWallet.first,
-                                    onChanged: (value) {}),
-                              ),
-                            ),
-                            CupertinoSwitch(
-                              value: repeatSwitchValue,
-                              onChanged: (value) {
-                                setState(() {
-                                  repeatSwitchValue = value;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
+                        // SizedBox(
+                        //   height: 25.h,
+                        // ),
+                        //   Row(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //     children: [
+                        //       Expanded(
+                        //         child: MyText(
+                        //             title: tr(context, "repetition"),
+                        //             color:
+                        //                 context.watch<AppThemeCubit>().isDarkMode
+                        //                     ? MyColors.white
+                        //                     : AppDarkColors.backgroundColor,
+                        //             size: 14.sp),
+                        //       ),
+                        //       Visibility(
+                        //         visible: repeatSwitchValue,
+                        //         child: SizedBox(
+                        //           width: 150.w,
+                        //           child: TileDropdownButton(
+                        //               menuList: data.repeatWallet,
+                        //               value: data.repeatWallet.first,
+                        //               onChanged: (value) {}),
+                        //         ),
+                        //       ),
+                        //       CupertinoSwitch(
+                        //         value: repeatSwitchValue,
+                        //         onChanged: (value) {
+                        //           setState(() {
+                        //             repeatSwitchValue = value;
+                        //           });
+                        //         },
+                        //       ),
+                        //     ],
+                        //   ),
                       ],
                     ),
                   ],

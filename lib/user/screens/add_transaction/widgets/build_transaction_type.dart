@@ -110,17 +110,18 @@ class _BuildTransactionTypeState extends State<BuildTransactionType> {
                                   ],
                                 ),
                               ),
-                              state.data?[index].name == "electric" ||
-                                      state.data?[index].name == "telephone" ||
-                                      state.data?[index].name == "dairy" ||
-                                      state.data?[index].name == "cheese" ||
-                                      state.data?[index].name == "bakedGoods" ||
-                                      state.data?[index].name == "vegetable" ||
-                                      state.data?[index].name == "fruits" ||
-                                      state.data?[index].name == "oil" ||
-                                      state.data?[index].name == "salt" ||
-                                      state.data?[index].name == "rent"
-                                  ? Radio(
+                              // state.data?[index].name == "electric" ||
+                              //         state.data?[index].name == "telephone" ||
+                              //         state.data?[index].name == "dairy" ||
+                              //         state.data?[index].name == "cheese" ||
+                              //         state.data?[index].name == "bakedGoods" ||
+                              //         state.data?[index].name == "vegetable" ||
+                              //         state.data?[index].name == "fruits" ||
+                              //         state.data?[index].name == "oil" ||
+                              //         state.data?[index].name == "salt" ||
+                              //         state.data?[index].name == "rent"
+                              //     ?
+                                   Radio(
                                       value:
                                           widget.addTransactionData.selectedContent ==
                                                   null
@@ -145,20 +146,20 @@ class _BuildTransactionTypeState extends State<BuildTransactionType> {
                                         });
                                         },
                                     )
-                                  : InkWell(
-                                      highlightColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      splashColor: Colors.transparent,
-                                      onTap: () {
-                                        AutoRouter.of(context)
-                                            .push(const SubscriptionsRoute());
-                                      },
-                                      child: Image.asset(
-                                        Res.pro,
-                                        width: 50.w,
-                                        height: 60.h,
-                                      ),
-                                    ),
+                                  // : InkWell(
+                                  //     highlightColor: Colors.transparent,
+                                  //     hoverColor: Colors.transparent,
+                                  //     splashColor: Colors.transparent,
+                                  //     onTap: () {
+                                  //       AutoRouter.of(context)
+                                  //           .push(const SubscriptionsRoute());
+                                  //     },
+                                  //     child: Image.asset(
+                                  //       Res.pro,
+                                  //       width: 50.w,
+                                  //       height: 60.h,
+                                  //     ),
+                                  //   ),
                             ],
                           );
                         }),

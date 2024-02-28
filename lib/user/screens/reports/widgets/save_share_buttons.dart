@@ -5,7 +5,7 @@ class SaveAndShareButtons extends StatelessWidget {
 
   const SaveAndShareButtons({
     Key? key,
-    this.isPro = false,
+    this.isPro = true,
   }) : super(key: key);
 
   @override

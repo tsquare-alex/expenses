@@ -185,7 +185,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    // AutoRouter.of(context)
+                                     // AutoRouter.of(context)
                                     //     .push(const SubscriptionsRoute());
                                     AutoRouter.of(context).push(
                                         WalletBalanceTransferRoute(

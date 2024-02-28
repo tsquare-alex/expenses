@@ -811,7 +811,7 @@ class AddTransactionData {
                 ? selectedIterateTransaction
                 : null,
           );
-          var total = double.parse(totalController.text);
+          var total = double.parse(transferController.text);
           if (total <= selectedWalletModel!.totalBalance!) {
             var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
             var currencyBox = Hive.box<CurrencyModel>("currencyBox");

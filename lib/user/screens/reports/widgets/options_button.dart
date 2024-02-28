@@ -6,7 +6,7 @@ class OptionButton extends StatelessWidget {
     required this.label,
     required this.color,
     required this.onPressed,
-    this.isPro = false,
+    this.isPro = true,
   }) : super(key: key);
 
   final String label;

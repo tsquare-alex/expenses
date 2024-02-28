@@ -518,12 +518,12 @@ class SettingsBody extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(width: 12.w),
-                Image.asset(
-                  Res.pro,
-                  height: 40.h,
-                  width: 40.w,
-                ),
+                // SizedBox(width: 12.w),
+                // Image.asset(
+                //   Res.pro,
+                //   height: 40.h,
+                //   width: 40.w,
+                // ),
                 const Spacer(),
                 BlocBuilder<AppThemeCubit, AppThemeState>(
                   builder: (context, state) {
@@ -533,9 +533,9 @@ class SettingsBody extends StatelessWidget {
                           : const Color(0xFFD9D9D9),
                       value: AppThemeCubit.get(context).isDarkMode,
                       onChanged: (value) {
-                        AutoRouter.of(context).push(const SubscriptionsRoute());
+                        // AutoRouter.of(context).push(const SubscriptionsRoute());
 
-                        // AppThemeCubit.get(context).toggleTheme(value);
+                        AppThemeCubit.get(context).toggleTheme(value);
                       },
                     );
                   },
@@ -568,12 +568,12 @@ class SettingsBody extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(width: 12.w),
-                Image.asset(
-                  Res.pro,
-                  height: 40.h,
-                  width: 40.w,
-                ),
+                // SizedBox(width: 12.w),
+                // Image.asset(
+                //   Res.pro,
+                //   height: 40.h,
+                //   width: 40.w,
+                // ),
                 const Spacer(),
                 CupertinoSwitch(
                   trackColor: context.watch<AppThemeCubit>().isDarkMode
@@ -581,7 +581,7 @@ class SettingsBody extends StatelessWidget {
                       : const Color(0xFFD9D9D9),
                   value: false,
                   onChanged: (value) {
-                    AutoRouter.of(context).push(const SubscriptionsRoute());
+                    // AutoRouter.of(context).push(const SubscriptionsRoute());
                   },
                 ),
               ],
@@ -719,9 +719,9 @@ class SettingsBody extends StatelessWidget {
         SizedBox(height: 20.h),
         InkWell(
           onTap: () async {
-            AutoRouter.of(context).push(const SubscriptionsRoute());
+            // AutoRouter.of(context).push(const SubscriptionsRoute());
 
-            // await googleRepo.syncData();
+            await googleRepo.syncData();
           },
           child: SettingTile(
             child: Padding(
@@ -744,12 +744,12 @@ class SettingsBody extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  SizedBox(width: 12.w),
-                  Image.asset(
-                    Res.pro,
-                    height: 40.h,
-                    width: 40.w,
-                  ),
+                  // SizedBox(width: 12.w),
+                  // Image.asset(
+                  //   Res.pro,
+                  //   height: 40.h,
+                  //   width: 40.w,
+                  // ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
@@ -765,9 +765,9 @@ class SettingsBody extends StatelessWidget {
         SizedBox(height: 20.h),
         InkWell(
           onTap: () async {
-            AutoRouter.of(context).push(const SubscriptionsRoute());
+            // AutoRouter.of(context).push(const SubscriptionsRoute());
 
-            // await googleRepo.backupData();
+            await googleRepo.backupData();
           },
           child: SettingTile(
             child: Padding(
@@ -790,12 +790,12 @@ class SettingsBody extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  SizedBox(width: 12.w),
-                  Image.asset(
-                    Res.pro,
-                    height: 40.h,
-                    width: 40.w,
-                  ),
+                  // SizedBox(width: 12.w),
+                  // Image.asset(
+                  //   Res.pro,
+                  //   height: 40.h,
+                  //   width: 40.w,
+                  // ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
@@ -811,9 +811,9 @@ class SettingsBody extends StatelessWidget {
         SizedBox(height: 20.h),
         InkWell(
           onTap: () async {
-            AutoRouter.of(context).push(const SubscriptionsRoute());
+            // AutoRouter.of(context).push(const SubscriptionsRoute());
 
-            // await googleRepo.downloadData();
+            await googleRepo.downloadData();
           },
           child: SettingTile(
             child: Padding(
@@ -836,12 +836,12 @@ class SettingsBody extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  SizedBox(width: 12.w),
-                  Image.asset(
-                    Res.pro,
-                    height: 40.h,
-                    width: 40.w,
-                  ),
+                  // SizedBox(width: 12.w),
+                  // Image.asset(
+                  //   Res.pro,
+                  //   height: 40.h,
+                  //   width: 40.w,
+                  // ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
@@ -857,9 +857,9 @@ class SettingsBody extends StatelessWidget {
         SizedBox(height: 20.h),
         InkWell(
           onTap: () async {
-            AutoRouter.of(context).push(const SubscriptionsRoute());
+            // AutoRouter.of(context).push(const SubscriptionsRoute());
 
-            // await googleRepo.deleteData();
+            await googleRepo.deleteData();
           },
           child: SettingTile(
             child: Padding(
@@ -882,12 +882,12 @@ class SettingsBody extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  SizedBox(width: 12.w),
-                  Image.asset(
-                    Res.pro,
-                    height: 40.h,
-                    width: 40.w,
-                  ),
+                  // SizedBox(width: 12.w),
+                  // Image.asset(
+                  //   Res.pro,
+                  //   height: 40.h,
+                  //   width: 40.w,
+                  // ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
@@ -903,7 +903,7 @@ class SettingsBody extends StatelessWidget {
         SizedBox(height: 20.h),
         InkWell(
           onTap: () async {
-            // await googleRepo.signOut();
+            await googleRepo.signOut();
           },
           child: SettingTile(
             child: Padding(

@@ -88,8 +88,7 @@ class MainData {
           create: (BuildContext context) => MyExpansionCubit(),
         ),
         BlocProvider<AppThemeCubit>(
-          create: (context) => AppThemeCubit()..applyAppTheme()
-            ..applyDecimalValue(),
+          create: (context) => AppThemeCubit()..applyAppTheme()..applyDecimalValue(),
         ),
         BlocProvider<LengthConverterCubit>(
           create: (context) => LengthConverterCubit(),

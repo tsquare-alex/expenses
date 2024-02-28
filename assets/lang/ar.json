@@ -645,7 +645,7 @@
   "stop": "قف",
   "reset": "إعادة ضبط",
   "operationNotAllowed": "عملية غير ممكنه لان رصيد المعاملة أكبر من قيمة المحفظة.",
-  "reportCategory": "فئة",
+  "reportCategory": "الفئة",
   "reportTotal": "مجموع المصروفات",
   "reportCash": "المبلغ",
   "table": "جدول",

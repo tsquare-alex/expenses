@@ -4,6 +4,7 @@ import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
+import 'package:expenses/general/utilities/utils_functions/decimal_format.dart';
 import 'package:expenses/general/utilities/utils_functions/utils.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
@@ -125,7 +126,8 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                               fontWeight: FontWeight.w500,
                             ),
                             MyText(
-                                title: "${widget.model.balance}",
+                                title: widget.model.balance.toString()
+                                    .formatToDecimal(context: context),
                                 color: MyColors.primary,
                                 size: 16.sp)
                           ],
@@ -145,7 +147,8 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                               fontWeight: FontWeight.w500,
                             ),
                             MyText(
-                                title: "${widget.model.balance - enterAmount}",
+                                title: (widget.model.balance - enterAmount).toString()
+                                        .formatToDecimal(context: context),
                                 color: MyColors.primary,
                                 size: 16.sp)
                           ],

@@ -4,6 +4,7 @@ import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
+import 'package:expenses/general/utilities/utils_functions/decimal_format.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
@@ -120,7 +121,9 @@ class _AddBalanceState extends State<AddBalance> {
                                     : AppDarkColors.backgroundColor,
                                 size: 16.sp),
                             MyText(
-                                title: "${widget.model.balance + parsedNumber}",
+                                title: (widget.model.balance + parsedNumber)
+                                    .toString()
+                                    .formatToDecimal(context: context),
                                 color: MyColors.primary,
                                 size: 16.sp)
                           ],
@@ -140,7 +143,9 @@ class _AddBalanceState extends State<AddBalance> {
                               fontWeight: FontWeight.w500,
                             ),
                             MyText(
-                              title: "${widget.model.balance}",
+                              title: widget.model.balance
+                                  .toString()
+                                  .formatToDecimal(context: context),
                               color: MyColors.primary,
                               size: 16.sp,
                               fontWeight: FontWeight.w500,

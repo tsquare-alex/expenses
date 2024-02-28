@@ -697,7 +697,7 @@ class _EditWalletState extends State<EditWallet> {
                             height: 22.h,
                             width: 44.w,
                             child: CupertinoSwitch(
-                              value: isRepated,
+                              value: repeatSwitchValue,
                               onChanged: (value) {
                                 setState(() {
                                   repeatSwitchValue = value;

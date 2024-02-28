@@ -733,7 +733,7 @@ class AddTransactionData {
             endDate: endDateController.text,
             time: timeController.text,
             image: imageBloc.state.data,
-            transactionDate: dateController.text,
+            transactionDate: startDateController.text,
             ratio: ratioCubit.state.data != false
                 ? selectedRatio
                 : null,
@@ -851,7 +851,8 @@ class AddTransactionData {
             box.add(model);
             addTransactionList = box.values.toList();
             AutoRouter.of(context).pop();
-          } else if (total > selectedWalletModel!.totalBalance!) {
+          }
+          else if (total > selectedWalletModel!.totalBalance!) {
             print(selectedWalletModel!.totalBalance!);
             CustomToast.showSimpleToast(
                 msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",

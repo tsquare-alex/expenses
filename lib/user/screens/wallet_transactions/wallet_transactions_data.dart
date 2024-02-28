@@ -21,12 +21,16 @@ class WalletTransactionsData {
             child: Container(
               padding: EdgeInsets.all(10.r),
               margin: EdgeInsets.symmetric(vertical: 10.r),
-              color: MyColors.greyWhite,
+              color: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.greyWhite
+                  : MyColors.black,
               width: double.infinity,
               child: Center(
                 child: MyText(
                   title: "تعديل المعاملة",
-                  color: MyColors.black,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.black,
                   size: 13.sp,
                   fontWeight: FontWeight.bold,
                   alien: TextAlign.center,
@@ -47,7 +51,9 @@ class WalletTransactionsData {
               child: Center(
                 child: MyText(
                   title: "حذف المعاملة",
-                  color: MyColors.black,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.greyWhite
+                      : MyColors.black,
                   size: 13.sp,
                   fontWeight: FontWeight.bold,
                   alien: TextAlign.center,
@@ -70,7 +76,9 @@ class WalletTransactionsData {
               child: Center(
                 child: MyText(
                   title: "تحويل المعاملة الي محفظة اخري",
-                  color: MyColors.black,
+                  color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.greyWhite
+                      : MyColors.black,
                   size: 13.sp,
                   fontWeight: FontWeight.bold,
                   alien: TextAlign.center,
@@ -85,7 +93,9 @@ class WalletTransactionsData {
           title: MyText(
         title: tr(context, "cancel"),
         size: 14.sp,
-        color: MyColors.secondary,
+        color: context.watch<AppThemeCubit>().isDarkMode
+            ? MyColors.greyWhite
+            : MyColors.black,
         fontWeight: FontWeight.bold,
       )),
     );
@@ -163,7 +173,10 @@ class WalletTransactionsData {
       targetWallet.balance = targetWallet.balance + total;
       await walletBox.put(targetWallet.key, targetWallet);
       box.deleteAt(index);
-      AutoRouter.of(context).push(HomeRoute(index: 1,pageIndex: 7),);    }
+      AutoRouter.of(context).push(
+        HomeRoute(index: 1, pageIndex: 7),
+      );
+    }
     print("balance ${targetWallet.balance}");
 
     // AutoRouter.of(context).push(HomeRoute(index: 0));

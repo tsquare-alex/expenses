@@ -35,7 +35,9 @@ class _WalletTransactionsState extends State<WalletTransactions> {
           onTap: () => AutoRouter.of(context).pop(),
           child: Icon(
             Icons.arrow_back,
-            color: MyColors.black,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
           ),
         ),
         centerTitle: true,

@@ -1,22 +1,32 @@
 part of 'wallet_transactions_widgets_imports.dart';
 
 class BuildWalletTransactionsItem extends StatelessWidget {
-  const BuildWalletTransactionsItem({Key? key, required this.model, this.onArrowTap, required this.data, required this.walletModel}) : super(key: key);
+  const BuildWalletTransactionsItem(
+      {Key? key,
+      required this.model,
+      this.onArrowTap,
+      required this.data,
+      required this.walletModel})
+      : super(key: key);
   final AddTransactionModel model;
-  final GestureTapCallback?  onArrowTap;
+  final GestureTapCallback? onArrowTap;
   final WalletTransactionsData data;
   final WalletModel walletModel;
   @override
   Widget build(BuildContext context) {
     double percentage =
-        ((model.initialValue!=null?model.initialValue:0 )! / double.parse(model.total!)) * 100;
+        ((model.initialValue != null ? model.initialValue : 0)! /
+                double.parse(model.total!)) *
+            100;
     return Column(
       children: [
         Container(
           padding: EdgeInsets.symmetric(horizontal: 15.r, vertical: 20.r),
           margin: EdgeInsets.only(bottom: 10.h),
           decoration: BoxDecoration(
-              color: MyColors.white,
+              color: context.watch<AppThemeCubit>().isDarkMode
+                  ? AppDarkColors.backgroundColor
+                  : MyColors.white,
               borderRadius: BorderRadius.circular(15.r),
               border: Border.all(width: 1.w, color: MyColors.greyWhite)),
           child: Column(
@@ -38,11 +48,14 @@ class BuildWalletTransactionsItem extends StatelessWidget {
                         ),
                         Expanded(
                           child: MyText(
-                            title: tr(context, model.transactionType?.name ?? "")
-                                .isNotEmpty
+                            title: tr(context,
+                                        model.transactionType?.name ?? "")
+                                    .isNotEmpty
                                 ? tr(context, model.transactionType?.name ?? "")
                                 : model.transactionType?.name ?? "",
-                            color: MyColors.black,
+                            color: context.watch<AppThemeCubit>().isDarkMode
+                                ? MyColors.white
+                                : MyColors.black,
                             size: 16.sp,
                             fontWeight: FontWeight.bold,
                           ),
@@ -61,7 +74,13 @@ class BuildWalletTransactionsItem extends StatelessWidget {
                       SizedBox(
                         width: 15.w,
                       ),
-                      InkWell(onTap: onArrowTap, child: Icon(Icons.arrow_drop_down,color: MyColors.primary,),),
+                      InkWell(
+                        onTap: onArrowTap,
+                        child: Icon(
+                          Icons.arrow_drop_down,
+                          color: MyColors.primary,
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -79,27 +98,41 @@ class BuildWalletTransactionsItem extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  model.transactionName=="الالتزامات"||model.transactionName=="التسوق والشراء"?Expanded(
-                    child: Row(
-                      children: [
-                        Image.asset(model.transactionContent?.image??Res.shop,width: 30.w,height: 30.h,),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        Flexible(
-                          child: MyText(
-                            title: tr(context, model.transactionContent?.name ?? "")
-                                .isNotEmpty
-                                ? tr(context, model.transactionContent?.name ?? "")
-                                : model.transactionContent?.name ?? "",
-                            color: MyColors.black,
-                            size: 16.sp,
-                            fontWeight: FontWeight.bold,
+                  model.transactionName == "الالتزامات" ||
+                          model.transactionName == "التسوق والشراء"
+                      ? Expanded(
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                model.transactionContent?.image ?? Res.shop,
+                                width: 30.w,
+                                height: 30.h,
+                              ),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              Flexible(
+                                child: MyText(
+                                  title: tr(
+                                              context,
+                                              model.transactionContent?.name ??
+                                                  "")
+                                          .isNotEmpty
+                                      ? tr(context,
+                                          model.transactionContent?.name ?? "")
+                                      : model.transactionContent?.name ?? "",
+                                  color:
+                                      context.watch<AppThemeCubit>().isDarkMode
+                                          ? MyColors.white
+                                          : MyColors.black,
+                                  size: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                  ):Container(),
+                        )
+                      : Container(),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -115,7 +148,9 @@ class BuildWalletTransactionsItem extends StatelessWidget {
                           ),
                           MyText(
                             title: model.incomeSource?.paymentMethod ?? "",
-                            color: MyColors.black,
+                            color: context.watch<AppThemeCubit>().isDarkMode
+                                ? MyColors.white
+                                : MyColors.black,
                             size: 14.sp,
                             fontWeight: FontWeight.bold,
                           ),
@@ -126,7 +161,9 @@ class BuildWalletTransactionsItem extends StatelessWidget {
                       ),
                       MyText(
                         title: "${tr(context, "value")} : ${model.total}",
-                        color: MyColors.black,
+                        color: context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.white
+                            : MyColors.black,
                         size: 14.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -150,14 +187,17 @@ class BuildWalletTransactionsItem extends StatelessWidget {
               SizedBox(
                 height: 10.h,
               ),
-              Divider(thickness: 1.w,color: MyColors.greyWhite,),
+              Divider(
+                thickness: 1.w,
+                color: MyColors.greyWhite,
+              ),
               SizedBox(
                 height: 10.h,
               ),
               InkWell(
                 splashColor: Colors.transparent,
                 hoverColor: Colors.transparent,
-                onTap: () async{
+                onTap: () async {
                   await AutoRouter.of(context).push(
                     TransactionDetailsRoute(
                       model: model,
@@ -171,7 +211,8 @@ class BuildWalletTransactionsItem extends StatelessWidget {
                   size: 16.sp,
                   fontWeight: FontWeight.bold,
                   color: MyColors.primary,
-                ),),
+                ),
+              ),
             ],
           ),
         ),

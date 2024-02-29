@@ -4,10 +4,7 @@ import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
-import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/MyText.dart';
-import 'package:expenses/res.dart';
-import 'package:expenses/user/screens/subscriptions/subscriptions.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +14,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class WalletCategory extends StatefulWidget {
   const WalletCategory({
     super.key,
+    this.fromTransaction = false,
   });
-
+  final bool? fromTransaction;
   @override
   State<WalletCategory> createState() => _WalletCategoryState();
 }
@@ -106,23 +104,24 @@ class _WalletCategoryState extends State<WalletCategory> {
                               //   AutoRouter.of(context)
                               //       .push(const SubscriptionsRoute());
                               // } else {
-                                String iconPath = context
-                                    .read<WalletCubit>()
-                                    .categoryList[index]
-                                    .imagePath!;
-                                String selectedCategory = context
-                                    .read<WalletCubit>()
-                                    .categoryList[index]
-                                    .name!;
-                                context
-                                    .read<WalletCubit>()
-                                    .selectedCategoryIndex
-                                    .value = index;
-                                AutoRouter.of(context).push(AddWalletRoute(
-                                  selectItemIndex: index,
-                                  selectedCategory: selectedCategory,
-                                  iconPath: iconPath,
-                                ));
+                              String iconPath = context
+                                  .read<WalletCubit>()
+                                  .categoryList[index]
+                                  .imagePath!;
+                              String selectedCategory = context
+                                  .read<WalletCubit>()
+                                  .categoryList[index]
+                                  .name!;
+                              context
+                                  .read<WalletCubit>()
+                                  .selectedCategoryIndex
+                                  .value = index;
+                              AutoRouter.of(context).push(AddWalletRoute(
+                                selectItemIndex: index,
+                                selectedCategory: selectedCategory,
+                                iconPath: iconPath,
+                                fromTransaction: widget.fromTransaction,
+                              ));
                               // }
                             },
                             child: Column(

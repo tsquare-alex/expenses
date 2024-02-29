@@ -106,13 +106,13 @@ class ToolsHelper extends StatelessWidget {
                           _toggleFavoriteStatus(
                               context: context,
                               toolName: "calculator",
-                              imagePath: Res.tool_ic),
+                              imagePath: Res.calculator_ic),
                     ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "scanner"),
                       title: "scanner",
                       image: Res.barcode_ic,
-                      imagePro: Res.pro,
+                      // imagePro: Res.pro,
                       isFavorite:
                       context.watch<FavoriteCubit>().isFavorite("scanner"),
                       onFavoriteTap: () =>
@@ -121,13 +121,13 @@ class ToolsHelper extends StatelessWidget {
                               toolName: "scanner",
                               imagePath: Res.barcode_ic),
                     ),
-                    BuildToolsWidget(
-                      onTap: () {},
-                      title: "zoomIn",
-                      image: Res.zoom_ic,
-                      isFavorite:false,
-                      onFavoriteTap: () {},
-                    ),
+                    // BuildToolsWidget(
+                    //   onTap: () => _navigateToToolScreen(context, "zoomIn"),
+                    //   title: "zoomIn",
+                    //   image: Res.zoom_ic,
+                    //   isFavorite:false,
+                    //   onFavoriteTap: () {},
+                    // ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "note"),
                       title: "note",
@@ -143,7 +143,7 @@ class ToolsHelper extends StatelessWidget {
                       onTap: () => _navigateToToolScreen(context, "ruler"),
                       title: "ruler",
                       image: Res.ruler_ic,
-                      imagePro: Res.pro,
+                      // imagePro: Res.pro,
                       isFavorite:
                       context.watch<FavoriteCubit>().isFavorite("ruler"),
                       onFavoriteTap: () =>
@@ -152,18 +152,18 @@ class ToolsHelper extends StatelessWidget {
                               toolName: "ruler",
                               imagePath:Res.ruler_ic),
                     ),
-                    BuildToolsWidget(
-                      onTap: () {},
-                      title: "waterScale",
-                      image: Res.waterScale_ic,
-                      isFavorite:false,
-                      onFavoriteTap: () {},
-                    ),
+                    // BuildToolsWidget(
+                    //   onTap: () {},
+                    //   title: "waterScale",
+                    //   image: Res.waterScale_ic,
+                    //   isFavorite:false,
+                    //   onFavoriteTap: () {},
+                    // ),
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "qiblah"),
                       title: "qiblah",
                       image: Res.qiblah_ic,
-                      imagePro: Res.pro,
+                      // imagePro: Res.pro,
                       isFavorite:
                       context.watch<FavoriteCubit>().isFavorite("qiblah"),
                       onFavoriteTap: () =>
@@ -192,6 +192,8 @@ class ToolsHelper extends StatelessWidget {
                     // ),
 
                   ]),
+
+
               ExpandableTile(
                   image: Res.time_ic,
                   title: "timeManagement",
@@ -201,7 +203,7 @@ class ToolsHelper extends StatelessWidget {
                           _navigateToToolScreen(context, "reminder"),
                       title: "reminder",
                       image: Res.reminder_ic,
-                      imagePro: Res.pro,
+                      // imagePro: Res.pro,
                       isFavorite:
                       context.watch<FavoriteCubit>().isFavorite("reminder"),
                       onFavoriteTap: () =>
@@ -239,7 +241,7 @@ class ToolsHelper extends StatelessWidget {
                       onTap: () => _navigateToToolScreen(context, "calender"),
                       title: "calender",
                       image: Res.calendar_ic,
-                      imagePro: Res.pro,
+                      // imagePro: Res.pro,
                       isFavorite:
                       context.watch<FavoriteCubit>().isFavorite("calender"),
                       onFavoriteTap: () =>
@@ -257,7 +259,7 @@ class ToolsHelper extends StatelessWidget {
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "percentage"),
                       title: "percentage",
-                      imagePro: Res.pro,
+                      // imagePro: Res.pro,
                       image: Res.percentage_ic,
                       isFavorite: context
                           .watch<FavoriteCubit>()
@@ -271,7 +273,7 @@ class ToolsHelper extends StatelessWidget {
                     BuildToolsWidget(
                       onTap: () => _navigateToToolScreen(context, "tax"),
                       title: "tax",
-                      imagePro: Res.pro,
+                      // imagePro: Res.pro,
                       image: Res.tax_ic,
                       isFavorite:
                       context.watch<FavoriteCubit>().isFavorite("tax"),
@@ -285,7 +287,7 @@ class ToolsHelper extends StatelessWidget {
                       onTap: () => _navigateToToolScreen(context, "discount"),
                       title: "discount",
                       image:Res.discount_ic,
-                      imagePro: Res.pro,
+                      // imagePro: Res.pro,
                       isFavorite:
                       context.watch<FavoriteCubit>().isFavorite("discount"),
                       onFavoriteTap: () =>
@@ -299,7 +301,7 @@ class ToolsHelper extends StatelessWidget {
                           _navigateToToolScreen(context, "calculateUnitPrice"),
                       title: "calculateUnitPrice",
                       image: Res.unitprice_ic,
-                      imagePro: Res.pro,
+                      // imagePro: Res.pro,
                       isFavorite: context
                           .watch<FavoriteCubit>()
                           .isFavorite("calculateUnitPrice"),
@@ -333,7 +335,7 @@ class ToolsHelper extends StatelessWidget {
                     onTap: () => _navigateToToolScreen(context, "bmi"),
                     title: "bmi",
                     image: Res.bmi_ic,
-                    imagePro: Res.pro,
+                    // imagePro: Res.pro,
                     isFavorite:
                     context.watch<FavoriteCubit>().isFavorite("bmi"),
                     onFavoriteTap: () =>
@@ -346,7 +348,7 @@ class ToolsHelper extends StatelessWidget {
                     onTap: () => _navigateToToolScreen(context, "bmr"),
                     title: "bmr",
                     image: Res.bmr_ic,
-                    imagePro: Res.pro,
+                    // imagePro: Res.pro,
                     isFavorite:
                     context.watch<FavoriteCubit>().isFavorite("bmr"),
                     onFavoriteTap: () =>
@@ -359,7 +361,7 @@ class ToolsHelper extends StatelessWidget {
                     onTap: () => _navigateToToolScreen(context, "ringSize"),
                     title: "ringSize",
                     image: Res.ring_ic,
-                    imagePro: Res.pro,
+                    // imagePro: Res.pro,
                     isFavorite:
                     context.watch<FavoriteCubit>().isFavorite("ringSize"),
                     onFavoriteTap: () =>
@@ -372,7 +374,7 @@ class ToolsHelper extends StatelessWidget {
                     onTap: () =>
                         _navigateToToolScreen(context, "clothesSize"),
                     title: "clothesSize",
-                    imagePro: Res.pro,
+                    // imagePro: Res.pro,
                     image: Res.clothessize_ic,
                     isFavorite: context
                         .watch<FavoriteCubit>()
@@ -435,7 +437,7 @@ class ToolsHelper extends StatelessWidget {
                       onTap: () =>
                           _navigateToToolScreen(context, "convertArea"),
                       title: "convertArea",
-                      imagePro: Res.pro,
+                      // imagePro: Res.pro,
                       image: Res.area_ic,
                       isFavorite: context
                           .watch<FavoriteCubit>()
@@ -450,7 +452,7 @@ class ToolsHelper extends StatelessWidget {
                       onTap: () =>
                           _navigateToToolScreen(context, "convertSpeed"),
                       title: "convertSpeed",
-                      imagePro: Res.pro,
+                      // imagePro: Res.pro,
                       image: Res.speed_ic,
                       isFavorite: context
                           .watch<FavoriteCubit>()
@@ -479,7 +481,7 @@ class ToolsHelper extends StatelessWidget {
                       onTap: () =>
                           _navigateToToolScreen(context, "convertVolume"),
                       title: "convertVolume",
-                      imagePro: Res.pro,
+                      // imagePro: Res.pro,
                       image: Res.weight_ic,
                       isFavorite: context
                           .watch<FavoriteCubit>()
@@ -503,38 +505,37 @@ class ToolsHelper extends StatelessWidget {
     switch (toolName)
     {
       case "percentage":
-        AutoRouter.of(context).push( SubscriptionsRoute());
-        // Navigator.of(context).push(MaterialPageRoute(
-        //     builder: (context) => PercentageCalculatorScreen()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => PercentageCalculatorScreen()));
         break;
       case "tax":
-        AutoRouter.of(context).push( SubscriptionsRoute());
-        // Navigator.of(context).push(MaterialPageRoute(
-        //     builder: (context) => ServiceTaxCalculatorScreen()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ServiceTaxCalculatorScreen()));
         break;
       case "discount":
-        AutoRouter.of(context).push( SubscriptionsRoute());
-        // Navigator.of(context).push(MaterialPageRoute(
-        //     builder: (context) => DiscountCalculatorScreen()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => DiscountCalculatorScreen()));
         break;
       case "qiblah":
-        AutoRouter.of(context).push( SubscriptionsRoute());
-        // Navigator.of(context)
-        //     .push(MaterialPageRoute(builder: (context) => QiblahCompass()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => QiblahCompass()));
         break;
       case "scanner":
-        AutoRouter.of(context).push( SubscriptionsRoute());
-        // Navigator.of(context)
-        //     .push(
-        //     MaterialPageRoute(builder: (context) =>
-        //     // const ScannerQrCode()
-        //
-        //     ));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context)
+            .push(
+            MaterialPageRoute(builder: (context) =>
+            const ScannerQrCode()
+                ));
         break;
       case "calender":
-        AutoRouter.of(context).push( SubscriptionsRoute());
-        // Navigator.of(context)
-        //     .push(MaterialPageRoute(builder: (context) => CalenderScreen()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => CalenderScreen()));
         break;
       case "calculator":
         Navigator.of(context)
@@ -545,24 +546,24 @@ class ToolsHelper extends StatelessWidget {
       //       MaterialPageRoute(builder: (context) => const ShoesSizeScreen()));
         break;
       case "ringSize":
-        // Navigator.of(context).push(
-        //     MaterialPageRoute(builder: (context) => const RingSizeScreen()));
-        AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const RingSizeScreen()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
         break;
       case "clothesSize":
-        // Navigator.of(context).push(
-        //     MaterialPageRoute(builder: (context) => const ClothesSizeScreen()));
-        AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const ClothesSizeScreen()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
         break;
       case "bmi":
-        // Navigator.of(context).push(
-        //     MaterialPageRoute(builder: (context) => const BMICalculator()));
-        AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const BMICalculator()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
         break;
       case "bmr":
-        // Navigator.of(context).push(
-        //     MaterialPageRoute(builder: (context) => BmrCalculatorScreen()));
-        AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => BmrCalculatorScreen()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
         break;
       case "convertCurrency":
         Navigator.of(context).push(
@@ -581,14 +582,14 @@ class ToolsHelper extends StatelessWidget {
             builder: (context) => TemperatureConverterScreen()));
         break;
       case "convertArea":
-        // Navigator.of(context).push(
-        //     MaterialPageRoute(builder: (context) => AreaConverterScreen()));
-        AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => AreaConverterScreen()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
         break;
       case "convertSpeed":
-        // Navigator.of(context).push(
-        //     MaterialPageRoute(builder: (context) => SpeedConverterScreen()));
-        AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => SpeedConverterScreen()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
         break;
       case "convertData":
         Navigator.of(context).push(
@@ -599,23 +600,23 @@ class ToolsHelper extends StatelessWidget {
             MaterialPageRoute(builder: (context) => VolumeConverterScreen()));
         break;
       case "reminder":
-        // Navigator.of(context).push(
-        //     MaterialPageRoute(builder: (context) => ReminderScreen()));
-        AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => ReminderScreen()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
         break;
       case "ruler":
-        // Navigator.of(context).push(
-        //     MaterialPageRoute(builder: (context) => RulerScreen()));
-        AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => RulerScreen()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
         break;
       case "note":
         Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => NoteView()));
         break;
         case "calculateUnitPrice":
-        // Navigator.of(context).push(
-        //     MaterialPageRoute(builder: (context) => UnitPriceScreen()));
-          AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => UnitPriceScreen()));
+          // AutoRouter.of(context).push( SubscriptionsRoute());
         break;
       case "temporary":
         Navigator.of(context).push(
@@ -727,7 +728,7 @@ class ExpandableTile extends StatelessWidget {
                     size: 16,
                     max: 1,
                     overflow: TextOverflow.ellipsis,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],

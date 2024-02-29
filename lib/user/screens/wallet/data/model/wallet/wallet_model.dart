@@ -38,7 +38,7 @@ class WalletModel extends HiveObject {
   @HiveField(15)
   bool? isFavorite;
   @HiveField(16)
-  String? addNote;
+  String addNote;
   @HiveField(17)
   String? iconPath;
   @HiveField(18)
@@ -51,32 +51,38 @@ class WalletModel extends HiveObject {
   double? remainTotalBalance;
   @HiveField(22)
   double? remainBalance;
+  @HiveField(23)
+  String? repeatWallet;
+  @HiveField(24)
+  double? notificationBalance;
 
-  WalletModel(
-      {required this.name,
-      required this.balance,
-      required this.openDate,
-      required this.closedDate,
-      required this.encomeSource,
-      required this.valueCategory,
-      this.currancyChange,
-      this.walletRepate,
-      this.notification,
-      required this.category,
-      this.isClosed = false,
-      this.isHide = false,
-      this.checkedValue = false,
-      this.paymentMethod,
-      this.model,
-      this.isFavorite = false,
-      this.addNote,
-      this.iconPath,
-      required this.currency,
-      required this.currencyValue,
-      this.totalBalance,
-        this.remainBalance=0.0,
-        this.remainTotalBalance=0.0,
-      });
+  WalletModel({
+    required this.name,
+    required this.balance,
+    required this.openDate,
+    required this.closedDate,
+    required this.encomeSource,
+    required this.valueCategory,
+    this.currancyChange,
+    this.walletRepate,
+    this.notification,
+    required this.category,
+    this.isClosed = false,
+    this.isHide = false,
+    this.checkedValue = false,
+    this.paymentMethod,
+    this.model,
+    this.isFavorite = false,
+    required this.addNote,
+    this.iconPath,
+    required this.currency,
+    required this.currencyValue,
+    this.totalBalance,
+    this.remainBalance = 0.0,
+    this.remainTotalBalance = 0.0,
+    this.repeatWallet,
+    this.notificationBalance,
+  });
 
   Map<String, dynamic> toJson() {
     return {
@@ -105,6 +111,7 @@ class WalletModel extends HiveObject {
       'remainTotalBalance': remainTotalBalance,
     };
   }
+
   factory WalletModel.fromJson(Map<String, dynamic> json) {
     return WalletModel(
       name: json['name'],
@@ -121,7 +128,8 @@ class WalletModel extends HiveObject {
       category: json['category'],
       checkedValue: json['checkedValue'],
       paymentMethod: json['paymentMethod'],
-      model: json['model'] != null ? CategoryModel.fromJson(json['model']) : null,
+      model:
+          json['model'] != null ? CategoryModel.fromJson(json['model']) : null,
       isFavorite: json['isFavorite'],
       addNote: json['addNote'],
       iconPath: json['iconPath'],

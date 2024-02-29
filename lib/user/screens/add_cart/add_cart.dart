@@ -66,7 +66,7 @@ class _AddCartState extends State<AddCart> {
           children: [
             BuildAddCartInputs(data: data,),
             BuildAddCartProductPhoto(data: data,),
-            BuildImplementationAlert(data: data,),
+            // BuildImplementationAlert(data: data,),
             AddCartButton(data: data,),
           ],
         ),

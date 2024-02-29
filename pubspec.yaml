@@ -147,7 +147,6 @@ flutter:
     - assets/lang/
     - assets/sounds/
     - assets/fonts/
-
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

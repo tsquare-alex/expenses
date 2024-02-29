@@ -210,23 +210,6 @@ class Utils {
             box.put(item.key.toString(), targetModel);
             print("object5");
             double total = double.parse(item.total!);
-            // if (total <= item.incomeSource!.totalBalance!) {
-            //   print("object6");
-            //   var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
-            //   var walletList = walletBox.values.toList();
-            //   WalletModel? targetModel = walletList.firstWhere(
-            //     (model) => model.name == item.incomeSource?.name,
-            //   );
-            //   print("object ${targetModel.name}");
-            //   targetModel.totalBalance = targetModel.totalBalance! - total;
-            //   print("balance ${targetModel.totalBalance!}");
-            //   await walletBox.put(targetModel.key, targetModel);
-            //   print(item.incomeSource!.totalBalance!);
-            //
-            //   box.add(newModel);
-            // } else {
-            //   CustomToast.showSimpleToast(msg: "لم يتم تكرار المعاملة");
-            // }
             if (total <= item.incomeSource!.totalBalance!) {
               var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
               var currencyBox = Hive.box<CurrencyModel>("currencyBox");
@@ -309,157 +292,331 @@ class Utils {
     }
   }
 
-  static void repeatTargetTransaction() async {
-    var box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
-    var list = box.values.toList();
-    print(list.length);
-    print("object8");
-    for (AddTransactionModel item in list) {
-      var now = DateTime.now();
-      print("object3");
-      var date = DateFormat("dd/MM/yyyy", "en").parse(item.transactionDate!);
+  // static void repeatTargetTransaction() async {
+  //   var box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
+  //   var list = box.values.toList();
+  //   print(list.length);
+  //   print("object8");
+  //   for (AddTransactionModel item in list) {
+  //     var now = DateTime.now();
+  //     print("object3");
+  //     var date = DateFormat("dd/MM/yyyy", "en").parse(item.transactionDate!);
+  //
+  //     int myCounter = 0;
+  //     switch (item.repeated?.name) {
+  //       case "daily":
+  //         myCounter = calculateDifferenceInDays(date);
+  //         break;
+  //       case "weekly":
+  //         myCounter = calculateDifferenceInWeeks(date);
+  //         break;
+  //       case "monthly":
+  //         myCounter = calculateDifferenceInMonths(date);
+  //         break;
+  //       case "quarterly":
+  //         myCounter = calculateDifferenceInQuarterYears(date);
+  //         break;
+  //       case "SemiAnnually":
+  //         myCounter = calculateDifferenceInSemiAnnually(date);
+  //         break;
+  //       case "annually":
+  //         myCounter = calculateDifferenceInAnnually(date);
+  //         break;
+  //     }
+  //     print("myCounter $myCounter");
+  //
+  //     if(item.transactionName == "الاهداف المالية المستهدفة"){
+  //       print("item.transactionName =="+ "الاهداف المالية المستهدفة");
+  //       if (item.requiredValue! < item.incomeSource!.totalBalance!) {
+  //         if (item.repeated != null) {
+  //           print("object4");
+  //           var targetModel = AddTransactionModel(
+  //             image: item.image,
+  //             total: item.total,
+  //             amount: item.amount,
+  //             time: item.time,
+  //             description: item.description,
+  //             putReminderInWallet: item.putReminderInWallet,
+  //             notify: item.notify,
+  //             requiredValue: item.requiredValue,
+  //             initialValue:
+  //                 item.initialValue! + (item.requiredValue! * myCounter),
+  //             transactionName: item.transactionName,
+  //             priority: item.priority,
+  //             endDate: item.endDate,
+  //             startDate: item.startDate,
+  //             targetValue: item.targetValue,
+  //             transactionType: item.transactionType,
+  //             brandName: item.brandName,
+  //             repeated: item.repeated,
+  //             transactionDate: item.transactionDate,
+  //             unit: item.unit,
+  //             incomeSource: item.incomeSource,
+  //             transactionContent: item.transactionContent,
+  //             budget: item.budget,
+  //             cashTransactionType: item.cashTransactionType,
+  //             completedNotify: item.completedNotify,
+  //             database: item.database,
+  //             ratio: item.ratio,
+  //             targetType: item.targetType,
+  //           );
+  //           box.put(item.key, targetModel);
+  //           print("myCounter $myCounter");
+  //           print("object5");
+  //           double total = item.requiredValue!;
+  //           if (total <= item.incomeSource!.totalBalance!) {
+  //             var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+  //             var currencyBox = Hive.box<CurrencyModel>("currencyBox");
+  //             var currencyList = currencyBox.values.toList();
+  //             var walletList = walletBox.values.toList();
+  //             WalletModel? targetModel = walletList.firstWhere(
+  //               (model) => model.name == item.incomeSource?.name,
+  //             );
+  //             print("object ${targetModel.name}");
+  //             if (targetModel.currency != currencyList[0].mainCurrency) {
+  //               if (targetModel.checkedValue == false) {
+  //                 print("sss");
+  //                 var calculatedTotalBalance =
+  //                     targetModel.totalBalance! - total;
+  //                 targetModel.totalBalance = calculatedTotalBalance;
+  //                 double remain =
+  //                     (calculatedTotalBalance) / currencyList[0].value!;
+  //                 targetModel.remainBalance = remain;
+  //                 await walletBox.put(targetModel.key, targetModel);
+  //               } else {
+  //                 print("mmm");
+  //                 var calculatedTotalBalance =
+  //                     targetModel.totalBalance! - total;
+  //                 targetModel.totalBalance = calculatedTotalBalance;
+  //                 double remain = calculatedTotalBalance;
+  //                 targetModel.remainTotalBalance = remain;
+  //                 await walletBox.put(targetModel.key, targetModel);
+  //               }
+  //             } else {
+  //               print('mmmm');
+  //               var calculatedTotalBalance = targetModel.totalBalance! - total;
+  //               targetModel.totalBalance = calculatedTotalBalance;
+  //               targetModel.balance = targetModel.balance - total;
+  //               await walletBox.put(targetModel.key, targetModel);
+  //             }
+  //             print("balance ${targetModel.totalBalance!}");
+  //             print(item.incomeSource!.balance!);
+  //             print(item.incomeSource!.totalBalance!);
+  //           } else if (total > item.incomeSource!.totalBalance!) {
+  //             print(item.incomeSource!.totalBalance!);
+  //             CustomToast.showSimpleToast(
+  //                 msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
+  //                 color: Colors.red);
+  //           }
+  //         }
+  //       } else {
+  //         var targetModel = AddTransactionModel(
+  //           image: item.image,
+  //           total: item.total,
+  //           amount: item.amount,
+  //           time: item.time,
+  //           description: item.description,
+  //           putReminderInWallet: item.putReminderInWallet,
+  //           notify: item.notify,
+  //           requiredValue: item.requiredValue,
+  //           initialValue: item.initialValue,
+  //           transactionName: item.transactionName,
+  //           priority: item.priority,
+  //           endDate: item.endDate,
+  //           startDate: item.startDate,
+  //           targetValue: item.targetValue,
+  //           transactionType: item.transactionType,
+  //           brandName: item.brandName,
+  //           repeated: item.repeated,
+  //           transactionDate: item.transactionDate,
+  //           unit: item.unit,
+  //           incomeSource: item.incomeSource,
+  //           transactionContent: item.transactionContent,
+  //           budget: item.budget,
+  //           cashTransactionType: item.cashTransactionType,
+  //           completedNotify: item.completedNotify,
+  //           database: item.database,
+  //           ratio: item.ratio,
+  //           targetType: item.targetType,
+  //         );
+  //         box.put(item.key, targetModel);
+  //       }
+  //     }
+  //   }
+  // }
 
-      int myCounter = 0;
-      switch (item.repeated?.name) {
-        case "daily":
-          myCounter = calculateDifferenceInDays(date);
-          break;
-        case "weekly":
-          myCounter = calculateDifferenceInWeeks(date);
-          break;
-        case "monthly":
-          myCounter = calculateDifferenceInMonths(date);
-          break;
-        case "quarterly":
-          myCounter = calculateDifferenceInQuarterYears(date);
-          break;
-        case "SemiAnnually":
-          myCounter = calculateDifferenceInSemiAnnually(date);
-          break;
-        case "annually":
-          myCounter = calculateDifferenceInAnnually(date);
-          break;
-      }
-      print("myCounter $myCounter");
-
-      if(item.transactionName == "الاهداف المالية المستهدفة"){
-        if (item.requiredValue! < item.incomeSource!.totalBalance!) {
-          if (item.repeated != null) {
-            print("object4");
-            var targetModel = AddTransactionModel(
-              image: item.image,
-              total: item.total,
-              amount: item.amount,
-              time: item.time,
-              description: item.description,
-              putReminderInWallet: item.putReminderInWallet,
-              notify: item.notify,
-              requiredValue: item.requiredValue,
-              initialValue:
-                  item.initialValue! + (item.requiredValue! * myCounter),
-              transactionName: item.transactionName,
-              priority: item.priority,
-              endDate: item.endDate,
-              startDate: item.startDate,
-              targetValue: item.targetValue,
-              transactionType: item.transactionType,
-              brandName: item.brandName,
-              repeated: item.repeated,
-              transactionDate: item.transactionDate,
-              unit: item.unit,
-              incomeSource: item.incomeSource,
-              transactionContent: item.transactionContent,
-              budget: item.budget,
-              cashTransactionType: item.cashTransactionType,
-              completedNotify: item.completedNotify,
-              database: item.database,
-              ratio: item.ratio,
-              targetType: item.targetType,
-            );
-            box.put(item.key, targetModel);
-            print("myCounter $myCounter");
-            print("object5");
-            double total = item.requiredValue!;
-            if (total <= item.incomeSource!.totalBalance!) {
-              var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
-              var currencyBox = Hive.box<CurrencyModel>("currencyBox");
-              var currencyList = currencyBox.values.toList();
-              var walletList = walletBox.values.toList();
-              WalletModel? targetModel = walletList.firstWhere(
-                (model) => model.name == item.incomeSource?.name,
-              );
-              print("object ${targetModel.name}");
-              if (targetModel.currency != currencyList[0].mainCurrency) {
-                if (targetModel.checkedValue == false) {
-                  print("sss");
-                  var calculatedTotalBalance =
-                      targetModel.totalBalance! - total;
-                  targetModel.totalBalance = calculatedTotalBalance;
-                  double remain =
-                      (calculatedTotalBalance) / currencyList[0].value!;
-                  targetModel.remainBalance = remain;
-                  await walletBox.put(targetModel.key, targetModel);
-                } else {
-                  print("mmm");
-                  var calculatedTotalBalance =
-                      targetModel.totalBalance! - total;
-                  targetModel.totalBalance = calculatedTotalBalance;
-                  double remain = calculatedTotalBalance;
-                  targetModel.remainTotalBalance = remain;
-                  await walletBox.put(targetModel.key, targetModel);
-                }
-              } else {
-                print('mmmm');
-                var calculatedTotalBalance = targetModel.totalBalance! - total;
-                targetModel.totalBalance = calculatedTotalBalance;
-                targetModel.balance = targetModel.balance - total;
-                await walletBox.put(targetModel.key, targetModel);
-              }
-              print("balance ${targetModel.totalBalance!}");
-              print(item.incomeSource!.balance!);
-              print(item.incomeSource!.totalBalance!);
-            } else if (total > item.incomeSource!.totalBalance!) {
-              print(item.incomeSource!.totalBalance!);
-              CustomToast.showSimpleToast(
-                  msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
-                  color: Colors.red);
-            }
-          }
-        } else {
-          var targetModel = AddTransactionModel(
-            image: item.image,
-            total: item.total,
-            amount: item.amount,
-            time: item.time,
-            description: item.description,
-            putReminderInWallet: item.putReminderInWallet,
-            notify: item.notify,
-            requiredValue: item.requiredValue,
-            initialValue: item.initialValue,
-            transactionName: item.transactionName,
-            priority: item.priority,
-            endDate: item.endDate,
-            startDate: item.startDate,
-            targetValue: item.targetValue,
-            transactionType: item.transactionType,
-            brandName: item.brandName,
-            repeated: item.repeated,
-            transactionDate: item.transactionDate,
-            unit: item.unit,
-            incomeSource: item.incomeSource,
-            transactionContent: item.transactionContent,
-            budget: item.budget,
-            cashTransactionType: item.cashTransactionType,
-            completedNotify: item.completedNotify,
-            database: item.database,
-            ratio: item.ratio,
-            targetType: item.targetType,
-          );
-          box.put(item.key, targetModel);
-        }
-      }
-    }
-  }
+  // static Future<void> repeatTargetTransaction() async {
+  //   var box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
+  //   var list = box.values.toList();
+  //   print(list.length);
+  //   print("object8");
+  //   for (AddTransactionModel item in list) {
+  //     var now = DateTime.now();
+  //     print("object3");
+  //     var date = DateFormat("dd/MM/yyyy", "en").parse(item.startDate!);
+  //     var endDate = DateFormat("dd/MM/yyyy", "en").parse(item.endDate!);
+  //     var startDate = DateFormat("dd/MM/yyyy", "en").parse(item.transactionDate!);
+  //     var endDateString = DateFormat("dd/MM/yyyy", "en").format(endDate);
+  //     var currentDate = DateFormat("dd/MM/yyyy", "en").format(now);
+  //     if(endDateString == currentDate){
+  //       print("trueDate");
+  //     }
+  //     int myCounter = 0;
+  //     switch (item.repeated?.name){
+  //       case "daily":
+  //         myCounter = calculateDifferenceInDays(date);
+  //         break;
+  //       case "weekly":
+  //         myCounter = calculateDifferenceInWeeks(date);
+  //         break;
+  //       case "monthly":
+  //         myCounter = calculateDifferenceInMonths(date);
+  //         break;
+  //       case "quarterly":
+  //         myCounter = calculateDifferenceInQuarterYears(date);
+  //         break;
+  //       case "SemiAnnually":
+  //         myCounter = calculateDifferenceInSemiAnnually(date);
+  //         break;
+  //       case "annually":
+  //         myCounter = calculateDifferenceInAnnually(date);
+  //         break;
+  //     }
+  //
+  //     int totalCounter = 0;
+  //     switch (item.repeated?.name){
+  //       case "daily":
+  //         totalCounter = calculateTotalDifferenceInDays(startDate,endDate);
+  //         break;
+  //       case "weekly":
+  //         totalCounter = calculateTotalDifferenceInWeeks(startDate,endDate);
+  //         break;
+  //       case "monthly":
+  //         totalCounter = calculateTotalDifferenceInMonths(startDate,endDate);
+  //         break;
+  //       case "quarterly":
+  //         totalCounter = calculateTotalDifferenceInQuarterYears(startDate,endDate);
+  //         break;
+  //       case "SemiAnnually":
+  //         totalCounter = calculateTotalDifferenceInSemiAnnually(startDate,endDate);
+  //         break;
+  //       case "annually":
+  //         totalCounter = calculateTotalDifferenceInAnnually(startDate,endDate);
+  //         break;
+  //     }
+  //     print("myCounter $myCounter");
+  //     print("totalCounter $totalCounter");
+  //     if (item.repeated != null&& item.transactionName == "الاهداف المالية المستهدفة") {
+  //       print("object4");
+  //       if(endDateString != currentDate){
+  //         var targetModel = AddTransactionModel(
+  //           image: item.image,
+  //           total: item.total,
+  //           amount: item.amount,
+  //           time: item.time,
+  //           description: item.description,
+  //           putReminderInWallet: item.putReminderInWallet,
+  //           notify: item.notify,
+  //           requiredValue: item.requiredValue,
+  //           initialValue:
+  //           item.initialValue! + (item.requiredValue! * myCounter),
+  //           transactionName: item.transactionName,
+  //           priority: item.priority,
+  //           endDate: item.endDate,
+  //           startDate: DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
+  //           targetValue: item.targetValue,
+  //           transactionType: item.transactionType,
+  //           brandName: item.brandName,
+  //           repeated: item.repeated,
+  //           transactionDate: item.transactionDate,
+  //           unit: item.unit,
+  //           incomeSource: item.incomeSource,
+  //           transactionContent: item.transactionContent,
+  //           budget: item.budget,
+  //           cashTransactionType: item.cashTransactionType,
+  //           completedNotify: item.completedNotify,
+  //           initialStaticValue: item.initialStaticValue,
+  //           database: item.database,
+  //           ratio: item.ratio,
+  //           targetType: item.targetType,
+  //         );
+  //         box.put(item.key, targetModel);
+  //         print("myCounter $myCounter");
+  //         print("object5");
+  //         double total = item.requiredValue!;
+  //         if (total <= item.incomeSource!.totalBalance!) {
+  //           print("object6");
+  //           var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+  //           var walletList = walletBox.values.toList();
+  //           WalletModel? targetModel = walletList.firstWhere(
+  //                 (model) => model.name == item.incomeSource?.name,
+  //           );
+  //           print("object ${targetModel.name}");
+  //           targetModel.totalBalance = targetModel.totalBalance! - total;
+  //           print("balance ${targetModel.totalBalance!}");
+  //           await walletBox.put(targetModel.key, targetModel);
+  //           print(item.incomeSource!.totalBalance!);
+  //         } else {
+  //           CustomToast.showSimpleToast(msg: "msg");
+  //         }
+  //       }else{
+  //         print("initVal ${item.initialStaticValue}");
+  //         print("initVal1 ${item.initialValue}");
+  //         print("initDate ${item.transactionDate}");
+  //         var targetModel = AddTransactionModel(
+  //           image: item.image,
+  //           total: item.total,
+  //           amount: item.amount,
+  //           time: item.time,
+  //           description: item.description,
+  //           putReminderInWallet: item.putReminderInWallet,
+  //           notify: item.notify,
+  //           requiredValue: item.requiredValue,
+  //           initialValue:
+  //           item.initialStaticValue! + (item.requiredValue! * totalCounter),
+  //           transactionName: item.transactionName,
+  //           priority: item.priority,
+  //           endDate: item.endDate,
+  //           initialStaticValue: item.initialStaticValue,
+  //           startDate: DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
+  //           targetValue: item.targetValue,
+  //           transactionType: item.transactionType,
+  //           brandName: item.brandName,
+  //           repeated: null,
+  //           transactionDate: item.transactionDate,
+  //           unit: item.unit,
+  //           incomeSource: item.incomeSource,
+  //           transactionContent: item.transactionContent,
+  //           budget: item.budget,
+  //           cashTransactionType: item.cashTransactionType,
+  //           completedNotify: item.completedNotify,
+  //           database: item.database,
+  //           ratio: item.ratio,
+  //           targetType: item.targetType,
+  //         );
+  //         box.put(item.key, targetModel);
+  //         print("myCounter $myCounter");
+  //         print("object5");
+  //         double total = item.requiredValue!;
+  //         if (total <= item.incomeSource!.totalBalance!) {
+  //           print("object6");
+  //           var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+  //           var walletList = walletBox.values.toList();
+  //           WalletModel? targetModel = walletList.firstWhere(
+  //                 (model) => model.name == item.incomeSource?.name,
+  //           );
+  //           print("object ${targetModel.name}");
+  //           targetModel.totalBalance = targetModel.totalBalance! - total;
+  //           print("balance ${targetModel.totalBalance!}");
+  //           await walletBox.put(targetModel.key, targetModel);
+  //           print(item.incomeSource!.totalBalance!);
+  //         } else {
+  //           CustomToast.showSimpleToast(msg: "msg");
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
   static Future<void> repeatWallet() async {
     var box = await Hive.openBox<WalletModel>(walletDatabaseBox);

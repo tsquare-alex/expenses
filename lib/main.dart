@@ -82,7 +82,7 @@ Future<void> main() async {
 
   await initializeDateFormatting('en');
 
- Utils.repeatTransaction();
+ // Utils.repeatTransaction();
  Utils.repeatTargetTransaction();
  // Utils.repeatWallet();
 

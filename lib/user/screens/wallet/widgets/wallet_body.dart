@@ -4,6 +4,7 @@ import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
+import 'package:expenses/general/utilities/utils_functions/decimal_format.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
@@ -100,7 +101,9 @@ class _WalletBodyState extends State<WalletBody> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                "$totalBalance",
+                                totalBalance
+                                    .toString()
+                                    .formatToDecimal(context: context),
                                 style: TextStyle(
                                   fontSize: 32.sp,
                                   fontWeight: FontWeight.bold,
@@ -142,7 +145,7 @@ class _WalletBodyState extends State<WalletBody> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.r)),
               onPressed: () {
-                AutoRouter.of(context).push( WalletCategoryRoute());
+                AutoRouter.of(context).push(WalletCategoryRoute());
               },
               backgroundColor: MyColors.primary,
               child: Icon(

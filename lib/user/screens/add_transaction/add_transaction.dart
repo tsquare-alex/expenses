@@ -78,7 +78,7 @@ class _AddTransactionState extends State<AddTransaction> {
               BuildTransactionType(addTransactionData: data, type: widget.transactionName??"", model: widget.model!, boxName: widget.boxName??"",),
               BuildTransactionInputs(addTransactionData: data, type: widget.transactionName??"",),
               BuildAddProductPhoto(data: data,),
-              BuildTransactionDate(data: data,type: widget.transactionName??""),
+              if(widget.transactionName!="الاهداف المالية المستهدفة")BuildTransactionDate(data: data,type: widget.transactionName??""),
               BuildIterateTransaction(addTransactionData: data,type: widget.transactionName??"",),
               BuildTransactionButton(data: data,type: widget.transactionName??"", transactionType: widget.model!,),
 

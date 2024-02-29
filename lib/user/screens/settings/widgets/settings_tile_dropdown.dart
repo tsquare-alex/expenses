@@ -38,7 +38,7 @@ class TileDropdownButton extends StatelessWidget {
             value: value,
             alignment: AlignmentDirectional.center,
             child: MyText(
-              title: value.toString(),
+              title: tr(context, value.toString()).isNotEmpty?tr(context, value.toString()):value.toString(),
               color: context.watch<AppThemeCubit>().isDarkMode
                   ? Colors.lightBlue[200]
                   : MyColors.primary,

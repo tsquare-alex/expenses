@@ -44,13 +44,14 @@ class AddTransactionModelAdapter extends TypeAdapter<AddTransactionModel> {
       putReminderInWallet: fields[24] as bool?,
       ratio: fields[25] as DropdownModel?,
       description: fields[26] as String?,
+      initialStaticValue: fields[27] as double?,
     );
   }
 
   @override
   void write(BinaryWriter writer, AddTransactionModel obj) {
     writer
-      ..writeByte(27)
+      ..writeByte(28)
       ..writeByte(0)
       ..write(obj.transactionName)
       ..writeByte(1)
@@ -104,7 +105,9 @@ class AddTransactionModelAdapter extends TypeAdapter<AddTransactionModel> {
       ..writeByte(25)
       ..write(obj.ratio)
       ..writeByte(26)
-      ..write(obj.description);
+      ..write(obj.description)
+      ..writeByte(27)
+      ..write(obj.initialStaticValue);
   }
 
   @override

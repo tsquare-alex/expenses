@@ -80,6 +80,10 @@ Future<void> main() async {
   Utils.repeatTargetTransaction();
   Utils.repeatWallet();
 
+ // Utils.repeatTransaction();
+ Utils.repeatTargetTransaction();
+ // Utils.repeatWallet();
+
   runApp(BlocProvider(
     create: (BuildContext context) => LangCubit(),
     child: Phoenix(child: const MyApp()),

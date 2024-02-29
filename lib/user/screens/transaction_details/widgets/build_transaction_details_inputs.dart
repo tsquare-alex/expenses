@@ -334,7 +334,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                 )
               ],
             ),
-          Row(
+          if(model.transactionName!="الاهداف المالية المستهدفة")Row(
             children: [
               //Icon(Icons.date_range,color: MyColors.primary,),
               Column(
@@ -424,9 +424,10 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
             Column(
               children: [
                 GenericTextField(
-                  onTab: () => transactionDetailsData.onSelectStartDate(
-                    context,
-                  ),
+                  // onTab: () => transactionDetailsData.onSelectStartDate(
+                  //   context,
+                  // ),
+                  onTab: (){},
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 20.r, vertical: 10.r),
                   radius: 10.r,
@@ -753,125 +754,128 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                     );
                   },
                 ),
-                BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
-                  bloc: transactionDetailsData.remainderCubit,
-                  builder: (context, state1) {
-                    return Container(
-                      padding: EdgeInsets.all(10.r),
-                      margin: EdgeInsets.symmetric(vertical: 10.r),
-                      decoration: BoxDecoration(
-                        color: context.watch<AppThemeCubit>().isDarkMode
-                            ? MyColors.greyWhite
-                            : MyColors.backgroundColor,
-                        borderRadius: BorderRadius.circular(15.r),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              children: [
-                                MyText(
-                                  title: tr(context, "putRemainderInWallet"),
-                                  color: context.watch<AppThemeCubit>().isDarkMode
-                                      ? MyColors.white
-                                      : MyColors.black,
-                                  size: 14.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          CupertinoSwitch(
-                            activeColor: MyColors.primary,
-                            trackColor: MyColors.blackOpacity,
-                            value: state1.data,
-                            onChanged: (value) {
-                              transactionDetailsData.remainderCubit
-                                  .onUpdateData(value);
-                            },
-                          )
-                        ],
-                      ),
-                    );
-                  },
+                Text(
+                  "${model.transactionName}"
                 ),
-                BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
-                  bloc: transactionDetailsData.ratioCubit,
-                  builder: (context, state) {
-                    return Container(
-                      padding: EdgeInsets.all(10.r),
-                      margin: EdgeInsets.symmetric(vertical: 10.r),
-                      decoration: BoxDecoration(
-                        color: context.watch<AppThemeCubit>().isDarkMode
-                            ? MyColors.greyWhite
-                            : MyColors.backgroundColor,
-                        borderRadius: BorderRadius.circular(15.r),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              children: [
-                                MyText(
-                                  title: tr(context, "completedNotify"),
-                                  color: context.watch<AppThemeCubit>().isDarkMode
-                                      ? MyColors.white
-                                      : MyColors.black,
-                                  size: 14.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                SizedBox(
-                                  width: 5.w,
-                                ),
-                                if (state.data == true)
-                                  Expanded(
-                                    child: DropdownTextField<DropdownModel>(
-                                      dropKey:
-                                          transactionDetailsData.ratioDropKey,
-                                      label: tr(context, "ratio"),
-                                      selectedItem:
-                                          transactionDetailsData.selectedRatio,
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 5),
-                                      validate: (value) {
-                                        if (value == null) {
-                                          print("Please fill this field");
-                                        }
-                                      },
-                                      onChange:
-                                          transactionDetailsData.setSelectRatio,
-                                      finData: (data) => transactionDetailsData
-                                          .getRatio(context),
-                                      useName: true,
-                                      buttonsColor: MyColors.primary,
-                                      searchHint: tr(context, "search"),
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: 8.w,
-                          ),
-                          CupertinoSwitch(
-                            activeColor: MyColors.primary,
-                            trackColor: MyColors.blackOpacity,
-                            value: state.data,
-                            onChanged: (value) {
-                              transactionDetailsData.ratioCubit
-                                  .onUpdateData(value);
-                            },
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                ),
+                // BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+                //   bloc: transactionDetailsData.remainderCubit,
+                //   builder: (context, state1) {
+                //     return Container(
+                //       padding: EdgeInsets.all(10.r),
+                //       margin: EdgeInsets.symmetric(vertical: 10.r),
+                //       decoration: BoxDecoration(
+                //         color: context.watch<AppThemeCubit>().isDarkMode
+                //             ? MyColors.greyWhite
+                //             : MyColors.backgroundColor,
+                //         borderRadius: BorderRadius.circular(15.r),
+                //       ),
+                //       child: Row(
+                //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //         children: [
+                //           Expanded(
+                //             child: Row(
+                //               children: [
+                //                 MyText(
+                //                   title: tr(context, "putRemainderInWallet"),
+                //                   color: context.watch<AppThemeCubit>().isDarkMode
+                //                       ? MyColors.white
+                //                       : MyColors.black,
+                //                   size: 14.sp,
+                //                   fontWeight: FontWeight.bold,
+                //                 ),
+                //               ],
+                //             ),
+                //           ),
+                //           SizedBox(
+                //             width: 5.w,
+                //           ),
+                //           CupertinoSwitch(
+                //             activeColor: MyColors.primary,
+                //             trackColor: MyColors.blackOpacity,
+                //             value: state1.data,
+                //             onChanged: (value) {
+                //               transactionDetailsData.remainderCubit
+                //                   .onUpdateData(value);
+                //             },
+                //           )
+                //         ],
+                //       ),
+                //     );
+                //   },
+                // ),
+                // BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+                //   bloc: transactionDetailsData.ratioCubit,
+                //   builder: (context, state) {
+                //     return Container(
+                //       padding: EdgeInsets.all(10.r),
+                //       margin: EdgeInsets.symmetric(vertical: 10.r),
+                //       decoration: BoxDecoration(
+                //         color: context.watch<AppThemeCubit>().isDarkMode
+                //             ? MyColors.greyWhite
+                //             : MyColors.backgroundColor,
+                //         borderRadius: BorderRadius.circular(15.r),
+                //       ),
+                //       child: Row(
+                //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //         children: [
+                //           Expanded(
+                //             child: Row(
+                //               children: [
+                //                 MyText(
+                //                   title: tr(context, "completedNotify"),
+                //                   color: context.watch<AppThemeCubit>().isDarkMode
+                //                       ? MyColors.white
+                //                       : MyColors.black,
+                //                   size: 14.sp,
+                //                   fontWeight: FontWeight.bold,
+                //                 ),
+                //                 SizedBox(
+                //                   width: 5.w,
+                //                 ),
+                //                 if (state.data == true)
+                //                   Expanded(
+                //                     child: DropdownTextField<DropdownModel>(
+                //                       dropKey:
+                //                           transactionDetailsData.ratioDropKey,
+                //                       label: tr(context, "ratio"),
+                //                       selectedItem:
+                //                           transactionDetailsData.selectedRatio,
+                //                       margin: const EdgeInsets.symmetric(
+                //                           vertical: 5),
+                //                       validate: (value) {
+                //                         if (value == null) {
+                //                           print("Please fill this field");
+                //                         }
+                //                       },
+                //                       onChange:
+                //                           transactionDetailsData.setSelectRatio,
+                //                       finData: (data) => transactionDetailsData
+                //                           .getRatio(context),
+                //                       useName: true,
+                //                       buttonsColor: MyColors.primary,
+                //                       searchHint: tr(context, "search"),
+                //                     ),
+                //                   ),
+                //               ],
+                //             ),
+                //           ),
+                //           SizedBox(
+                //             width: 8.w,
+                //           ),
+                //           CupertinoSwitch(
+                //             activeColor: MyColors.primary,
+                //             trackColor: MyColors.blackOpacity,
+                //             value: state.data,
+                //             onChanged: (value) {
+                //               transactionDetailsData.ratioCubit
+                //                   .onUpdateData(value);
+                //             },
+                //           )
+                //         ],
+                //       ),
+                //     );
+                //   },
+                // ),
               ],
             ),
         ],

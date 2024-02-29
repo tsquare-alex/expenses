@@ -21,10 +21,14 @@ class WalletTransactionsData{
             child: Container(
               padding: EdgeInsets.all(10.r),
               margin: EdgeInsets.symmetric(vertical:10.r),
-              color: MyColors.greyWhite,
+              color: context.read<AppThemeCubit>().isDarkMode
+                  ? MyColors.greyWhite
+                  :MyColors.black,
               width: double.infinity,
               child: Center(
-                child: MyText(title: "تعديل المعاملة", color: MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,alien: TextAlign.center,),
+                child: MyText(title: "تعديل المعاملة", color: context.read<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    :MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,alien: TextAlign.center,),
               ),
             ),
           ),
@@ -36,10 +40,14 @@ class WalletTransactionsData{
             child: Container(
               padding: EdgeInsets.all(10.r),
               margin: EdgeInsets.symmetric(vertical:10.r),
-              color: MyColors.greyWhite,
+              color: context.read<AppThemeCubit>().isDarkMode
+                  ? MyColors.greyWhite
+                  :MyColors.black,
               width: double.infinity,
               child: Center(
-                child: MyText(title: "حذف المعاملة", color: MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,alien: TextAlign.center,),
+                child: MyText(title: "حذف المعاملة", color: context.read<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    :MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,alien: TextAlign.center,),
               ),
             ),
           ),
@@ -52,10 +60,14 @@ class WalletTransactionsData{
             child: Container(
               padding: EdgeInsets.all(10.r),
               margin: EdgeInsets.symmetric(vertical:10.r),
-              color: MyColors.greyWhite,
+              color: context.read<AppThemeCubit>().isDarkMode
+                  ? MyColors.greyWhite
+                  :MyColors.black,
               width: double.infinity,
               child: Center(
-                child: MyText(title: "تحويل المعاملة الي محفظة اخري", color: MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,alien: TextAlign.center,),
+                child: MyText(title: "تحويل المعاملة الي محفظة اخري", color: context.read<AppThemeCubit>().isDarkMode
+                    ? MyColors.white
+                    :MyColors.black, size: 13.sp,fontWeight: FontWeight.bold,alien: TextAlign.center,),
               ),
             ),
           ),
@@ -66,7 +78,9 @@ class WalletTransactionsData{
           title: MyText(
             title: "Cancel",
             size: 14.sp,
-            color: MyColors.secondary,
+            color: context.read<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                :MyColors.black,
             fontWeight: FontWeight.bold,
           )),
     );

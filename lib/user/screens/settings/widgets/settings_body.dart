@@ -294,30 +294,66 @@ class SettingsBody extends StatelessWidget {
                           TextButton(
                             onPressed: () {
                               Navigator.pop(context);
-                              AppThemeCubit.get(context).changeDecimals();
+                              AppThemeCubit.get(context).decimalValue = '0';
+                              AppThemeCubit.get(context).setDecimalValue();
                             },
                             child: MyText(
-                              title: NumberFormat.decimalPattern().format(1234),
-                              color: context.watch<AppThemeCubit>().isDarkMode
-                                  ? Colors.lightBlue[200]
-                                  : MyColors.primary,
+                              title: '1,234',
+                              color: AppThemeCubit.get(context).decimalValue !=
+                                      '0'
+                                  ? Colors.grey
+                                  : context.watch<AppThemeCubit>().isDarkMode
+                                      ? Colors.lightBlue[200]
+                                      : MyColors.primary,
                               size: 14.sp,
-                              fontWeight: FontWeight.bold,
+                              fontWeight:
+                                  AppThemeCubit.get(context).decimalValue != '0'
+                                      ? null
+                                      : FontWeight.bold,
                             ),
                           ),
                           TextButton(
                             onPressed: () {
                               Navigator.pop(context);
-                              AppThemeCubit.get(context)
-                                  .enableDecimalFormatting = false;
+                              AppThemeCubit.get(context).decimalValue = '0.0';
+                              AppThemeCubit.get(context).setDecimalValue();
                             },
                             child: MyText(
-                              title: '1234',
-                              color: context.watch<AppThemeCubit>().isDarkMode
-                                  ? Colors.lightBlue[200]
-                                  : MyColors.primary,
+                              title: '1,234.0',
+                              color: AppThemeCubit.get(context).decimalValue !=
+                                      '0.0'
+                                  ? Colors.grey
+                                  : context.watch<AppThemeCubit>().isDarkMode
+                                      ? Colors.lightBlue[200]
+                                      : MyColors.primary,
                               size: 14.sp,
-                              fontWeight: FontWeight.bold,
+                              fontWeight:
+                                  AppThemeCubit.get(context).decimalValue !=
+                                          '0.0'
+                                      ? null
+                                      : FontWeight.bold,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              AppThemeCubit.get(context).decimalValue = '0.00';
+                              AppThemeCubit.get(context).setDecimalValue();
+                            },
+                            child: MyText(
+                              title: '1,234.00',
+                              color: AppThemeCubit.get(context).decimalValue !=
+                                      '0.00'
+                                  ? Colors.grey
+                                  : context.watch<AppThemeCubit>().isDarkMode
+                                      ? Colors.lightBlue[200]
+                                      : MyColors.primary,
+                              size: 14.sp,
+                              fontWeight:
+                                  AppThemeCubit.get(context).decimalValue !=
+                                          '0.00'
+                                      ? null
+                                      : FontWeight.bold,
                             ),
                           ),
                         ],
@@ -567,10 +603,85 @@ class SettingsBody extends StatelessWidget {
         //   ],
         // ),
         GestureDetector(
-          onTap: () => data.settingsDialog(
+          onTap: () async => showDialog(
             context: context,
-            dialogList: data.saveFormat,
-            title: tr(context, 'save'),
+            builder: (context) {
+              return AlertDialog(
+                contentPadding: EdgeInsets.all(16.r),
+                content: SizedBox(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: Center(
+                          child: MyText(
+                            title: tr(context, 'save'),
+                            color: context.watch<AppThemeCubit>().isDarkMode
+                                ? Colors.lightBlue[200]
+                                : MyColors.primary,
+                            fontWeight: FontWeight.bold,
+                            size: 18.sp,
+                          ),
+                        ),
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              AppThemeCubit.get(context).saveMethod =
+                                  SaveMethods.excel.name;
+                              AppThemeCubit.get(context).setSaveMethod();
+                            },
+                            child: MyText(
+                              title: SaveMethods.excel.method,
+                              color: AppThemeCubit.get(context).saveMethod !=
+                                      SaveMethods.excel.name
+                                  ? Colors.grey
+                                  : context.watch<AppThemeCubit>().isDarkMode
+                                      ? Colors.lightBlue[200]
+                                      : MyColors.primary,
+                              size: 14.sp,
+                              fontWeight:
+                                  AppThemeCubit.get(context).saveMethod !=
+                                          SaveMethods.excel.name
+                                      ? null
+                                      : FontWeight.bold,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              AppThemeCubit.get(context).saveMethod =
+                                  SaveMethods.pdf.name;
+                              AppThemeCubit.get(context).setSaveMethod();
+                            },
+                            child: MyText(
+                              title: SaveMethods.pdf.method,
+                              color: AppThemeCubit.get(context).saveMethod !=
+                                      SaveMethods.pdf.name
+                                  ? Colors.grey
+                                  : context.watch<AppThemeCubit>().isDarkMode
+                                      ? Colors.lightBlue[200]
+                                      : MyColors.primary,
+                              size: 14.sp,
+                              fontWeight:
+                                  AppThemeCubit.get(context).saveMethod !=
+                                          SaveMethods.pdf.name
+                                      ? null
+                                      : FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                surfaceTintColor: MyColors.white,
+              );
+            },
           ),
           child: SettingTile(
             child: Padding(

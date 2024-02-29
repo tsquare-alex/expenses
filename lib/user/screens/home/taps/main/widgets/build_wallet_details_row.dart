@@ -81,7 +81,7 @@ class WalletDetailsRow extends StatelessWidget {
                 context
                     .read<ReportsCubit>()
                     .spentMoney
-                    .toStringAsFixed(0)
+                    .toString()
                     .formatToDecimal(context: context),
                 style: TextStyle(
                   fontSize: 16.sp,
@@ -113,10 +113,11 @@ class WalletDetailsRow extends StatelessWidget {
                               ? null
                               : context.watch<ReportsCubit>().selectedWallet,
                       hint: Text(
-                        tr(context, 'wallet'),
+                        tr(context, 'source'),
                         style: TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.bold,
+                          overflow: TextOverflow.ellipsis,
                           color: Colors.grey,
                         ),
                       ),
@@ -129,11 +130,12 @@ class WalletDetailsRow extends StatelessWidget {
                             DropdownMenuItem(
                               value: 'all',
                               child: Text(
-                                tr(context, 'allWallets'),
+                                tr(context, 'all'),
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             )
@@ -149,6 +151,7 @@ class WalletDetailsRow extends StatelessWidget {
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.grey,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
                                 ),
@@ -211,7 +214,7 @@ class WalletDetailsRow extends StatelessWidget {
                 context
                     .read<ReportsCubit>()
                     .residualMoney
-                    .toStringAsFixed(0)
+                    .toString()
                     .formatToDecimal(context: context),
                 style: TextStyle(
                   fontSize: 16.sp,

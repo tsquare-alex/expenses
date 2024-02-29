@@ -5,6 +5,7 @@ import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
+import 'package:expenses/general/utilities/utils_functions/decimal_format.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_cubit.dart';
@@ -136,7 +137,9 @@ class _ItemBudgetState extends State<ItemBudget> {
                     Row(
                       children: [
                         Text(
-                          "${widget.model.budgetValue}",
+                          widget.model.budgetValue
+                              .toString()
+                              .formatToDecimal(context: context),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,

@@ -1,7 +1,6 @@
 import 'package:expenses/general/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/MyColors.dart';
 
@@ -19,10 +18,7 @@ class AppThemes {
     ),
     focusColor: MyColors.primary,
     primaryColor: MyColors.primary,
-    fontFamily: GoogleFonts.tajawal().fontFamily,
-    textTheme: TextTheme(
-      titleMedium: GoogleFonts.tajawal(fontSize: 14),
-    ),
+    fontFamily: 'Tajawal',
     colorScheme: const ColorScheme.light(),
     appBarTheme: AppBarTheme(
       backgroundColor: MyColors.primary,
@@ -48,10 +44,7 @@ class AppThemes {
     ),
     focusColor: MyColors.primary,
     primaryColor: MyColors.primary,
-    fontFamily: GoogleFonts.tajawal().fontFamily,
-    textTheme: TextTheme(
-      titleMedium: GoogleFonts.tajawal(fontSize: 14),
-    ),
+    fontFamily: 'Tajawal',
     scaffoldBackgroundColor: AppDarkColors.backgroundColor,
     colorScheme: const ColorScheme.dark(),
     appBarTheme: AppBarTheme(

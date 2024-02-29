@@ -34,12 +34,12 @@ class _EditWalletState extends State<EditWallet> {
   var formKey = GlobalKey<FormState>();
   DateTime? selectedDate;
   DateTime? closedDate;
-  bool repeatSwitchValue = false;
+  bool repeatSwitchValue = true;
   double parsedNumber = 0;
   String? selectedValue;
   String? secValue;
   String? selectMainCurrency;
-
+  bool isRepated = false;
   bool isFirstValidationError = false;
   bool isSecondValidationError = false;
   bool notificationSwitchvalu = false;
@@ -50,6 +50,7 @@ class _EditWalletState extends State<EditWallet> {
   TextEditingController noteController = TextEditingController();
   TextEditingController closeDateController = TextEditingController();
   TextEditingController openDateController = TextEditingController();
+  TextEditingController repatedWalletController = TextEditingController();
 
   @override
   void initState() {
@@ -58,6 +59,11 @@ class _EditWalletState extends State<EditWallet> {
     valueCategoryController.text = widget.model.valueCategory;
     currency.text = widget.model.currency;
     noteController.text = widget.model.addNote;
+    repatedWalletController.text = widget.model.repeatWallet!;
+    print(widget.model.repeatWallet! + """""" """""" """""" """""" "");
+    isRepated = widget.model.walletRepate!;
+    print(widget.model.walletRepate);
+
     super.initState();
   }
 
@@ -681,7 +687,10 @@ class _EditWalletState extends State<EditWallet> {
                               child: TileDropdownButton(
                                   menuList: data.repeatWallet,
                                   value: data.repeatWallet.first,
-                                  onChanged: (value) {}),
+                                  onChanged: (value) {
+                                    repatedWalletController.text =
+                                        value.toString();
+                                  }),
                             ),
                           ),
                           SizedBox(
@@ -701,33 +710,33 @@ class _EditWalletState extends State<EditWallet> {
                       SizedBox(
                         height: 15.h,
                       ),
-                      Visibility(
-                        visible: repeatSwitchValue,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            MyText(
-                                title: tr(
-                                    context, "numberOfTimesToRepeatTheWallet"),
-                                color: context.watch<AppThemeCubit>().isDarkMode
-                                    ? MyColors.white
-                                    : AppDarkColors.backgroundColor,
-                                size: 14.sp),
-                            SizedBox(
-                              width: 150.w,
-                              child: TileDropdownButton(
-                                  menuList: context
-                                      .watch<WalletCubit>()
-                                      .walletDuplicate,
-                                  value: context
-                                      .read<WalletCubit>()
-                                      .walletDuplicate
-                                      .first,
-                                  onChanged: (value) {}),
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Visibility(
+                      //   visible: repeatSwitchValue,
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       MyText(
+                      //           title: tr(
+                      //               context, "numberOfTimesToRepeatTheWallet"),
+                      //           color: context.watch<AppThemeCubit>().isDarkMode
+                      //               ? MyColors.white
+                      //               : AppDarkColors.backgroundColor,
+                      //           size: 14.sp),
+                      //       SizedBox(
+                      //         width: 150.w,
+                      //         child: TileDropdownButton(
+                      //             menuList: context
+                      //                 .watch<WalletCubit>()
+                      //                 .walletDuplicate,
+                      //             value: context
+                      //                 .read<WalletCubit>()
+                      //                 .walletDuplicate
+                      //                 .first,
+                      //             onChanged: (value) {}),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       SizedBox(
                         height: 15.h,
                       ),
@@ -775,6 +784,8 @@ class _EditWalletState extends State<EditWallet> {
                         color: MyColors.primary,
                         onTap: () {
                           if (formKey.currentState!.validate()) {
+                            repatedWalletController = repatedWalletController;
+                            isRepated = repeatSwitchValue;
                             widget.model.balance = parsedNumber;
                             widget.model.valueCategory =
                                 valueCategoryController.text;
@@ -804,6 +815,7 @@ class _EditWalletState extends State<EditWallet> {
                             //     .closedDateController
                             //     .text;
                             widget.model.currency = currency.text;
+
                             // context
                             //     .read<WalletCubit>()
                             //     .currencyController
@@ -850,7 +862,6 @@ class _EditWalletState extends State<EditWallet> {
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
-        // context.read<WalletCubit>().openDateController.text =
         openDateController.text = selectedDate.toString();
       });
     }
@@ -867,8 +878,6 @@ class _EditWalletState extends State<EditWallet> {
     if (picked != null && picked != closedDate) {
       setState(() {
         closedDate = picked;
-
-        // context.read<WalletCubit>().closedDateController.text =
         closeDateController.text = closedDate.toString();
       });
     }

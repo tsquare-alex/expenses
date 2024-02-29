@@ -60,7 +60,6 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
               .wallets
               .map((wallet) => wallet.name)
               .toList();
-
           List<TransactionTypeModel> transaction = context
               .read<BudgetCubit>()
               .transactionShopping
@@ -76,7 +75,6 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
           List<String> firstIconsList = firstContent
               .map((transaction) => transaction.image ?? "")
               .toList();
-
           List<TransactionTypeModel> secTransaction = context
               .read<BudgetCubit>()
               .commitmentsList

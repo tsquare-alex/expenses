@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:expenses/general/blocks/lang_cubit/lang_cubit.dart';
 import 'package:expenses/general/constants/constants.dart';
+import 'package:expenses/general/constants/local_notification/local_notification.dart';
 import 'package:expenses/general/helper/configration/DecorationUtils.dart';
 import 'package:expenses/general/helper/storage/Storage.dart';
 import 'package:expenses/general/models/currency_model/currency_model.dart';
@@ -151,7 +152,7 @@ class Utils {
       print("object3");
       var date = DateFormat("dd/MM/yyyy", "en").parse(item.transactionDate!);
       int myCounter = 0;
-      switch (item.repeated?.name) {
+      switch (item.repeated?.name){
         case "daily":
           myCounter = calculateDifferenceInDays(date);
           break;
@@ -507,6 +508,7 @@ class Utils {
             }
           }
         }
+        // box.delete(item.key);
       }
     }
   }
@@ -567,6 +569,7 @@ class Utils {
             isHide: item.isHide,
             paymentMethod: item.paymentMethod,
             repeatWallet: item.repeatWallet,
+            notificationBalance: item.notificationBalance,
             model: item.model,
             remainBalance: item.remainBalance,
             remainTotalBalance: item.remainBalance,

@@ -521,7 +521,8 @@ class Utils {
     for (WalletModel item in list) {
       var now = DateTime.now();
       print("object3");
-      var date = DateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(item.openDate);
+      // var date = DateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(item.openDate);
+      var date=DateFormat("dd/MM/yyyy", "en").parse(item.openDate);
       int myCounter = 0;
       switch (item.repeatWallet) {
         case "daily":
@@ -607,6 +608,26 @@ class Utils {
           box.add(newModel);
         }
         box.delete(item.key);
+      }
+    }
+  }
+
+  static Future<void> walletNotification() async {
+    var box = await Hive.openBox<WalletModel>(walletDatabaseBox);
+    var walletList = box.values.toList();
+
+    for (WalletModel item in walletList) {
+      print("inside the function+++++++++++++++++++++++++++");
+      if (item.notification == true) {
+        if (item.notificationBalance != null) {
+          if ((item.notificationBalance! * 0.8) > item.totalBalance!) {
+            print("object=>>>>>>>>>>>>>>>>>>>>>>> success");
+            await LocalNotifications.showSimpleNotification(
+                title: "المحافظ",
+                body: "الرصيد اصبح اقل بنسبة 20%",
+                payload: "payload");
+          }
+        }
       }
     }
   }

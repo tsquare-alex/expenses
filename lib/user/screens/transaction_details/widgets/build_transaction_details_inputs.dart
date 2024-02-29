@@ -320,6 +320,8 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                       if (value == null) {
                         print("Please fill this field");
                         return ("Please fill this field");
+                      }else{
+                        return null;
                       }
                     },
                     onChange: transactionDetailsData.setSelectPriority,
@@ -526,7 +528,9 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                           : MyColors.black,
                       validate: (value) {
                         if (value == null) {
-                          print("Please fill this field");
+                          return null;
+                        }else{
+                          return null;
                         }
                       },
                       onChange:
@@ -599,6 +603,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                                         if (value == null) {
                                           print("Please fill this field");
                                         }
+                                        return null;
                                       },
                                       hintColor: context.watch<AppThemeCubit>().isDarkMode
                                           ? MyColors.white
@@ -753,9 +758,6 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                       ),
                     );
                   },
-                ),
-                Text(
-                  "${model.initialStaticValue}"
                 ),
                 // BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
                 //   bloc: transactionDetailsData.remainderCubit,

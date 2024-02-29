@@ -48,6 +48,7 @@ class _BuildCategoryExpansionState extends State<BuildCategoryExpansion> {
   }
 
   bool isExpanded = false;
+  ExpansionTileController controller = ExpansionTileController();
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -60,6 +61,7 @@ class _BuildCategoryExpansionState extends State<BuildCategoryExpansion> {
           ),
         ),
         child: ExpansionTile(
+          controller: controller,
           // trailing: Icon(isExpanded ? Icons.arrow_drop_up_outlined :Icons.arrow_drop_down),
           shape: const RoundedRectangleBorder(
             side: BorderSide(color: Colors.transparent),
@@ -118,6 +120,7 @@ class _BuildCategoryExpansionState extends State<BuildCategoryExpansion> {
                             widget.categoryController.text =
                                 getLocalizedCategory(value!, context);
                             // isExpanded = false;
+                            controller.collapse();
                           });
 
                           print(widget.categoryController.text);

@@ -18,6 +18,7 @@ import 'package:hive/hive.dart';
 class WalletCubit extends Cubit<WalletState> {
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now().add(const Duration(days: 30));
+  final GlobalKey<FormState> formKey = GlobalKey();
 
   WalletCubit() : super(WalletInitial());
 
@@ -39,6 +40,7 @@ class WalletCubit extends Cubit<WalletState> {
   final TextEditingController addCategoryController = TextEditingController();
   final TextEditingController noteController = TextEditingController();
   final TextEditingController currencyController = TextEditingController();
+  final TextEditingController repeatedController = TextEditingController();
 
   List<String> valueCategory = [
     "bankTransfer",
@@ -368,7 +370,7 @@ class WalletCubit extends Cubit<WalletState> {
         return Padding(
           padding: EdgeInsets.all(12.h),
           child: SizedBox(
-            height: 200.h,
+            height: 500.h,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -416,7 +418,7 @@ class WalletCubit extends Cubit<WalletState> {
         return Padding(
           padding: EdgeInsets.all(12.h),
           child: SizedBox(
-            height: 200.h,
+            height: 500.h,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -455,7 +457,7 @@ class WalletCubit extends Cubit<WalletState> {
         return Padding(
           padding: EdgeInsets.all(12.h),
           child: SizedBox(
-            height: 200.h,
+            height: 500.h,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

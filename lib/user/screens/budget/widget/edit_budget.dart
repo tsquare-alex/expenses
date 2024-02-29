@@ -8,6 +8,8 @@ import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
+import 'package:expenses/user/models/transaction_type_model/transaction_content_model.dart';
+import 'package:expenses/user/models/transaction_type_model/transaction_type_model.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_cubit.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_state.dart';
 import 'package:expenses/user/screens/budget/data/model/budget_model.dart';
@@ -26,6 +28,13 @@ class EditBudget extends StatefulWidget {
 }
 
 class _EditBudgetState extends State<EditBudget> {
+  ExpansionTileController transactionController = ExpansionTileController();
+  ExpansionTileController walletController = ExpansionTileController();
+  TextEditingController transactionValueController = TextEditingController();
+  TextEditingController walletNameController = TextEditingController();
+  TextEditingController closeDateController = TextEditingController();
+  TextEditingController openDateController = TextEditingController();
+  TextEditingController noteController = TextEditingController();
   var formKey = GlobalKey<FormState>();
   double parsedNumber = 0;
   bool favorite = false;
@@ -35,6 +44,16 @@ class _EditBudgetState extends State<EditBudget> {
   DateTime? selectedDate;
   DateTime? closedDate;
   String? formattedDate;
+
+  @override
+  void initState() {
+    transactionValueController.text = widget.model.transactionName;
+    walletNameController.text = widget.model.waletName;
+    noteController.text = widget.model.addNote;
+    openDateController.text = widget.model.startBudget;
+    closeDateController.text = widget.model.endBudget;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,11 +75,80 @@ class _EditBudgetState extends State<EditBudget> {
               .wallets
               .map((wallet) => wallet.name)
               .toList();
-          List<String> transactionName = context
+          List<TransactionTypeModel> transaction = context
               .read<BudgetCubit>()
-              .transactioList
-              .map((transaction) => transaction.transactionType?.name ?? "")
+              .transactionShopping
+              .map((transaction) => transaction)
               .toList();
+          List<TransactionContentModel> firstContent = [];
+          for (var element in transaction) {
+            firstContent.addAll(element.content!);
+          }
+          List<String> firstTransaction = firstContent
+              .map((transaction) => transaction.name ?? "")
+              .toList();
+          List<String> firstIconsList = firstContent
+              .map((transaction) => transaction.image ?? "")
+              .toList();
+          List<TransactionTypeModel> secTransaction = context
+              .read<BudgetCubit>()
+              .commitmentsList
+              .map((e) => e)
+              .toList();
+          List<TransactionContentModel> secContent = [];
+          for (var element in secTransaction) {
+            secContent.addAll(element.content!);
+          }
+          List<String> secIconContent =
+              secContent.map((transaction) => transaction.image ?? "").toList();
+          List<String> secTrans =
+              secContent.map((transaction) => transaction.name ?? "").toList();
+          List<TransactionTypeModel> fourthTransaction = context
+              .read<BudgetCubit>()
+              .transactionTargetBBox
+              .map((e) => e)
+              .toList();
+          List<TransactionContentModel> fourthContent = [];
+          for (var element in fourthTransaction) {
+            fourthContent.addAll(element.content!);
+          }
+          List<String> thirdIconsContent = fourthContent
+              .map((transaction) => transaction.image ?? "")
+              .toList();
+          List<String> fourthTrans = fourthContent
+              .map((transaction) => transaction.name ?? "")
+              .toList();
+
+          List<TransactionTypeModel> fifthTransaction = context
+              .read<BudgetCubit>()
+              .cashTransactionBox
+              .map((e) => e)
+              .toList();
+
+          List<TransactionContentModel> fifthContent = [];
+          for (var element in fifthTransaction) {
+            fifthContent.addAll(element.content!);
+          }
+          List<String> fifthIconContent = fifthContent
+              .map((transaction) => transaction.image ?? "")
+              .toList();
+          List<String> fifthTrans = fifthContent
+              .map((transaction) => transaction.name ?? "")
+              .toList();
+
+          List<String> allTransaction = [
+            ...firstTransaction,
+            ...secTrans,
+            ...fourthTrans,
+            ...fifthTrans
+          ];
+
+          List<String> allTransactionsIcons = [
+            ...firstIconsList,
+            ...secIconContent,
+            ...thirdIconsContent,
+            ...fifthIconContent
+          ];
 
           return Scaffold(
             appBar: AppBar(
@@ -101,11 +189,40 @@ class _EditBudgetState extends State<EditBudget> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
-                          title: Text(tr(context, "selectTransaction")),
+                          controller: transactionController,
+                          title: Text(
+                              // context
+                              //       .read<BudgetCubit>()
+                              //       .transactionNameController
+                              //       .text
+                              transactionValueController.text.isNotEmpty
+                                  ? tr(context, transactionValueController.text
+                                              // context
+                                              //     .read<BudgetCubit>()
+                                              //     .transactionNameController
+                                              //     .text
+                                              )
+                                          .isNotEmpty
+                                      ? tr(context,
+                                          transactionValueController.text
+                                          // context
+                                          //     .read<BudgetCubit>()
+                                          //     .transactionNameController
+                                          //     .text
+                                          )
+                                      :
+                                      //  context
+                                      //     .read<BudgetCubit>()
+                                      //     .transactionNameController
+                                      //     .text
+                                      transactionValueController.text
+                                  : tr(context, "selectTransaction")),
                           children: [
-                            ...transactionName.asMap().entries.map(
+                            ...allTransaction.asMap().entries.map(
                               (entry) {
                                 final String item = entry.value;
+                                final int index = entry.key;
+
                                 return Column(
                                   children: [
                                     ListTile(
@@ -115,19 +232,30 @@ class _EditBudgetState extends State<EditBudget> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
+                                          if (index <
+                                              allTransactionsIcons.length)
+                                            Image.asset(
+                                              allTransactionsIcons[index],
+                                              height: 50.h,
+                                              width: 50.w,
+                                            ),
                                           Text(
-                                            item,
+                                            tr(context, item),
                                           ),
                                           Radio<String>(
+                                            activeColor: MyColors.primary,
                                             value: item,
                                             groupValue: selectTransactionValue,
                                             onChanged: (value) {
                                               setState(() {
                                                 selectTransactionValue = value;
-                                                context
-                                                    .read<BudgetCubit>()
-                                                    .transactionNameController
+                                                // context
+                                                //     .read<BudgetCubit>()
+                                                //     .transactionNameController
+                                                transactionValueController
                                                     .text = value.toString();
+                                                transactionController
+                                                    .collapse();
                                               });
                                             },
                                           ),
@@ -155,7 +283,32 @@ class _EditBudgetState extends State<EditBudget> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
-                          title: Text(tr(context, "selectWallet")),
+                          controller: walletController,
+                          title: Text(
+                              // context
+                              //       .read<BudgetCubit>()
+                              //       .walletNameController
+                              walletNameController.text.isNotEmpty
+                                  ? tr(context, walletNameController.text
+                                              // context
+                                              //     .read<BudgetCubit>()
+                                              //     .walletNameController
+                                              //     .text
+                                              )
+                                          .isNotEmpty
+                                      ? tr(context, walletNameController.text
+                                          // context
+                                          //     .read<BudgetCubit>()
+                                          //     .walletNameController
+                                          //     .text
+                                          )
+                                      :
+                                      // context
+                                      //     .read<BudgetCubit>()
+                                      //     .walletNameController
+                                      //     .text
+                                      walletNameController.text
+                                  : tr(context, "selectTheWallet")),
                           children: [
                             ...walletsName.asMap().entries.map(
                               (entry) {
@@ -175,13 +328,16 @@ class _EditBudgetState extends State<EditBudget> {
                                           Radio<String>(
                                             value: item,
                                             groupValue: selectWalletValue,
+                                            activeColor: MyColors.primary,
                                             onChanged: (value) {
                                               setState(() {
                                                 selectWalletValue = value;
-                                                context
-                                                    .read<BudgetCubit>()
-                                                    .walletNameController
-                                                    .text = value.toString();
+                                                // context
+                                                //     .read<BudgetCubit>()
+                                                //     .walletNameController
+                                                walletNameController.text =
+                                                    value.toString();
+                                                walletController.collapse();
                                               });
                                             },
                                           ),
@@ -244,9 +400,11 @@ class _EditBudgetState extends State<EditBudget> {
                                               : tr(context, "from"),
                                           style: TextStyle(
                                             fontSize: 12.sp,
-                                            color: selectedDate != null
-                                                ? Colors.black
-                                                : Colors.grey,
+                                            color: context
+                                                    .watch<AppThemeCubit>()
+                                                    .isDarkMode
+                                                ? MyColors.white
+                                                : MyColors.black,
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
@@ -282,9 +440,11 @@ class _EditBudgetState extends State<EditBudget> {
                                                 : tr(context, "to"),
                                             style: TextStyle(
                                               fontSize: 12.sp,
-                                              color: closedDate != null
-                                                  ? Colors.black
-                                                  : Colors.grey,
+                                              color: context
+                                                      .watch<AppThemeCubit>()
+                                                      .isDarkMode
+                                                  ? MyColors.white
+                                                  : MyColors.black,
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -302,7 +462,7 @@ class _EditBudgetState extends State<EditBudget> {
                       GenericTextField(
                         controller:
                             context.read<BudgetCubit>().budgetValueController,
-                        hint: tr(context, "determiningValue"),
+                        hint: tr(context, "selectValueType"),
                         fieldTypes: FieldTypes.normal,
                         hintColor: context.watch<AppThemeCubit>().isDarkMode
                             ? MyColors.white
@@ -366,8 +526,8 @@ class _EditBudgetState extends State<EditBudget> {
                           SizedBox(
                             width: 284.w,
                             child: GenericTextField(
-                              controller:
-                                  context.read<BudgetCubit>().noteController,
+                              controller: noteController,
+                              // context.read<BudgetCubit>().noteController,
                               hint: tr(context, "youNotes"),
                               maxLength: 9,
                               fieldTypes: FieldTypes.normal,
@@ -378,9 +538,6 @@ class _EditBudgetState extends State<EditBudget> {
                               type: TextInputType.text,
                               action: TextInputAction.next,
                               validate: (text) {
-                                if (text == null || text.isEmpty) {
-                                  return tr(context, "PleaseInputYourNote");
-                                }
                                 return null;
                               },
                               onChange: (value) {},
@@ -444,46 +601,46 @@ class _EditBudgetState extends State<EditBudget> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      Container(
-                        height: 58.h,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: context.watch<AppThemeCubit>().isClosed
-                              ? AppDarkColors.backgroundColor
-                              : Color(0xffF7F7F6),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: MyText(
-                                title: tr(context, "balnceTransactionLessThan"),
-                                color: MyColors.black,
-                                size: 16.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Visibility(
-                              visible: notificationSwitchvalu,
-                              child: SizedBox(
-                                width: 150.w,
-                                child: Container(),
-                              ),
-                            ),
-                            CupertinoSwitch(
-                              value: notificationSwitchvalu,
-                              onChanged: (value) {
-                                setState(() {
-                                  notificationSwitchvalu = value;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
+                      // SizedBox(
+                      //   height: 20.h,
+                      // ),
+                      // Container(
+                      //   height: 58.h,
+                      //   width: double.infinity,
+                      //   decoration: BoxDecoration(
+                      //     color: context.watch<AppThemeCubit>().isClosed
+                      //         ? AppDarkColors.backgroundColor
+                      //         : const Color(0xffF7F7F6),
+                      //   ),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Expanded(
+                      //         child: MyText(
+                      //           title: tr(context, "balnceTransactionLessThan"),
+                      //           color: MyColors.black,
+                      //           size: 16.sp,
+                      //           fontWeight: FontWeight.w500,
+                      //         ),
+                      //       ),
+                      //       Visibility(
+                      //         visible: notificationSwitchvalu,
+                      //         child: SizedBox(
+                      //           width: 150.w,
+                      //           child: Container(),
+                      //         ),
+                      //       ),
+                      //       CupertinoSwitch(
+                      //         value: notificationSwitchvalu,
+                      //         onChanged: (value) {
+                      //           setState(() {
+                      //             notificationSwitchvalu = value;
+                      //           });
+                      //         },
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       SizedBox(
                         height: 20.h,
                       ),
@@ -549,27 +706,41 @@ class _EditBudgetState extends State<EditBudget> {
                               double percentageValue =
                                   deficiency / parsedNumber;
                               if (formKey.currentState!.validate()) {
-                                widget.model.addNote = context
-                                    .read<BudgetCubit>()
-                                    .noteController
-                                    .text;
+                                if (deficiency < 0) {
+                                  return CustomToast.showSimpleToast(
+                                      msg:
+                                          "رصيد الميزانية اقل من رصيد المعاملات");
+                                }
+                                widget.model.addNote = noteController.text;
+                                // context
+                                //     .read<BudgetCubit>()
+                                //     .noteController
+                                //     .text;
                                 widget.model.budgetValue = parsedNumber;
-                                widget.model.endBudget = context
-                                    .read<BudgetCubit>()
-                                    .closeDateController
-                                    .text;
-                                widget.model.transactionName = context
-                                    .read<BudgetCubit>()
-                                    .transactionNameController
-                                    .text;
-                                widget.model.waletName = context
-                                    .read<BudgetCubit>()
-                                    .walletNameController
-                                    .text;
-                                widget.model.startBudget = context
-                                    .read<BudgetCubit>()
-                                    .openDateController
-                                    .text;
+                                widget.model.endBudget =
+                                    closeDateController.text;
+                                // context
+                                //     .read<BudgetCubit>()
+                                //     .closeDateController
+                                //     .text;
+                                widget.model.transactionName =
+                                    transactionValueController.text;
+                                // context
+                                //     .read<BudgetCubit>()
+                                //     .transactionNameController
+                                //     .text;
+                                widget.model.waletName =
+                                    walletNameController.text;
+                                // context
+                                //     .read<BudgetCubit>()
+                                //     .walletNameController
+                                //     .text;
+                                widget.model.startBudget =
+                                    openDateController.text;
+                                // context
+                                //     .read<BudgetCubit>()
+                                //     .openDateController
+                                //     .text;
                                 widget.model.transactionValue =
                                     transactionValue;
                                 widget.model.percentValue = percentageValue;
@@ -579,7 +750,7 @@ class _EditBudgetState extends State<EditBudget> {
                             },
                             height: 57.h,
                             width: 170.w,
-                            title: "add",
+                            title: tr(context, "add"),
                             color: MyColors.primary,
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -594,7 +765,7 @@ class _EditBudgetState extends State<EditBudget> {
                             height: 57.h,
                             width: 170.w,
                             borderColor: MyColors.primary,
-                            title: "cancle",
+                            title: tr(context, "cancel"),
                             textColor: MyColors.primary,
                             color: MyColors.white,
                             fontWeight: FontWeight.bold,
@@ -626,7 +797,7 @@ class _EditBudgetState extends State<EditBudget> {
       setState(() {
         selectedDate = picked;
 
-        context.read<BudgetCubit>().openDateController.text =
+        openDateController.text =
             DateFormat('dd-MM-yyyy').format(selectedDate!);
       });
     }
@@ -644,9 +815,18 @@ class _EditBudgetState extends State<EditBudget> {
       setState(() {
         closedDate = picked;
         formattedDate = DateFormat('dd-MM-yyyy').format(closedDate!);
-        context.read<BudgetCubit>().closeDateController.text =
-            formattedDate.toString();
+        closeDateController.text = formattedDate.toString();
       });
     }
+  }
+
+  @override
+  void dispose() {
+    transactionValueController.clear();
+    walletNameController.clear();
+    openDateController.clear();
+    closeDateController.clear();
+    noteController.clear();
+    super.dispose();
   }
 }

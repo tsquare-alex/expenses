@@ -6,11 +6,13 @@ class FieldSection extends StatelessWidget {
     required this.child,
     this.padding,
     this.radius,
+    this.isBlack = false,
   }) : super(key: key);
 
   final Widget child;
   final double? padding;
   final double? radius;
+  final bool isBlack;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +27,12 @@ class FieldSection extends StatelessWidget {
             : Colors.white,
         border: Border.all(
           color: context.watch<AppThemeCubit>().isDarkMode
-              ? AppDarkColors.accentColor
-              : MyColors.greyWhite,
+              ? isBlack
+                  ? MyColors.offWhite
+                  : AppDarkColors.accentColor
+              : isBlack
+                  ? Colors.black54
+                  : MyColors.greyWhite,
           width: 1.r,
         ),
         boxShadow: [

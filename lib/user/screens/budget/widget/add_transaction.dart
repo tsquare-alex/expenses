@@ -8,6 +8,8 @@ import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
+import 'package:expenses/user/models/transaction_type_model/transaction_content_model.dart';
+import 'package:expenses/user/models/transaction_type_model/transaction_type_model.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_cubit.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_state.dart';
 import 'package:expenses/user/screens/budget/data/model/budget_model.dart';
@@ -25,12 +27,13 @@ class AddTransactionBudget extends StatefulWidget {
 }
 
 class _AddTransactionBudgetState extends State<AddTransactionBudget> {
+  ExpansionTileController transactionController = ExpansionTileController();
+  ExpansionTileController walletController = ExpansionTileController();
   bool favorite = false;
   bool notificationSwitchvalu = false;
 
   var formKey = GlobalKey<FormState>();
   double parsedNumber = 0;
-  // BudgetData data = BudgetData();
   String? selectTransactionValue;
   String? selectWalletValue;
   DateTime? selectedDate;
@@ -57,11 +60,88 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
               .wallets
               .map((wallet) => wallet.name)
               .toList();
-          List<String> transactionName = context
+
+          List<TransactionTypeModel> transaction = context
               .read<BudgetCubit>()
-              .transactioList
-              .map((transaction) => transaction.transactionType?.name ?? "")
+              .transactionShopping
+              .map((transaction) => transaction)
               .toList();
+          List<TransactionContentModel> firstContent = [];
+          for (var element in transaction) {
+            firstContent.addAll(element.content!);
+          }
+          List<String> firstTransaction = firstContent
+              .map((transaction) => transaction.name ?? "")
+              .toList();
+          List<String> firstIconsList = firstContent
+              .map((transaction) => transaction.image ?? "")
+              .toList();
+
+          List<TransactionTypeModel> secTransaction = context
+              .read<BudgetCubit>()
+              .commitmentsList
+              .map((e) => e)
+              .toList();
+
+          List<TransactionContentModel> secContent = [];
+          for (var element in secTransaction) {
+            secContent.addAll(element.content!);
+          }
+          List<String> secIconContent =
+              secContent.map((transaction) => transaction.image ?? "").toList();
+
+          List<String> secTrans =
+              secContent.map((transaction) => transaction.name ?? "").toList();
+
+          List<TransactionTypeModel> fourthTransaction = context
+              .read<BudgetCubit>()
+              .transactionTargetBBox
+              .map((e) => e)
+              .toList();
+
+          List<TransactionContentModel> fourthContent = [];
+          for (var element in fourthTransaction) {
+            fourthContent.addAll(element.content!);
+          }
+
+          List<String> thirdIconsContent = fourthContent
+              .map((transaction) => transaction.image ?? "")
+              .toList();
+
+          List<String> fourthTrans = fourthContent
+              .map((transaction) => transaction.name ?? "")
+              .toList();
+
+          List<TransactionTypeModel> fifthTransaction = context
+              .read<BudgetCubit>()
+              .cashTransactionBox
+              .map((e) => e)
+              .toList();
+
+          List<TransactionContentModel> fifthContent = [];
+          for (var element in fifthTransaction) {
+            fifthContent.addAll(element.content!);
+          }
+          List<String> fifthIconContent = fifthContent
+              .map((transaction) => transaction.image ?? "")
+              .toList();
+          List<String> fifthTrans = fifthContent
+              .map((transaction) => transaction.name ?? "")
+              .toList();
+
+          List<String> allTransaction = [
+            ...firstTransaction,
+            ...secTrans,
+            ...fourthTrans,
+            ...fifthTrans
+          ];
+
+          List<String> allTransactionsIcons = [
+            ...firstIconsList,
+            ...secIconContent,
+            ...thirdIconsContent,
+            ...fifthIconContent
+          ];
 
           return Scaffold(
             appBar: AppBar(
@@ -108,14 +188,44 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
+                          controller: transactionController,
                           shape: const RoundedRectangleBorder(
                             side: BorderSide(color: Colors.transparent),
                           ),
-                          title: Text(tr(context, "selectTransaction")),
+                          title: Text(context
+                                  .read<BudgetCubit>()
+                                  .transactionNameController
+                                  .text
+                                  .isNotEmpty
+                              ? tr(
+                                          context,
+                                          context
+                                              .read<BudgetCubit>()
+                                              .transactionNameController
+                                              .text)
+                                      .isNotEmpty
+                                  ? tr(
+                                      context,
+                                      context
+                                          .read<BudgetCubit>()
+                                          .transactionNameController
+                                          .text)
+                                  : context
+                                      .read<BudgetCubit>()
+                                      .transactionNameController
+                                      .text
+                              : tr(context, "selectTransaction")),
+                          // Text(tr(context, "selectTransaction")),
                           children: [
-                            ...transactionName.asMap().entries.map(
+                            ...allTransaction.asMap().entries.map(
                               (entry) {
                                 final String item = entry.value;
+                                final int index = entry.key;
+                                for (int index = 0;
+                                    index < allTransaction.length;
+                                    index++) {
+                                  {}
+                                }
                                 return Column(
                                   children: [
                                     ListTile(
@@ -125,9 +235,16 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
-                                            item,
-                                          ),
+                                          if (index <
+                                              allTransactionsIcons.length)
+                                            Image.asset(
+                                              allTransactionsIcons[index],
+                                              height: 40.h,
+                                              width: 40.w,
+                                            ),
+                                          Text(tr(context, item).isNotEmpty
+                                              ? tr(context, item)
+                                              : item),
                                           Radio<String>(
                                             activeColor: MyColors.primary,
                                             value: item,
@@ -137,8 +254,10 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                                 selectTransactionValue = value;
                                                 context
                                                     .read<BudgetCubit>()
-                                                    .walletNameController
+                                                    .transactionNameController
                                                     .text = value.toString();
+                                                transactionController
+                                                    .collapse();
                                               });
                                             },
                                           ),
@@ -166,10 +285,33 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
+                          controller: walletController,
                           shape: const RoundedRectangleBorder(
                             side: BorderSide(color: Colors.transparent),
                           ),
-                          title: Text(tr(context, "selectTheWallet")),
+                          title: Text(context
+                                  .read<BudgetCubit>()
+                                  .walletNameController
+                                  .text
+                                  .isNotEmpty
+                              ? tr(
+                                          context,
+                                          context
+                                              .read<BudgetCubit>()
+                                              .walletNameController
+                                              .text)
+                                      .isNotEmpty
+                                  ? tr(
+                                      context,
+                                      context
+                                          .read<BudgetCubit>()
+                                          .walletNameController
+                                          .text)
+                                  : context
+                                      .read<BudgetCubit>()
+                                      .walletNameController
+                                      .text
+                              : tr(context, "selectTheWallet")),
                           children: [
                             ...walletsName.asMap().entries.map(
                               (entry) {
@@ -197,6 +339,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                                     .read<BudgetCubit>()
                                                     .walletNameController
                                                     .text = value.toString();
+                                                walletController.collapse();
                                               });
                                             },
                                           ),
@@ -347,29 +490,29 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                       SizedBox(
                         height: 20.h,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          MyText(
-                              title: tr(context, "transactionRepetition"),
-                              color: context.watch<AppThemeCubit>().isDarkMode
-                                  ? MyColors.white
-                                  : AppDarkColors.backgroundColor,
-                              size: 16.sp),
-                          Checkbox(
-                              activeColor: MyColors.primary,
-                              value: context.read<BudgetCubit>().checkedValue,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  context.read<BudgetCubit>().checkedValue =
-                                      newValue!;
-                                });
-                              })
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     MyText(
+                      //         title: tr(context, "transactionRepetition"),
+                      //         color: context.watch<AppThemeCubit>().isDarkMode
+                      //             ? MyColors.white
+                      //             : AppDarkColors.backgroundColor,
+                      //         size: 16.sp),
+                      //     Checkbox(
+                      //         activeColor: MyColors.primary,
+                      //         value: context.read<BudgetCubit>().checkedValue,
+                      //         onChanged: (newValue) {
+                      //           setState(() {
+                      //             context.read<BudgetCubit>().checkedValue =
+                      //                 newValue!;
+                      //           });
+                      //         })
+                      //   ],
+                      // ),
+                      // SizedBox(
+                      //   height: 20.h,
+                      // ),
                       Row(
                         children: [
                           Text(
@@ -404,9 +547,6 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                               type: TextInputType.text,
                               action: TextInputAction.next,
                               validate: (text) {
-                                if (text == null || text.isEmpty) {
-                                  return tr(context, "PleaseInputYourNote");
-                                }
                                 return null;
                               },
                               onChange: (value) {},
@@ -414,66 +554,108 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(12.r),
-                            height: 58.h,
-                            width: 320.w,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: MyColors.greyWhite,
-                                ),
-                                borderRadius: BorderRadius.circular(12.r)),
-                            child: Row(
-                              children: [
-                                Text(
-                                  tr(context, "addImage"),
-                                  style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: context
-                                            .watch<AppThemeCubit>()
-                                            .isDarkMode
-                                        ? MyColors.white
-                                        : AppDarkColors.backgroundColor,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 100.w,
-                                ),
-                                Image.asset(Res.camera),
-                                SizedBox(
-                                  width: 7.w,
-                                ),
-                                VerticalDivider(
-                                  width: 45.h,
-                                  color: MyColors.grey,
-                                ),
-                                Image.asset(Res.image),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: 12.w,
-                          ),
-                          Container(
-                            height: 57.h,
-                            width: 57.w,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: MyColors.greyWhite,
-                                ),
-                                borderRadius: BorderRadius.circular(12.r)),
-                            child: IconButton(
-                                onPressed: () {},
-                                icon: Image.asset(Res.qrcode)),
-                          ),
-                        ],
-                      ),
+                      // SizedBox(
+                      //   height: 20.h,
+                      // ),
+                      // Row(
+                      //   children: [
+                      //     Container(
+                      //       padding: EdgeInsets.all(12.r),
+                      //       height: 58.h,
+                      //       width: 320.w,
+                      //       decoration: BoxDecoration(
+                      //           border: Border.all(
+                      //             color: MyColors.greyWhite,
+                      //           ),
+                      //           borderRadius: BorderRadius.circular(12.r)),
+                      //       child: Row(
+                      //         children: [
+                      //           Text(
+                      //             tr(context, "addImage"),
+                      //             style: TextStyle(
+                      //               fontSize: 16.sp,
+                      //               fontWeight: FontWeight.w500,
+                      //               color: context
+                      //                       .watch<AppThemeCubit>()
+                      //                       .isDarkMode
+                      //                   ? MyColors.white
+                      //                   : AppDarkColors.backgroundColor,
+                      //             ),
+                      //           ),
+                      //           SizedBox(
+                      //             width: 100.w,
+                      //           ),
+                      //           Image.asset(Res.camera),
+                      //           SizedBox(
+                      //             width: 7.w,
+                      //           ),
+                      //           VerticalDivider(
+                      //             width: 45.h,
+                      //             color: MyColors.grey,
+                      //           ),
+                      //           Image.asset(Res.image),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //     SizedBox(
+                      //       width: 12.w,
+                      //     ),
+                      //     Container(
+                      //       height: 57.h,
+                      //       width: 57.w,
+                      //       decoration: BoxDecoration(
+                      //           border: Border.all(
+                      //             color: MyColors.greyWhite,
+                      //           ),
+                      //           borderRadius: BorderRadius.circular(12.r)),
+                      //       child: IconButton(
+                      //           onPressed: () {},
+                      //           icon: Image.asset(Res.qrcode)),
+                      //     ),
+                      //   ],
+                      // ),
+                      // SizedBox(
+                      //   height: 20.h,
+                      // ),
+                      // Container(
+                      //   height: 58.h,
+                      //   width: double.infinity,
+                      //   decoration: BoxDecoration(
+                      //     color: context.watch<AppThemeCubit>().isDarkMode
+                      //         ? AppDarkColors.backgroundColor
+                      //         : const Color(0xffF7F7F6),
+                      //   ),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Expanded(
+                      //         child: MyText(
+                      //           title: tr(context, "notificationWhenReaching"),
+                      //           color: context.watch<AppThemeCubit>().isDarkMode
+                      //               ? MyColors.white
+                      //               : AppDarkColors.backgroundColor,
+                      //           size: 16.sp,
+                      //           fontWeight: FontWeight.w500,
+                      //         ),
+                      //       ),
+                      //       Visibility(
+                      //         visible: notificationSwitchvalu,
+                      //         child: SizedBox(
+                      //           width: 150.w,
+                      //           child: Container(),
+                      //         ),
+                      //       ),
+                      //       CupertinoSwitch(
+                      //         value: notificationSwitchvalu,
+                      //         onChanged: (value) {
+                      //           setState(() {
+                      //             notificationSwitchvalu = value;
+                      //           });
+                      //         },
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       SizedBox(
                         height: 20.h,
                       ),
@@ -483,49 +665,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         decoration: BoxDecoration(
                           color: context.watch<AppThemeCubit>().isDarkMode
                               ? AppDarkColors.backgroundColor
-                              : Color(0xffF7F7F6),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: MyText(
-                                title: tr(context, "notificationWhenReaching"),
-                                color: context.watch<AppThemeCubit>().isDarkMode
-                                    ? MyColors.white
-                                    : AppDarkColors.backgroundColor,
-                                size: 16.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Visibility(
-                              visible: notificationSwitchvalu,
-                              child: SizedBox(
-                                width: 150.w,
-                                child: Container(),
-                              ),
-                            ),
-                            CupertinoSwitch(
-                              value: notificationSwitchvalu,
-                              onChanged: (value) {
-                                setState(() {
-                                  notificationSwitchvalu = value;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      Container(
-                        height: 58.h,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: context.watch<AppThemeCubit>().isDarkMode
-                              ? AppDarkColors.backgroundColor
-                              : Color(0xffF7F7F6),
+                              : const Color(0xffF7F7F6),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -566,16 +706,17 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           DefaultButton(
                             onTap: () {
                               if (formKey.currentState!.validate()) {
-                                double transactionValue = context
-                                    .read<BudgetCubit>()
-                                    .transactioList
-                                    .map((value) =>
-                                        double.tryParse(value.total ?? '0.0') ??
-                                        0.0)
-                                    .fold(
-                                        0.0,
-                                        ((previousValue, current) =>
-                                            previousValue + current));
+                                double transactionValue = 0;
+                                // double transactionValue = context
+                                //     .read<BudgetCubit>()
+                                //     .transactioList
+                                //     .map((value) =>
+                                //         double.tryParse(value.total ?? '0.0') ??
+                                //         0.0)
+                                //     .fold(
+                                //         0.0,
+                                //         ((previousValue, current) =>
+                                //             previousValue + current));
                                 double deficiency =
                                     parsedNumber - transactionValue;
                                 if (deficiency < 0) {
@@ -608,6 +749,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                         .read<BudgetCubit>()
                                         .noteController
                                         .text,
+                                    favoitate: favorite,
                                     transactionValue: transactionValue);
                                 context.read<BudgetCubit>().addData(budgetData);
                                 AutoRouter.of(context).pop();

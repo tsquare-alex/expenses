@@ -15,10 +15,14 @@ class SplashController {
     InitUtils.initCustomWidgets(language: lang ?? "ar");
     Utils.changeLanguage(lang ?? "ar",context);
     ApiNames.uId = await Storage.getToken();
+    ApiNames.skipToken = await Storage.getSkipToken();
     var uId = ApiNames.uId;
+    var skipToken = ApiNames.skipToken;
     uId = await Storage.getToken();
+    skipToken = await Storage.getSkipToken();
     print('uId = $uId');
     print('ApiNames.uId = ${ApiNames.uId}');
+    print('ApiNames.skipToken = ${ApiNames.skipToken}');
 
     // if (uId != null) {
     //   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -42,7 +46,7 @@ class SplashController {
 
 
 
-    if (uId != null) {
+    if (skipToken!=null || uId !=null) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       bool skipAuthentication = prefs.getBool(authSharedPrefSkip) ?? false;
 
@@ -58,7 +62,6 @@ class SplashController {
     } else {
       AutoRouter.of(context).push(const SelectCountryRoute());
     }
-
 
   }
 

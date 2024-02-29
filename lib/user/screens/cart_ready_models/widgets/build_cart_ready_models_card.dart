@@ -27,51 +27,22 @@ class BuildCartReadyModelsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
-                bloc: data.checkCubit,
-                builder: (context, state) {
-                  return Row(
-                    children: [
-                      Checkbox(
-                          value: model.isCompleted,
-                          activeColor: MyColors.primary,
-                          checkColor: MyColors.white,
-                          onChanged: (val) {
-                            data.checkCubit.onUpdateData(!model.isCompleted!);
-                            // model.isCompleted=state.data;
-                            data.editItem(model, index, context);
-                            print(model.isCompleted);
-                          }),
-                      MyText(
-                        title: tr(context, "buyingSucceeded"),
-                        color: context.watch<AppThemeCubit>().isDarkMode
-                            ? MyColors.white
-                            : MyColors.black,
-                        size: 14.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ],
-                  );
-                },
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 10.0.r),
-                child: InkWell(
-                  onTap: ()=>data.deleteItem(model),
-                  child: CircleAvatar(
-                    radius: 20.r,
-                    backgroundColor: MyColors.greyWhite,
-                    child: const Icon(
-                      Icons.delete,
-                      color: Colors.red,
-                    ),
+          Padding(
+            padding: EdgeInsets.only(left: 10.0.r),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: InkWell(
+                onTap: ()=>data.deleteItem(model),
+                child: CircleAvatar(
+                  radius: 20.r,
+                  backgroundColor: MyColors.greyWhite,
+                  child: const Icon(
+                    Icons.delete,
+                    color: Colors.red,
                   ),
                 ),
               ),
-            ],
+            ),
           ),
           SizedBox(
             height: 10.h,
@@ -165,6 +136,32 @@ class BuildCartReadyModelsCard extends StatelessWidget {
               )
             ],
           ),
+          Divider(thickness: 1.w,color: MyColors.greyWhite,),
+          SizedBox(
+            height: 10.h,
+          ),
+          InkWell(
+            splashColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            onTap: () async{
+              // await AutoRouter.of(context).push(
+              //   TransactionDetailsRoute(
+              //     model: model,
+              //   ),
+              // );
+              // data.addTransactionList.clear();
+              // data.fetchData();
+              await AutoRouter.of(context).push(CartDetailsRoute(model: model));
+              data.addCartList.clear();
+              data.fetchData(context);
+            },
+            child: MyText(
+              title: "المزيد من التفاصيل",
+              size: 16.sp,
+              fontWeight: FontWeight.bold,
+              color: MyColors.primary,
+            ),),
+
         ],
       ),
     );

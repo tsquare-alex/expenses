@@ -265,113 +265,172 @@ class SettingsBody extends StatelessWidget {
         //     ),
         //   ],
         // ),
-        SettingTile(
-          doubleRow: true,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.r),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      Res.numbers,
-                      width: 24.w,
-                      height: 24.h,
-                      color: context.watch<AppThemeCubit>().isDarkMode
-                          ? AppDarkColors.secondary
-                          : MyColors.primary,
-                    ),
-                    SizedBox(width: 12.w),
-                    Text(
-                      tr(context, 'numbers'),
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
+        GestureDetector(
+          onTap: () async => showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                contentPadding: EdgeInsets.all(16.r),
+                content: SizedBox(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: Center(
+                          child: MyText(
+                            title: tr(context, 'decimal'),
+                            color: context.watch<AppThemeCubit>().isDarkMode
+                                ? Colors.lightBlue[200]
+                                : MyColors.primary,
+                            fontWeight: FontWeight.bold,
+                            size: 18.sp,
+                          ),
+                        ),
                       ),
-                    ),
-                    const Spacer(),
-                    Icon(
-                      Icons.keyboard_arrow_down,
-                      color: context.watch<AppThemeCubit>().isDarkMode
-                          ? AppDarkColors.secondary
-                          : MyColors.primary,
-                    ),
-                  ],
-                ),
-              ),
-              Divider(
-                color: context.watch<AppThemeCubit>().isDarkMode
-                    ? AppDarkColors.accentColor
-                    : MyColors.black.withOpacity(0.05),
-                thickness: 2.5.r,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.r),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      Res.decimals,
-                      width: 24.w,
-                      height: 24.h,
-                      color: context.watch<AppThemeCubit>().isDarkMode
-                          ? AppDarkColors.secondary
-                          : MyColors.primary,
-                    ),
-                    SizedBox(width: 12.w),
-                    Text(
-                      tr(context, 'decimal'),
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              AppThemeCubit.get(context).decimalValue = '0';
+                              AppThemeCubit.get(context).setDecimalValue();
+                            },
+                            child: MyText(
+                              title: '1,234',
+                              color: AppThemeCubit.get(context).decimalValue !=
+                                      '0'
+                                  ? Colors.grey
+                                  : context.watch<AppThemeCubit>().isDarkMode
+                                      ? Colors.lightBlue[200]
+                                      : MyColors.primary,
+                              size: 14.sp,
+                              fontWeight:
+                                  AppThemeCubit.get(context).decimalValue != '0'
+                                      ? null
+                                      : FontWeight.bold,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              AppThemeCubit.get(context).decimalValue = '0.0';
+                              AppThemeCubit.get(context).setDecimalValue();
+                            },
+                            child: MyText(
+                              title: '1,234.0',
+                              color: AppThemeCubit.get(context).decimalValue !=
+                                      '0.0'
+                                  ? Colors.grey
+                                  : context.watch<AppThemeCubit>().isDarkMode
+                                      ? Colors.lightBlue[200]
+                                      : MyColors.primary,
+                              size: 14.sp,
+                              fontWeight:
+                                  AppThemeCubit.get(context).decimalValue !=
+                                          '0.0'
+                                      ? null
+                                      : FontWeight.bold,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              AppThemeCubit.get(context).decimalValue = '0.00';
+                              AppThemeCubit.get(context).setDecimalValue();
+                            },
+                            child: MyText(
+                              title: '1,234.00',
+                              color: AppThemeCubit.get(context).decimalValue !=
+                                      '0.00'
+                                  ? Colors.grey
+                                  : context.watch<AppThemeCubit>().isDarkMode
+                                      ? Colors.lightBlue[200]
+                                      : MyColors.primary,
+                              size: 14.sp,
+                              fontWeight:
+                                  AppThemeCubit.get(context).decimalValue !=
+                                          '0.00'
+                                      ? null
+                                      : FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    const Spacer(),
-                    Icon(
-                      Icons.keyboard_arrow_down,
-                      color: context.watch<AppThemeCubit>().isDarkMode
-                          ? AppDarkColors.secondary
-                          : MyColors.primary,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 20.h),
-        SettingTile(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.r),
-            child: Row(
-              children: [
-                Image.asset(
-                  Res.privacy,
-                  width: 24.w,
-                  height: 24.h,
-                  color: context.watch<AppThemeCubit>().isDarkMode
-                      ? AppDarkColors.secondary
-                      : MyColors.primary,
-                ),
-                SizedBox(width: 12.w),
-                Text(
-                  tr(context, 'privacy'),
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
+                    ],
                   ),
                 ),
-                const Spacer(),
-                Icon(
-                  Icons.keyboard_arrow_down,
-                  color: context.watch<AppThemeCubit>().isDarkMode
-                      ? AppDarkColors.secondary
-                      : MyColors.primary,
-                ),
-              ],
+                surfaceTintColor: MyColors.white,
+              );
+            },
+          ),
+          child: SettingTile(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.r),
+              child: Row(
+                children: [
+                  Image.asset(
+                    Res.decimals,
+                    width: 24.w,
+                    height: 24.h,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
+                  ),
+                  SizedBox(width: 12.w),
+                  Text(
+                    tr(context, 'decimal'),
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const Spacer(),
+                  Icon(
+                    Icons.keyboard_arrow_down,
+                    color: context.watch<AppThemeCubit>().isDarkMode
+                        ? AppDarkColors.secondary
+                        : MyColors.primary,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
+        // SizedBox(height: 20.h),
+        // SettingTile(
+        //   child: Padding(
+        //     padding: EdgeInsets.symmetric(horizontal: 16.r),
+        //     child: Row(
+        //       children: [
+        //         Image.asset(
+        //           Res.privacy,
+        //           width: 24.w,
+        //           height: 24.h,
+        //           color: context.watch<AppThemeCubit>().isDarkMode
+        //               ? AppDarkColors.secondary
+        //               : MyColors.primary,
+        //         ),
+        //         SizedBox(width: 12.w),
+        //         Text(
+        //           tr(context, 'privacy'),
+        //           style: TextStyle(
+        //             fontSize: 16.sp,
+        //             fontWeight: FontWeight.w500,
+        //           ),
+        //         ),
+        //         const Spacer(),
+        //         Icon(
+        //           Icons.keyboard_arrow_down,
+        //           color: context.watch<AppThemeCubit>().isDarkMode
+        //               ? AppDarkColors.secondary
+        //               : MyColors.primary,
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
         SizedBox(height: 20.h),
         SettingTile(
           border: false,
@@ -459,12 +518,12 @@ class SettingsBody extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(width: 12.w),
-                Image.asset(
-                  Res.pro,
-                  height: 40.h,
-                  width: 40.w,
-                ),
+                // SizedBox(width: 12.w),
+                // Image.asset(
+                //   Res.pro,
+                //   height: 40.h,
+                //   width: 40.w,
+                // ),
                 const Spacer(),
                 BlocBuilder<AppThemeCubit, AppThemeState>(
                   builder: (context, state) {
@@ -474,9 +533,9 @@ class SettingsBody extends StatelessWidget {
                           : const Color(0xFFD9D9D9),
                       value: AppThemeCubit.get(context).isDarkMode,
                       onChanged: (value) {
-                        AutoRouter.of(context).push(const SubscriptionsRoute());
+                        // AutoRouter.of(context).push(const SubscriptionsRoute());
 
-                        // AppThemeCubit.get(context).toggleTheme(value);
+                        AppThemeCubit.get(context).toggleTheme(value);
                       },
                     );
                   },
@@ -509,12 +568,12 @@ class SettingsBody extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(width: 12.w),
-                Image.asset(
-                  Res.pro,
-                  height: 40.h,
-                  width: 40.w,
-                ),
+                // SizedBox(width: 12.w),
+                // Image.asset(
+                //   Res.pro,
+                //   height: 40.h,
+                //   width: 40.w,
+                // ),
                 const Spacer(),
                 CupertinoSwitch(
                   trackColor: context.watch<AppThemeCubit>().isDarkMode
@@ -522,7 +581,7 @@ class SettingsBody extends StatelessWidget {
                       : const Color(0xFFD9D9D9),
                   value: false,
                   onChanged: (value) {
-                    AutoRouter.of(context).push(const SubscriptionsRoute());
+                    // AutoRouter.of(context).push(const SubscriptionsRoute());
                   },
                 ),
               ],
@@ -544,10 +603,85 @@ class SettingsBody extends StatelessWidget {
         //   ],
         // ),
         GestureDetector(
-          onTap: () => data.settingsDialog(
+          onTap: () async => showDialog(
             context: context,
-            dialogList: data.saveFormat,
-            title: tr(context, 'save'),
+            builder: (context) {
+              return AlertDialog(
+                contentPadding: EdgeInsets.all(16.r),
+                content: SizedBox(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: Center(
+                          child: MyText(
+                            title: tr(context, 'save'),
+                            color: context.watch<AppThemeCubit>().isDarkMode
+                                ? Colors.lightBlue[200]
+                                : MyColors.primary,
+                            fontWeight: FontWeight.bold,
+                            size: 18.sp,
+                          ),
+                        ),
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              AppThemeCubit.get(context).saveMethod =
+                                  SaveMethods.excel.name;
+                              AppThemeCubit.get(context).setSaveMethod();
+                            },
+                            child: MyText(
+                              title: SaveMethods.excel.method,
+                              color: AppThemeCubit.get(context).saveMethod !=
+                                      SaveMethods.excel.name
+                                  ? Colors.grey
+                                  : context.watch<AppThemeCubit>().isDarkMode
+                                      ? Colors.lightBlue[200]
+                                      : MyColors.primary,
+                              size: 14.sp,
+                              fontWeight:
+                                  AppThemeCubit.get(context).saveMethod !=
+                                          SaveMethods.excel.name
+                                      ? null
+                                      : FontWeight.bold,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              AppThemeCubit.get(context).saveMethod =
+                                  SaveMethods.pdf.name;
+                              AppThemeCubit.get(context).setSaveMethod();
+                            },
+                            child: MyText(
+                              title: SaveMethods.pdf.method,
+                              color: AppThemeCubit.get(context).saveMethod !=
+                                      SaveMethods.pdf.name
+                                  ? Colors.grey
+                                  : context.watch<AppThemeCubit>().isDarkMode
+                                      ? Colors.lightBlue[200]
+                                      : MyColors.primary,
+                              size: 14.sp,
+                              fontWeight:
+                                  AppThemeCubit.get(context).saveMethod !=
+                                          SaveMethods.pdf.name
+                                      ? null
+                                      : FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                surfaceTintColor: MyColors.white,
+              );
+            },
           ),
           child: SettingTile(
             child: Padding(
@@ -585,9 +719,9 @@ class SettingsBody extends StatelessWidget {
         SizedBox(height: 20.h),
         InkWell(
           onTap: () async {
-            AutoRouter.of(context).push(const SubscriptionsRoute());
+            // AutoRouter.of(context).push(const SubscriptionsRoute());
 
-            // await googleRepo.syncData();
+            await googleRepo.syncData();
           },
           child: SettingTile(
             child: Padding(
@@ -610,12 +744,12 @@ class SettingsBody extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  SizedBox(width: 12.w),
-                  Image.asset(
-                    Res.pro,
-                    height: 40.h,
-                    width: 40.w,
-                  ),
+                  // SizedBox(width: 12.w),
+                  // Image.asset(
+                  //   Res.pro,
+                  //   height: 40.h,
+                  //   width: 40.w,
+                  // ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
@@ -631,9 +765,9 @@ class SettingsBody extends StatelessWidget {
         SizedBox(height: 20.h),
         InkWell(
           onTap: () async {
-            AutoRouter.of(context).push(const SubscriptionsRoute());
+            // AutoRouter.of(context).push(const SubscriptionsRoute());
 
-            // await googleRepo.backupData();
+            await googleRepo.backupData();
           },
           child: SettingTile(
             child: Padding(
@@ -656,12 +790,12 @@ class SettingsBody extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  SizedBox(width: 12.w),
-                  Image.asset(
-                    Res.pro,
-                    height: 40.h,
-                    width: 40.w,
-                  ),
+                  // SizedBox(width: 12.w),
+                  // Image.asset(
+                  //   Res.pro,
+                  //   height: 40.h,
+                  //   width: 40.w,
+                  // ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
@@ -677,9 +811,9 @@ class SettingsBody extends StatelessWidget {
         SizedBox(height: 20.h),
         InkWell(
           onTap: () async {
-            AutoRouter.of(context).push(const SubscriptionsRoute());
+            // AutoRouter.of(context).push(const SubscriptionsRoute());
 
-            // await googleRepo.downloadData();
+            await googleRepo.downloadData();
           },
           child: SettingTile(
             child: Padding(
@@ -702,12 +836,12 @@ class SettingsBody extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  SizedBox(width: 12.w),
-                  Image.asset(
-                    Res.pro,
-                    height: 40.h,
-                    width: 40.w,
-                  ),
+                  // SizedBox(width: 12.w),
+                  // Image.asset(
+                  //   Res.pro,
+                  //   height: 40.h,
+                  //   width: 40.w,
+                  // ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
@@ -723,9 +857,9 @@ class SettingsBody extends StatelessWidget {
         SizedBox(height: 20.h),
         InkWell(
           onTap: () async {
-            AutoRouter.of(context).push(const SubscriptionsRoute());
+            // AutoRouter.of(context).push(const SubscriptionsRoute());
 
-            // await googleRepo.deleteData();
+            await googleRepo.deleteData();
           },
           child: SettingTile(
             child: Padding(
@@ -748,12 +882,12 @@ class SettingsBody extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  SizedBox(width: 12.w),
-                  Image.asset(
-                    Res.pro,
-                    height: 40.h,
-                    width: 40.w,
-                  ),
+                  // SizedBox(width: 12.w),
+                  // Image.asset(
+                  //   Res.pro,
+                  //   height: 40.h,
+                  //   width: 40.w,
+                  // ),
                   const Spacer(),
                   Icon(
                     Icons.keyboard_arrow_down,
@@ -769,7 +903,7 @@ class SettingsBody extends StatelessWidget {
         SizedBox(height: 20.h),
         InkWell(
           onTap: () async {
-            // await googleRepo.signOut();
+            await googleRepo.signOut();
           },
           child: SettingTile(
             child: Padding(

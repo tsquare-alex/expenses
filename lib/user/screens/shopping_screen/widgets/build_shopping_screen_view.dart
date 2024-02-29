@@ -96,19 +96,22 @@ class _BuildShoppingScreenViewState extends State<BuildShoppingScreenView> {
                 childAspectRatio: 0.5.h / 0.7.w),
             itemBuilder: (context, i) => BuildShoppingScreenItem(
               onTap: () async {
-                if(state.data[i].name == "supermarket"){
+                // if(state.data[i].name == "supermarket"){
                   await AutoRouter.of(context).push(AddTransactionRoute(
                       model: state.data[i],
                       transactionName: "التسوق والشراء",
                       boxName: "transactionShoppingBox"));
                   widget.data.fetchData();
-                }else{
-                  AutoRouter.of(context).push(const SubscriptionsRoute());
-                }
+                // }else{
+                //   AutoRouter.of(context).push(const SubscriptionsRoute());
+                // }
               },
               image: state.data[i].image ?? Res.shopping,
               name: state.data[i].name ?? "",
-              isPro: state.data[i].name =="supermarket"?true:false,
+              isPro:
+              // state.data[i].name =="supermarket"?
+              true
+              // :false,
             ),
           ),
         );

@@ -70,7 +70,6 @@ class BuildCashTransactionsCard extends StatelessWidget {
             height: 10.h,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               model.transactionName=="الالتزامات"||model.transactionName=="التسوق والشراء"?Expanded(
                 child: Row(
@@ -93,6 +92,31 @@ class BuildCashTransactionsCard extends StatelessWidget {
                   ],
                 ),
               ):Container(),
+              if(model.transactionName=="المعاملات النقدية")Expanded(
+                child: Row(
+                  children: [
+                    Image.asset(
+                      Res.databaseImage,
+                      width: 30.w,
+                      height: 30.h,
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    MyText(
+                      title: "إلي: ${model.database?.name}",
+                      color:  context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : MyColors.black,
+                      size: 14.sp,
+                      max: 1,
+                      overflow: TextOverflow.ellipsis,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ],
+                ),
+              ),
+              const Spacer(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -120,7 +144,7 @@ class BuildCashTransactionsCard extends StatelessWidget {
                     height: 10.h,
                   ),
                   MyText(
-                    title: "${tr(context, "value")} : ${model.total}",
+                    title: "${tr(context, "value")} : ${model.total.toString().formatToDecimal(context: context)}",
                     color:  context.watch<AppThemeCubit>().isDarkMode
                         ? MyColors.white
                         : MyColors.black,

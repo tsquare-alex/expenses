@@ -41,6 +41,7 @@ dependencies:
   firebase_core: ^2.24.0
   firebase_auth: ^4.15.0
   cloud_firestore: ^4.13.3
+  firebase_messaging:
   flutter_bloc:
   google_fonts:
   flutter_easyloading:
@@ -106,7 +107,7 @@ dependencies:
   syncfusion_flutter_xlsio: ^23.2.7
   pdf: ^3.10.7
   open_file: ^3.3.2
-  permission_handler: ^11.2.0
+  printing: ^5.11.1
 
 
 dev_dependencies:
@@ -145,7 +146,7 @@ flutter:
     - assets/images/
     - assets/lang/
     - assets/sounds/
-
+    - assets/fonts/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -159,6 +160,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: Tajawal
+      fonts:
+        - asset: assets/fonts/Tajawal.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

@@ -66,8 +66,10 @@ class AddTransactionModel extends HiveObject {
   DropdownModel? ratio;
   @HiveField(26)
   String? description;
+  @HiveField(27)
+  double? initialStaticValue;
 
-  AddTransactionModel({this.transactionName,this.transactionType,this.image,this.database,this.unit,this.total,this.amount,this.time,this.brandName,this.endDate,this.incomeSource,this.notify,this.priority,this.repeated,this.startDate,this.targetValue,this.transactionContent,this.transactionDate,this.targetType,this.cashTransactionType,this.budget,this.initialValue,this.requiredValue,this.completedNotify,this.putReminderInWallet,this.ratio,this.description});
+  AddTransactionModel({this.transactionName,this.transactionType,this.image,this.database,this.unit,this.total,this.amount,this.time,this.brandName,this.endDate,this.incomeSource,this.notify,this.priority,this.repeated,this.startDate,this.targetValue,this.transactionContent,this.transactionDate,this.targetType,this.cashTransactionType,this.budget,this.initialValue,this.requiredValue,this.completedNotify,this.putReminderInWallet,this.ratio,this.description,this.initialStaticValue});
 
   Map<String, dynamic> toJson() {
     return {
@@ -93,6 +95,7 @@ class AddTransactionModel extends HiveObject {
       'budget': budget?.toJson(),
       'requiredValue': requiredValue,
       'initialValue': initialValue,
+      'initialStaticValue': initialStaticValue,
       'completedNotify': completedNotify,
       'putReminderInWallet': putReminderInWallet,
       'ratio': ratio?.toJson(),
@@ -124,6 +127,7 @@ class AddTransactionModel extends HiveObject {
       budget: BudgetModel.fromJson(json['budget']),
       requiredValue: json['requiredValue'],
       initialValue: json['initialValue'],
+      initialStaticValue: json['initialStaticValue'],
       completedNotify: json['completedNotify'],
       putReminderInWallet: json['putReminderInWallet'],
       ratio: DropdownModel.fromJson(json['ratio']),

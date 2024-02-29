@@ -17,6 +17,9 @@ class BuildWalletBalanceTransferInputs extends StatelessWidget {
             fieldTypes: FieldTypes.readonly,
             type: TextInputType.text,
             action: TextInputAction.next,
+            textColor: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
             validate: (value) {
               return null;
             },
@@ -80,6 +83,9 @@ class BuildWalletBalanceTransferInputs extends StatelessWidget {
             fieldTypes: FieldTypes.normal,
             type: TextInputType.number,
             action: TextInputAction.next,
+            textColor: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
             validate: (value) {
               if (value!.isEmpty) {
                 return 'Please enter transfer value';

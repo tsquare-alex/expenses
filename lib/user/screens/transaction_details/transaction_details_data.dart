@@ -212,6 +212,7 @@ class TransactionDetailsData {
         database: model.database,
         priority: selectedPriority ?? model.priority,
         time: timeController.text,
+        initialStaticValue: model.initialStaticValue,
         transactionDate: transactionDateController.text,
         repeated: iterateCubit.state.data != false
             ? selectedIterateTransaction ?? model.repeated
@@ -269,6 +270,7 @@ class TransactionDetailsData {
         time: timeController.text,
         transactionDate: transactionDateController.text,
         image: model.image,
+        initialStaticValue: model.initialStaticValue,
         repeated: iterateCubit.state.data != false
             ? selectedIterateTransaction ?? model.repeated
             : null,
@@ -316,6 +318,7 @@ class TransactionDetailsData {
         incomeSource: selectedWalletModel,
         description: descriptionController.text,
         budget: selectedBudget,
+        initialStaticValue: model.initialStaticValue,
         targetValue: totalController.text,
         startDate: startDateController.text,
         endDate: endDateController.text,
@@ -371,6 +374,7 @@ class TransactionDetailsData {
       AddTransactionModel editModel = AddTransactionModel(
         transactionName: "المعاملات النقدية",
         cashTransactionType: model.cashTransactionType,
+        initialStaticValue: model.initialStaticValue,
         incomeSource: selectedWalletModel,
         budget: selectedBudget,
         description: descriptionController.text,
@@ -461,7 +465,6 @@ class TransactionDetailsData {
     var currencyBox = Hive.box<CurrencyModel>("currencyBox");
     var currencyList = currencyBox.values.toList();
     double total = double.parse(targetModel.total!);
-    targetWallet.balance = targetWallet.balance + total;
     if(targetWallet.currency != currencyList[0].mainCurrency){
       if(targetWallet.checkedValue ==false){
         print("sss");
@@ -486,7 +489,7 @@ class TransactionDetailsData {
       print('mmmm');
       var calculatedTotalBalance = targetWallet.totalBalance! + total;
       targetWallet.totalBalance = calculatedTotalBalance;
-      targetWallet.remainBalance = targetWallet.remainBalance! + total;
+      targetWallet.balance = targetWallet.balance + total;
       await walletBox.put(targetWallet.key, targetWallet);
       box.deleteAt(index);
       AutoRouter.of(context).pop();

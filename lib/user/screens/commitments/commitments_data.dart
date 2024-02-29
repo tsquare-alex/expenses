@@ -16,7 +16,7 @@ class CommitmentsData{
     var boxItems = box.values.cast<TransactionTypeModel>().toList();
     var content = model.content;
     for (var item in content!) {
-      if (!boxItems.any((element) => element.name == item.name)) {
+      if (!boxItems.any((element) => element.key != item.key)) {
         box.add(item);
       }
     }
@@ -49,6 +49,7 @@ class CommitmentsData{
   List<AddTransactionModel> addTransactionList = [];
 
   Future<void> fetchData() async {
+    addTransactionList.clear();
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
     try {
       var list = box.values.map((dynamic value) {

@@ -36,9 +36,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       ),
       const Reports(),
       const Settings(),
-      ToolsHelper(),
+      const ToolsHelper(),
       Database(),
-      Container(child: Center(
+      Center(
           child: Text(
             'قيد التطوير حاليا',
             style: TextStyle(
@@ -47,7 +47,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               color: MyColors.primary,
             ),
           ),
-        ),),
+        ),
       const Wallet(),
       const Budget(),
       Container(),

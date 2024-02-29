@@ -56,29 +56,35 @@ class TabsBody extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Padding(
+                //   padding: EdgeInsets.symmetric(vertical: 20.h),
+                //   child: Text(
+                //     tr(context, 'firstChosen'),
+                //     style: TextStyle(
+                //       fontSize: 16.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //   ),
+                // ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 20.h),
-                  child: Text(
-                    tr(context, 'firstChosen'),
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  child: CompareChart(
+                    data1: data1,
+                    data2: data2,
                   ),
                 ),
-                CompareChart(data: data1),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20.h),
-                  child: Text(
-                    tr(context, 'secondChosen'),
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                CompareChart(data: data2),
-                SizedBox(height: 20.h),
+                // Padding(
+                //   padding: EdgeInsets.symmetric(vertical: 20.h),
+                //   child: Text(
+                //     tr(context, 'secondChosen'),
+                //     style: TextStyle(
+                //       fontSize: 16.sp,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //   ),
+                // ),
+                // CompareChart(data: data2),
+                // SizedBox(height: 20.h),
               ],
             ),
           ),

@@ -698,6 +698,18 @@ class AppRouter extends _i46.RootStackRouter {
           path: '/Subscriptions',
         ),
         _i46.RouteConfig(
+          CartDetailsRoute.name,
+          path: '/cart-details',
+        ),
+        _i46.RouteConfig(
+          NotificationScreenRoute.name,
+          path: '/notification-screen',
+        ),
+        _i46.RouteConfig(
+          SubscriptionsRoute.name,
+          path: '/Subscriptions',
+        ),
+        _i46.RouteConfig(
           NotificationScreenRoute.name,
           path: '/notification-screen',
         ),

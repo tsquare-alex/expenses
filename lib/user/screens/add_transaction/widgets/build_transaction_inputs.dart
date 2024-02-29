@@ -548,7 +548,9 @@ class BuildTransactionInputs extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     validate: (value) {
                       if (value == null) {
-                        return null;
+                        if (value!.isEmpty) {
+                          return 'Enter the transfer value';
+                        }
                       }
                     },
                     onChange: addTransactionData.setSelectDatabaseModel,

@@ -121,7 +121,7 @@ class BuildCommitmentCard extends StatelessWidget {
                     height: 10.h,
                   ),
                   MyText(
-                    title: "${tr(context, "value")} : ${model.total}",
+                    title: "${tr(context, "value")} : ${model.total.toString().formatToDecimal(context: context)}",
                     color: context.watch<AppThemeCubit>().isDarkMode
                         ? MyColors.white
                         : MyColors.black,

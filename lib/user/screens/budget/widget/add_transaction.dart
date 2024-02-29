@@ -554,66 +554,66 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(12.r),
-                            height: 58.h,
-                            width: 320.w,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: MyColors.greyWhite,
-                                ),
-                                borderRadius: BorderRadius.circular(12.r)),
-                            child: Row(
-                              children: [
-                                Text(
-                                  tr(context, "addImage"),
-                                  style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: context
-                                            .watch<AppThemeCubit>()
-                                            .isDarkMode
-                                        ? MyColors.white
-                                        : AppDarkColors.backgroundColor,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 100.w,
-                                ),
-                                Image.asset(Res.camera),
-                                SizedBox(
-                                  width: 7.w,
-                                ),
-                                VerticalDivider(
-                                  width: 45.h,
-                                  color: MyColors.grey,
-                                ),
-                                Image.asset(Res.image),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: 12.w,
-                          ),
-                          Container(
-                            height: 57.h,
-                            width: 57.w,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: MyColors.greyWhite,
-                                ),
-                                borderRadius: BorderRadius.circular(12.r)),
-                            child: IconButton(
-                                onPressed: () {},
-                                icon: Image.asset(Res.qrcode)),
-                          ),
-                        ],
-                      ),
+                      // SizedBox(
+                      //   height: 20.h,
+                      // ),
+                      // Row(
+                      //   children: [
+                      //     Container(
+                      //       padding: EdgeInsets.all(12.r),
+                      //       height: 58.h,
+                      //       width: 320.w,
+                      //       decoration: BoxDecoration(
+                      //           border: Border.all(
+                      //             color: MyColors.greyWhite,
+                      //           ),
+                      //           borderRadius: BorderRadius.circular(12.r)),
+                      //       child: Row(
+                      //         children: [
+                      //           Text(
+                      //             tr(context, "addImage"),
+                      //             style: TextStyle(
+                      //               fontSize: 16.sp,
+                      //               fontWeight: FontWeight.w500,
+                      //               color: context
+                      //                       .watch<AppThemeCubit>()
+                      //                       .isDarkMode
+                      //                   ? MyColors.white
+                      //                   : AppDarkColors.backgroundColor,
+                      //             ),
+                      //           ),
+                      //           SizedBox(
+                      //             width: 100.w,
+                      //           ),
+                      //           Image.asset(Res.camera),
+                      //           SizedBox(
+                      //             width: 7.w,
+                      //           ),
+                      //           VerticalDivider(
+                      //             width: 45.h,
+                      //             color: MyColors.grey,
+                      //           ),
+                      //           Image.asset(Res.image),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //     SizedBox(
+                      //       width: 12.w,
+                      //     ),
+                      //     Container(
+                      //       height: 57.h,
+                      //       width: 57.w,
+                      //       decoration: BoxDecoration(
+                      //           border: Border.all(
+                      //             color: MyColors.greyWhite,
+                      //           ),
+                      //           borderRadius: BorderRadius.circular(12.r)),
+                      //       child: IconButton(
+                      //           onPressed: () {},
+                      //           icon: Image.asset(Res.qrcode)),
+                      //     ),
+                      //   ],
+                      // ),
                       // SizedBox(
                       //   height: 20.h,
                       // ),

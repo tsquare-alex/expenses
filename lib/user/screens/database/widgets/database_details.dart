@@ -652,7 +652,7 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
             children: [
                 BuildCategoryExpansion(
                   categoryFormKey: dataBaseCubit.categoryFormKey,
-                  categoryController: dataBaseCubit.categoryController,
+                  categoryController: categoryController,
                 ),
               if (widget.databaseData.category!.isNotEmpty)
                 Padding(

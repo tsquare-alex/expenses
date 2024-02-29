@@ -4,6 +4,7 @@ import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
+import 'package:expenses/general/utilities/utils_functions/decimal_format.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
@@ -42,6 +43,7 @@ class _EditWalletState extends State<EditWallet> {
   bool isFirstValidationError = false;
   bool isSecondValidationError = false;
   bool notificationSwitchvalu = false;
+  TextEditingController ballanceController = TextEditingController();
   TextEditingController encomSourceController = TextEditingController();
   TextEditingController walletNameController = TextEditingController();
   TextEditingController valueCategoryController = TextEditingController();
@@ -53,6 +55,9 @@ class _EditWalletState extends State<EditWallet> {
 
   @override
   void initState() {
+    ballanceController.text =
+        widget.model.balance.toString().formatToDecimal(context: context);
+
     encomSourceController.text = widget.model.encomeSource;
     walletNameController.text = widget.model.name;
     valueCategoryController.text = widget.model.valueCategory;
@@ -402,8 +407,8 @@ class _EditWalletState extends State<EditWallet> {
                                       ? MyColors.white
                                       : MyColors.black,
                               enableBorderColor: MyColors.semiTransparentColor,
-                              controller:
-                                  context.read<WalletCubit>().balanceController,
+                              controller: ballanceController,
+                              // context.read<WalletCubit>().balanceController,
                               hint: tr(context, "amount"),
                               hintColor:
                                   context.watch<AppThemeCubit>().isDarkMode

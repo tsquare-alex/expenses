@@ -5,6 +5,7 @@ import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
+import 'package:expenses/general/utilities/utils_functions/decimal_format.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
@@ -35,6 +36,7 @@ class _EditBudgetState extends State<EditBudget> {
   TextEditingController closeDateController = TextEditingController();
   TextEditingController openDateController = TextEditingController();
   TextEditingController noteController = TextEditingController();
+  TextEditingController budgetValueController = TextEditingController();
   var formKey = GlobalKey<FormState>();
   double parsedNumber = 0;
   bool favorite = false;
@@ -47,6 +49,8 @@ class _EditBudgetState extends State<EditBudget> {
 
   @override
   void initState() {
+    budgetValueController.text =
+        widget.model.budgetValue.toString().formatToDecimal(context: context);
     transactionValueController.text = widget.model.transactionName;
     walletNameController.text = widget.model.waletName;
     noteController.text = widget.model.addNote;
@@ -460,8 +464,8 @@ class _EditBudgetState extends State<EditBudget> {
                         height: 20.h,
                       ),
                       GenericTextField(
-                        controller:
-                            context.read<BudgetCubit>().budgetValueController,
+                        controller: budgetValueController,
+                        // context.read<BudgetCubit>().budgetValueController,
                         hint: tr(context, "selectValueType"),
                         fieldTypes: FieldTypes.normal,
                         hintColor: context.watch<AppThemeCubit>().isDarkMode

@@ -119,85 +119,98 @@ class _ExpandableCardState extends State<ExpandableCard> {
                             MyText(
                               title: widget.databaseData.name!,
                               color: MyColors.primary,
-                              size: 10.sp,
+                              size: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
+                          if(  widget.databaseData.category!.isNotEmpty)
                             MyText(
                               title: widget.databaseData.category!,
                               color: MyColors.primary,
-                              size: 10.sp,
+                              size: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
+                            if(  widget.databaseData.phone!.isNotEmpty)
                             MyText(
                               title: widget.databaseData.phone!,
                               color: MyColors.primary,
-                              size: 10.sp,
+                              size: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
+                            if(  widget.databaseData.extraPhone!.isNotEmpty)
                             MyText(
                               title: widget.databaseData.extraPhone!,
                               color: MyColors.primary,
-                              size: 10.sp,
+                              size: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
+                            if(  widget.databaseData.address!.isNotEmpty)
                             MyText(
                               title: widget.databaseData.address!,
                               color: MyColors.primary,
-                              size: 10.sp,
+                              size: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
+                            if(  widget.databaseData.note!.isNotEmpty)
                             MyText(
                               title: widget.databaseData.note!,
                               color: MyColors.primary,
-                              size: 10.sp,
+                              size: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
+                            if(  widget.databaseData.job!.isNotEmpty)
                             MyText(
                               title: widget.databaseData.job!,
                               color: MyColors.primary,
-                              size: 10.sp,
+                              size: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
+                            if(  widget.databaseData.emailAddress!.isNotEmpty)
                             MyText(
                               title: widget.databaseData.emailAddress!,
                               color: MyColors.primary,
-                              size: 10.sp,
+                              size: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
+                            if(  widget.databaseData.date!.isNotEmpty)
                             MyText(
                               title: widget.databaseData.date!,
                               color: MyColors.primary,
-                              size: 10.sp,
+                              size: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
+                            if(  widget.databaseData.facebook!.isNotEmpty)
                             MyText(
                               title: widget.databaseData.facebook!,
                               color: MyColors.primary,
-                              size: 10.sp,
+                              size: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
+                            if(  widget.databaseData.whatsapp!.isNotEmpty)
                             MyText(
                               title: widget.databaseData.whatsapp!,
                               color: MyColors.primary,
-                              size: 10.sp,
+                              size: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
+                            if(  widget.databaseData.instagram!.isNotEmpty)
                             MyText(
                               title: widget.databaseData.instagram!,
                               color: MyColors.primary,
-                              size: 10.sp,
+                              size: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
+                            if(  widget.databaseData.twitter!.isNotEmpty)
                             MyText(
                               title: widget.databaseData.twitter!,
                               color: MyColors.primary,
-                              size: 10.sp,
+                              size: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
+                            if(  widget.databaseData.youtube!.isNotEmpty)
                             MyText(
                               title: widget.databaseData.youtube!,
                               color: MyColors.primary,
-                              size: 10.sp,
+                              size: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
 

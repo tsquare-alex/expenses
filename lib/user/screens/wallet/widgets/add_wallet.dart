@@ -7,7 +7,6 @@ import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
-import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
@@ -539,9 +538,9 @@ class _AddWalletState extends State<AddWallet> {
                                 padding: EdgeInsets.symmetric(horizontal: 5.r),
                                 decoration: BoxDecoration(
                                   color:
-                                  context.watch<AppThemeCubit>().isDarkMode
-                                      ? MyColors.greyWhite
-                                      : MyColors.white,
+                                      context.watch<AppThemeCubit>().isDarkMode
+                                          ? AppDarkColors.backgroundColor
+                                          : MyColors.white,
                                   borderRadius: BorderRadius.circular(15.r),
                                 ),
                                 child: Form(
@@ -558,20 +557,20 @@ class _AddWalletState extends State<AddWallet> {
                                           type: TextInputType.text,
                                           action: TextInputAction.next,
                                           hintColor: context
-                                              .watch<AppThemeCubit>()
-                                              .isDarkMode
+                                                  .watch<AppThemeCubit>()
+                                                  .isDarkMode
                                               ? MyColors.white
                                               : MyColors.black,
                                           textColor: context
-                                              .watch<AppThemeCubit>()
-                                              .isDarkMode
+                                                  .watch<AppThemeCubit>()
+                                                  .isDarkMode
                                               ? MyColors.white
                                               : MyColors.black,
                                           label: selectedDate != null
                                               ? "${selectedDate?.toLocal()}"
-                                              .split(' ')[0]
+                                                  .split(' ')[0]
                                               : tr(
-                                              context, "walletOpeningDate"),
+                                                  context, "walletOpeningDate"),
                                           validate: (value) {
                                             if (value!.isEmpty) {
                                               return 'Enter open wallet date';
@@ -594,29 +593,29 @@ class _AddWalletState extends State<AddWallet> {
                                             closeDate(context);
                                           },
                                           contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              horizontal: 20, vertical: 10),
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 20, vertical: 10),
                                           radius: 10.r,
                                           fieldTypes: FieldTypes.clickable,
                                           type: TextInputType.text,
                                           action: TextInputAction.next,
                                           hintColor: context
-                                              .watch<AppThemeCubit>()
-                                              .isDarkMode
+                                                  .watch<AppThemeCubit>()
+                                                  .isDarkMode
                                               ? MyColors.white
                                               : MyColors.black,
                                           textColor: context
-                                              .watch<AppThemeCubit>()
-                                              .isDarkMode
+                                                  .watch<AppThemeCubit>()
+                                                  .isDarkMode
                                               ? MyColors.white
                                               : MyColors.black,
                                           label: closedDate != null
                                               ? "${closedDate?.toLocal()}"
-                                              .split(' ')[0]
+                                                  .split(' ')[0]
                                               : tr(
-                                            context,
-                                            "walletClosingDate",
-                                          ),
+                                                  context,
+                                                  "walletClosingDate",
+                                                ),
                                           validate: (value) {
                                             if (value!.isEmpty) {
                                               return 'Enter close wallet date';
@@ -633,7 +632,7 @@ class _AddWalletState extends State<AddWallet> {
                                     ],
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                           SizedBox(
@@ -873,7 +872,12 @@ class _AddWalletState extends State<AddWallet> {
                             title: tr(context, "addWallet"),
                             color: MyColors.primary,
                             onTap: () {
-                              if (formKey.currentState!.validate() && context.read<WalletCubit>().formKey.currentState!.validate()) {
+                              if (formKey.currentState!.validate() &&
+                                  context
+                                      .read<WalletCubit>()
+                                      .formKey
+                                      .currentState!
+                                      .validate()) {
                                 var walletData = WalletModel(
                                     notification: notificationSwitchvalu,
                                     walletRepate: repeatSwitchValue,
@@ -971,7 +975,7 @@ class _AddWalletState extends State<AddWallet> {
       setState(() {
         selectedDate = picked;
         context.read<WalletCubit>().openDateController.text =
-        DateFormat("dd/MM/yyyy", "en").format(selectedDate!);
+            DateFormat("dd/MM/yyyy", "en").format(selectedDate!);
       });
     }
   }
@@ -987,7 +991,8 @@ class _AddWalletState extends State<AddWallet> {
     if (picked != null && picked != closedDate) {
       setState(() {
         closedDate = picked;
-        context.read<WalletCubit>().closedDateController.text = DateFormat("dd/MM/yyyy", "en").format(closedDate!);
+        context.read<WalletCubit>().closedDateController.text =
+            DateFormat("dd/MM/yyyy", "en").format(closedDate!);
       });
     }
   }

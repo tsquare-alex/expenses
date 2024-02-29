@@ -6,7 +6,6 @@ import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
-import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
@@ -534,97 +533,196 @@ class _EditWalletState extends State<EditWallet> {
                             ],
                           ),
                           SizedBox(height: 12.h),
-                          Row(
-                            children: [
-                              Container(
-                                  height: 44.h,
-                                  width: 170.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8.r),
-                                    border: Border.all(
-                                        color: MyColors.semiTransparentColor),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      openDate(context);
-                                    },
-                                    child: Center(
-                                      child: Padding(
-                                        padding: EdgeInsets.all(12.r),
-                                        child: Row(
-                                          children: [
-                                            Image.asset(Res.calendar),
-                                            SizedBox(
-                                              width: 15.w,
-                                            ),
-                                            Text(
-                                              selectedDate != null
-                                                  ? "${selectedDate?.toLocal()}"
-                                                      .split(' ')[0]
-                                                  : tr(context,
-                                                      "walletOpeningDate"),
-                                              style: TextStyle(
-                                                fontSize: 12.sp,
-                                                color: context
-                                                        .watch<AppThemeCubit>()
-                                                        .isDarkMode
-                                                    ? MyColors.white
-                                                    : MyColors.black,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 5.r),
+                            decoration: BoxDecoration(
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? AppDarkColors.backgroundColor
+                                  : MyColors.white,
+                              borderRadius: BorderRadius.circular(15.r),
+                            ),
+                            child: Form(
+                              key: context.read<WalletCubit>().formKey,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: GenericTextField(
+                                      onTab: () => openDate(context),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 20.r, vertical: 10.r),
+                                      radius: 10.r,
+                                      fieldTypes: FieldTypes.clickable,
+                                      type: TextInputType.text,
+                                      action: TextInputAction.next,
+                                      hintColor: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? MyColors.white
+                                          : MyColors.black,
+                                      textColor: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? MyColors.white
+                                          : MyColors.black,
+                                      label: selectedDate != null
+                                          ? "${selectedDate?.toLocal()}"
+                                              .split(' ')[0]
+                                          : tr(context, "walletOpeningDate"),
+                                      validate: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Enter open wallet date';
+                                        }
+                                      },
+                                      controller: openDateController,
+                                      // context
+                                      //     .read<WalletCubit>()
+                                      //     .openDateController,
+                                      margin: const EdgeInsets.symmetric(
+                                        vertical: 10,
                                       ),
                                     ),
-                                  )),
-                              SizedBox(
-                                width: 20.w,
+                                  ),
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                  Expanded(
+                                    child: GenericTextField(
+                                      onTab: () {
+                                        closeDate(context);
+                                      },
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              horizontal: 20, vertical: 10),
+                                      radius: 10.r,
+                                      fieldTypes: FieldTypes.clickable,
+                                      type: TextInputType.text,
+                                      action: TextInputAction.next,
+                                      hintColor: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? MyColors.white
+                                          : MyColors.black,
+                                      textColor: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? MyColors.white
+                                          : MyColors.black,
+                                      label: closedDate != null
+                                          ? "${closedDate?.toLocal()}"
+                                              .split(' ')[0]
+                                          : tr(
+                                              context,
+                                              "walletClosingDate",
+                                            ),
+                                      validate: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Enter close wallet date';
+                                        }
+                                      },
+                                      controller: closeDateController,
+                                      //  context
+                                      //     .read<WalletCubit>()
+                                      //     .closedDateController,
+                                      margin: const EdgeInsets.symmetric(
+                                        vertical: 10,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Container(
-                                  height: 44.h,
-                                  width: 170.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8.r),
-                                    border: Border.all(
-                                        color: MyColors.semiTransparentColor),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      closeDate(context);
-                                    },
-                                    child: Center(
-                                      child: Padding(
-                                        padding: EdgeInsets.all(12.r),
-                                        child: Row(
-                                          children: [
-                                            Image.asset(Res.calendar),
-                                            SizedBox(
-                                              width: 15.w,
-                                            ),
-                                            Text(
-                                              closedDate != null
-                                                  ? "${closedDate?.toLocal()}"
-                                                      .split(' ')[0]
-                                                  : tr(context,
-                                                      "walletClosingDate"),
-                                              style: TextStyle(
-                                                fontSize: 12.sp,
-                                                color: context
-                                                        .watch<AppThemeCubit>()
-                                                        .isDarkMode
-                                                    ? MyColors.white
-                                                    : MyColors.black,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  )),
-                            ],
+                            ),
                           ),
+                          // Row(
+                          //   children: [
+                          //     Container(
+                          //         height: 44.h,
+                          //         width: 170.w,
+                          //         decoration: BoxDecoration(
+                          //           borderRadius: BorderRadius.circular(8.r),
+                          //           border: Border.all(
+                          //               color: MyColors.semiTransparentColor),
+                          //         ),
+                          //         child: GestureDetector(
+                          //           onTap: () {
+                          //             openDate(context);
+                          //           },
+                          //           child: Center(
+                          //             child: Padding(
+                          //               padding: EdgeInsets.all(12.r),
+                          //               child: Row(
+                          //                 children: [
+                          //                   Image.asset(Res.calendar),
+                          //                   SizedBox(
+                          //                     width: 15.w,
+                          //                   ),
+                          //                   Text(
+                          //                     selectedDate != null
+                          //                         ? "${selectedDate?.toLocal()}"
+                          //                             .split(' ')[0]
+                          //                         : tr(context,
+                          //                             "walletOpeningDate"),
+                          //                     style: TextStyle(
+                          //                       fontSize: 12.sp,
+                          //                       color: context
+                          //                               .watch<AppThemeCubit>()
+                          //                               .isDarkMode
+                          //                           ? MyColors.white
+                          //                           : MyColors.black,
+                          //                       fontWeight: FontWeight.w400,
+                          //                     ),
+                          //                   ),
+                          //                 ],
+                          //               ),
+                          //             ),
+                          //           ),
+                          //         )),
+                          //     SizedBox(
+                          //       width: 20.w,
+                          //     ),
+                          //     Container(
+                          //         height: 44.h,
+                          //         width: 170.w,
+                          //         decoration: BoxDecoration(
+                          //           borderRadius: BorderRadius.circular(8.r),
+                          //           border: Border.all(
+                          //               color: MyColors.semiTransparentColor),
+                          //         ),
+                          //         child: GestureDetector(
+                          //           onTap: () {
+                          //             closeDate(context);
+                          //           },
+                          //           child: Center(
+                          //             child: Padding(
+                          //               padding: EdgeInsets.all(12.r),
+                          //               child: Row(
+                          //                 children: [
+                          //                   Image.asset(Res.calendar),
+                          //                   SizedBox(
+                          //                     width: 15.w,
+                          //                   ),
+                          //                   Text(
+                          //                     closedDate != null
+                          //                         ? "${closedDate?.toLocal()}"
+                          //                             .split(' ')[0]
+                          //                         : tr(context,
+                          //                             "walletClosingDate"),
+                          //                     style: TextStyle(
+                          //                       fontSize: 12.sp,
+                          //                       color: context
+                          //                               .watch<AppThemeCubit>()
+                          //                               .isDarkMode
+                          //                           ? MyColors.white
+                          //                           : MyColors.black,
+                          //                       fontWeight: FontWeight.w400,
+                          //                     ),
+                          //                   ),
+                          //                 ],
+                          //               ),
+                          //             ),
+                          //           ),
+                          //         )),
+                          //   ],
+                          // ),
                         ],
                       ),
                       SizedBox(
@@ -783,7 +881,12 @@ class _EditWalletState extends State<EditWallet> {
                         title: tr(context, "saveChanges"),
                         color: MyColors.primary,
                         onTap: () {
-                          if (formKey.currentState!.validate()) {
+                          if (formKey.currentState!.validate() &&
+                              context
+                                  .read<WalletCubit>()
+                                  .formKey
+                                  .currentState!
+                                  .validate()) {
                             repatedWalletController = repatedWalletController;
                             isRepated = repeatSwitchValue;
                             widget.model.balance = parsedNumber;

@@ -927,9 +927,15 @@ class _AddWalletState extends State<AddWallet> {
                                             ? parsedNumber
                                             : (parsedNumber * currencyValue),
                                     repeatWallet: context
-                                        .read<WalletCubit>()
-                                        .repeatedController
-                                        .text,
+                                            .read<WalletCubit>()
+                                            .repeatedController
+                                            .text
+                                            .isEmpty
+                                        ? data.repeatWallet.first
+                                        : context
+                                            .read<WalletCubit>()
+                                            .repeatedController
+                                            .text,
                                     notificationBalance: parsedNumber);
                                 context.read<WalletCubit>().addNote(walletData);
                                 if (context.mounted) {

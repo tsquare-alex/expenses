@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:barcode_scan2/barcode_scan2.dart';
+import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/models/database_model/database_model.dart';
@@ -1059,7 +1060,7 @@ class _AddDatabaseState extends State<AddDatabase> {
                       type: TextInputType.none,
                       action: TextInputAction.next,
                       validate: (value) => validateField(value),
-                      label: tr(context, "twitter"),
+                      label: tr(context, "youtube"),
                       hintColor:  context.watch<AppThemeCubit>().isDarkMode
                           ? MyColors.white
                           : MyColors.black,
@@ -1195,66 +1196,69 @@ class _AddDatabaseState extends State<AddDatabase> {
                       ? AppDarkColors.primary
                       : MyColors.primary,
                   onTap: () async {
-                    var dataBase = DatabaseModel(
-                      category: dataBaseCubit.categoryController.text.isNotEmpty
-                          ? dataBaseCubit.categoryController.text
-                          : scannedData.category,
-                      name: dataBaseCubit.nameController.text.isNotEmpty
-                          ? dataBaseCubit.nameController.text
-                          : scannedData.name,
-                      phone: dataBaseCubit.phoneController.text.isNotEmpty
-                          ? dataBaseCubit.phoneController.text
-                          : scannedData.phone,
-                      address: dataBaseCubit.addressController.text.isNotEmpty
-                          ? dataBaseCubit.addressController.text
-                          : scannedData.address,
-                      socialAddress: dataBaseCubit.socialAddressController.text.isNotEmpty
-                          ? dataBaseCubit.socialAddressController.text
-                          : scannedData.socialAddress,
-                      note: dataBaseCubit.noteController.text.isNotEmpty
-                          ? dataBaseCubit.noteController.text
-                          : scannedData.note,
-                      image: dataBaseCubit.imageBytes ?? Uint8List.fromList([]),
-                      emailAddress:
-                      dataBaseCubit.emailAddressController.text.isNotEmpty
-                          ? dataBaseCubit.emailAddressController.text
-                          : scannedData.emailAddress,
-                      date: dataBaseCubit.dateController.text.isNotEmpty
-                          ? dataBaseCubit.dateController.text
-                          : scannedData.date,
-                      job: dataBaseCubit.jobController.text.isNotEmpty
-                          ? dataBaseCubit.jobController.text
-                          : scannedData.job,
-                      extraPhone: dataBaseCubit.secondPhoneController.text.isNotEmpty
-                          ? dataBaseCubit.secondPhoneController.text
-                          : scannedData.extraPhone,
-                      facebook:  dataBaseCubit.facebookController.text.isNotEmpty
-                          ? dataBaseCubit.facebookController.text
-                          : scannedData.facebook,
-                      whatsapp:  dataBaseCubit.whatsappController.text.isNotEmpty
-                          ? dataBaseCubit.whatsappController.text
-                          : scannedData.whatsapp,
-                      instagram: dataBaseCubit.instagramController.text.isNotEmpty
-                          ? dataBaseCubit.instagramController.text
-                          : scannedData.instagram,
-                      twitter: dataBaseCubit.twitterController.text.isNotEmpty
-                          ? dataBaseCubit.twitterController.text
-                          : scannedData.twitter,
-                      youtube: dataBaseCubit.youtubeController.text.isNotEmpty
-                          ? dataBaseCubit.youtubeController.text
-                          : scannedData.youtube,
-                    );
+                    if(dataBaseCubit.nameController.text.isNotEmpty){
+                      var dataBase = DatabaseModel(
+                        category: dataBaseCubit.categoryController.text.isNotEmpty
+                            ? dataBaseCubit.categoryController.text
+                            : scannedData.category,
+                        name: dataBaseCubit.nameController.text.isNotEmpty
+                            ? dataBaseCubit.nameController.text
+                            : scannedData.name,
+                        phone: dataBaseCubit.phoneController.text.isNotEmpty
+                            ? dataBaseCubit.phoneController.text
+                            : scannedData.phone,
+                        address: dataBaseCubit.addressController.text.isNotEmpty
+                            ? dataBaseCubit.addressController.text
+                            : scannedData.address,
+                        socialAddress: dataBaseCubit.socialAddressController.text.isNotEmpty
+                            ? dataBaseCubit.socialAddressController.text
+                            : scannedData.socialAddress,
+                        note: dataBaseCubit.noteController.text.isNotEmpty
+                            ? dataBaseCubit.noteController.text
+                            : scannedData.note,
+                        image: dataBaseCubit.imageBytes ?? Uint8List.fromList([]),
+                        emailAddress:
+                        dataBaseCubit.emailAddressController.text.isNotEmpty
+                            ? dataBaseCubit.emailAddressController.text
+                            : scannedData.emailAddress,
+                        date: dataBaseCubit.dateController.text.isNotEmpty
+                            ? dataBaseCubit.dateController.text
+                            : scannedData.date,
+                        job: dataBaseCubit.jobController.text.isNotEmpty
+                            ? dataBaseCubit.jobController.text
+                            : scannedData.job,
+                        extraPhone: dataBaseCubit.secondPhoneController.text.isNotEmpty
+                            ? dataBaseCubit.secondPhoneController.text
+                            : scannedData.extraPhone,
+                        facebook:  dataBaseCubit.facebookController.text.isNotEmpty
+                            ? dataBaseCubit.facebookController.text
+                            : scannedData.facebook,
+                        whatsapp:  dataBaseCubit.whatsappController.text.isNotEmpty
+                            ? dataBaseCubit.whatsappController.text
+                            : scannedData.whatsapp,
+                        instagram: dataBaseCubit.instagramController.text.isNotEmpty
+                            ? dataBaseCubit.instagramController.text
+                            : scannedData.instagram,
+                        twitter: dataBaseCubit.twitterController.text.isNotEmpty
+                            ? dataBaseCubit.twitterController.text
+                            : scannedData.twitter,
+                        youtube: dataBaseCubit.youtubeController.text.isNotEmpty
+                            ? dataBaseCubit.youtubeController.text
+                            : scannedData.youtube,
+                      );
 
-                    // Ensure QR code data is generated before adding to Hive
-                    dataBase.qrCodeData = dataBase.generateQRCodeData();
+                      dataBase.qrCodeData = dataBase.generateQRCodeData();
 
-                    // Continue with adding data to Hive
-                    await BlocProvider.of<AddDataBaseCubit>(context)
-                        .addDataBase(dataBase);
+                      await BlocProvider.of<AddDataBaseCubit>(context)
+                          .addDataBase(dataBase);
 
-                    if (context.mounted) {
-                      Navigator.of(context).pop();
+                      if (context.mounted) {
+                        Navigator.of(context).pop();
+                      }
+                    }else{
+                      CustomToast.showSimpleToast(msg: "Please Enter Name");
                     }
+
                   },),
 
               const SizedBox(height: 16.0),

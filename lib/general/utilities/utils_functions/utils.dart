@@ -545,7 +545,7 @@ class Utils {
       print("myCounter $myCounter");
 
       print("item.repeated ${item.repeatWallet}");
-      if (item.repeatWallet != null) {
+      if (item.repeatWallet!.isNotEmpty) {
         print("object4");
         for (int i = 0; i < myCounter; i++) {
           WalletModel newModel = WalletModel(

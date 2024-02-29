@@ -37,16 +37,16 @@ class BuildEndDrawer extends StatelessWidget {
                   child: ListView(
                     shrinkWrap: true,
                     children: [
-                      CustomDrawerCard(
-                        title: tr(context, "fullVersion"),
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          AutoRouter.of(context).push(const SubscriptionsRoute());
-                        },
-                        endDrawer: false,
-                        image: Res.pro,
-                        hasArrowBack: true,
-                      ),
+                      // CustomDrawerCard(
+                      //   title: tr(context, "fullVersion"),
+                      //   onTap: () {
+                      //     Navigator.of(context).pop();
+                      //     AutoRouter.of(context).push(const SubscriptionsRoute());
+                      //   },
+                      //   endDrawer: false,
+                      //   image: Res.pro,
+                      //   hasArrowBack: true,
+                      // ),
                       CustomDrawerCard(
                         title: tr(context, "wallets"),
                         onTap: (){

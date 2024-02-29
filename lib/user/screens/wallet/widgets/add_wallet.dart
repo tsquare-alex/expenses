@@ -929,7 +929,10 @@ class _AddWalletState extends State<AddWallet> {
                                     repeatWallet: context
                                         .read<WalletCubit>()
                                         .repeatedController
-                                        .text,
+                                        .text.isEmpty? data.repeatWallet.first : context
+                                            .read<WalletCubit>()
+                                            .repeatedController
+                                            .text,
                                     notificationBalance: parsedNumber);
                                 context.read<WalletCubit>().addNote(walletData);
                                 if (context.mounted) {

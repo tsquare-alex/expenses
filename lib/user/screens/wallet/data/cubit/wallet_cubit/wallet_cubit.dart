@@ -25,6 +25,9 @@ class WalletCubit extends Cubit<WalletState> {
 
   var currencyBox = Hive.box<CurrencyModel>("currencyBox");
 
+  final GlobalKey<FormState> formKey = GlobalKey();
+
+
   bool? isBalanceVisible = true;
   bool? isLocked = true;
   bool checkedValue = false;

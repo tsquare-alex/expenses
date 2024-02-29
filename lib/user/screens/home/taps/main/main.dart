@@ -142,34 +142,16 @@ class _MainState extends State<Main> {
           ),
         ),
         actions: [
-          // BlocBuilder<AppThemeCubit, AppThemeState>(
-          //   builder: (context, state) {
-          //     return IconButton(
-          //       onPressed: () {
-          //         AppThemeCubit.get(context).changeTheme();
-          //       },
-          //       padding: EdgeInsets.zero,
-          //       icon: Icon(
-          //         Icons.dark_mode_outlined,
-          //         color: context.watch<AppThemeCubit>().isDarkMode
-          //             ? Colors.white
-          //             : MyColors.black,
-          //         size: 20.w,
-          //       ),
-          //     );
-          //   },
-          // ),
           PopupMenuButton<FavoriteModel>(
-            // surfaceTintColor: Colors.blue,
             icon: Icon(
-              Icons.more_vert,
+              Icons.star,
               color: context.watch<AppThemeCubit>().isDarkMode
                   ? MyColors.white
-                  : MyColors.black100,
+                  : MyColors.gold,
             ),
             color: context.watch<AppThemeCubit>().isDarkMode
                 ? AppDarkColors.backgroundColor
-                :MyColors.white,
+                : MyColors.white,
             onSelected: _onFavoriteItemSelected,
             itemBuilder: (BuildContext context) {
               if (getFavoriteModels(context).isEmpty) {
@@ -190,7 +172,6 @@ class _MainState extends State<Main> {
                         const SizedBox(width: 8.0),
                         MyText(
                           title: tr(context, model.toolName),
-                          // color: Colors.white,
                           color: context.read<AppThemeCubit>().isDarkMode
                               ? Colors.white
                               : Colors.black,
@@ -204,13 +185,52 @@ class _MainState extends State<Main> {
             },
           ),
 
-          // IconButton(
-          //   onPressed: () {},
+          // PopupMenuButton<FavoriteModel>(
+          //   // surfaceTintColor: Colors.blue,
           //   icon: Icon(
-          //     Icons.account_balance_outlined,
-          //     color: MyColors.white,
-          //     size: 20.w,
-          //   ),),
+          //     Icons.more_vert,
+          //     color: context.watch<AppThemeCubit>().isDarkMode
+          //         ? MyColors.white
+          //         : MyColors.black100,
+          //   ),
+          //   color: context.watch<AppThemeCubit>().isDarkMode
+          //       ? AppDarkColors.backgroundColor
+          //       :MyColors.white,
+          //   onSelected: _onFavoriteItemSelected,
+          //   itemBuilder: (BuildContext context) {
+          //     if (getFavoriteModels(context).isEmpty) {
+          //       CustomToast.showSimpleToast(msg: 'يرجى إضافة ادوات مساعدة');
+          //     }
+          //     return [
+          //       for (FavoriteModel model in getFavoriteModels(context))
+          //         PopupMenuItem<FavoriteModel>(
+          //           value: model,
+          //           child: Row(
+          //             children: <Widget>[
+          //               Image.asset(
+          //                 model.imagePath,
+          //                 width: 24.0,
+          //                 height: 24.0,
+          //                 color: MyColors.primary,
+          //               ),
+          //               const SizedBox(width: 8.0),
+          //               MyText(
+          //                 title: tr(context, model.toolName),
+          //                 // color: Colors.white,
+          //                 color: context.read<AppThemeCubit>().isDarkMode
+          //                     ? Colors.white
+          //                     : Colors.black,
+          //                 size: 15.sp,
+          //                 fontWeight: FontWeight.bold,
+          //               ),
+          //             ],
+          //           ),
+          //         ),
+          //     ];
+          //   },
+          // ),
+
+
           IconButton(
             onPressed: () {
               data.scaffold.currentState?.openEndDrawer();
@@ -296,38 +316,37 @@ class _MainState extends State<Main> {
     switch (tool.toolName)
     {
       case "percentage":
-        AutoRouter.of(context).push( const SubscriptionsRoute());
-        // Navigator.of(context).push(MaterialPageRoute(
-        //     builder: (context) => PercentageCalculatorScreen()));
+      // AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => PercentageCalculatorScreen()));
         break;
       case "tax":
-        AutoRouter.of(context).push( const SubscriptionsRoute());
-        // Navigator.of(context).push(MaterialPageRoute(
-        //     builder: (context) => ServiceTaxCalculatorScreen()));
+      // AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ServiceTaxCalculatorScreen()));
         break;
       case "discount":
-        AutoRouter.of(context).push( const SubscriptionsRoute());
-        // Navigator.of(context).push(MaterialPageRoute(
-        //     builder: (context) => DiscountCalculatorScreen()));
+      // AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => DiscountCalculatorScreen()));
         break;
       case "qiblah":
-        AutoRouter.of(context).push( const SubscriptionsRoute());
-        // Navigator.of(context)
-        //     .push(MaterialPageRoute(builder: (context) => QiblahCompass()));
+      // AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => QiblahCompass()));
         break;
       case "scanner":
-        AutoRouter.of(context).push( const SubscriptionsRoute());
-        // Navigator.of(context)
-        //     .push(
-        //     MaterialPageRoute(builder: (context) =>
-        //     // const ScannerQrCode()
-        //
-        //     ));
+      // AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context)
+            .push(
+            MaterialPageRoute(builder: (context) =>
+            const ScannerQrCode()
+            ));
         break;
       case "calender":
-        AutoRouter.of(context).push( const SubscriptionsRoute());
-        // Navigator.of(context)
-        //     .push(MaterialPageRoute(builder: (context) => CalenderScreen()));
+      // AutoRouter.of(context).push( SubscriptionsRoute());
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => CalenderScreen()));
         break;
       case "calculator":
         Navigator.of(context)
@@ -338,24 +357,24 @@ class _MainState extends State<Main> {
         //       MaterialPageRoute(builder: (context) => const ShoesSizeScreen()));
         break;
       case "ringSize":
-      // Navigator.of(context).push(
-      //     MaterialPageRoute(builder: (context) => const RingSizeScreen()));
-        AutoRouter.of(context).push( const SubscriptionsRoute());
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const RingSizeScreen()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
         break;
       case "clothesSize":
-      // Navigator.of(context).push(
-      //     MaterialPageRoute(builder: (context) => const ClothesSizeScreen()));
-        AutoRouter.of(context).push( const SubscriptionsRoute());
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const ClothesSizeScreen()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
         break;
       case "bmi":
-      // Navigator.of(context).push(
-      //     MaterialPageRoute(builder: (context) => const BMICalculator()));
-        AutoRouter.of(context).push( const SubscriptionsRoute());
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const BMICalculator()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
         break;
       case "bmr":
-      // Navigator.of(context).push(
-      //     MaterialPageRoute(builder: (context) => BmrCalculatorScreen()));
-        AutoRouter.of(context).push( const SubscriptionsRoute());
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => BmrCalculatorScreen()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
         break;
       case "convertCurrency":
         Navigator.of(context).push(
@@ -374,14 +393,14 @@ class _MainState extends State<Main> {
             builder: (context) => TemperatureConverterScreen()));
         break;
       case "convertArea":
-      // Navigator.of(context).push(
-      //     MaterialPageRoute(builder: (context) => AreaConverterScreen()));
-        AutoRouter.of(context).push( const SubscriptionsRoute());
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => AreaConverterScreen()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
         break;
       case "convertSpeed":
-      // Navigator.of(context).push(
-      //     MaterialPageRoute(builder: (context) => SpeedConverterScreen()));
-        AutoRouter.of(context).push( const SubscriptionsRoute());
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => SpeedConverterScreen()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
         break;
       case "convertData":
         Navigator.of(context).push(
@@ -392,23 +411,23 @@ class _MainState extends State<Main> {
             MaterialPageRoute(builder: (context) => VolumeConverterScreen()));
         break;
       case "reminder":
-      // Navigator.of(context).push(
-      //     MaterialPageRoute(builder: (context) => ReminderScreen()));
-        AutoRouter.of(context).push( const SubscriptionsRoute());
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => ReminderScreen()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
         break;
       case "ruler":
-      // Navigator.of(context).push(
-      //     MaterialPageRoute(builder: (context) => RulerScreen()));
-        AutoRouter.of(context).push( const SubscriptionsRoute());
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => RulerScreen()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
         break;
       case "note":
         Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const NoteView()));
+            MaterialPageRoute(builder: (context) => NoteView()));
         break;
       case "calculateUnitPrice":
-      // Navigator.of(context).push(
-      //     MaterialPageRoute(builder: (context) => UnitPriceScreen()));
-        AutoRouter.of(context).push( const SubscriptionsRoute());
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => UnitPriceScreen()));
+        // AutoRouter.of(context).push( SubscriptionsRoute());
         break;
       case "temporary":
         Navigator.of(context).push(

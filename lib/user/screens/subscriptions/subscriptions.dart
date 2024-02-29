@@ -196,6 +196,7 @@ class Subscriptions extends StatelessWidget {
                             child: Center(
                                 child: Text(
                               tr(context, "subscription30Cost"),
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 12.sp, fontWeight: FontWeight.w600),
                             ))),
@@ -208,6 +209,7 @@ class Subscriptions extends StatelessWidget {
                             child: Center(
                                 child: Text(
                               tr(context, "subscription365Cost"),
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 12.sp, fontWeight: FontWeight.w600),
                             ))),
@@ -220,6 +222,7 @@ class Subscriptions extends StatelessWidget {
                           child: Center(
                               child: Text(
                             tr(context, "subscription547Cost"),
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 12.sp, fontWeight: FontWeight.w600),
                           )),

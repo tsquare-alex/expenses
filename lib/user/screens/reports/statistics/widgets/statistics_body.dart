@@ -46,8 +46,10 @@ class StatisticsBody extends StatelessWidget {
                             wallet.name,
                             style: TextStyle(
                               fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey,
+                              fontWeight: FontWeight.w700,
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? Colors.white
+                                  : Colors.black54,
                             ),
                           ),
                         ),
@@ -55,57 +57,6 @@ class StatisticsBody extends StatelessWidget {
                       .toList(),
                   onSelect: (value) =>
                       ReportsCubit.get(context).onWalletSelect(value),
-                ),
-                SizedBox(height: 20.h),
-                StatisticsDropdown(
-                  label: tr(context, 'chooseTransaction'),
-                  choice: ReportsCubit.get(context).statsSelectedTransaction,
-                  menuList: context
-                      .watch<ReportsCubit>()
-                      .statsTransactions
-                      .map(
-                        (transaction) => DropdownMenuItem<String>(
-                          value: transaction,
-                          child: Text(
-                            tr(context, transaction).isEmpty
-                                ? transaction
-                                : tr(context, transaction),
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                  onSelect: (value) =>
-                      ReportsCubit.get(context).onTransactionsSelect(value),
-                ),
-                SizedBox(height: 20.h),
-                StatisticsDropdown(
-                  label: tr(context, 'chooseSubTransaction'),
-                  choice: ReportsCubit.get(context).statsSelectedSubTransaction,
-                  menuList: ReportsCubit.get(context)
-                      .statsSubTransactions
-                      .map(
-                        (transaction) => DropdownMenuItem<String>(
-                          value: transaction,
-                          child: Text(
-                            tr(context, transaction).isEmpty
-                                ? transaction
-                                : tr(context, transaction),
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                  onSelect: (value) =>
-                      ReportsCubit.get(context).onSubTransactionsSelect(value),
                 ),
                 SizedBox(height: 20.h),
                 Padding(
@@ -137,8 +88,11 @@ class StatisticsBody extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () async {
                             if (ReportsCubit.get(context)
-                                .beforeDatesFilteredTransactions
-                                .isEmpty) {
+                                    .beforeDatesFilteredTransactions
+                                    .isEmpty ||
+                                ReportsCubit.get(context)
+                                    .statsSelectedWallet
+                                    .isEmpty) {
                               return;
                             }
                             ReportsCubit.get(context).statsSelectedDateFrom =
@@ -156,23 +110,19 @@ class StatisticsBody extends StatelessWidget {
                               builder: (context, child) {
                                 return Theme(
                                   data: Theme.of(context).copyWith(
-                                    colorScheme: ColorScheme.light(
-                                      primary: context
-                                              .watch<AppThemeCubit>()
-                                              .isDarkMode
-                                          ? AppDarkColors.primary
-                                          : MyColors.primary,
-                                      secondary: context
-                                              .watch<AppThemeCubit>()
-                                              .isDarkMode
-                                          ? AppDarkColors.accentColor
-                                          : Colors.grey.shade200,
-                                      onSurface: context
-                                              .watch<AppThemeCubit>()
-                                              .isDarkMode
-                                          ? AppDarkColors.secondary
-                                          : MyColors.primary,
-                                    ),
+                                    colorScheme: context
+                                            .watch<AppThemeCubit>()
+                                            .isDarkMode
+                                        ? ColorScheme.dark(
+                                            primary: AppDarkColors.secondary,
+                                            onSurface: AppDarkColors.secondary,
+                                            surfaceTint: Colors.transparent,
+                                          )
+                                        : ColorScheme.light(
+                                            primary: MyColors.primary,
+                                            onSurface: MyColors.primary,
+                                            surfaceTint: Colors.transparent,
+                                          ),
                                   ),
                                   child: child!,
                                 );
@@ -197,8 +147,17 @@ class StatisticsBody extends StatelessWidget {
                                           .statsFormattedDateFrom,
                                   style: TextStyle(
                                     fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w700,
+                                    color: context
+                                            .watch<ReportsCubit>()
+                                            .statsFormattedDateFrom
+                                            .isEmpty
+                                        ? Colors.grey
+                                        : context
+                                                .watch<AppThemeCubit>()
+                                                .isDarkMode
+                                            ? Colors.white
+                                            : Colors.black54,
                                   ),
                                 ),
                                 Icon(
@@ -240,23 +199,19 @@ class StatisticsBody extends StatelessWidget {
                               builder: (context, child) {
                                 return Theme(
                                   data: Theme.of(context).copyWith(
-                                    colorScheme: ColorScheme.light(
-                                      primary: context
-                                              .watch<AppThemeCubit>()
-                                              .isDarkMode
-                                          ? AppDarkColors.primary
-                                          : MyColors.primary,
-                                      secondary: context
-                                              .watch<AppThemeCubit>()
-                                              .isDarkMode
-                                          ? AppDarkColors.accentColor
-                                          : Colors.grey.shade200,
-                                      onSurface: context
-                                              .watch<AppThemeCubit>()
-                                              .isDarkMode
-                                          ? AppDarkColors.secondary
-                                          : MyColors.primary,
-                                    ),
+                                    colorScheme: context
+                                            .watch<AppThemeCubit>()
+                                            .isDarkMode
+                                        ? ColorScheme.dark(
+                                            primary: AppDarkColors.secondary,
+                                            onSurface: AppDarkColors.secondary,
+                                            surfaceTint: Colors.transparent,
+                                          )
+                                        : ColorScheme.light(
+                                            primary: MyColors.primary,
+                                            onSurface: MyColors.primary,
+                                            surfaceTint: Colors.transparent,
+                                          ),
                                   ),
                                   child: child!,
                                 );
@@ -281,8 +236,17 @@ class StatisticsBody extends StatelessWidget {
                                           .statsFormattedDateTo,
                                   style: TextStyle(
                                     fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w700,
+                                    color: context
+                                            .watch<ReportsCubit>()
+                                            .statsFormattedDateTo
+                                            .isEmpty
+                                        ? Colors.grey
+                                        : context
+                                                .watch<AppThemeCubit>()
+                                                .isDarkMode
+                                            ? Colors.white
+                                            : Colors.black54,
                                   ),
                                 ),
                                 Icon(
@@ -302,6 +266,61 @@ class StatisticsBody extends StatelessWidget {
                 ),
                 SizedBox(height: 20.h),
                 StatisticsDropdown(
+                  label: tr(context, 'chooseTransaction'),
+                  choice: ReportsCubit.get(context).statsSelectedTransaction,
+                  menuList: context
+                      .watch<ReportsCubit>()
+                      .statsTransactions
+                      .map(
+                        (transaction) => DropdownMenuItem<String>(
+                          value: transaction,
+                          child: Text(
+                            tr(context, transaction).isEmpty
+                                ? transaction
+                                : tr(context, transaction),
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w700,
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? Colors.white
+                                  : Colors.black54,
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  onSelect: (value) =>
+                      ReportsCubit.get(context).onTransactionsSelect(value),
+                ),
+                SizedBox(height: 20.h),
+                StatisticsDropdown(
+                  label: tr(context, 'chooseSubTransaction'),
+                  choice: ReportsCubit.get(context).statsSelectedSubTransaction,
+                  menuList: ReportsCubit.get(context)
+                      .statsSubTransactions
+                      .map(
+                        (transaction) => DropdownMenuItem<String>(
+                          value: transaction,
+                          child: Text(
+                            tr(context, transaction).isEmpty
+                                ? transaction
+                                : tr(context, transaction),
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w700,
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? Colors.white
+                                  : Colors.black54,
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  onSelect: (value) =>
+                      ReportsCubit.get(context).onSubTransactionsSelect(value),
+                ),
+                SizedBox(height: 20.h),
+                StatisticsDropdown(
                   label: tr(context, 'setPriority'),
                   choice: ReportsCubit.get(context).statsSelectedPriorities,
                   menuList: ReportsCubit.get(context)
@@ -315,8 +334,10 @@ class StatisticsBody extends StatelessWidget {
                                 : tr(context, transaction),
                             style: TextStyle(
                               fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey,
+                              fontWeight: FontWeight.w700,
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? Colors.white
+                                  : Colors.black54,
                             ),
                           ),
                         ),
@@ -356,9 +377,31 @@ class StatisticsBody extends StatelessWidget {
                     ),
                     SizedBox.square(dimension: 12.r),
                     OutlinedButton(
-                      onPressed: () async {
-                        await ReportsCubit.get(context)
-                            .generateAndShareStatsTableExcel(context: context);
+                      onPressed: () {
+                        switch (AppThemeCubit.get(context).saveMethod) {
+                          case 'excel':
+                            switch (option) {
+                              case 'table':
+                                ReportsCubit.get(context)
+                                    .generateAndShareStatsTableExcel(
+                                        context: context);
+                              case 'chart':
+                                ReportsCubit.get(context)
+                                    .generateAndShareStatsChartExcel(
+                                        context: context);
+                            }
+                          case 'pdf':
+                            switch (option) {
+                              case 'table':
+                                ReportsCubit.get(context)
+                                    .generateAndShareStatsTablePDF(
+                                        context: context);
+                              case 'chart':
+                                ReportsCubit.get(context)
+                                    .generateAndShareStatsChartPDF(
+                                        context: context);
+                            }
+                        }
                       },
                       style: OutlinedButton.styleFrom(
                         fixedSize: Size(64.w, 58.h),
@@ -389,14 +432,32 @@ class StatisticsBody extends StatelessWidget {
                     if (state is ShowReportDetails) {
                       return switch (option) {
                         'table' => ReportTable(
-                            data:
-                                ReportsCubit.get(context).filteredTransactions),
+                            data: ReportsCubit.get(context).filteredTransactions
+                              ..sort(
+                                (a, b) => DateFormat('dd/MM/yyyy', 'en')
+                                    .parse(b.transactionDate!)
+                                    .compareTo(DateFormat('dd/MM/yyyy', 'en')
+                                        .parse(a.transactionDate!)),
+                              ),
+                          ),
                         'chart' => ReportChart(
-                            data:
-                                ReportsCubit.get(context).filteredTransactions),
+                            data: ReportsCubit.get(context).filteredTransactions
+                              ..sort(
+                                (a, b) => DateFormat('dd/MM/yyyy', 'en')
+                                    .parse(a.transactionDate!)
+                                    .compareTo(DateFormat('dd/MM/yyyy', 'en')
+                                        .parse(b.transactionDate!)),
+                              ),
+                          ),
                         String _ => ReportTable(
-                            data:
-                                ReportsCubit.get(context).filteredTransactions),
+                            data: ReportsCubit.get(context).filteredTransactions
+                              ..sort(
+                                (a, b) => DateFormat('dd/MM/yyyy', 'en')
+                                    .parse(b.transactionDate!)
+                                    .compareTo(DateFormat('dd/MM/yyyy', 'en')
+                                        .parse(a.transactionDate!)),
+                              ),
+                          ),
                       };
                     } else {
                       return const SizedBox.shrink();

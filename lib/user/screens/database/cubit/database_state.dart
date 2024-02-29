@@ -13,6 +13,12 @@ class DatabaseInitial extends DatabaseState {}
 
 class DatabaseLoading extends DatabaseState {}
 class DatabaseSuccess extends DatabaseState {}
+class DeleteDatabaseSuccess extends DatabaseState {}
+class DeleteDatabaseError extends DatabaseState {
+  final String errorMessage;
+
+  DeleteDatabaseError({required this.errorMessage});
+}
 
 class DatabaseDataLoaded extends DatabaseState {
   final List<DatabaseModel> dataBaseModel;

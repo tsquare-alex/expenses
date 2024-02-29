@@ -63,15 +63,18 @@ class _ReportsState extends State<Reports> {
               builder: (context, state) {
                 return GestureDetector(
                   onTap: () => showReportOptionsModalSheet(context: context),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.r),
-                    child: Image.asset(
-                      Res.reports_menu,
-                      width: 24.w,
-                      height: 24.h,
-                      color: context.watch<AppThemeCubit>().isDarkMode
-                          ? AppDarkColors.secondary
-                          : MyColors.primary,
+                  child: ColoredBox(
+                    color: Colors.transparent,
+                    child: Padding(
+                      padding: EdgeInsets.all(16.r),
+                      child: Image.asset(
+                        Res.reports_menu,
+                        width: 24.w,
+                        height: 24.h,
+                        color: context.watch<AppThemeCubit>().isDarkMode
+                            ? AppDarkColors.secondary
+                            : MyColors.primary,
+                      ),
                     ),
                   ),
                 );

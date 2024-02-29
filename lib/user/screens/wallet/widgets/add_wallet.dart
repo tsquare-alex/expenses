@@ -29,13 +29,16 @@ class AddWallet extends StatefulWidget {
     required this.selectItemIndex,
     required this.selectedCategory,
     required this.iconPath,
-    this.fromTransaction=false,
+    this.fromTransaction = false,
   });
   @override
   State<AddWallet> createState() => _AddWalletState();
 }
 
 class _AddWalletState extends State<AddWallet> {
+  ExpansionTileController controller = ExpansionTileController();
+  ExpansionTileController valueTypeController = ExpansionTileController();
+  ExpansionTileController currencyController = ExpansionTileController();
   var formKey = GlobalKey<FormState>();
 
   WalletData data = WalletData();
@@ -130,6 +133,7 @@ class _AddWalletState extends State<AddWallet> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: ExpansionTile(
+                              controller: controller,
                               shape: const RoundedRectangleBorder(
                                 side: BorderSide(color: Colors.transparent),
                               ),
@@ -196,6 +200,7 @@ class _AddWalletState extends State<AddWallet> {
                                                         .text = value.toString();
                                                     isFirstValidationError =
                                                         false;
+                                                    controller.collapse();
                                                   });
                                                 },
                                               ),
@@ -276,6 +281,7 @@ class _AddWalletState extends State<AddWallet> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: ExpansionTile(
+                              controller: valueTypeController,
                               shape: const RoundedRectangleBorder(
                                 side: BorderSide(color: Colors.transparent),
                               ),
@@ -342,6 +348,8 @@ class _AddWalletState extends State<AddWallet> {
                                                         .text = value.toString();
                                                     isSecondValidationError =
                                                         false;
+                                                    valueTypeController
+                                                        .collapse();
                                                   });
                                                 },
                                               ),
@@ -428,6 +436,7 @@ class _AddWalletState extends State<AddWallet> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: ExpansionTile(
+                                  controller: currencyController,
                                   shape: const RoundedRectangleBorder(
                                     side: BorderSide(color: Colors.transparent),
                                   ),
@@ -455,6 +464,7 @@ class _AddWalletState extends State<AddWallet> {
                                                   .read<WalletCubit>()
                                                   .currencyController
                                                   .text = value ?? "";
+                                              currencyController.collapse();
                                             });
                                           },
                                         ),
@@ -471,6 +481,7 @@ class _AddWalletState extends State<AddWallet> {
                                                     .read<WalletCubit>()
                                                     .currencyController
                                                     .text = value ?? "";
+                                                currencyController.collapse();
                                               });
                                             })
                                   ],
@@ -675,64 +686,64 @@ class _AddWalletState extends State<AddWallet> {
                           SizedBox(
                             height: 20.h,
                           ),
-                          Row(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(12.r),
-                                height: 58.h,
-                                width: 328.w,
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: MyColors.greyWhite,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12.r)),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      tr(context, "addImage"),
-                                      style: TextStyle(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: context
-                                                .watch<AppThemeCubit>()
-                                                .isDarkMode
-                                            ? MyColors.white
-                                            : AppDarkColors.backgroundColor,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 100.w,
-                                    ),
-                                    Image.asset(Res.camera),
-                                    SizedBox(
-                                      width: 7.w,
-                                    ),
-                                    VerticalDivider(
-                                      width: 45.h,
-                                      color: MyColors.grey,
-                                    ),
-                                    Image.asset(Res.image),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: 12.w,
-                              ),
-                              Container(
-                                height: 57.h,
-                                width: 57.w,
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: MyColors.greyWhite,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12.r)),
-                                child: IconButton(
-                                    onPressed: () {},
-                                    icon: Image.asset(Res.qrcode)),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20.h),
+                          // Row(
+                          //   children: [
+                          //     Container(
+                          //       padding: EdgeInsets.all(12.r),
+                          //       height: 58.h,
+                          //       width: 328.w,
+                          //       decoration: BoxDecoration(
+                          //           border: Border.all(
+                          //             color: MyColors.greyWhite,
+                          //           ),
+                          //           borderRadius: BorderRadius.circular(12.r)),
+                          //       child: Row(
+                          //         children: [
+                          //           Text(
+                          //             tr(context, "addImage"),
+                          //             style: TextStyle(
+                          //               fontSize: 16.sp,
+                          //               fontWeight: FontWeight.w500,
+                          //               color: context
+                          //                       .watch<AppThemeCubit>()
+                          //                       .isDarkMode
+                          //                   ? MyColors.white
+                          //                   : AppDarkColors.backgroundColor,
+                          //             ),
+                          //           ),
+                          //           SizedBox(
+                          //             width: 100.w,
+                          //           ),
+                          //           Image.asset(Res.camera),
+                          //           SizedBox(
+                          //             width: 7.w,
+                          //           ),
+                          //           VerticalDivider(
+                          //             width: 45.h,
+                          //             color: MyColors.grey,
+                          //           ),
+                          //           Image.asset(Res.image),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //     SizedBox(
+                          //       width: 12.w,
+                          //     ),
+                          //     Container(
+                          //       height: 57.h,
+                          //       width: 57.w,
+                          //       decoration: BoxDecoration(
+                          //           border: Border.all(
+                          //             color: MyColors.greyWhite,
+                          //           ),
+                          //           borderRadius: BorderRadius.circular(12.r)),
+                          //       child: IconButton(
+                          //           onPressed: () {},
+                          //           icon: Image.asset(Res.qrcode)),
+                          //     ),
+                          //   ],
+                          // ),
+                          // SizedBox(height: 20.h),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -754,7 +765,16 @@ class _AddWalletState extends State<AddWallet> {
                                   child: TileDropdownButton(
                                       menuList: data.repeatWallet,
                                       value: data.repeatWallet.first,
-                                      onChanged: (value) {}),
+                                      onChanged: (value) {
+                                        context
+                                            .read<WalletCubit>()
+                                            .repeatedController
+                                            .text = value.toString();
+                                        print(context
+                                            .read<WalletCubit>()
+                                            .repeatedController
+                                            .text);
+                                      }),
                                 ),
                               ),
                               SizedBox(
@@ -774,36 +794,36 @@ class _AddWalletState extends State<AddWallet> {
                           SizedBox(
                             height: 15.h,
                           ),
-                          Visibility(
-                            visible: repeatSwitchValue,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                MyText(
-                                  title: tr(context,
-                                      "numberOfTimesToRepeatTheWallet"),
-                                  color:
-                                      context.watch<AppThemeCubit>().isDarkMode
-                                          ? MyColors.white
-                                          : AppDarkColors.backgroundColor,
-                                  size: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                SizedBox(
-                                  width: 150.w,
-                                  child: TileDropdownButton(
-                                      menuList: context
-                                          .watch<WalletCubit>()
-                                          .walletDuplicate,
-                                      value: context
-                                          .read<WalletCubit>()
-                                          .walletDuplicate
-                                          .first,
-                                      onChanged: (value) {}),
-                                ),
-                              ],
-                            ),
-                          ),
+                          // Visibility(
+                          //   visible: repeatSwitchValue,
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //     children: [
+                          //       MyText(
+                          //         title: tr(context,
+                          //             "numberOfTimesToRepeatTheWallet"),
+                          //         color:
+                          //             context.watch<AppThemeCubit>().isDarkMode
+                          //                 ? MyColors.white
+                          //                 : AppDarkColors.backgroundColor,
+                          //         size: 14.sp,
+                          //         fontWeight: FontWeight.w600,
+                          //       ),
+                          //       SizedBox(
+                          //         width: 150.w,
+                          //         child: TileDropdownButton(
+                          //             menuList: context
+                          //                 .watch<WalletCubit>()
+                          //                 .walletDuplicate,
+                          //             value: context
+                          //                 .read<WalletCubit>()
+                          //                 .walletDuplicate
+                          //                 .first,
+                          //             onChanged: (value) {}),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                           SizedBox(
                             height: 15.h,
                           ),
@@ -856,57 +876,66 @@ class _AddWalletState extends State<AddWallet> {
                             onTap: () {
                               if (formKey.currentState!.validate()) {
                                 var walletData = WalletModel(
-                                  name: context
-                                      .read<WalletCubit>()
-                                      .walletNameController
-                                      .text,
-                                  balance: parsedNumber,
-                                  remainBalance: parsedNumber,
-                                  openDate: context
-                                      .read<WalletCubit>()
-                                      .openDateController
-                                      .text,
-                                  closedDate: context
-                                      .read<WalletCubit>()
-                                      .closedDateController
-                                      .text,
-                                  encomeSource: context
-                                      .read<WalletCubit>()
-                                      .encomSourceController
-                                      .text,
-                                  category: widget.selectedCategory,
-                                  valueCategory: context
-                                      .read<WalletCubit>()
-                                      .valueCategoryController
-                                      .text,
-                                  currencyValue: currencyValue,
-                                  currency: context
-                                      .read<WalletCubit>()
-                                      .currencyController
-                                      .text,
-                                  checkedValue:
-                                      selectMainCurrency == mainCurrency
-                                          ? false
-                                          : context
-                                              .read<WalletCubit>()
-                                              .checkedValue,
-                                  totalBalance:
-                                      selectMainCurrency == mainCurrency
-                                          ? parsedNumber
-                                          : (parsedNumber * currencyValue),
-                                  iconPath: widget.iconPath,
-                                  remainTotalBalance:
-                                      selectMainCurrency == mainCurrency
-                                          ? parsedNumber
-                                          : (parsedNumber * currencyValue),
-                                );
-
+                                    notification: notificationSwitchvalu,
+                                    walletRepate: repeatSwitchValue,
+                                    addNote: context
+                                        .read<WalletCubit>()
+                                        .noteController
+                                        .text,
+                                    name: context
+                                        .read<WalletCubit>()
+                                        .walletNameController
+                                        .text,
+                                    balance: parsedNumber,
+                                    remainBalance: parsedNumber,
+                                    openDate: context
+                                        .read<WalletCubit>()
+                                        .openDateController
+                                        .text,
+                                    closedDate: context
+                                        .read<WalletCubit>()
+                                        .closedDateController
+                                        .text,
+                                    encomeSource: context
+                                        .read<WalletCubit>()
+                                        .encomSourceController
+                                        .text,
+                                    category: widget.selectedCategory,
+                                    valueCategory: context
+                                        .read<WalletCubit>()
+                                        .valueCategoryController
+                                        .text,
+                                    currencyValue: currencyValue,
+                                    currency: context
+                                        .read<WalletCubit>()
+                                        .currencyController
+                                        .text,
+                                    checkedValue:
+                                        selectMainCurrency == mainCurrency
+                                            ? false
+                                            : context
+                                                .read<WalletCubit>()
+                                                .checkedValue,
+                                    totalBalance:
+                                        selectMainCurrency == mainCurrency
+                                            ? parsedNumber
+                                            : (parsedNumber * currencyValue),
+                                    iconPath: widget.iconPath,
+                                    remainTotalBalance:
+                                        selectMainCurrency == mainCurrency
+                                            ? parsedNumber
+                                            : (parsedNumber * currencyValue),
+                                    repeatWallet: context
+                                        .read<WalletCubit>()
+                                        .repeatedController
+                                        .text,
+                                    notificationBalance: parsedNumber);
                                 context.read<WalletCubit>().addNote(walletData);
                                 if (context.mounted) {
-                                  if(widget.fromTransaction==false){
+                                  if (widget.fromTransaction == false) {
                                     AutoRouter.of(context).push(
                                         HomeRoute(index: 0, pageIndex: 7));
-                                  }else{
+                                  } else {
                                     AutoRouter.of(context).pop();
                                   }
                                 }

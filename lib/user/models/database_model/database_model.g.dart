@@ -27,13 +27,19 @@ class DatabaseModelAdapter extends TypeAdapter<DatabaseModel> {
       emailAddress: fields[8] as String?,
       date: fields[9] as String?,
       job: fields[10] as String?,
+      extraPhone: fields[11] as String?,
+      facebook: fields[12] as String?,
+      whatsapp: fields[13] as String?,
+      instagram: fields[14] as String?,
+      twitter: fields[15] as String?,
+      youtube: fields[16] as String?,
     )..qrCodeData = fields[7] as String?;
   }
 
   @override
   void write(BinaryWriter writer, DatabaseModel obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(17)
       ..writeByte(0)
       ..write(obj.category)
       ..writeByte(1)
@@ -55,7 +61,19 @@ class DatabaseModelAdapter extends TypeAdapter<DatabaseModel> {
       ..writeByte(9)
       ..write(obj.date)
       ..writeByte(10)
-      ..write(obj.job);
+      ..write(obj.job)
+      ..writeByte(11)
+      ..write(obj.extraPhone)
+      ..writeByte(12)
+      ..write(obj.facebook)
+      ..writeByte(13)
+      ..write(obj.whatsapp)
+      ..writeByte(14)
+      ..write(obj.instagram)
+      ..writeByte(15)
+      ..write(obj.twitter)
+      ..writeByte(16)
+      ..write(obj.youtube);
   }
 
   @override

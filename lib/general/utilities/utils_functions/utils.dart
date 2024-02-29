@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:expenses/general/blocks/lang_cubit/lang_cubit.dart';
 import 'package:expenses/general/constants/constants.dart';
+import 'package:expenses/general/constants/local_notification/local_notification.dart';
 import 'package:expenses/general/helper/configration/DecorationUtils.dart';
 import 'package:expenses/general/helper/storage/Storage.dart';
 import 'package:expenses/general/models/currency_model/currency_model.dart';
@@ -147,7 +148,6 @@ class Utils {
     print(list.length);
     print("object8");
     for (AddTransactionModel item in list) {
-      print("repeated Json ${item.repeated?.toJson()}");
       var now = DateTime.now();
       print("object3");
       var date = DateFormat("dd/MM/yyyy", "en").parse(item.transactionDate!);

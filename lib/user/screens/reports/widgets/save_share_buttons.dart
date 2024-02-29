@@ -1,12 +1,10 @@
 part of 'reports_widgets_imports.dart';
 
 class SaveAndShareButtons extends StatelessWidget {
-  final List<ReportCategory> category;
   final bool isPro;
 
   const SaveAndShareButtons({
     Key? key,
-    required this.category,
     this.isPro = true,
   }) : super(key: key);
 
@@ -24,8 +22,14 @@ class SaveAndShareButtons extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   if (isPro) {
-                    ReportsCubit.get(context).generateAndSaveReportExcel(
-                        category: category, context: context, openFile: true);
+                    switch (AppThemeCubit.get(context).saveMethod) {
+                      case 'excel':
+                        ReportsCubit.get(context).generateAndSaveReportExcel(
+                            context: context, openFile: true);
+                      case 'pdf':
+                        ReportsCubit.get(context).generateAndSaveReportPDF(
+                            context: context, openFile: true);
+                    }
                   } else {
                     AutoRouter.of(context).push(const SubscriptionsRoute());
                   }
@@ -74,13 +78,52 @@ class SaveAndShareButtons extends StatelessWidget {
             OutlinedButton(
               onPressed: () async {
                 if (isPro) {
-                  Share.shareXFiles([
-                    XFile(
+                  switch (context.mounted
+                      ? AppThemeCubit.get(context).saveMethod
+                      : '') {
+                    case 'excel':
                       await ReportsCubit.get(context)
-                          .generateAndSaveReportExcel(
-                              category: category, context: context),
-                    ),
-                  ]);
+                          .generateAndSaveReportExcel(context: context);
+                      if (context.mounted) {
+                        if (ReportsCubit.get(context)
+                                .reportExcelPath
+                                .isNotEmpty &&
+                            context
+                                .read<ReportsCubit>()
+                                .categoriesList
+                                .isNotEmpty) {
+                          Share.shareXFiles([
+                            XFile(ReportsCubit.get(context).reportExcelPath),
+                          ]);
+                        } else {
+                          CustomToast.showSimpleToast(
+                            msg: tr(context, 'noRecord'),
+                            color: MyColors.primary,
+                          );
+                        }
+                      }
+                    case 'pdf':
+                      await ReportsCubit.get(context)
+                          .generateAndSaveReportPDF(context: context);
+                      if (context.mounted) {
+                        if (ReportsCubit.get(context)
+                                .reportPdfPath
+                                .isNotEmpty &&
+                            context
+                                .read<ReportsCubit>()
+                                .categoriesList
+                                .isNotEmpty) {
+                          Share.shareXFiles([
+                            XFile(ReportsCubit.get(context).reportPdfPath),
+                          ]);
+                        } else {
+                          CustomToast.showSimpleToast(
+                            msg: tr(context, 'noRecord'),
+                            color: MyColors.primary,
+                          );
+                        }
+                      }
+                  }
                 } else {
                   AutoRouter.of(context).push(const SubscriptionsRoute());
                 }
@@ -110,15 +153,16 @@ class SaveAndShareButtons extends StatelessWidget {
                       width: 24.w,
                     ),
                   ),
-                  Positioned(
-                    bottom: -7.r,
-                    left: 0.r,
-                    child: Image.asset(
-                      Res.pro,
-                      height: 40.h,
-                      width: 40.w,
+                  if (!isPro)
+                    Positioned(
+                      bottom: -7.r,
+                      left: 0.r,
+                      child: Image.asset(
+                        Res.pro,
+                        height: 40.h,
+                        width: 40.w,
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),

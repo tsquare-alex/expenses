@@ -37,144 +37,192 @@ class _ExpandableCardState extends State<ExpandableCard> {
   Widget build(BuildContext context) {
     print("QR Code Data: ${widget.databaseData.generateQRCodeData()}");
     print("Image Data: ${widget.databaseData.image}");
-    print("Other Details: ${widget.databaseData.name}, ${widget.databaseData.category}, ...");
+    print("Other Details: ${widget.databaseData.name}, ${widget.databaseData
+        .category}, ...");
 
 
+    return BlocConsumer<DatabaseCubit, DatabaseState>(
+      listener: (context, state) {
+        if (state is DeleteDatabaseSuccess || state is DatabaseDataLoaded) {
+          // Fetch updated data or trigger a UI update
+          context.read<DatabaseCubit>().fetchAllDatabase();
+        }
 
-    return InkWell(
-      onTap: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => DatabaseDetails(
-        //       databaseData: widget.databaseData,
-        //       onDataChanged: () {
-        //         // This callback will be called when data is changed in DatabaseDetails
-        //         setState(() {});
-        //       },
-        //     ),
-        //   ),
-        // );
       },
-      child: Card(
-        elevation: 1,
-        // surfaceTintColor: Colors.transparent,
-        color:  context.watch<AppThemeCubit>().isDarkMode
-            ? MyColors.greyWhite : MyColors.white,
-        child: Container(
-          margin:  EdgeInsets.only(bottom: 16.r),
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: 100,
-                width: 100,
-                // alignment: Alignment.bottomRight,
-                child: QrImageView(
-                  data: widget.databaseData.generateQRCodeData() ?? '',
-                  version: QrVersions.auto,
-                  size: 200.0,
-                  errorCorrectionLevel: QrErrorCorrectLevel.L,
-                ),
+      builder: (context, state) {
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    DatabaseDetails(
+                      databaseData: widget.databaseData,
+                      onDataChanged: () {
+                        setState(() {});
+                      },
+                    ),
               ),
-
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            );
+          },
+          child: Card(
+            elevation: 1,
+            // surfaceTintColor: Colors.transparent,
+            color: context
+                .watch<AppThemeCubit>()
+                .isDarkMode
+                ? MyColors.greyWhite : MyColors.white,
+            child: Container(
+              margin: EdgeInsets.only(bottom: 16.r),
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  widget.databaseData.image!.isNotEmpty
-                      ? CircleAvatar(
-                    radius: 25.0,
-                    backgroundImage: MemoryImage(widget.databaseData.image!),
-                    // child: Image.memory(widget.databaseData.image),
-                  )
-                      : CircleAvatar(
-                    radius: 25.0,
-                    child: Image.asset(
-                      "assets/images/user.png",
-                      fit: BoxFit.cover,
+                  Container(
+                    height: 100,
+                    width: 100,
+                    // alignment: Alignment.bottomRight,
+                    child: QrImageView(
+                      data: widget.databaseData.generateQRCodeData() ?? '',
+                      version: QrVersions.auto,
+                      size: 200.0,
+                      errorCorrectionLevel: QrErrorCorrectLevel.L,
                     ),
                   ),
 
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      widget.databaseData.image!.isNotEmpty
+                          ? CircleAvatar(
+                        radius: 25.0,
+                        backgroundImage: MemoryImage(widget.databaseData
+                            .image!),
+                        // child: Image.memory(widget.databaseData.image),
+                      )
+                          : CircleAvatar(
+                        radius: 25.0,
+                        child: Image.asset(
+                          "assets/images/user.png",
+                          fit: BoxFit.cover,
+                        ),
+                      ),
 
-                  const SizedBox(width: 10.0),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        MyText(
-                          title: widget.databaseData.name!,
-                          color: MyColors.primary,
-                          size: 10.sp,
-                          fontWeight: FontWeight.bold,
+
+                      const SizedBox(width: 10.0),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            MyText(
+                              title: widget.databaseData.name!,
+                              color: MyColors.primary,
+                              size: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            MyText(
+                              title: widget.databaseData.category!,
+                              color: MyColors.primary,
+                              size: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            MyText(
+                              title: widget.databaseData.phone!,
+                              color: MyColors.primary,
+                              size: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            MyText(
+                              title: widget.databaseData.extraPhone!,
+                              color: MyColors.primary,
+                              size: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            MyText(
+                              title: widget.databaseData.address!,
+                              color: MyColors.primary,
+                              size: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            MyText(
+                              title: widget.databaseData.note!,
+                              color: MyColors.primary,
+                              size: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            MyText(
+                              title: widget.databaseData.job!,
+                              color: MyColors.primary,
+                              size: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            MyText(
+                              title: widget.databaseData.emailAddress!,
+                              color: MyColors.primary,
+                              size: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            MyText(
+                              title: widget.databaseData.date!,
+                              color: MyColors.primary,
+                              size: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            MyText(
+                              title: widget.databaseData.facebook!,
+                              color: MyColors.primary,
+                              size: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            MyText(
+                              title: widget.databaseData.whatsapp!,
+                              color: MyColors.primary,
+                              size: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            MyText(
+                              title: widget.databaseData.instagram!,
+                              color: MyColors.primary,
+                              size: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            MyText(
+                              title: widget.databaseData.twitter!,
+                              color: MyColors.primary,
+                              size: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            MyText(
+                              title: widget.databaseData.youtube!,
+                              color: MyColors.primary,
+                              size: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+
+                          ],
                         ),
-                        MyText(
-                          title: widget.databaseData.category!,
-                          color: MyColors.primary,
-                          size: 10.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        MyText(
-                          title: widget.databaseData.phone!,
-                          color: MyColors.primary,
-                          size: 10.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        MyText(
-                          title: widget.databaseData.address!,
-                          color: MyColors.primary,
-                          size: 10.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        MyText(
-                          title: widget.databaseData.socialAddress!,
-                          color: MyColors.primary,
-                          size: 10.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        MyText(
-                          title: widget.databaseData.note!,
-                          color: MyColors.primary,
-                          size: 10.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ],
-                    ),
+                      ),
+
+                    ],
                   ),
 
                 ],
               ),
-
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class DatabaseTitle extends StatelessWidget {
   const DatabaseTitle({
     super.key,
-     required this.titleLocalization, required this.title,
+    required this.titleLocalization, required this.title,
   });
 
   // final ExpandableCard widget;

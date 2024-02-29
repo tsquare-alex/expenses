@@ -23,13 +23,18 @@ class AddDataBaseCubit extends Cubit<AddDataBaseState> {
   final TextEditingController categoryController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
+  final TextEditingController secondPhoneController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController emailAddressController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   final TextEditingController jobController = TextEditingController();
   final TextEditingController socialAddressController = TextEditingController();
   final TextEditingController noteController = TextEditingController();
-
+  final TextEditingController facebookController = TextEditingController();
+  final TextEditingController whatsappController = TextEditingController();
+  final TextEditingController instagramController = TextEditingController();
+  final TextEditingController twitterController = TextEditingController();
+  final TextEditingController youtubeController = TextEditingController();
 
   final GlobalKey<FormState> categoryFormKey = GlobalKey<FormState>();
 

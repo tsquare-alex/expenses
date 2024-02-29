@@ -8,7 +8,6 @@ class WalletTransactions extends StatefulWidget {
 }
 
 class _WalletTransactionsState extends State<WalletTransactions> {
-
   WalletTransactionsData data = WalletTransactionsData();
 
   @override
@@ -21,10 +20,14 @@ class _WalletTransactionsState extends State<WalletTransactions> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: MyColors.white,
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
+            ? AppDarkColors.backgroundColor
+            : MyColors.white,
         title: MyText(
           title: tr(context, "showTransactions"),
-          color: MyColors.black,
+          color: context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              : MyColors.black,
           size: 18.sp,
           fontWeight: FontWeight.bold,
         ),
@@ -32,16 +35,20 @@ class _WalletTransactionsState extends State<WalletTransactions> {
           onTap: () => AutoRouter.of(context).pop(),
           child: Icon(
             Icons.arrow_back,
-            color: MyColors.black,
+            color: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
           ),
         ),
         centerTitle: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(15.r),
-        child: BuildWalletTransactionsView(data: data, walletModel: widget.model,),
+        child: BuildWalletTransactionsView(
+          data: data,
+          walletModel: widget.model,
+        ),
       ),
     );
   }
-
 }

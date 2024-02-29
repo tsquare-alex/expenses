@@ -511,4 +511,121 @@ class Utils {
       }
     }
   }
+
+  static Future<void> repeatWallet() async {
+    var box = await Hive.openBox<WalletModel>(walletDatabaseBox);
+    var list = box.values.toList();
+    print(list.length);
+    print("object8");
+    for (WalletModel item in list) {
+      var now = DateTime.now();
+      print("object3");
+      var date = DateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(item.openDate);
+      int myCounter = 0;
+      switch (item.repeatWallet) {
+        case "daily":
+          myCounter = calculateDifferenceInDays(date);
+          break;
+        case "weekly":
+          myCounter = calculateDifferenceInWeeks(date);
+          break;
+        case "monthly":
+          myCounter = calculateDifferenceInMonths(date);
+          break;
+        case "quarterly":
+          myCounter = calculateDifferenceInQuarterYears(date);
+          break;
+        case "SemiAnnually":
+          myCounter = calculateDifferenceInSemiAnnually(date);
+          break;
+        case "annually":
+          myCounter = calculateDifferenceInAnnually(date);
+          break;
+      }
+      print("myCounter $myCounter");
+
+      print("item.repeated ${item.repeatWallet}");
+      if (item.repeatWallet != null) {
+        print("object4");
+        for (int i = 0; i < myCounter; i++) {
+          WalletModel newModel = WalletModel(
+            addNote: item.addNote,
+            balance: item.balance,
+            category: item.category,
+            currency: item.currency,
+            currencyValue: item.currencyValue,
+            name: item.name,
+            valueCategory: item.valueCategory,
+            currancyChange: item.currancyChange,
+            encomeSource: item.encomeSource,
+            checkedValue: item.checkedValue,
+            iconPath: item.iconPath,
+            walletRepate: item.walletRepate,
+            isClosed: item.isClosed,
+            isFavorite: item.isFavorite,
+            notification: item.notification,
+            totalBalance: item.totalBalance,
+            isHide: item.isHide,
+            paymentMethod: item.paymentMethod,
+            repeatWallet: item.repeatWallet,
+            notificationBalance: item.notificationBalance,
+            model: item.model,
+            remainBalance: item.remainBalance,
+            remainTotalBalance: item.remainBalance,
+            closedDate: item.closedDate,
+            openDate: DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
+          );
+          var targetModel = WalletModel(
+              addNote: item.addNote,
+              balance: item.balance,
+              category: item.category,
+              currency: item.currency,
+              currencyValue: item.currencyValue,
+              name: item.name,
+              valueCategory: item.valueCategory,
+              currancyChange: item.currancyChange,
+              encomeSource: item.encomeSource,
+              checkedValue: item.checkedValue,
+              iconPath: item.iconPath,
+              walletRepate: item.walletRepate,
+              isClosed: item.isClosed,
+              isFavorite: item.isFavorite,
+              notification: item.notification,
+              totalBalance: item.totalBalance,
+              isHide: item.isHide,
+              paymentMethod: item.paymentMethod,
+              repeatWallet: null,
+              model: item.model,
+              remainBalance: item.remainBalance,
+              remainTotalBalance: item.remainBalance,
+              closedDate: item.closedDate,
+              openDate: item.openDate);
+          print("item.key${item.key}");
+          box.put(item.key.toString(), targetModel);
+
+          box.add(newModel);
+        }
+        box.delete(item.key);}
+      }
+    }
+
+  static Future<void> walletNotification() async {
+    var box = await Hive.openBox<WalletModel>(walletDatabaseBox);
+    var walletList = box.values.toList();
+
+    for (WalletModel item in walletList) {
+      print("inside the function+++++++++++++++++++++++++++");
+      if (item.notification == true) {
+        if (item.notificationBalance != null) {
+          if ((item.notificationBalance! * 0.8) > item.totalBalance!) {
+            print("object=>>>>>>>>>>>>>>>>>>>>>>> success");
+            await LocalNotifications.showSimpleNotification(
+                title: "المحافظ",
+                body: "الرصيد اصبح اقل بنسبة 20%",
+                payload: "payload");
+          }
+        }
+    }
+    }
+    }
 }

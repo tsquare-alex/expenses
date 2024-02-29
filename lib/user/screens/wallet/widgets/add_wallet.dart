@@ -17,6 +17,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 class AddWallet extends StatefulWidget {
   final int selectItemIndex;
@@ -954,6 +955,40 @@ class _AddWalletState extends State<AddWallet> {
         ));
   }
 
+  // Future<void> openDate(BuildContext context) async {
+  //   final DateTime? picked = await showDatePicker(
+  //     context: context,
+  //     initialDate: selectedDate ?? DateTime.now(),
+  //     firstDate: DateTime(2000),
+  //     lastDate: DateTime(2101),
+  //   );
+  //
+  //   if (picked != null && picked != selectedDate) {
+  //     setState(() {
+  //       selectedDate = picked;
+  //       context.read<WalletCubit>().openDateController.text =
+  //           selectedDate.toString();
+  //     });
+  //   }
+  // }
+  //
+  // Future<void> closeDate(BuildContext context) async {
+  //   final DateTime? picked = await showDatePicker(
+  //     context: context,
+  //     initialDate: closedDate ?? DateTime.now(),
+  //     firstDate: DateTime(2000),
+  //     lastDate: DateTime(2101),
+  //   );
+  //
+  //   if (picked != null && picked != closedDate) {
+  //     setState(() {
+  //       closedDate = picked;
+  //       context.read<WalletCubit>().closedDateController.text =
+  //           closedDate.toString();
+  //     });
+  //   }
+  // }
+
   Future<void> openDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -966,7 +1001,7 @@ class _AddWalletState extends State<AddWallet> {
       setState(() {
         selectedDate = picked;
         context.read<WalletCubit>().openDateController.text =
-            selectedDate.toString();
+            DateFormat("dd/MM/yyyy", "en").format(selectedDate!);
       });
     }
   }
@@ -982,8 +1017,7 @@ class _AddWalletState extends State<AddWallet> {
     if (picked != null && picked != closedDate) {
       setState(() {
         closedDate = picked;
-        context.read<WalletCubit>().closedDateController.text =
-            closedDate.toString();
+        context.read<WalletCubit>().closedDateController.text = DateFormat("dd/MM/yyyy", "en").format(closedDate!);
       });
     }
   }

@@ -520,7 +520,7 @@ class Utils {
     for (WalletModel item in list) {
       var now = DateTime.now();
       print("object3");
-      var date = DateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(item.openDate);
+      var date = DateFormat("dd/MM/yyyy", "en").parse(item.openDate);
       int myCounter = 0;
       switch (item.repeatWallet) {
         case "daily":

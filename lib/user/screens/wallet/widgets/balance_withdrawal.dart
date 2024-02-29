@@ -4,6 +4,7 @@ import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
+import 'package:expenses/general/utilities/utils_functions/utils.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
@@ -88,7 +89,7 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                           height: 10.h,
                         ),
                         GenericTextField(
-                          hint: tr(context, "amount"),
+                          hint: tr(context, "theAmount"),
                           hintColor: context.watch<AppThemeCubit>().isDarkMode
                               ? MyColors.white
                               : AppDarkColors.backgroundColor,
@@ -159,7 +160,7 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                             Row(
                               children: [
                                 MyText(
-                                  title: tr(context, "sourceDuration"),
+                                  title: tr(context, "withdrawalDate"),
                                   color:
                                       context.watch<AppThemeCubit>().isDarkMode
                                           ? MyColors.white
@@ -200,7 +201,7 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                                                     ? "${selectedDate?.toLocal()}"
                                                         .split(' ')[0]
                                                     : tr(context,
-                                                        "walletOpeningDate"),
+                                                        "dateOfOperation"),
                                                 style: TextStyle(
                                                   fontSize: 12.sp,
                                                   color: context
@@ -220,49 +221,49 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                                 SizedBox(
                                   width: 20.w,
                                 ),
-                                Container(
-                                    height: 44.h,
-                                    width: 170.w,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.r),
-                                      border: Border.all(
-                                          color: MyColors.semiTransparentColor),
-                                    ),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        closeDate(context);
-                                      },
-                                      child: Center(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(12.r),
-                                          child: Row(
-                                            children: [
-                                              Image.asset(Res.calendar),
-                                              SizedBox(
-                                                width: 15.w,
-                                              ),
-                                              Text(
-                                                closedDate != null
-                                                    ? "${closedDate?.toLocal()}"
-                                                        .split(' ')[0]
-                                                    : tr(context,
-                                                        "walletClosingDate"),
-                                                style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  color: context
-                                                          .watch<
-                                                              AppThemeCubit>()
-                                                          .isDarkMode
-                                                      ? MyColors.white
-                                                      : MyColors.black,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    )),
+                                // Container(
+                                //     height: 44.h,
+                                //     width: 170.w,
+                                //     decoration: BoxDecoration(
+                                //       borderRadius: BorderRadius.circular(8.r),
+                                //       border: Border.all(
+                                //           color: MyColors.semiTransparentColor),
+                                //     ),
+                                //     child: GestureDetector(
+                                //       onTap: () {
+                                //         closeDate(context);
+                                //       },
+                                //       child: Center(
+                                //         child: Padding(
+                                //           padding: EdgeInsets.all(12.r),
+                                //           child: Row(
+                                //             children: [
+                                //               Image.asset(Res.calendar),
+                                //               SizedBox(
+                                //                 width: 15.w,
+                                //               ),
+                                //               Text(
+                                //                 closedDate != null
+                                //                     ? "${closedDate?.toLocal()}"
+                                //                         .split(' ')[0]
+                                //                     : tr(context,
+                                //                         "walletClosingDate"),
+                                //                 style: TextStyle(
+                                //                   fontSize: 12.sp,
+                                //                   color: context
+                                //                           .watch<
+                                //                               AppThemeCubit>()
+                                //                           .isDarkMode
+                                //                       ? MyColors.white
+                                //                       : MyColors.black,
+                                //                   fontWeight: FontWeight.w400,
+                                //                 ),
+                                //               ),
+                                //             ],
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     )),
                               ],
                             ),
                           ],
@@ -320,8 +321,10 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                     onTap: () {
                       if (formKey.currentState!.validate()) {
                         double result = widget.model.balance - enterAmount;
+                        widget.model.totalBalance = result;
                         widget.model.balance = result;
                         widget.model.save();
+                        Utils.walletNotification();
                         AutoRouter.of(context).pop();
                       }
                     },

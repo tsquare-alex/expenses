@@ -164,7 +164,7 @@ class BuildTargetCard extends StatelessWidget {
                     width: 10.w,
                   ),
                   MyText(
-                    title: "${model.initialValue}",
+                    title: model.initialValue.toString().formatToDecimal(context: context),
                     color:  context.watch<AppThemeCubit>().isDarkMode
                         ? MyColors.white
                         : MyColors.black,
@@ -184,7 +184,7 @@ class BuildTargetCard extends StatelessWidget {
               Row(
                 children: [
                   MyText(
-                    title: "${model.total}",
+                    title: model.total.toString().formatToDecimal(context: context),
                     color:  context.watch<AppThemeCubit>().isDarkMode
                         ? MyColors.white
                         : MyColors.black,

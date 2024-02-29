@@ -5,6 +5,7 @@ import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
+import 'package:expenses/general/utilities/utils_functions/decimal_format.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
@@ -109,7 +110,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                               .watch<AppThemeCubit>()
                                               .isDarkMode
                                           ? AppDarkColors.backgroundColor
-                                          : Color(0xffF7F7F6),
+                                          : const Color(0xffF7F7F6),
                                     ),
                                     child: Row(
                                       children: [
@@ -156,7 +157,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                               .watch<AppThemeCubit>()
                                               .isDarkMode
                                           ? AppDarkColors.backgroundColor
-                                          : Color(0xffF7F7F6),
+                                          : const Color(0xffF7F7F6),
                                     ),
                                     child: Row(
                                       children: [
@@ -187,6 +188,9 @@ class _CustomContainerState extends State<CustomContainer> {
                                   onTap: () {
                                     AutoRouter.of(context)
                                         .push(const SubscriptionsRoute());
+                                    // AutoRouter.of(context).push(
+                                    //     WalletBalanceTransferRoute(
+                                    //         model: widget.model));
                                   },
                                   child: Container(
                                     height: 60.h,
@@ -197,7 +201,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                               .watch<AppThemeCubit>()
                                               .isDarkMode
                                           ? AppDarkColors.backgroundColor
-                                          : Color(0xffF7F7F6),
+                                          : const Color(0xffF7F7F6),
                                     ),
                                     child: Row(
                                       children: [
@@ -232,8 +236,8 @@ class _CustomContainerState extends State<CustomContainer> {
                                     InkWell(
                                       onTap: () => AutoRouter.of(context)
                                           .push(const SubscriptionsRoute()),
-            
-                                      //  AutoRouter.of(context).push(
+
+                                      // AutoRouter.of(context).push(
                                       //     WalletTransactionsRoute(
                                       //         model: widget.model)),
                                       child: Container(
@@ -245,7 +249,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                                   .watch<AppThemeCubit>()
                                                   .isDarkMode
                                               ? AppDarkColors.backgroundColor
-                                              : Color(0xffF7F7F6),
+                                              : const Color(0xffF7F7F6),
                                         ),
                                         child: Row(
                                           children: [
@@ -262,7 +266,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                                         .watch<AppThemeCubit>()
                                                         .isDarkMode
                                                     ? MyColors.white
-                                                    : MyColors.black,
+                                                    : Colors.black,
                                                 size: 16.sp,
                                                 fontWeight: FontWeight.w500),
                                             const Spacer(),
@@ -317,8 +321,13 @@ class _CustomContainerState extends State<CustomContainer> {
                                   MyText(
                                       alien: TextAlign.end,
                                       title: widget.model.checkedValue == false
-                                          ? widget.model.balance.toStringAsFixed(2)
-                                          : widget.model.totalBalance.toString(),
+                                          ? widget.model.balance
+                                              .toString()
+                                              .formatToDecimal(context: context)
+                                          : widget.model.totalBalance
+                                              .toString()
+                                              .formatToDecimal(
+                                                  context: context),
                                       color: MyColors.white,
                                       size: 22.sp),
                                   SizedBox(
@@ -340,7 +349,6 @@ class _CustomContainerState extends State<CustomContainer> {
                                 ],
                               ),
                             ),
-
                           ],
                         ),
                       ),
@@ -407,7 +415,7 @@ class _CustomContainerState extends State<CustomContainer> {
                             decoration: BoxDecoration(
                               color: context.watch<AppThemeCubit>().isDarkMode
                                   ? AppDarkColors.backgroundColor
-                                  : Color(0xffF7F7F6),
+                                  : const Color(0xffF7F7F6),
                             ),
                             height: 200.h,
                             child: Column(
@@ -426,7 +434,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                               .watch<AppThemeCubit>()
                                               .isDarkMode
                                           ? AppDarkColors.backgroundColor
-                                          : Color(0xffF7F7F6),
+                                          : const Color(0xffF7F7F6),
                                     ),
                                     child: Row(
                                       children: [
@@ -471,7 +479,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                               .watch<AppThemeCubit>()
                                               .isDarkMode
                                           ? AppDarkColors.backgroundColor
-                                          : Color(0xffF7F7F6),
+                                          : const Color(0xffF7F7F6),
                                     ),
                                     child: Row(
                                       children: [

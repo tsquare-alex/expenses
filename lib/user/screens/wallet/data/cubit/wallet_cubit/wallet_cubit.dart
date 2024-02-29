@@ -25,6 +25,9 @@ class WalletCubit extends Cubit<WalletState> {
 
   var currencyBox = Hive.box<CurrencyModel>("currencyBox");
 
+  final GlobalKey<FormState> formKey = GlobalKey();
+
+
   bool? isBalanceVisible = true;
   bool? isLocked = true;
   bool checkedValue = false;
@@ -39,6 +42,7 @@ class WalletCubit extends Cubit<WalletState> {
   final TextEditingController addCategoryController = TextEditingController();
   final TextEditingController noteController = TextEditingController();
   final TextEditingController currencyController = TextEditingController();
+  final TextEditingController repeatedController = TextEditingController();
 
   List<String> valueCategory = [
     "bankTransfer",

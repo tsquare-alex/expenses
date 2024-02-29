@@ -5,6 +5,7 @@ import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
+import 'package:expenses/general/utilities/utils_functions/decimal_format.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/budget/data/cubit/budget_cubit.dart';
@@ -15,7 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-class ItemBudget extends StatelessWidget {
+class ItemBudget extends StatefulWidget {
   final BudgetModel model;
   const ItemBudget({
     super.key,
@@ -23,12 +24,14 @@ class ItemBudget extends StatelessWidget {
   });
 
   @override
+  State<ItemBudget> createState() => _ItemBudgetState();
+}
+
+class _ItemBudgetState extends State<ItemBudget> {
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<BudgetCubit, BudgetState>(
       builder: (context, state) {
-        double total = 0;
-        double percentageValue = 0;
-
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.r),
           child: Column(
@@ -36,23 +39,35 @@ class ItemBudget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset(Res.extra),
-                    SizedBox(
-                      width: 20.w,
+                    Row(
+                      children: [
+                        Image.asset(Res.extra),
+                        SizedBox(
+                          width: 20.w,
+                        ),
+                        Text(
+                          tr(
+                            context,
+                            widget.model.transactionName,
+                          ),
+                          style: TextStyle(
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? MyColors.white
+                                  : AppDarkColors.backgroundColor,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w600),
+                        )
+                      ],
                     ),
-                    Text(
-                      tr(
-                        context,
-                        model.transactionName,
-                      ),
-                      style: TextStyle(
-                          color: context.watch<AppThemeCubit>().isDarkMode
-                              ? MyColors.white
-                              : AppDarkColors.backgroundColor,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600),
-                    )
+                    widget.model.favoitate == true
+                        ? Image.asset(
+                            Res.star,
+                            height: 30.h,
+                            width: 30.w,
+                          )
+                        : const SizedBox()
                   ],
                 ),
                 SizedBox(
@@ -71,16 +86,17 @@ class ItemBudget extends StatelessWidget {
                       animation: true,
                       lineHeight: 20.0,
                       animationDuration: 2000,
-                      percent: (model.budgetValue - model.transactionValue!) /
-                          model.budgetValue,
-                      progressColor: model.percentValue! < 0.2
+                      percent: (widget.model.budgetValue -
+                              widget.model.transactionValue!) /
+                          widget.model.budgetValue,
+                      progressColor: widget.model.percentValue! < 0.2
                           ? Colors.red
                           : MyColors.primary,
                     ),
                     IconButton(
                         onPressed: () async {
                           await AutoRouter.of(context)
-                              .push(EditBudgetRoute(model: model));
+                              .push(EditBudgetRoute(model: widget.model));
                           if (context.mounted) {
                             context.read<BudgetCubit>().fetchData();
                           }
@@ -97,7 +113,7 @@ class ItemBudget extends StatelessWidget {
                     Row(
                       children: [
                         MyText(
-                          title: tr(context, model.transactionName),
+                          title: tr(context, widget.model.transactionName),
                           color: MyColors.black,
                           size: 14.sp,
                           fontWeight: FontWeight.w500,
@@ -106,7 +122,7 @@ class ItemBudget extends StatelessWidget {
                           width: 12.w,
                         ),
                         Text(
-                          "${model.transactionValue}",
+                          "${widget.model.transactionValue}",
                           style: TextStyle(
                               fontSize: 16.sp, fontWeight: FontWeight.bold),
                         ),
@@ -121,7 +137,9 @@ class ItemBudget extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          "${model.budgetValue}",
+                          widget.model.budgetValue
+                              .toString()
+                              .formatToDecimal(context: context),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -140,7 +158,7 @@ class ItemBudget extends StatelessWidget {
                         ),
                         IconButton(
                             onPressed: () {
-                              model.delete();
+                              widget.model.delete();
                               BlocProvider.of<BudgetCubit>(context).fetchData();
                             },
                             icon: Icon(
@@ -171,7 +189,7 @@ class ItemBudget extends StatelessWidget {
                           width: 8.w,
                         ),
                         Text(
-                          model.startBudget,
+                          widget.model.startBudget,
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w300,
@@ -194,7 +212,7 @@ class ItemBudget extends StatelessWidget {
                           width: 8.w,
                         ),
                         Text(
-                          model.endBudget,
+                          widget.model.endBudget,
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w300,

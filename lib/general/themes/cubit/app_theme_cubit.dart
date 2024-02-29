@@ -63,4 +63,50 @@ class AppThemeCubit extends Cubit<AppThemeState> {
     setAppTheme();
     emit(const AppThemeState.changed());
   }
+
+  String decimalValue = '0';
+
+  Future<void> setDecimalValue() async {
+    final preferences = await getPreferences();
+    preferences.setString('DecimalValue', decimalValue);
+  }
+
+  Future<String?> fetchDecimalValue() async {
+    final preferences = await getPreferences();
+    return preferences.getString('DecimalValue');
+  }
+
+  Future<void> applyDecimalValue() async {
+    final fetchedDecimalValue = await fetchDecimalValue();
+    fetchedDecimalValue == null
+        ? decimalValue
+        : decimalValue = fetchedDecimalValue;
+  }
+
+  String saveMethod = SaveMethods.pdf.name;
+
+  Future<void> setSaveMethod() async {
+    final preferences = await getPreferences();
+    preferences.setString('SaveMethod', saveMethod);
+  }
+
+  Future<String?> fetchSaveMethod() async {
+    final preferences = await getPreferences();
+    return preferences.getString('SaveMethod');
+  }
+
+  Future<void> applySaveMethod() async {
+    final fetchedSaveMethod = await fetchSaveMethod();
+    fetchedSaveMethod == null ? saveMethod : saveMethod = fetchedSaveMethod;
+  }
+}
+
+enum SaveMethods {
+  pdf(method: 'Pdf'),
+  excel(method: 'Excel');
+
+  final String method;
+  const SaveMethods({
+    required this.method,
+  });
 }

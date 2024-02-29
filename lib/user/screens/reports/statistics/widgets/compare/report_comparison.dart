@@ -14,6 +14,7 @@ class ReportComparison extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: DefaultTabController(
+        initialIndex: 1,
         length: 2,
         child: Column(
           children: [

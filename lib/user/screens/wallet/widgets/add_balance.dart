@@ -88,8 +88,8 @@ class _AddBalanceState extends State<AddBalance> {
                         GenericTextField(
                           textColor: context.watch<AppThemeCubit>().isDarkMode
                               ? MyColors.white
-                              : MyColors.white,
-                          hint: tr(context, "amount"),
+                              : MyColors.black,
+                          hint: tr(context, "theAmount"),
                           hintColor: context.watch<AppThemeCubit>().isDarkMode
                               ? MyColors.white
                               : AppDarkColors.backgroundColor,
@@ -116,6 +116,24 @@ class _AddBalanceState extends State<AddBalance> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             MyText(
+                                title: tr(context, "total"),
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : AppDarkColors.backgroundColor,
+                                size: 16.sp),
+                            MyText(
+                                title: "${widget.model.balance + parsedNumber}",
+                                color: MyColors.primary,
+                                size: 16.sp)
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            MyText(
                               title: tr(context, "currentAmount"),
                               color: context.watch<AppThemeCubit>().isDarkMode
                                   ? MyColors.white
@@ -132,24 +150,6 @@ class _AddBalanceState extends State<AddBalance> {
                           ],
                         ),
                         SizedBox(
-                          height: 30.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            MyText(
-                                title: tr(context, "remainingAmount"),
-                                color: context.watch<AppThemeCubit>().isDarkMode
-                                    ? MyColors.white
-                                    : AppDarkColors.backgroundColor,
-                                size: 16.sp),
-                            MyText(
-                                title: "${widget.model.balance + parsedNumber}",
-                                color: MyColors.primary,
-                                size: 16.sp)
-                          ],
-                        ),
-                        SizedBox(
                           height: 25.h,
                         ),
                         Column(
@@ -157,7 +157,7 @@ class _AddBalanceState extends State<AddBalance> {
                             Row(
                               children: [
                                 MyText(
-                                  title: tr(context, "sourceDuration"),
+                                  title: tr(context, "dateAdded"),
                                   color:
                                       context.watch<AppThemeCubit>().isDarkMode
                                           ? MyColors.white
@@ -198,53 +198,7 @@ class _AddBalanceState extends State<AddBalance> {
                                                     ? "${selectedDate?.toLocal()}"
                                                         .split(' ')[0]
                                                     : tr(context,
-                                                        "walletOpeningDate"),
-                                                style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  color: context
-                                                          .watch<
-                                                              AppThemeCubit>()
-                                                          .isDarkMode
-                                                      ? MyColors.white
-                                                      : MyColors.white,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    )),
-                                SizedBox(
-                                  width: 20.w,
-                                ),
-                                Container(
-                                    height: 44.h,
-                                    width: 170.w,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.r),
-                                      border: Border.all(
-                                          color: MyColors.semiTransparentColor),
-                                    ),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        closeDate(context);
-                                      },
-                                      child: Center(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(12.r),
-                                          child: Row(
-                                            children: [
-                                              Image.asset(Res.calendar),
-                                              SizedBox(
-                                                width: 15.w,
-                                              ),
-                                              Text(
-                                                closedDate != null
-                                                    ? "${closedDate?.toLocal()}"
-                                                        .split(' ')[0]
-                                                    : tr(context,
-                                                        "walletClosingDate"),
+                                                        "dateOfOperation"),
                                                 style: TextStyle(
                                                   fontSize: 12.sp,
                                                   color: context
@@ -261,6 +215,52 @@ class _AddBalanceState extends State<AddBalance> {
                                         ),
                                       ),
                                     )),
+                                SizedBox(
+                                  width: 20.w,
+                                ),
+                                // Container(
+                                //     height: 44.h,
+                                //     width: 170.w,
+                                //     decoration: BoxDecoration(
+                                //       borderRadius: BorderRadius.circular(8.r),
+                                //       border: Border.all(
+                                //           color: MyColors.semiTransparentColor),
+                                //     ),
+                                //     child: GestureDetector(
+                                //       onTap: () {
+                                //         closeDate(context);
+                                //       },
+                                //       child: Center(
+                                //         child: Padding(
+                                //           padding: EdgeInsets.all(12.r),
+                                //           child: Row(
+                                //             children: [
+                                //               Image.asset(Res.calendar),
+                                //               SizedBox(
+                                //                 width: 15.w,
+                                //               ),
+                                //               Text(
+                                //                 closedDate != null
+                                //                     ? "${closedDate?.toLocal()}"
+                                //                         .split(' ')[0]
+                                //                     : tr(context,
+                                //                         "walletClosingDate"),
+                                //                 style: TextStyle(
+                                //                   fontSize: 12.sp,
+                                //                   color: context
+                                //                           .watch<
+                                //                               AppThemeCubit>()
+                                //                           .isDarkMode
+                                //                       ? MyColors.white
+                                //                       : MyColors.black,
+                                //                   fontWeight: FontWeight.w400,
+                                //                 ),
+                                //               ),
+                                //             ],
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     )),
                               ],
                             ),
                           ],

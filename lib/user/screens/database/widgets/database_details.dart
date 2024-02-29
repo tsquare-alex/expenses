@@ -652,7 +652,7 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
             children: [
                 BuildCategoryExpansion(
                   categoryFormKey: dataBaseCubit.categoryFormKey,
-                  categoryController: dataBaseCubit.categoryController,
+                  categoryController: categoryController,
                 ),
                SizedBox(height: 20.h,),
               if (widget.databaseData.category!.isNotEmpty)
@@ -660,8 +660,11 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     '${tr(context, "category")}: ${widget.databaseData.category}',
-                    style: const TextStyle(
+                    style:  TextStyle(
                       fontSize: 16,
+                      color:  context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : MyColors.black,
                       fontWeight: FontWeight.w500,
                     ),
                   ),

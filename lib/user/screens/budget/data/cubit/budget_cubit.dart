@@ -13,17 +13,24 @@ import 'package:hive/hive.dart';
 import '../../../../../general/constants/constants.dart';
 
 class BudgetCubit extends Cubit<BudgetState> {
-
   List<TransactionTypeModel> commitmentsList = [];
   Future<void> initTransactionData() async {
-    final remoteCashTransactionBox = await Hive.openBox<TransactionTypeModel>("cashTransactionBox");
-    final remoteTransactionBox = await Hive.openBox<TransactionTypeModel>("transactionBox");
-    final remoteShoppingBox = await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
-    final remoteTargetBox = await Hive.openBox<TransactionTypeModel>("targetBox");
-    var remoteCashBoxItems = remoteCashTransactionBox.values.cast<TransactionTypeModel>().toList();
-    var remoteTargetBoxItems = remoteTargetBox.values.cast<TransactionTypeModel>().toList();
-    var remoteCommitmentBoxItems = remoteTransactionBox.values.cast<TransactionTypeModel>().toList();
-    var remoteShoppingBoxItems = remoteShoppingBox.values.cast<TransactionTypeModel>().toList();
+    final remoteCashTransactionBox =
+        await Hive.openBox<TransactionTypeModel>("cashTransactionBox");
+    final remoteTransactionBox =
+        await Hive.openBox<TransactionTypeModel>("transactionBox");
+    final remoteShoppingBox =
+        await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
+    final remoteTargetBox =
+        await Hive.openBox<TransactionTypeModel>("targetBox");
+    var remoteCashBoxItems =
+        remoteCashTransactionBox.values.cast<TransactionTypeModel>().toList();
+    var remoteTargetBoxItems =
+        remoteTargetBox.values.cast<TransactionTypeModel>().toList();
+    var remoteCommitmentBoxItems =
+        remoteTransactionBox.values.cast<TransactionTypeModel>().toList();
+    var remoteShoppingBoxItems =
+        remoteShoppingBox.values.cast<TransactionTypeModel>().toList();
     var remoteCashTransactionContent = transactions[3].content;
     var remoteCommitmentContent = transactions[0].content;
     var remoteShoppingContent = transactions[1].content;
@@ -70,7 +77,8 @@ class BudgetCubit extends Cubit<BudgetState> {
       //
       print('Error fetching data from Hive: $e');
     }
-    final commitmentBox = await Hive.openBox<TransactionTypeModel>("transactionBox");
+    final commitmentBox =
+        await Hive.openBox<TransactionTypeModel>("transactionBox");
     try {
       var list = commitmentBox.values.map((dynamic value) {
         if (value is TransactionTypeModel) {
@@ -83,7 +91,8 @@ class BudgetCubit extends Cubit<BudgetState> {
     } catch (e) {
       print('Error fetching data from Hive: $e');
     }
-    final shoppingBox = await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
+    final shoppingBox =
+        await Hive.openBox<TransactionTypeModel>("transactionShoppingBox");
     try {
       var list = shoppingBox.values.map((dynamic value) {
         if (value is TransactionTypeModel) {
@@ -113,8 +122,6 @@ class BudgetCubit extends Cubit<BudgetState> {
     }
   }
 
-
-
   bool checkedValue = false;
 
   final TextEditingController openDateController = TextEditingController();
@@ -125,6 +132,7 @@ class BudgetCubit extends Cubit<BudgetState> {
       TextEditingController();
   final TextEditingController walletNameController = TextEditingController();
   final TextEditingController noteController = TextEditingController();
+  var formKey = GlobalKey<FormState>();
 
   BudgetCubit() : super(AddBudgetInitial());
 
@@ -139,7 +147,7 @@ class BudgetCubit extends Cubit<BudgetState> {
     wallets = data;
   }
 
-  List<AddTransactionModel> transactioList=[];
+  List<AddTransactionModel> transactioList = [];
   Future<void> fetchDataFromTransations(context) async {
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
     var list = box.values.map((dynamic value) {
@@ -153,7 +161,7 @@ class BudgetCubit extends Cubit<BudgetState> {
     box.close();
   }
 
-  List<TransactionTypeModel> transactionShopping=[];
+  List<TransactionTypeModel> transactionShopping = [];
   // Future<void> fetchTransactionShopping(context) async {
   //   transactionShopping.clear();
   //   final box =
@@ -184,7 +192,7 @@ class BudgetCubit extends Cubit<BudgetState> {
   //   box.close();
   // }
 
-  List<TransactionTypeModel> transactionTargetBBox=[];
+  List<TransactionTypeModel> transactionTargetBBox = [];
   // Future<void> fetchTransactionTargetBox(context) async {
   //   transactionTargetBBox.clear();
   //   final box = await Hive.openBox<TransactionTypeModel>("targetBox");
@@ -199,7 +207,7 @@ class BudgetCubit extends Cubit<BudgetState> {
   //   box.close();
   // }
 
-  List<TransactionTypeModel> cashTransactionBox=[];
+  List<TransactionTypeModel> cashTransactionBox = [];
   // Future<void> fetchCashTransaction(context) async {
   //   cashTransactionBox.clear();
   //   final box = await Hive.openBox<TransactionTypeModel>("cashTransactionBox");
@@ -433,10 +441,7 @@ class BudgetCubit extends Cubit<BudgetState> {
                 name: "gym",
                 image: Res.gym,
               ),
-              TransactionContentModel(
-                  name: "healthClub",
-                  image: Res.hospital
-              ),
+              TransactionContentModel(name: "healthClub", image: Res.hospital),
               TransactionContentModel(
                 name: "sportsClub",
                 image: Res.sportsClub,
@@ -541,8 +546,7 @@ class BudgetCubit extends Cubit<BudgetState> {
               ),
             ],
           ),
-        ]
-    ),
+        ]),
     TransactionModel(
       name: "التسوق والشراء",
       image: Res.shopping,
@@ -551,181 +555,68 @@ class BudgetCubit extends Cubit<BudgetState> {
           name: "supermarket",
           image: Res.superMarket,
           content: [
+            TransactionContentModel(name: "dairy", image: Res.dairy),
+            TransactionContentModel(name: "cheese", image: Res.cheese),
+            TransactionContentModel(name: "bakedGoods", image: Res.bakedGoods),
+            TransactionContentModel(name: "meat", image: Res.meat),
+            TransactionContentModel(name: "birds", image: Res.birds),
+            TransactionContentModel(name: "fish", image: Res.fish),
+            TransactionContentModel(name: "herbs", image: Res.herbs),
+            TransactionContentModel(name: "vegetable", image: Res.vegetable),
+            TransactionContentModel(name: "fruits", image: Res.fruits),
             TransactionContentModel(
-                name: "dairy",
-                image: Res.dairy
-            ),
-            TransactionContentModel(
-                name: "cheese",
-                image: Res.cheese
-            ),
-            TransactionContentModel(
-                name: "bakedGoods",
-                image: Res.bakedGoods
-            ),
-            TransactionContentModel(
-                name: "meat",
-                image: Res.meat
-            ),
-            TransactionContentModel(
-                name: "birds",
-                image: Res.birds
-            ),
-            TransactionContentModel(
-                name: "fish",
-                image: Res.fish
-            ),
-            TransactionContentModel(
-                name: "herbs",
-                image: Res.herbs
-            ),
-            TransactionContentModel(
-                name: "vegetable",
-                image: Res.vegetable
-            ),
-            TransactionContentModel(
-                name: "fruits",
-                image: Res.fruits
-            ),
-            TransactionContentModel(
-                name: "libraryTools",
-                image: Res.libraryTools
-            ),
-            TransactionContentModel(
-                name: "legumes",
-                image: Res.legumes
-            ),
-            TransactionContentModel(
-                name: "oil",
-                image: Res.oil
-            ),
-            TransactionContentModel(
-                name: "salt",
-                image: Res.salt
-            ),
-            TransactionContentModel(
-                name: "sugar",
-                image: Res.sugar
-            ),
-            TransactionContentModel(
-                name: "vinegar",
-                image: Res.vinegar
-            ),
-            TransactionContentModel(
-                name: "chocolate",
-                image: Res.chocolate
-            ),
-            TransactionContentModel(
-                name: "candies",
-                image: Res.candies
-            ),
-
+                name: "libraryTools", image: Res.libraryTools),
+            TransactionContentModel(name: "legumes", image: Res.legumes),
+            TransactionContentModel(name: "oil", image: Res.oil),
+            TransactionContentModel(name: "salt", image: Res.salt),
+            TransactionContentModel(name: "sugar", image: Res.sugar),
+            TransactionContentModel(name: "vinegar", image: Res.vinegar),
+            TransactionContentModel(name: "chocolate", image: Res.chocolate),
+            TransactionContentModel(name: "candies", image: Res.candies),
           ],
         ),
         TransactionTypeModel(
           name: "furniture",
           image: Res.furniture,
           content: [
+            TransactionContentModel(name: "clothes", image: Res.clothes),
+            TransactionContentModel(name: "shoes", image: Res.shoes),
+            TransactionContentModel(name: "furniture1", image: Res.furniture1),
             TransactionContentModel(
-                name: "clothes",
-                image: Res.clothes
-            ),
+                name: "electricalDevices", image: Res.electricalDevices),
             TransactionContentModel(
-                name: "shoes",
-                image: Res.shoes
-            ),
+                name: "kitchenUtensils", image: Res.kitchenUtensils),
             TransactionContentModel(
-                name: "furniture1",
-                image: Res.furniture1
-            ),
-            TransactionContentModel(
-                name: "electricalDevices",
-                image: Res.electricalDevices
-            ),
-            TransactionContentModel(
-                name: "kitchenUtensils",
-                image: Res.kitchenUtensils
-            ),
-            TransactionContentModel(
-                name: "LightingTools",
-                image: Res.LightingTools
-            ),
-            TransactionContentModel(
-                name: "antiques",
-                image: Res.antiques
-            ),
+                name: "LightingTools", image: Res.LightingTools),
+            TransactionContentModel(name: "antiques", image: Res.antiques),
           ],
         ),
         TransactionTypeModel(
           name: "places",
           image: Res.places,
           content: [
-            TransactionContentModel(
-                name: "restaurant",
-                image: Res.restaurant
-            ),
-            TransactionContentModel(
-                name: "cafe",
-                image: Res.cafe
-            ),
-            TransactionContentModel(
-                name: "mall",
-                image: Res.mall
-            ),
-            TransactionContentModel(
-                name: "shop",
-                image: Res.shop
-            ),
-            TransactionContentModel(
-                name: "factory",
-                image: Res.shop
-            ),
-            TransactionContentModel(
-                name: "workshop",
-                image: Res.workshop
-            ),
-            TransactionContentModel(
-                name: "hospital",
-                image: Res.hospital1
-            ),
-            TransactionContentModel(
-                name: "clinic",
-                image: Res.clinic
-            ),
-            TransactionContentModel(
-                name: "exhibition",
-                image: Res.exhibition
-            ),
+            TransactionContentModel(name: "restaurant", image: Res.restaurant),
+            TransactionContentModel(name: "cafe", image: Res.cafe),
+            TransactionContentModel(name: "mall", image: Res.mall),
+            TransactionContentModel(name: "shop", image: Res.shop),
+            TransactionContentModel(name: "factory", image: Res.shop),
+            TransactionContentModel(name: "workshop", image: Res.workshop),
+            TransactionContentModel(name: "hospital", image: Res.hospital1),
+            TransactionContentModel(name: "clinic", image: Res.clinic),
+            TransactionContentModel(name: "exhibition", image: Res.exhibition),
           ],
         ),
         TransactionTypeModel(
           name: "online",
           image: Res.internet,
           content: [
+            TransactionContentModel(name: "website", image: Res.website),
+            TransactionContentModel(name: "facebook1", image: Res.facebook1),
+            TransactionContentModel(name: "instagram1", image: Res.instagram1),
+            TransactionContentModel(name: "tikTok", image: Res.tikTok),
+            TransactionContentModel(name: "group", image: Res.group),
             TransactionContentModel(
-                name: "website",
-                image: Res.website
-            ),
-            TransactionContentModel(
-                name: "facebook1",
-                image: Res.facebook1
-            ),
-            TransactionContentModel(
-                name: "instagram1",
-                image: Res.instagram1
-            ),
-            TransactionContentModel(
-                name: "tikTok",
-                image: Res.tikTok
-            ),
-            TransactionContentModel(
-                name: "group",
-                image: Res.group
-            ),
-            TransactionContentModel(
-                name: "advertisements",
-                image: Res.advertisements
-            ),
+                name: "advertisements", image: Res.advertisements),
           ],
         ),
       ],
@@ -737,37 +628,27 @@ class BudgetCubit extends Cubit<BudgetState> {
         TransactionTypeModel(
           name: "investment",
           image: Res.investment,
-          content: [
-
-          ],
+          content: [],
         ),
         TransactionTypeModel(
           name: "saving",
           image: Res.saving,
-          content: [
-
-          ],
+          content: [],
         ),
         TransactionTypeModel(
           name: "finishing",
           image: Res.finishing,
-          content: [
-
-          ],
+          content: [],
         ),
         TransactionTypeModel(
           name: "buyingCar",
           image: Res.buyingCar,
-          content: [
-
-          ],
+          content: [],
         ),
         TransactionTypeModel(
           name: "tuitionFees",
           image: Res.tuitionFees,
-          content: [
-
-          ],
+          content: [],
         ),
       ],
     ),
@@ -778,19 +659,14 @@ class BudgetCubit extends Cubit<BudgetState> {
         TransactionTypeModel(
           name: "withdraw",
           image: Res.withdraw,
-          content: [
-
-          ],
+          content: [],
         ),
         TransactionTypeModel(
           name: "transfer",
           image: Res.transfer,
-          content: [
-
-          ],
+          content: [],
         ),
       ],
     ),
   ];
-
 }

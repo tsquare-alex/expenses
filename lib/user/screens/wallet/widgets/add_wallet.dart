@@ -7,7 +7,6 @@ import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
-import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
@@ -540,7 +539,7 @@ class _AddWalletState extends State<AddWallet> {
                                 decoration: BoxDecoration(
                                   color:
                                       context.watch<AppThemeCubit>().isDarkMode
-                                          ? MyColors.greyWhite
+                                          ? AppDarkColors.backgroundColor
                                           : MyColors.white,
                                   borderRadius: BorderRadius.circular(15.r),
                                 ),
@@ -911,34 +910,43 @@ class _AddWalletState extends State<AddWallet> {
                                         .text,
                                     currencyValue: currencyValue,
                                     currency: context
-                                        .read<WalletCubit>()
-                                        .currencyController
-                                        .text,
-                                    checkedValue:
-                                        selectMainCurrency == mainCurrency
-                                            ? false
-                                            : context
-                                                .read<WalletCubit>()
-                                                .checkedValue,
-                                    totalBalance:
-                                        selectMainCurrency == mainCurrency
-                                            ? parsedNumber
-                                            : (parsedNumber * currencyValue),
+                                            .read<WalletCubit>()
+                                            .currencyController
+                                            .text
+                                            .isNotEmpty
+                                        ? context
+                                            .read<WalletCubit>()
+                                            .currencyController
+                                            .text
+                                        : context
+                                            .read<WalletCubit>()
+                                            .currencyBox
+                                            .values
+                                            .toList()[0]
+                                            .mainCurrency
+                                            .toString(),
+                                    checkedValue: selectMainCurrency == mainCurrency ||
+                                            selectMainCurrency == null
+                                        ? false
+                                        : context
+                                            .read<WalletCubit>()
+                                            .checkedValue,
+                                    totalBalance: selectMainCurrency == mainCurrency ||
+                                            selectMainCurrency == null
+                                        ? parsedNumber
+                                        : (parsedNumber * currencyValue),
                                     iconPath: widget.iconPath,
-                                    remainTotalBalance:
-                                        selectMainCurrency == mainCurrency
-                                            ? parsedNumber
-                                            : (parsedNumber * currencyValue),
+                                    remainTotalBalance: selectMainCurrency == mainCurrency ||
+                                            selectMainCurrency == null
+                                        ? parsedNumber
+                                        : (parsedNumber * currencyValue),
                                     repeatWallet: context
                                             .read<WalletCubit>()
                                             .repeatedController
                                             .text
                                             .isEmpty
                                         ? data.repeatWallet.first
-                                        : context
-                                            .read<WalletCubit>()
-                                            .repeatedController
-                                            .text,
+                                        : context.read<WalletCubit>().repeatedController.text,
                                     notificationBalance: parsedNumber);
                                 context.read<WalletCubit>().addNote(walletData);
                                 if (context.mounted) {

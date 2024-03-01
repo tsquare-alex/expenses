@@ -75,6 +75,9 @@ Future<void> main() async {
   await Hive.openBox<NoteModel>(noteKey);
 
   await initializeDateFormatting('en');
+
+  Utils.repeatTransaction();
+  Utils.repeatTargetTransaction();
   Utils.walletNotification();
   Utils.repeatTransaction();
   Utils.repeatTargetTransaction();

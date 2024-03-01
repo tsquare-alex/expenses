@@ -18,6 +18,7 @@ import 'package:hive/hive.dart';
 class WalletCubit extends Cubit<WalletState> {
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now().add(const Duration(days: 30));
+  final GlobalKey<FormState> formKey = GlobalKey();
 
   WalletCubit() : super(WalletInitial());
 

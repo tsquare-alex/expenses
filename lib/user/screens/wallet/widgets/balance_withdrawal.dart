@@ -325,7 +325,7 @@ class _BalanceWithdrawalState extends State<BalanceWithdrawal> {
                         widget.model.totalBalance = result;
                         widget.model.balance = result;
                         widget.model.save();
-                        Utils.walletNotification();
+                        // Utils.walletNotification();
                         AutoRouter.of(context).pop();
                       }
                     },

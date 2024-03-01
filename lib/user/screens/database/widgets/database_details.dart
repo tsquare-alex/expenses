@@ -535,6 +535,7 @@ import 'package:expenses/user/models/database_model/database_model.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../general/constants/MyColors.dart';
+import '../../../../general/themes/cubit/app_theme_cubit.dart';
 import '../../../../general/widgets/MyText.dart';
 import '../cubit/add_database_cubit/add_data_base_cubit.dart';
 import 'build_category_expansion.dart';
@@ -651,15 +652,19 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
             children: [
                 BuildCategoryExpansion(
                   categoryFormKey: dataBaseCubit.categoryFormKey,
-                  categoryController: dataBaseCubit.categoryController,
+                  categoryController: categoryController,
                 ),
+               SizedBox(height: 20.h,),
               if (widget.databaseData.category!.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     '${tr(context, "category")}: ${widget.databaseData.category}',
-                    style: const TextStyle(
+                    style:  TextStyle(
                       fontSize: 16,
+                      color:  context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : MyColors.black,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -806,6 +811,9 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
             label:  tr(context, "$fieldName"),
             fieldTypes: FieldTypes.normal,
             type: TextInputType.text,
+            hintColor: context.watch<AppThemeCubit>().isDarkMode
+                ? MyColors.white
+                : MyColors.black,
             action: TextInputAction.none,
             validate: (String? value) => validateField(value),
           ),
@@ -823,7 +831,13 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
        label:  tr(context, "$fieldName"),
         fieldTypes: FieldTypes.normal,
         type: TextInputType.text,
+        textColor: context.watch<AppThemeCubit>().isDarkMode
+            ? MyColors.white
+            : MyColors.black,
         action: TextInputAction.none,
+        hintColor: context.watch<AppThemeCubit>().isDarkMode
+            ? MyColors.white
+            : MyColors.black,
         validate: (String? value) => validateField(value),
       ),
     );

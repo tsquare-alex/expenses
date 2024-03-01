@@ -37,6 +37,7 @@ class AddDataBaseCubit extends Cubit<AddDataBaseState> {
   final TextEditingController youtubeController = TextEditingController();
 
   final GlobalKey<FormState> categoryFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> addDatabaseFormKey = GlobalKey<FormState>();
 
   ByteData? qrBytes;
 

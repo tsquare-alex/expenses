@@ -21,14 +21,14 @@ class WalletTransactionsData {
             child: Container(
               padding: EdgeInsets.all(10.r),
               margin: EdgeInsets.symmetric(vertical: 10.r),
-              color: context.watch<AppThemeCubit>().isDarkMode
+              color: context.read<AppThemeCubit>().isDarkMode
                   ? MyColors.greyWhite
                   : MyColors.black,
               width: double.infinity,
               child: Center(
                 child: MyText(
                   title: "تعديل المعاملة",
-                  color: context.watch<AppThemeCubit>().isDarkMode
+                  color: context.read<AppThemeCubit>().isDarkMode
                       ? MyColors.white
                       : MyColors.black,
                   size: 13.sp,
@@ -51,8 +51,8 @@ class WalletTransactionsData {
               child: Center(
                 child: MyText(
                   title: "حذف المعاملة",
-                  color: context.watch<AppThemeCubit>().isDarkMode
-                      ? MyColors.greyWhite
+                  color: context.read<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
                       : MyColors.black,
                   size: 13.sp,
                   fontWeight: FontWeight.bold,
@@ -76,8 +76,8 @@ class WalletTransactionsData {
               child: Center(
                 child: MyText(
                   title: "تحويل المعاملة الي محفظة اخري",
-                  color: context.watch<AppThemeCubit>().isDarkMode
-                      ? MyColors.greyWhite
+                  color: context.read<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
                       : MyColors.black,
                   size: 13.sp,
                   fontWeight: FontWeight.bold,
@@ -93,8 +93,8 @@ class WalletTransactionsData {
           title: MyText(
         title: tr(context, "cancel"),
         size: 14.sp,
-        color: context.watch<AppThemeCubit>().isDarkMode
-            ? MyColors.greyWhite
+        color: context.read<AppThemeCubit>().isDarkMode
+            ? MyColors.white
             : MyColors.black,
         fontWeight: FontWeight.bold,
       )),

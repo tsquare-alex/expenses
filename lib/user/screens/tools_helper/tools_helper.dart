@@ -524,6 +524,7 @@ class ToolsHelper extends StatelessWidget {
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => QiblahCompass()));
         break;
+
       case "scanner":
         // AutoRouter.of(context).push( SubscriptionsRoute());
         Navigator.of(context)

@@ -55,6 +55,9 @@ part of 'RouterImports.dart';
     AdaptiveRoute(page: CartDetails),
     AdaptiveRoute(page: MainCurrency),
     AdaptiveRoute(page: Subscriptions),
+    AdaptiveRoute(page: CartDetails),
+    AdaptiveRoute(page: NotificationScreen),
+    AdaptiveRoute(page: Subscriptions),
     AdaptiveRoute(page: NotificationScreen)
   ],
 )

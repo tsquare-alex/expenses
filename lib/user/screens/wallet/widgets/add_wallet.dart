@@ -972,6 +972,40 @@ class _AddWalletState extends State<AddWallet> {
         ));
   }
 
+  // Future<void> openDate(BuildContext context) async {
+  //   final DateTime? picked = await showDatePicker(
+  //     context: context,
+  //     initialDate: selectedDate ?? DateTime.now(),
+  //     firstDate: DateTime(2000),
+  //     lastDate: DateTime(2101),
+  //   );
+  //
+  //   if (picked != null && picked != selectedDate) {
+  //     setState(() {
+  //       selectedDate = picked;
+  //       context.read<WalletCubit>().openDateController.text =
+  //           selectedDate.toString();
+  //     });
+  //   }
+  // }
+  //
+  // Future<void> closeDate(BuildContext context) async {
+  //   final DateTime? picked = await showDatePicker(
+  //     context: context,
+  //     initialDate: closedDate ?? DateTime.now(),
+  //     firstDate: DateTime(2000),
+  //     lastDate: DateTime(2101),
+  //   );
+  //
+  //   if (picked != null && picked != closedDate) {
+  //     setState(() {
+  //       closedDate = picked;
+  //       context.read<WalletCubit>().closedDateController.text =
+  //           closedDate.toString();
+  //     });
+  //   }
+  // }
+
   Future<void> openDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,

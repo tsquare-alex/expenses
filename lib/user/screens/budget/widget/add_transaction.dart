@@ -927,16 +927,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                       .currentState!
                                       .validate()) {
                                 double transactionValue = 0;
-                                // double transactionValue = context
-                                //     .read<BudgetCubit>()
-                                //     .transactioList
-                                //     .map((value) =>
-                                //         double.tryParse(value.total ?? '0.0') ??
-                                //         0.0)
-                                //     .fold(
-                                //         0.0,
-                                //         ((previousValue, current) =>
-                                //             previousValue + current));
+            
                                 double deficiency =
                                     parsedNumber - transactionValue;
                                 if (deficiency < 0) {

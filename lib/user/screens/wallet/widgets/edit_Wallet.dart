@@ -40,6 +40,8 @@ class _EditWalletState extends State<EditWallet> {
   String? secValue;
   String? selectMainCurrency;
   bool isRepated = false;
+  bool isNotificated = false;
+  bool isConverted = false;
   bool isFirstValidationError = false;
   bool isSecondValidationError = false;
   bool notificationSwitchvalu = false;
@@ -67,6 +69,10 @@ class _EditWalletState extends State<EditWallet> {
     print(widget.model.repeatWallet! + """""" """""" """""" """""" "");
     isRepated = widget.model.walletRepate!;
     print(widget.model.walletRepate);
+    isNotificated = widget.model.notification!;
+    isConverted = widget.model.checkedValue!;
+    closeDateController.text = widget.model.closedDate;
+    openDateController.text = widget.model.openDate;
 
     super.initState();
   }
@@ -511,11 +517,10 @@ class _EditWalletState extends State<EditWallet> {
                           ),
                           Checkbox(
                               activeColor: MyColors.primary,
-                              value: context.read<WalletCubit>().checkedValue,
+                              value: isConverted,
                               onChanged: (newValue) {
                                 setState(() {
-                                  context.read<WalletCubit>().checkedValue =
-                                      newValue!;
+                                  isConverted = newValue!;
                                 });
                               })
                         ],
@@ -760,6 +765,10 @@ class _EditWalletState extends State<EditWallet> {
                                       : AppDarkColors.backgroundColor,
                               maxLength: 9,
                               fieldTypes: FieldTypes.normal,
+                              textColor:
+                                  context.watch<AppThemeCubit>().isDarkMode
+                                      ? MyColors.white
+                                      : MyColors.black,
                               type: TextInputType.text,
                               action: TextInputAction.next,
                               validate: (text) {
@@ -784,7 +793,7 @@ class _EditWalletState extends State<EditWallet> {
                                 size: 18.sp),
                           ),
                           Visibility(
-                            visible: repeatSwitchValue,
+                            visible: isRepated,
                             child: SizedBox(
                               width: 150.w,
                               child: TileDropdownButton(
@@ -800,10 +809,10 @@ class _EditWalletState extends State<EditWallet> {
                             height: 22.h,
                             width: 44.w,
                             child: CupertinoSwitch(
-                              value: repeatSwitchValue,
+                              value: isRepated,
                               onChanged: (value) {
                                 setState(() {
-                                  repeatSwitchValue = value;
+                                  isRepated = value;
                                 });
                               },
                             ),
@@ -855,7 +864,7 @@ class _EditWalletState extends State<EditWallet> {
                                 size: 18.sp),
                           ),
                           Visibility(
-                            visible: notificationSwitchvalu,
+                            visible: isNotificated,
                             child: SizedBox(
                               width: 150.w,
                               child: Container(),
@@ -865,10 +874,10 @@ class _EditWalletState extends State<EditWallet> {
                             height: 22.h,
                             width: 44.w,
                             child: CupertinoSwitch(
-                              value: notificationSwitchvalu,
+                              value: isNotificated,
                               onChanged: (value) {
                                 setState(() {
-                                  notificationSwitchvalu = value;
+                                  isNotificated = value;
                                 });
                               },
                             ),
@@ -894,9 +903,38 @@ class _EditWalletState extends State<EditWallet> {
                                   .validate()) {
                             repatedWalletController = repatedWalletController;
                             isRepated = repeatSwitchValue;
-                            widget.model.balance = parsedNumber;
+                            widget.model.balance =
+                                double.parse(ballanceController.text);
+                            widget.model.notification = isNotificated;
+                            widget.model.addNote = noteController.text;
+                            widget.model.remainBalance =
+                                currency.text.isEmpty ||
+                                        selectMainCurrency == mainCurrency
+                                    ? double.parse(ballanceController.text)
+                                    : (double.parse(ballanceController.text) *
+                                        currencyValue);
+                            // selectMainCurrency == mainCurrency ||
+                            //         selectMainCurrency == null
+                            //     ? double.parse(ballanceController.text)
+                            //     : (double.parse(ballanceController.text) *
+                            //         currencyValue);
+                            widget.model.totalBalance = currency.text.isEmpty ||
+                                    selectMainCurrency == mainCurrency
+                                ? double.parse(ballanceController.text)
+                                : (double.parse(ballanceController.text) *
+                                    currencyValue);
+                            // selectMainCurrency == mainCurrency ||
+                            //         selectMainCurrency == null
+                            //     ? double.parse(ballanceController.text)
+                            //     : (double.parse(ballanceController.text) *
+                            //         currencyValue);
                             widget.model.valueCategory =
                                 valueCategoryController.text;
+
+                            widget.model.checkedValue = currency.text.isEmpty ||
+                                    selectMainCurrency == mainCurrency
+                                ? false
+                                : isConverted;
                             // context
                             //     .read<WalletCubit>()
                             //     .valueCategoryController
@@ -929,18 +967,13 @@ class _EditWalletState extends State<EditWallet> {
                             //     .currencyController
                             //     .text;
                             widget.model.currencyValue = currencyValue;
-                            widget.model.totalBalance =
-                                selectMainCurrency == mainCurrency
-                                    ? parsedNumber
-                                    : (parsedNumber * currencyValue);
-                            widget.model.remainBalance =
-                                selectMainCurrency == mainCurrency
-                                    ? parsedNumber
-                                    : (parsedNumber * currencyValue);
+
                             widget.model.checkedValue =
                                 selectMainCurrency == mainCurrency
                                     ? false
-                                    : context.read<WalletCubit>().checkedValue;
+                                    : isConverted;
+                            widget.model.notificationBalance =
+                                double.parse(ballanceController.text);
                             widget.model.save();
 
                             AutoRouter.of(context).pop();

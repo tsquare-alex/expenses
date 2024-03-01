@@ -632,7 +632,7 @@ class _AddWalletState extends State<AddWallet> {
                                     ],
                                   ),
                                 ),
-                              ),
+                              )
                             ],
                           ),
                           SizedBox(
@@ -912,20 +912,25 @@ class _AddWalletState extends State<AddWallet> {
                                     currency: context
                                         .read<WalletCubit>()
                                         .currencyController
-                                        .text,
+                                        .text.isNotEmpty?context
+                                        .read<WalletCubit>()
+                                        .currencyController
+                                        .text:context
+                                        .read<WalletCubit>()
+                                        .currencyBox.values.toList()[0].mainCurrency.toString(),
                                     checkedValue:
-                                        selectMainCurrency == mainCurrency
+                                        selectMainCurrency == mainCurrency||selectMainCurrency==null
                                             ? false
                                             : context
                                                 .read<WalletCubit>()
                                                 .checkedValue,
                                     totalBalance:
-                                        selectMainCurrency == mainCurrency
+                                        selectMainCurrency == mainCurrency||selectMainCurrency==null
                                             ? parsedNumber
                                             : (parsedNumber * currencyValue),
                                     iconPath: widget.iconPath,
                                     remainTotalBalance:
-                                        selectMainCurrency == mainCurrency
+                                        selectMainCurrency == mainCurrency||selectMainCurrency==null
                                             ? parsedNumber
                                             : (parsedNumber * currencyValue),
                                     repeatWallet: context
@@ -938,7 +943,7 @@ class _AddWalletState extends State<AddWallet> {
                                             .read<WalletCubit>()
                                             .repeatedController
                                             .text,
-                                    notificationBalance: parsedNumber);
+                                    notificationBalance:parsedNumber);
                                 context.read<WalletCubit>().addNote(walletData);
                                 if (context.mounted) {
                                   if (widget.fromTransaction == false) {

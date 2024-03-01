@@ -357,105 +357,322 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         ),
                       ),
                       SizedBox(height: 20.h),
-                      Row(
+                      Column(
                         children: [
-                          Column(
+                          Row(
                             children: [
-                              Image.asset(Res.calendar),
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              Text(
-                                tr(context, "selectDuration"),
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                              MyText(
+                                title: tr(context, "selectDuration"),
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : AppDarkColors.backgroundColor,
+                                size: 16.sp,
+                                fontWeight: FontWeight.w500,
                               )
                             ],
                           ),
-                          SizedBox(
-                            width: 20.w,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              openDate(context);
-                            },
-                            child: Container(
-                                height: 44.h,
-                                width: 130.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.r),
-                                  border: Border.all(
-                                      color: MyColors.semiTransparentColor),
-                                ),
-                                child: Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(12.r),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          selectedDate != null
-                                              ? "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}"
-                                              : tr(context, "from"),
-                                          style: TextStyle(
-                                            fontSize: 12.sp,
-                                            color: context
-                                                    .watch<AppThemeCubit>()
-                                                    .isDarkMode
-                                                ? MyColors.white
-                                                : MyColors.black,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      ],
+                          SizedBox(height: 12.h),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 5.r),
+                            decoration: BoxDecoration(
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? AppDarkColors.backgroundColor
+                                  : MyColors.white,
+                              borderRadius: BorderRadius.circular(15.r),
+                            ),
+                            child: Form(
+                              key: context.read<BudgetCubit>().formKey,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: GenericTextField(
+                                      onTab: () => openDate(context),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 20.r, vertical: 10.r),
+                                      radius: 10.r,
+                                      fieldTypes: FieldTypes.clickable,
+                                      type: TextInputType.text,
+                                      action: TextInputAction.next,
+                                      hintColor: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? MyColors.white
+                                          : MyColors.black,
+                                      textColor: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? MyColors.white
+                                          : MyColors.black,
+                                      label: selectedDate != null
+                                          ? "${selectedDate?.toLocal()}"
+                                              .split(' ')[0]
+                                          : tr(context, "from"),
+                                      validate: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Enter open budget date';
+                                        }
+                                      },
+                                      controller: context
+                                          .read<BudgetCubit>()
+                                          .openDateController,
+                                      // context
+                                      //     .read<WalletCubit>()
+                                      //     .openDateController,
+                                      margin: const EdgeInsets.symmetric(
+                                        vertical: 10,
+                                      ),
                                     ),
                                   ),
-                                )),
-                          ),
-                          SizedBox(
-                            width: 30.w,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              closeDate(context);
-                            },
-                            child: Container(
-                                height: 44.h,
-                                width: 130.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.r),
-                                  border: Border.all(
-                                      color: MyColors.semiTransparentColor),
-                                ),
-                                child: Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(12.r),
-                                    child: Row(
-                                      children: [
-                                        Center(
-                                          child: Text(
-                                            closedDate != null
-                                                ? formattedDate!.split(' ')[0]
-                                                : tr(context, "to"),
-                                            style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: context
-                                                      .watch<AppThemeCubit>()
-                                                      .isDarkMode
-                                                  ? MyColors.white
-                                                  : MyColors.black,
-                                              fontWeight: FontWeight.w400,
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                  Expanded(
+                                    child: GenericTextField(
+                                      onTab: () {
+                                        closeDate(context);
+                                      },
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              horizontal: 20, vertical: 10),
+                                      radius: 10.r,
+                                      fieldTypes: FieldTypes.clickable,
+                                      type: TextInputType.text,
+                                      action: TextInputAction.next,
+                                      hintColor: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? MyColors.white
+                                          : MyColors.black,
+                                      textColor: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? MyColors.white
+                                          : MyColors.black,
+                                      label: closedDate != null
+                                          ? "${closedDate?.toLocal()}"
+                                              .split(' ')[0]
+                                          : tr(
+                                              context,
+                                              "to",
                                             ),
-                                          ),
-                                        ),
-                                      ],
+                                      validate: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Enter close budget date';
+                                        }
+                                      },
+                                      controller: context
+                                          .read<BudgetCubit>()
+                                          .closeDateController,
+                                      //  context
+                                      //     .read<WalletCubit>()
+                                      //     .closedDateController,
+                                      margin: const EdgeInsets.symmetric(
+                                        vertical: 10,
+                                      ),
                                     ),
                                   ),
-                                )),
+                                ],
+                              ),
+                            ),
                           ),
+                          // Row(
+                          //   children: [
+                          //     Column(
+                          //       children: [
+                          //         Image.asset(Res.calendar),
+                          //         SizedBox(
+                          //           height: 5.h,
+                          //         ),
+                          //         Text(
+                          //           tr(context, "selectDuration"),
+                          //           style: TextStyle(
+                          //             fontSize: 12.sp,
+                          //             fontWeight: FontWeight.w400,
+                          //           ),
+                          //         )
+                          //       ],
+                          //     ),
+                          //     SizedBox(
+                          //       width: 20.w,
+                          //     ),
+                          //     GestureDetector(
+                          //       onTap: () {
+                          //         openDate(context);
+                          //       },
+                          //       child: Container(
+                          //           height: 44.h,
+                          //           width: 130.w,
+                          //           decoration: BoxDecoration(
+                          //             borderRadius: BorderRadius.circular(8.r),
+                          //             border: Border.all(
+                          //                 color: MyColors.semiTransparentColor),
+                          //           ),
+                          //           child: Center(
+                          //             child: Padding(
+                          //               padding: EdgeInsets.all(12.r),
+                          //               child: Row(
+                          //                 children: [
+                          //                   Text(
+                          //                     selectedDate != null
+                          //                         ? "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}"
+                          //                         : tr(context, "from"),
+                          //                     style: TextStyle(
+                          //                       fontSize: 12.sp,
+                          //                       color: context
+                          //                               .watch<AppThemeCubit>()
+                          //                               .isDarkMode
+                          //                           ? MyColors.white
+                          //                           : MyColors.black,
+                          //                       fontWeight: FontWeight.w400,
+                          //                     ),
+                          //                   ),
+                          //                 ],
+                          //               ),
+                          //             ),
+                          //           )),
+                          //     ),
+                          //     SizedBox(
+                          //       width: 30.w,
+                          //     ),
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     closeDate(context);
+                          //   },
+                          //   child: Container(
+                          //       height: 44.h,
+                          //       width: 130.w,
+                          //       decoration: BoxDecoration(
+                          //         borderRadius: BorderRadius.circular(8.r),
+                          //         border: Border.all(
+                          //             color: MyColors.semiTransparentColor),
+                          //       ),
+                          //       child: Center(
+                          //         child: Padding(
+                          //           padding: EdgeInsets.all(12.r),
+                          //           child: Row(
+                          //             children: [
+                          //               Center(
+                          //                 child: Text(
+                          //                   closedDate != null
+                          //                       ? formattedDate!
+                          //                       : tr(context, "to"),
+                          //                   style: TextStyle(
+                          //                     fontSize: 12.sp,
+                          //                     color: context
+                          //                             .watch<AppThemeCubit>()
+                          //                             .isDarkMode
+                          //                         ? MyColors.white
+                          //                         : MyColors.black,
+                          //                     fontWeight: FontWeight.w400,
+                          //                   ),
+                          //                 ),
+                          //               ),
+                          //             ],
+                          //           ),
+                          //         ),
+                          //       )),
+                          // ),
                         ],
                       ),
+                      // Row(
+                      //   children: [
+                      //     Column(
+                      //       children: [
+                      //         Image.asset(Res.calendar),
+                      //         SizedBox(
+                      //           height: 5.h,
+                      //         ),
+                      //         Text(
+                      //           tr(context, "selectDuration"),
+                      //           style: TextStyle(
+                      //             fontSize: 12.sp,
+                      //             fontWeight: FontWeight.w400,
+                      //           ),
+                      //         )
+                      //       ],
+                      //     ),
+                      //     SizedBox(
+                      //       width: 20.w,
+                      //     ),
+                      //     GestureDetector(
+                      //       onTap: () {
+                      //         openDate(context);
+                      //       },
+                      //       child: Container(
+                      //           height: 44.h,
+                      //           width: 130.w,
+                      //           decoration: BoxDecoration(
+                      //             borderRadius: BorderRadius.circular(8.r),
+                      //             border: Border.all(
+                      //                 color: MyColors.semiTransparentColor),
+                      //           ),
+                      //           child: Center(
+                      //             child: Padding(
+                      //               padding: EdgeInsets.all(12.r),
+                      //               child: Row(
+                      //                 children: [
+                      //                   Text(
+                      //                     selectedDate != null
+                      //                         ? "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}"
+                      //                         : tr(context, "from"),
+                      //                     style: TextStyle(
+                      //                       fontSize: 12.sp,
+                      //                       color: context
+                      //                               .watch<AppThemeCubit>()
+                      //                               .isDarkMode
+                      //                           ? MyColors.white
+                      //                           : MyColors.black,
+                      //                       fontWeight: FontWeight.w400,
+                      //                     ),
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //             ),
+                      //           )),
+                      //     ),
+                      //     SizedBox(
+                      //       width: 30.w,
+                      //     ),
+                      //     GestureDetector(
+                      //       onTap: () {
+                      //         closeDate(context);
+                      //       },
+                      //       child: Container(
+                      //           height: 44.h,
+                      //           width: 130.w,
+                      //           decoration: BoxDecoration(
+                      //             borderRadius: BorderRadius.circular(8.r),
+                      //             border: Border.all(
+                      //                 color: MyColors.semiTransparentColor),
+                      //           ),
+                      //           child: Center(
+                      //             child: Padding(
+                      //               padding: EdgeInsets.all(12.r),
+                      //               child: Row(
+                      //                 children: [
+                      //                   Center(
+                      //                     child: Text(
+                      //                       closedDate != null
+                      //                           ? formattedDate!.split(' ')[0]
+                      //                           : tr(context, "to"),
+                      //                       style: TextStyle(
+                      //                         fontSize: 12.sp,
+                      //                         color: context
+                      //                                 .watch<AppThemeCubit>()
+                      //                                 .isDarkMode
+                      //                             ? MyColors.white
+                      //                             : MyColors.black,
+                      //                         fontWeight: FontWeight.w400,
+                      //                       ),
+                      //                     ),
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //             ),
+                      //           )),
+                      //     ),
+                      //   ],
+                      // ),
                       SizedBox(
                         height: 20.h,
                       ),
@@ -703,18 +920,14 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         children: [
                           DefaultButton(
                             onTap: () {
-                              if (formKey.currentState!.validate()) {
+                              if (formKey.currentState!.validate() &&
+                                  context
+                                      .read<BudgetCubit>()
+                                      .formKey
+                                      .currentState!
+                                      .validate()) {
                                 double transactionValue = 0;
-                                // double transactionValue = context
-                                //     .read<BudgetCubit>()
-                                //     .transactioList
-                                //     .map((value) =>
-                                //         double.tryParse(value.total ?? '0.0') ??
-                                //         0.0)
-                                //     .fold(
-                                //         0.0,
-                                //         ((previousValue, current) =>
-                                //             previousValue + current));
+            
                                 double deficiency =
                                     parsedNumber - transactionValue;
                                 if (deficiency < 0) {

@@ -101,39 +101,45 @@ class Utils {
     return differenceInQuarterYears.floor();
   }
 
-  static int calculateTotalDifferenceInDays(DateTime startDate,DateTime endDate) {
+  static int calculateTotalDifferenceInDays(
+      DateTime startDate, DateTime endDate) {
     Duration difference = startDate.difference(endDate);
     print("objectDifference $difference");
     return difference.inDays.abs();
   }
 
-  static int calculateTotalDifferenceInWeeks(DateTime startDate,DateTime endDate) {
+  static int calculateTotalDifferenceInWeeks(
+      DateTime startDate, DateTime endDate) {
     Duration difference = startDate.difference(endDate);
     return (difference.inDays.abs() / 7).floor();
   }
 
-  static int calculateTotalDifferenceInMonths(DateTime startDate,DateTime endDate) {
+  static int calculateTotalDifferenceInMonths(
+      DateTime startDate, DateTime endDate) {
     double differenceInDays = endDate.difference(startDate).inDays.toDouble();
     double differenceInMonths =
         differenceInDays / 30; // Assuming 30 days per month
     return differenceInMonths.floor();
   }
 
-  static int calculateTotalDifferenceInQuarterYears(DateTime startDate,DateTime endDate) {
+  static int calculateTotalDifferenceInQuarterYears(
+      DateTime startDate, DateTime endDate) {
     double differenceInMonths = endDate.difference(startDate).inDays / 30;
     double differenceInQuarterYears =
         differenceInMonths / 3; // Assuming 3 months per quarter-year
     return differenceInQuarterYears.floor();
   }
 
-  static int calculateTotalDifferenceInSemiAnnually(DateTime startDate,DateTime endDate) {
+  static int calculateTotalDifferenceInSemiAnnually(
+      DateTime startDate, DateTime endDate) {
     double differenceInMonths = endDate.difference(startDate).inDays / 30;
     double differenceInQuarterYears =
         differenceInMonths / 6; // Assuming 3 months per quarter-year
     return differenceInQuarterYears.floor();
   }
 
-  static int calculateTotalDifferenceInAnnually(DateTime startDate,DateTime endDate) {
+  static int calculateTotalDifferenceInAnnually(
+      DateTime startDate, DateTime endDate) {
     double differenceInMonths = endDate.difference(startDate).inDays / 30;
     double differenceInQuarterYears =
         differenceInMonths / 12; // Assuming 3 months per quarter-year
@@ -152,7 +158,7 @@ class Utils {
       print("object3");
       var date = DateFormat("dd/MM/yyyy", "en").parse(item.transactionDate!);
       int myCounter = 0;
-      switch (item.repeated?.name){
+      switch (item.repeated?.name) {
         case "daily":
           myCounter = calculateDifferenceInDays(date);
           break;
@@ -176,9 +182,9 @@ class Utils {
 
       print("item.repeated ${item.repeated}");
       double total = double.parse(item.total!);
-      if(total <item.incomeSource!.totalBalance!&&
-          item.transactionName != "الاهداف المالية المستهدفة"){
-        if (item.repeated != null ) {
+      if (total < item.incomeSource!.totalBalance! &&
+          item.transactionName != "الاهداف المالية المستهدفة") {
+        if (item.repeated != null) {
           print("object4");
           for (int i = 0; i < myCounter; i++) {
             AddTransactionModel newModel = AddTransactionModel(
@@ -256,26 +262,29 @@ class Utils {
               var currencyList = currencyBox.values.toList();
               var walletList = walletBox.values.toList();
               WalletModel? targetModel = walletList.firstWhere(
-                    (model) => model.name == item.incomeSource?.name,
+                (model) => model.name == item.incomeSource?.name,
               );
               print("object ${targetModel.name}");
-              if(targetModel.currency != currencyList[0].mainCurrency){
-                if(targetModel.checkedValue ==false){
+              if (targetModel.currency != currencyList[0].mainCurrency) {
+                if (targetModel.checkedValue == false) {
                   print("sss");
-                  var calculatedTotalBalance = targetModel.totalBalance! - total;
+                  var calculatedTotalBalance =
+                      targetModel.totalBalance! - total;
                   targetModel.totalBalance = calculatedTotalBalance;
-                  double remain = (calculatedTotalBalance)/ currencyList[0].value!;
+                  double remain =
+                      (calculatedTotalBalance) / currencyList[0].value!;
                   targetModel.remainBalance = remain;
                   walletBox.put(targetModel.key, targetModel);
-                }else{
+                } else {
                   print("mmm");
-                  var calculatedTotalBalance = targetModel.totalBalance! - total;
+                  var calculatedTotalBalance =
+                      targetModel.totalBalance! - total;
                   targetModel.totalBalance = calculatedTotalBalance;
                   double remain = calculatedTotalBalance;
                   targetModel.remainTotalBalance = remain;
                   walletBox.put(targetModel.key, targetModel);
                 }
-              }else{
+              } else {
                 print('mmmm');
                 var calculatedTotalBalance = targetModel.totalBalance! - total;
                 targetModel.totalBalance = calculatedTotalBalance;
@@ -297,7 +306,7 @@ class Utils {
           }
           box.delete(item.key);
         }
-      }else{
+      } else {
         var targetModel = AddTransactionModel(
           image: item.image,
           total: item.total,
@@ -338,7 +347,7 @@ class Utils {
     print(list.length);
     print("object8");
     for (AddTransactionModel item in list) {
-      if(item.transactionName == "الاهداف المالية المستهدفة"){
+      if (item.transactionName == "الاهداف المالية المستهدفة") {
         var now = DateTime.now();
         print("object3");
         print("item.endDate ${item.endDate}");
@@ -522,7 +531,7 @@ class Utils {
       var now = DateTime.now();
       print("object3");
       // var date = DateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(item.openDate);
-      var date=DateFormat("dd/MM/yyyy", "en").parse(item.openDate);
+      var date = DateFormat("dd/MM/yyyy", "en").parse(item.openDate);
       int myCounter = 0;
       switch (item.repeatWallet) {
         case "daily":
@@ -562,14 +571,14 @@ class Utils {
             encomeSource: item.encomeSource,
             checkedValue: item.checkedValue,
             iconPath: item.iconPath,
-            walletRepate: item.walletRepate,
+            walletRepate: i == myCounter - 1 ? item.walletRepate : false,
             isClosed: item.isClosed,
             isFavorite: item.isFavorite,
             notification: item.notification,
             totalBalance: item.totalBalance,
             isHide: item.isHide,
             paymentMethod: item.paymentMethod,
-            repeatWallet: item.repeatWallet,
+            repeatWallet: i == myCounter - 1 ? item.repeatWallet : "",
             notificationBalance: item.notificationBalance,
             model: item.model,
             remainBalance: item.remainBalance,
@@ -589,14 +598,14 @@ class Utils {
               encomeSource: item.encomeSource,
               checkedValue: item.checkedValue,
               iconPath: item.iconPath,
-              walletRepate: item.walletRepate,
+              walletRepate: false,
               isClosed: item.isClosed,
               isFavorite: item.isFavorite,
               notification: item.notification,
               totalBalance: item.totalBalance,
               isHide: item.isHide,
               paymentMethod: item.paymentMethod,
-              repeatWallet: null,
+              repeatWallet: "",
               model: item.model,
               remainBalance: item.remainBalance,
               remainTotalBalance: item.remainBalance,

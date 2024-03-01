@@ -14,6 +14,7 @@ import '../../../../../general/constants/constants.dart';
 
 class BudgetCubit extends Cubit<BudgetState> {
 
+
   List<TransactionTypeModel> commitmentsList = [];
   Future<void> initTransactionData() async {
     final remoteCashTransactionBox = await Hive.openBox<TransactionTypeModel>("cashTransactionBox");
@@ -133,6 +134,7 @@ class BudgetCubit extends Cubit<BudgetState> {
   late WalletModel walletModel;
   late TransactionModel transactionModel;
   late List<WalletModel> wallets;
+  var formKey= GlobalKey<FormState>();
   Future<void> fetchdataFromWallet(context) async {
     var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
     List<WalletModel> data = walletBox.values.toList();

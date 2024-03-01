@@ -4,9 +4,9 @@ import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
+import 'package:expenses/general/utilities/utils_functions/decimal_format.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
-import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
@@ -40,9 +40,12 @@ class _EditWalletState extends State<EditWallet> {
   String? secValue;
   String? selectMainCurrency;
   bool isRepated = false;
+  bool isNotificated = false;
+  bool isConverted = false;
   bool isFirstValidationError = false;
   bool isSecondValidationError = false;
   bool notificationSwitchvalu = false;
+  TextEditingController ballanceController = TextEditingController();
   TextEditingController encomSourceController = TextEditingController();
   TextEditingController walletNameController = TextEditingController();
   TextEditingController valueCategoryController = TextEditingController();
@@ -54,6 +57,9 @@ class _EditWalletState extends State<EditWallet> {
 
   @override
   void initState() {
+    ballanceController.text =
+        widget.model.balance.toString().formatToDecimal(context: context);
+
     encomSourceController.text = widget.model.encomeSource;
     walletNameController.text = widget.model.name;
     valueCategoryController.text = widget.model.valueCategory;
@@ -63,6 +69,10 @@ class _EditWalletState extends State<EditWallet> {
     print(widget.model.repeatWallet! + """""" """""" """""" """""" "");
     isRepated = widget.model.walletRepate!;
     print(widget.model.walletRepate);
+    isNotificated = widget.model.notification!;
+    isConverted = widget.model.checkedValue!;
+    closeDateController.text = widget.model.closedDate;
+    openDateController.text = widget.model.openDate;
 
     super.initState();
   }
@@ -403,8 +413,8 @@ class _EditWalletState extends State<EditWallet> {
                                       ? MyColors.white
                                       : MyColors.black,
                               enableBorderColor: MyColors.semiTransparentColor,
-                              controller:
-                                  context.read<WalletCubit>().balanceController,
+                              controller: ballanceController,
+                              // context.read<WalletCubit>().balanceController,
                               hint: tr(context, "amount"),
                               hintColor:
                                   context.watch<AppThemeCubit>().isDarkMode
@@ -507,11 +517,10 @@ class _EditWalletState extends State<EditWallet> {
                           ),
                           Checkbox(
                               activeColor: MyColors.primary,
-                              value: context.read<WalletCubit>().checkedValue,
+                              value: isConverted,
                               onChanged: (newValue) {
                                 setState(() {
-                                  context.read<WalletCubit>().checkedValue =
-                                      newValue!;
+                                  isConverted = newValue!;
                                 });
                               })
                         ],
@@ -534,97 +543,196 @@ class _EditWalletState extends State<EditWallet> {
                             ],
                           ),
                           SizedBox(height: 12.h),
-                          Row(
-                            children: [
-                              Container(
-                                  height: 44.h,
-                                  width: 170.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8.r),
-                                    border: Border.all(
-                                        color: MyColors.semiTransparentColor),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      openDate(context);
-                                    },
-                                    child: Center(
-                                      child: Padding(
-                                        padding: EdgeInsets.all(12.r),
-                                        child: Row(
-                                          children: [
-                                            Image.asset(Res.calendar),
-                                            SizedBox(
-                                              width: 15.w,
-                                            ),
-                                            Text(
-                                              selectedDate != null
-                                                  ? "${selectedDate?.toLocal()}"
-                                                      .split(' ')[0]
-                                                  : tr(context,
-                                                      "walletOpeningDate"),
-                                              style: TextStyle(
-                                                fontSize: 12.sp,
-                                                color: context
-                                                        .watch<AppThemeCubit>()
-                                                        .isDarkMode
-                                                    ? MyColors.white
-                                                    : MyColors.black,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 5.r),
+                            decoration: BoxDecoration(
+                              color: context.watch<AppThemeCubit>().isDarkMode
+                                  ? AppDarkColors.backgroundColor
+                                  : MyColors.white,
+                              borderRadius: BorderRadius.circular(15.r),
+                            ),
+                            child: Form(
+                              key: context.read<WalletCubit>().formKey,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: GenericTextField(
+                                      onTab: () => openDate(context),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 20.r, vertical: 10.r),
+                                      radius: 10.r,
+                                      fieldTypes: FieldTypes.clickable,
+                                      type: TextInputType.text,
+                                      action: TextInputAction.next,
+                                      hintColor: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? MyColors.white
+                                          : MyColors.black,
+                                      textColor: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? MyColors.white
+                                          : MyColors.black,
+                                      label: selectedDate != null
+                                          ? "${selectedDate?.toLocal()}"
+                                              .split(' ')[0]
+                                          : tr(context, "walletOpeningDate"),
+                                      validate: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Enter open wallet date';
+                                        }
+                                      },
+                                      controller: openDateController,
+                                      // context
+                                      //     .read<WalletCubit>()
+                                      //     .openDateController,
+                                      margin: const EdgeInsets.symmetric(
+                                        vertical: 10,
                                       ),
                                     ),
-                                  )),
-                              SizedBox(
-                                width: 20.w,
+                                  ),
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                  Expanded(
+                                    child: GenericTextField(
+                                      onTab: () {
+                                        closeDate(context);
+                                      },
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              horizontal: 20, vertical: 10),
+                                      radius: 10.r,
+                                      fieldTypes: FieldTypes.clickable,
+                                      type: TextInputType.text,
+                                      action: TextInputAction.next,
+                                      hintColor: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? MyColors.white
+                                          : MyColors.black,
+                                      textColor: context
+                                              .watch<AppThemeCubit>()
+                                              .isDarkMode
+                                          ? MyColors.white
+                                          : MyColors.black,
+                                      label: closedDate != null
+                                          ? "${closedDate?.toLocal()}"
+                                              .split(' ')[0]
+                                          : tr(
+                                              context,
+                                              "walletClosingDate",
+                                            ),
+                                      validate: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Enter close wallet date';
+                                        }
+                                      },
+                                      controller: closeDateController,
+                                      //  context
+                                      //     .read<WalletCubit>()
+                                      //     .closedDateController,
+                                      margin: const EdgeInsets.symmetric(
+                                        vertical: 10,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Container(
-                                  height: 44.h,
-                                  width: 170.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8.r),
-                                    border: Border.all(
-                                        color: MyColors.semiTransparentColor),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      closeDate(context);
-                                    },
-                                    child: Center(
-                                      child: Padding(
-                                        padding: EdgeInsets.all(12.r),
-                                        child: Row(
-                                          children: [
-                                            Image.asset(Res.calendar),
-                                            SizedBox(
-                                              width: 15.w,
-                                            ),
-                                            Text(
-                                              closedDate != null
-                                                  ? "${closedDate?.toLocal()}"
-                                                      .split(' ')[0]
-                                                  : tr(context,
-                                                      "walletClosingDate"),
-                                              style: TextStyle(
-                                                fontSize: 12.sp,
-                                                color: context
-                                                        .watch<AppThemeCubit>()
-                                                        .isDarkMode
-                                                    ? MyColors.white
-                                                    : MyColors.black,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  )),
-                            ],
+                            ),
                           ),
+                          // Row(
+                          //   children: [
+                          //     Container(
+                          //         height: 44.h,
+                          //         width: 170.w,
+                          //         decoration: BoxDecoration(
+                          //           borderRadius: BorderRadius.circular(8.r),
+                          //           border: Border.all(
+                          //               color: MyColors.semiTransparentColor),
+                          //         ),
+                          //         child: GestureDetector(
+                          //           onTap: () {
+                          //             openDate(context);
+                          //           },
+                          //           child: Center(
+                          //             child: Padding(
+                          //               padding: EdgeInsets.all(12.r),
+                          //               child: Row(
+                          //                 children: [
+                          //                   Image.asset(Res.calendar),
+                          //                   SizedBox(
+                          //                     width: 15.w,
+                          //                   ),
+                          //                   Text(
+                          //                     selectedDate != null
+                          //                         ? "${selectedDate?.toLocal()}"
+                          //                             .split(' ')[0]
+                          //                         : tr(context,
+                          //                             "walletOpeningDate"),
+                          //                     style: TextStyle(
+                          //                       fontSize: 12.sp,
+                          //                       color: context
+                          //                               .watch<AppThemeCubit>()
+                          //                               .isDarkMode
+                          //                           ? MyColors.white
+                          //                           : MyColors.black,
+                          //                       fontWeight: FontWeight.w400,
+                          //                     ),
+                          //                   ),
+                          //                 ],
+                          //               ),
+                          //             ),
+                          //           ),
+                          //         )),
+                          //     SizedBox(
+                          //       width: 20.w,
+                          //     ),
+                          //     Container(
+                          //         height: 44.h,
+                          //         width: 170.w,
+                          //         decoration: BoxDecoration(
+                          //           borderRadius: BorderRadius.circular(8.r),
+                          //           border: Border.all(
+                          //               color: MyColors.semiTransparentColor),
+                          //         ),
+                          //         child: GestureDetector(
+                          //           onTap: () {
+                          //             closeDate(context);
+                          //           },
+                          //           child: Center(
+                          //             child: Padding(
+                          //               padding: EdgeInsets.all(12.r),
+                          //               child: Row(
+                          //                 children: [
+                          //                   Image.asset(Res.calendar),
+                          //                   SizedBox(
+                          //                     width: 15.w,
+                          //                   ),
+                          //                   Text(
+                          //                     closedDate != null
+                          //                         ? "${closedDate?.toLocal()}"
+                          //                             .split(' ')[0]
+                          //                         : tr(context,
+                          //                             "walletClosingDate"),
+                          //                     style: TextStyle(
+                          //                       fontSize: 12.sp,
+                          //                       color: context
+                          //                               .watch<AppThemeCubit>()
+                          //                               .isDarkMode
+                          //                           ? MyColors.white
+                          //                           : MyColors.black,
+                          //                       fontWeight: FontWeight.w400,
+                          //                     ),
+                          //                   ),
+                          //                 ],
+                          //               ),
+                          //             ),
+                          //           ),
+                          //         )),
+                          //   ],
+                          // ),
                         ],
                       ),
                       SizedBox(
@@ -657,6 +765,10 @@ class _EditWalletState extends State<EditWallet> {
                                       : AppDarkColors.backgroundColor,
                               maxLength: 9,
                               fieldTypes: FieldTypes.normal,
+                              textColor:
+                                  context.watch<AppThemeCubit>().isDarkMode
+                                      ? MyColors.white
+                                      : MyColors.black,
                               type: TextInputType.text,
                               action: TextInputAction.next,
                               validate: (text) {
@@ -681,7 +793,7 @@ class _EditWalletState extends State<EditWallet> {
                                 size: 18.sp),
                           ),
                           Visibility(
-                            visible: repeatSwitchValue,
+                            visible: isRepated,
                             child: SizedBox(
                               width: 150.w,
                               child: TileDropdownButton(
@@ -697,10 +809,10 @@ class _EditWalletState extends State<EditWallet> {
                             height: 22.h,
                             width: 44.w,
                             child: CupertinoSwitch(
-                              value: repeatSwitchValue,
+                              value: isRepated,
                               onChanged: (value) {
                                 setState(() {
-                                  repeatSwitchValue = value;
+                                  isRepated = value;
                                 });
                               },
                             ),
@@ -752,7 +864,7 @@ class _EditWalletState extends State<EditWallet> {
                                 size: 18.sp),
                           ),
                           Visibility(
-                            visible: notificationSwitchvalu,
+                            visible: isNotificated,
                             child: SizedBox(
                               width: 150.w,
                               child: Container(),
@@ -762,10 +874,10 @@ class _EditWalletState extends State<EditWallet> {
                             height: 22.h,
                             width: 44.w,
                             child: CupertinoSwitch(
-                              value: notificationSwitchvalu,
+                              value: isNotificated,
                               onChanged: (value) {
                                 setState(() {
-                                  notificationSwitchvalu = value;
+                                  isNotificated = value;
                                 });
                               },
                             ),
@@ -783,12 +895,46 @@ class _EditWalletState extends State<EditWallet> {
                         title: tr(context, "saveChanges"),
                         color: MyColors.primary,
                         onTap: () {
-                          if (formKey.currentState!.validate()) {
+                          if (formKey.currentState!.validate() &&
+                              context
+                                  .read<WalletCubit>()
+                                  .formKey
+                                  .currentState!
+                                  .validate()) {
                             repatedWalletController = repatedWalletController;
                             isRepated = repeatSwitchValue;
-                            widget.model.balance = parsedNumber;
+                            widget.model.balance =
+                                double.parse(ballanceController.text);
+                            widget.model.notification = isNotificated;
+                            widget.model.addNote = noteController.text;
+                            widget.model.remainBalance =
+                                currency.text.isEmpty ||
+                                        selectMainCurrency == mainCurrency
+                                    ? double.parse(ballanceController.text)
+                                    : (double.parse(ballanceController.text) *
+                                        currencyValue);
+                            // selectMainCurrency == mainCurrency ||
+                            //         selectMainCurrency == null
+                            //     ? double.parse(ballanceController.text)
+                            //     : (double.parse(ballanceController.text) *
+                            //         currencyValue);
+                            widget.model.totalBalance = currency.text.isEmpty ||
+                                    selectMainCurrency == mainCurrency
+                                ? double.parse(ballanceController.text)
+                                : (double.parse(ballanceController.text) *
+                                    currencyValue);
+                            // selectMainCurrency == mainCurrency ||
+                            //         selectMainCurrency == null
+                            //     ? double.parse(ballanceController.text)
+                            //     : (double.parse(ballanceController.text) *
+                            //         currencyValue);
                             widget.model.valueCategory =
                                 valueCategoryController.text;
+
+                            widget.model.checkedValue = currency.text.isEmpty ||
+                                    selectMainCurrency == mainCurrency
+                                ? false
+                                : isConverted;
                             // context
                             //     .read<WalletCubit>()
                             //     .valueCategoryController
@@ -821,18 +967,13 @@ class _EditWalletState extends State<EditWallet> {
                             //     .currencyController
                             //     .text;
                             widget.model.currencyValue = currencyValue;
-                            widget.model.totalBalance =
-                                selectMainCurrency == mainCurrency
-                                    ? parsedNumber
-                                    : (parsedNumber * currencyValue);
-                            widget.model.remainBalance =
-                                selectMainCurrency == mainCurrency
-                                    ? parsedNumber
-                                    : (parsedNumber * currencyValue);
+
                             widget.model.checkedValue =
                                 selectMainCurrency == mainCurrency
                                     ? false
-                                    : context.read<WalletCubit>().checkedValue;
+                                    : isConverted;
+                            widget.model.notificationBalance =
+                                double.parse(ballanceController.text);
                             widget.model.save();
 
                             AutoRouter.of(context).pop();

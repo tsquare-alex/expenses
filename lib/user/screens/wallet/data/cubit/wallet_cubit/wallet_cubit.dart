@@ -29,6 +29,8 @@ class WalletCubit extends Cubit<WalletState> {
   bool? isLocked = true;
   bool checkedValue = false;
   bool checkFavorite = false;
+  var formKey = GlobalKey<FormState>();
+
   ValueNotifier<int> selectedCategoryIndex = ValueNotifier<int>(0);
   final TextEditingController walletNameController = TextEditingController();
   final TextEditingController balanceController = TextEditingController();

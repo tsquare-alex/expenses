@@ -122,7 +122,9 @@ class _ItemBudgetState extends State<ItemBudget> {
                           width: 12.w,
                         ),
                         Text(
-                          "${widget.model.transactionValue}",
+                          widget.model.transactionValue
+                              .toString()
+                              .formatToDecimal(context: context),
                           style: TextStyle(
                               fontSize: 16.sp, fontWeight: FontWeight.bold),
                         ),

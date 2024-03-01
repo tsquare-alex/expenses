@@ -134,7 +134,11 @@ class WalletDetailsRow extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.grey,
+                                  color: context
+                                                  .watch<AppThemeCubit>()
+                                                  .isDarkMode
+                                              ? Colors.white
+                                              : Colors.black54,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
@@ -150,7 +154,11 @@ class WalletDetailsRow extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.grey,
+                                      color: context
+                                                  .watch<AppThemeCubit>()
+                                                  .isDarkMode
+                                              ? Colors.white
+                                              : Colors.black54,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),

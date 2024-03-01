@@ -913,11 +913,7 @@ class _EditWalletState extends State<EditWallet> {
                                     ? double.parse(ballanceController.text)
                                     : (double.parse(ballanceController.text) *
                                         currencyValue);
-                            // selectMainCurrency == mainCurrency ||
-                            //         selectMainCurrency == null
-                            //     ? double.parse(ballanceController.text)
-                            //     : (double.parse(ballanceController.text) *
-                            //         currencyValue);
+                           
                             widget.model.totalBalance = currency.text.isEmpty ||
                                     selectMainCurrency == mainCurrency
                                 ? double.parse(ballanceController.text)

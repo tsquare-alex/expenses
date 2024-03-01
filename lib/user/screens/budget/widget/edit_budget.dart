@@ -56,6 +56,7 @@ class _EditBudgetState extends State<EditBudget> {
     noteController.text = widget.model.addNote;
     openDateController.text = widget.model.startBudget;
     closeDateController.text = widget.model.endBudget;
+    favorite = widget.model.favoitate!;
     super.initState();
   }
 
@@ -472,6 +473,9 @@ class _EditBudgetState extends State<EditBudget> {
                             ? MyColors.white
                             : AppDarkColors.backgroundColor,
                         type: TextInputType.number,
+                        textColor: context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.white
+                            : MyColors.black,
                         action: TextInputAction.next,
                         validate: (text) {
                           if (text == null || text.isEmpty) {
@@ -480,35 +484,33 @@ class _EditBudgetState extends State<EditBudget> {
                           return null;
                         },
                         onChange: (value) {
-                          parsedNumber = double.parse(context
-                              .read<BudgetCubit>()
-                              .budgetValueController
-                              .text);
+                          parsedNumber =
+                              double.parse(budgetValueController.text);
                         },
                       ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          MyText(
-                              title: tr(context, "transactionRepetition"),
-                              color: context.watch<AppThemeCubit>().isDarkMode
-                                  ? MyColors.white
-                                  : AppDarkColors.backgroundColor,
-                              size: 16.sp),
-                          Checkbox(
-                              activeColor: MyColors.primary,
-                              value: context.read<BudgetCubit>().checkedValue,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  context.read<BudgetCubit>().checkedValue =
-                                      newValue!;
-                                });
-                              })
-                        ],
-                      ),
+                      // SizedBox(
+                      //   height: 20.h,
+                      // ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     MyText(
+                      //         title: tr(context, "transactionRepetition"),
+                      //         color: context.watch<AppThemeCubit>().isDarkMode
+                      //             ? MyColors.white
+                      //             : AppDarkColors.backgroundColor,
+                      //         size: 16.sp),
+                      //     Checkbox(
+                      //         activeColor: MyColors.primary,
+                      //         value: context.read<BudgetCubit>().checkedValue,
+                      //         onChanged: (newValue) {
+                      //           setState(() {
+                      //             context.read<BudgetCubit>().checkedValue =
+                      //                 newValue!;
+                      //           });
+                      //         })
+                      //   ],
+                      // ),
                       SizedBox(
                         height: 20.h,
                       ),
@@ -535,6 +537,10 @@ class _EditBudgetState extends State<EditBudget> {
                               hint: tr(context, "youNotes"),
                               maxLength: 9,
                               fieldTypes: FieldTypes.normal,
+                              textColor:
+                                  context.watch<AppThemeCubit>().isDarkMode
+                                      ? MyColors.white
+                                      : MyColors.black,
                               hintColor:
                                   context.watch<AppThemeCubit>().isDarkMode
                                       ? MyColors.white
@@ -570,7 +576,11 @@ class _EditBudgetState extends State<EditBudget> {
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,
-                                    color: MyColors.black,
+                                    color: context
+                                            .watch<AppThemeCubit>()
+                                            .isDarkMode
+                                        ? MyColors.white
+                                        : MyColors.black,
                                   ),
                                 ),
                                 SizedBox(
@@ -652,15 +662,17 @@ class _EditBudgetState extends State<EditBudget> {
                         height: 58.h,
                         width: double.infinity,
                         decoration: const BoxDecoration(
-                          color: Color(0xffF7F7F6),
-                        ),
+                            // color: MyColors.black,
+                            ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
                               child: MyText(
                                 title: tr(context, "favorite"),
-                                color: MyColors.black,
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : MyColors.black,
                                 size: 16.sp,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -729,6 +741,7 @@ class _EditBudgetState extends State<EditBudget> {
                                 //     .text;
                                 widget.model.transactionName =
                                     transactionValueController.text;
+                                widget.model.favoitate = favorite;
                                 // context
                                 //     .read<BudgetCubit>()
                                 //     .transactionNameController

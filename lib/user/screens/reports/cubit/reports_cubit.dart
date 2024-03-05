@@ -670,7 +670,7 @@ class ReportsCubit extends Cubit<ReportsState> {
   List<AddTransactionModel> filteredTransactions = [];
 
   String statsSelectedWallet = '';
-  void onWalletSelect(String selectedWallet) {
+  void onWalletSelect(context, String selectedWallet) {
     if (selectedWallet != statsSelectedWallet) {
       emit(const ReportsState.initial());
       statsSelectedWallet = selectedWallet;
@@ -696,18 +696,22 @@ class ReportsCubit extends Cubit<ReportsState> {
           .toSet()
           .toList();
       statsSubTransactions = statsSubTransactionsList
-          .map((transaction) => transaction.transactionContent!.name!)
+          .map((transaction) => transaction.transactionContent != null
+              ? transaction.transactionContent!.name!
+              : transaction.transactionType!.name!)
           .toSet()
           .toList();
       statsPriorities = statsPrioritiesList
-          .map((transaction) => transaction.priority!.name!)
+          .map((transaction) => transaction.priority != null
+              ? transaction.priority!.name!
+              : tr(context, 'nothing'))
           .toSet()
           .toList();
       emit(const ReportsState.statsWalletsSelected());
     }
   }
 
-  void changeStatsDateFrom() {
+  void changeStatsDateFrom(context) {
     if (statsSelectedDateFrom != null) {
       emit(const ReportsState.initial());
       statsSelectedTransaction = '';
@@ -731,7 +735,7 @@ class ReportsCubit extends Cubit<ReportsState> {
               DateFormat('dd/MM/yyyy').format(statsSelectedDateTo!);
         }
       }
-      changeStatsDateTo();
+      changeStatsDateTo(context);
       emit(const ReportsState.changeDate());
       return;
     }
@@ -740,7 +744,7 @@ class ReportsCubit extends Cubit<ReportsState> {
         : DateFormat('dd/MM/yyyy').parse(statsFormattedDateFrom);
   }
 
-  void changeStatsDateTo() {
+  void changeStatsDateTo(context) {
     if (statsSelectedDateTo != null) {
       emit(const ReportsState.initial());
       statsSelectedTransaction = '';
@@ -779,11 +783,15 @@ class ReportsCubit extends Cubit<ReportsState> {
           .toSet()
           .toList();
       statsSubTransactions = statsSubTransactionsList
-          .map((transaction) => transaction.transactionContent!.name!)
+          .map((transaction) => transaction.transactionContent != null
+              ? transaction.transactionContent!.name!
+              : transaction.transactionType!.name!)
           .toSet()
           .toList();
       statsPriorities = statsPrioritiesList
-          .map((transaction) => transaction.priority!.name!)
+          .map((transaction) => transaction.priority != null
+              ? transaction.priority!.name!
+              : tr(context, 'nothing'))
           .toSet()
           .toList();
       emit(const ReportsState.changeDate());
@@ -795,7 +803,7 @@ class ReportsCubit extends Cubit<ReportsState> {
   }
 
   String statsSelectedTransaction = '';
-  void onTransactionsSelect(String selectedTransaction) {
+  void onTransactionsSelect(context, String selectedTransaction) {
     if (selectedTransaction != statsSelectedTransaction) {
       emit(const ReportsState.initial());
       statsSelectedTransaction = selectedTransaction;
@@ -812,11 +820,15 @@ class ReportsCubit extends Cubit<ReportsState> {
                   transaction.transactionType!.name == selectedTransaction)
               .toList();
       statsSubTransactions = statsSubTransactionsList
-          .map((transaction) => transaction.transactionContent!.name!)
+          .map((transaction) => transaction.transactionContent != null
+              ? transaction.transactionContent!.name!
+              : transaction.transactionType!.name!)
           .toSet()
           .toList();
       statsPriorities = statsPrioritiesList
-          .map((transaction) => transaction.priority!.name!)
+          .map((transaction) => transaction.priority != null
+              ? transaction.priority!.name!
+              : tr(context, 'nothing'))
           .toSet()
           .toList();
       emit(const ReportsState.statsWalletsSelected());
@@ -824,7 +836,7 @@ class ReportsCubit extends Cubit<ReportsState> {
   }
 
   String statsSelectedSubTransaction = '';
-  void onSubTransactionsSelect(String selectedSubTransaction) {
+  void onSubTransactionsSelect(context, String selectedSubTransaction) {
     if (selectedSubTransaction != statsSelectedSubTransaction) {
       emit(const ReportsState.initial());
       statsSelectedSubTransaction = selectedSubTransaction;
@@ -834,10 +846,15 @@ class ReportsCubit extends Cubit<ReportsState> {
       filteredTransactions = [];
       filteredTransactions = statsPrioritiesList = statsSubTransactionsList
           .where((transaction) =>
-              transaction.transactionContent!.name! == selectedSubTransaction)
+              (transaction.transactionContent != null
+                  ? transaction.transactionContent!.name!
+                  : transaction.transactionType!.name!) ==
+              selectedSubTransaction)
           .toList();
       statsPriorities = statsPrioritiesList
-          .map((transaction) => transaction.priority!.name!)
+          .map((transaction) => transaction.priority != null
+              ? transaction.priority!.name!
+              : tr(context, 'nothing'))
           .toSet()
           .toList();
       emit(const ReportsState.statsWalletsSelected());
@@ -845,14 +862,16 @@ class ReportsCubit extends Cubit<ReportsState> {
   }
 
   String statsSelectedPriorities = '';
-  void onPrioritiesSelect(String selectedPriority) {
+  void onPrioritiesSelect(context, String selectedPriority) {
     if (selectedPriority != statsSelectedPriorities) {
       emit(const ReportsState.initial());
       statsSelectedPriorities = selectedPriority;
-      filteredTransactions = statsPrioritiesList
-          .where(
-              (transaction) => transaction.priority!.name! == selectedPriority)
-          .toList();
+      if (selectedPriority != tr(context, 'nothing')) {
+        filteredTransactions = statsPrioritiesList
+            .where((transaction) =>
+                transaction.priority!.name! == selectedPriority)
+            .toList();
+      }
       emit(const ReportsState.statsWalletsSelected());
     }
   }

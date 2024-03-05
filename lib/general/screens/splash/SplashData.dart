@@ -60,7 +60,7 @@ class SplashController {
         AutoRouter.of(context).push(HomeRoute(index: 1));
       }
     } else {
-      AutoRouter.of(context).push(const SelectCountryRoute());
+      AutoRouter.of(context).push( SelectCountryRoute(fromSetting: false));
     }
 
   }

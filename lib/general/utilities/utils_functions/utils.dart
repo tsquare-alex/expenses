@@ -16,6 +16,7 @@ import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:uuid/uuid.dart';
 
 class Utils {
   static void changeLanguage(String lang, BuildContext context) {
@@ -102,39 +103,45 @@ class Utils {
     return differenceInQuarterYears.floor();
   }
 
-  static int calculateTotalDifferenceInDays(DateTime startDate,DateTime endDate) {
+  static int calculateTotalDifferenceInDays(
+      DateTime startDate, DateTime endDate) {
     Duration difference = startDate.difference(endDate);
     print("objectDifference $difference");
     return difference.inDays.abs();
   }
 
-  static int calculateTotalDifferenceInWeeks(DateTime startDate,DateTime endDate) {
+  static int calculateTotalDifferenceInWeeks(
+      DateTime startDate, DateTime endDate) {
     Duration difference = startDate.difference(endDate);
     return (difference.inDays.abs() / 7).floor();
   }
 
-  static int calculateTotalDifferenceInMonths(DateTime startDate,DateTime endDate) {
+  static int calculateTotalDifferenceInMonths(
+      DateTime startDate, DateTime endDate) {
     double differenceInDays = endDate.difference(startDate).inDays.toDouble();
     double differenceInMonths =
         differenceInDays / 30; // Assuming 30 days per month
     return differenceInMonths.floor();
   }
 
-  static int calculateTotalDifferenceInQuarterYears(DateTime startDate,DateTime endDate) {
+  static int calculateTotalDifferenceInQuarterYears(
+      DateTime startDate, DateTime endDate) {
     double differenceInMonths = endDate.difference(startDate).inDays / 30;
     double differenceInQuarterYears =
         differenceInMonths / 3; // Assuming 3 months per quarter-year
     return differenceInQuarterYears.floor();
   }
 
-  static int calculateTotalDifferenceInSemiAnnually(DateTime startDate,DateTime endDate) {
+  static int calculateTotalDifferenceInSemiAnnually(
+      DateTime startDate, DateTime endDate) {
     double differenceInMonths = endDate.difference(startDate).inDays / 30;
     double differenceInQuarterYears =
         differenceInMonths / 6; // Assuming 3 months per quarter-year
     return differenceInQuarterYears.floor();
   }
 
-  static int calculateTotalDifferenceInAnnually(DateTime startDate,DateTime endDate) {
+  static int calculateTotalDifferenceInAnnually(
+      DateTime startDate, DateTime endDate) {
     double differenceInMonths = endDate.difference(startDate).inDays / 30;
     double differenceInQuarterYears =
         differenceInMonths / 12; // Assuming 3 months per quarter-year
@@ -176,12 +183,13 @@ class Utils {
 
       print("item.repeated ${item.repeated}");
       double total = double.parse(item.total!);
-      if(total <item.incomeSource!.totalBalance!&&
-          item.transactionName != "الاهداف المالية المستهدفة"){
-        if (item.repeated != null ) {
+      if (total < item.incomeSource!.totalBalance! &&
+          item.transactionName != "الاهداف المالية المستهدفة") {
+        if (item.repeated != null) {
           print("object4");
           for (int i = 0; i < myCounter; i++) {
             AddTransactionModel newModel = AddTransactionModel(
+              id:item.id!+ Uuid().v4(),
               image: item.image,
               total: item.total,
               amount: item.amount,
@@ -206,7 +214,7 @@ class Utils {
               brandName: item.brandName,
               repeated: i == myCounter - 1 ? item.repeated : null,
               transactionDate:
-              DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
+                  DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
               unit: item.unit,
               incomeSource: item.incomeSource,
               transactionContent: item.transactionContent,
@@ -218,6 +226,7 @@ class Utils {
               targetType: item.targetType,
             );
             var targetModel = AddTransactionModel(
+              id:item.id,
               image: item.image,
               total: item.total,
               amount: item.amount,
@@ -256,26 +265,29 @@ class Utils {
               var currencyList = currencyBox.values.toList();
               var walletList = walletBox.values.toList();
               WalletModel? targetModel = walletList.firstWhere(
-                    (model) => model.name == item.incomeSource?.name,
+                (model) => model.name == item.incomeSource?.name,
               );
               print("object ${targetModel.name}");
-              if(targetModel.currency != currencyList[0].mainCurrency){
-                if(targetModel.checkedValue ==false){
+              if (targetModel.currency != currencyList[0].mainCurrency) {
+                if (targetModel.checkedValue == false) {
                   print("sss");
-                  var calculatedTotalBalance = targetModel.totalBalance! - total;
+                  var calculatedTotalBalance =
+                      targetModel.totalBalance! - total;
                   targetModel.totalBalance = calculatedTotalBalance;
-                  double remain = (calculatedTotalBalance)/ currencyList[0].value!;
+                  double remain =
+                      (calculatedTotalBalance) / currencyList[0].value!;
                   targetModel.remainBalance = remain;
                   walletBox.put(targetModel.key, targetModel);
-                }else{
+                } else {
                   print("mmm");
-                  var calculatedTotalBalance = targetModel.totalBalance! - total;
+                  var calculatedTotalBalance =
+                      targetModel.totalBalance! - total;
                   targetModel.totalBalance = calculatedTotalBalance;
                   double remain = calculatedTotalBalance;
                   targetModel.remainTotalBalance = remain;
                   walletBox.put(targetModel.key, targetModel);
                 }
-              }else{
+              } else {
                 print('mmmm');
                 var calculatedTotalBalance = targetModel.totalBalance! - total;
                 targetModel.totalBalance = calculatedTotalBalance;
@@ -297,8 +309,9 @@ class Utils {
           }
           box.delete(item.key);
         }
-      }else{
+      } else {
         var targetModel = AddTransactionModel(
+          id:item.id,
           image: item.image,
           total: item.total,
           amount: item.amount,
@@ -338,14 +351,14 @@ class Utils {
     print(list.length);
     print("object8");
     for (AddTransactionModel item in list) {
-      if(item.transactionName == "الاهداف المالية المستهدفة"){
+      if (item.transactionName == "الاهداف المالية المستهدفة") {
         var now = DateTime.now();
         print("object3");
         print("item.endDate ${item.endDate}");
         var date = DateFormat("dd/MM/yyyy", "en").parse(item.startDate!);
         var endDate = DateFormat("dd/MM/yyyy", "en").parse(item.endDate!);
         var startDate =
-        DateFormat("dd/MM/yyyy", "en").parse(item.transactionDate!);
+            DateFormat("dd/MM/yyyy", "en").parse(item.transactionDate!);
         var endDateString = DateFormat("dd/MM/yyyy", "en").format(endDate);
         var currentDate = DateFormat("dd/MM/yyyy", "en").format(now);
         if (endDateString == currentDate) {
@@ -403,6 +416,7 @@ class Utils {
           print("object4");
           if (endDateString != currentDate) {
             var targetModel = AddTransactionModel(
+              id:item.id,
               image: item.image,
               total: item.total,
               amount: item.amount,
@@ -412,7 +426,7 @@ class Utils {
               notify: item.notify,
               requiredValue: item.requiredValue,
               initialValue:
-              item.initialValue! + (item.requiredValue! * myCounter),
+                  item.initialValue! + (item.requiredValue! * myCounter),
               transactionName: item.transactionName,
               priority: item.priority,
               endDate: item.endDate,
@@ -442,7 +456,7 @@ class Utils {
               var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
               var walletList = walletBox.values.toList();
               WalletModel? targetModel = walletList.firstWhere(
-                    (model) => model.name == item.incomeSource?.name,
+                (model) => model.name == item.incomeSource?.name,
               );
               print("object ${targetModel.name}");
               targetModel.totalBalance = targetModel.totalBalance! - total;
@@ -457,6 +471,7 @@ class Utils {
             print("initVal1 ${item.initialValue}");
             print("initDate ${item.transactionDate}");
             var targetModel = AddTransactionModel(
+              id:item.id,
               image: item.image,
               total: item.total,
               amount: item.amount,
@@ -496,7 +511,7 @@ class Utils {
               var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
               var walletList = walletBox.values.toList();
               WalletModel? targetModel = walletList.firstWhere(
-                    (model) => model.name == item.incomeSource?.name,
+                (model) => model.name == item.incomeSource?.name,
               );
               print("object ${targetModel.name}");
               targetModel.totalBalance = targetModel.totalBalance! - total;
@@ -549,6 +564,7 @@ class Utils {
         print("object4");
         for (int i = 0; i < myCounter; i++) {
           WalletModel newModel = WalletModel(
+            id: item.id+Uuid().v4(),
             addNote: item.addNote,
             balance: item.balance,
             category: item.category,
@@ -576,6 +592,7 @@ class Utils {
             openDate: DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
           );
           var targetModel = WalletModel(
+              id: item.id,
               addNote: item.addNote,
               balance: item.balance,
               category: item.category,
@@ -605,9 +622,10 @@ class Utils {
 
           box.add(newModel);
         }
-        box.delete(item.key);}
+        box.delete(item.key);
       }
     }
+  }
 
   static Future<void> walletNotification() async {
     var box = await Hive.openBox<WalletModel>(walletDatabaseBox);
@@ -625,7 +643,7 @@ class Utils {
                 payload: "payload");
           }
         }
+      }
     }
-    }
-    }
+  }
 }

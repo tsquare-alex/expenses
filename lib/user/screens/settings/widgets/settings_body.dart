@@ -170,7 +170,7 @@ class SettingsBody extends StatelessWidget {
         //   ],
         // ),
         GestureDetector(
-          onTap: () => AutoRouter.of(context).push(const SelectCountryRoute()),
+          onTap: () => AutoRouter.of(context).push(SelectCountryRoute(fromSetting: true)),
           child: SettingTile(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.r),

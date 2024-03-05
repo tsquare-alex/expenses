@@ -1,7 +1,8 @@
 part of 'select_country_imports.dart';
 
 class SelectCountry extends StatefulWidget {
-  const SelectCountry({Key? key}) : super(key: key);
+  const SelectCountry({Key? key, required this.fromSetting}) : super(key: key);
+  final bool fromSetting;
 
   @override
   State<SelectCountry> createState() => _SelectCountryState();
@@ -23,7 +24,7 @@ class _SelectCountryState extends State<SelectCountry> {
               HeaderLogo(topPadding: 100.r,image: Res.country,color: MyColors.primary,),
               const BuildSelectCountryText(),
               BuildSelectCountryInput(selectCountryData: data,),
-              BuildSelectCountryButtons(data: data,),
+              BuildSelectCountryButtons(data: data, fromSetting: widget.fromSetting,),
             ],
           ),
         ),

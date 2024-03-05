@@ -578,6 +578,7 @@ class AddTransactionData {
         if (type == "الالتزامات") {
           if (transactionType != null && selectedContent != null) {
             AddTransactionModel model = AddTransactionModel(
+              id:  Uuid().v4(),
               transactionName: "الالتزامات",
               transactionType: transactionType,
               transactionContent: selectedContent,
@@ -653,6 +654,7 @@ class AddTransactionData {
         } else if (type == "التسوق والشراء" && selectedContent != null) {
           if (transactionType != null) {
             AddTransactionModel model = AddTransactionModel(
+              id:  Uuid().v4(),
               transactionName: "التسوق والشراء",
               transactionType: transactionType,
               transactionContent: selectedContent,
@@ -731,6 +733,7 @@ class AddTransactionData {
         }  else if (type == "المعاملات النقدية") {
           if (transactionType != null) {
             AddTransactionModel model = AddTransactionModel(
+              id:  Uuid().v4(),
               transactionName: "المعاملات النقدية",
               transactionType: transactionType,
               incomeSource: selectedWalletModel,
@@ -805,6 +808,7 @@ class AddTransactionData {
         if (transactionType != null) {
           double initialStatic = double.parse(initialValueController.text);
           AddTransactionModel model = AddTransactionModel(
+            id: Uuid().v4(),
             transactionName: "الاهداف المالية المستهدفة",
             transactionType: transactionType,
             total: targetController.text,

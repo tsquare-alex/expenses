@@ -17,6 +17,7 @@ class AddTransactionModelAdapter extends TypeAdapter<AddTransactionModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return AddTransactionModel(
+      id: fields[28] as String?,
       transactionName: fields[0] as String?,
       transactionType: fields[1] as TransactionTypeModel?,
       image: fields[16] as Uint8List?,
@@ -51,7 +52,7 @@ class AddTransactionModelAdapter extends TypeAdapter<AddTransactionModel> {
   @override
   void write(BinaryWriter writer, AddTransactionModel obj) {
     writer
-      ..writeByte(28)
+      ..writeByte(29)
       ..writeByte(0)
       ..write(obj.transactionName)
       ..writeByte(1)
@@ -107,7 +108,9 @@ class AddTransactionModelAdapter extends TypeAdapter<AddTransactionModel> {
       ..writeByte(26)
       ..write(obj.description)
       ..writeByte(27)
-      ..write(obj.initialStaticValue);
+      ..write(obj.initialStaticValue)
+      ..writeByte(28)
+      ..write(obj.id);
   }
 
   @override

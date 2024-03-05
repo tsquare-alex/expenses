@@ -18,7 +18,7 @@ class BuildSelectLanguageButtons extends StatelessWidget {
               title: tr(context, "langAr"),
               onTap: (){
                if(local == "ar"){
-                 AutoRouter.of(context).push(const SelectCountryRoute());
+                 AutoRouter.of(context).push(SelectCountryRoute(fromSetting: false));
                }else{
                  Utils.changeLanguage("ar",context);
                  AutoRouter.of(context).pop();
@@ -34,7 +34,7 @@ class BuildSelectLanguageButtons extends StatelessWidget {
               title: tr(context, "langEn"),
               onTap: (){
                 if(local == "en"){
-                  AutoRouter.of(context).push(const SelectCountryRoute());
+                  AutoRouter.of(context).push(SelectCountryRoute(fromSetting: false));
                 }else{
                   Utils.changeLanguage("en",context);
                   AutoRouter.of(context).pop();

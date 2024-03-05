@@ -18,7 +18,9 @@ class BuildTransactionInputs extends StatelessWidget {
               padding: EdgeInsets.all(10.r),
               child: Row(
                 children: [
-                  MyText(title: tr(context, "addWallet"), color: MyColors.txtColor, size: 14.sp,fontWeight: FontWeight.bold,),
+                  MyText(title: tr(context, "addWallet"), color: context.watch<AppThemeCubit>().isDarkMode
+                      ? MyColors.white
+                      : MyColors.txtColor, size: 14.sp,fontWeight: FontWeight.bold,),
                   const Spacer(),
                   InkWell(
                     highlightColor: Colors.transparent,

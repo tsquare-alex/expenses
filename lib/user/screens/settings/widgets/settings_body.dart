@@ -545,50 +545,50 @@ class SettingsBody extends StatelessWidget {
           ),
         ),
         SizedBox(height: 20.h),
-        SettingTile(
-          border: false,
-          greyBackground: true,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.r),
-            child: Row(
-              children: [
-                Image.asset(
-                  Res.notifications,
-                  width: 24.w,
-                  height: 24.h,
-                  color: context.watch<AppThemeCubit>().isDarkMode
-                      ? AppDarkColors.secondary
-                      : MyColors.primary,
-                ),
-                SizedBox(width: 12.w),
-                Text(
-                  tr(context, 'reminders'),
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                // SizedBox(width: 12.w),
-                // Image.asset(
-                //   Res.pro,
-                //   height: 40.h,
-                //   width: 40.w,
-                // ),
-                const Spacer(),
-                CupertinoSwitch(
-                  trackColor: context.watch<AppThemeCubit>().isDarkMode
-                      ? AppDarkColors.accentColor1
-                      : const Color(0xFFD9D9D9),
-                  value: false,
-                  onChanged: (value) {
-                    // AutoRouter.of(context).push(const SubscriptionsRoute());
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
-        SizedBox(height: 20.h),
+        // SettingTile(
+        //   border: false,
+        //   greyBackground: true,
+        //   child: Padding(
+        //     padding: EdgeInsets.symmetric(horizontal: 16.r),
+        //     child: Row(
+        //       children: [
+        //         Image.asset(
+        //           Res.notifications,
+        //           width: 24.w,
+        //           height: 24.h,
+        //           color: context.watch<AppThemeCubit>().isDarkMode
+        //               ? AppDarkColors.secondary
+        //               : MyColors.primary,
+        //         ),
+        //         SizedBox(width: 12.w),
+        //         Text(
+        //           tr(context, 'reminders'),
+        //           style: TextStyle(
+        //             fontSize: 16.sp,
+        //             fontWeight: FontWeight.w500,
+        //           ),
+        //         ),
+        //         // SizedBox(width: 12.w),
+        //         // Image.asset(
+        //         //   Res.pro,
+        //         //   height: 40.h,
+        //         //   width: 40.w,
+        //         // ),
+        //         const Spacer(),
+        //         CupertinoSwitch(
+        //           trackColor: context.watch<AppThemeCubit>().isDarkMode
+        //               ? AppDarkColors.accentColor1
+        //               : const Color(0xFFD9D9D9),
+        //           value: false,
+        //           onChanged: (value) {
+        //             // AutoRouter.of(context).push(const SubscriptionsRoute());
+        //           },
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
+        // SizedBox(height: 20.h),
         // CustomTile(
         //   children: [
         //     TileRow(

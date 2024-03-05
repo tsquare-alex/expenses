@@ -310,6 +310,7 @@ class Utils {
           box.delete(item.key);
         }
       } else {
+        print("=============><Wallet");
         var targetModel = AddTransactionModel(
           id:item.id,
           image: item.image,

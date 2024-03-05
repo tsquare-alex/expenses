@@ -96,30 +96,30 @@ class BuildDrawer extends StatelessWidget {
                       ),
                     ),
                   ),
-                  CustomDrawerCard(
-                    title: tr(context, "reminders"),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      // AutoRouter.of(context).push(const SubscriptionsRoute());
-                    },
-                    image: Res.notifications,
-                    endDrawer: false,
-                    hasSwitch: true,
-                    hasProStack: false,
-                    switchWidget: SizedBox(
-                      height: 30.h,
-                      child: CupertinoSwitch(
-                        trackColor: context.watch<AppThemeCubit>().isDarkMode
-                            ? AppDarkColors.accentColor1
-                            : const Color(0xFFD9D9D9),
-                        value: false,
-                        onChanged: (value) {
-                          // AutoRouter.of(context)
-                          //     .push(const SubscriptionsRoute());
-                        },
-                      ),
-                    ),
-                  ),
+                  // CustomDrawerCard(
+                  //   title: tr(context, "reminders"),
+                  //   onTap: () {
+                  //     Navigator.of(context).pop();
+                  //     // AutoRouter.of(context).push(const SubscriptionsRoute());
+                  //   },
+                  //   image: Res.notifications,
+                  //   endDrawer: false,
+                  //   hasSwitch: true,
+                  //   hasProStack: false,
+                  //   switchWidget: SizedBox(
+                  //     height: 30.h,
+                  //     child: CupertinoSwitch(
+                  //       trackColor: context.watch<AppThemeCubit>().isDarkMode
+                  //           ? AppDarkColors.accentColor1
+                  //           : const Color(0xFFD9D9D9),
+                  //       value: false,
+                  //       onChanged: (value) {
+                  //         // AutoRouter.of(context)
+                  //         //     .push(const SubscriptionsRoute());
+                  //       },
+                  //     ),
+                  //   ),
+                  // ),
                   CustomDrawerCard(
                     title: tr(context, "language"),
                     onTap: () async {

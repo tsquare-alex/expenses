@@ -37,7 +37,7 @@ class SelectCountryData {
     countryId = model?.id;
   }
 
-  addCountry(BuildContext context) {
+  addCountry(BuildContext context,bool fromSetting) {
     Box<CountryModel> countryBox = Hive.box<CountryModel>('countryBox');
     
     var country = countryBox.values.toList();
@@ -61,7 +61,11 @@ class SelectCountryData {
         print(country[0].name);
       }
       print(country.length);
-      AutoRouter.of(context).push(const MainCurrencyRoute());
+      if(fromSetting==true){
+        Navigator.of(context).pop();
+      }else{
+        AutoRouter.of(context).push(const MainCurrencyRoute());
+      }
     }
   }
 }

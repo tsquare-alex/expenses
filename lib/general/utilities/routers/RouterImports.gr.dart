@@ -150,9 +150,13 @@ class AppRouter extends _i46.RootStackRouter {
       );
     },
     SelectCountryRoute.name: (routeData) {
+      final args = routeData.argsAs<SelectCountryRouteArgs>();
       return _i46.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i6.SelectCountry(),
+        child: _i6.SelectCountry(
+          key: args.key,
+          fromSetting: args.fromSetting,
+        ),
         opaque: true,
       );
     },
@@ -790,14 +794,36 @@ class ForgetPasswordRoute extends _i46.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.SelectCountry]
-class SelectCountryRoute extends _i46.PageRouteInfo<void> {
-  const SelectCountryRoute()
-      : super(
+class SelectCountryRoute extends _i46.PageRouteInfo<SelectCountryRouteArgs> {
+  SelectCountryRoute({
+    _i47.Key? key,
+    required bool fromSetting,
+  }) : super(
           SelectCountryRoute.name,
           path: '/select-country',
+          args: SelectCountryRouteArgs(
+            key: key,
+            fromSetting: fromSetting,
+          ),
         );
 
   static const String name = 'SelectCountryRoute';
+}
+
+class SelectCountryRouteArgs {
+  const SelectCountryRouteArgs({
+    this.key,
+    required this.fromSetting,
+  });
+
+  final _i47.Key? key;
+
+  final bool fromSetting;
+
+  @override
+  String toString() {
+    return 'SelectCountryRouteArgs{key: $key, fromSetting: $fromSetting}';
+  }
 }
 
 /// generated route for

@@ -68,11 +68,14 @@ class AddTransactionModel extends HiveObject {
   String? description;
   @HiveField(27)
   double? initialStaticValue;
+  @HiveField(28)
+  String? id;
 
-  AddTransactionModel({this.transactionName,this.transactionType,this.image,this.database,this.unit,this.total,this.amount,this.time,this.brandName,this.endDate,this.incomeSource,this.notify,this.priority,this.repeated,this.startDate,this.targetValue,this.transactionContent,this.transactionDate,this.targetType,this.cashTransactionType,this.budget,this.initialValue,this.requiredValue,this.completedNotify,this.putReminderInWallet,this.ratio,this.description,this.initialStaticValue});
+  AddTransactionModel({this.id,this.transactionName,this.transactionType,this.image,this.database,this.unit,this.total,this.amount,this.time,this.brandName,this.endDate,this.incomeSource,this.notify,this.priority,this.repeated,this.startDate,this.targetValue,this.transactionContent,this.transactionDate,this.targetType,this.cashTransactionType,this.budget,this.initialValue,this.requiredValue,this.completedNotify,this.putReminderInWallet,this.ratio,this.description,this.initialStaticValue});
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'transactionName': transactionName,
       'transactionType': transactionType?.toJson(),
       'transactionContent': transactionContent?.toJson(),
@@ -104,6 +107,7 @@ class AddTransactionModel extends HiveObject {
   }
   factory AddTransactionModel.fromJson(Map<String, dynamic> json) {
     return AddTransactionModel(
+      id: json['id'],
       transactionName: json['transactionName'],
       transactionType: TransactionTypeModel.fromJson(json['transactionType']),
       transactionContent: TransactionContentModel.fromJson(json['transactionContent']),

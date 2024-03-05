@@ -80,7 +80,7 @@ class CommitmentsData{
     var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
     var walletList = walletBox.values.toList();
     WalletModel? targetWallet = walletList.firstWhere(
-          (item) => item.name == targetModel.incomeSource?.name,
+          (item) => item.id == targetModel.incomeSource?.id,
     );
     double total = double.parse(targetModel.total!);
     targetWallet.balance = targetWallet.balance + total;

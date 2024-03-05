@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 class AddWallet extends StatefulWidget {
   final int selectItemIndex;
@@ -879,6 +880,7 @@ class _AddWalletState extends State<AddWallet> {
                                       .currentState!
                                       .validate()) {
                                 var walletData = WalletModel(
+                                  id: Uuid().v4(),
                                     notification: notificationSwitchvalu,
                                     walletRepate: repeatSwitchValue,
                                     addNote: context

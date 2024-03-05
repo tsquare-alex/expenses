@@ -78,10 +78,8 @@ Future<void> main() async {
 
   Utils.repeatTransaction();
   Utils.repeatTargetTransaction();
-  Utils.walletNotification();
-  Utils.repeatTransaction();
-  Utils.repeatTargetTransaction();
-  Utils.repeatWallet();
+  // Utils.walletNotification();
+  // Utils.repeatWallet();
 
   runApp(BlocProvider(
     create: (BuildContext context) => LangCubit(),

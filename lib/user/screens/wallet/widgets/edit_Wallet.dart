@@ -65,7 +65,7 @@ class _EditWalletState extends State<EditWallet> {
     walletNameController.text = widget.model.name;
     valueCategoryController.text = widget.model.valueCategory;
     currency.text = widget.model.currency;
-    // currency.text = widget.model.currency;
+    selectMainCurrency = widget.model.currency;
     print(widget.model.currency);
 
     noteController.text = widget.model.addNote;

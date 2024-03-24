@@ -463,47 +463,54 @@ class TransactionDetailsData {
     int index = modelList.indexWhere((model) => model.key == targetModel.key);
     var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
     var walletList = walletBox.values.toList();
-    WalletModel? targetWallet = walletList.firstWhere(
+    if(walletList.any(
           (item) => item.id == targetModel.incomeSource?.id,
-    );
-    var currencyBox = Hive.box<CurrencyModel>("currencyBox");
-    var currencyList = currencyBox.values.toList();
-    double total;
-    if(targetModel.transactionName=="الاهداف المالية المستهدفة"){
-      total = targetModel.initialValue!;
-    }else{
-    total= double.parse(targetModel.total!);
-    }
-    if(targetWallet.currency != currencyList[0].mainCurrency){
-      if(targetWallet.checkedValue ==false){
-        print("sss");
-        var calculatedTotalBalance  = targetWallet.totalBalance! + total;
-    targetWallet.totalBalance = calculatedTotalBalance;
-        double remain = (calculatedTotalBalance)/ currencyList[0].value!;
-        targetWallet.remainBalance = remain;
-        await walletBox.put(targetWallet.key, targetWallet);
-        box.deleteAt(index);
-        AutoRouter.of(context).pop();
+    )){
+      WalletModel? targetWallet = walletList.firstWhere(
+            (item) => item.id == targetModel.incomeSource?.id,
+      );
+      var currencyBox = Hive.box<CurrencyModel>("currencyBox");
+      var currencyList = currencyBox.values.toList();
+      double total;
+      if(targetModel.transactionName=="الاهداف المالية المستهدفة"){
+        total = targetModel.initialValue!;
       }else{
-        print("mmm");
+        total= double.parse(targetModel.total!);
+      }
+      if(targetWallet.currency != currencyList[0].mainCurrency){
+        if(targetWallet.checkedValue ==false){
+          print("sss");
+          var calculatedTotalBalance  = targetWallet.totalBalance! + total;
+          targetWallet.totalBalance = calculatedTotalBalance;
+          double remain = (calculatedTotalBalance)/ currencyList[0].value!;
+          targetWallet.remainBalance = remain;
+          await walletBox.put(targetWallet.key, targetWallet);
+          box.deleteAt(index);
+          AutoRouter.of(context).pop();
+        }else{
+          print("mmm");
+          var calculatedTotalBalance = targetWallet.totalBalance! + total;
+          targetWallet.totalBalance = calculatedTotalBalance;
+          double remain = calculatedTotalBalance;
+          targetWallet.remainTotalBalance = remain;
+          await walletBox.put(targetWallet.key, targetWallet);
+          box.deleteAt(index);
+          AutoRouter.of(context).pop();
+        }
+      }else{
+        print('mmmm');
         var calculatedTotalBalance = targetWallet.totalBalance! + total;
         targetWallet.totalBalance = calculatedTotalBalance;
-        double remain = calculatedTotalBalance;
-        targetWallet.remainTotalBalance = remain;
+        targetWallet.balance = targetWallet.balance + total;
         await walletBox.put(targetWallet.key, targetWallet);
         box.deleteAt(index);
         AutoRouter.of(context).pop();
       }
     }else{
-      print('mmmm');
-      var calculatedTotalBalance = targetWallet.totalBalance! + total;
-      targetWallet.totalBalance = calculatedTotalBalance;
-      targetWallet.balance = targetWallet.balance + total;
-      await walletBox.put(targetWallet.key, targetWallet);
       box.deleteAt(index);
       AutoRouter.of(context).pop();
     }
-    print("balance ${targetWallet.balance}");
+    // print("balance ${targetWallet.balance}");
 
     // AutoRouter.of(context).push(HomeRoute(index: 0));
     if (index != -1) {

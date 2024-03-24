@@ -55,16 +55,24 @@ class ReportTable extends StatelessWidget {
                           : tr(context, transaction.transactionType!.name!),
                     ),
                     StatsRowCell(
-                      title: tr(context, transaction.transactionContent!.name!)
-                              .isEmpty
-                          ? transaction.transactionContent?.name
-                          : tr(context, transaction.transactionContent!.name!),
+                      title: transaction.transactionContent != null
+                          ? tr(context, transaction.transactionContent!.name!)
+                                  .isEmpty
+                              ? transaction.transactionContent!.name
+                              : tr(context,
+                                  transaction.transactionContent!.name!)
+                          : tr(context, transaction.transactionType!.name!)
+                                  .isEmpty
+                              ? transaction.transactionType!.name
+                              : tr(context, transaction.transactionType!.name!),
                     ),
                     StatsRowCell(title: transaction.transactionDate),
                     StatsRowCell(
-                      title: tr(context, transaction.priority!.name!).isEmpty
-                          ? transaction.priority?.name
-                          : tr(context, transaction.priority!.name!),
+                      title: transaction.priority != null
+                          ? tr(context, transaction.priority!.name!).isEmpty
+                              ? transaction.priority?.name
+                              : tr(context, transaction.priority!.name!)
+                          : null,
                     ),
                     StatsRowCell(
                       title: tr(

@@ -536,6 +536,7 @@ class Utils {
     for (WalletModel item in list) {
       var now = DateTime.now();
       print("object3");
+      // var date = DateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(item.openDate);
       var date = DateFormat("dd/MM/yyyy", "en").parse(item.openDate);
       int myCounter = 0;
       switch (item.repeatWallet) {
@@ -577,14 +578,14 @@ class Utils {
             encomeSource: item.encomeSource,
             checkedValue: item.checkedValue,
             iconPath: item.iconPath,
-            walletRepate: item.walletRepate,
+            walletRepate: i == myCounter - 1 ? item.walletRepate : false,
             isClosed: item.isClosed,
             isFavorite: item.isFavorite,
             notification: item.notification,
             totalBalance: item.totalBalance,
             isHide: item.isHide,
             paymentMethod: item.paymentMethod,
-            repeatWallet: item.repeatWallet,
+            repeatWallet: i == myCounter - 1 ? item.repeatWallet : "",
             notificationBalance: item.notificationBalance,
             model: item.model,
             remainBalance: item.remainBalance,
@@ -605,14 +606,14 @@ class Utils {
               encomeSource: item.encomeSource,
               checkedValue: item.checkedValue,
               iconPath: item.iconPath,
-              walletRepate: item.walletRepate,
+              walletRepate: false,
               isClosed: item.isClosed,
               isFavorite: item.isFavorite,
               notification: item.notification,
               totalBalance: item.totalBalance,
               isHide: item.isHide,
               paymentMethod: item.paymentMethod,
-              repeatWallet: null,
+              repeatWallet: "",
               model: item.model,
               remainBalance: item.remainBalance,
               remainTotalBalance: item.remainBalance,

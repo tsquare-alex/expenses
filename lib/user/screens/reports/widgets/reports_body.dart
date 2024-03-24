@@ -240,19 +240,34 @@ class ReportsBody extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      tr(
+                                      transaction.transactionContent == null
+                                          ? tr(
+                                                      context,
+                                                      transaction
+                                                          .transactionType!
+                                                          .name!)
+                                                  .isNotEmpty
+                                              ? tr(
+                                                  context,
+                                                  transaction
+                                                      .transactionType!.name!)
+                                              : transaction
+                                                      .transactionType?.name ??
+                                                  ""
+                                          : tr(
+                                                      context,
+                                                      transaction
+                                                          .transactionContent!
+                                                          .name!)
+                                                  .isNotEmpty
+                                              ? tr(
                                                   context,
                                                   transaction
                                                       .transactionContent!
                                                       .name!)
-                                              .isNotEmpty
-                                          ? tr(
-                                              context,
-                                              transaction
-                                                  .transactionContent!.name!)
-                                          : transaction
-                                                  .transactionContent?.name ??
-                                              "",
+                                              : transaction.transactionContent
+                                                      ?.name ??
+                                                  "",
                                       style: TextStyle(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.w500,

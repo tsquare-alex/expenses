@@ -79,7 +79,7 @@ class _BuildTransactionTypeState extends State<BuildTransactionType> {
                             ),
                           ],
                         ),
-                        Icon(isExpanded==false?Icons.arrow_drop_up:Icons.arrow_drop_down,color: MyColors.primary,),
+                        Icon(isExpanded?Icons.arrow_drop_up:Icons.arrow_drop_down,color: MyColors.primary,),
                       ],
                     ),
                   ),

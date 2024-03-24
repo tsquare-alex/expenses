@@ -8,26 +8,33 @@ import '../../../../general/constants/MyColors.dart';
 import '../../../../general/constants/validation.dart';
 import '../../../../general/themes/cubit/app_theme_cubit.dart';
 import '../../../../general/widgets/MyText.dart';
+
 class BuildPhoneExpansion extends StatefulWidget {
-  BuildPhoneExpansion({Key? key, required this.mainPhoneController, required this.extraPhoneController}) : super(key: key);
- final TextEditingController mainPhoneController;
+  BuildPhoneExpansion(
+      {Key? key,
+      required this.mainPhoneController,
+      required this.extraPhoneController})
+      : super(key: key);
+  final TextEditingController mainPhoneController;
   final TextEditingController extraPhoneController;
+
   @override
   State<BuildPhoneExpansion> createState() => _BuildPhoneExpansionState();
 }
 
 class _BuildPhoneExpansionState extends State<BuildPhoneExpansion> {
-
-
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(),
       // leading: Icon(Icons.phone, color: MyColors.primary),
-      title: MyText(title: "أرقام الهاتف", color:  context.watch<AppThemeCubit>().isDarkMode
-          ? MyColors.white
-          : MyColors.black, size: 15.sp),
+      title: MyText(
+          title: "أرقام الهاتف",
+          color: context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              : MyColors.black,
+          size: 15.sp),
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0),
@@ -37,16 +44,22 @@ class _BuildPhoneExpansionState extends State<BuildPhoneExpansion> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  MyText(title: tr(context, "phoneNumber"), color: Colors.grey, size: 12.sp),
+                  MyText(
+                      title: tr(context, "phoneNumber"),
+                      color: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : MyColors.black,
+                      size: 12.sp),
                   const SizedBox(width: 10),
-
                   Expanded(
                     child: GenericTextField(
                       controller: widget.mainPhoneController,
-                      label:  tr(context, "enterPhone"),
+                      label: tr(context, "enterPhone"),
                       type: TextInputType.phone,
-                      validate: (value) => validatePhoneField(value,context),
-
+                      hintColor: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : MyColors.black,
+                      validate: (value) => validatePhoneField(value, context),
                       fieldTypes: FieldTypes.normal,
                       action: TextInputAction.next,
                     ),
@@ -58,14 +71,22 @@ class _BuildPhoneExpansionState extends State<BuildPhoneExpansion> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  MyText(title:  tr(context, "secondPhoneNumber"), color: Colors.grey, size: 12.sp),
+                  MyText(
+                      title: tr(context, "secondPhoneNumber"),
+                      color:  context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : MyColors.black,
+                      size: 12.sp),
                   const SizedBox(width: 10),
                   Expanded(
                     child: GenericTextField(
                       controller: widget.extraPhoneController,
-                     label:  tr(context, "enterPhone"),
+                      label: tr(context, "enterPhone"),
                       type: TextInputType.phone,
-                      validate: (value) => validatePhoneField(value,context),
+                      hintColor: context.watch<AppThemeCubit>().isDarkMode
+                          ? MyColors.white
+                          : MyColors.black,
+                      validate: (value) => validatePhoneField(value, context),
                       fieldTypes: FieldTypes.normal,
                       action: TextInputAction.done,
                     ),

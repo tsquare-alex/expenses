@@ -35,6 +35,7 @@ class _EditWalletState extends State<EditWallet> {
   DateTime? selectedDate;
   DateTime? closedDate;
   bool repeatSwitchValue = true;
+  bool isExpanded = true;
   double parsedNumber = 0;
   String? selectedValue;
   String? secValue;
@@ -151,9 +152,15 @@ class _EditWalletState extends State<EditWallet> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
+                          onExpansionChanged: (value) {
+                            isExpanded = isExpanded;
+                          },
                           controller: controller,
-                          shape: const RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.transparent),
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: isExpanded == true
+                                    ? MyColors.primary
+                                    : Colors.transparent),
                           ),
                           title: Text(
                             // context
@@ -291,9 +298,17 @@ class _EditWalletState extends State<EditWallet> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
+                          onExpansionChanged: (value) {
+                            setState(() {
+                              isExpanded = isExpanded;
+                            });
+                          },
                           controller: valueTypeController,
-                          shape: const RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.transparent),
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: isExpanded == true
+                                    ? MyColors.primary
+                                    : Colors.transparent),
                           ),
                           title: Text(
                             // context
@@ -453,9 +468,15 @@ class _EditWalletState extends State<EditWallet> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: ExpansionTile(
+                              onExpansionChanged: (value) {
+                                isExpanded = isExpanded;
+                              },
                               controller: currencyController,
-                              shape: const RoundedRectangleBorder(
-                                side: BorderSide(color: Colors.transparent),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: isExpanded == true
+                                        ? MyColors.primary
+                                        : Colors.transparent),
                               ),
                               title: Text(
                                   // context
@@ -913,7 +934,7 @@ class _EditWalletState extends State<EditWallet> {
                                     ? double.parse(ballanceController.text)
                                     : (double.parse(ballanceController.text) *
                                         currencyValue);
-                           
+
                             widget.model.totalBalance = currency.text.isEmpty ||
                                     selectMainCurrency == mainCurrency
                                 ? double.parse(ballanceController.text)

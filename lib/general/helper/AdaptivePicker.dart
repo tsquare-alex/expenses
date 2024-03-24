@@ -80,7 +80,9 @@ class AdaptivePicker {
                     color: MyColors.primary,
                   ),
                   style: ElevatedButton.styleFrom(
-                      elevation: 0, primary: MyColors.white),
+                      elevation: 0,
+                      //  primary: MyColors.white,
+                       ),
                 ),
               ],
             ),
@@ -169,7 +171,9 @@ class AdaptivePicker {
                         color: MyColors.primary,
                       ),
                       style: ElevatedButton.styleFrom(
-                          elevation: 0, primary: MyColors.white),
+                          elevation: 0,
+                          //  primary: MyColors.white,
+                           ),
                     ),
                   )
                 ],

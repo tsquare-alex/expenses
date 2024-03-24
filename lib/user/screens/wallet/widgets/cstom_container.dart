@@ -49,7 +49,7 @@ class _CustomContainerState extends State<CustomContainer> {
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 12.r),
+        padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -82,7 +82,7 @@ class _CustomContainerState extends State<CustomContainer> {
                         builder: (buildContext) {
                           return Container(
                             height: 300.h,
-                            padding: EdgeInsets.all(16.w),
+                            padding: EdgeInsets.all(16.r),
                             decoration: BoxDecoration(
                                 color: context.watch<AppThemeCubit>().isDarkMode
                                     ? AppDarkColors.backgroundColor
@@ -195,7 +195,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                   child: Container(
                                     height: 60.h,
                                     width: double.infinity,
-                                    padding: EdgeInsets.all(16.w),
+                                    padding: EdgeInsets.all(16.r),
                                     decoration: BoxDecoration(
                                       color: context
                                               .watch<AppThemeCubit>()
@@ -244,7 +244,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                       child: Container(
                                         height: 60.h,
                                         width: double.infinity,
-                                        padding: EdgeInsets.all(16.w),
+                                        padding: EdgeInsets.all(16.r),
                                         decoration: BoxDecoration(
                                           color: context
                                                   .watch<AppThemeCubit>()
@@ -299,7 +299,7 @@ class _CustomContainerState extends State<CustomContainer> {
                   children: [
                     Flexible(
                       child: Padding(
-                        padding: EdgeInsets.only(top: 8.0.r),
+                        padding: EdgeInsets.only(top: 8.0.h),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -429,7 +429,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                     AutoRouter.of(context).pop();
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.all(8.w),
+                                    padding: EdgeInsets.all(8.r),
                                     decoration: BoxDecoration(
                                       color: context
                                               .watch<AppThemeCubit>()
@@ -474,7 +474,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                     }
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.all(8.w),
+                                    padding: EdgeInsets.all(8.r),
                                     decoration: BoxDecoration(
                                       color: context
                                               .watch<AppThemeCubit>()

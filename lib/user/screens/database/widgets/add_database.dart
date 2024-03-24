@@ -822,7 +822,7 @@ class _AddDatabaseState extends State<AddDatabase> {
                                 ),
                                 textButtonTheme: TextButtonThemeData(
                                   style: TextButton.styleFrom(
-                                    primary: MyColors.primary, // Your desired color for buttons
+                                    // primary: MyColors.primary, // Your desired color for buttons
                                   ),
                                 ),
                               ),

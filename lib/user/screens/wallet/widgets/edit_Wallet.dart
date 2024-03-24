@@ -35,6 +35,7 @@ class _EditWalletState extends State<EditWallet> {
   DateTime? selectedDate;
   DateTime? closedDate;
   bool repeatSwitchValue = true;
+  bool isExpanded = true;
   double parsedNumber = 0;
   String? selectedValue;
   String? secValue;
@@ -64,6 +65,9 @@ class _EditWalletState extends State<EditWallet> {
     walletNameController.text = widget.model.name;
     valueCategoryController.text = widget.model.valueCategory;
     currency.text = widget.model.currency;
+    // currency.text = widget.model.currency;
+    print(widget.model.currency);
+
     noteController.text = widget.model.addNote;
     repatedWalletController.text = widget.model.repeatWallet!;
     print(widget.model.repeatWallet! + """""" """""" """""" """""" "");
@@ -140,7 +144,7 @@ class _EditWalletState extends State<EditWallet> {
             ),
             body: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.r),
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Form(
                   key: formKey,
                   child: Column(
@@ -151,9 +155,15 @@ class _EditWalletState extends State<EditWallet> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
+                          onExpansionChanged: (value) {
+                            isExpanded = isExpanded;
+                          },
                           controller: controller,
-                          shape: const RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.transparent),
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: isExpanded == true
+                                    ? MyColors.primary
+                                    : Colors.transparent),
                           ),
                           title: Text(
                             // context
@@ -193,7 +203,7 @@ class _EditWalletState extends State<EditWallet> {
                                   children: [
                                     ListTile(
                                       contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 16.0.r),
+                                          horizontal: 16.0.w),
                                       title: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -291,9 +301,17 @@ class _EditWalletState extends State<EditWallet> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
+                          onExpansionChanged: (value) {
+                            setState(() {
+                              isExpanded = isExpanded;
+                            });
+                          },
                           controller: valueTypeController,
-                          shape: const RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.transparent),
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: isExpanded == true
+                                    ? MyColors.primary
+                                    : Colors.transparent),
                           ),
                           title: Text(
                             // context
@@ -338,7 +356,7 @@ class _EditWalletState extends State<EditWallet> {
                                   children: [
                                     ListTile(
                                       contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 16.0.r),
+                                          horizontal: 16.0.w),
                                       title: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -433,7 +451,8 @@ class _EditWalletState extends State<EditWallet> {
                                 parsedNumber = double.parse(context
                                     .read<WalletCubit>()
                                     .balanceController
-                                    .text);
+                                    .text
+                                    .replaceAll(',', ''));
                               },
                             ),
                           ),
@@ -453,9 +472,15 @@ class _EditWalletState extends State<EditWallet> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: ExpansionTile(
+                              onExpansionChanged: (value) {
+                                isExpanded = isExpanded;
+                              },
                               controller: currencyController,
-                              shape: const RoundedRectangleBorder(
-                                side: BorderSide(color: Colors.transparent),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: isExpanded == true
+                                        ? MyColors.primary
+                                        : Colors.transparent),
                               ),
                               title: Text(
                                   // context
@@ -544,7 +569,7 @@ class _EditWalletState extends State<EditWallet> {
                           ),
                           SizedBox(height: 12.h),
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 5.r),
+                            padding: EdgeInsets.symmetric(horizontal: 5.w),
                             decoration: BoxDecoration(
                               color: context.watch<AppThemeCubit>().isDarkMode
                                   ? AppDarkColors.backgroundColor
@@ -600,9 +625,8 @@ class _EditWalletState extends State<EditWallet> {
                                       onTab: () {
                                         closeDate(context);
                                       },
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              horizontal: 20, vertical: 10),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 20.w, vertical: 10.h),
                                       radius: 10.r,
                                       fieldTypes: FieldTypes.clickable,
                                       type: TextInputType.text,
@@ -903,21 +927,25 @@ class _EditWalletState extends State<EditWallet> {
                                   .validate()) {
                             repatedWalletController = repatedWalletController;
                             isRepated = repeatSwitchValue;
-                            widget.model.balance =
-                                double.parse(ballanceController.text);
+                            widget.model.balance = double.parse(
+                                ballanceController.text.replaceAll(',', ''));
                             widget.model.notification = isNotificated;
                             widget.model.addNote = noteController.text;
-                            widget.model.remainBalance =
-                                currency.text.isEmpty ||
-                                        selectMainCurrency == mainCurrency
-                                    ? double.parse(ballanceController.text)
-                                    : (double.parse(ballanceController.text) *
-                                        currencyValue);
-                           
+                            widget.model.remainBalance = currency
+                                        .text.isEmpty ||
+                                    selectMainCurrency == mainCurrency
+                                ? double.parse(
+                                    ballanceController.text.replaceAll(',', ''))
+                                : (double.parse(ballanceController.text
+                                        .replaceAll(',', '')) *
+                                    currencyValue);
+
                             widget.model.totalBalance = currency.text.isEmpty ||
                                     selectMainCurrency == mainCurrency
-                                ? double.parse(ballanceController.text)
-                                : (double.parse(ballanceController.text) *
+                                ? double.parse(
+                                    ballanceController.text.replaceAll(',', ''))
+                                : (double.parse(ballanceController.text
+                                        .replaceAll(',', '')) *
                                     currencyValue);
                             // selectMainCurrency == mainCurrency ||
                             //         selectMainCurrency == null
@@ -957,6 +985,14 @@ class _EditWalletState extends State<EditWallet> {
                             //     .closedDateController
                             //     .text;
                             widget.model.currency = currency.text;
+                            // ? currency.text
+                            // : context
+                            //     .read<WalletCubit>()
+                            //     .currencyBox
+                            //     .values
+                            //     .toList()[0]
+                            //     .mainCurrency
+                            //     .toString();
 
                             // context
                             //     .read<WalletCubit>()
@@ -968,8 +1004,8 @@ class _EditWalletState extends State<EditWallet> {
                                 selectMainCurrency == mainCurrency
                                     ? false
                                     : isConverted;
-                            widget.model.notificationBalance =
-                                double.parse(ballanceController.text);
+                            widget.model.notificationBalance = double.parse(
+                                ballanceController.text.replaceAll(',', ''));
                             widget.model.save();
 
                             AutoRouter.of(context).pop();

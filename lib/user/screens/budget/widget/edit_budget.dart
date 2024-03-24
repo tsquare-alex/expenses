@@ -45,6 +45,7 @@ class _EditBudgetState extends State<EditBudget> {
   DateTime? selectedDate;
   DateTime? closedDate;
   String? formattedDate;
+  bool isExpanded = true;
 
   @override
   void initState() {
@@ -194,6 +195,17 @@ class _EditBudgetState extends State<EditBudget> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
+                          onExpansionChanged: (value) {
+                            setState(() {
+                              isExpanded = isExpanded;
+                            });
+                          },
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: isExpanded
+                                    ? MyColors.primary
+                                    : Colors.transparent),
+                          ),
                           controller: transactionController,
                           title: Text(transactionValueController.text.isNotEmpty
                               ? tr(context, transactionValueController.text)
@@ -267,7 +279,18 @@ class _EditBudgetState extends State<EditBudget> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
+                          onExpansionChanged: (value) {
+                            setState(() {
+                              isExpanded = isExpanded;
+                            });
+                          },
                           controller: walletController,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: isExpanded
+                                    ? MyColors.primary
+                                    : Colors.transparent),
+                          ),
                           title: Text(walletNameController.text.isNotEmpty
                               ? tr(context, walletNameController.text)
                                       .isNotEmpty

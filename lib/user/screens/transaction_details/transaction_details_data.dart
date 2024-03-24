@@ -202,6 +202,7 @@ class TransactionDetailsData {
     final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
     if (model.transactionName == "الالتزامات") {
       AddTransactionModel editModel = AddTransactionModel(
+        id: model.id,
         transactionName: "الالتزامات",
         transactionType: model.transactionType,
         transactionContent: model.transactionContent,
@@ -255,6 +256,7 @@ class TransactionDetailsData {
       }
     } else if (model.transactionName == "التسوق والشراء") {
       AddTransactionModel editModel = AddTransactionModel(
+        id: model.id,
         transactionName: "التسوق والشراء",
         transactionType: model.transactionType,
         transactionContent: model.transactionContent,
@@ -312,6 +314,7 @@ class TransactionDetailsData {
       }
     } else if (model.transactionName == "الاهداف المالية المستهدفة") {
       AddTransactionModel editModel = AddTransactionModel(
+        id: model.id,
         transactionName: "الاهداف المالية المستهدفة",
         transactionType: model.transactionType,
         total: totalController.text,
@@ -372,6 +375,7 @@ class TransactionDetailsData {
       }
     } else if (model.transactionName == "المعاملات النقدية") {
       AddTransactionModel editModel = AddTransactionModel(
+        id: model.id,
         transactionName: "المعاملات النقدية",
         cashTransactionType: model.cashTransactionType,
         initialStaticValue: model.initialStaticValue,
@@ -460,16 +464,21 @@ class TransactionDetailsData {
     var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
     var walletList = walletBox.values.toList();
     WalletModel? targetWallet = walletList.firstWhere(
-          (item) => item.name == targetModel.incomeSource?.name,
+          (item) => item.id == targetModel.incomeSource?.id,
     );
     var currencyBox = Hive.box<CurrencyModel>("currencyBox");
     var currencyList = currencyBox.values.toList();
-    double total = double.parse(targetModel.total!);
+    double total;
+    if(targetModel.transactionName=="الاهداف المالية المستهدفة"){
+      total = targetModel.initialValue!;
+    }else{
+    total= double.parse(targetModel.total!);
+    }
     if(targetWallet.currency != currencyList[0].mainCurrency){
       if(targetWallet.checkedValue ==false){
         print("sss");
-        var calculatedTotalBalance = targetWallet.totalBalance! + total;
-        targetWallet.totalBalance = calculatedTotalBalance;
+        var calculatedTotalBalance  = targetWallet.totalBalance! + total;
+    targetWallet.totalBalance = calculatedTotalBalance;
         double remain = (calculatedTotalBalance)/ currencyList[0].value!;
         targetWallet.remainBalance = remain;
         await walletBox.put(targetWallet.key, targetWallet);

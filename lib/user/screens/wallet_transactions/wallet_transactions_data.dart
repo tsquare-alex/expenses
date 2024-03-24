@@ -137,7 +137,7 @@ class WalletTransactionsData {
     var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
     var walletList = walletBox.values.toList();
     WalletModel? targetWallet = walletList.firstWhere(
-      (item) => item.name == targetModel.incomeSource?.name,
+      (item) => item.key == targetModel.incomeSource?.key,
     );
     var currencyBox = Hive.box<CurrencyModel>("currencyBox");
     var currencyList = currencyBox.values.toList();

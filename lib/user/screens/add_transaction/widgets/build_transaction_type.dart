@@ -27,27 +27,27 @@ class _BuildTransactionTypeState extends State<BuildTransactionType> {
     return Column(
       children: [
         if (widget.type == "الالتزامات" || widget.type == "التسوق والشراء")
-          InkWell(
-            highlightColor: Colors.transparent,
-            splashColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            onTap: (){
-              setState(() {
-                isExpanded = !isExpanded;
-              });
-            },
-            child: Container(
-              padding: EdgeInsets.all(15.r),
-              decoration: BoxDecoration(
-                border: Border.all(width: 1.w, color: MyColors.greyWhite),
-                borderRadius: BorderRadius.circular(10.r),
-              ),
-              child: Theme(
-                data:
-                    Theme.of(context).copyWith(dividerColor: Colors.transparent),
-                child: Column(
-                  children: [
-                    Row(
+          Container(
+            padding: EdgeInsets.all(15.r),
+            decoration: BoxDecoration(
+              border: Border.all(width: 1.w, color:isExpanded==false?MyColors.greyWhite: MyColors.primary),
+              borderRadius: BorderRadius.circular(10.r),
+            ),
+            child: Theme(
+              data:
+                  Theme.of(context).copyWith(dividerColor: Colors.transparent),
+              child: Column(
+                children: [
+                  InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    onTap: (){
+                      setState(() {
+                        isExpanded = !isExpanded;
+                      });
+                    },
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
@@ -79,143 +79,143 @@ class _BuildTransactionTypeState extends State<BuildTransactionType> {
                             ),
                           ],
                         ),
-                        Icon(isExpanded==false?Icons.arrow_drop_up:Icons.arrow_drop_down,color: MyColors.primary,),
+                        Icon(isExpanded?Icons.arrow_drop_up:Icons.arrow_drop_down,color: MyColors.primary,),
                       ],
                     ),
-                    if(isExpanded == true)Padding(
-                      padding: EdgeInsets.only(top: 10.0.h),
-                      child: Column(
-                          children: [
-                          BlocBuilder<GenericBloc<List<TransactionContentModel>?>,
-                              GenericState<List<TransactionContentModel>?>>(
-                            bloc: widget.addTransactionData.typeContentCubit,
-                            builder: (context, state) {
-                              return Column(
-                                children:
-                                List.generate(state.data?.length ?? 0, (index) {
-                                  return Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Flexible(
-                                        child: Row(
-                                          children: [
-                                            Image.asset(
-                                              state.data?[index].image ??
-                                                  Res.commitments,
-                                              width: 30.w,
-                                              height: 30.h,
-                                            ),
-                                            SizedBox(
-                                              width: 15.w,
-                                            ),
-                                            Flexible(
-                                              child: MyText(
-                                                title: tr(context,
-                                                    state.data![index].name!)
-                                                    .isNotEmpty
-                                                    ? tr(context,
-                                                    state.data![index].name!)
-                                                    : state.data?[index].name ?? "",
-                                                color: context
-                                                    .watch<AppThemeCubit>()
-                                                    .isDarkMode
-                                                    ? MyColors.white
-                                                    : MyColors.black,
-                                                size: 13.sp,
-                                                fontWeight: FontWeight.bold,
+                  ),
+                  if(isExpanded == true)Padding(
+                    padding: EdgeInsets.only(top: 10.0.h),
+                    child: Column(
+                        children: [
+                        BlocBuilder<GenericBloc<List<TransactionContentModel>?>,
+                            GenericState<List<TransactionContentModel>?>>(
+                          bloc: widget.addTransactionData.typeContentCubit,
+                          builder: (context, state) {
+                            return Column(
+                              children:
+                              List.generate(state.data?.length ?? 0, (index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    widget.addTransactionData.selectContent(
+                                        false,
+                                        widget.model,
+                                        state.data![index],
+                                        index,
+                                        widget.type,
+                                        widget.boxName);
+                                    widget.addTransactionData.transactionNameBloc
+                                        .onUpdateData(
+                                        state.data?[index].name);
+                                    setState(() {
+                                      isExpanded = false; // Close the ExpansionTile
+                                      print(isExpanded);
+                                    });
+                                  },
+                                  child: Container(
+                                    color: Colors.transparent,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Flexible(
+                                          child: Row(
+                                            children: [
+                                              Image.asset(
+                                                state.data?[index].image ??
+                                                    Res.commitments,
+                                                width: 30.w,
+                                                height: 30.h,
                                               ),
-                                            ),
-                                          ],
+                                              SizedBox(
+                                                width: 15.w,
+                                              ),
+                                              Flexible(
+                                                child: MyText(
+                                                  title: tr(context,
+                                                      state.data![index].name!)
+                                                      .isNotEmpty
+                                                      ? tr(context,
+                                                      state.data![index].name!)
+                                                      : state.data?[index].name ?? "",
+                                                  color: context
+                                                      .watch<AppThemeCubit>()
+                                                      .isDarkMode
+                                                      ? MyColors.white
+                                                      : MyColors.black,
+                                                  size: 13.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      // state.data?[index].name == "electric" ||
-                                      //         state.data?[index].name == "telephone" ||
-                                      //         state.data?[index].name == "dairy" ||
-                                      //         state.data?[index].name == "cheese" ||
-                                      //         state.data?[index].name == "bakedGoods" ||
-                                      //         state.data?[index].name == "vegetable" ||
-                                      //         state.data?[index].name == "fruits" ||
-                                      //         state.data?[index].name == "oil" ||
-                                      //         state.data?[index].name == "salt" ||
-                                      //         state.data?[index].name == "rent"
-                                      //     ?
-                                      Radio(
-                                        value:
-                                        widget.addTransactionData.selectedContent ==
-                                            null
-                                            ? false
-                                            : state.data?[index].selected ??
-                                            false,
-                                        groupValue: true,
-                                        activeColor: MyColors.primary,
-                                        onChanged: (v) {
-                                          widget.addTransactionData.selectContent(
-                                              v!,
-                                              widget.model,
-                                              state.data![index],
-                                              index,
-                                              widget.type,
-                                              widget.boxName);
-                                          widget.addTransactionData.transactionNameBloc
-                                              .onUpdateData(
-                                              state.data?[index].name);
-                                          setState(() {
-                                            isExpanded = false; // Close the ExpansionTile
-                                            print(isExpanded);
-                                          });
-                                        },
-                                      )
-                                      // : InkWell(
-                                      //     highlightColor: Colors.transparent,
-                                      //     hoverColor: Colors.transparent,
-                                      //     splashColor: Colors.transparent,
-                                      //     onTap: () {
-                                      //       AutoRouter.of(context)
-                                      //           .push(const SubscriptionsRoute());
-                                      //     },
-                                      //     child: Image.asset(
-                                      //       Res.pro,
-                                      //       width: 50.w,
-                                      //       height: 60.h,
-                                      //     ),
-                                      //   ),
-                                    ],
-                                  );
-                                }),
-                              );
-                            },
-                          ),
+                                        Radio(
+                                          value:
+                                          widget.addTransactionData.selectedContent ==
+                                              null
+                                              ? false
+                                              : state.data?[index].selected ??
+                                              false,
+                                          groupValue: true,
+                                          activeColor: MyColors.primary,
+                                          onChanged: (v) {
+                                            widget.addTransactionData.selectContent(
+                                                v!,
+                                                widget.model,
+                                                state.data![index],
+                                                index,
+                                                widget.type,
+                                                widget.boxName);
+                                            widget.addTransactionData.transactionNameBloc
+                                                .onUpdateData(
+                                                state.data?[index].name);
+                                            setState(() {
+                                              isExpanded = false; // Close the ExpansionTile
+                                              print(isExpanded);
+                                            });
+                                          },
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }),
+                            );
+                          },
+                        ),
                           SizedBox(
-                            height: 20.h,
+                            height: 10.h,
                           ),
-                          InkWell(
-                            onTap: () => widget.addTransactionData.addTransactionContentModel(
-                                context, widget.type, widget.model),
-                            splashColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                MyText(
-                                  title: tr(context, "addNewContent"),
-                                  color: context.watch<AppThemeCubit>().isDarkMode
-                                      ? MyColors.white
-                                      : MyColors.black,
-                                  size: 14.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                Icon(
-                                  Icons.add,
-                                  color: MyColors.primary,
-                                ),
-                              ],
-                            ),
+                        Divider(color: MyColors.greyWhite,),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        InkWell(
+                          onTap: () => widget.addTransactionData.addTransactionContentModel(
+                              context, widget.type, widget.model),
+                          splashColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              MyText(
+                                title: tr(context, "addNewContent"),
+                                color: context.watch<AppThemeCubit>().isDarkMode
+                                    ? MyColors.white
+                                    : MyColors.primary,
+                                size: 16.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              Icon(
+                                Icons.add,
+                                color: MyColors.primary,
+                              ),
+                            ],
                           ),
-                          ]
-                      ),
+                        ),
+                        ]
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

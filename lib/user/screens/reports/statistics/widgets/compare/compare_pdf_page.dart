@@ -163,19 +163,36 @@ Future<pw.Document> generateAndSaveComparePDF({
                                                           .incomeSource!.name),
                                             ),
                                             comparePdfTableRowCell(
-                                              title: tr(
+                                              title: transaction
+                                                          .transactionContent !=
+                                                      null
+                                                  ? tr(
+                                                              context,
+                                                              transaction
+                                                                  .transactionContent!
+                                                                  .name!)
+                                                          .isEmpty
+                                                      ? transaction
+                                                          .transactionContent
+                                                          ?.name
+                                                      : tr(
                                                           context,
                                                           transaction
-                                                              .transactionContent!
+                                                              .transactionType!
                                                               .name!)
-                                                      .isEmpty
-                                                  ? transaction
-                                                      .transactionContent?.name
                                                   : tr(
-                                                      context,
-                                                      transaction
-                                                          .transactionContent!
-                                                          .name!),
+                                                              context,
+                                                              transaction
+                                                                  .transactionType!
+                                                                  .name!)
+                                                          .isEmpty
+                                                      ? transaction
+                                                          .transactionType?.name
+                                                      : tr(
+                                                          context,
+                                                          transaction
+                                                              .transactionType!
+                                                              .name!),
                                             ),
                                           ].reversed.toList()
                                         : [
@@ -198,19 +215,36 @@ Future<pw.Document> generateAndSaveComparePDF({
                                                           .incomeSource!.name),
                                             ),
                                             comparePdfTableRowCell(
-                                              title: tr(
+                                              title: transaction
+                                                          .transactionContent !=
+                                                      null
+                                                  ? tr(
+                                                              context,
+                                                              transaction
+                                                                  .transactionContent!
+                                                                  .name!)
+                                                          .isEmpty
+                                                      ? transaction
+                                                          .transactionContent
+                                                          ?.name
+                                                      : tr(
                                                           context,
                                                           transaction
-                                                              .transactionContent!
+                                                              .transactionType!
                                                               .name!)
-                                                      .isEmpty
-                                                  ? transaction
-                                                      .transactionContent?.name
                                                   : tr(
-                                                      context,
-                                                      transaction
-                                                          .transactionContent!
-                                                          .name!),
+                                                              context,
+                                                              transaction
+                                                                  .transactionType!
+                                                                  .name!)
+                                                          .isEmpty
+                                                      ? transaction
+                                                          .transactionType?.name
+                                                      : tr(
+                                                          context,
+                                                          transaction
+                                                              .transactionType!
+                                                              .name!),
                                             ),
                                           ].toList(),
                                   ),
@@ -332,19 +366,36 @@ Future<pw.Document> generateAndSaveComparePDF({
                                                           .incomeSource!.name),
                                             ),
                                             comparePdfTableRowCell(
-                                              title: tr(
+                                              title: transaction
+                                                          .transactionContent !=
+                                                      null
+                                                  ? tr(
+                                                              context,
+                                                              transaction
+                                                                  .transactionContent!
+                                                                  .name!)
+                                                          .isEmpty
+                                                      ? transaction
+                                                          .transactionContent
+                                                          ?.name
+                                                      : tr(
                                                           context,
                                                           transaction
-                                                              .transactionContent!
+                                                              .transactionType!
                                                               .name!)
-                                                      .isEmpty
-                                                  ? transaction
-                                                      .transactionContent?.name
                                                   : tr(
-                                                      context,
-                                                      transaction
-                                                          .transactionContent!
-                                                          .name!),
+                                                              context,
+                                                              transaction
+                                                                  .transactionType!
+                                                                  .name!)
+                                                          .isEmpty
+                                                      ? transaction
+                                                          .transactionType?.name
+                                                      : tr(
+                                                          context,
+                                                          transaction
+                                                              .transactionType!
+                                                              .name!),
                                             ),
                                           ].reversed.toList()
                                         : [
@@ -367,19 +418,36 @@ Future<pw.Document> generateAndSaveComparePDF({
                                                           .incomeSource!.name),
                                             ),
                                             comparePdfTableRowCell(
-                                              title: tr(
+                                              title: transaction
+                                                          .transactionContent !=
+                                                      null
+                                                  ? tr(
+                                                              context,
+                                                              transaction
+                                                                  .transactionContent!
+                                                                  .name!)
+                                                          .isEmpty
+                                                      ? transaction
+                                                          .transactionContent
+                                                          ?.name
+                                                      : tr(
                                                           context,
                                                           transaction
-                                                              .transactionContent!
+                                                              .transactionType!
                                                               .name!)
-                                                      .isEmpty
-                                                  ? transaction
-                                                      .transactionContent?.name
                                                   : tr(
-                                                      context,
-                                                      transaction
-                                                          .transactionContent!
-                                                          .name!),
+                                                              context,
+                                                              transaction
+                                                                  .transactionType!
+                                                                  .name!)
+                                                          .isEmpty
+                                                      ? transaction
+                                                          .transactionType?.name
+                                                      : tr(
+                                                          context,
+                                                          transaction
+                                                              .transactionType!
+                                                              .name!),
                                             ),
                                           ].toList(),
                                   ),

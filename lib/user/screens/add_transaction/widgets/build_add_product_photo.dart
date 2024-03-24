@@ -68,28 +68,6 @@ class BuildAddProductPhoto extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              width: 10.w,
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 15.r),
-              padding: EdgeInsets.all(15.r),
-              decoration: BoxDecoration(
-                  color: context.watch<AppThemeCubit>().isDarkMode
-                      ? MyColors.greyWhite
-                      : MyColors.white,
-                  border: Border.all(width: 1.w, color: MyColors.greyWhite),
-                  borderRadius: BorderRadius.circular(15.r)),
-              child: InkWell(
-                onTap: (){},
-                  splashColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  child: Image.asset(
-                    Res.scanQr,
-                    width: 40.w,
-                    height: 40.h,
-                  )),
-            ),
           ],
         ),
         SizedBox(

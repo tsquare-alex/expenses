@@ -55,8 +55,11 @@ class WalletModel extends HiveObject {
   String? repeatWallet;
   @HiveField(24)
   double? notificationBalance;
+  @HiveField(25)
+  String id;
 
   WalletModel({
+    required this.id,
     required this.name,
     required this.balance,
     required this.openDate,
@@ -86,6 +89,7 @@ class WalletModel extends HiveObject {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'name': name,
       'balance': balance,
       'openDate': openDate,
@@ -114,6 +118,7 @@ class WalletModel extends HiveObject {
 
   factory WalletModel.fromJson(Map<String, dynamic> json) {
     return WalletModel(
+      id: json['id'],
       name: json['name'],
       balance: json['balance'],
       openDate: json['openDate'],

@@ -162,7 +162,7 @@ class CustomButtonState extends State<CustomButtonAnimation>
         child: ElevatedButton(
           // key: _buttonKey,
             style: ElevatedButton.styleFrom(
-              // primary: widget.color,
+              backgroundColor: widget.color,
               elevation: widget.elevation,
               padding: widget.padding,
               shape: RoundedRectangleBorder(

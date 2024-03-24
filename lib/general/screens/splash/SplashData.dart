@@ -53,14 +53,14 @@ class SplashController {
       bool isAuthenticated = await context.read<AuthenticationCubit>().isAuthenticationRequired();
 
       if (!isAuthenticated && !skipAuthentication) {
-        AutoRouter.of(context).push(AuthenticationScreenRoute());
+        AutoRouter.of(context).push(const AuthenticationScreenRoute());
       } else if (skipAuthentication) {
         AutoRouter.of(context).push(HomeRoute(index: 1));
       } else {
         AutoRouter.of(context).push(HomeRoute(index: 1));
       }
     } else {
-      AutoRouter.of(context).push(const SelectCountryRoute());
+      AutoRouter.of(context).push( const SelectLanguageRoute());
     }
 
   }

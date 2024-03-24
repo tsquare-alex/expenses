@@ -39,26 +39,27 @@ class BuildLoginButton extends StatelessWidget {
 
           }
         },
-        builder: (context,state)=>LoadingButton(
+        builder: (context,state) {
+          var cubit = LoginCubit.get(context);
+          return LoadingButton(
           borderRadius: 8,
           borderColor: MyColors.primary,
           title: tr(context, "login"),
           onTap: (){
             if (loginData.formKey.currentState!.validate()) {
-              loginData.btnKey.currentState!.animateForward();
               LoginCubit.get(context).userLogin(
                 email: loginData.emailController.text.trim(),
                 password: loginData.passwordController.text.trim(),
               );
-              loginData.btnKey.currentState!.animateReverse();
             }
           },
           color: MyColors.primary,
           textColor: MyColors.white,
-          btnKey: loginData.btnKey,
+          btnKey: cubit.btnKey,
           margin: const EdgeInsets.only(top: 40),
           fontSize: 13,
-        ),
+        );
+        },
       ),
     );
   }

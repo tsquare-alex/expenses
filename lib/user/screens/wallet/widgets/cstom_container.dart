@@ -8,11 +8,13 @@ import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/utilities/utils_functions/decimal_format.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
+import 'package:expenses/user/models/add_transaction_model/add_transaction_model.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
 
 class CustomContainer extends StatefulWidget {
   final WalletModel model;
@@ -422,7 +424,16 @@ class _CustomContainerState extends State<CustomContainer> {
                             child: Column(
                               children: [
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async{
+
+                                    final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
+                                    var boxItems = box.values.cast<AddTransactionModel>().toList();
+                                    for (var item in boxItems) {
+                                      if(item.incomeSource?.key == widget.model.key){
+                                        box.delete(item.key);
+                                      }
+                                    }
+
                                     widget.model.delete();
                                     BlocProvider.of<WalletCubit>(context)
                                         .fetchAllData();

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:expenses/general/blocks/login_cubit/login_states.dart';
+import 'package:expenses/general/helper/configration/CustomButtonAnimation.dart';
 import 'package:expenses/general/helper/storage/Storage.dart';
 import 'package:expenses/general/models/user_model/user_model.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
@@ -33,13 +34,15 @@ class LoginCubit extends Cubit<LoginStates> {
     }
   }
 
+  final GlobalKey<CustomButtonState> btnKey = GlobalKey();
+
   void userLogin({
     required String email,
     required String password,
   }) {
     print('Hello');
+    btnKey.currentState!.animateForward();
     emit(LoginLoadingState());
-
     FirebaseAuth.instance
         .signInWithEmailAndPassword(
       email: email,
@@ -48,9 +51,10 @@ class LoginCubit extends Cubit<LoginStates> {
         .then((value) {
       print(value.user?.email);
       print(value.user?.uid);
-
       emit(LoginSuccessState(value.user?.uid));
+      btnKey.currentState!.animateReverse();
     }).catchError((error) {
+      btnKey.currentState!.animateReverse();
       emit(LoginErrorState(error.toString()));
     });
   }

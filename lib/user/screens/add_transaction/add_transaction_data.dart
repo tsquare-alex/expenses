@@ -578,6 +578,7 @@ class AddTransactionData {
         if (type == "الالتزامات") {
           if (transactionType != null && selectedContent != null) {
             AddTransactionModel model = AddTransactionModel(
+              id:  Uuid().v4(),
               transactionName: "الالتزامات",
               transactionType: transactionType,
               transactionContent: selectedContent,
@@ -634,7 +635,7 @@ class AddTransactionData {
                 await walletBox.put(selectedWalletModel?.key, targetModel);
               }
               print("balance ${targetModel.totalBalance!}");
-              print(selectedWalletModel!.balance!);
+              print(selectedWalletModel!.balance);
               print(selectedWalletModel!.totalBalance!);
 
               box.add(model);
@@ -653,6 +654,7 @@ class AddTransactionData {
         } else if (type == "التسوق والشراء" && selectedContent != null) {
           if (transactionType != null) {
             AddTransactionModel model = AddTransactionModel(
+              id:  Uuid().v4(),
               transactionName: "التسوق والشراء",
               transactionType: transactionType,
               transactionContent: selectedContent,
@@ -712,7 +714,7 @@ class AddTransactionData {
                 await walletBox.put(selectedWalletModel?.key, targetModel);
               }
               print("balance ${targetModel.totalBalance!}");
-              print(selectedWalletModel!.balance!);
+              print(selectedWalletModel!.balance);
               print(selectedWalletModel!.totalBalance!);
 
               box.add(model);
@@ -731,6 +733,7 @@ class AddTransactionData {
         }  else if (type == "المعاملات النقدية") {
           if (transactionType != null) {
             AddTransactionModel model = AddTransactionModel(
+              id:  Uuid().v4(),
               transactionName: "المعاملات النقدية",
               transactionType: transactionType,
               incomeSource: selectedWalletModel,
@@ -805,6 +808,7 @@ class AddTransactionData {
         if (transactionType != null) {
           double initialStatic = double.parse(initialValueController.text);
           AddTransactionModel model = AddTransactionModel(
+            id: Uuid().v4(),
             transactionName: "الاهداف المالية المستهدفة",
             transactionType: transactionType,
             total: targetController.text,
@@ -940,7 +944,7 @@ class AddTransactionData {
 
     var neededTransactionType = box.getAt(modelIndex);
     neededTransactionType?.content?.map((e) => e.selected = false).toList();
-    neededTransactionType?.content?[index].selected = !value;
+    neededTransactionType?.content?[index].selected = !neededTransactionType.content![index].selected!;
     selectedContent = neededTransactionType?.content?[index];
     print("index :${neededTransactionType?.content?.length}");
     typeContentCubit.onUpdateData(neededTransactionType?.content);

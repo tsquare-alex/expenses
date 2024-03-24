@@ -16,6 +16,7 @@ import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:uuid/uuid.dart';
 
 class Utils {
   static void changeLanguage(String lang, BuildContext context) {
@@ -188,6 +189,7 @@ class Utils {
           print("object4");
           for (int i = 0; i < myCounter; i++) {
             AddTransactionModel newModel = AddTransactionModel(
+              id:item.id!+ Uuid().v4(),
               image: item.image,
               total: item.total,
               amount: item.amount,
@@ -224,6 +226,7 @@ class Utils {
               targetType: item.targetType,
             );
             var targetModel = AddTransactionModel(
+              id:item.id,
               image: item.image,
               total: item.total,
               amount: item.amount,
@@ -307,7 +310,9 @@ class Utils {
           box.delete(item.key);
         }
       } else {
+        print("=============><Wallet");
         var targetModel = AddTransactionModel(
+          id:item.id,
           image: item.image,
           total: item.total,
           amount: item.amount,
@@ -412,6 +417,7 @@ class Utils {
           print("object4");
           if (endDateString != currentDate) {
             var targetModel = AddTransactionModel(
+              id:item.id,
               image: item.image,
               total: item.total,
               amount: item.amount,
@@ -466,6 +472,7 @@ class Utils {
             print("initVal1 ${item.initialValue}");
             print("initDate ${item.transactionDate}");
             var targetModel = AddTransactionModel(
+              id:item.id,
               image: item.image,
               total: item.total,
               amount: item.amount,
@@ -559,6 +566,7 @@ class Utils {
         print("object4");
         for (int i = 0; i < myCounter; i++) {
           WalletModel newModel = WalletModel(
+            id: item.id+Uuid().v4(),
             addNote: item.addNote,
             balance: item.balance,
             category: item.category,
@@ -586,6 +594,7 @@ class Utils {
             openDate: DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
           );
           var targetModel = WalletModel(
+              id: item.id,
               addNote: item.addNote,
               balance: item.balance,
               category: item.category,

@@ -154,7 +154,11 @@ class ReportsCubit extends Cubit<ReportsState> {
   double getUserSpentMoney(List<AddTransactionModel> transactions) {
     double total = 0;
     for (var transaction in transactions) {
-      total += double.parse(transaction.total!);
+      if (transaction.transactionName == 'الاهداف المالية المستهدفة') {
+        total += transaction.initialValue!;
+      } else {
+        total += double.parse(transaction.total!);
+      }
     }
     return spentMoney = total;
   }
@@ -296,7 +300,11 @@ class ReportsCubit extends Cubit<ReportsState> {
             .where((element) => element.transactionType!.name == category)
             .toList();
     for (var transaction in transactionsList) {
-      totalMoney += double.parse(transaction.total!);
+      if (transaction.transactionName == 'الاهداف المالية المستهدفة') {
+        totalMoney += transaction.initialValue!;
+      } else {
+        totalMoney += double.parse(transaction.total!);
+      }
     }
     return totalMoney;
   }
@@ -670,7 +678,7 @@ class ReportsCubit extends Cubit<ReportsState> {
   List<AddTransactionModel> filteredTransactions = [];
 
   String statsSelectedWallet = '';
-  void onWalletSelect(String selectedWallet) {
+  void onWalletSelect(context, String selectedWallet) {
     if (selectedWallet != statsSelectedWallet) {
       emit(const ReportsState.initial());
       statsSelectedWallet = selectedWallet;
@@ -696,18 +704,22 @@ class ReportsCubit extends Cubit<ReportsState> {
           .toSet()
           .toList();
       statsSubTransactions = statsSubTransactionsList
-          .map((transaction) => transaction.transactionContent!.name!)
+          .map((transaction) => transaction.transactionContent != null
+              ? transaction.transactionContent!.name!
+              : transaction.transactionType!.name!)
           .toSet()
           .toList();
       statsPriorities = statsPrioritiesList
-          .map((transaction) => transaction.priority!.name!)
+          .map((transaction) => transaction.priority != null
+              ? transaction.priority!.name!
+              : tr(context, 'nothing'))
           .toSet()
           .toList();
       emit(const ReportsState.statsWalletsSelected());
     }
   }
 
-  void changeStatsDateFrom() {
+  void changeStatsDateFrom(context) {
     if (statsSelectedDateFrom != null) {
       emit(const ReportsState.initial());
       statsSelectedTransaction = '';
@@ -731,7 +743,7 @@ class ReportsCubit extends Cubit<ReportsState> {
               DateFormat('dd/MM/yyyy').format(statsSelectedDateTo!);
         }
       }
-      changeStatsDateTo();
+      changeStatsDateTo(context);
       emit(const ReportsState.changeDate());
       return;
     }
@@ -740,7 +752,7 @@ class ReportsCubit extends Cubit<ReportsState> {
         : DateFormat('dd/MM/yyyy').parse(statsFormattedDateFrom);
   }
 
-  void changeStatsDateTo() {
+  void changeStatsDateTo(context) {
     if (statsSelectedDateTo != null) {
       emit(const ReportsState.initial());
       statsSelectedTransaction = '';
@@ -779,11 +791,15 @@ class ReportsCubit extends Cubit<ReportsState> {
           .toSet()
           .toList();
       statsSubTransactions = statsSubTransactionsList
-          .map((transaction) => transaction.transactionContent!.name!)
+          .map((transaction) => transaction.transactionContent != null
+              ? transaction.transactionContent!.name!
+              : transaction.transactionType!.name!)
           .toSet()
           .toList();
       statsPriorities = statsPrioritiesList
-          .map((transaction) => transaction.priority!.name!)
+          .map((transaction) => transaction.priority != null
+              ? transaction.priority!.name!
+              : tr(context, 'nothing'))
           .toSet()
           .toList();
       emit(const ReportsState.changeDate());
@@ -795,7 +811,7 @@ class ReportsCubit extends Cubit<ReportsState> {
   }
 
   String statsSelectedTransaction = '';
-  void onTransactionsSelect(String selectedTransaction) {
+  void onTransactionsSelect(context, String selectedTransaction) {
     if (selectedTransaction != statsSelectedTransaction) {
       emit(const ReportsState.initial());
       statsSelectedTransaction = selectedTransaction;
@@ -812,11 +828,15 @@ class ReportsCubit extends Cubit<ReportsState> {
                   transaction.transactionType!.name == selectedTransaction)
               .toList();
       statsSubTransactions = statsSubTransactionsList
-          .map((transaction) => transaction.transactionContent!.name!)
+          .map((transaction) => transaction.transactionContent != null
+              ? transaction.transactionContent!.name!
+              : transaction.transactionType!.name!)
           .toSet()
           .toList();
       statsPriorities = statsPrioritiesList
-          .map((transaction) => transaction.priority!.name!)
+          .map((transaction) => transaction.priority != null
+              ? transaction.priority!.name!
+              : tr(context, 'nothing'))
           .toSet()
           .toList();
       emit(const ReportsState.statsWalletsSelected());
@@ -824,7 +844,7 @@ class ReportsCubit extends Cubit<ReportsState> {
   }
 
   String statsSelectedSubTransaction = '';
-  void onSubTransactionsSelect(String selectedSubTransaction) {
+  void onSubTransactionsSelect(context, String selectedSubTransaction) {
     if (selectedSubTransaction != statsSelectedSubTransaction) {
       emit(const ReportsState.initial());
       statsSelectedSubTransaction = selectedSubTransaction;
@@ -834,10 +854,15 @@ class ReportsCubit extends Cubit<ReportsState> {
       filteredTransactions = [];
       filteredTransactions = statsPrioritiesList = statsSubTransactionsList
           .where((transaction) =>
-              transaction.transactionContent!.name! == selectedSubTransaction)
+              (transaction.transactionContent != null
+                  ? transaction.transactionContent!.name!
+                  : transaction.transactionType!.name!) ==
+              selectedSubTransaction)
           .toList();
       statsPriorities = statsPrioritiesList
-          .map((transaction) => transaction.priority!.name!)
+          .map((transaction) => transaction.priority != null
+              ? transaction.priority!.name!
+              : tr(context, 'nothing'))
           .toSet()
           .toList();
       emit(const ReportsState.statsWalletsSelected());
@@ -845,14 +870,16 @@ class ReportsCubit extends Cubit<ReportsState> {
   }
 
   String statsSelectedPriorities = '';
-  void onPrioritiesSelect(String selectedPriority) {
+  void onPrioritiesSelect(context, String selectedPriority) {
     if (selectedPriority != statsSelectedPriorities) {
       emit(const ReportsState.initial());
       statsSelectedPriorities = selectedPriority;
-      filteredTransactions = statsPrioritiesList
-          .where(
-              (transaction) => transaction.priority!.name! == selectedPriority)
-          .toList();
+      if (selectedPriority != tr(context, 'nothing')) {
+        filteredTransactions = statsPrioritiesList
+            .where((transaction) =>
+                transaction.priority!.name! == selectedPriority)
+            .toList();
+      }
       emit(const ReportsState.statsWalletsSelected());
     }
   }
@@ -1351,19 +1378,32 @@ class ReportsCubit extends Cubit<ReportsState> {
                     context, excelSortedTransactions[i].transactionType!.name!),
           );
       sheet.getRangeByIndex(i + 6, 5).setText(
-            tr(context, excelSortedTransactions[i].transactionContent!.name!)
-                    .isEmpty
-                ? excelSortedTransactions[i].transactionContent?.name
-                : tr(context,
-                    excelSortedTransactions[i].transactionContent!.name!),
+            excelSortedTransactions[i].transactionContent != null
+                ? tr(
+                            context,
+                            excelSortedTransactions[i]
+                                .transactionContent!
+                                .name!)
+                        .isEmpty
+                    ? excelSortedTransactions[i].transactionContent?.name
+                    : tr(context,
+                        excelSortedTransactions[i].transactionContent!.name!)
+                : tr(context, excelSortedTransactions[i].transactionType!.name!)
+                        .isEmpty
+                    ? excelSortedTransactions[i].transactionType?.name
+                    : tr(context,
+                        excelSortedTransactions[i].transactionType!.name!),
           );
       sheet
           .getRangeByIndex(i + 6, 6)
           .setText(excelSortedTransactions[i].transactionDate);
       sheet.getRangeByIndex(i + 6, 7).setText(
-            tr(context, excelSortedTransactions[i].priority!.name!).isEmpty
-                ? excelSortedTransactions[i].priority?.name
-                : tr(context, excelSortedTransactions[i].priority!.name!),
+            excelSortedTransactions[i].priority != null
+                ? tr(context, excelSortedTransactions[i].priority!.name!)
+                        .isEmpty
+                    ? excelSortedTransactions[i].priority?.name
+                    : tr(context, excelSortedTransactions[i].priority!.name!)
+                : tr(context, 'nothing'),
           );
       sheet.getRangeByIndex(i + 6, 8).setText(
             tr(
@@ -1613,11 +1653,22 @@ class ReportsCubit extends Cubit<ReportsState> {
                 : tr(context, excelSortedTransactions1[i].incomeSource!.name),
           );
       sheet.getRangeByIndex(i + 9, 5).setText(
-            tr(context, excelSortedTransactions1[i].transactionContent!.name!)
-                    .isEmpty
-                ? excelSortedTransactions1[i].transactionContent?.name
+            excelSortedTransactions1[i].transactionContent != null
+                ? tr(
+                            context,
+                            excelSortedTransactions1[i]
+                                .transactionContent!
+                                .name!)
+                        .isEmpty
+                    ? excelSortedTransactions1[i].transactionContent?.name
+                    : tr(context,
+                        excelSortedTransactions1[i].transactionContent!.name!)
                 : tr(context,
-                    excelSortedTransactions1[i].transactionContent!.name!),
+                            excelSortedTransactions1[i].transactionType!.name!)
+                        .isEmpty
+                    ? excelSortedTransactions1[i].transactionType?.name
+                    : tr(context,
+                        excelSortedTransactions1[i].transactionType!.name!),
           );
     }
 
@@ -1671,11 +1722,22 @@ class ReportsCubit extends Cubit<ReportsState> {
                 : tr(context, excelSortedTransactions2[i].incomeSource!.name),
           );
       sheet.getRangeByIndex(i + 9, 11).setText(
-            tr(context, excelSortedTransactions2[i].transactionContent!.name!)
-                    .isEmpty
-                ? excelSortedTransactions2[i].transactionContent?.name
+            excelSortedTransactions2[i].transactionContent != null
+                ? tr(
+                            context,
+                            excelSortedTransactions2[i]
+                                .transactionContent!
+                                .name!)
+                        .isEmpty
+                    ? excelSortedTransactions2[i].transactionContent?.name
+                    : tr(context,
+                        excelSortedTransactions2[i].transactionContent!.name!)
                 : tr(context,
-                    excelSortedTransactions2[i].transactionContent!.name!),
+                            excelSortedTransactions2[i].transactionType!.name!)
+                        .isEmpty
+                    ? excelSortedTransactions2[i].transactionType?.name
+                    : tr(context,
+                        excelSortedTransactions2[i].transactionType!.name!),
           );
     }
 

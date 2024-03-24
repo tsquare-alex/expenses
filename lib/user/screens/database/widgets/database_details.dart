@@ -698,7 +698,7 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
                       saveChanges(context);
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: MyColors.primary,
+                      backgroundColor: MyColors.primary,
                     ),
                     child: MyText(
                       title: "حفظ",
@@ -790,7 +790,7 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
                   ),
                   textButtonTheme: TextButtonThemeData(
                     style: TextButton.styleFrom(
-                      primary: MyColors.primary,
+                      backgroundColor: MyColors.primary,
                     ),
                   ),
                 ),

@@ -39,6 +39,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
   DateTime? selectedDate;
   DateTime? closedDate;
   String? formattedDate;
+  bool isExpanded = true;
 
   @override
   Widget build(BuildContext context) {
@@ -186,9 +187,17 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
+                          onExpansionChanged: (value) {
+                            setState(() {
+                              isExpanded = isExpanded;
+                            });
+                          },
                           controller: transactionController,
-                          shape: const RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.transparent),
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: isExpanded
+                                    ? MyColors.primary
+                                    : Colors.transparent),
                           ),
                           title: Text(context
                                   .read<BudgetCubit>()
@@ -227,6 +236,7 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                 return Column(
                                   children: [
                                     ListTile(
+                                      
                                       contentPadding: EdgeInsets.symmetric(
                                           horizontal: 16.0.r),
                                       title: Row(
@@ -278,14 +288,20 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         height: 20.h,
                       ),
                       Container(
+                        
                         decoration: BoxDecoration(
                           border: Border.all(color: MyColors.greyWhite),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ExpansionTile(
+                          onExpansionChanged: (value) {
+                            setState(() {
+                              isExpanded = isExpanded;
+                            });
+                          },
                           controller: walletController,
-                          shape: const RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.transparent),
+                          shape:  RoundedRectangleBorder(
+                            side: BorderSide(color:isExpanded?MyColors.primary: Colors.transparent),
                           ),
                           title: Text(context
                                   .read<BudgetCubit>()

@@ -133,10 +133,13 @@ class _WalletCategoryState extends State<WalletCategory> {
                                     Container(
                                       height: 85.h,
                                       width: 85.w,
+                                      alignment: Alignment.center,
                                       decoration: BoxDecoration(
-                                          color: MyColors.greyWhite,
-                                          borderRadius:
-                                              BorderRadius.circular(100.r)),
+                                        shape: BoxShape.circle,
+                                        color: MyColors.greyWhite,
+                                        // borderRadius:
+                                        //     BorderRadius.circular(20.r),
+                                      ),
                                       child: ClipRect(
                                         child: Align(
                                           alignment: Alignment.center,

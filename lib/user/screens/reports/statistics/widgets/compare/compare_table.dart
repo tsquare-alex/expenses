@@ -49,10 +49,15 @@ class CompareTable extends StatelessWidget {
                         : tr(context, transaction.incomeSource!.name),
                   ),
                   StatsRowCell(
-                    title: tr(context, transaction.transactionContent!.name!)
-                            .isEmpty
-                        ? transaction.transactionContent?.name
-                        : tr(context, transaction.transactionContent!.name!),
+                    title: transaction.transactionContent != null
+                        ? tr(context, transaction.transactionContent!.name!)
+                                .isEmpty
+                            ? transaction.transactionContent?.name
+                            : tr(context, transaction.transactionContent!.name!)
+                        : tr(context, transaction.transactionType!.name!)
+                                .isEmpty
+                            ? transaction.transactionType?.name
+                            : tr(context, transaction.transactionType!.name!),
                   ),
                 ],
               ),

@@ -48,6 +48,7 @@ class _AddWalletState extends State<AddWallet> {
   bool repeatSwitchValue = false;
 
   bool notificationSwitchvalu = false;
+  bool isExpanded = true;
 
   _AddWalletState();
   double parsedNumber = 0;
@@ -134,9 +135,17 @@ class _AddWalletState extends State<AddWallet> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: ExpansionTile(
+                              onExpansionChanged: (value) {
+                                setState(() {
+                                  isExpanded = isExpanded;
+                                });
+                              },
                               controller: controller,
-                              shape: const RoundedRectangleBorder(
-                                side: BorderSide(color: Colors.transparent),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: isExpanded
+                                        ? MyColors.primary
+                                        : Colors.transparent),
                               ),
                               title: Text(
                                 context
@@ -282,9 +291,15 @@ class _AddWalletState extends State<AddWallet> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: ExpansionTile(
+                              onExpansionChanged: (value) {
+                                isExpanded = isExpanded;
+                              },
                               controller: valueTypeController,
-                              shape: const RoundedRectangleBorder(
-                                side: BorderSide(color: Colors.transparent),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: isExpanded
+                                        ? MyColors.primary
+                                        : Colors.transparent),
                               ),
                               title: Text(
                                 context
@@ -437,9 +452,15 @@ class _AddWalletState extends State<AddWallet> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: ExpansionTile(
+                                  onExpansionChanged: (value) {
+                                    isExpanded = isExpanded;
+                                  },
                                   controller: currencyController,
-                                  shape: const RoundedRectangleBorder(
-                                    side: BorderSide(color: Colors.transparent),
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                        color: isExpanded
+                                            ? MyColors.primary
+                                            : Colors.transparent),
                                   ),
                                   title: Text(context
                                           .read<WalletCubit>()

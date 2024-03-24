@@ -18,7 +18,9 @@ class ReportChart extends StatelessWidget {
             entry.value.transactionDate!,
             entry.value.total!,
             ReportsCubit.get(context).randomColors[entry.key],
-            entry.value.transactionContent!.name!,
+            entry.value.transactionContent != null
+                ? entry.value.transactionContent!.name!
+                : entry.value.transactionType!.name!,
           ),
         )
         .toList();

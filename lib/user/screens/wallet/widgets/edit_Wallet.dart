@@ -65,6 +65,9 @@ class _EditWalletState extends State<EditWallet> {
     walletNameController.text = widget.model.name;
     valueCategoryController.text = widget.model.valueCategory;
     currency.text = widget.model.currency;
+    // currency.text = widget.model.currency;
+    print(widget.model.currency);
+
     noteController.text = widget.model.addNote;
     repatedWalletController.text = widget.model.repeatWallet!;
     print(widget.model.repeatWallet! + """""" """""" """""" """""" "");
@@ -448,7 +451,8 @@ class _EditWalletState extends State<EditWallet> {
                                 parsedNumber = double.parse(context
                                     .read<WalletCubit>()
                                     .balanceController
-                                    .text);
+                                    .text
+                                    .replaceAll(',', ''));
                               },
                             ),
                           ),
@@ -621,9 +625,8 @@ class _EditWalletState extends State<EditWallet> {
                                       onTab: () {
                                         closeDate(context);
                                       },
-                                      contentPadding:
-                                           EdgeInsets.symmetric(
-                                              horizontal: 20.w, vertical: 10.h),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 20.w, vertical: 10.h),
                                       radius: 10.r,
                                       fieldTypes: FieldTypes.clickable,
                                       type: TextInputType.text,
@@ -924,21 +927,25 @@ class _EditWalletState extends State<EditWallet> {
                                   .validate()) {
                             repatedWalletController = repatedWalletController;
                             isRepated = repeatSwitchValue;
-                            widget.model.balance =
-                                double.parse(ballanceController.text);
+                            widget.model.balance = double.parse(
+                                ballanceController.text.replaceAll(',', ''));
                             widget.model.notification = isNotificated;
                             widget.model.addNote = noteController.text;
-                            widget.model.remainBalance =
-                                currency.text.isEmpty ||
-                                        selectMainCurrency == mainCurrency
-                                    ? double.parse(ballanceController.text)
-                                    : (double.parse(ballanceController.text) *
-                                        currencyValue);
+                            widget.model.remainBalance = currency
+                                        .text.isEmpty ||
+                                    selectMainCurrency == mainCurrency
+                                ? double.parse(
+                                    ballanceController.text.replaceAll(',', ''))
+                                : (double.parse(ballanceController.text
+                                        .replaceAll(',', '')) *
+                                    currencyValue);
 
                             widget.model.totalBalance = currency.text.isEmpty ||
                                     selectMainCurrency == mainCurrency
-                                ? double.parse(ballanceController.text)
-                                : (double.parse(ballanceController.text) *
+                                ? double.parse(
+                                    ballanceController.text.replaceAll(',', ''))
+                                : (double.parse(ballanceController.text
+                                        .replaceAll(',', '')) *
                                     currencyValue);
                             // selectMainCurrency == mainCurrency ||
                             //         selectMainCurrency == null
@@ -978,6 +985,14 @@ class _EditWalletState extends State<EditWallet> {
                             //     .closedDateController
                             //     .text;
                             widget.model.currency = currency.text;
+                            // ? currency.text
+                            // : context
+                            //     .read<WalletCubit>()
+                            //     .currencyBox
+                            //     .values
+                            //     .toList()[0]
+                            //     .mainCurrency
+                            //     .toString();
 
                             // context
                             //     .read<WalletCubit>()
@@ -989,8 +1004,8 @@ class _EditWalletState extends State<EditWallet> {
                                 selectMainCurrency == mainCurrency
                                     ? false
                                     : isConverted;
-                            widget.model.notificationBalance =
-                                double.parse(ballanceController.text);
+                            widget.model.notificationBalance = double.parse(
+                                ballanceController.text.replaceAll(',', ''));
                             widget.model.save();
 
                             AutoRouter.of(context).pop();

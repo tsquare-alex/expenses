@@ -871,6 +871,7 @@ class AddTransactionData {
 
             box.add(model);
             print("initialStatic $initialStatic");
+            print("repeated ${selectedIterateTransaction?.name}");
             addTransactionList = box.values.toList();
             AutoRouter.of(context).pop();
           } else if (total > selectedWalletModel!.totalBalance!) {

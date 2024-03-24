@@ -181,167 +181,170 @@ class Utils {
       }
       print("myCounter $myCounter");
 
-      print("item.repeated ${item.repeated}");
+      print("item.repeated ${item.repeated?.name}");
       double total = double.parse(item.total!);
-      if (total < item.incomeSource!.totalBalance! &&
+      print("checkDate${date.isAfter(now)}");
+      if(!date.isAfter(now)&&
           item.transactionName != "الاهداف المالية المستهدفة") {
-        if (item.repeated != null) {
-          print("object4");
-          for (int i = 0; i < myCounter; i++) {
-            AddTransactionModel newModel = AddTransactionModel(
-              id:item.id!+ Uuid().v4(),
-              image: item.image,
-              total: item.total,
-              amount: item.amount,
-              time: DateFormat("hh:mm aa", "en").format(DateTime(
-                  now.year,
-                  now.month,
-                  now.day,
-                  TimeOfDay.now().hour,
-                  TimeOfDay.now().minute)),
-              // time: item.time,
-              description: item.description,
-              putReminderInWallet: item.putReminderInWallet,
-              notify: i == myCounter - 1 ? item.notify : null,
-              requiredValue: item.requiredValue,
-              initialValue: item.initialValue,
-              transactionName: item.transactionName,
-              priority: item.priority,
-              endDate: item.endDate,
-              startDate: DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
-              targetValue: item.targetValue,
-              transactionType: item.transactionType,
-              brandName: item.brandName,
-              repeated: i == myCounter - 1 ? item.repeated : null,
-              transactionDate:
-                  DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
-              unit: item.unit,
-              incomeSource: item.incomeSource,
-              transactionContent: item.transactionContent,
-              budget: item.budget,
-              cashTransactionType: item.cashTransactionType,
-              completedNotify: item.completedNotify,
-              database: item.database,
-              ratio: item.ratio,
-              targetType: item.targetType,
-            );
-            var targetModel = AddTransactionModel(
-              id:item.id,
-              image: item.image,
-              total: item.total,
-              amount: item.amount,
-              time: item.time,
-              description: item.description,
-              putReminderInWallet: item.putReminderInWallet,
-              notify: item.notify,
-              requiredValue: item.requiredValue,
-              initialValue: item.initialValue,
-              transactionName: item.transactionName,
-              priority: item.priority,
-              endDate: item.endDate,
-              startDate: item.startDate,
-              targetValue: item.targetValue,
-              transactionType: item.transactionType,
-              brandName: item.brandName,
-              repeated: null,
-              transactionDate: item.transactionDate,
-              unit: item.unit,
-              incomeSource: item.incomeSource,
-              transactionContent: item.transactionContent,
-              budget: item.budget,
-              cashTransactionType: item.cashTransactionType,
-              completedNotify: item.completedNotify,
-              database: item.database,
-              ratio: item.ratio,
-              targetType: item.targetType,
-            );
-            print("item.key${item.key}");
-            box.put(item.key.toString(), targetModel);
-            print("object5");
-            double total = double.parse(item.total!);
-            if (total <= item.incomeSource!.totalBalance!) {
-              var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
-              var currencyBox = Hive.box<CurrencyModel>("currencyBox");
-              var currencyList = currencyBox.values.toList();
-              var walletList = walletBox.values.toList();
-              WalletModel? targetModel = walletList.firstWhere(
-                (model) => model.name == item.incomeSource?.name,
+        if (total < item.incomeSource!.totalBalance!) {
+          if (item.repeated != null) {
+            print("object4");
+            for (int i = 0; i < myCounter; i++) {
+              AddTransactionModel newModel = AddTransactionModel(
+                id:item.id!+ Uuid().v4(),
+                image: item.image,
+                total: item.total,
+                amount: item.amount,
+                time: DateFormat("hh:mm aa", "en").format(DateTime(
+                    now.year,
+                    now.month,
+                    now.day,
+                    TimeOfDay.now().hour,
+                    TimeOfDay.now().minute)),
+                // time: item.time,
+                description: item.description,
+                putReminderInWallet: item.putReminderInWallet,
+                notify: i == myCounter - 1 ? item.notify : null,
+                requiredValue: item.requiredValue,
+                initialValue: item.initialValue,
+                transactionName: item.transactionName,
+                priority: item.priority,
+                endDate: item.endDate,
+                startDate: DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
+                targetValue: item.targetValue,
+                transactionType: item.transactionType,
+                brandName: item.brandName,
+                repeated: i == myCounter - 1 ? item.repeated : null,
+                transactionDate:
+                DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
+                unit: item.unit,
+                incomeSource: item.incomeSource,
+                transactionContent: item.transactionContent,
+                budget: item.budget,
+                cashTransactionType: item.cashTransactionType,
+                completedNotify: item.completedNotify,
+                database: item.database,
+                ratio: item.ratio,
+                targetType: item.targetType,
               );
-              print("object ${targetModel.name}");
-              if (targetModel.currency != currencyList[0].mainCurrency) {
-                if (targetModel.checkedValue == false) {
-                  print("sss");
-                  var calculatedTotalBalance =
-                      targetModel.totalBalance! - total;
-                  targetModel.totalBalance = calculatedTotalBalance;
-                  double remain =
-                      (calculatedTotalBalance) / currencyList[0].value!;
-                  targetModel.remainBalance = remain;
-                  walletBox.put(targetModel.key, targetModel);
+              var targetModel = AddTransactionModel(
+                id:item.id,
+                image: item.image,
+                total: item.total,
+                amount: item.amount,
+                time: item.time,
+                description: item.description,
+                putReminderInWallet: item.putReminderInWallet,
+                notify: item.notify,
+                requiredValue: item.requiredValue,
+                initialValue: item.initialValue,
+                transactionName: item.transactionName,
+                priority: item.priority,
+                endDate: item.endDate,
+                startDate: item.startDate,
+                targetValue: item.targetValue,
+                transactionType: item.transactionType,
+                brandName: item.brandName,
+                repeated: null,
+                transactionDate: item.transactionDate,
+                unit: item.unit,
+                incomeSource: item.incomeSource,
+                transactionContent: item.transactionContent,
+                budget: item.budget,
+                cashTransactionType: item.cashTransactionType,
+                completedNotify: item.completedNotify,
+                database: item.database,
+                ratio: item.ratio,
+                targetType: item.targetType,
+              );
+              print("item.key${item.key}");
+              box.put(item.key.toString(), targetModel);
+              print("object5");
+              double total = double.parse(item.total!);
+              if (total <= item.incomeSource!.totalBalance!) {
+                var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+                var currencyBox = Hive.box<CurrencyModel>("currencyBox");
+                var currencyList = currencyBox.values.toList();
+                var walletList = walletBox.values.toList();
+                WalletModel? targetModel = walletList.firstWhere(
+                      (model) => model.name == item.incomeSource?.name,
+                );
+                print("object ${targetModel.name}");
+                if (targetModel.currency != currencyList[0].mainCurrency) {
+                  if (targetModel.checkedValue == false) {
+                    print("sss");
+                    var calculatedTotalBalance =
+                        targetModel.totalBalance! - total;
+                    targetModel.totalBalance = calculatedTotalBalance;
+                    double remain =
+                        (calculatedTotalBalance) / currencyList[0].value!;
+                    targetModel.remainBalance = remain;
+                    walletBox.put(targetModel.key, targetModel);
+                  } else {
+                    print("mmm");
+                    var calculatedTotalBalance =
+                        targetModel.totalBalance! - total;
+                    targetModel.totalBalance = calculatedTotalBalance;
+                    double remain = calculatedTotalBalance;
+                    targetModel.remainTotalBalance = remain;
+                    walletBox.put(targetModel.key, targetModel);
+                  }
                 } else {
-                  print("mmm");
-                  var calculatedTotalBalance =
-                      targetModel.totalBalance! - total;
+                  print('mmmm');
+                  var calculatedTotalBalance = targetModel.totalBalance! - total;
                   targetModel.totalBalance = calculatedTotalBalance;
-                  double remain = calculatedTotalBalance;
-                  targetModel.remainTotalBalance = remain;
+                  targetModel.balance = targetModel.balance - total;
                   walletBox.put(targetModel.key, targetModel);
+                  // walletBox.delete(item.key);
                 }
-              } else {
-                print('mmmm');
-                var calculatedTotalBalance = targetModel.totalBalance! - total;
-                targetModel.totalBalance = calculatedTotalBalance;
-                targetModel.balance = targetModel.balance - total;
-                walletBox.put(targetModel.key, targetModel);
-                // walletBox.delete(item.key);
-              }
-              print("balance ${targetModel.totalBalance!}");
-              print(item.incomeSource!.balance);
-              print(item.incomeSource!.totalBalance!);
+                print("balance ${targetModel.totalBalance!}");
+                print(item.incomeSource!.balance);
+                print(item.incomeSource!.totalBalance!);
 
-              box.add(newModel);
-            } else if (total > item.incomeSource!.totalBalance!) {
-              print(item.incomeSource!.totalBalance!);
-              CustomToast.showSimpleToast(
-                  msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
-                  color: Colors.red);
+                box.add(newModel);
+              } else if (total > item.incomeSource!.totalBalance!) {
+                print(item.incomeSource!.totalBalance!);
+                CustomToast.showSimpleToast(
+                    msg: "المبلغ الذي أدخلته أكبر من قيمة المحفظة",
+                    color: Colors.red);
+              }
             }
+            box.delete(item.key);
           }
-          box.delete(item.key);
+        } else {
+          print("=============><Wallet");
+          var targetModel = AddTransactionModel(
+            id:item.id,
+            image: item.image,
+            total: item.total,
+            amount: item.amount,
+            time: item.time,
+            description: item.description,
+            putReminderInWallet: item.putReminderInWallet,
+            notify: item.notify,
+            requiredValue: item.requiredValue,
+            initialValue: item.initialValue,
+            transactionName: item.transactionName,
+            priority: item.priority,
+            endDate: item.endDate,
+            startDate: item.startDate,
+            targetValue: item.targetValue,
+            transactionType: item.transactionType,
+            brandName: item.brandName,
+            repeated: null,
+            transactionDate: item.transactionDate,
+            unit: item.unit,
+            incomeSource: item.incomeSource,
+            transactionContent: item.transactionContent,
+            budget: item.budget,
+            cashTransactionType: item.cashTransactionType,
+            completedNotify: item.completedNotify,
+            database: item.database,
+            ratio: item.ratio,
+            targetType: item.targetType,
+          );
+          box.put(item.key, targetModel);
         }
-      } else {
-        print("=============><Wallet");
-        var targetModel = AddTransactionModel(
-          id:item.id,
-          image: item.image,
-          total: item.total,
-          amount: item.amount,
-          time: item.time,
-          description: item.description,
-          putReminderInWallet: item.putReminderInWallet,
-          notify: item.notify,
-          requiredValue: item.requiredValue,
-          initialValue: item.initialValue,
-          transactionName: item.transactionName,
-          priority: item.priority,
-          endDate: item.endDate,
-          startDate: item.startDate,
-          targetValue: item.targetValue,
-          transactionType: item.transactionType,
-          brandName: item.brandName,
-          repeated: null,
-          transactionDate: item.transactionDate,
-          unit: item.unit,
-          incomeSource: item.incomeSource,
-          transactionContent: item.transactionContent,
-          budget: item.budget,
-          cashTransactionType: item.cashTransactionType,
-          completedNotify: item.completedNotify,
-          database: item.database,
-          ratio: item.ratio,
-          targetType: item.targetType,
-        );
-        box.put(item.key, targetModel);
       }
     }
   }
@@ -356,6 +359,7 @@ class Utils {
         var now = DateTime.now();
         print("object3");
         print("item.endDate ${item.endDate}");
+        print("item.repeated ${item.repeated?.name}");
         var date = DateFormat("dd/MM/yyyy", "en").parse(item.startDate!);
         var endDate = DateFormat("dd/MM/yyyy", "en").parse(item.endDate!);
         var startDate =
@@ -364,6 +368,8 @@ class Utils {
         var currentDate = DateFormat("dd/MM/yyyy", "en").format(now);
         if (endDateString == currentDate) {
           print("trueDate");
+        }else{
+          print("falseDate");
         }
         int myCounter = 0;
         switch (item.repeated?.name) {
@@ -413,114 +419,116 @@ class Utils {
         }
         print("myCounter $myCounter");
         print("totalCounter $totalCounter");
-        if (item.repeated != null) {
-          print("object4");
-          if (endDateString != currentDate) {
-            var targetModel = AddTransactionModel(
-              id:item.id,
-              image: item.image,
-              total: item.total,
-              amount: item.amount,
-              time: item.time,
-              description: item.description,
-              putReminderInWallet: item.putReminderInWallet,
-              notify: item.notify,
-              requiredValue: item.requiredValue,
-              initialValue:
-                  item.initialValue! + (item.requiredValue! * myCounter),
-              transactionName: item.transactionName,
-              priority: item.priority,
-              endDate: item.endDate,
-              startDate: DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
-              targetValue: item.targetValue,
-              transactionType: item.transactionType,
-              brandName: item.brandName,
-              repeated: item.repeated,
-              transactionDate: item.transactionDate,
-              unit: item.unit,
-              incomeSource: item.incomeSource,
-              transactionContent: item.transactionContent,
-              budget: item.budget,
-              cashTransactionType: item.cashTransactionType,
-              completedNotify: item.completedNotify,
-              initialStaticValue: item.initialStaticValue,
-              database: item.database,
-              ratio: item.ratio,
-              targetType: item.targetType,
-            );
-            box.put(item.key, targetModel);
-            print("myCounter $myCounter");
-            print("object5");
-            double total = item.requiredValue!;
-            if (total <= item.incomeSource!.totalBalance!) {
-              print("object6");
-              var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
-              var walletList = walletBox.values.toList();
-              WalletModel? targetModel = walletList.firstWhere(
-                (model) => model.name == item.incomeSource?.name,
+        if(!startDate.isAfter(now)){
+          if (item.repeated != null) {
+            print("object4");
+            if (endDateString != currentDate) {
+              var targetModel = AddTransactionModel(
+                id:item.id,
+                image: item.image,
+                total: item.total,
+                amount: item.amount,
+                time: item.time,
+                description: item.description,
+                putReminderInWallet: item.putReminderInWallet,
+                notify: item.notify,
+                requiredValue: item.requiredValue,
+                initialValue:
+                item.initialValue! + (item.requiredValue! * myCounter),
+                transactionName: item.transactionName,
+                priority: item.priority,
+                endDate: item.endDate,
+                startDate: DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
+                targetValue: item.targetValue,
+                transactionType: item.transactionType,
+                brandName: item.brandName,
+                repeated: item.repeated,
+                transactionDate: item.transactionDate,
+                unit: item.unit,
+                incomeSource: item.incomeSource,
+                transactionContent: item.transactionContent,
+                budget: item.budget,
+                cashTransactionType: item.cashTransactionType,
+                completedNotify: item.completedNotify,
+                initialStaticValue: item.initialStaticValue,
+                database: item.database,
+                ratio: item.ratio,
+                targetType: item.targetType,
               );
-              print("object ${targetModel.name}");
-              targetModel.totalBalance = targetModel.totalBalance! - total;
-              print("balance ${targetModel.totalBalance!}");
-              await walletBox.put(targetModel.key, targetModel);
-              print(item.incomeSource!.totalBalance!);
+              box.put(item.key, targetModel);
+              print("myCounter $myCounter");
+              print("object5");
+              double total = item.requiredValue!;
+              if (total <= item.incomeSource!.totalBalance!) {
+                print("object6");
+                var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+                var walletList = walletBox.values.toList();
+                WalletModel? targetModel = walletList.firstWhere(
+                      (model) => model.name == item.incomeSource?.name,
+                );
+                print("object ${targetModel.name}");
+                targetModel.totalBalance = targetModel.totalBalance! - total;
+                print("balance ${targetModel.totalBalance!}");
+                await walletBox.put(targetModel.key, targetModel);
+                print(item.incomeSource!.totalBalance!);
+              } else {
+                CustomToast.showSimpleToast(msg: "msg");
+              }
             } else {
-              CustomToast.showSimpleToast(msg: "msg");
-            }
-          } else {
-            print("initVal ${item.initialStaticValue}");
-            print("initVal1 ${item.initialValue}");
-            print("initDate ${item.transactionDate}");
-            var targetModel = AddTransactionModel(
-              id:item.id,
-              image: item.image,
-              total: item.total,
-              amount: item.amount,
-              time: item.time,
-              description: item.description,
-              putReminderInWallet: item.putReminderInWallet,
-              notify: item.notify,
-              requiredValue: item.requiredValue,
-              initialValue: item.initialStaticValue! +
-                  (item.requiredValue! * totalCounter),
-              transactionName: item.transactionName,
-              priority: item.priority,
-              endDate: item.endDate,
-              initialStaticValue: item.initialStaticValue,
-              startDate: DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
-              targetValue: item.targetValue,
-              transactionType: item.transactionType,
-              brandName: item.brandName,
-              repeated: null,
-              transactionDate: item.transactionDate,
-              unit: item.unit,
-              incomeSource: item.incomeSource,
-              transactionContent: item.transactionContent,
-              budget: item.budget,
-              cashTransactionType: item.cashTransactionType,
-              completedNotify: item.completedNotify,
-              database: item.database,
-              ratio: item.ratio,
-              targetType: item.targetType,
-            );
-            box.put(item.key, targetModel);
-            print("myCounter $myCounter");
-            print("object5");
-            double total = item.requiredValue!;
-            if (total <= item.incomeSource!.totalBalance!) {
-              print("object6");
-              var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
-              var walletList = walletBox.values.toList();
-              WalletModel? targetModel = walletList.firstWhere(
-                (model) => model.name == item.incomeSource?.name,
+              print("initVal ${item.initialStaticValue}");
+              print("initVal1 ${item.initialValue}");
+              print("initDate ${item.transactionDate}");
+              var targetModel = AddTransactionModel(
+                id:item.id,
+                image: item.image,
+                total: item.total,
+                amount: item.amount,
+                time: item.time,
+                description: item.description,
+                putReminderInWallet: item.putReminderInWallet,
+                notify: item.notify,
+                requiredValue: item.requiredValue,
+                initialValue: item.initialStaticValue! +
+                    (item.requiredValue! * totalCounter),
+                transactionName: item.transactionName,
+                priority: item.priority,
+                endDate: item.endDate,
+                initialStaticValue: item.initialStaticValue,
+                startDate: DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
+                targetValue: item.targetValue,
+                transactionType: item.transactionType,
+                brandName: item.brandName,
+                repeated: null,
+                transactionDate: item.transactionDate,
+                unit: item.unit,
+                incomeSource: item.incomeSource,
+                transactionContent: item.transactionContent,
+                budget: item.budget,
+                cashTransactionType: item.cashTransactionType,
+                completedNotify: item.completedNotify,
+                database: item.database,
+                ratio: item.ratio,
+                targetType: item.targetType,
               );
-              print("object ${targetModel.name}");
-              targetModel.totalBalance = targetModel.totalBalance! - total;
-              print("balance ${targetModel.totalBalance!}");
-              await walletBox.put(targetModel.key, targetModel);
-              print(item.incomeSource!.totalBalance!);
-            } else {
-              CustomToast.showSimpleToast(msg: "msg");
+              box.put(item.key, targetModel);
+              print("myCounter $myCounter");
+              print("object5");
+              double total = item.requiredValue!;
+              if (total <= item.incomeSource!.totalBalance!) {
+                print("object6");
+                var walletBox = Hive.box<WalletModel>(walletDatabaseBox);
+                var walletList = walletBox.values.toList();
+                WalletModel? targetModel = walletList.firstWhere(
+                      (model) => model.name == item.incomeSource?.name,
+                );
+                print("object ${targetModel.name}");
+                targetModel.totalBalance = targetModel.totalBalance! - total;
+                print("balance ${targetModel.totalBalance!}");
+                await walletBox.put(targetModel.key, targetModel);
+                print(item.incomeSource!.totalBalance!);
+              } else {
+                CustomToast.showSimpleToast(msg: "msg");
+              }
             }
           }
         }

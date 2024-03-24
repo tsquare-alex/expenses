@@ -904,20 +904,20 @@ class _EditWalletState extends State<EditWallet> {
                             repatedWalletController = repatedWalletController;
                             isRepated = repeatSwitchValue;
                             widget.model.balance =
-                                double.parse(ballanceController.text);
+                                double.parse(ballanceController.text.replaceAll(',', ''));
                             widget.model.notification = isNotificated;
                             widget.model.addNote = noteController.text;
                             widget.model.remainBalance =
                                 currency.text.isEmpty ||
                                         selectMainCurrency == mainCurrency
-                                    ? double.parse(ballanceController.text)
-                                    : (double.parse(ballanceController.text) *
+                                    ? double.parse(ballanceController.text.replaceAll(',', ''))
+                                    : (double.parse(ballanceController.text.replaceAll(',', '')) *
                                         currencyValue);
                            
                             widget.model.totalBalance = currency.text.isEmpty ||
                                     selectMainCurrency == mainCurrency
-                                ? double.parse(ballanceController.text)
-                                : (double.parse(ballanceController.text) *
+                                ? double.parse(ballanceController.text.replaceAll(',', ''))
+                                : (double.parse(ballanceController.text.replaceAll(',', '')) *
                                     currencyValue);
                             // selectMainCurrency == mainCurrency ||
                             //         selectMainCurrency == null
@@ -969,7 +969,7 @@ class _EditWalletState extends State<EditWallet> {
                                     ? false
                                     : isConverted;
                             widget.model.notificationBalance =
-                                double.parse(ballanceController.text);
+                                double.parse(ballanceController.text.replaceAll(',', ''));
                             widget.model.save();
 
                             AutoRouter.of(context).pop();

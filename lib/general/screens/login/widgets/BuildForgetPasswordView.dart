@@ -15,7 +15,7 @@ class BuildForgetPasswordView extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: MyText(
-            title: "هل نسيت كلمه المرور ؟",
+            title: tr(context, "forgetPassword"),
             color: MyColors.blackOpacity,
             size: 12,
             decoration: TextDecoration.underline,

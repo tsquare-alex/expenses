@@ -141,7 +141,7 @@ class _EditWalletState extends State<EditWallet> {
             ),
             body: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.r),
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Form(
                   key: formKey,
                   child: Column(
@@ -200,7 +200,7 @@ class _EditWalletState extends State<EditWallet> {
                                   children: [
                                     ListTile(
                                       contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 16.0.r),
+                                          horizontal: 16.0.w),
                                       title: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -353,7 +353,7 @@ class _EditWalletState extends State<EditWallet> {
                                   children: [
                                     ListTile(
                                       contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 16.0.r),
+                                          horizontal: 16.0.w),
                                       title: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -565,7 +565,7 @@ class _EditWalletState extends State<EditWallet> {
                           ),
                           SizedBox(height: 12.h),
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 5.r),
+                            padding: EdgeInsets.symmetric(horizontal: 5.w),
                             decoration: BoxDecoration(
                               color: context.watch<AppThemeCubit>().isDarkMode
                                   ? AppDarkColors.backgroundColor
@@ -622,8 +622,8 @@ class _EditWalletState extends State<EditWallet> {
                                         closeDate(context);
                                       },
                                       contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              horizontal: 20, vertical: 10),
+                                           EdgeInsets.symmetric(
+                                              horizontal: 20.w, vertical: 10.h),
                                       radius: 10.r,
                                       fieldTypes: FieldTypes.clickable,
                                       type: TextInputType.text,

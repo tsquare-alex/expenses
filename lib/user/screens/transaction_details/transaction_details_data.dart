@@ -468,12 +468,17 @@ class TransactionDetailsData {
     );
     var currencyBox = Hive.box<CurrencyModel>("currencyBox");
     var currencyList = currencyBox.values.toList();
-    double total = double.parse(targetModel.total!);
+    double total;
+    if(targetModel.transactionName=="الاهداف المالية المستهدفة"){
+      total = targetModel.initialValue!;
+    }else{
+    total= double.parse(targetModel.total!);
+    }
     if(targetWallet.currency != currencyList[0].mainCurrency){
       if(targetWallet.checkedValue ==false){
         print("sss");
-        var calculatedTotalBalance = targetWallet.totalBalance! + total;
-        targetWallet.totalBalance = calculatedTotalBalance;
+        var calculatedTotalBalance  = targetWallet.totalBalance! + total;
+    targetWallet.totalBalance = calculatedTotalBalance;
         double remain = (calculatedTotalBalance)/ currencyList[0].value!;
         targetWallet.remainBalance = remain;
         await walletBox.put(targetWallet.key, targetWallet);

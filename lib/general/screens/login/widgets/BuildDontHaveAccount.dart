@@ -24,7 +24,7 @@ class BuildDontHaveAccount extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: MyText(
-                title: "تسجيل جديد",
+                title: tr(context, "register"),
                 color: MyColors.primary,
                 size: 13,
                 decoration: TextDecoration.underline,

@@ -635,7 +635,7 @@ class AddTransactionData {
                 await walletBox.put(selectedWalletModel?.key, targetModel);
               }
               print("balance ${targetModel.totalBalance!}");
-              print(selectedWalletModel!.balance!);
+              print(selectedWalletModel!.balance);
               print(selectedWalletModel!.totalBalance!);
 
               box.add(model);
@@ -714,7 +714,7 @@ class AddTransactionData {
                 await walletBox.put(selectedWalletModel?.key, targetModel);
               }
               print("balance ${targetModel.totalBalance!}");
-              print(selectedWalletModel!.balance!);
+              print(selectedWalletModel!.balance);
               print(selectedWalletModel!.totalBalance!);
 
               box.add(model);
@@ -944,7 +944,7 @@ class AddTransactionData {
 
     var neededTransactionType = box.getAt(modelIndex);
     neededTransactionType?.content?.map((e) => e.selected = false).toList();
-    neededTransactionType?.content?[index].selected = !value;
+    neededTransactionType?.content?[index].selected = !neededTransactionType.content![index].selected!;
     selectedContent = neededTransactionType?.content?[index];
     print("index :${neededTransactionType?.content?.length}");
     typeContentCubit.onUpdateData(neededTransactionType?.content);

@@ -47,7 +47,7 @@ class BuildLoginSkip extends StatelessWidget {
                 //   AutoRouter.of(context).push(HomeRoute(index: 1));
                 // });
               },
-              child: MyText(
+              child: state is LoginAnonymouslyLoadingState?Center(child: CircularProgressIndicator(color: MyColors.primary,),):MyText(
                 title: tr(context, "skip"),
                 color: context.read<AppThemeCubit>().isDarkMode
                     ? MyColors.white

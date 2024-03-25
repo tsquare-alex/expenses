@@ -15,6 +15,7 @@ import 'package:expenses/user/screens/budget/data/cubit/budget_state.dart';
 import 'package:expenses/user/screens/budget/data/model/budget_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -221,41 +222,53 @@ class _EditBudgetState extends State<EditBudget> {
 
                                 return Column(
                                   children: [
-                                    ListTile(
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 16.0.r),
-                                      title: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          if (index <
-                                              allTransactionsIcons.length)
-                                            Image.asset(
-                                              allTransactionsIcons[index],
-                                              height: 50.h,
-                                              width: 50.w,
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          selectTransactionValue = item;
+                                          transactionValueController.text =
+                                              item;
+                                          transactionController.collapse();
+                                        });
+                                      },
+                                      child: ListTile(
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 16.0.r),
+                                        title: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            if (index <
+                                                allTransactionsIcons.length)
+                                              Image.asset(
+                                                allTransactionsIcons[index],
+                                                height: 50.h,
+                                                width: 50.w,
+                                              ),
+                                            Text(
+                                              tr(context, item),
                                             ),
-                                          Text(
-                                            tr(context, item),
-                                          ),
-                                          Radio<String>(
-                                            activeColor: MyColors.primary,
-                                            value: item,
-                                            groupValue: selectTransactionValue,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectTransactionValue = value;
-                                                // context
-                                                //     .read<BudgetCubit>()
-                                                //     .transactionNameController
-                                                transactionValueController
-                                                    .text = value.toString();
-                                                transactionController
-                                                    .collapse();
-                                              });
-                                            },
-                                          ),
-                                        ],
+                                            Radio<String>(
+                                              activeColor: MyColors.primary,
+                                              value: item,
+                                              groupValue:
+                                                  selectTransactionValue,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  selectTransactionValue =
+                                                      value;
+                                                  // context
+                                                  //     .read<BudgetCubit>()
+                                                  //     .transactionNameController
+                                                  transactionValueController
+                                                      .text = value.toString();
+                                                  transactionController
+                                                      .collapse();
+                                                });
+                                              },
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                     Divider(
@@ -303,33 +316,42 @@ class _EditBudgetState extends State<EditBudget> {
                                 final String item = entry.value;
                                 return Column(
                                   children: [
-                                    ListTile(
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 16.0.r),
-                                      title: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            item,
-                                          ),
-                                          Radio<String>(
-                                            value: item,
-                                            groupValue: selectWalletValue,
-                                            activeColor: MyColors.primary,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectWalletValue = value;
-                                                // context
-                                                //     .read<BudgetCubit>()
-                                                //     .walletNameController
-                                                walletNameController.text =
-                                                    value.toString();
-                                                walletController.collapse();
-                                              });
-                                            },
-                                          ),
-                                        ],
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          selectWalletValue = item;
+                                          walletNameController.text = item;
+                                          walletController.collapse();
+                                        });
+                                      },
+                                      child: ListTile(
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 16.0.r),
+                                        title: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              item,
+                                            ),
+                                            Radio<String>(
+                                              value: item,
+                                              groupValue: selectWalletValue,
+                                              activeColor: MyColors.primary,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  selectWalletValue = value;
+                                                  // context
+                                                  //     .read<BudgetCubit>()
+                                                  //     .walletNameController
+                                                  walletNameController.text =
+                                                      value.toString();
+                                                  walletController.collapse();
+                                                });
+                                              },
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                     Divider(

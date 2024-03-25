@@ -106,12 +106,6 @@ class _EditWalletState extends State<EditWallet> {
               .map((currencyData) => currencyData.mainCurrency)
               .first
               .toString();
-          String subCurrency = context
-              .read<WalletCubit>()
-              .currencyData
-              .map((currencyData) => currencyData.subCurrency)
-              .first
-              .toString();
           double currencyValue = double.parse(
             context
                 .read<WalletCubit>()
@@ -524,34 +518,82 @@ class _EditWalletState extends State<EditWallet> {
                                       //     .text
                                       : tr(context, "selectCurrency")),
                               children: [
-                                context.read<WalletCubit>().buildCurrencyList(
-                                      currencyList: mainCurrency,
-                                      selectedCurrency:
-                                          selectMainCurrency ?? "",
-                                      onCurrencySelected: (value) {
-                                        setState(() {
-                                          selectMainCurrency = value;
-                                          // context
-                                          //     .read<WalletCubit>()
-                                          //     .currencyController
-                                          currency.text = value ?? "";
-                                          currencyController.collapse();
-                                        });
-                                      },
-                                    ),
-                                context.read<WalletCubit>().buildCurrencyList(
-                                    currencyList: subCurrency,
-                                    selectedCurrency: selectMainCurrency ?? "",
-                                    onCurrencySelected: (value) {
-                                      setState(() {
-                                        selectMainCurrency = value;
-                                        // context
-                                        //     .read<WalletCubit>()
-                                        //     .currencyController
-                                        currency.text = value ?? "";
-                                        currencyController.collapse();
-                                      });
-                                    })
+                                // context.read<WalletCubit>().buildCurrencyList(
+                                //       currencyList: mainCurrency,
+                                //       selectedCurrency:
+                                //           selectMainCurrency ?? "",
+                                //       onCurrencySelected: (value) {
+                                //         setState(() {
+                                //           selectMainCurrency = value;
+                                //           // context
+                                //           //     .read<WalletCubit>()
+                                //           //     .currencyController
+                                //           currency.text = value ?? "";
+                                //           currencyController.collapse();
+                                //         });
+                                //       },
+                                //     ),
+                                // context.read<WalletCubit>().buildCurrencyList(
+                                //     currencyList: subCurrency,
+                                //     selectedCurrency: selectMainCurrency ?? "",
+                                //     onCurrencySelected: (value) {
+                                //       setState(() {
+                                //         selectMainCurrency = value;
+                                //         // context
+                                //         //     .read<WalletCubit>()
+                                //         //     .currencyController
+                                //         currency.text = value ?? "";
+                                //         currencyController.collapse();
+                                //       });
+                                //     })
+                                Column(
+                                  children: [
+                                    for (String item in context
+                                        .read<WalletCubit>()
+                                        .currencyList)
+                                      Column(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                selectMainCurrency = item;
+                                                currency
+                                                    .text = item.toString();
+                                                currencyController.collapse();
+                                              });
+                                            },
+                                            child: ListTile(
+                                              contentPadding: EdgeInsets.symmetric(horizontal: 16.0.r),
+                                              title: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(item),
+                                                  Radio<String>(
+                                                    activeColor: MyColors.primary,
+                                                    value: item,
+                                                    groupValue: selectMainCurrency ?? "",
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        selectMainCurrency = value;
+                                                        currency
+                                                            .text = value ?? "";
+                                                        currencyController.collapse();
+                                                      });
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Divider(
+                                            height: 1,
+                                            thickness: 2,
+                                            color: MyColors.semiTransparentColor,
+                                          ),
+                                        ],
+                                      ),
+                                  ],
+                                ),
                               ],
                             ),
                           )

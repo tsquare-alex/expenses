@@ -15,6 +15,7 @@ import 'package:expenses/user/screens/budget/data/cubit/budget_state.dart';
 import 'package:expenses/user/screens/budget/data/model/budget_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -235,41 +236,54 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                 }
                                 return Column(
                                   children: [
-                                    ListTile(
-                                      
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 16.0.r),
-                                      title: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          if (index <
-                                              allTransactionsIcons.length)
-                                            Image.asset(
-                                              allTransactionsIcons[index],
-                                              height: 40.h,
-                                              width: 40.w,
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          selectTransactionValue = item;
+                                          context
+                                              .read<BudgetCubit>()
+                                              .transactionNameController
+                                              .text = item.toString();
+                                          transactionController.collapse();
+                                        });
+                                      },
+                                      child: ListTile(
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 16.0.r),
+                                        title: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            if (index <
+                                                allTransactionsIcons.length)
+                                              Image.asset(
+                                                allTransactionsIcons[index],
+                                                height: 40.h,
+                                                width: 40.w,
+                                              ),
+                                            Text(tr(context, item).isNotEmpty
+                                                ? tr(context, item)
+                                                : item),
+                                            Radio<String>(
+                                              activeColor: MyColors.primary,
+                                              value: item,
+                                              groupValue:
+                                                  selectTransactionValue,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  selectTransactionValue =
+                                                      value;
+                                                  context
+                                                      .read<BudgetCubit>()
+                                                      .transactionNameController
+                                                      .text = value.toString();
+                                                  transactionController
+                                                      .collapse();
+                                                });
+                                              },
                                             ),
-                                          Text(tr(context, item).isNotEmpty
-                                              ? tr(context, item)
-                                              : item),
-                                          Radio<String>(
-                                            activeColor: MyColors.primary,
-                                            value: item,
-                                            groupValue: selectTransactionValue,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectTransactionValue = value;
-                                                context
-                                                    .read<BudgetCubit>()
-                                                    .transactionNameController
-                                                    .text = value.toString();
-                                                transactionController
-                                                    .collapse();
-                                              });
-                                            },
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                     Divider(
@@ -288,7 +302,6 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                         height: 20.h,
                       ),
                       Container(
-                        
                         decoration: BoxDecoration(
                           border: Border.all(color: MyColors.greyWhite),
                           borderRadius: BorderRadius.circular(12),
@@ -300,8 +313,11 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                             });
                           },
                           controller: walletController,
-                          shape:  RoundedRectangleBorder(
-                            side: BorderSide(color:isExpanded?MyColors.primary: Colors.transparent),
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: isExpanded
+                                    ? MyColors.primary
+                                    : Colors.transparent),
                           ),
                           title: Text(context
                                   .read<BudgetCubit>()
@@ -332,32 +348,44 @@ class _AddTransactionBudgetState extends State<AddTransactionBudget> {
                                 final String item = entry.value;
                                 return Column(
                                   children: [
-                                    ListTile(
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 16.0.r),
-                                      title: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            item,
-                                          ),
-                                          Radio<String>(
-                                            activeColor: MyColors.primary,
-                                            value: item,
-                                            groupValue: selectWalletValue,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectWalletValue = value;
-                                                context
-                                                    .read<BudgetCubit>()
-                                                    .walletNameController
-                                                    .text = value.toString();
-                                                walletController.collapse();
-                                              });
-                                            },
-                                          ),
-                                        ],
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          selectWalletValue=item;
+                                          context
+                                              .read<BudgetCubit>()
+                                              .walletNameController
+                                              .text = item.toString();
+                                          walletController.collapse();
+                                        });
+                                      },
+                                      child: ListTile(
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 16.0.r),
+                                        title: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              item,
+                                            ),
+                                            Radio<String>(
+                                              activeColor: MyColors.primary,
+                                              value: item,
+                                              groupValue: selectWalletValue,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  selectWalletValue = value;
+                                                  context
+                                                      .read<BudgetCubit>()
+                                                      .walletNameController
+                                                      .text = value.toString();
+                                                  walletController.collapse();
+                                                });
+                                              },
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                     Divider(

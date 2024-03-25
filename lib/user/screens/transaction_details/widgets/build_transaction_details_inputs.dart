@@ -613,6 +613,7 @@ class BuildTransactionDetailsInputs extends StatelessWidget {
                                       finData: (data) => transactionDetailsData
                                           .getIterateTransaction(context),
                                       useName: true,
+                                      hasLocalization: true,
                                       buttonsColor: MyColors.primary,
                                       searchHint: tr(context, "search"),
                                     ),

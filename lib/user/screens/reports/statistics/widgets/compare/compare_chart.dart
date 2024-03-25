@@ -44,7 +44,9 @@ class _CompareChartState extends State<CompareChart> {
         null,
         int.tryParse(entry.value.total!),
         ReportsCubit.get(context).randomColors.reversed.toList()[entry.key],
-        entry.value.transactionContent!.name!,
+        entry.value.transactionContent != null
+            ? entry.value.transactionContent!.name!
+            : entry.value.transactionType!.name!,
       );
     }).toList();
 

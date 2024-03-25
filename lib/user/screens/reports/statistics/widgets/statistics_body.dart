@@ -56,7 +56,7 @@ class StatisticsBody extends StatelessWidget {
                       )
                       .toList(),
                   onSelect: (value) =>
-                      ReportsCubit.get(context).onWalletSelect(value),
+                      ReportsCubit.get(context).onWalletSelect(context, value),
                 ),
                 SizedBox(height: 20.h),
                 Padding(
@@ -129,7 +129,8 @@ class StatisticsBody extends StatelessWidget {
                               },
                             );
                             if (context.mounted) {
-                              ReportsCubit.get(context).changeStatsDateFrom();
+                              ReportsCubit.get(context)
+                                  .changeStatsDateFrom(context);
                             }
                           },
                           child: FieldSection(
@@ -218,7 +219,8 @@ class StatisticsBody extends StatelessWidget {
                               },
                             );
                             if (context.mounted) {
-                              ReportsCubit.get(context).changeStatsDateTo();
+                              ReportsCubit.get(context)
+                                  .changeStatsDateTo(context);
                             }
                           },
                           child: FieldSection(
@@ -289,8 +291,8 @@ class StatisticsBody extends StatelessWidget {
                         ),
                       )
                       .toList(),
-                  onSelect: (value) =>
-                      ReportsCubit.get(context).onTransactionsSelect(value),
+                  onSelect: (value) => ReportsCubit.get(context)
+                      .onTransactionsSelect(context, value),
                 ),
                 SizedBox(height: 20.h),
                 StatisticsDropdown(
@@ -316,8 +318,8 @@ class StatisticsBody extends StatelessWidget {
                         ),
                       )
                       .toList(),
-                  onSelect: (value) =>
-                      ReportsCubit.get(context).onSubTransactionsSelect(value),
+                  onSelect: (value) => ReportsCubit.get(context)
+                      .onSubTransactionsSelect(context, value),
                 ),
                 SizedBox(height: 20.h),
                 StatisticsDropdown(
@@ -344,7 +346,7 @@ class StatisticsBody extends StatelessWidget {
                       )
                       .toList(),
                   onSelect: (value) =>
-                      ReportsCubit.get(context).onPrioritiesSelect(value),
+                      ReportsCubit.get(context).onPrioritiesSelect(context, value),
                 ),
                 SizedBox(height: 32.h),
                 Row(

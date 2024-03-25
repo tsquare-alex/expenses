@@ -7,7 +7,6 @@ import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
-import 'package:expenses/res.dart';
 import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_state.dart';
@@ -15,9 +14,11 @@ import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart
 import 'package:expenses/user/screens/wallet/wallet_imports.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 class AddWallet extends StatefulWidget {
   final int selectItemIndex;
@@ -48,6 +49,7 @@ class _AddWalletState extends State<AddWallet> {
   bool repeatSwitchValue = false;
 
   bool notificationSwitchvalu = false;
+  bool isExpanded = true;
 
   _AddWalletState();
   double parsedNumber = 0;
@@ -134,9 +136,17 @@ class _AddWalletState extends State<AddWallet> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: ExpansionTile(
+                              onExpansionChanged: (value) {
+                                setState(() {
+                                  isExpanded = isExpanded;
+                                });
+                              },
                               controller: controller,
-                              shape: const RoundedRectangleBorder(
-                                side: BorderSide(color: Colors.transparent),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: isExpanded
+                                        ? MyColors.primary
+                                        : Colors.transparent),
                               ),
                               title: Text(
                                 context
@@ -178,34 +188,50 @@ class _AddWalletState extends State<AddWallet> {
                                     final String item = entry.value;
                                     return Column(
                                       children: [
-                                        ListTile(
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 16.0.r),
-                                          title: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(tr(context, item).isNotEmpty
-                                                  ? tr(context, item)
-                                                  : item),
-                                              Radio<String>(
-                                                activeColor: MyColors.primary,
-                                                value: item,
-                                                groupValue: selectedValue,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    selectedValue = value;
-                                                    context
-                                                        .read<WalletCubit>()
-                                                        .encomSourceController
-                                                        .text = value.toString();
-                                                    isFirstValidationError =
-                                                        false;
-                                                    controller.collapse();
-                                                  });
-                                                },
-                                              ),
-                                            ],
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              selectedValue = item;
+                                              context
+                                                  .read<WalletCubit>()
+                                                  .encomSourceController
+                                                  .text = item.toString();
+                                              isFirstValidationError = false;
+                                              controller.collapse();
+                                            });
+                                          },
+                                          child: ListTile(
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal: 16.0.r),
+                                            title: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                    tr(context, item).isNotEmpty
+                                                        ? tr(context, item)
+                                                        : item),
+                                                Radio<String>(
+                                                  activeColor: MyColors.primary,
+                                                  value: item,
+                                                  groupValue: selectedValue,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      selectedValue = value;
+                                                      context
+                                                          .read<WalletCubit>()
+                                                          .encomSourceController
+                                                          .text = value.toString();
+                                                      isFirstValidationError =
+                                                          false;
+                                                      controller.collapse();
+                                                    });
+                                                  },
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                         if (index <
@@ -282,9 +308,15 @@ class _AddWalletState extends State<AddWallet> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: ExpansionTile(
+                              onExpansionChanged: (value) {
+                                isExpanded = isExpanded;
+                              },
                               controller: valueTypeController,
-                              shape: const RoundedRectangleBorder(
-                                side: BorderSide(color: Colors.transparent),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: isExpanded
+                                        ? MyColors.primary
+                                        : Colors.transparent),
                               ),
                               title: Text(
                                 context
@@ -326,35 +358,51 @@ class _AddWalletState extends State<AddWallet> {
                                     final String item = entry.value;
                                     return Column(
                                       children: [
-                                        ListTile(
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 16.0.r),
-                                          title: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(tr(context, item).isNotEmpty
-                                                  ? tr(context, item)
-                                                  : item),
-                                              Radio<String>(
-                                                activeColor: MyColors.primary,
-                                                value: item,
-                                                groupValue: secValue,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    secValue = value;
-                                                    context
-                                                        .read<WalletCubit>()
-                                                        .valueCategoryController
-                                                        .text = value.toString();
-                                                    isSecondValidationError =
-                                                        false;
-                                                    valueTypeController
-                                                        .collapse();
-                                                  });
-                                                },
-                                              ),
-                                            ],
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              secValue = item;
+                                              context
+                                                  .read<WalletCubit>()
+                                                  .valueCategoryController
+                                                  .text = item.toString();
+                                              isSecondValidationError = false;
+                                              valueTypeController.collapse();
+                                            });
+                                          },
+                                          child: ListTile(
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal: 16.0.r),
+                                            title: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                    tr(context, item).isNotEmpty
+                                                        ? tr(context, item)
+                                                        : item),
+                                                Radio<String>(
+                                                  activeColor: MyColors.primary,
+                                                  value: item,
+                                                  groupValue: secValue,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      secValue = value;
+                                                      context
+                                                          .read<WalletCubit>()
+                                                          .valueCategoryController
+                                                          .text = value.toString();
+                                                      isSecondValidationError =
+                                                          false;
+                                                      valueTypeController
+                                                          .collapse();
+                                                    });
+                                                  },
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                         if (index <
@@ -437,9 +485,15 @@ class _AddWalletState extends State<AddWallet> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: ExpansionTile(
+                                  onExpansionChanged: (value) {
+                                    isExpanded = isExpanded;
+                                  },
                                   controller: currencyController,
-                                  shape: const RoundedRectangleBorder(
-                                    side: BorderSide(color: Colors.transparent),
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                        color: isExpanded
+                                            ? MyColors.primary
+                                            : Colors.transparent),
                                   ),
                                   title: Text(context
                                           .read<WalletCubit>()
@@ -540,7 +594,7 @@ class _AddWalletState extends State<AddWallet> {
                                 decoration: BoxDecoration(
                                   color:
                                       context.watch<AppThemeCubit>().isDarkMode
-                                          ? MyColors.greyWhite
+                                          ? AppDarkColors.backgroundColor
                                           : MyColors.white,
                                   borderRadius: BorderRadius.circular(15.r),
                                 ),
@@ -880,6 +934,7 @@ class _AddWalletState extends State<AddWallet> {
                                       .currentState!
                                       .validate()) {
                                 var walletData = WalletModel(
+                                    id: Uuid().v4(),
                                     notification: notificationSwitchvalu,
                                     walletRepate: repeatSwitchValue,
                                     addNote: context
@@ -911,34 +966,43 @@ class _AddWalletState extends State<AddWallet> {
                                         .text,
                                     currencyValue: currencyValue,
                                     currency: context
-                                        .read<WalletCubit>()
-                                        .currencyController
-                                        .text,
-                                    checkedValue:
-                                        selectMainCurrency == mainCurrency
-                                            ? false
-                                            : context
-                                                .read<WalletCubit>()
-                                                .checkedValue,
-                                    totalBalance:
-                                        selectMainCurrency == mainCurrency
-                                            ? parsedNumber
-                                            : (parsedNumber * currencyValue),
+                                            .read<WalletCubit>()
+                                            .currencyController
+                                            .text
+                                            .isNotEmpty
+                                        ? context
+                                            .read<WalletCubit>()
+                                            .currencyController
+                                            .text
+                                        : context
+                                            .read<WalletCubit>()
+                                            .currencyBox
+                                            .values
+                                            .toList()[0]
+                                            .mainCurrency
+                                            .toString(),
+                                    checkedValue: selectMainCurrency == mainCurrency ||
+                                            selectMainCurrency == null
+                                        ? false
+                                        : context
+                                            .read<WalletCubit>()
+                                            .checkedValue,
+                                    totalBalance: selectMainCurrency == mainCurrency ||
+                                            selectMainCurrency == null
+                                        ? parsedNumber
+                                        : (parsedNumber * currencyValue),
                                     iconPath: widget.iconPath,
-                                    remainTotalBalance:
-                                        selectMainCurrency == mainCurrency
-                                            ? parsedNumber
-                                            : (parsedNumber * currencyValue),
+                                    remainTotalBalance: selectMainCurrency == mainCurrency ||
+                                            selectMainCurrency == null
+                                        ? parsedNumber
+                                        : (parsedNumber * currencyValue),
                                     repeatWallet: context
                                             .read<WalletCubit>()
                                             .repeatedController
                                             .text
                                             .isEmpty
                                         ? data.repeatWallet.first
-                                        : context
-                                            .read<WalletCubit>()
-                                            .repeatedController
-                                            .text,
+                                        : context.read<WalletCubit>().repeatedController.text,
                                     notificationBalance: parsedNumber);
                                 context.read<WalletCubit>().addNote(walletData);
                                 if (context.mounted) {

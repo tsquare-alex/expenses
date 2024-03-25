@@ -106,10 +106,15 @@ class _DropdownTextFieldState<DataType> extends State<DropdownTextField> {
         showSelectedItem: widget.showSelectedItem,
         style: TextStyle(
           fontSize: widget.textSize ?? 14.sp,
+          color: context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              : MyColors.black,
         ),
         searchBoxStyle: TextStyle(
           fontSize: 14.sp,
-          color: MyColors.txtColor,
+          color: context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              :MyColors.txtColor,
           fontWeight: FontWeight.bold
         ),
         searchBoxDecoration: InputDecoration(

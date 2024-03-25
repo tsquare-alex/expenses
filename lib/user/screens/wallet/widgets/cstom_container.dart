@@ -8,11 +8,13 @@ import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/utilities/utils_functions/decimal_format.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/res.dart';
+import 'package:expenses/user/models/add_transaction_model/add_transaction_model.dart';
 import 'package:expenses/user/screens/wallet/data/cubit/wallet_cubit/wallet_cubit.dart';
 import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
 
 class CustomContainer extends StatefulWidget {
   final WalletModel model;
@@ -49,7 +51,7 @@ class _CustomContainerState extends State<CustomContainer> {
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 12.r),
+        padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -82,7 +84,7 @@ class _CustomContainerState extends State<CustomContainer> {
                         builder: (buildContext) {
                           return Container(
                             height: 300.h,
-                            padding: EdgeInsets.all(16.w),
+                            padding: EdgeInsets.all(16.r),
                             decoration: BoxDecoration(
                                 color: context.watch<AppThemeCubit>().isDarkMode
                                     ? AppDarkColors.backgroundColor
@@ -195,7 +197,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                   child: Container(
                                     height: 60.h,
                                     width: double.infinity,
-                                    padding: EdgeInsets.all(16.w),
+                                    padding: EdgeInsets.all(16.r),
                                     decoration: BoxDecoration(
                                       color: context
                                               .watch<AppThemeCubit>()
@@ -244,7 +246,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                       child: Container(
                                         height: 60.h,
                                         width: double.infinity,
-                                        padding: EdgeInsets.all(16.w),
+                                        padding: EdgeInsets.all(16.r),
                                         decoration: BoxDecoration(
                                           color: context
                                                   .watch<AppThemeCubit>()
@@ -299,53 +301,105 @@ class _CustomContainerState extends State<CustomContainer> {
                   children: [
                     Flexible(
                       child: Padding(
-                        padding: EdgeInsets.only(top: 8.0.r),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                        padding: EdgeInsets.only(top: 8.0.h),
+                        child: Column(
                           children: [
-                            MyText(
-                              title: tr(context, "availableBalance"),
-                              color: MyColors.white,
-                              size: 12.sp,
-                              fontWeight: FontWeight.w700,
-                              alien: TextAlign.end,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                MyText(
+                                  title: tr(context, "availableBalance"),
+                                  color: MyColors.white,
+                                  size: 12.sp,
+                                  fontWeight: FontWeight.w700,
+                                  alien: TextAlign.end,
+                                ),
+                                SizedBox(
+                                  width: 15.w,
+                                ),
+                                Visibility(
+                                  visible: !widget.model.isHide!,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      MyText(
+                                          alien: TextAlign.end,
+                                          title: widget.model.checkedValue == false
+                                              ? widget.model.balance
+                                                  .toString()
+                                                  .formatToDecimal(context: context)
+                                              : widget.model.totalBalance
+                                                  .toString()
+                                                  .formatToDecimal(
+                                                      context: context),
+                                          color: MyColors.white,
+                                          size: 22.sp),
+                                      SizedBox(
+                                        width: 5.w,
+                                      ),
+                                      Text(
+                                        widget.model.checkedValue == false
+                                            ? widget.model.currency
+                                            : context
+                                                    .read<WalletCubit>()
+                                                    .currencyData[0]
+                                                    .mainCurrency ??
+                                                "",
+                                        style: TextStyle(
+                                            color: MyColors.white,
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                            SizedBox(
-                              width: 15.w,
-                            ),
-                            Visibility(
-                              visible: !widget.model.isHide!,
+                            Flexible(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   MyText(
-                                      alien: TextAlign.end,
-                                      title: widget.model.checkedValue == false
-                                          ? widget.model.balance
-                                              .toString()
-                                              .formatToDecimal(context: context)
-                                          : widget.model.totalBalance
-                                              .toString()
-                                              .formatToDecimal(
-                                                  context: context),
-                                      color: MyColors.white,
-                                      size: 22.sp),
-                                  SizedBox(
-                                    width: 5.w,
+                                    title: "رصيد المحفظة",
+                                    color: MyColors.white,
+                                    size: 12.sp,
+                                    fontWeight: FontWeight.w700,
+                                    alien: TextAlign.end,
                                   ),
-                                  Text(
-                                    widget.model.checkedValue == false
-                                        ? widget.model.currency
-                                        : context
-                                                .read<WalletCubit>()
-                                                .currencyData[0]
-                                                .mainCurrency ??
-                                            "",
-                                    style: TextStyle(
-                                        color: MyColors.white,
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w500),
+                                  SizedBox(
+                                    width: 15.w,
+                                  ),
+                                  Visibility(
+                                    visible: !widget.model.isHide!,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        MyText(
+                                            alien: TextAlign.end,
+                                            title: widget.model.notificationBalance.toString().formatToDecimal(context: context),
+                                            color: MyColors.white,
+                                            decoration: TextDecoration.lineThrough,
+                                            size: 22.sp),
+                                        SizedBox(
+                                          width: 5.w,
+                                        ),
+                                        Text(
+                                          widget.model.checkedValue == false
+                                              ? widget.model.currency
+                                              : context
+                                                      .read<WalletCubit>()
+                                                      .currencyData[0]
+                                                      .mainCurrency ??
+                                                  "",
+                                          style: TextStyle(
+                                              color: MyColors.white,
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -422,14 +476,23 @@ class _CustomContainerState extends State<CustomContainer> {
                             child: Column(
                               children: [
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async{
+
+                                    final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
+                                    var boxItems = box.values.cast<AddTransactionModel>().toList();
+                                    for (var item in boxItems) {
+                                      if(item.incomeSource?.key == widget.model.key){
+                                        box.delete(item.key);
+                                      }
+                                    }
+
                                     widget.model.delete();
                                     BlocProvider.of<WalletCubit>(context)
                                         .fetchAllData();
                                     AutoRouter.of(context).pop();
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.all(8.w),
+                                    padding: EdgeInsets.all(8.r),
                                     decoration: BoxDecoration(
                                       color: context
                                               .watch<AppThemeCubit>()
@@ -474,7 +537,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                     }
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.all(8.w),
+                                    padding: EdgeInsets.all(8.r),
                                     decoration: BoxDecoration(
                                       color: context
                                               .watch<AppThemeCubit>()

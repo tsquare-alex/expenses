@@ -159,28 +159,44 @@ Future<pw.Document> generateAndSaveStatsTablePDF({
                                             transaction.transactionType!.name!),
                                   ),
                                   statsPdfTableRowCell(
-                                    title: tr(
+                                    title: transaction.transactionContent !=
+                                            null
+                                        ? tr(
+                                                    context,
+                                                    transaction
+                                                        .transactionContent!
+                                                        .name!)
+                                                .isEmpty
+                                            ? transaction
+                                                .transactionContent?.name
+                                            : tr(
                                                 context,
                                                 transaction
-                                                    .transactionContent!.name!)
-                                            .isEmpty
-                                        ? transaction.transactionContent?.name
+                                                    .transactionType!.name!)
                                         : tr(
-                                            context,
-                                            transaction
-                                                .transactionContent!.name!),
+                                                    context,
+                                                    transaction
+                                                        .transactionType!.name!)
+                                                .isEmpty
+                                            ? transaction.transactionType?.name
+                                            : tr(
+                                                context,
+                                                transaction
+                                                    .transactionType!.name!),
                                   ),
                                   statsPdfTableRowCell(
                                     title:
                                         '${transaction.transactionDate}\n${transaction.time!}',
                                   ),
                                   statsPdfTableRowCell(
-                                    title:
-                                        tr(context, transaction.priority!.name!)
+                                    title: transaction.priority != null
+                                        ? tr(context,
+                                                    transaction.priority!.name!)
                                                 .isEmpty
                                             ? transaction.priority?.name
                                             : tr(context,
-                                                transaction.priority!.name!),
+                                                transaction.priority!.name!)
+                                        : tr(context, 'nothing'),
                                   ),
                                   statsPdfTableRowCell(
                                     title: tr(
@@ -218,28 +234,44 @@ Future<pw.Document> generateAndSaveStatsTablePDF({
                                             transaction.transactionType!.name!),
                                   ),
                                   statsPdfTableRowCell(
-                                    title: tr(
+                                    title: transaction.transactionContent !=
+                                            null
+                                        ? tr(
+                                                    context,
+                                                    transaction
+                                                        .transactionContent!
+                                                        .name!)
+                                                .isEmpty
+                                            ? transaction
+                                                .transactionContent?.name
+                                            : tr(
                                                 context,
                                                 transaction
-                                                    .transactionContent!.name!)
-                                            .isEmpty
-                                        ? transaction.transactionContent?.name
+                                                    .transactionType!.name!)
                                         : tr(
-                                            context,
-                                            transaction
-                                                .transactionContent!.name!),
+                                                    context,
+                                                    transaction
+                                                        .transactionType!.name!)
+                                                .isEmpty
+                                            ? transaction.transactionType?.name
+                                            : tr(
+                                                context,
+                                                transaction
+                                                    .transactionType!.name!),
                                   ),
                                   statsPdfTableRowCell(
                                     title:
                                         '${transaction.transactionDate}\n${transaction.time!}',
                                   ),
                                   statsPdfTableRowCell(
-                                    title:
-                                        tr(context, transaction.priority!.name!)
+                                    title: transaction.priority != null
+                                        ? tr(context,
+                                                    transaction.priority!.name!)
                                                 .isEmpty
                                             ? transaction.priority?.name
                                             : tr(context,
-                                                transaction.priority!.name!),
+                                                transaction.priority!.name!)
+                                        : tr(context, 'nothing'),
                                   ),
                                   statsPdfTableRowCell(
                                     title: tr(

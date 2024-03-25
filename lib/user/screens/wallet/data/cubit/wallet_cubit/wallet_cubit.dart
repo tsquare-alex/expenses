@@ -30,6 +30,7 @@ class WalletCubit extends Cubit<WalletState> {
   bool? isLocked = true;
   bool checkedValue = false;
   bool checkFavorite = false;
+
   ValueNotifier<int> selectedCategoryIndex = ValueNotifier<int>(0);
   final TextEditingController walletNameController = TextEditingController();
   final TextEditingController balanceController = TextEditingController();

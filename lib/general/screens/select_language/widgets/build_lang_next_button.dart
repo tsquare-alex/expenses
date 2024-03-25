@@ -6,7 +6,7 @@ class BuildLangNextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultButton(
-      onTap: ()=>AutoRouter.of(context).push(const SelectCountryRoute()),
+      onTap: ()=>AutoRouter.of(context).push(SelectCountryRoute(fromSetting: false)),
       title: tr(context, "next"),
       fontWeight: FontWeight.bold,
       fontSize: 14.sp,

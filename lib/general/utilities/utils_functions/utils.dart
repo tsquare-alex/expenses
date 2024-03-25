@@ -570,13 +570,17 @@ class Utils {
       print("myCounter $myCounter");
 
       print("item.repeated ${item.repeatWallet}");
-      if (item.repeatWallet!.isNotEmpty) {
-        print("object4");
-        for (int i = 0; i < myCounter; i++) {
-          WalletModel newModel = WalletModel(
-            id: item.id+Uuid().v4(),
+      if(!date.isAfter(now)){
+        if (item.repeatWallet!.isNotEmpty) {
+          print("object4");
+          var box = await Hive.openBox<WalletModel>(walletDatabaseBox);
+          var walletList = box.values.toList();
+          int index = walletList.indexWhere((element) => element.id==item.id);
+          double incrementBalance = item.notificationBalance!*myCounter;
+          var targetModel = WalletModel(
+            id: item.id,
             addNote: item.addNote,
-            balance: item.balance,
+            balance: item.balance+incrementBalance,
             category: item.category,
             currency: item.currency,
             currencyValue: item.currencyValue,
@@ -586,53 +590,24 @@ class Utils {
             encomeSource: item.encomeSource,
             checkedValue: item.checkedValue,
             iconPath: item.iconPath,
-            walletRepate: i == myCounter - 1 ? item.walletRepate : false,
+            walletRepate: item.walletRepate,
             isClosed: item.isClosed,
             isFavorite: item.isFavorite,
             notification: item.notification,
-            totalBalance: item.totalBalance,
+            totalBalance: item.totalBalance!+incrementBalance,
             isHide: item.isHide,
             paymentMethod: item.paymentMethod,
-            repeatWallet: i == myCounter - 1 ? item.repeatWallet : "",
-            notificationBalance: item.notificationBalance,
+            repeatWallet: item.repeatWallet,
             model: item.model,
-            remainBalance: item.remainBalance,
-            remainTotalBalance: item.remainBalance,
+            remainBalance: item.remainBalance!+incrementBalance,
+            remainTotalBalance: item.remainTotalBalance!+incrementBalance,
             closedDate: item.closedDate,
+            notificationBalance: item.notificationBalance,
             openDate: DateFormat("dd/MM/yyyy", "en").format(DateTime.now()),
           );
-          var targetModel = WalletModel(
-              id: item.id,
-              addNote: item.addNote,
-              balance: item.balance,
-              category: item.category,
-              currency: item.currency,
-              currencyValue: item.currencyValue,
-              name: item.name,
-              valueCategory: item.valueCategory,
-              currancyChange: item.currancyChange,
-              encomeSource: item.encomeSource,
-              checkedValue: item.checkedValue,
-              iconPath: item.iconPath,
-              walletRepate: false,
-              isClosed: item.isClosed,
-              isFavorite: item.isFavorite,
-              notification: item.notification,
-              totalBalance: item.totalBalance,
-              isHide: item.isHide,
-              paymentMethod: item.paymentMethod,
-              repeatWallet: "",
-              model: item.model,
-              remainBalance: item.remainBalance,
-              remainTotalBalance: item.remainBalance,
-              closedDate: item.closedDate,
-              openDate: item.openDate);
           print("item.key${item.key}");
-          box.put(item.key.toString(), targetModel);
-
-          box.add(newModel);
+          box.put(item.key,targetModel);
         }
-        box.delete(item.key);
       }
     }
   }

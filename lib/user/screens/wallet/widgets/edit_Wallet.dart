@@ -4,6 +4,7 @@ import 'package:expenses/general/packages/input_fields/GenericTextField.dart';
 import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
+import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/utilities/utils_functions/decimal_format.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
@@ -16,6 +17,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 class EditWallet extends StatefulWidget {
   final WalletModel model;
@@ -70,6 +72,7 @@ class _EditWalletState extends State<EditWallet> {
 
     noteController.text = widget.model.addNote;
     repatedWalletController.text = widget.model.repeatWallet!;
+    print("repatedWalletController.text: ${repatedWalletController.text}");
     print(widget.model.repeatWallet! + """""" """""" """""" """""" "");
     isRepated = widget.model.walletRepate!;
     print(widget.model.walletRepate);
@@ -623,7 +626,14 @@ class _EditWalletState extends State<EditWallet> {
                                   Expanded(
                                     child: GenericTextField(
                                       onTab: () {
-                                        closeDate(context);
+                                        if (openDateController.text.isNotEmpty) {
+                                          closeDate(context);
+                                        } else {
+                                          CustomToast.showSimpleToast(
+                                            msg: tr(context, "selectStartDate"),
+                                            color: Colors.red,
+                                          );
+                                        }
                                       },
                                       contentPadding: EdgeInsets.symmetric(
                                           horizontal: 20.w, vertical: 10.h),
@@ -954,7 +964,7 @@ class _EditWalletState extends State<EditWallet> {
                             //         currencyValue);
                             widget.model.valueCategory =
                                 valueCategoryController.text;
-
+                            widget.model.repeatWallet = repatedWalletController.text.isNotEmpty?repatedWalletController.text:widget.model.repeatWallet;
                             widget.model.checkedValue = currency.text.isEmpty ||
                                     selectMainCurrency == mainCurrency
                                 ? false
@@ -1004,8 +1014,6 @@ class _EditWalletState extends State<EditWallet> {
                                 selectMainCurrency == mainCurrency
                                     ? false
                                     : isConverted;
-                            widget.model.notificationBalance = double.parse(
-                                ballanceController.text.replaceAll(',', ''));
                             widget.model.save();
 
                             AutoRouter.of(context).pop();
@@ -1035,7 +1043,8 @@ class _EditWalletState extends State<EditWallet> {
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
-        openDateController.text = selectedDate.toString();
+        openDateController.text =
+            DateFormat("dd/MM/yyyy", "en").format(selectedDate!);
       });
     }
   }
@@ -1043,15 +1052,20 @@ class _EditWalletState extends State<EditWallet> {
   Future<void> closeDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: closedDate ?? DateTime.now(),
-      firstDate: DateTime(2000),
+      initialDate: openDateController.text.isNotEmpty
+          ? DateFormat("dd/MM/yyyy", "en").parse(openDateController.text)
+          : closedDate ?? DateTime.now(),
+      firstDate: openDateController.text.isNotEmpty
+          ? DateFormat("dd/MM/yyyy", "en").parse(openDateController.text)
+          : closedDate ?? DateTime.now(),
       lastDate: DateTime(2101),
     );
 
     if (picked != null && picked != closedDate) {
       setState(() {
         closedDate = picked;
-        closeDateController.text = closedDate.toString();
+        closeDateController.text =
+            DateFormat("dd/MM/yyyy", "en").format(closedDate!);
       });
     }
   }

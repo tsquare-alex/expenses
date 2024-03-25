@@ -356,54 +356,54 @@ class _CustomContainerState extends State<CustomContainer> {
                                 ),
                               ],
                             ),
-                            Flexible(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  MyText(
-                                    title: "رصيد المحفظة",
-                                    color: MyColors.white,
-                                    size: 12.sp,
-                                    fontWeight: FontWeight.w700,
-                                    alien: TextAlign.end,
-                                  ),
-                                  SizedBox(
-                                    width: 15.w,
-                                  ),
-                                  Visibility(
-                                    visible: !widget.model.isHide!,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        MyText(
-                                            alien: TextAlign.end,
-                                            title: widget.model.notificationBalance.toString().formatToDecimal(context: context),
-                                            color: MyColors.white,
-                                            decoration: TextDecoration.lineThrough,
-                                            size: 22.sp),
-                                        SizedBox(
-                                          width: 5.w,
-                                        ),
-                                        Text(
-                                          widget.model.checkedValue == false
-                                              ? widget.model.currency
-                                              : context
-                                                      .read<WalletCubit>()
-                                                      .currencyData[0]
-                                                      .mainCurrency ??
-                                                  "",
-                                          style: TextStyle(
-                                              color: MyColors.white,
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            // Flexible(
+                            //   child: Row(
+                            //     mainAxisAlignment: MainAxisAlignment.end,
+                            //     children: [
+                            //       MyText(
+                            //         title: "رصيد المحفظة",
+                            //         color: MyColors.white,
+                            //         size: 12.sp,
+                            //         fontWeight: FontWeight.w700,
+                            //         alien: TextAlign.end,
+                            //       ),
+                            //       SizedBox(
+                            //         width: 15.w,
+                            //       ),
+                            //       Visibility(
+                            //         visible: !widget.model.isHide!,
+                            //         child: Row(
+                            //           mainAxisAlignment: MainAxisAlignment.end,
+                            //           crossAxisAlignment: CrossAxisAlignment.end,
+                            //           children: [
+                            //             MyText(
+                            //                 alien: TextAlign.end,
+                            //                 title: widget.model.notificationBalance.toString().formatToDecimal(context: context),
+                            //                 color: MyColors.white,
+                            //                 decoration: TextDecoration.lineThrough,
+                            //                 size: 22.sp),
+                            //             SizedBox(
+                            //               width: 5.w,
+                            //             ),
+                            //             Text(
+                            //               widget.model.checkedValue == false
+                            //                   ? widget.model.currency
+                            //                   : context
+                            //                           .read<WalletCubit>()
+                            //                           .currencyData[0]
+                            //                           .mainCurrency ??
+                            //                       "",
+                            //               style: TextStyle(
+                            //                   color: MyColors.white,
+                            //                   fontSize: 16.sp,
+                            //                   fontWeight: FontWeight.w500),
+                            //             ),
+                            //           ],
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),

@@ -5,6 +5,7 @@ import 'package:expenses/general/packages/localization/Localizations.dart';
 import 'package:expenses/general/themes/app_colors.dart';
 import 'package:expenses/general/themes/cubit/app_theme_cubit.dart';
 import 'package:expenses/general/utilities/routers/RouterImports.gr.dart';
+import 'package:expenses/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:expenses/general/widgets/DefaultButton.dart';
 import 'package:expenses/general/widgets/MyText.dart';
 import 'package:expenses/user/screens/settings/widgets/settings_widgets_imports.dart';
@@ -612,7 +613,14 @@ class _AddWalletState extends State<AddWallet> {
                                       Expanded(
                                         child: GenericTextField(
                                           onTab: () {
-                                            closeDate(context);
+                                            if (context.read<WalletCubit>().openDateController.text.isNotEmpty) {
+                                              closeDate(context);
+                                            } else {
+                                              CustomToast.showSimpleToast(
+                                                msg: tr(context, "selectStartDate"),
+                                                color: Colors.red,
+                                              );
+                                            }
                                           },
                                           contentPadding:
                                               const EdgeInsets.symmetric(
@@ -1049,8 +1057,12 @@ class _AddWalletState extends State<AddWallet> {
   Future<void> closeDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: closedDate ?? DateTime.now(),
-      firstDate: DateTime(2000),
+      initialDate: context.read<WalletCubit>().openDateController.text.isNotEmpty
+          ? DateFormat("dd/MM/yyyy", "en").parse(context.read<WalletCubit>().openDateController.text)
+          : closedDate ?? DateTime.now(),
+      firstDate: context.read<WalletCubit>().openDateController.text.isNotEmpty
+          ? DateFormat("dd/MM/yyyy", "en").parse(context.read<WalletCubit>().openDateController.text)
+          : closedDate ?? DateTime.now(),
       lastDate: DateTime(2101),
     );
 

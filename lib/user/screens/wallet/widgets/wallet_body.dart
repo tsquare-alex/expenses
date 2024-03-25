@@ -124,16 +124,16 @@ class _WalletBodyState extends State<WalletBody> {
                       ),
                     ),
                     Expanded(
-                      child: ListView.builder(
+                      child: ListView.separated(
+                          separatorBuilder: (context, index) =>
+                              SizedBox(height: 16.h),
                           itemCount: wallet.length,
                           physics: const BouncingScrollPhysics(),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 12.r, horizontal: 16.r),
                           itemBuilder: (context, index) {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 12.r, horizontal: 16.r),
-                              child: CustomContainer(
-                                model: wallet[index],
-                              ),
+                            return CustomContainer(
+                              model: wallet[index],
                             );
                           }),
                     ),

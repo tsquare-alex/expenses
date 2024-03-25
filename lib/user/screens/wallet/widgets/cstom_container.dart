@@ -42,12 +42,14 @@ class _CustomContainerState extends State<CustomContainer> {
     currentDate.isAfter(context.read<WalletCubit>().endDate);
     var currencyList = context.read<WalletCubit>().currencyBox.values.toList();
     return Container(
-      padding: EdgeInsets.all(12.r),
-      height: 230.h,
+      padding: EdgeInsets.all(4.r),
+      height: 180.h,
       width: 414.w,
       decoration: BoxDecoration(
-        image:
-            const DecorationImage(image: AssetImage(Res.contanier_background)),
+        image: const DecorationImage(
+          image: AssetImage(Res.contanier_background),
+          fit: BoxFit.fill,
+        ),
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Padding(
@@ -325,14 +327,16 @@ class _CustomContainerState extends State<CustomContainer> {
                                     children: [
                                       MyText(
                                           alien: TextAlign.end,
-                                          title: widget.model.checkedValue == false
-                                              ? widget.model.balance
-                                                  .toString()
-                                                  .formatToDecimal(context: context)
-                                              : widget.model.totalBalance
-                                                  .toString()
-                                                  .formatToDecimal(
-                                                      context: context),
+                                          title:
+                                              widget.model.checkedValue == false
+                                                  ? widget.model.balance
+                                                      .toString()
+                                                      .formatToDecimal(
+                                                          context: context)
+                                                  : widget.model.totalBalance
+                                                      .toString()
+                                                      .formatToDecimal(
+                                                          context: context),
                                           color: MyColors.white,
                                           size: 22.sp),
                                       SizedBox(
@@ -476,12 +480,16 @@ class _CustomContainerState extends State<CustomContainer> {
                             child: Column(
                               children: [
                                 InkWell(
-                                  onTap: () async{
-
-                                    final box = await Hive.openBox<AddTransactionModel>("addTransactionBox");
-                                    var boxItems = box.values.cast<AddTransactionModel>().toList();
+                                  onTap: () async {
+                                    final box =
+                                        await Hive.openBox<AddTransactionModel>(
+                                            "addTransactionBox");
+                                    var boxItems = box.values
+                                        .cast<AddTransactionModel>()
+                                        .toList();
                                     for (var item in boxItems) {
-                                      if(item.incomeSource?.key == widget.model.key){
+                                      if (item.incomeSource?.key ==
+                                          widget.model.key) {
                                         box.delete(item.key);
                                       }
                                     }

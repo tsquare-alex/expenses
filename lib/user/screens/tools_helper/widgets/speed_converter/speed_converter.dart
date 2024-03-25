@@ -26,18 +26,28 @@ class _SpeedConverterScreenState extends State<SpeedConverterScreen> {
       double? convertedValue = convertSpeed(inputValue, fromUnit, toUnit);
       if (convertedValue != null) {
         setState(() {
-          result = '${tr(context, "result")} $convertedValue $toUnit';
+          result = '${tr(context, "result")}: $convertedValue ${speedUnitTranslations(context)[toUnit]}';
         });
       } else {
         setState(() {
-          result = 'Invalid conversion';
+          result = tr(context, 'invalidConversion');
         });
       }
     } catch (e) {
       setState(() {
-        result = 'Invalid input';
+        result = tr(context, 'invalidInput');
       });
     }
+  }
+
+  Map<String, String> speedUnitTranslations(BuildContext context) {
+    return {
+      'm/s': tr(context, 'speed_unit_m_s'),
+      'km/h': tr(context, 'speed_unit_km_h'),
+      'ft/s': tr(context, 'speed_unit_ft_s'),
+      'mi/h': tr(context, 'speed_unit_mi_h'),
+      'kn': tr(context, 'speed_unit_kn'),
+    };
   }
 
   double? convertSpeed(double value, String fromUnit, String toUnit) {
@@ -60,19 +70,16 @@ class _SpeedConverterScreenState extends State<SpeedConverterScreen> {
           onTap: () => AutoRouter.of(context).pop(),
           child: Icon(
             Icons.arrow_back,
-            color: context.watch<AppThemeCubit>().isDarkMode
-                ? MyColors.white
-                : MyColors.black,
+            color: context.watch<AppThemeCubit>().isDarkMode ? MyColors.white : MyColors.black,
           ),
         ),
-        backgroundColor: context.watch<AppThemeCubit>().isDarkMode
-            ? AppDarkColors.backgroundColor
-            :MyColors.white,
-        title:MyText(title: tr(context, "convertSpeed"),
-          color:context.watch<AppThemeCubit>().isDarkMode
-              ? MyColors.white
-              :MyColors.black,
-          size: 18.sp,fontWeight: FontWeight.bold,),
+        backgroundColor: context.watch<AppThemeCubit>().isDarkMode ? AppDarkColors.backgroundColor : MyColors.white,
+        title: MyText(
+          title: tr(context, "convertSpeed"),
+          color: context.watch<AppThemeCubit>().isDarkMode ? MyColors.white : MyColors.black,
+          size: 18.sp,
+          fontWeight: FontWeight.bold,
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -93,16 +100,10 @@ class _SpeedConverterScreenState extends State<SpeedConverterScreen> {
             SizedBox(height: 16.0),
             DropdownButton<String>(
               value: fromUnit,
-              items: [
-                'm/s',
-                'km/h',
-                'ft/s',
-                'mi/h',
-                'kn',
-              ].map((String value) {
+              items: speedUnitTranslations(context).keys.map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text(speedUnitTranslations(context)[value]!),
                 );
               }).toList(),
               onChanged: (String? newValue) {
@@ -116,16 +117,10 @@ class _SpeedConverterScreenState extends State<SpeedConverterScreen> {
             SizedBox(height: 16.0),
             DropdownButton<String>(
               value: toUnit,
-              items: [
-                'm/s',
-                'km/h',
-                'ft/s',
-                'mi/h',
-                'kn',
-              ].map((String value) {
+              items: speedUnitTranslations(context).keys.map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text(speedUnitTranslations(context)[value]!),
                 );
               }).toList(),
               onChanged: (String? newValue) {
@@ -138,20 +133,19 @@ class _SpeedConverterScreenState extends State<SpeedConverterScreen> {
             ),
             SizedBox(height: 32.0),
             DefaultButton(
-              color:  context.watch<AppThemeCubit>().isDarkMode
-                  ? AppDarkColors.primary
-                  : MyColors.primary,
+              color: context.watch<AppThemeCubit>().isDarkMode ? AppDarkColors.primary : MyColors.primary,
               fontSize: 20,
               fontWeight: FontWeight.bold,
               title: '${tr(context, "calculate")}',
               onTap: _performConversion,
             ),
             SizedBox(height: 16.0),
-            MyText(title: result,
-              color:context.watch<AppThemeCubit>().isDarkMode
-                  ? MyColors.white
-                  :MyColors.black,
-              size: 20.sp,alien: TextAlign.center,)
+            MyText(
+              title: result,
+              color: context.watch<AppThemeCubit>().isDarkMode ? MyColors.white : MyColors.black,
+              size: 20.sp,
+              alien: TextAlign.center,
+            )
           ],
         ),
       ),

@@ -26,18 +26,36 @@ class _AreaConverterScreenState extends State<AreaConverterScreen> {
       double? convertedValue = convertArea(inputValue, fromUnit, toUnit);
       if (convertedValue != null) {
         setState(() {
-          result = '${tr(context, "result")} $convertedValue $toUnit';
+          result = '${tr(context, "result")}: $convertedValue ${areaUnitTranslations(context)[toUnit]}';
         });
       } else {
         setState(() {
-          result = 'Invalid conversion';
+          result = tr(context, 'invalidConversion');
         });
       }
     } catch (e) {
       setState(() {
-        result = 'Invalid input';
+        result = tr(context, 'invalidInput');
       });
     }
+  }
+
+  Map<String, String> areaUnitTranslations(BuildContext context) {
+    return {
+      'm2': tr(context, 'square_meter'),
+      'dm2': tr(context, 'square_decimeter'),
+      'cm2': tr(context, 'square_centimeter'),
+      'mm2': tr(context, 'square_millimeter'),
+      'µm2': tr(context, 'square_micrometer'),
+      'dam2': tr(context, 'square_decameter'),
+      'hm2': tr(context, 'square_hectometer'),
+      'km2': tr(context, 'square_kilometer'),
+      'Mm2': tr(context, 'square_megameter'),
+      'in2': tr(context, 'square_inch'),
+      'ft2': tr(context, 'square_foot'),
+      'mi2': tr(context, 'square_mile'),
+      'ac': tr(context, 'acre'),
+    };
   }
 
   double? convertArea(double value, String fromUnit, String toUnit) {
@@ -73,13 +91,17 @@ class _AreaConverterScreenState extends State<AreaConverterScreen> {
                 : MyColors.black,
           ),
         ),
-
         backgroundColor: context.watch<AppThemeCubit>().isDarkMode
             ? AppDarkColors.backgroundColor
-            :MyColors.white,
-        title:MyText(title: tr(context, "convertArea"),  color:context.watch<AppThemeCubit>().isDarkMode
-            ? MyColors.white
-            :MyColors.black, size: 18.sp,fontWeight: FontWeight.bold,),
+            : MyColors.white,
+        title: MyText(
+          title: tr(context, "convertArea"),
+          color: context.watch<AppThemeCubit>().isDarkMode
+              ? MyColors.white
+              : MyColors.black,
+          size: 18.sp,
+          fontWeight: FontWeight.bold,
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -100,24 +122,10 @@ class _AreaConverterScreenState extends State<AreaConverterScreen> {
             SizedBox(height: 16.0),
             DropdownButton<String>(
               value: fromUnit,
-              items: [
-                'm2',
-                'dm2',
-                'cm2',
-                'mm2',
-                'µm2',
-                'dam2',
-                'hm2',
-                'km2',
-                'Mm2',
-                'in2',
-                'ft2',
-                'mi2',
-                'ac',
-              ].map((String value) {
+              items: areaUnitTranslations(context).keys.map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text(areaUnitTranslations(context)[value]!),
                 );
               }).toList(),
               onChanged: (String? newValue) {
@@ -131,24 +139,10 @@ class _AreaConverterScreenState extends State<AreaConverterScreen> {
             SizedBox(height: 16.0),
             DropdownButton<String>(
               value: toUnit,
-              items: [
-                'm2',
-                'dm2',
-                'cm2',
-                'mm2',
-                'µm2',
-                'dam2',
-                'hm2',
-                'km2',
-                'Mm2',
-                'in2',
-                'ft2',
-                'mi2',
-                'ac',
-              ].map((String value) {
+              items: areaUnitTranslations(context).keys.map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text(areaUnitTranslations(context)[value]!),
                 );
               }).toList(),
               onChanged: (String? newValue) {
@@ -161,7 +155,7 @@ class _AreaConverterScreenState extends State<AreaConverterScreen> {
             ),
             SizedBox(height: 32.0),
             DefaultButton(
-              color:  context.watch<AppThemeCubit>().isDarkMode
+              color: context.watch<AppThemeCubit>().isDarkMode
                   ? AppDarkColors.primary
                   : MyColors.primary,
               fontSize: 20,
@@ -170,7 +164,12 @@ class _AreaConverterScreenState extends State<AreaConverterScreen> {
               onTap: _performConversion,
             ),
             SizedBox(height: 16.0),
-            MyText(title: result, color: MyColors.black, size: 20.sp,alien: TextAlign.center,)
+            MyText(
+              title: result,
+              color: MyColors.black,
+              size: 20.sp,
+              alien: TextAlign.center,
+            )
           ],
         ),
       ),

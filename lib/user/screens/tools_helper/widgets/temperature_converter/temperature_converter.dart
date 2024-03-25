@@ -21,24 +21,52 @@ class _TemperatureConverterScreenState extends State<TemperatureConverterScreen>
   String toUnit = 'F';
   String result = '';
 
+  // void _performConversion() {
+  //   try {
+  //     double? convertedValue = convertTemperature(inputValue, fromUnit, toUnit);
+  //     if (convertedValue != null) {
+  //       setState(() {
+  //         result = '${tr(context, "result")} $convertedValue $toUnit';
+  //       });
+  //     } else {
+  //       setState(() {
+  //         result = 'Invalid conversion';
+  //       });
+  //     }
+  //   } catch (e) {
+  //     setState(() {
+  //       result = 'Invalid input';
+  //     });
+  //   }
+  // }
   void _performConversion() {
     try {
       double? convertedValue = convertTemperature(inputValue, fromUnit, toUnit);
       if (convertedValue != null) {
         setState(() {
-          result = '${tr(context, "result")} $convertedValue $toUnit';
+          result = '${tr(context, "result")}: $convertedValue ${temperatureUnitTranslations(context)[toUnit]}';
         });
       } else {
         setState(() {
-          result = 'Invalid conversion';
+          result = tr(context, 'invalidConversion');
         });
       }
     } catch (e) {
       setState(() {
-        result = 'Invalid input';
+        result = tr(context, 'invalidInput');
       });
     }
   }
+
+  Map<String, String> temperatureUnitTranslations(BuildContext context) {
+    return {
+      'K': tr(context, 'K'),
+      'C': tr(context, 'C'),
+      'F': tr(context, 'F'),
+      'R': tr(context, 'R'),
+    };
+  }
+
 
   double? convertTemperature(double value, String fromUnit, String toUnit) {
     switch (fromUnit) {
@@ -138,7 +166,7 @@ class _TemperatureConverterScreenState extends State<TemperatureConverterScreen>
               items: ['K', 'C', 'F', 'R'].map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text(tr(context, value)),
                 );
               }).toList(),
               onChanged: (String? newValue) {
@@ -149,13 +177,14 @@ class _TemperatureConverterScreenState extends State<TemperatureConverterScreen>
                 }
               },
             ),
+
             SizedBox(height: 16.0),
             DropdownButton<String>(
               value: toUnit,
               items: ['K', 'C', 'F', 'R'].map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text(tr(context, value)),
                 );
               }).toList(),
               onChanged: (String? newValue) {

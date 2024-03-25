@@ -571,7 +571,7 @@ class Utils {
 
       print("item.repeated ${item.repeatWallet}");
       if(!date.isAfter(now)){
-        if (item.repeatWallet!.isNotEmpty) {
+        if (item.walletRepate == true) {
           print("object4");
           var box = await Hive.openBox<WalletModel>(walletDatabaseBox);
           var walletList = box.values.toList();

@@ -288,9 +288,10 @@ class ReportsCubit extends Cubit<ReportsState> {
 
   Set<String> getTransactionsCategories() {
     Set<String> transactionsCategories = {};
-    for (var transaction in reportFilteredTransactions.isEmpty
-        ? transactions
-        : reportFilteredTransactions) {
+    for (var transaction
+        in (reportFilteredTransactions.isEmpty && selectedWallet.isEmpty)
+            ? transactions
+            : reportFilteredTransactions) {
       transactionsCategories.add(transaction.transactionType!.name!);
     }
     return transactionsCategories;

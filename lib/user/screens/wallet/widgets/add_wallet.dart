@@ -60,6 +60,7 @@ class _AddWalletState extends State<AddWallet> {
   String? selectMainCurrency;
   bool isFirstValidationError = false;
   bool isSecondValidationError = false;
+  bool isThirdValidationError = false;
 
   @override
   Widget build(BuildContext context) {
@@ -83,12 +84,7 @@ class _AddWalletState extends State<AddWallet> {
                   .map((currencyData) => currencyData.mainCurrency)
                   .first
                   .toString();
-              String subCurrency = context
-                  .read<WalletCubit>()
-                  .currencyData
-                  .map((currencyData) => currencyData.subCurrency)
-                  .first
-                  .toString();
+
               double currencyValue = double.parse(
                 context
                     .read<WalletCubit>()
@@ -507,39 +503,59 @@ class _AddWalletState extends State<AddWallet> {
                                           .text
                                       : tr(context, "selectCurrency")),
                                   children: [
-                                    context
-                                        .read<WalletCubit>()
-                                        .buildCurrencyList(
-                                          currencyList: mainCurrency,
-                                          selectedCurrency:
-                                              selectMainCurrency ?? "",
-                                          onCurrencySelected: (value) {
-                                            setState(() {
-                                              selectMainCurrency = value;
-                                              context
-                                                  .read<WalletCubit>()
-                                                  .currencyController
-                                                  .text = value ?? "";
-                                              currencyController.collapse();
-                                            });
-                                          },
-                                        ),
-                                    context
-                                        .read<WalletCubit>()
-                                        .buildCurrencyList(
-                                            currencyList: subCurrency,
-                                            selectedCurrency:
-                                                selectMainCurrency ?? "",
-                                            onCurrencySelected: (value) {
-                                              setState(() {
-                                                selectMainCurrency = value;
-                                                context
-                                                    .read<WalletCubit>()
-                                                    .currencyController
-                                                    .text = value ?? "";
-                                                currencyController.collapse();
-                                              });
-                                            })
+                                    Column(
+                                      children: [
+                                        for (String item in context
+                                            .read<WalletCubit>()
+                                            .currencyList)
+                                          Column(
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    selectMainCurrency = item;
+                                                    context
+                                                        .read<WalletCubit>()
+                                                        .currencyController
+                                                        .text = item.toString();
+                                                    isThirdValidationError = false;
+                                                    currencyController.collapse();
+                                                  });
+                                                },
+                                                child: ListTile(
+                                                  contentPadding: EdgeInsets.symmetric(horizontal: 16.0.r),
+                                                  title: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Text(item),
+                                                      Radio<String>(
+                                                        activeColor: MyColors.primary,
+                                                        value: item,
+                                                        groupValue: selectMainCurrency ?? "",
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            selectMainCurrency = value;
+                                                            context
+                                                                .read<WalletCubit>()
+                                                                .currencyController
+                                                                .text = value ?? "";
+                                                            currencyController.collapse();
+                                                          });
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Divider(
+                                                height: 1,
+                                                thickness: 2,
+                                                color: MyColors.semiTransparentColor,
+                                              ),
+                                            ],
+                                          ),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               )

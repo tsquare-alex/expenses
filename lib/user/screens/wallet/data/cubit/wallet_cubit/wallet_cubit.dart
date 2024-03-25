@@ -489,11 +489,14 @@ class WalletCubit extends Cubit<WalletState> {
   }
 
   late List<CurrencyModel> currencyData;
+  List<String> currencyList=[];
 
   Future<void> fetchCurrencyData(contex) async {
     var box = Hive.box<CurrencyModel>("currencyBox");
     List<CurrencyModel> data = box.values.toList();
     currencyData = data;
+    currencyList.add(currencyData[0].mainCurrency!);
+    currencyList.add(currencyData[0].subCurrency!);
   }
 
   Future<void> getCurrencyData(context) async {

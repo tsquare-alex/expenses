@@ -24,7 +24,7 @@ class BuildRegisterFields extends StatelessWidget {
                 return 'Enter your Name';
               }
             },
-            label: "الاسم",
+            label: tr(context, "name"),
             margin: const EdgeInsets.symmetric(vertical: 10),
           ),
           GenericTextField(
@@ -38,7 +38,8 @@ class BuildRegisterFields extends StatelessWidget {
               if(value!.isEmpty){
                 return 'Enter your Email';
               }
-            },            label: "البريد الالكتروني",
+            },          
+            label: tr(context, "email"),
             margin: const EdgeInsets.symmetric(vertical: 10),
           ),
           BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
@@ -57,7 +58,7 @@ class BuildRegisterFields extends StatelessWidget {
                       return 'Enter your Password';
                     }
                     },
-                  label: "كلمه المرور",
+                  label: tr(context, "password"),
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   suffixIcon: IconButton(
                     onPressed: () =>
@@ -65,7 +66,7 @@ class BuildRegisterFields extends StatelessWidget {
                     icon: Icon(
                       !state.data ? Icons.visibility : Icons.visibility_off,
                       size: 20,
-                      color: MyColors.yellow,
+                      color: MyColors.grey,
                     ),
                   ),
                 );

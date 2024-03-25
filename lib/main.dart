@@ -76,10 +76,10 @@ Future<void> main() async {
 
   await initializeDateFormatting('en');
 
-  Utils.repeatTransaction();
-  Utils.repeatTargetTransaction();
+  // Utils.repeatTransaction();
+  // Utils.repeatTargetTransaction();
   // Utils.walletNotification();
-  // Utils.repeatWallet();
+  Utils.repeatWallet();
 
   runApp(BlocProvider(
     create: (BuildContext context) => LangCubit(),

@@ -62,94 +62,173 @@ class _BuildCategoryExpansionState extends State<BuildCategoryExpansion> {
         ),
         child: ExpansionTile(
           controller: controller,
-          // trailing: Icon(isExpanded ? Icons.arrow_drop_up_outlined :Icons.arrow_drop_down),
-          shape: const RoundedRectangleBorder(
-            side: BorderSide(color: Colors.transparent),
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: isExpanded ? MyColors.primary : Colors.transparent),
           ),
           onExpansionChanged: (bool expanding) {
             setState(() {
               isExpanded = expanding;
-              print(   isExpanded);
-
+              print(isExpanded);
             });
           },
-
           title: MyText(
             title: tr(context, "category"),
-            color:   context.watch<AppThemeCubit>().isDarkMode
-                ? MyColors.white
-                : MyColors.black,
+            color: context.watch<AppThemeCubit>().isDarkMode ? MyColors.white : MyColors.black,
             size: 16.sp,
-            fontWeight:
-            isExpanded ? FontWeight.bold : FontWeight.normal,
+            fontWeight: isExpanded ? FontWeight.bold : FontWeight.normal,
           ),
           children: [
             if (isExpanded)
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: categories.length,
-              itemBuilder: (context, index) {
-                String category = categories[index];
-                String localizedCategory =
-                getLocalizedCategory(category, context);
-                bool isSelected = selectedCategory == category;
-                return ListTile(
-                  title: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          localizedCategory,
-                          style: TextStyle(
-                            color:
-                               context.watch<AppThemeCubit>().isDarkMode
-                              ? MyColors.white
-                              : MyColors.black,
-                            fontWeight: isSelected
-                                ? FontWeight.bold
-                                : FontWeight.normal,
-                            fontSize: 14.sp,
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: categories.length,
+                itemBuilder: (context, index) {
+                  String category = categories[index];
+                  String localizedCategory = getLocalizedCategory(category, context);
+                  bool isSelected = selectedCategory == category;
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedCategory = category;
+                        widget.categoryController.text = localizedCategory;
+                        controller.collapse();
+                      });
+                    },
+                    child: ListTile(
+                      title: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              localizedCategory,
+                              style: TextStyle(
+                                color: context.watch<AppThemeCubit>().isDarkMode ? MyColors.white : MyColors.black,
+                                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                fontSize: 14.sp,
+                              ),
+                            ),
                           ),
-                        ),
+                          Radio<String>(
+                            activeColor: Colors.blue,
+                            value: category,
+                            groupValue: selectedCategory,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedCategory = value!;
+                                widget.categoryController.text = getLocalizedCategory(value, context);
+                                controller.collapse();
+                              });
+                              print(widget.categoryController.text);
+                            },
+                          ),
+                        ],
                       ),
-                      Radio<String>(
-                        activeColor: Colors.blue,
-                        value: category,
-                        groupValue: selectedCategory,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedCategory = value;
-                            widget.categoryController.text =
-                                getLocalizedCategory(value!, context);
-                            controller.collapse();
-                            // isExpanded = false;
-                          });
-
-                          print(widget.categoryController.text);
-                          // print(isExpanded);
-                          // print("isExpanded after selecting radio: $isExpanded");
-                        },
-                      ),
-
-
-                    ],
-                  ),
-                );
-              },
-            ),
+                    ),
+                  );
+                },
+              ),
             if (isExpanded)
-            DefaultButton(title:tr(context, "add"),
+              DefaultButton(
+                title: tr(context, "add"),
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
-                color:   context.watch<AppThemeCubit>().isDarkMode
-                    ? AppDarkColors.primary
-                    : MyColors.primary,
+                color: context.watch<AppThemeCubit>().isDarkMode ? AppDarkColors.primary : MyColors.primary,
                 onTap: () async {
-              _addNewCategory(context);
-            }
-          ),
-
+                  _addNewCategory(context);
+                },
+              ),
           ],
         ),
+
+        // ExpansionTile(
+        //   controller: controller,
+        //   // trailing: Icon(isExpanded ? Icons.arrow_drop_up_outlined :Icons.arrow_drop_down),
+        //   shape:  RoundedRectangleBorder(
+        //     side: BorderSide(color:isExpanded ? MyColors.primary: Colors.transparent),
+        //   ),
+        //   onExpansionChanged: (bool expanding) {
+        //     setState(() {
+        //       isExpanded = expanding;
+        //       print(   isExpanded);
+        //
+        //     });
+        //   },
+        //
+        //   title: MyText(
+        //     title: tr(context, "category"),
+        //     color:   context.watch<AppThemeCubit>().isDarkMode
+        //         ? MyColors.white
+        //         : MyColors.black,
+        //     size: 16.sp,
+        //     fontWeight:
+        //     isExpanded ? FontWeight.bold : FontWeight.normal,
+        //   ),
+        //   children: [
+        //     if (isExpanded)
+        //     ListView.builder(
+        //       shrinkWrap: true,
+        //       itemCount: categories.length,
+        //       itemBuilder: (context, index) {
+        //         String category = categories[index];
+        //         String localizedCategory =
+        //         getLocalizedCategory(category, context);
+        //         bool isSelected = selectedCategory == category;
+        //         return ListTile(
+        //           title: Row(
+        //             children: [
+        //               Expanded(
+        //                 child: Text(
+        //                   localizedCategory,
+        //                   style: TextStyle(
+        //                     color:
+        //                        context.watch<AppThemeCubit>().isDarkMode
+        //                       ? MyColors.white
+        //                       : MyColors.black,
+        //                     fontWeight: isSelected
+        //                         ? FontWeight.bold
+        //                         : FontWeight.normal,
+        //                     fontSize: 14.sp,
+        //                   ),
+        //                 ),
+        //               ),
+        //               Radio<String>(
+        //                 activeColor: Colors.blue,
+        //                 value: category,
+        //                 groupValue: selectedCategory,
+        //                 onChanged: (value) {
+        //                   setState(() {
+        //                     selectedCategory = value;
+        //                     widget.categoryController.text =
+        //                         getLocalizedCategory(value!, context);
+        //                     controller.collapse();
+        //                     // isExpanded = false;
+        //                   });
+        //
+        //                   print(widget.categoryController.text);
+        //                   // print(isExpanded);
+        //                   // print("isExpanded after selecting radio: $isExpanded");
+        //                 },
+        //               ),
+        //
+        //
+        //             ],
+        //           ),
+        //         );
+        //       },
+        //     ),
+        //     if (isExpanded)
+        //     DefaultButton(title:tr(context, "add"),
+        //         fontWeight: FontWeight.bold,
+        //         fontSize: 16,
+        //         color:   context.watch<AppThemeCubit>().isDarkMode
+        //             ? AppDarkColors.primary
+        //             : MyColors.primary,
+        //         onTap: () async {
+        //       _addNewCategory(context);
+        //     }
+        //   ),
+        //
+        //   ],
+        // ),
       ),
     );
   }

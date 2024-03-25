@@ -186,24 +186,30 @@ class ReportsCubit extends Cubit<ReportsState> {
         (residualMoney / totalMoney).isNaN ? 0 : (residualMoney / totalMoney);
   }
 
-  void changeMainWallet(String walletValue) {
-    if (walletValue != selectedWallet) {
+  int selectedValueIndex = -1;
+  void changeMainWallet(WalletModel? wallet) {
+    if (wallet != null && wallet.name != selectedWallet) {
       emit(const ReportsState.initial());
-      selectedWallet = walletValue;
-      if (selectedWallet != 'all' && selectedWallet.isNotEmpty) {
-        reportFilteredTransactions = transactions
-            .where((transaction) =>
-                transaction.incomeSource!.name == selectedWallet)
-            .toList();
-        getUserTotalMoney(
-            [wallets.firstWhere((wallet) => wallet.name == selectedWallet)],
-            reportFilteredTransactions);
-      } else if (selectedWallet == 'all') {
+      selectedWallet = wallet.name;
+      selectedValueIndex = wallets.indexOf(wallet);
+      reportFilteredTransactions = transactions
+          .where(
+              (transaction) => transaction.incomeSource!.name == selectedWallet)
+          .toList();
+      getUserTotalMoney(
+          [wallets.firstWhere((wallet) => wallet.name == selectedWallet)],
+          reportFilteredTransactions);
+
+      createSpentMoneyPercentage();
+      createResidualMoneyPercentage();
+      emit(const ReportsState.changeWallet());
+    } else {
+      if (selectedWallet.isNotEmpty) {
+        emit(const ReportsState.initial());
+        selectedWallet = '';
+        selectedValueIndex = -1;
         reportFilteredTransactions = transactions;
         getUserTotalMoney(wallets, reportFilteredTransactions);
-      } else {
-        reportFilteredTransactions = List.empty();
-        getUserTotalMoney(wallets, transactions);
       }
       createSpentMoneyPercentage();
       createResidualMoneyPercentage();

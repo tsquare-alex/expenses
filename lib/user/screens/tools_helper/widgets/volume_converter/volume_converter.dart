@@ -26,19 +26,20 @@ class _VolumeConverterScreenState extends State<VolumeConverterScreen> {
       double? convertedValue = convertVolume(inputValue, fromUnit, toUnit);
       if (convertedValue != null) {
         setState(() {
-          result = '${tr(context, "result")} $convertedValue $toUnit';
+          result = '${tr(context, "result")} $convertedValue ${tr(context, toUnit)}';
         });
       } else {
         setState(() {
-          result = 'Invalid conversion';
+          result = tr(context, 'invalidConversion');
         });
       }
     } catch (e) {
       setState(() {
-        result = 'Invalid input';
+        result = tr(context, 'invalidInput');
       });
     }
   }
+
 
   double? convertVolume(double value, String fromUnit, String toUnit) {
     const Map<String, double> volumeConversionFactors = {
@@ -78,12 +79,12 @@ class _VolumeConverterScreenState extends State<VolumeConverterScreen> {
         ),
         backgroundColor: context.watch<AppThemeCubit>().isDarkMode
             ? AppDarkColors.backgroundColor
-            :MyColors.white,
+            : MyColors.white,
         title: MyText(
           title: tr(context, "convertVolume"),
-          color:context.watch<AppThemeCubit>().isDarkMode
+          color: context.watch<AppThemeCubit>().isDarkMode
               ? MyColors.white
-              :MyColors.black,
+              : MyColors.black,
           size: 18.sp,
           fontWeight: FontWeight.bold,
         ),
@@ -123,7 +124,7 @@ class _VolumeConverterScreenState extends State<VolumeConverterScreen> {
               ].map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text(tr(context, value)),
                 );
               }).toList(),
               onChanged: (String? newValue) {
@@ -153,7 +154,7 @@ class _VolumeConverterScreenState extends State<VolumeConverterScreen> {
               ].map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text(tr(context, value)),
                 );
               }).toList(),
               onChanged: (String? newValue) {
@@ -166,8 +167,7 @@ class _VolumeConverterScreenState extends State<VolumeConverterScreen> {
             ),
             SizedBox(height: 32.0),
             DefaultButton(
-
-              color:  context.watch<AppThemeCubit>().isDarkMode
+              color: context.watch<AppThemeCubit>().isDarkMode
                   ? AppDarkColors.primary
                   : MyColors.primary,
               fontSize: 20,
@@ -176,9 +176,14 @@ class _VolumeConverterScreenState extends State<VolumeConverterScreen> {
               onTap: _performConversion,
             ),
             SizedBox(height: 16.0),
-            MyText(title: result, color:context.watch<AppThemeCubit>().isDarkMode
-                ? MyColors.white
-                :MyColors.black,size: 20.sp,alien: TextAlign.center,)
+            MyText(
+              title: result,
+              color: context.watch<AppThemeCubit>().isDarkMode
+                  ? MyColors.white
+                  : MyColors.black,
+              size: 20.sp,
+              alien: TextAlign.center,
+            )
           ],
         ),
       ),

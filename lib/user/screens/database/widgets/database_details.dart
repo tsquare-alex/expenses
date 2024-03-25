@@ -701,11 +701,11 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
                       backgroundColor: MyColors.primary,
                     ),
                     child: MyText(
-                      title: "حفظ",
+                      title: tr(context, "save"),
                       color: MyColors.white,
                       size: 16,
                       fontWeight: FontWeight.bold,
-                      alien: TextAlign.center,
+                      // alien: TextAlign.center,
                     ),
                   ),
                   ElevatedButton(
@@ -724,7 +724,7 @@ class _DatabaseDetailsState extends State<DatabaseDetails> {
                       color: MyColors.white,
                       size: 16,
                       fontWeight: FontWeight.bold,
-                      alien: TextAlign.center,
+                      // alien: TextAlign.center,
                     ),
                   ),
                 ],

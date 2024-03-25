@@ -15,6 +15,7 @@ import 'package:expenses/user/screens/wallet/data/model/wallet/wallet_model.dart
 import 'package:expenses/user/screens/wallet/wallet_imports.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -188,34 +189,50 @@ class _AddWalletState extends State<AddWallet> {
                                     final String item = entry.value;
                                     return Column(
                                       children: [
-                                        ListTile(
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 16.0.r),
-                                          title: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(tr(context, item).isNotEmpty
-                                                  ? tr(context, item)
-                                                  : item),
-                                              Radio<String>(
-                                                activeColor: MyColors.primary,
-                                                value: item,
-                                                groupValue: selectedValue,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    selectedValue = value;
-                                                    context
-                                                        .read<WalletCubit>()
-                                                        .encomSourceController
-                                                        .text = value.toString();
-                                                    isFirstValidationError =
-                                                        false;
-                                                    controller.collapse();
-                                                  });
-                                                },
-                                              ),
-                                            ],
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              selectedValue = item;
+                                              context
+                                                  .read<WalletCubit>()
+                                                  .encomSourceController
+                                                  .text = item.toString();
+                                              isFirstValidationError = false;
+                                              controller.collapse();
+                                            });
+                                          },
+                                          child: ListTile(
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal: 16.0.r),
+                                            title: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                    tr(context, item).isNotEmpty
+                                                        ? tr(context, item)
+                                                        : item),
+                                                Radio<String>(
+                                                  activeColor: MyColors.primary,
+                                                  value: item,
+                                                  groupValue: selectedValue,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      selectedValue = value;
+                                                      context
+                                                          .read<WalletCubit>()
+                                                          .encomSourceController
+                                                          .text = value.toString();
+                                                      isFirstValidationError =
+                                                          false;
+                                                      controller.collapse();
+                                                    });
+                                                  },
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                         if (index <
@@ -342,35 +359,51 @@ class _AddWalletState extends State<AddWallet> {
                                     final String item = entry.value;
                                     return Column(
                                       children: [
-                                        ListTile(
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 16.0.r),
-                                          title: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(tr(context, item).isNotEmpty
-                                                  ? tr(context, item)
-                                                  : item),
-                                              Radio<String>(
-                                                activeColor: MyColors.primary,
-                                                value: item,
-                                                groupValue: secValue,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    secValue = value;
-                                                    context
-                                                        .read<WalletCubit>()
-                                                        .valueCategoryController
-                                                        .text = value.toString();
-                                                    isSecondValidationError =
-                                                        false;
-                                                    valueTypeController
-                                                        .collapse();
-                                                  });
-                                                },
-                                              ),
-                                            ],
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              secValue = item;
+                                              context
+                                                  .read<WalletCubit>()
+                                                  .valueCategoryController
+                                                  .text = item.toString();
+                                              isSecondValidationError = false;
+                                              valueTypeController.collapse();
+                                            });
+                                          },
+                                          child: ListTile(
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal: 16.0.r),
+                                            title: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                    tr(context, item).isNotEmpty
+                                                        ? tr(context, item)
+                                                        : item),
+                                                Radio<String>(
+                                                  activeColor: MyColors.primary,
+                                                  value: item,
+                                                  groupValue: secValue,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      secValue = value;
+                                                      context
+                                                          .read<WalletCubit>()
+                                                          .valueCategoryController
+                                                          .text = value.toString();
+                                                      isSecondValidationError =
+                                                          false;
+                                                      valueTypeController
+                                                          .collapse();
+                                                    });
+                                                  },
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                         if (index <
@@ -909,7 +942,7 @@ class _AddWalletState extends State<AddWallet> {
                                       .currentState!
                                       .validate()) {
                                 var walletData = WalletModel(
-                                  id: Uuid().v4(),
+                                    id: Uuid().v4(),
                                     notification: notificationSwitchvalu,
                                     walletRepate: repeatSwitchValue,
                                     addNote: context

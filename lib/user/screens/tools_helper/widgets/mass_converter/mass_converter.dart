@@ -21,25 +21,64 @@ class _MassConverterScreenState extends State<MassConverterScreen> {
   String toUnit = 'g';
   String result = '';
 
+  // void _performConversion() {
+  //   try {
+  //     double? convertedValue = convertMass(inputValue, fromUnit, toUnit);
+  //     if (convertedValue != null) {
+  //       setState(() {
+  //         result = '${tr(context, "result")}: $convertedValue $toUnit';
+  //       });
+  //     } else {
+  //       setState(() {
+  //         result = 'Invalid conversion';
+  //       });
+  //     }
+  //   } catch (e) {
+  //     setState(() {
+  //       result = 'Invalid input';
+  //     });
+  //   }
+  // }
+  Map<String, String> massUnitTranslations(BuildContext context) {
+    return {
+      'kg': tr(context, 'kilogram'),
+      'hg': tr(context, 'hectogram'),
+      'dag': tr(context, 'decagram'),
+      'g': tr(context, 'gram'),
+      'dg': tr(context, 'decigram'),
+      'cg': tr(context, 'centigram'),
+      'mg': tr(context, 'milligram'),
+      'µg': tr(context, 'microgram'),
+      'ng': tr(context, 'nanogram'),
+      'Mg': tr(context, 'megagram'),
+      'Gg': tr(context, 'gigagram'),
+      'oz': tr(context, 'ounce'),
+      'lb': tr(context, 'pound'),
+      't': tr(context, 'tonne'),
+      'long-ton': tr(context, 'long_ton'),
+      'ton': tr(context, 'ton'),
+      'short-ton': tr(context, 'short_ton'),
+    };
+  }
+
   void _performConversion() {
     try {
       double? convertedValue = convertMass(inputValue, fromUnit, toUnit);
       if (convertedValue != null) {
         setState(() {
-          result = '${tr(context, "result")}: $convertedValue $toUnit';
+          result = '${tr(context, "result")}: $convertedValue ${massUnitTranslations(context)[toUnit]}';
         });
       } else {
         setState(() {
-          result = 'Invalid conversion';
+          result = tr(context, 'invalidConversion');
         });
       }
     } catch (e) {
       setState(() {
-        result = 'Invalid input';
+        result = tr(context, 'invalidInput');
       });
     }
   }
-
   double? convertMass(double value, String fromUnit, String toUnit) {
     const Map<String, double> massConversionFactors = {
       'kg': 1.0,
@@ -107,13 +146,29 @@ class _MassConverterScreenState extends State<MassConverterScreen> {
               },
             ),
             SizedBox(height: 16.0),
+            // DropdownButton<String>(
+            //   value: fromUnit,
+            //   items: ['kg', 'hg', 'dag', 'g', 'dg', 'cg', 'mg', 'µg', 'ng', 'Mg', 'Gg', 'oz', 'lb', 't', 'long-ton', 'ton', 'short-ton']
+            //       .map((String value) {
+            //     return DropdownMenuItem<String>(
+            //       value: value,
+            //       child: Text(value),
+            //     );
+            //   }).toList(),
+            //   onChanged: (String? newValue) {
+            //     if (newValue != null) {
+            //       setState(() {
+            //         fromUnit = newValue;
+            //       });
+            //     }
+            //   },
+            // ),
             DropdownButton<String>(
               value: fromUnit,
-              items: ['kg', 'hg', 'dag', 'g', 'dg', 'cg', 'mg', 'µg', 'ng', 'Mg', 'Gg', 'oz', 'lb', 't', 'long-ton', 'ton', 'short-ton']
-                  .map((String value) {
+              items: massUnitTranslations(context).keys.map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text(massUnitTranslations(context)[value]!),
                 );
               }).toList(),
               onChanged: (String? newValue) {
@@ -124,14 +179,14 @@ class _MassConverterScreenState extends State<MassConverterScreen> {
                 }
               },
             ),
+
             SizedBox(height: 16.0),
             DropdownButton<String>(
               value: toUnit,
-              items: ['kg', 'hg', 'dag', 'g', 'dg', 'cg', 'mg', 'µg', 'ng', 'Mg', 'Gg', 'oz', 'lb', 't', 'long-ton', 'ton', 'short-ton']
-                  .map((String value) {
+              items: massUnitTranslations(context).keys.map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text(massUnitTranslations(context)[value]!),
                 );
               }).toList(),
               onChanged: (String? newValue) {
@@ -142,6 +197,7 @@ class _MassConverterScreenState extends State<MassConverterScreen> {
                 }
               },
             ),
+
             SizedBox(height: 32.0),
             DefaultButton(
               color:  context.watch<AppThemeCubit>().isDarkMode

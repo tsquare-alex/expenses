@@ -20,7 +20,7 @@ class _BmrCalculatorScreenState extends State<BmrCalculatorScreen> {
   final TextEditingController weightController = TextEditingController();
   final TextEditingController heightController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
-  String selectedGender = 'male'; // Default value, assuming "male" is the first item in your types list
+  String selectedGender = 'male';
   List<String> types = [
     "male",
     "feMale",
@@ -64,7 +64,8 @@ class _BmrCalculatorScreenState extends State<BmrCalculatorScreen> {
                   TextField(
                     controller: weightController,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(labelText: tr(context, "enterWeight")),
+                    decoration: InputDecoration(labelText: tr(context, "enterWeight"),
+                    ),
                   ),
                   TextField(
                     controller: heightController,
@@ -104,14 +105,23 @@ class _BmrCalculatorScreenState extends State<BmrCalculatorScreen> {
                         weight: int.tryParse(weightController.text) ?? 0,
                         height: int.tryParse(heightController.text) ?? 0,
                         age: int.tryParse(ageController.text) ?? 0,
-                        isMale: selectedGender == 'male', // Use the key directly
+                        isMale: selectedGender == 'male',
                       );
                     },
                   ),
                   if (bmr > 0.0)
                     Center(
-                      child: Text(
-                          '${tr(context, "result")}: ${bmr.toStringAsFixed(2)}'),
+                      child:
+                      MyText(
+                        title:'${tr(context, "result")}: ${bmr.toStringAsFixed(2)}',
+                        color: context.watch<AppThemeCubit>().isDarkMode
+                            ? MyColors.white
+                            : MyColors.black,
+                        size: 20.sp,
+                        alien: TextAlign.center,
+                      )
+                      // Text(
+                      //     '${tr(context, "result")}: ${bmr.toStringAsFixed(2)}'),
                     ),
                 ],
               ),

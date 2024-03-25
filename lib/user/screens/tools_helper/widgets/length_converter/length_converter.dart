@@ -20,26 +20,65 @@ class _LengthConverterScreenState extends State<LengthConverterScreen> {
   String fromUnit = 'm';
   String toUnit = 'km';
   String result = '';
-
+  
   void _performConversion() {
     try {
       double? convertedValue = convertLength(inputValue, fromUnit, toUnit);
       if (convertedValue != null) {
         setState(() {
-          result = '${tr(context, "result")}: $convertedValue $toUnit';
+          result = '${tr(context, "result")}: $convertedValue ${lengthUnitTranslations(context)[toUnit]}';
         });
       } else {
         setState(() {
-          result = 'Invalid conversion';
+          result = tr(context, 'invalidConversion');
         });
       }
     } catch (e) {
       setState(() {
-        result = 'Invalid input';
+        result = tr(context, 'invalidInput');
       });
     }
   }
 
+  // void _performConversion() {
+  //   try {
+  //     double? convertedValue = convertLength(inputValue, fromUnit, toUnit);
+  //     if (convertedValue != null) {
+  //       setState(() {
+  //         result = '${tr(context, "result")}: $convertedValue $toUnit';
+  //       });
+  //     } else {
+  //       setState(() {
+  //         result = 'Invalid conversion';
+  //       });
+  //     }
+  //   } catch (e) {
+  //     setState(() {
+  //       result = 'Invalid input';
+  //     });
+  //   }
+  // }
+  Map<String, String> lengthUnitTranslations(BuildContext context) {
+    return {
+      'm': tr(context, 'meter'),
+      'dm': tr(context, 'decimeter'),
+      'cm': tr(context, 'centimeter'),
+      'mm': tr(context, 'millimeter'),
+      'µm': tr(context, 'micrometer'),
+      'nm': tr(context, 'nanometer'),
+      'dam': tr(context, 'decameter'),
+      'hm': tr(context, 'hectometer'),
+      'km': tr(context, 'kilometer'),
+      'Mm': tr(context, 'megameter'),
+      'Gm': tr(context, 'gigameter'),
+      'Å': tr(context, 'angstrom'),
+      'in': tr(context, 'inch'),
+      'ft': tr(context, 'foot'),
+      'yd': tr(context, 'yard'),
+      'mi': tr(context, 'mile'),
+      'nmi': tr(context, 'nautical_mile'),
+    };
+  }
   double? convertLength(double value, String fromUnit, String toUnit) {
     const Map<String, double> lengthConversionFactors = {
       'm': 1.0,
@@ -108,11 +147,10 @@ class _LengthConverterScreenState extends State<LengthConverterScreen> {
             SizedBox(height: 16.0),
             DropdownButton<String>(
               value: fromUnit,
-              items: ['m', 'dm', 'cm', 'mm', 'µm', 'nm', 'dam', 'hm', 'km', 'Mm', 'Gm', 'Å', 'in', 'ft', 'yd', 'mi', 'nmi']
-                  .map((String value) {
+              items: lengthUnitTranslations(context).keys.map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text(lengthUnitTranslations(context)[value]!),
                 );
               }).toList(),
               onChanged: (String? newValue) {
@@ -123,14 +161,30 @@ class _LengthConverterScreenState extends State<LengthConverterScreen> {
                 }
               },
             ),
+            // DropdownButton<String>(
+            //   value: fromUnit,
+            //   items: ['m', 'dm', 'cm', 'mm', 'µm', 'nm', 'dam', 'hm', 'km', 'Mm', 'Gm', 'Å', 'in', 'ft', 'yd', 'mi', 'nmi']
+            //       .map((String value) {
+            //     return DropdownMenuItem<String>(
+            //       value: value,
+            //       child: Text(value),
+            //     );
+            //   }).toList(),
+            //   onChanged: (String? newValue) {
+            //     if (newValue != null) {
+            //       setState(() {
+            //         fromUnit = newValue;
+            //       });
+            //     }
+            //   },
+            // ),
             SizedBox(height: 16.0),
             DropdownButton<String>(
               value: toUnit,
-              items: ['m', 'dm', 'cm', 'mm', 'µm', 'nm', 'dam', 'hm', 'km', 'Mm', 'Gm', 'Å', 'in', 'ft', 'yd', 'mi', 'nmi']
-                  .map((String value) {
+              items: lengthUnitTranslations(context).keys.map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text(lengthUnitTranslations(context)[value]!),
                 );
               }).toList(),
               onChanged: (String? newValue) {
@@ -141,6 +195,23 @@ class _LengthConverterScreenState extends State<LengthConverterScreen> {
                 }
               },
             ),
+            // DropdownButton<String>(
+            //   value: toUnit,
+            //   items: ['m', 'dm', 'cm', 'mm', 'µm', 'nm', 'dam', 'hm', 'km', 'Mm', 'Gm', 'Å', 'in', 'ft', 'yd', 'mi', 'nmi']
+            //       .map((String value) {
+            //     return DropdownMenuItem<String>(
+            //       value: value,
+            //       child: Text(value),
+            //     );
+            //   }).toList(),
+            //   onChanged: (String? newValue) {
+            //     if (newValue != null) {
+            //       setState(() {
+            //         toUnit = newValue;
+            //       });
+            //     }
+            //   },
+            // ),
             SizedBox(height: 32.0),
             DefaultButton(
               color:  context.watch<AppThemeCubit>().isDarkMode
@@ -152,7 +223,9 @@ class _LengthConverterScreenState extends State<LengthConverterScreen> {
               onTap: _performConversion,
             ),
             SizedBox(height: 16.0),
-            MyText(title: result, color: MyColors.black, size: 20.sp,alien: TextAlign.center,)
+            MyText(
+              title:  result,
+              color: MyColors.black, size: 20.sp,alien: TextAlign.center,)
           ],
         ),
       ),

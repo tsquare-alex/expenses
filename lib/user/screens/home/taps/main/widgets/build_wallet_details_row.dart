@@ -108,17 +108,11 @@ class WalletDetailsRow extends StatelessWidget {
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton(
                       isExpanded: true,
-                      value:
-                          context.watch<ReportsCubit>().selectedWallet.isEmpty
-                              ? null
-                              : context.watch<ReportsCubit>().selectedWallet,
-                      hint: Text(
-                        tr(context, 'source'),
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.bold,
-                          overflow: TextOverflow.ellipsis,
-                          color: Colors.grey,
+                      hint: Center(
+                        child: Image.asset(
+                          Res.walletImage,
+                          width: 25.w,
+                          height: 25.h,
                         ),
                       ),
                       icon: const Icon(
@@ -132,12 +126,24 @@ class WalletDetailsRow extends StatelessWidget {
                               child: Text(
                                 tr(context, 'all'),
                                 style: TextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: ReportsCubit.get(context)
+                                              .selectedValueIndex ==
+                                          -1
+                                      ? 16.sp
+                                      : 14.sp,
+                                  fontWeight: ReportsCubit.get(context)
+                                              .selectedValueIndex ==
+                                          -1
+                                      ? FontWeight.bold
+                                      : null,
                                   color:
                                       context.watch<AppThemeCubit>().isDarkMode
                                           ? Colors.white
-                                          : Colors.black54,
+                                          : ReportsCubit.get(context)
+                                                      .selectedValueIndex ==
+                                                  -1
+                                              ? Colors.black
+                                              : Colors.black54,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
@@ -151,13 +157,31 @@ class WalletDetailsRow extends StatelessWidget {
                                   child: Text(
                                     wallet.name,
                                     style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.bold,
+                                      fontSize: ReportsCubit.get(context)
+                                                  .selectedValueIndex ==
+                                              ReportsCubit.get(context)
+                                                  .wallets
+                                                  .indexOf(wallet)
+                                          ? 16.sp
+                                          : 14.sp,
+                                      fontWeight: ReportsCubit.get(context)
+                                                  .selectedValueIndex ==
+                                              ReportsCubit.get(context)
+                                                  .wallets
+                                                  .indexOf(wallet)
+                                          ? FontWeight.bold
+                                          : null,
                                       color: context
                                               .watch<AppThemeCubit>()
                                               .isDarkMode
                                           ? Colors.white
-                                          : Colors.black54,
+                                          : ReportsCubit.get(context)
+                                                      .selectedValueIndex ==
+                                                  ReportsCubit.get(context)
+                                                      .wallets
+                                                      .indexOf(wallet)
+                                              ? Colors.black
+                                              : Colors.black54,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
@@ -165,7 +189,12 @@ class WalletDetailsRow extends StatelessWidget {
                               )
                               .toList(),
                       onChanged: (value) {
-                        ReportsCubit.get(context).changeMainWallet(value!);
+                        ReportsCubit.get(context).changeMainWallet(
+                          value == 'all'
+                              ? null
+                              : ReportsCubit.get(context).wallets.firstWhere(
+                                  (element) => element.name == value!),
+                        );
                       },
                     ),
                   ),
